@@ -1,0 +1,137 @@
+//
+//  BTCTransaction.swift
+//  token
+//
+//  Created by xyz on 2018/1/4.
+//  Copyright © 2018 ConsenLabs. All rights reserved.
+//
+
+import Foundation
+import CoreBitcoin
+
+public struct UTXO {
+  let txHash: String
+  let vout: Int
+  let amount: Int64
+  let address: String
+  let scriptPubKey: String
+  let derivedPath: String?
+  let sequence: UInt32
+
+  init(txHash: String, vout: Int, amount: Int64, address: String, scriptPubKey: String, derivedPath: String?, sequence: UInt32 = 4294967295) {
+    self.txHash = txHash
+    self.vout = vout
+    self.amount = amount
+    self.address = address
+    self.scriptPubKey = scriptPubKey
+    self.derivedPath = derivedPath
+    self.sequence = sequence
+  }
+
+<<<<<<< HEAD
+  public init?(raw: [String: Any]) {  /* @XM@TODO: check public */
+=======
+    public init?(raw: [String: Any]) {//todo : check, origin is nonpublic
+>>>>>>> 6290a8ea8b3eaee296d4559126f123776ea19fdd
+    guard let txHash = raw["txHash"] as? String,
+      let vout = raw["vout"] as? Int,
+      let amount = Int64(raw["amount"] as? String ?? "badamount"),
+      let address = raw["address"] as? String,
+      let scriptPubKey = raw["scriptPubKey"] as? String else {
+      return nil
+    }
+    let derivedPath = raw["derivedPath"] as? String
+
+    self.init(
+      txHash: txHash,
+      vout: vout,
+      amount: amount,
+      address: address,
+      scriptPubKey: scriptPubKey,
+      derivedPath: derivedPath
+    )
+  }
+}
+
+public class BTCTransactionSigner { /* @XM@TODO: check public */
+  let utxos: [UTXO]
+  let amount: Int64
+  let fee: Int64
+  let toAddress: BTCAddress
+  let changeAddress: BTCAddress
+  let dustThreshold: Int64 = 2730
+  let handle: UInt /*@XM TODO: check this for me...*/
+
+<<<<<<< HEAD
+  /* @XM@TODO: check public */
+  public init(utxos: [UTXO], keys: [BTCKey], amount: Int64, fee: Int64, toAddress: BTCAddress, changeAddress: BTCAddress, handle: UInt) throws {
+=======
+  init(utxos: [UTXO], amount: Int64, fee: Int64, toAddress: BTCAddress, changeAddress: BTCAddress, handle: UInt) throws {
+>>>>>>> 6290a8ea8b3eaee296d4559126f123776ea19fdd
+    guard amount >= dustThreshold else {
+      throw GenericError.amountLessThanMinimum
+    }
+
+    self.utxos = utxos
+    self.amount = amount
+    self.fee = fee
+    self.toAddress = toAddress
+    self.changeAddress = changeAddress
+    self.handle = handle
+  }
+
+  func sign(pathPrefix: String) throws -> TransactionSignedResult {
+    let rawTx = BTCTransaction()
+    rawTx.version = 1
+
+    let totalAmount = rawTx.calculateTotalSpend(utxos: utxos)
+    if totalAmount < amount {
+      throw GenericError.insufficientFunds
+    }
+
+    rawTx.addInputs(from: utxos)
+
+    rawTx.addOutput(BTCTransactionOutput(value: amount, address: toAddress))
+
+    let changeAmount = totalAmount - amount - fee
+    if changeAmount >= dustThreshold {
+        rawTx.addOutput(BTCTransactionOutput(value: changeAmount, address: changeAddress))
+    }
+
+//    try rawTx.sign(with: keys, isSegWit: false)
+    try rawTx.sign(handle: handle, utxos: utxos, fee: fee, pathPrefix: pathPrefix)
+
+    let signedTx = rawTx.hex!
+    let txHash = rawTx.transactionID!
+    return TransactionSignedResult(signedTx: signedTx, txHash: txHash)
+  }
+    
+
+
+  public func signSegWit() throws -> TransactionSignedResult {
+    let rawTx = BTCTransaction()
+    rawTx.version = 2
+
+    let totalAmount = rawTx.calculateTotalSpend(utxos: utxos)
+    if totalAmount < amount {
+      throw GenericError.insufficientFunds
+    }
+
+    rawTx.addInputs(from: utxos, isSegWit: true)
+
+    rawTx.addOutput(BTCTransactionOutput(value: amount, address: toAddress))
+
+    let changeAmount = rawTx.calculateTotalSpend(utxos: utxos) - amount - fee
+    if changeAmount >= dustThreshold {
+      rawTx.addOutput(BTCTransactionOutput(value: changeAmount, address: changeAddress))
+    }
+
+    //try rawTx.sign(with: keys, isSegWit: true)
+    try rawTx.signSegWit(handle:handle, utxos:utxos, fee: fee);
+
+    let signedTx = rawTx.hexWithWitness!
+    let txHash = rawTx.transactionID!
+    let wtxID = rawTx.witnessTransactionID!
+    return TransactionSignedResult(signedTx: signedTx, txHash: txHash, wtxID: wtxID)
+  }
+}

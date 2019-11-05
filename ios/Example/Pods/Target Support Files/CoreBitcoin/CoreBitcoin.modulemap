@@ -1,0 +1,6 @@
+framework module CoreBitcoin {
+  umbrella header "CoreBitcoin-umbrella.h"
+
+  export *
+  module * { export * }
+}
