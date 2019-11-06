@@ -94,7 +94,7 @@
 #[no_mangle]
 pub extern "C" fn treble(value: i32) -> i32 {
     print!("haha");
-    value * 11
+    value * 22 
 }
 
 // #[no_mangle]

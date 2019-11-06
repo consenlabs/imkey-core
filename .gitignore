@@ -72,6 +72,8 @@ fastlane/readme.md
 .project
 .settings
 
+android/.idea/
+android/imkeylibrary/src/main/jniLibs/
 
 
 
