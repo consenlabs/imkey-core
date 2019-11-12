@@ -47,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
     private BleDevice mDevice;//current connect device
     private DeviceManager mManager;
 
-    static {
-        System.loadLibrary("connector");
-    }
+//    static {
+//        System.loadLibrary("connector");
+//    }
 
     public native String hello(String to);
     public native String getXPub();
@@ -77,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
 //
 //        int dupli(int input);
 //    }
+
+
+
+    private static native void factAndCallMeBack(int n, Test callback);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
 
         //hello rust
         LogUtil.hh();
+
+        factAndCallMeBack(2,new Test());
+
+
+//        LogUtil.installApplet();
     }
 
     //android 6.0 以上需要动态申请权限
@@ -182,6 +191,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_device_manage:
                 goDeviceManage();
                 break;
+            case R.id.btn_temp_test:
+                tempTest();
+                break;
 
             default:
                 break;
@@ -210,6 +222,10 @@ public class MainActivity extends AppCompatActivity {
     private void goDeviceManage(){
         Intent intent = new Intent(mContext,DeviceManageActivity.class);
         startActivity(intent);
+    }
+
+    private void tempTest(){
+        LogUtil.installApplet();
     }
 
     private void showSearchDialog() {

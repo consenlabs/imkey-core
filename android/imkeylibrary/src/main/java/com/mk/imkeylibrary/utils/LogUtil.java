@@ -3,6 +3,7 @@ package com.mk.imkeylibrary.utils;
 import android.util.Log;
 
 import com.mk.imkeylibrary.BuildConfig;
+import com.mk.imkeylibrary.bluetooth.Ble;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 
@@ -40,4 +41,21 @@ public class LogUtil {
         int treble(int value);
         int jni_call_static_method_safe();
     }
+
+
+    static {
+        System.loadLibrary("connector");
+    }
+
+    public static void installApplet(){
+        installApplet(new Sender() {
+            @Override
+            public String sendApdu(String apdu) {
+                LogUtil.d("test apdu ...." + apdu);
+                return Ble.getInstance().sendApdu(apdu);
+            }
+        });
+    }
+
+    private static native void installApplet(Sender sender);
 }

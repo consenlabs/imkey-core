@@ -142,12 +142,13 @@
                 android:text="COSMOS" />
 
             <Button
+                android:id="@+id/btn_temp_test"
                 style="@style/button"
                 android:layout_width="0dp"
                 android:layout_marginLeft="2dp"
                 android:layout_weight="1"
                 android:onClick="onClick"
-                android:text="" />
+                android:text="temp" />
 
         </LinearLayout>
     </LinearLayout>
