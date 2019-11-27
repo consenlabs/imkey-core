@@ -1,0 +1,11 @@
+[workspace]
+members = [
+    "api",
+    "device",
+    "wallet",
+    "mq",
+    "crypto",
+    "common",
+    "testcase",
+    "tools",
+]
