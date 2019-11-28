@@ -7,3 +7,6 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+bitcoin = "0.19.1"
+bitcoincore-rpc= "0.8.0-rc1"
+secp256k1 = "0.15.5"
