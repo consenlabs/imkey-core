@@ -2,7 +2,7 @@
 members = [
     "api",
     "device",
-    "wallet",
+    "wallet/coin-ethereum",
     "mq",
     "crypto",
     "common",
