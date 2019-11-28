@@ -1,20 +1,20 @@
 extern crate reqwest;
 
-use std::collections::HashMap;
-use reqwest::{Client, Response, Result};
-use serde::{Serialize, Deserialize};
 use common::http;
+use reqwest::{Client, Response, Result};
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 // SE安全检查请求bean
 #[derive(Debug, Serialize, Deserialize)]
-pub struct se_secure_check_request{
-    pub seid : String,
-    pub sn : String,
-    pub deviceCert : String,
-    pub stepKey : String,
-    pub statusWord : Option<String>,
-    pub commandID : String,
-    pub cardRetDataList : Option<Vec<String>>,
+pub struct se_secure_check_request {
+    pub seid: String,
+    pub sn: String,
+    pub deviceCert: String,
+    pub stepKey: String,
+    pub statusWord: Option<String>,
+    pub commandID: String,
+    pub cardRetDataList: Option<Vec<String>>,
 }
 
 //SE安全检查接口
@@ -25,53 +25,55 @@ pub struct service_response {
     pub _ReturnData: se_secure_check_response,
 }
 #[derive(Serialize, Deserialize, Debug)]
-pub struct se_secure_check_response{
-    pub seid : Option<String>,
-    pub nextStepKey : Option<String>,
-    pub apduList : Option<Vec<String>>,
+pub struct se_secure_check_response {
+    pub seid: Option<String>,
+    pub nextStepKey: Option<String>,
+    pub apduList: Option<Vec<String>>,
 }
 
-impl se_secure_check_request{
-    pub fn build_request_data(seid : String, sn : String, device_cert : String) -> se_secure_check_request{
-        se_secure_check_request{
-            seid : seid,
-            sn : sn,
-            deviceCert : device_cert,
-            stepKey : String::from("01"),
-            statusWord : None,
-            commandID : String::from("seSecureCheck"),
-            cardRetDataList : None,
+impl se_secure_check_request {
+    pub fn build_request_data(
+        seid: String,
+        sn: String,
+        device_cert: String,
+    ) -> se_secure_check_request {
+        se_secure_check_request {
+            seid: seid,
+            sn: sn,
+            deviceCert: device_cert,
+            stepKey: String::from("01"),
+            statusWord: None,
+            commandID: String::from("seSecureCheck"),
+            cardRetDataList: None,
         }
     }
 
-    pub fn se_secure_check(&mut self){
+    pub fn se_secure_check(&mut self) {
         loop {
-            let mut response_data : Response = http::post("seSecureCheck", self);
+            let mut response_data: Response = http::post("seSecureCheck", self);
             let return_bean: service_response = response_data.json().unwrap();
             println!("返回值：{}", return_bean._ReturnCode);
-            if return_bean._ReturnCode == "000000"{
-                
+            if return_bean._ReturnCode == "000000" {
                 //判断步骤key是否已经结束
                 let next_step_key = return_bean._ReturnData.nextStepKey.unwrap();
                 if "end".eq(next_step_key.as_str()) {
                     println!("SE安全检查成功结束");
                     break;
                 }
-                
+
                 let mut apdu_res: Vec<String> = Vec::new();
-                
-                match return_bean._ReturnData.apduList{
+
+                match return_bean._ReturnData.apduList {
                     Some(apdu_list) => {
-                        for (index_val, apdu_val) in apdu_list.iter().enumerate(){
+                        for (index_val, apdu_val) in apdu_list.iter().enumerate() {
                             //调用发送指令接口，并获取执行结果
                             println!("apdu --> {}", apdu_val);
                             let status_word = "9000";
-                            
 
                             if "02".eq(next_step_key.as_str()) {
                                 apdu_res.push(String::from("9000"));
                                 apdu_res.push(String::from("5F49410465330B2F12ADEC9D6C61CA1768704261D02E5F39177762D5C457F0FDA4ABC87882ADD11C951941C003269874103F5C83269C3CF7A61231D2C746F4AE543D382F86100C1402F7FC4E1C3C1BD35674431261289000"));
-                            }else{
+                            } else {
                                 apdu_res.push(String::from(status_word));
                             }
 
@@ -81,18 +83,19 @@ impl se_secure_check_request{
                         }
                         self.cardRetDataList = Some(apdu_res);
                         self.stepKey = next_step_key;
-                    },
+                    }
                     None => (),
                 }
-            }else{
-                println!("SE安全检查服务器执行失败并返回 : {}", return_bean._ReturnMsg);
+            } else {
+                println!(
+                    "SE安全检查服务器执行失败并返回 : {}",
+                    return_bean._ReturnMsg
+                );
                 break;
             }
         }
     }
-
 }
-
 
 ////http请求
 ////mod constants;
