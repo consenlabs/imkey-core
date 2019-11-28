@@ -6,5 +6,3 @@
 char *rust_hello(const char *to);
 
 void rust_hello_free(char *s);
-
-int32_t treble(int32_t value);
