@@ -1,5 +1,8 @@
+#### rust
 /target
 **/*.rs.bk
+Cargo.lock
+
 #### Android
 # Built application files
 *.apk
@@ -150,5 +153,3 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 .DS_Store
-
-target/
