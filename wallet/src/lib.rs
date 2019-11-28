@@ -1,4 +1,3 @@
-pub mod bitcoin_trans;
 #[cfg(test)]
 mod tests {
     #[test]
