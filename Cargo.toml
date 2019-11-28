@@ -6,6 +6,5 @@ members = [
     "mq",
     "crypto",
     "common",
-    "testcase",
-    "tools",
+    "testcase"
 ]
