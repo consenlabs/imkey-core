@@ -1,3 +1,7 @@
+pub mod apdu;
+pub mod constants;
+pub mod http;
+
 #[cfg(test)]
 mod tests {
     #[test]
