@@ -1,3 +1,7 @@
+mod address;
+mod rlp;
+mod transaction;
+
 #[cfg(test)]
 mod tests {
     #[test]

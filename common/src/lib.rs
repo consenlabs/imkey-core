@@ -1,6 +1,8 @@
 pub mod apdu;
 pub mod constants;
+pub mod error;
 pub mod http;
+pub mod utility;
 
 #[cfg(test)]
 mod tests {
