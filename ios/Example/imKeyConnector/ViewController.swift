@@ -69,7 +69,7 @@ class ViewController: UIViewController,BLEDelegate {
     self.hideKeyboardWhenTappedAround()
     
     //hello rust
-    Log.test_ffi()
+//    Log.test_ffi()
   }
   
   override func didReceiveMemoryWarning() {
@@ -239,6 +239,7 @@ class ViewController: UIViewController,BLEDelegate {
   }
   
   @IBAction func imkClick(_ sender: Any) {
+    Log.test_ffi()
   }
   
   @IBAction func cosmosClick(_ sender: Any) {
