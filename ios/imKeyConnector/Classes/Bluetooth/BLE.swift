@@ -9,6 +9,8 @@
 import Foundation
 
 public class BLE:NSObject,FTBLEDelegate{
+  var mHandle:UInt = 0
+  
   public func fTdidTheDeviceDisconnected(_ uuid: String!, error Error: Int) {
     Log.d("fTdidTheDeviceDisconnected...")
     _bleDelegate?.deviceDidDisconnect(uuid, error: Error)
@@ -58,6 +60,7 @@ public class BLE:NSObject,FTBLEDelegate{
     
     if result == 0 {
       handle.pointee = tempHandle
+      mHandle = handle.pointee
       Log.d("connect handle:\(handle.pointee)")
       Log.d("send keep connect apdu...")
       do {
@@ -83,7 +86,7 @@ public class BLE:NSObject,FTBLEDelegate{
     let apduLen = apdu.count/2
     var rcvData:[UInt8] = [UInt8](repeating: 0, count: 260)
     var len:UInt32 = 260 // apdu max length is 256
-    let resCode = BLEKeyInterface.sharedInstance().sendData(handle, data: apduData, length: UInt32(apduLen), rcvData: &rcvData, rcvDataLen: &len, timeout: timeout)
+    let resCode = BLEKeyInterface.sharedInstance().sendData(mHandle, data: apduData, length: UInt32(apduLen), rcvData: &rcvData, rcvDataLen: &len, timeout: timeout)
     if(resCode != 0){
 //      throw BLEError.fromCode(code: Int64(resCode))
       throw DeviceError(rawValue: Int64(resCode))!
