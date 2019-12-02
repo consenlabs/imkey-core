@@ -1,20 +1,20 @@
 extern crate reqwest;
-use std::collections::HashMap;
-use reqwest::{Client, Response};
-use serde::{Serialize, Deserialize};
-use common::http;
 use crate::error::ImkeyError;
 use common::constants::{TSM_ACTION_SE_QUERY, TSM_ACTION_SE_SECURE_CHECK};
+use common::http;
+use reqwest::{Client, Response};
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct se_query_request{
-    pub seid : String,
-    pub sn : String,
-    pub sdkVersion : Option<String>,
-    pub stepKey : String,
-    pub statusWord : Option<String>,
-    pub commandID : String,
-    pub cardRetDataList : Option<Vec<String>>,
+pub struct se_query_request {
+    pub seid: String,
+    pub sn: String,
+    pub sdkVersion: Option<String>,
+    pub stepKey: String,
+    pub statusWord: Option<String>,
+    pub commandID: String,
+    pub cardRetDataList: Option<Vec<String>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -25,38 +25,44 @@ pub struct service_response {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct se_query_response{
-    pub seid : Option<String>,
-    pub nextStepKey : Option<String>,
-    pub apduList : Option<Vec<String>>,
+pub struct se_query_response {
+    pub seid: Option<String>,
+    pub nextStepKey: Option<String>,
+    pub apduList: Option<Vec<String>>,
 }
 
-impl se_query_request{
-    pub fn build_request_data(seid : String, sn : String, sdk_version : Option<String>) -> se_query_request{
-        se_query_request{
-            seid : seid,
-            sn : sn,
-            sdkVersion : sdk_version,
-            stepKey : String::from("01"),
-            statusWord : None,
-            commandID : String::from(TSM_ACTION_SE_QUERY),
-            cardRetDataList : None,
+impl se_query_request {
+    pub fn build_request_data(
+        seid: String,
+        sn: String,
+        sdk_version: Option<String>,
+    ) -> se_query_request {
+        se_query_request {
+            seid: seid,
+            sn: sn,
+            sdkVersion: sdk_version,
+            stepKey: String::from("01"),
+            statusWord: None,
+            commandID: String::from(TSM_ACTION_SE_QUERY),
+            cardRetDataList: None,
         }
     }
 
-    pub fn se_query(&mut self) -> Result<service_response, ImkeyError>{
+    pub fn se_query(&mut self) -> Result<service_response, ImkeyError> {
         println!("请求报文：{:#?}", self);
-        let mut response_data : Response = http::post(TSM_ACTION_SE_QUERY, &self);
-        let return_bean: service_response = response_data.json().expect("imkey message seriailize error");
+        let mut response_data: Response = http::post(TSM_ACTION_SE_QUERY, &self);
+        let return_bean: service_response = response_data
+            .json()
+            .expect("imkey message seriailize error");
         println!("反馈报文：{:#?}", return_bean);
-        if return_bean._ReturnCode == TSM_ACTION_SE_SECURE_CHECK{
+        if return_bean._ReturnCode == TSM_ACTION_SE_SECURE_CHECK {
             //判断步骤key是否已经结束
-//            let next_step_key = return_bean._ReturnData.nextStepKey.unwrap();
-//            if "end".eq(next_step_key.as_str()) {
+            //            let next_step_key = return_bean._ReturnData.nextStepKey.unwrap();
+            //            if "end".eq(next_step_key.as_str()) {
             println!("SE应用查询成功结束");
             return Ok(return_bean);
-//            }
-        }else{
+        //            }
+        } else {
             println!("应用查询服务器执行失败并返回 : {}", return_bean._ReturnMsg);
             return Err(ImkeyError::BSE0008);
         }
