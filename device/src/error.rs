@@ -1,10 +1,9 @@
+use serde::export::Formatter;
 use std::error;
 use std::fmt;
 use std::fmt::Display;
-use serde::export::Formatter;
 
-
-pub enum ImkeyError{
+pub enum ImkeyError {
     BSE0007,
     BSE0017,
     BSE0019,
@@ -19,7 +18,7 @@ pub enum ImkeyError{
     BAPP0011,
 }
 
-impl Display for ImkeyError{
+impl Display for ImkeyError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match &self {
             ImkeyError::BSE0007 => write!(f, "imkey_tsm_device_not_activated"),

@@ -1,3 +1,5 @@
+use bitcoin::hashes::{sha256d, Hash};
+use common::apdu;
 use common::error::Error;
 use common::utility::hex_to_bytes;
 use dotenv::dotenv;
@@ -12,31 +14,15 @@ use std::env;
 lazy_static! {
     pub static ref SECP256K1: secp256k1::Secp256k1<secp256k1::All> = secp256k1::Secp256k1::new();
     static ref ETHPRVKEY: Vec<u8> = eth_get_prvkey();
-    static ref SIGNOPTION: String = sign_option();
-    static ref ETHKEYID: u16 = eth_sign_keyid();
 }
 
+//@@XM TODO: remove later
 pub fn eth_get_prvkey() -> Vec<u8> {
     dotenv().ok();
     let ethereum_private_key =
         hex_to_bytes(&env::var("ETHEREUM_PRIVATE_KEY").expect("ETHEREUM_PRIVATE_KEY must be set"))
             .expect("ETHEREUM_PRIVATE_KEY must be valid hexadecimal string");
     ethereum_private_key
-}
-
-pub fn eth_sign_keyid() -> u16 {
-    dotenv().ok();
-    let eth_keyid = env::var("ETH_SIGN_KEYID")
-        .unwrap_or("3".to_owned())
-        .parse::<u16>()
-        .unwrap();
-    eth_keyid
-}
-
-pub fn sign_option() -> String {
-    dotenv().ok();
-    let sign_option = env::var("SIGN_OPTION").unwrap_or("SOFTWARE".to_string());
-    sign_option
 }
 
 /// Transaction action type.
@@ -105,17 +91,103 @@ pub struct Transaction {
     pub to: Action,
     pub value: U256,
     pub data: Vec<u8>,
+    pub payment: Vec<u8>,
+    pub receiver: Vec<u8>,
+    pub sender: Vec<u8>, //for address checking
+    pub fee: Vec<u8>,
 }
 
 impl Transaction {
     /// Signs the transaction as coming from `sender`.
-    pub fn eth_sign(
+    /// @@XM TODO keep this soft sign as reference, can be useful when do restucturing
+    pub fn sign_soft(
         &self,
         chain_id: Option<u64>,
     ) -> Result<(Vec<u8>, UnverifiedTransaction), Error> {
         let prvkey = SecretKey::from_slice(&ETHPRVKEY).map_err(|_err| Error::PrvKeyError)?;
-        let sig = self.sign_hash(&prvkey, &self.hash(chain_id))?;
+        let sig = self.sign_hash_soft(&prvkey, &self.hash(chain_id))?;
         Ok(self.with_signature(sig, chain_id))
+    }
+
+    pub fn sign_hash_soft(&self, prvkey: &SecretKey, message: &H256) -> Result<Signature, Error> {
+        let context = &SECP256K1;
+        let s = context.sign_recoverable(
+            &SecpMessage::from_slice(&message[..]).map_err(|_err| Error::MessageError)?,
+            &prvkey,
+        );
+        let (rec_id, data) = s.serialize_compact();
+        let mut data_arr = [0; 65];
+
+        // no need to check if s is low, it always is
+        data_arr[0..64].copy_from_slice(&data[0..64]);
+        data_arr[64] = rec_id.to_i32() as u8;
+        Ok(Signature(data_arr))
+    }
+
+    pub fn sign(
+        &self,
+        chain_id: Option<u64>,
+        path: &String,
+    ) -> Result<(Vec<u8>, UnverifiedTransaction), Error> {
+        //path check
+
+        //select applet
+        let msg_select = apdu::apdu::eth_select();
+        //organize data
+        let apdu_pack = Vec::new();
+        let encode_tx = self.rlp_encode_tx(chain_id);
+        //rlp encoded tx in TLV format
+        apdu_pack.extend(
+            [
+                1,
+                (encode_tx.len() & 0xFF00 >> 8) as u8,
+                (encode_tx.len() & 0x00FF) as u8,
+            ]
+            .iter(),
+        );
+        apdu_pack.extend(encode_tx.iter());
+        //payment info in TLV format
+        apdu_pack.extend([7, self.payment.len() as u8].iter());
+        apdu_pack.extend(self.payment.iter());
+        //receiver info in TLV format
+        apdu_pack.extend([8, self.receiver.len() as u8].iter());
+        apdu_pack.extend(self.receiver.iter());
+        //fee info in TLV format
+        apdu_pack.extend([9, self.fee.len() as u8].iter());
+        apdu_pack.extend(self.fee.iter());
+
+        //hash data for verification sign
+        let hash_data = sha256d::Hash::from_slice(&apdu_pack);
+
+        //TODO: sign using private key
+        let mut signature = Vec::new();
+        apdu_pack.splice(0..0, signature.iter().cloned());
+
+        //prepare apdu
+        let msg_prepare = apdu::apdu::eth_prepare(apdu_pack);
+        //TODO: send through bluetooth
+
+        //get public
+        let msg_pubkey = apdu::apdu::eth_pub(path, false);
+        //TODO: send through bluetooth
+
+        //TODO: convert to address
+
+        //compare address
+
+        //sign
+        let msg_sign = apdu::apdu::eth_sign(path);
+        //TODO: send through bluetooth
+
+        //handle sign result
+
+        Ok(self.with_signature(sig, chain_id))
+    }
+
+    pub fn rlp_encode_tx(&self, chain_id: Option<u64>) -> Vec<u8> {
+        let mut stream = RlpStream::new();
+        self.rlp_append_unsigned_transaction(&mut stream, chain_id);
+        stream.as_raw().to_vec()
     }
 
     /// The message hash of the transaction.
@@ -294,7 +366,7 @@ mod tests {
             data: Vec::new(),
         };
 
-        let signedtx = tx.eth_sign(Some(1)).unwrap();
+        let signedtx = tx.sign_soft(Some(1)).unwrap();
         let mut args = [0u8; 32];
         signedtx.clone().1.r.to_big_endian(&mut args[0..32]);
         let r_hex = hex::encode(args);
