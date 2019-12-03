@@ -1,3 +1,4 @@
+use crate::address::address;
 use bitcoin::hashes::{sha256d, Hash};
 use common::apdu;
 use common::error::Error;
@@ -125,12 +126,12 @@ impl Transaction {
         &self,
         chain_id: Option<u64>,
         path: &String,
-        payment: Vec<u8>,
-        receiver: Vec<u8>,
-        sender: Vec<u8>, //for address checking
-        fee: Vec<u8>,
+        payment: &String,
+        receiver: &String,
+        sender: &String, //for address checking
+        fee: &String,
     ) -> Result<(Vec<u8>, UnverifiedTransaction), Error> {
-        //TODO: path check
+        //@@XM TODO: path check
 
         //select applet
         let msg_select = apdu::apdu::eth_select();
@@ -148,14 +149,14 @@ impl Transaction {
         );
         apdu_pack.extend(encode_tx.iter());
         //payment info in TLV format
-        apdu_pack.extend([7, payment.len() as u8].iter());
-        apdu_pack.extend(payment.iter());
+        apdu_pack.extend([7, payment.as_bytes().len() as u8].iter());
+        apdu_pack.extend(payment.as_bytes().iter());
         //receiver info in TLV format
-        apdu_pack.extend([8, receiver.len() as u8].iter());
-        apdu_pack.extend(receiver.iter());
+        apdu_pack.extend([8, receiver.as_bytes().len() as u8].iter());
+        apdu_pack.extend(receiver.as_bytes().iter());
         //fee info in TLV format
-        apdu_pack.extend([9, fee.len() as u8].iter());
-        apdu_pack.extend(fee.iter());
+        apdu_pack.extend([9, fee.as_bytes().len() as u8].iter());
+        apdu_pack.extend(fee.as_bytes().iter());
 
         //hash data for verification sign
         let hash_data = sha256d::Hash::from_slice(&apdu_pack);
@@ -177,10 +178,12 @@ impl Transaction {
         let pubkey_res = String::from("mock for pubkey"); //@@XM TODO: replace with real result
         let pubkey_raw = hex_to_bytes(&pubkey_res[2..130]).map_err(|_err| Error::PubKeyError)?;
 
-        //TODO: convert to address
-
+        let address_main = address::address_from_pubkey(pubkey_raw.clone());
+        let address_checksummed = address::address_checksummed(&address_main);
         //compare address
-
+        if address_checksummed != *sender {
+            return Err(Error::AddressError);
+        }
         //sign
         let msg_sign = apdu::apdu::eth_sign(path);
         //TODO: send through bluetooth
