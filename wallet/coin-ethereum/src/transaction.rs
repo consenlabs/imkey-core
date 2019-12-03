@@ -8,6 +8,7 @@ use keccak_hash::keccak;
 use lazy_static::lazy_static;
 use rlp::{self, DecoderError, Encodable, Rlp, RlpStream};
 use secp256k1::key::{PublicKey, SecretKey};
+use secp256k1::recovery::{RecoverableSignature, RecoveryId};
 use secp256k1::{self, Message as SecpMessage, Secp256k1};
 use std::env;
 
@@ -91,10 +92,6 @@ pub struct Transaction {
     pub to: Action,
     pub value: U256,
     pub data: Vec<u8>,
-    pub payment: Vec<u8>,
-    pub receiver: Vec<u8>,
-    pub sender: Vec<u8>, //for address checking
-    pub fee: Vec<u8>,
 }
 
 impl Transaction {
@@ -128,13 +125,17 @@ impl Transaction {
         &self,
         chain_id: Option<u64>,
         path: &String,
+        payment: Vec<u8>,
+        receiver: Vec<u8>,
+        sender: Vec<u8>, //for address checking
+        fee: Vec<u8>,
     ) -> Result<(Vec<u8>, UnverifiedTransaction), Error> {
-        //path check
+        //TODO: path check
 
         //select applet
         let msg_select = apdu::apdu::eth_select();
         //organize data
-        let apdu_pack = Vec::new();
+        let mut apdu_pack = Vec::new();
         let encode_tx = self.rlp_encode_tx(chain_id);
         //rlp encoded tx in TLV format
         apdu_pack.extend(
@@ -147,21 +148,23 @@ impl Transaction {
         );
         apdu_pack.extend(encode_tx.iter());
         //payment info in TLV format
-        apdu_pack.extend([7, self.payment.len() as u8].iter());
-        apdu_pack.extend(self.payment.iter());
+        apdu_pack.extend([7, payment.len() as u8].iter());
+        apdu_pack.extend(payment.iter());
         //receiver info in TLV format
-        apdu_pack.extend([8, self.receiver.len() as u8].iter());
-        apdu_pack.extend(self.receiver.iter());
+        apdu_pack.extend([8, receiver.len() as u8].iter());
+        apdu_pack.extend(receiver.iter());
         //fee info in TLV format
-        apdu_pack.extend([9, self.fee.len() as u8].iter());
-        apdu_pack.extend(self.fee.iter());
+        apdu_pack.extend([9, fee.len() as u8].iter());
+        apdu_pack.extend(fee.iter());
 
         //hash data for verification sign
         let hash_data = sha256d::Hash::from_slice(&apdu_pack);
 
         //TODO: sign using private key
         let mut signature = Vec::new();
-        apdu_pack.splice(0..0, signature.iter().cloned());
+        signature.insert(0, signature.len() as u8);
+        signature.insert(0, 0);
+        apdu_pack.splice(0..0, signature.iter().cloned()); //@@XM TODO: check this insertion
 
         //prepare apdu
         let msg_prepare = apdu::apdu::eth_prepare(apdu_pack);
@@ -170,6 +173,9 @@ impl Transaction {
         //get public
         let msg_pubkey = apdu::apdu::eth_pub(path, false);
         //TODO: send through bluetooth
+
+        let pubkey_res = String::from("mock for pubkey"); //@@XM TODO: replace with real result
+        let pubkey_raw = hex_to_bytes(&pubkey_res[2..130]).map_err(|_err| Error::PubKeyError)?;
 
         //TODO: convert to address
 
@@ -180,6 +186,39 @@ impl Transaction {
         //TODO: send through bluetooth
 
         //handle sign result
+        let sign_res = String::from("mock for signature"); //@@XM TODO: replace with real result
+                                                           //let r = &sign_res[2..66];
+                                                           //let s = &sign_res[66..130];
+        let sign_compact = &sign_res[2..130];
+        let sign_compact_vec = hex_to_bytes(sign_compact).map_err(|_err| Error::SignError)?;
+
+        let secp_context = Secp256k1::new(); //@@XM TODO: use the one in lazy_staic later
+        let msg_hash = self.hash(chain_id);
+        let msg_to_sign =
+            &SecpMessage::from_slice(&msg_hash[..]).map_err(|_err| Error::MessageError)?;
+
+        let mut recid_final = -1i32;
+        for i in 0..4 {
+            let rec_id = RecoveryId::from_i32(i as i32).unwrap();
+            let sig = RecoverableSignature::from_compact(&sign_compact_vec, rec_id)
+                .map_err(|_err| Error::SignError)?;
+            if let Ok(rec_pubkey) = secp_context.recover(&msg_to_sign, &sig) {
+                let rec_pubkey_raw = rec_pubkey.serialize_uncompressed();
+                if rec_pubkey_raw[1..65].to_vec() == pubkey_raw {
+                    recid_final = i;
+                    break;
+                }
+            } else {
+                continue;
+            }
+        }
+
+        let rec_id = RecoveryId::from_i32(recid_final).map_err(|_err| Error::SignError)?;
+        let mut data_arr = [0; 65];
+
+        data_arr[0..64].copy_from_slice(&sign_compact_vec[0..64]);
+        data_arr[64] = rec_id.to_i32() as u8;
+        let sig = Signature(data_arr);
 
         Ok(self.with_signature(sig, chain_id))
     }
