@@ -142,7 +142,7 @@ impl Transaction {
         apdu_pack.extend(
             [
                 1,
-                (encode_tx.len() & 0xFF00 >> 8) as u8,
+                ((encode_tx.len() & 0xFF00) >> 8) as u8,
                 (encode_tx.len() & 0x00FF) as u8,
             ]
             .iter(),
@@ -422,6 +422,28 @@ mod tests {
             s_hex,
             "67cbe9d8997f761aecb703304b3800ccf555c9f3dc64214b297fb1966a3b6d83"
         );
+        let nonesense = 0;
+    }
+    #[test]
+    fn test_apdu_pack() {
+        let tx = Transaction {
+            nonce: U256::from(8),
+            gas_price: U256::from(20000000008 as usize),
+            gas_limit: U256::from(189000),
+            to: Action::Call(
+                Address::from_str("3535353535353535353535353535353535353535").unwrap(),
+            ),
+            value: U256::from(512 as usize),
+            data: Vec::new(),
+        };
+
+        let path = "m/44'/60'/0'/0/0".to_string();
+        let payment = "0.01 ETH".to_string();
+        let receiver = "0xE6F4142dfFA574D1d9f18770BF73814df07931F3".to_string();
+        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
+        let fee = "0.0032 ether".to_string();
+
+        let signedtx = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee);
         let nonesense = 0;
     }
 }
