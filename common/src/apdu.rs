@@ -78,28 +78,31 @@ impl Apdu {
     }
 
     pub fn eth_pub(path: &String, verify_flag: bool) -> String {
-        if path.as_bytes().len() > 256 {
+        let path_bytes = path.as_bytes();
+
+        if path_bytes.len() > 256 {
             panic!("data to long");
         }
 
         let mut apdu = Vec::new();
         apdu.push(0x80); //CLA
         apdu.push(0x53); //INS
-        apdu.push(0x00); //P1
         if verify_flag {
-            apdu.push(0x00);
-        } else {
             apdu.push(0x01);
+        } else {
+            apdu.push(0x00);
         }
-        apdu.push(path.clone().into_bytes().len() as u8); //Lc
-        let mut temp_path_byte = path.as_bytes().to_vec(); //DATA
-        apdu.append(&mut temp_path_byte);
+        apdu.push(0x00); //P2
+        apdu.push(path_bytes.len() as u8); //Lc
+        apdu.extend(path_bytes.iter());
         apdu.push(0x00); //Le
         apdu.to_hex().to_uppercase()
     }
 
     pub fn eth_sign(path: &String) -> String {
-        if path.as_bytes().len() > 256 {
+        let path_bytes = path.as_bytes();
+
+        if path_bytes.len() > 256 {
             panic!("data to long");
         }
 
@@ -108,8 +111,8 @@ impl Apdu {
         apdu.push(0x52); //INS
         apdu.push(0x00); //P1-index
         apdu.push(0x00); //P2-hashtype
-        apdu.push(path.as_bytes().len() as u8); //lc
-        apdu.extend(path.as_bytes().iter()); //payload
+        apdu.push(path_bytes.len() as u8); //lc
+        apdu.extend(path_bytes.iter()); //payload
         apdu.push(0x00); //le
         apdu.to_hex().to_uppercase()
     }

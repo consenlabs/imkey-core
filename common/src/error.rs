@@ -43,7 +43,6 @@ impl fmt::Display for Error {
     }
 }
 
-
 pub enum ImkeyError {
     BSE0007,
     BSE0017,
