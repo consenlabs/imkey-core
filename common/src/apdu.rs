@@ -1,4 +1,5 @@
 use crate::constants::{ETH_AID, LC_MAX};
+use hex;
 use rustc_serialize::hex::ToHex;
 
 pub struct Apdu {}
@@ -31,13 +32,14 @@ pub fn get_xpub(path: &String, verify_flag: bool) -> String {
 
 impl Apdu {
     pub fn eth_select() -> String {
+        let aid_array = hex::decode(ETH_AID).unwrap(); //@@XM TOOD: take care of this unwrap
         let mut apdu = Vec::new();
         apdu.push(0x00); //CLA
         apdu.push(0xA4); //INS
         apdu.push(0x04); //P1
         apdu.push(0x00); //P2
-        apdu.push(ETH_AID.as_bytes().len() as u8);
-        apdu.extend(ETH_AID.as_bytes().iter());
+        apdu.push(aid_array.len() as u8);
+        apdu.extend(aid_array.iter());
         apdu.push(0x00); //Le
         apdu.to_hex().to_uppercase()
     }
