@@ -41,9 +41,9 @@ use futures::{Future, Stream};
 use tokio_core::reactor::Core;
 
 use hyper::client::Client;
+use hyper::header::HeaderValue;
 use hyper::Error;
 use hyper::{Body, Method, Request};
-use hyper::header::HeaderValue;
 ////use hyper::header::{Authorization, Accept, UserAgent, qitem};
 //use hyper::mime::Mime;
 use hyper_tls::HttpsConnector;
@@ -129,9 +129,11 @@ fn main() {
     });
 
     let user = event_loop.run(work).unwrap();
-    println!("We've made it outside the request! \
-              We got back the following from our \
-              request:\n");
+    println!(
+        "We've made it outside the request! \
+         We got back the following from our \
+         request:\n"
+    );
     println!("{}", user);
 
     //GET
