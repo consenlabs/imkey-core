@@ -106,17 +106,13 @@ fn main() {
 //            println!("{}", s);
 //        });
 
+
         //POST
         client.request(req).map(|res|{
             println!("{}", res.status());
-            Chunk::from(res.into_body().chunks());
-
-            let mapping = res.into_body().map(|chunk| {
-                chunk
-                    .iter()
-                    .map(|byte| byte.to_ascii_uppercase())
-                    .collect::<Vec<u8>>()
-            });
+            res.into_body().map(|chunk|{
+                println!("{:?}", chunk.to_vec());
+            })
 
         }).map_err(|e|{
             println!("request error: {}", e);
@@ -125,3 +121,4 @@ fn main() {
     }));
 
 }
+
