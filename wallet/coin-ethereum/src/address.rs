@@ -3,9 +3,9 @@ use keccak_hash::keccak;
 use regex::Regex;
 
 #[derive(Debug)]
-pub struct address {}
+pub struct EthAddress {}
 
-impl address {
+impl EthAddress {
     pub fn address_from_pubkey(pubkey: Vec<u8>) -> String {
         let pubkey_hash = keccak(pubkey);
         let addr_bytes = &pubkey_hash[12..];

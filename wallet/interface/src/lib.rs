@@ -1,7 +1,5 @@
-pub mod address;
-pub mod transaction;
-mod rlp;
-
+mod ethereum_address;
+mod ethereum_signer;
 
 #[cfg(test)]
 mod tests {
