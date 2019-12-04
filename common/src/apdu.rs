@@ -1,7 +1,7 @@
 use crate::constants::{ETH_AID, LC_MAX};
 use rustc_serialize::hex::ToHex;
 
-pub struct apdu {}
+pub struct Apdu {}
 
 /**
 获取xpub
@@ -29,7 +29,7 @@ pub fn get_xpub(path: &String, verify_flag: bool) -> String {
     apdu.to_hex().to_uppercase()
 }
 
-impl apdu {
+impl Apdu {
     pub fn eth_select() -> String {
         let mut apdu = Vec::new();
         apdu.push(0x00); //CLA

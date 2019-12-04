@@ -1,4 +1,4 @@
-use crate::address::address;
+use crate::address::EthAddress;
 use bitcoin::hashes::{sha256d, Hash};
 use common::apdu;
 use common::error::Error;
@@ -134,7 +134,7 @@ impl Transaction {
         //@@XM TODO: path check
 
         //select applet
-        let msg_select = apdu::apdu::eth_select();
+        let msg_select = apdu::Apdu::eth_select();
         //organize data
         let mut apdu_pack = Vec::new();
         let encode_tx = self.rlp_encode_tx(chain_id);
@@ -168,24 +168,24 @@ impl Transaction {
         apdu_pack.splice(0..0, signature.iter().cloned()); //@@XM TODO: check this insertion
 
         //prepare apdu
-        let msg_prepare = apdu::apdu::eth_prepare(apdu_pack);
+        let msg_prepare = apdu::Apdu::eth_prepare(apdu_pack);
         //TODO: send through bluetooth
 
         //get public
-        let msg_pubkey = apdu::apdu::eth_pub(path, false);
+        let msg_pubkey = apdu::Apdu::eth_pub(path, false);
         //TODO: send through bluetooth
 
         let pubkey_res = String::from("mock for pubkey"); //@@XM TODO: replace with real result
         let pubkey_raw = hex_to_bytes(&pubkey_res[2..130]).map_err(|_err| Error::PubKeyError)?;
 
-        let address_main = address::address_from_pubkey(pubkey_raw.clone());
-        let address_checksummed = address::address_checksummed(&address_main);
+        let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone());
+        let address_checksummed = EthAddress::address_checksummed(&address_main);
         //compare address
         if address_checksummed != *sender {
             return Err(Error::AddressError);
         }
         //sign
-        let msg_sign = apdu::apdu::eth_sign(path);
+        let msg_sign = apdu::Apdu::eth_sign(path);
         //TODO: send through bluetooth
 
         //handle sign result
