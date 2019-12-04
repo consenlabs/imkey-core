@@ -158,6 +158,9 @@ impl Transaction {
         apdu_pack.extend([9, fee.as_bytes().len() as u8].iter());
         apdu_pack.extend(fee.as_bytes().iter());
 
+        let test_pack = hex::encode(apdu_pack.clone());
+        println!("test is {}", test_pack);
+
         //hash data for verification sign
         let hash_data = sha256d::Hash::from_slice(&apdu_pack);
 
@@ -445,5 +448,10 @@ mod tests {
 
         let signedtx = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee);
         let nonesense = 0;
+
+        //expected apdu_pack before sign using binding privekey is "010028E708850
+        //4A817C8088302E2489435353535353535353535353535353535353535358202
+        //00801C80800708302E303120455448082A30784536463431343264664641353
+        //7344431643966313837373042463733383134646630373933314633090C302E30303332206574686572"
     }
 }

@@ -1,7 +1,6 @@
 pub mod address;
-pub mod transaction;
 mod rlp;
-
+pub mod transaction;
 
 #[cfg(test)]
 mod tests {

@@ -1,5 +1,5 @@
 use common::constants::{TSM_ACTION_SE_SECURE_CHECK, TSM_RETURN_CODE_SUCCESS};
-use common::{https, error::ImkeyError};
+use common::{error::ImkeyError, https};
 use serde::{Deserialize, Serialize};
 
 // SE安全检查请求bean
@@ -50,7 +50,9 @@ impl se_secure_check_request {
             println!("请求报文：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
             let mut response_data = https::post(TSM_ACTION_SE_SECURE_CHECK, req_data);
-            let return_bean : service_response = serde_json::from_str(response_data.ok().unwrap().as_str()).expect("imkey message seriailize error");
+            let return_bean: service_response =
+                serde_json::from_str(response_data.ok().unwrap().as_str())
+                    .expect("imkey message seriailize error");
             println!("返回报文：{:#?}", return_bean);
             if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
                 //判断步骤key是否已经结束
