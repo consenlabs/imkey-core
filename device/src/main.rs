@@ -105,6 +105,9 @@ fn main() {
         HeaderValue::from_static("application/json"),
     );
 
+    let mut event_loop = Core::new().unwrap();
+    let handle = event_loop.handle();
+
     //rt::run(rt::lazy(|| {
     // 4 is number of blocking DNS threads
     let https = hyper_tls::HttpsConnector::new(4).unwrap();
@@ -124,6 +127,12 @@ fn main() {
                 future::ok::<_, Error>(s)
             })
     });
+
+    let user = event_loop.run(work).unwrap();
+    println!("We've made it outside the request! \
+              We got back the following from our \
+              request:\n");
+    println!("{}", user);
 
     //GET
     //        client
