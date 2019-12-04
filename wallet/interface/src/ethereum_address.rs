@@ -1,7 +1,7 @@
-use coin_ethereum::address::EthAddress;
 use common::apdu;
-use common::error::Error;
 use common::utility::hex_to_bytes;
+use common::error::Error;
+use coin_ethereum::address::EthAddress;
 
 pub struct EthereumAddress {}
 

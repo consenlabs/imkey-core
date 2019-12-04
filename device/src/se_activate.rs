@@ -1,10 +1,6 @@
-extern crate reqwest;
-use crate::error::ImkeyError;
 use common::constants::{TSM_ACTION_SE_ACTIVATE, TSM_RETURN_CODE_SUCCESS};
-use common::http;
-use reqwest::{Client, Response};
+use common::{https, error::ImkeyError};
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct se_activate_request {
@@ -50,10 +46,9 @@ impl se_activate_request {
     pub fn se_activate(&mut self) -> Result<(), ImkeyError> {
         loop {
             println!("请求报文：{:#?}", self);
-            let mut response_data: Response = http::post(TSM_ACTION_SE_ACTIVATE, &self);
-            let return_bean: service_response = response_data
-                .json()
-                .expect("imkey message seriailize error");
+            let req_data = serde_json::to_vec_pretty(&self).unwrap();
+            let mut response_data = https::post(TSM_ACTION_SE_ACTIVATE, req_data);
+            let return_bean : service_response = serde_json::from_str(response_data.ok().unwrap().as_str()).expect("imkey message seriailize error");
             println!("反馈报文：{:#?}", return_bean);
             if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
                 //判断步骤key是否已经结束
