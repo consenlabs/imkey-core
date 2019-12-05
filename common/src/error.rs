@@ -1,7 +1,7 @@
 #[macro_use()]
 use std::fmt;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum Error {
     /// Command execution error
     RpcError(String),
