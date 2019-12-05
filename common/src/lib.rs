@@ -3,6 +3,7 @@ pub mod constants;
 pub mod error;
 pub mod https;
 pub mod utility;
+pub mod sign_res;
 
 #[cfg(test)]
 mod tests {
