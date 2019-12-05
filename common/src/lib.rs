@@ -4,6 +4,7 @@ pub mod error;
 pub mod https;
 pub mod sign_res;
 pub mod utility;
+pub mod path;
 
 #[cfg(test)]
 mod tests {

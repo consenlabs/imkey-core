@@ -2,12 +2,14 @@ use coin_ethereum::address::EthAddress;
 use common::apdu;
 use common::error::Error;
 use common::utility::hex_to_bytes;
+use common::path::check_path_validity;
 
 pub struct EthereumAddress {}
 
 impl EthereumAddress {
     pub fn get_address(path: &String) -> Result<String, Error> {
         //@@XM TODO: check path
+        check_path_validity(path);
 
         apdu::Apdu::eth_select();
 
