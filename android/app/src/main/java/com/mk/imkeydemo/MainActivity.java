@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 //        String xpub = getXPub();
 //        LogUtil.d("xpub:" + xpub);
 
-        LogUtil.d("x3:" + CTreble.INSTANCE.treble(1));
+//        LogUtil.d("x3:" + CTreble.INSTANCE.treble(1));
 //        LogUtil.d("x3:" + CTreble.INSTANCE.jni_call_static_method_safe());
 
 //        int num = ThingLibrary.INSTANCE.dupli(14);
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         //hello rust
         LogUtil.hh();
 
-        factAndCallMeBack(2,new Test());
+//        factAndCallMeBack(2,new Test());
 
 
 //        LogUtil.installApplet();
@@ -225,7 +225,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void tempTest(){
-        LogUtil.installApplet();
+//        LogUtil.installApplet();
+        String res = LogUtil.getseidwithcallbacktest();
+        LogUtil.d(res);
+
+//        String res = LogUtil.getSeid();
+//        LogUtil.d("getseid ....: " + res);
     }
 
     private void showSearchDialog() {
