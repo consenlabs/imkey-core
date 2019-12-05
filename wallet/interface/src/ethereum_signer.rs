@@ -1,9 +1,9 @@
-use coin_ethereum::transaction::{Action, Transaction};
+use coin_ethereum::transaction::Transaction;
+use coin_ethereum::types::Action;
 use common::error::Error;
 use common::sign_res::TxSignResult;
 use ethereum_types::{Address, H256, U256};
 use hex;
-
 
 pub struct EthereumSigner {}
 
