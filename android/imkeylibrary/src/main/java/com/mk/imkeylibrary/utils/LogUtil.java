@@ -34,7 +34,7 @@ public class LogUtil {
 
     public static void hh(){
 //        d("hhhhhhh：" + CTreble.INSTANCE.get_seid());
-        CTreble.INSTANCE.init();
+//        CTreble.INSTANCE.init();
     }
 
     public static String getSeid(){

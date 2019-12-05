@@ -7,12 +7,13 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-lazy_static = "1.4.0"
+# lazy_static = "1.4.0"
 
 log = {version = "0.4", features = ["std"]}
 # log-panics = {version = "2.0.0", features = ["with-backtrace"]}
 # [target.'cfg(target_os = "android")'.dependencies]
 android_logger = "0.8.6"
+mq = {path = "../mq"}
 
 
 [lib]

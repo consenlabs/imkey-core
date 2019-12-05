@@ -32,6 +32,8 @@ import com.mk.imkeylibrary.bluetooth.Callback.ConnectCallback;
 import com.mk.imkeylibrary.bluetooth.ErrorCode;
 import com.mk.imkeylibrary.device.DeviceManager;
 import com.mk.imkeylibrary.exception.ImkeyException;
+import com.mk.imkeylibrary.keycore.Api;
+import com.mk.imkeylibrary.keycore.RustApi;
 import com.mk.imkeylibrary.utils.LogUtil;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
@@ -115,12 +117,15 @@ public class MainActivity extends AppCompatActivity {
 //        LogUtil.d("num:" + num);
 
         //hello rust
-        LogUtil.hh();
+//        LogUtil.hh();
 
 //        factAndCallMeBack(2,new Test());
 
 
 //        LogUtil.installApplet();
+
+        Api.initRustLog();
+        Api.startMessageDeamon();
     }
 
     //android 6.0 以上需要动态申请权限
@@ -225,12 +230,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void tempTest(){
-//        LogUtil.installApplet();
-//        String res = LogUtil.getseidwithcallbacktest();
-//        LogUtil.d(res);
+        String seid = Api.getSeid();
+        LogUtil.d("seid = " + seid);
 
-        String res = LogUtil.getSeid();
-        LogUtil.d("getseid ....: " + res);
+//        String seid = LogUtil.getSeid();
+//        LogUtil.d("seid = " + seid);
     }
 
     private void showSearchDialog() {
