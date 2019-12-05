@@ -11,6 +11,7 @@ pub enum Error {
     MessageError,
     DataError,
     SignError,
+    PathError,
 }
 
 macro_rules! from_err {
@@ -39,6 +40,7 @@ impl fmt::Display for Error {
             Error::MessageError => write!(f, "sigh hash got error"),
             Error::DataError => write!(f, "data field wrong format"),
             Error::SignError => write!(f, "signature error"),
+            Error::PathError => write!(f, "path parameter error"),
         }
     }
 }

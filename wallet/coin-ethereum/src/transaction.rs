@@ -4,6 +4,7 @@ use bitcoin::hashes::{sha256d, Hash};
 use common::apdu;
 use common::error::Error;
 use common::utility::hex_to_bytes;
+use common::path::check_path_validity;
 use ethereum_types::{Address, H256, U256};
 use keccak_hash::keccak;
 use lazy_static::lazy_static;
@@ -37,8 +38,8 @@ impl Transaction {
         sender: &String, //for address checking
         fee: &String,
     ) -> Result<(Vec<u8>, UnverifiedTransaction), Error> {
-        //@@XM TODO: path check
-
+        //check path
+        check_path_validity(path);
         //select applet
         let msg_select = apdu::Apdu::eth_select();
         //organize data
@@ -104,30 +105,13 @@ impl Transaction {
         let sign_compact = &sign_res[2..130];
         let sign_compact_vec = hex_to_bytes(sign_compact).map_err(|_err| Error::SignError)?;
 
-        let secp_context = &SECP256K1;
         let msg_hash = self.hash(chain_id);
         let msg_to_sign =
             &SecpMessage::from_slice(&msg_hash[..]).map_err(|_err| Error::MessageError)?;
 
-        let mut recid_final = -1i32;
-        for i in 0..4 {
-            let rec_id = RecoveryId::from_i32(i as i32).unwrap();
-            let sig = RecoverableSignature::from_compact(&sign_compact_vec, rec_id)
-                .map_err(|_err| Error::SignError)?;
-            if let Ok(rec_pubkey) = secp_context.recover(&msg_to_sign, &sig) {
-                let rec_pubkey_raw = rec_pubkey.serialize_uncompressed();
-                if rec_pubkey_raw[1..65].to_vec() == pubkey_raw {
-                    recid_final = i;
-                    break;
-                }
-            } else {
-                continue;
-            }
-        }
+        let rec_id = retrieve_recid(msg_to_sign, &sign_compact_vec, &pubkey_raw)?;
 
-        let rec_id = RecoveryId::from_i32(recid_final).map_err(|_err| Error::SignError)?;
         let mut data_arr = [0; 65];
-
         data_arr[0..64].copy_from_slice(&sign_compact_vec[0..64]);
         data_arr[64] = rec_id.to_i32() as u8;
         let sig = Signature(data_arr);
@@ -252,6 +236,33 @@ impl UnverifiedTransaction {
         s.append(&self.r);
         s.append(&self.s);
     }
+}
+
+pub fn retrieve_recid(
+    msg: &SecpMessage,
+    sign_compact: &Vec<u8>,
+    pubkey: &Vec<u8>,
+) -> Result<RecoveryId, Error> {
+    let secp_context = &SECP256K1;
+
+    let mut recid_final = -1i32;
+    for i in 0..4 {
+        let rec_id = RecoveryId::from_i32(i as i32).unwrap();
+        let sig = RecoverableSignature::from_compact(&sign_compact, rec_id)
+            .map_err(|_err| Error::SignError)?;
+        if let Ok(rec_pubkey) = secp_context.recover(&msg, &sig) {
+            let rec_pubkey_raw = rec_pubkey.serialize_uncompressed();
+            if rec_pubkey_raw[1..65].to_vec() == *pubkey {
+                recid_final = i;
+                break;
+            }
+        } else {
+            continue;
+        }
+    }
+
+    let rec_id = RecoveryId::from_i32(recid_final).map_err(|_err| Error::SignError);
+    rec_id
 }
 
 #[cfg(test)]
