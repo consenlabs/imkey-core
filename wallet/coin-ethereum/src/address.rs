@@ -24,14 +24,9 @@ impl EthAddress {
         let address = re.replace_all(&address, "").to_string();
 
         let mut checksum_address = "0x".to_string();
-        /*
-        let mut hasher = Sha3::keccak256();
-        hasher.input_str(&address);
-        let address_hash = hasher.result_str();
-        */
 
         let address_hash = keccak(&address);
-        let address_hash_hex = hex::encode(address_hash); //@@XM TODO: checkt this encode
+        let address_hash_hex = hex::encode(address_hash);
 
         for i in 0..address.len() {
             let n = i64::from_str_radix(&address_hash_hex.chars().nth(i).unwrap().to_string(), 16)
@@ -76,5 +71,13 @@ mod test {
     }
 
     #[test]
-    fn test_checksummed_address() {}
+    fn test_checksummed_address() {
+        let address_orignial = "0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359";
+        let address_checksummed = EthAddress::address_checksummed(address_orignial);
+        println!("checksummed address is {}", address_checksummed);
+        assert_eq!(
+            address_checksummed,
+            "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359".to_string()
+        );
+    }
 }
