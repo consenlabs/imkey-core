@@ -81,10 +81,13 @@ pub extern "C" fn get_seid() -> *const c_char{
 
 fn get_seid_internal() -> *const c_char{
     debug!("get_seid_internal...");
-    set_apdu_r(String::from("00A4040000"));
-    get_apdu_return_r();
-    set_apdu_r(String::from("80CB800005DFFF028101"));
-    CString::new(get_apdu_return_r()).unwrap().into_raw()
+    // set_apdu_r(String::from("00A4040000"));
+    // get_apdu_return_r();
+    // set_apdu_r(String::from("80CB800005DFFF028101"));
+    // CString::new(get_apdu_return_r()).unwrap().into_raw()
+    send_apdu(String::from("00A4040000"));
+    let res = send_apdu(String::from("80CB800005DFFF028101"));
+    CString::new(res).unwrap().into_raw()
 }
 
 static mut VAR: i32 = 5;
@@ -186,6 +189,12 @@ pub extern "C" fn set_apdu_return(apdu_return:*const c_char){
 //         }
 //     }
 // }
+
+
+pub fn send_apdu(apdu:String) -> String{
+    set_apdu_r(apdu);
+    get_apdu_return_r()
+}
 
 #[test]
 fn test_str() {
