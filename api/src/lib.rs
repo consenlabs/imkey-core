@@ -52,7 +52,6 @@ pub extern "C" fn rust_hello_free(s: *mut c_char) {
 }
 
 #[no_mangle]
-<<<<<<< HEAD
 pub extern "C" fn get_se_id(
     callback: extern "C" fn(apdu: *const c_char) -> *const c_char,
 ) -> *const c_char {
@@ -63,23 +62,6 @@ pub extern "C" fn get_se_id(
             .into_raw(),
     )
 }
-=======
-pub extern "C" fn setSendFunc(func: extern "C" fn(apdu:*const c_char)->*const c_char){
-    FUNCS.lock().unwrap().clear();
-    FUNCS.lock().unwrap().push(func);
-}
-
-// #[no_mangle]
-// pub extern "C" fn get_se_id() -> *const c_char {
-//     let funcs = &FUNCS.into_inner().unwrap();
-//     funcs[0](CString::new("00A4040000".to_owned())
-//         .unwrap()
-//         .into_raw());
-//     funcs[0](CString::new("80CB800005DFFF028101".to_owned())
-//         .unwrap()
-//         .into_raw())
-// }
->>>>>>> del get_se_id method
 
 // #[no_mangle]
 // pub extern "C" fn get_se_id(callback: extern "C" fn(apdu:*const c_char)->*const c_char) -> *const c_char {
