@@ -1,15 +1,21 @@
 use hex;
 use keccak_hash::keccak;
 use regex::Regex;
+use common::error::Error;
 
 #[derive(Debug)]
 pub struct EthAddress {}
 
 impl EthAddress {
-    pub fn address_from_pubkey(pubkey: Vec<u8>) -> String {
+    pub fn address_from_pubkey(pubkey: Vec<u8>) -> Result<String, Error> {
+        //length check
+        if pubkey.len() != 64 {
+            return Err(Error::PubKeyError);
+        }
+
         let pubkey_hash = keccak(pubkey);
         let addr_bytes = &pubkey_hash[12..];
-        hex::encode(addr_bytes) //@@XM TODO: check this encode
+        Ok(hex::encode(addr_bytes))
     }
 
     pub fn address_checksummed(address: &str) -> String {
@@ -41,4 +47,24 @@ impl EthAddress {
 
         return checksum_address;
     }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_pubkey_to_address() {
+        let pubkey_string = "efb99d9860f4dec4cb548a5722c27e9ef58e37fbab9719c5b33d55c216db49311221a01f638ce5f255875b194e0acaa58b19a89d2e56a864427298f826a7f887";
+
+        let address_derived = EthAddress::address_from_pubkey(hex::decode(pubkey_string).unwrap()).unwrap();
+        println!("address is {}", address_derived);
+        assert_eq!(
+            address_derived,
+            "c2d7cf95645d33006175b78989035c7c9061d3f9".to_string()
+        );
+    }
+
+    #[test]
+    fn test_checksummed_address() {}
 }

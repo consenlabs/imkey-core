@@ -18,7 +18,7 @@ impl EthereumAddress {
         let pubkey_res = String::from("mock for pubkey"); //@@XM TODO: replace with real result
         let pubkey_raw = hex_to_bytes(&pubkey_res[2..130]).map_err(|_err| Error::PubKeyError)?;
 
-        let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone());
+        let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;
         Ok(address_main)
     }
 }
