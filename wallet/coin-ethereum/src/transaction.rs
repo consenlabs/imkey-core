@@ -1,9 +1,9 @@
 use crate::address::EthAddress;
+use crate::types::{Action, Signature};
 use bitcoin::hashes::{sha256d, Hash};
 use common::apdu;
 use common::error::Error;
 use common::utility::hex_to_bytes;
-use dotenv::dotenv;
 use ethereum_types::{Address, H256, U256};
 use keccak_hash::keccak;
 use lazy_static::lazy_static;
@@ -11,68 +11,9 @@ use rlp::{self, DecoderError, Encodable, Rlp, RlpStream};
 use secp256k1::key::{PublicKey, SecretKey};
 use secp256k1::recovery::{RecoverableSignature, RecoveryId};
 use secp256k1::{self, Message as SecpMessage, Secp256k1};
-use std::env;
 
 lazy_static! {
     pub static ref SECP256K1: secp256k1::Secp256k1<secp256k1::All> = secp256k1::Secp256k1::new();
-}
-
-/// Transaction action type.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub enum Action {
-    /// Create creates new contract.
-    Create,
-    /// Calls contract at given address.
-    /// In the case of a transfer, this is the receiver's address.'
-    Call(Address),
-}
-
-impl Default for Action {
-    fn default() -> Action {
-        Action::Create
-    }
-}
-
-impl rlp::Decodable for Action {
-    fn decode(rlp: &Rlp) -> Result<Self, DecoderError> {
-        if rlp.is_empty() {
-            if rlp.is_data() {
-                Ok(Action::Create)
-            } else {
-                Err(DecoderError::RlpExpectedToBeData)
-            }
-        } else {
-            Ok(Action::Call(rlp.as_val()?))
-        }
-    }
-}
-
-impl rlp::Encodable for Action {
-    fn rlp_append(&self, s: &mut RlpStream) {
-        match *self {
-            Action::Create => s.append_internal(&""),
-            Action::Call(ref addr) => s.append_internal(addr),
-        };
-    }
-}
-
-pub struct Signature([u8; 65]);
-
-impl Signature {
-    /// Get a slice into the 'r' portion of the data.
-    pub fn r(&self) -> &[u8] {
-        &self.0[0..32]
-    }
-
-    /// Get a slice into the 's' portion of the data.
-    pub fn s(&self) -> &[u8] {
-        &self.0[32..64]
-    }
-
-    /// Get the recovery byte.
-    pub fn v(&self) -> u8 {
-        self.0[64]
-    }
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Eq)]
@@ -163,7 +104,7 @@ impl Transaction {
         let sign_compact = &sign_res[2..130];
         let sign_compact_vec = hex_to_bytes(sign_compact).map_err(|_err| Error::SignError)?;
 
-        let secp_context = Secp256k1::new(); //@@XM TODO: use the one in lazy_staic later
+        let secp_context = &SECP256K1;
         let msg_hash = self.hash(chain_id);
         let msg_to_sign =
             &SecpMessage::from_slice(&msg_hash[..]).map_err(|_err| Error::MessageError)?;
@@ -205,21 +146,6 @@ impl Transaction {
         let mut stream = RlpStream::new();
         self.rlp_append_unsigned_transaction(&mut stream, chain_id);
         keccak(stream.as_raw())
-    }
-
-    pub fn sign_hash(&self, prvkey: &SecretKey, message: &H256) -> Result<Signature, Error> {
-        let context = &SECP256K1;
-        let s = context.sign_recoverable(
-            &SecpMessage::from_slice(&message[..]).map_err(|_err| Error::MessageError)?,
-            &prvkey,
-        );
-        let (rec_id, data) = s.serialize_compact();
-        let mut data_arr = [0; 65];
-
-        // no need to check if s is low, it always is
-        data_arr[0..64].copy_from_slice(&data[0..64]);
-        data_arr[64] = rec_id.to_i32() as u8;
-        Ok(Signature(data_arr))
     }
 
     pub fn rlp_append_unsigned_transaction(&self, s: &mut RlpStream, chain_id: Option<u64>) {
