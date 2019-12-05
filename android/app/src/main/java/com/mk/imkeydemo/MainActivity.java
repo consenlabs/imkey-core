@@ -226,11 +226,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void tempTest(){
 //        LogUtil.installApplet();
-        String res = LogUtil.getseidwithcallbacktest();
-        LogUtil.d(res);
+//        String res = LogUtil.getseidwithcallbacktest();
+//        LogUtil.d(res);
 
-//        String res = LogUtil.getSeid();
-//        LogUtil.d("getseid ....: " + res);
+        String res = LogUtil.getSeid();
+        LogUtil.d("getseid ....: " + res);
     }
 
     private void showSearchDialog() {
