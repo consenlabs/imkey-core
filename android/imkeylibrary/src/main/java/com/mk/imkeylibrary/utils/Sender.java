@@ -1,5 +1,7 @@
 package com.mk.imkeylibrary.utils;
 
-public interface Sender {
+import com.sun.jna.Callback;
+
+public interface Sender extends Callback{
     String sendApdu(String apdu);
 }
