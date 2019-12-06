@@ -3,11 +3,12 @@ use crate::types::{Action, Signature};
 use bitcoin::hashes::{sha256d, Hash};
 use common::apdu;
 use common::error::Error;
-use common::utility::hex_to_bytes;
 use common::path::check_path_validity;
+use common::utility::hex_to_bytes;
 use ethereum_types::{Address, H256, U256};
 use keccak_hash::keccak;
 use lazy_static::lazy_static;
+use mq::message::send_apdu;
 use rlp::{self, DecoderError, Encodable, Rlp, RlpStream};
 use secp256k1::key::{PublicKey, SecretKey};
 use secp256k1::recovery::{RecoverableSignature, RecoveryId};
@@ -71,22 +72,24 @@ impl Transaction {
         //hash data for verification sign
         let hash_data = sha256d::Hash::from_slice(&apdu_pack);
 
-        //TODO: sign using private key
-        let mut signature = Vec::new();
+        //TODO: sign using private key, here need to bypass the checking in applet
+        let mut signature = vec![0; 65];
         signature.insert(0, signature.len() as u8);
         signature.insert(0, 0);
         apdu_pack.splice(0..0, signature.iter().cloned()); //@@XM TODO: check this insertion
 
         //prepare apdu
         let msg_prepare = apdu::Apdu::eth_prepare(apdu_pack);
-        //TODO: send through bluetooth
+        for msg in msg_prepare {
+            let res = send_apdu(hex::encode(msg));
+        }
 
         //get public
         let msg_pubkey = apdu::Apdu::eth_pub(path, false);
-        //TODO: send through bluetooth
+        let res_msg_pubkey = send_apdu(hex::encode(msg_pubkey));
 
-        let pubkey_res = String::from("mock for pubkey"); //@@XM TODO: replace with real result
-        let pubkey_raw = hex_to_bytes(&pubkey_res[2..130]).map_err(|_err| Error::PubKeyError)?;
+        let pubkey_raw =
+            hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError)?;
 
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;
         let address_checksummed = EthAddress::address_checksummed(&address_main);
@@ -96,13 +99,13 @@ impl Transaction {
         }
         //sign
         let msg_sign = apdu::Apdu::eth_sign(path);
-        //TODO: send through bluetooth
+        let res_msg_sign = send_apdu(msg_sign);
 
         //handle sign result
-        let sign_res = String::from("mock for signature"); //@@XM TODO: replace with real result
-                                                           //let r = &sign_res[2..66];
-                                                           //let s = &sign_res[66..130];
-        let sign_compact = &sign_res[2..130];
+        //let sign_res = String::from("mock for signature"); //@@XM TODO: replace with real result
+        //let r = &sign_res[2..66];
+        //let s = &sign_res[66..130];
+        let sign_compact = &res_msg_sign[2..130];
         let sign_compact_vec = hex_to_bytes(sign_compact).map_err(|_err| Error::SignError)?;
 
         let msg_hash = self.hash(chain_id);
