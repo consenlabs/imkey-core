@@ -5,6 +5,7 @@ pub mod se_activate;
 pub mod se_query;
 pub mod se_secure_check;
 extern crate common;
+pub mod manager;
 
 #[cfg(test)]
 mod tests {

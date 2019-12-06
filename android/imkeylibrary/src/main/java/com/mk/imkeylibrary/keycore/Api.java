@@ -48,4 +48,8 @@ public class Api {
     public static void initRustLog(){
         RustApi.INSTANCE.init();
     }
+
+    public static void check_update(){
+        RustApi.INSTANCE.check_update();
+    }
 }
