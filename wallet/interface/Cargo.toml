@@ -10,4 +10,5 @@ edition = "2018"
 common = {path = "../../common"}
 coin-ethereum = {path = "../coin-ethereum"}
 ethereum-types = "0.6.0"
-hex = "0.3" 
+hex = "0.3"
+mq = {path = "../../mq"} 
