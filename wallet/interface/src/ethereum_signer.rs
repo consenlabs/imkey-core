@@ -17,11 +17,11 @@ impl EthereumSigner {
         value: U256,
         data: Vec<u8>,
         chain_id: Option<u64>,
-        path: &String,
-        payment: &String,
-        receiver: &String,
-        sender: &String,
-        fee: &String,
+        path: &str,
+        payment: &str,
+        receiver: &str,
+        sender: &str,
+        fee: &str,
     ) -> Result<TxSignResult, Error> {
         let eth_tx = Transaction {
             nonce: nonce,
