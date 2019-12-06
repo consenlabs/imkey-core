@@ -1,7 +1,7 @@
 use crate::error::Error;
 use regex::Regex;
 
-pub fn check_path_validity(path: &String) -> Result<(), Error> {
+pub fn check_path_validity(path: &str) -> Result<(), Error> {
     //check depth
     let strings: Vec<&str> = path.split("/").collect();
     let depth = strings.len();

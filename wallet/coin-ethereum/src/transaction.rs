@@ -1,7 +1,7 @@
 use crate::address::EthAddress;
 use crate::types::{Action, Signature};
 use bitcoin::hashes::{sha256d, Hash};
-use common::apdu;
+use common::apdu::EthApdu;
 use common::error::Error;
 use common::path::check_path_validity;
 use common::utility::hex_to_bytes;
@@ -33,16 +33,16 @@ impl Transaction {
     pub fn sign(
         &self,
         chain_id: Option<u64>,
-        path: &String,
-        payment: &String,
-        receiver: &String,
-        sender: &String, //for address checking
-        fee: &String,
+        path: &str,
+        payment: &str,
+        receiver: &str,
+        sender: &str,
+        fee: &str,
     ) -> Result<(Vec<u8>, UnverifiedTransaction), Error> {
         //check path
         check_path_validity(path);
         //select applet
-        let msg_select = apdu::Apdu::eth_select();
+        let msg_select = EthApdu::select_applet();
         //organize data
         let mut apdu_pack = Vec::new();
         let encode_tx = self.rlp_encode_tx(chain_id);
@@ -79,13 +79,13 @@ impl Transaction {
         apdu_pack.splice(0..0, signature.iter().cloned()); //@@XM TODO: check this insertion
 
         //prepare apdu
-        let msg_prepare = apdu::Apdu::eth_prepare(apdu_pack);
+        let msg_prepare = EthApdu::prepare_sign(apdu_pack);
         for msg in msg_prepare {
             let res = send_apdu(hex::encode(msg));
         }
 
         //get public
-        let msg_pubkey = apdu::Apdu::eth_pub(path, false);
+        let msg_pubkey = EthApdu::get_pubkey(path, false);
         let res_msg_pubkey = send_apdu(hex::encode(msg_pubkey));
 
         let pubkey_raw =
@@ -98,7 +98,7 @@ impl Transaction {
             return Err(Error::AddressError);
         }
         //sign
-        let msg_sign = apdu::Apdu::eth_sign(path);
+        let msg_sign = EthApdu::sign_digest(path);
         let res_msg_sign = send_apdu(msg_sign);
 
         //handle sign result
