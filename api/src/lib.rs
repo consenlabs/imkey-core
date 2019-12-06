@@ -9,6 +9,8 @@ use mq::message;
 
 use android_logger::{Config, FilterBuilder};
 use log::Level;
+use android_logger::{Config,FilterBuilder};
+//use device::manager;
 
 #[no_mangle]
 pub extern "C" fn rust_hello(
@@ -110,3 +112,12 @@ pub extern "C" fn init() {
             ),
     );
 }
+
+#[no_mangle]
+pub extern "C" fn check_update(){
+//    manager::check_device();
+}
+
+
+
+

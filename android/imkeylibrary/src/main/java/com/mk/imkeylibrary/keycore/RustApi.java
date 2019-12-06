@@ -15,4 +15,6 @@ public interface RustApi extends Library{
 
     String get_se_id(Sender sender);
     void init();
+
+    void check_update();
 }

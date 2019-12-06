@@ -87,9 +87,9 @@ public class LogUtil {
         void init();
     }
 
-    static {
-        System.loadLibrary("connector");
-    }
+//    static {
+//        System.loadLibrary("connector");
+//    }
 
     public static void installApplet(){
         installApplet(new Sender() {
