@@ -390,6 +390,7 @@
 		000000003D20 /* secp256k1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000003D10 /* secp256k1.framework */; };
 		000000003D60 /* OrderedDictionary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000003D50 /* OrderedDictionary.framework */; };
 		000000003D90 /* SipHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000003B50 /* SipHash.framework */; };
+		D82BCBDE239DA438002CB230 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82BCBDD239DA438002CB230 /* API.swift */; };
 		D83079A82370B93500E58044 /* libconnector.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D83079A62370B93400E58044 /* libconnector.a */; };
 		D83079A92370B93500E58044 /* connector.h in Headers */ = {isa = PBXBuildFile; fileRef = D83079A72370B93500E58044 /* connector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -956,6 +957,7 @@
 		000000003CD0 /* CoreBitcoin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreBitcoin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		000000003D10 /* secp256k1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = secp256k1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		000000003D50 /* OrderedDictionary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OrderedDictionary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D82BCBDD239DA438002CB230 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		D83079A62370B93400E58044 /* libconnector.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libconnector.a; sourceTree = "<group>"; };
 		D83079A72370B93500E58044 /* connector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = connector.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1421,6 +1423,7 @@
 				0000000011B0 /* Encryptor */,
 				000000001770 /* Frameworks */,
 				000000001220 /* include */,
+				D82BCBDC239DA3A0002CB230 /* KeyCore */,
 				000000001780 /* Pod */,
 				0000000032D0 /* Support Files */,
 				000000001270 /* Util */,
@@ -1871,6 +1874,14 @@
 			);
 			name = "Pods-imKeyConnector_Tests";
 			path = "Target Support Files/Pods-imKeyConnector_Tests";
+			sourceTree = "<group>";
+		};
+		D82BCBDC239DA3A0002CB230 /* KeyCore */ = {
+			isa = PBXGroup;
+			children = (
+				D82BCBDD239DA438002CB230 /* API.swift */,
+			);
+			name = KeyCore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2651,6 +2662,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0000000031A0 /* AES128_ik.swift in Sources */,
+				D82BCBDE239DA438002CB230 /* API.swift in Sources */,
 				000000002F40 /* APDU.swift in Sources */,
 				0000000030B0 /* APPDelete.swift in Sources */,
 				0000000030C0 /* APPDownload.swift in Sources */,

@@ -70,6 +70,7 @@ class ViewController: UIViewController,BLEDelegate {
     
     //hello rust
 //    Log.test_ffi()
+    API.startMessageDeamon()
   }
   
   override func didReceiveMemoryWarning() {
@@ -239,7 +240,10 @@ class ViewController: UIViewController,BLEDelegate {
   }
   
   @IBAction func imkClick(_ sender: Any) {
-    Log.test_ffi()
+//    Log.test_ffi()
+//    Log.checkUpdate()
+    let seid = API.getSEID()
+    Log.d("seid: \(seid)")
   }
   
   @IBAction func cosmosClick(_ sender: Any) {

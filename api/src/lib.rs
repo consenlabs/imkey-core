@@ -1,16 +1,16 @@
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 
-#[macro_use]
-extern crate log;
-extern crate android_logger;
+//#[macro_use]
+//extern crate log;
+//extern crate android_logger;
 
 use mq::message;
 
-use android_logger::{Config, FilterBuilder};
-use log::Level;
-use android_logger::{Config,FilterBuilder};
-//use device::manager;
+//use android_logger::{Config, FilterBuilder};
+//use log::Level;
+//use android_logger::{Config,FilterBuilder};
+ use device::manager;
 
 #[no_mangle]
 pub extern "C" fn rust_hello(
@@ -73,7 +73,6 @@ pub extern "C" fn get_seid() -> *const c_char {
 
 //should move out
 fn get_seid_internal() -> *const c_char {
-    debug!("get_seid_internal...");
     message::send_apdu(String::from("00A4040000"));
     let res = message::send_apdu(String::from("80CB800005DFFF028101"));
     CString::new(res).unwrap().into_raw()
@@ -99,23 +98,23 @@ pub extern "C" fn set_apdu_return(apdu_return: *const c_char) {
     message::set_apdu_return(apdu_return);
 }
 
-#[no_mangle]
-pub extern "C" fn init() {
-    android_logger::init_once(
-        Config::default()
-            .with_min_level(Level::Trace)
-            .with_tag("imkey")
-            .with_filter(
-                FilterBuilder::new()
-                    .parse("debug,hello::crate=trace")
-                    .build(),
-            ),
-    );
-}
+//#[no_mangle]
+//pub extern "C" fn init() {
+//    android_logger::init_once(
+//        Config::default()
+//            .with_min_level(Level::Trace)
+//            .with_tag("imkey")
+//            .with_filter(
+//                FilterBuilder::new()
+//                    .parse("debug,hello::crate=trace")
+//                    .build(),
+//            ),
+//    );
+//}
 
 #[no_mangle]
 pub extern "C" fn check_update(){
-//    manager::check_device();
+    manager::check_device();
 }
 
 
