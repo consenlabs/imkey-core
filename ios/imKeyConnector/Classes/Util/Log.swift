@@ -52,4 +52,8 @@ public class Log{
     rust_hello_free(UnsafeMutablePointer(mutating: result2))
     print(swift_result2)
   }
+  
+  public static func checkUpdate(){
+    check_update()
+  }
 }

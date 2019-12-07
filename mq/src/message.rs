@@ -2,7 +2,7 @@ use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 use std::sync::Mutex;
 
-extern crate android_logger;
+//extern crate android_logger;
 
 lazy_static! {
 //    pub static ref CALLBACK: extern "C" fn(apdu:*const c_char)->*const c_char;
@@ -73,7 +73,7 @@ pub extern "C" fn get_seid() -> *const c_char {
 }
 
 fn get_seid_internal() -> *const c_char {
-    debug!("get_seid_internal...");
+    //debug!("get_seid_internal...");
     // set_apdu_r(String::from("00A4040000"));
     // get_apdu_return_r();
     // set_apdu_r(String::from("80CB800005DFFF028101"));
@@ -95,24 +95,24 @@ pub fn get_apdu() -> *const c_char {
     //         return CString::new(temp.to_owned()).unwrap().into_raw();
     //     }
     // }
-    // debug!("set_apdu_r...{}",apdu);
+    // //debug!("set_apdu_r...{}",apdu);
 
     let apdu = APDU.lock().unwrap();
     return CString::new(apdu.to_owned()).unwrap().into_raw();
 }
 
 fn set_apdu_r(apdu: String) {
-    debug!("set_apdu_r...{}", apdu);
+    //debug!("set_apdu_r...{}", apdu);
     println!("set_apdu_r...");
     loop {
         let mut _apdu = APDU.lock().unwrap();
         if *_apdu == "" {
-            debug!("is null set");
+            //debug!("is null set");
             println!("is null set");
             *_apdu = String::from(apdu.clone());
             break;
         } else {
-            debug!("not null...{}", _apdu);
+            //debug!("not null...{}", _apdu);
             println!("not null...{}", _apdu);
         }
         // thread::sleep(Duration::from_millis(1000));
@@ -124,21 +124,21 @@ pub fn set_apdu(apdu: *const c_char) {
     let c_str: &CStr = unsafe { CStr::from_ptr(apdu) };
     let str_slice: &str = c_str.to_str().unwrap();
     let str_buf: String = str_slice.to_owned();
-    debug!("set_apdu...{}", str_buf);
+    //debug!("set_apdu...{}", str_buf);
     *_apdu = str_buf;
 }
 
 fn get_apdu_return_r() -> String {
-    debug!("get_apdu_return_r");
+    //debug!("get_apdu_return_r");
     loop {
         let mut apdu_return = APDU_RETURN.lock().unwrap();
         if *apdu_return != "" {
-            debug!("get_apdu_return_r not null {}", apdu_return.clone());
+            //debug!("get_apdu_return_r not null {}", apdu_return.clone());
             let temp = apdu_return.clone();
             *apdu_return = String::from("");
             return String::from(temp.to_owned());
         } else {
-            debug!("get_apdu_return_r is null {}", apdu_return.clone());
+            //debug!("get_apdu_return_r is null {}", apdu_return.clone());
         }
         // thread::sleep(Duration::from_millis(1000));
     }
@@ -146,7 +146,7 @@ fn get_apdu_return_r() -> String {
 
 pub fn get_apdu_return() -> *const c_char {
     let apdu = APDU_RETURN.lock().unwrap();
-    debug!("get_apdu_return...{}", apdu.clone());
+    //debug!("get_apdu_return...{}", apdu.clone());
     return CString::new(apdu.to_owned()).unwrap().into_raw();
 }
 
@@ -155,7 +155,7 @@ pub fn set_apdu_return(apdu_return: *const c_char) {
     let c_str: &CStr = unsafe { CStr::from_ptr(apdu_return) };
     let str_slice: &str = c_str.to_str().unwrap();
     let str_buf: String = str_slice.to_owned();
-    debug!("set_apdu_return...{}", str_buf);
+    //debug!("set_apdu_return...{}", str_buf);
     *_apdu_return = str_buf;
 }
 
@@ -163,19 +163,19 @@ pub fn set_apdu_return(apdu_return: *const c_char) {
 // pub extern "C" fn set_apdu_return(apdu_return:*const c_char){
 //     loop{
 //         thread::sleep(Duration::from_millis(10));
-//         debug!("set_apdu_return...");
+//         //debug!("set_apdu_return...");
 //         let mut _apdu_return = APDU_RETURN.lock().unwrap();
 //         if *_apdu_return == ""{
-//             debug!("is null set...");
+//             //debug!("is null set...");
 //             thread::sleep(Duration::from_millis(200));
-//             debug!("start set...");
+//             //debug!("start set...");
 //             let c_str: &CStr = unsafe { CStr::from_ptr(apdu_return) };
 //             let str_slice: &str = c_str.to_str().unwrap();
 //             let str_buf: String = str_slice.to_owned();
 //             *_apdu_return = str_buf;
 //             break;
 //         }else{
-//             debug!("not null {}",_apdu_return);
+//             //debug!("not null {}",_apdu_return);
 //         }
 //     }
 // }

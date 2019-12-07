@@ -13,8 +13,6 @@ const char *get_se_id(const char *(*callback)(const char *apdu));
 
 const char *get_seid(void);
 
-void init(void);
-
 char *rust_hello(const char *to, const char *(*callback)(const char *apdu));
 
 void rust_hello_free(char *s);
