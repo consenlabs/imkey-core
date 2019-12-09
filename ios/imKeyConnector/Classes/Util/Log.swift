@@ -53,7 +53,7 @@ public class Log{
     print(swift_result2)
   }
   
-  public static func checkUpdate(){
-    check_update()
+  public static func checkDevice(){
+    check_device()
   }
 }

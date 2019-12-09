@@ -88,7 +88,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="DeviceManage"/>
                                 <connections>
-                                    <action selector="bindCheck:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EyU-es-A5c"/>
                                     <action selector="deviceManageClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7vr-FI-GfQ"/>
                                 </connections>
                             </button>
