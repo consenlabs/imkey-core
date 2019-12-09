@@ -52,4 +52,8 @@ public class API{
   public class func getSEID() ->String{
     return String(cString:get_seid())
   }
+  
+  public class func checkDevice(){
+    return check_update()
+  }
 }

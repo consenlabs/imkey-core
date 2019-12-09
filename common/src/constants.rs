@@ -1,4 +1,4 @@
-pub const URL: &str = "http://localhost:8080/imkey/";
+pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
 pub const TSM_ACTION_APP_DOWNLOAD: &str = "/appDownload";
