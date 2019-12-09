@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-void check_update(void);
+void check_device(void);
 
 const char *get_apdu(void);
 

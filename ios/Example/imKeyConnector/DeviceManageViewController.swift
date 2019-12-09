@@ -132,7 +132,7 @@ class DeviceManageViewController: UIViewController {
   @IBAction func checkDeviceClick(_ sender: Any) {
     do {
 //      try Manager.checkDevice(handle: handle)
-      API.
+      API.checkDevice()
       toastMsg(message: "success")
     } catch let e as ImkeyError {
       Log.d("!!!error:\(e.message)")

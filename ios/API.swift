@@ -54,6 +54,6 @@ public class API{
   }
   
   public class func checkDevice(){
-    return check_update()
+    return check_device()
   }
 }
