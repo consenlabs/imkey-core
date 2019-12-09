@@ -39,11 +39,11 @@ use std::io::Write;
 //use http::StatusCode;
 //use device::error::ImkeyError;
 use common::https;
-use device::key_manager::KeyManager;
 use device::device_binding::DeviceManage;
+use device::key_manager::KeyManager;
 
-pub mod key_manager;
 pub mod device_binding;
+pub mod key_manager;
 
 fn main() {
     //SE安全检查
@@ -170,74 +170,73 @@ fn main() {
     })
     */
     //}));
-//}
+    //}
 
-//fn test(req_data : Vec<u8>, action : &str)-> Result<String, ImkeyError>{
-//    let uri: hyper::Uri = "https://localhost:8443/imkey/seSecureCheck"
-//        .parse()
-//        .unwrap();
-//    let mut req = Request::new(Body::from(req_data));
-//    //    let mut req = Request::new(Body::empty());
-//    *req.method_mut() = Method::POST;
-//    *req.uri_mut() = uri.clone();
-//    req.headers_mut().insert(
-//        hyper::header::CONTENT_TYPE,
-//        HeaderValue::from_static("application/json"),
-//    );
-//
-//    let mut event_loop = Core::new().unwrap();
-//    let handle = event_loop.handle();
-//
-//    let https = hyper_tls::HttpsConnector::new(4).unwrap();
-//    let client = Client::builder().build::<_, hyper::Body>(https);
-//
-//    let work = client.request(req).and_then(|res| {
-//        println!("Response: {}", res.status());
-////        if(!res.status().is_success()){
-////            Err(ImkeyError::NETWORK_ERROR)
-////        }
-//        res.into_body()
-//            .fold(Vec::new(), |mut v, chunk| {
-//                v.extend(&chunk[..]);
-//                future::ok::<_, Error>(v)
-//            })
-//            .and_then(|chunks| {
-//                let s = String::from_utf8(chunks).unwrap();
-//                future::ok::<_, Error>(s)
-//            })
-//    });
-//
-//    let res_data = event_loop.run(work).unwrap();
-//    println!("We've made it outside the request! \
-//              We got back the following from our \
-//              request:\n");
-//    println!("{}", res_data);
-//    Ok(res_data)
-//}
+    //fn test(req_data : Vec<u8>, action : &str)-> Result<String, ImkeyError>{
+    //    let uri: hyper::Uri = "https://localhost:8443/imkey/seSecureCheck"
+    //        .parse()
+    //        .unwrap();
+    //    let mut req = Request::new(Body::from(req_data));
+    //    //    let mut req = Request::new(Body::empty());
+    //    *req.method_mut() = Method::POST;
+    //    *req.uri_mut() = uri.clone();
+    //    req.headers_mut().insert(
+    //        hyper::header::CONTENT_TYPE,
+    //        HeaderValue::from_static("application/json"),
+    //    );
+    //
+    //    let mut event_loop = Core::new().unwrap();
+    //    let handle = event_loop.handle();
+    //
+    //    let https = hyper_tls::HttpsConnector::new(4).unwrap();
+    //    let client = Client::builder().build::<_, hyper::Body>(https);
+    //
+    //    let work = client.request(req).and_then(|res| {
+    //        println!("Response: {}", res.status());
+    ////        if(!res.status().is_success()){
+    ////            Err(ImkeyError::NETWORK_ERROR)
+    ////        }
+    //        res.into_body()
+    //            .fold(Vec::new(), |mut v, chunk| {
+    //                v.extend(&chunk[..]);
+    //                future::ok::<_, Error>(v)
+    //            })
+    //            .and_then(|chunks| {
+    //                let s = String::from_utf8(chunks).unwrap();
+    //                future::ok::<_, Error>(s)
+    //            })
+    //    });
+    //
+    //    let res_data = event_loop.run(work).unwrap();
+    //    println!("We've made it outside the request! \
+    //              We got back the following from our \
+    //              request:\n");
+    //    println!("{}", res_data);
+    //    Ok(res_data)
+    //}
 
-//        se_query_request::build_request_data(seid, sn, None).se_query();
+    //        se_query_request::build_request_data(seid, sn, None).se_query();
 
-//    use key_manager::KeyManager;
-//    let mut temp = KeyManager::new();
-//    temp.gen_encrypt_key(&"18090000000000860001010000000204".to_string(), &"imKey01190300020".to_string());
-//    println!("{:?}", temp.encry_key.unwrap());
-//    println!("{:?}", temp.iv.unwrap());
-//    let r = KeyManager::get_key_file_data(&String::from("/Users/caixiaoguang/workspace/GIT/imkey-core/"), &"18090000000000860001010000000204".to_string());
-//    println!("{}", r);
-//
-//    temp.decrypt_keys(r.as_bytes());
-//    println!("\n");
-//    println!("encry_key value is : {:?}", temp.encry_key.unwrap());
-//    println!("check_sum value is : {:?}", temp.check_sum.unwrap());
-//    println!("session_key value is : {:?}", temp.session_key.unwrap());
-////    println!(se_pub_key value is : "{:?}", temp.se_pub_key.unwrap());
-////    println!(pub_key value is : "{:?}", temp.pub_key.unwrap());
-//    println!("pri_key value is : {:?}", temp.pri_key.unwrap());
-//    println!("iv value is : {:?}", temp.iv.unwrap());
-//
-//    //本地生成ECC密钥对
-//    temp.gen_local_keys();
+    //    use key_manager::KeyManager;
+    //    let mut temp = KeyManager::new();
+    //    temp.gen_encrypt_key(&"18090000000000860001010000000204".to_string(), &"imKey01190300020".to_string());
+    //    println!("{:?}", temp.encry_key.unwrap());
+    //    println!("{:?}", temp.iv.unwrap());
+    //    let r = KeyManager::get_key_file_data(&String::from("/Users/caixiaoguang/workspace/GIT/imkey-core/"), &"18090000000000860001010000000204".to_string());
+    //    println!("{}", r);
+    //
+    //    temp.decrypt_keys(r.as_bytes());
+    //    println!("\n");
+    //    println!("encry_key value is : {:?}", temp.encry_key.unwrap());
+    //    println!("check_sum value is : {:?}", temp.check_sum.unwrap());
+    //    println!("session_key value is : {:?}", temp.session_key.unwrap());
+    ////    println!(se_pub_key value is : "{:?}", temp.se_pub_key.unwrap());
+    ////    println!(pub_key value is : "{:?}", temp.pub_key.unwrap());
+    //    println!("pri_key value is : {:?}", temp.pri_key.unwrap());
+    //    println!("iv value is : {:?}", temp.iv.unwrap());
+    //
+    //    //本地生成ECC密钥对
+    //    temp.gen_local_keys();
 
     DeviceManage::bind_check();
-
 }
