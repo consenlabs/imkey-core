@@ -7,16 +7,11 @@ use std::os::raw::c_char;
 
 use mq::message;
 
-<<<<<<< HEAD
 //use android_logger::{Config, FilterBuilder};
 //use log::Level;
 //use android_logger::{Config,FilterBuilder};
- use device::manager;
-=======
-use android_logger::{Config, FilterBuilder};
-use log::Level;
-//use device::manager;
->>>>>>> ec2336d649ba4ed0c7e3425d7e9ba8381eb49f2f
+use device::manager;
+
 
 #[no_mangle]
 pub extern "C" fn rust_hello(
@@ -119,11 +114,6 @@ pub extern "C" fn set_apdu_return(apdu_return: *const c_char) {
 //}
 
 #[no_mangle]
-<<<<<<< HEAD
 pub extern "C" fn check_device(){
     manager::check_device();
-=======
-pub extern "C" fn check_update() {
-    //    manager::check_device();
->>>>>>> ec2336d649ba4ed0c7e3425d7e9ba8381eb49f2f
 }
