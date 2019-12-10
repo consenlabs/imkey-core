@@ -1,7 +1,6 @@
 use common::constants::{TSM_ACTION_SE_SECURE_CHECK, TSM_RETURN_CODE_SUCCESS};
 use common::{error::ImkeyError, https};
 use mq::message;
-use mq::message::send_apdu;
 use serde::{Deserialize, Serialize};
 
 // SE安全检查请求bean
@@ -71,7 +70,7 @@ impl se_secure_check_request {
                         for (index_val, apdu_val) in apdu_list.iter().enumerate() {
                             //调用发送指令接口，并获取执行结果
                             println!("apdu --> {}", apdu_val);
-                            let res = send_apdu(apdu_val.to_string());
+                            let res = message::send_apdu(apdu_val.to_string());
 
                             let status_word = "9000";
 

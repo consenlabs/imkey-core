@@ -116,3 +116,8 @@ pub extern "C" fn set_apdu_return(apdu_return: *const c_char) {
 pub extern "C" fn check_device() {
     manager::check_device();
 }
+
+#[no_mangle]
+pub extern "C" fn active_device() {
+    manager::active_device();
+}
