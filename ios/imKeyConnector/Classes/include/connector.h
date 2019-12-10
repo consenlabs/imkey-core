@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+void active_device(void);
+
 void check_device(void);
 
 const char *get_apdu(void);
