@@ -204,4 +204,8 @@ fn test_str() {
     }
 
     set_apdu_r("test".to_string());
+
+    let hello = "hello123456".to_string();
+    let s:String = hello.chars().skip(hello.len()-4).take(4).collect();
+    println!("s:{}",s)
 }

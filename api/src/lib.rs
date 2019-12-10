@@ -12,7 +12,6 @@ use mq::message;
 //use android_logger::{Config,FilterBuilder};
 use device::manager;
 
-
 #[no_mangle]
 pub extern "C" fn rust_hello(
     to: *const c_char,
@@ -114,6 +113,6 @@ pub extern "C" fn set_apdu_return(apdu_return: *const c_char) {
 //}
 
 #[no_mangle]
-pub extern "C" fn check_device(){
+pub extern "C" fn check_device() {
     manager::check_device();
 }
