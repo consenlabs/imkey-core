@@ -102,6 +102,50 @@ impl Apdu {
         apdu.push(0x00); //le
         hex::encode(apdu)
     }
+
+    /**
+    binding check apdu build
+    */
+    pub fn bind_check(data : &Vec<u8>) -> String{
+        if data.len() > 256{
+            panic!("data to long");
+        }
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(0x71);
+        apdu.push(0x00);
+        apdu.push(0x00);
+        apdu.push(data.len() as u8);
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+    /**
+    binding check apdu build
+    */
+    pub fn generate_auth_code() -> String{
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(0x72);
+        apdu.push(0x00);
+        apdu.push(0x00);
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+    pub fn identity_verify(data : &Vec<u8>) -> String{
+        if data.len() > 256{
+            panic!("data to long");
+        }
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(0x73);
+        apdu.push(0x80);
+        apdu.push(0x00);
+        apdu.push(data.len() as u8);
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
 }
 
 pub struct EthApdu {}
@@ -149,6 +193,7 @@ pub fn get_xpub(path: &str, verify_flag: bool) -> String {
     println!("get xpub apdu -->{}", apdu.to_hex().to_uppercase());
     apdu.to_hex().to_uppercase()
 }
+
 /**
 binding check apdu build
 */
@@ -163,21 +208,6 @@ pub fn bind_check(data: &Vec<u8>) -> String {
     apdu.push(0x00);
     apdu.push(data.len() as u8);
     apdu.extend(data.iter());
-    apdu.push(0x00);
-    apdu.to_hex().to_uppercase()
-}
-
-/**
-select applet apdu
-*/
-pub fn select(aid: &Vec<u8>) -> String {
-    let mut apdu = Vec::new();
-    apdu.push(0x00);
-    apdu.push(0xA4);
-    apdu.push(0x04);
-    apdu.push(0x00);
-    apdu.push(aid.len() as u8);
-    apdu.extend(aid.iter());
     apdu.push(0x00);
     apdu.to_hex().to_uppercase()
 }
