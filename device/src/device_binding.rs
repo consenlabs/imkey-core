@@ -1,10 +1,22 @@
 use crate::key_manager::KeyManager;
 use common::apdu;
 use sha1::Sha1;
-pub struct DeviceManage {}
+use common::apdu::Apdu;
+use hex::FromHex;
+use secp256k1::ecdh::SharedSecret;
+use secp256k1::{PublicKey, SecretKey};
+use rsa::{PublicKey as RSAPublic, RSAPrivateKey, PaddingScheme};
+use rand::rngs::OsRng;
 
-impl DeviceManage {
-    pub fn bind_check() {
+pub struct DeviceManage{key_manager : KeyManager}
+
+impl DeviceManage{
+    pub fn new() -> DeviceManage{
+        DeviceManage{
+            key_manager : KeyManager::new(),
+        }
+    }
+    pub fn bind_check(&mut self){
         //获取seid
         let seid = String::from("18090000000000860001010000000204");
         //获取SN号
@@ -12,6 +24,7 @@ impl DeviceManage {
 
         //计算文件加密密钥
         let mut temp_key_manager = KeyManager::new();
+//        let mut temp_key_manager = &self.key_manager;
         temp_key_manager.gen_encrypt_key(&seid, &sn);
 
         //获取本地密钥文件内容
@@ -29,7 +42,7 @@ impl DeviceManage {
         }
 
         //发送指令
-        select_imk_applet();
+//        select_imk_applet();
         //生成bindcheck指令
         let bind_check_apdu = apdu::bind_check(&temp_key_manager.pub_key.unwrap().to_vec());
         //发送bindcheck指令，并获取返回数据
@@ -64,13 +77,36 @@ impl DeviceManage {
             }
         }
     }
-}
-use common::apdu::Apdu;
-use hex::FromHex;
-use secp256k1::ecdh::SharedSecret;
-use secp256k1::{PublicKey, SecretKey};
 
-fn select_imk_applet() {
-    let select_imkey = apdu::select(&Vec::from_hex("695F696D6B").unwrap());
-    //发送指令到设备
+    pub fn bind_acquire(&self, binding_code : &String){
+        let temp_binding_code = binding_code.to_uppercase();
+        //绑定码校验 TODO
+        let reg_ex = "^[A-HJ-NP-Z2-9]{8}$";
+
+        //加密绑定码
+        let mut rng = OsRng::new().expect("no secure randomness available");
+        let bits = 2048;
+        let key = RSAPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
+
+        // Encrypt
+//        let data = binding_code.as_bytes();
+//        let enc_data = key.encrypt(&mut rng, PaddingScheme::PKCS1v15, &data[..]).expect("failed to encrypt");
+//        let temp_enc_data = hex::encode(enc_data);
+        //保存验证码 TODO
+
+        //选择IMK applet
+
+//        assert_ne!(&data[..], &enc_data[..]);
+//
+//        // Decrypt
+//        let dec_data = key.decrypt(PaddingScheme::PKCS1v15, &enc_data).expect("failed to decrypt");
+//        assert_eq!(&data[..], &dec_data[..]);
+
+    }
+}
+
+pub fn select_imk_applet(){
+    let select_imkey = Apdu::select_applet("695F696D6B");
+    //把指令把指令发送到设备
+
 }

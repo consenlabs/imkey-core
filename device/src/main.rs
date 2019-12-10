@@ -70,7 +70,7 @@ fn main() {
     //        se_activate_request::build_request_data(seid, sn, device_cert).se_activate();
 
     //SE应用信息查询
-    se_query_request::build_request_data(seid, sn, None).se_query();
+//    se_query_request::build_request_data(seid, sn, None).se_query();
 
     //hyper test
 
@@ -238,5 +238,8 @@ fn main() {
     //    //本地生成ECC密钥对
     //    temp.gen_local_keys();
 
-    DeviceManage::bind_check();
+//    let device_manager = DeviceManage::new();
+//    device_manager.bind_check();
+//    device_manager.bind_acquire(&"xxxxxxxxx".to_string());
+
 }
