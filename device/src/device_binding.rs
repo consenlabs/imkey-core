@@ -1,13 +1,13 @@
 use crate::key_manager::KeyManager;
 use common::apdu;
-use sha1::Sha1;
 use common::apdu::Apdu;
 use hex::FromHex;
-use secp256k1::ecdh::SharedSecret;
-use secp256k1::{PublicKey, SecretKey};
-use rsa::{PublicKey as RSAPublic, RSAPrivateKey, PaddingScheme};
 use rand::rngs::OsRng;
 use ring::digest;
+use rsa::{PaddingScheme, PublicKey as RSAPublic, RSAPrivateKey};
+use secp256k1::ecdh::SharedSecret;
+use secp256k1::{PublicKey, SecretKey};
+use sha1::Sha1;
 extern crate aes_soft as aes;
 use aes::Aes128;
 use block_modes::block_padding::Pkcs7;
@@ -15,22 +15,24 @@ use block_modes::{BlockMode, Cbc};
 
 //use crate::auth_code_storage::auth_code_storage_request;
 
-pub struct DeviceManage{key_manager : KeyManager}
+pub struct DeviceManage {
+    key_manager: KeyManager,
+}
 
-impl DeviceManage{
-    pub fn new() -> DeviceManage{
-        DeviceManage{
-            key_manager : KeyManager::new(),
+impl DeviceManage {
+    pub fn new() -> DeviceManage {
+        DeviceManage {
+            key_manager: KeyManager::new(),
         }
     }
-    pub fn bind_check(&mut self){
+    pub fn bind_check(&mut self) {
         //获取seid
         let seid = String::from("18090000000000860001010000000204");
         //获取SN号
         let sn = String::from("imKey01190300020");
 
         //计算文件加密密钥
-//        let mut temp_key_manager = KeyManager::new();
+        //        let mut temp_key_manager = KeyManager::new();
         let mut temp_key_manager = &mut self.key_manager;
         temp_key_manager.gen_encrypt_key(&seid, &sn);
 
@@ -49,7 +51,7 @@ impl DeviceManage{
         }
 
         //发送指令
-//        select_imk_applet();
+        //        select_imk_applet();
         //生成bindcheck指令
         let bind_check_apdu = apdu::bind_check(&temp_key_manager.pub_key.unwrap().to_vec());
         //发送bindcheck指令，并获取返回数据
@@ -85,7 +87,7 @@ impl DeviceManage{
         }
     }
 
-    pub fn bind_acquire(&self, binding_code : &String){
+    pub fn bind_acquire(&self, binding_code: &String) {
         let temp_binding_code = binding_code.to_uppercase();
         //绑定码校验 TODO
         let reg_ex = "^[A-HJ-NP-Z2-9]{8}$";
@@ -97,35 +99,45 @@ impl DeviceManage{
 
         let binding_code_bytes = temp_binding_code.as_bytes();
         println!("绑定码bytes{:?}", binding_code_bytes);
-        let enc_data = key.encrypt(&mut rng, PaddingScheme::PKCS1v15, &binding_code_bytes).expect("failed to encrypt");
+        let enc_data = key
+            .encrypt(&mut rng, PaddingScheme::PKCS1v15, &binding_code_bytes)
+            .expect("failed to encrypt");
         let temp_enc_data = hex::encode(enc_data);
         println!("绑定码密文值：{:?}", temp_enc_data);
 
         //保存验证码 TODO
-//        let seid = String::from("18090000000000860001010000000204");
-//        let auth_code_storage_result = auth_code_storage_request::build_request_data(seid, temp_enc_data).auth_code_storage();
-//        if auth_code_storage_result.is_err() {
-//            //TODO
-//        }
+        //        let seid = String::from("18090000000000860001010000000204");
+        //        let auth_code_storage_result = auth_code_storage_request::build_request_data(seid, temp_enc_data).auth_code_storage();
+        //        if auth_code_storage_result.is_err() {
+        //            //TODO
+        //        }
 
         //选择IMK applet
         select_imk_applet();
 
         //计算HASH
-        let mut data : Vec<u8> = Vec::new();
+        let mut data: Vec<u8> = Vec::new();
         data.extend(binding_code_bytes);
         data.extend(self.key_manager.pub_key.unwrap().iter());
         println!("pub_key:{:?}", self.key_manager.pub_key.unwrap().iter());
         data.extend(self.key_manager.se_pub_key.unwrap().iter());
-        println!("se_pub_key:{:?}", self.key_manager.se_pub_key.unwrap().iter());
+        println!(
+            "se_pub_key:{:?}",
+            self.key_manager.se_pub_key.unwrap().iter()
+        );
         let data_hash = digest::digest(&digest::SHA256, data.as_slice());
         println!("hash value:{:?}", data_hash.as_ref());
         //用sessionKey加密HASH值
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
-        println!("session_key:{:?}", self.key_manager.session_key.unwrap().iter());
-        let cipher =
-            Aes128Cbc::new_var(self.key_manager.session_key.unwrap().as_ref(),
-                               &gen_iv(&temp_binding_code).as_ref()).unwrap();
+        println!(
+            "session_key:{:?}",
+            self.key_manager.session_key.unwrap().iter()
+        );
+        let cipher = Aes128Cbc::new_var(
+            self.key_manager.session_key.unwrap().as_ref(),
+            &gen_iv(&temp_binding_code).as_ref(),
+        )
+        .unwrap();
         let ciphertext = cipher.encrypt_vec(data.as_ref());
         println!("ciphertext:{:?}", ciphertext.as_slice());
         //生成identityVerify指令数据
@@ -138,13 +150,12 @@ impl DeviceManage{
     }
 }
 
- fn select_imk_applet(){
+fn select_imk_applet() {
     let select_imkey = Apdu::select_applet("695F696D6B");
     //把指令把指令发送到设备
-
 }
 
-fn gen_iv(auth_code : &String) -> [u8; 16]{
+fn gen_iv(auth_code: &String) -> [u8; 16] {
     let salt_bytes = digest::digest(&digest::SHA256, "bindingCode".as_bytes());
     let auth_code_hash = digest::digest(&digest::SHA256, auth_code.as_bytes());
     println!("{:?}", salt_bytes.as_ref());

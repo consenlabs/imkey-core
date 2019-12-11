@@ -20,6 +20,3 @@ device = {path = "../device"}
 [lib]
 name="connector"
 crate-type=["staticlib","cdylib"]
-
-[target.arm-linux-androideabi.openssl]
-rustc-flags = "-L /path/to/libraries -l ssl -lcrypto"

@@ -19,5 +19,5 @@ jni = {version = "0.10.2", default-features = false}
 # jni-sys = "0.3.0"
 
 [lib]
-name="connector"
+name="test"
 crate-type=["staticlib","cdylib"]
