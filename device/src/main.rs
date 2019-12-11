@@ -44,6 +44,10 @@ use device::key_manager::KeyManager;
 
 pub mod device_binding;
 pub mod key_manager;
+use base64::{decode, encode};
+use rsa::{RSAPublicKey, BigUint, PublicKey, PaddingScheme, RSAPrivateKey};
+use hex::FromHex;
+use rand::rngs::OsRng;
 
 fn main() {
     //SE安全检查
@@ -72,174 +76,53 @@ fn main() {
     //SE应用信息查询
 //    se_query_request::build_request_data(seid, sn, None).se_query();
 
-    //hyper test
-
-    //    let reqdata = se_secure_check_request {
-    //        seid: seid,
-    //        sn: sn,
-    //        deviceCert: device_cert,
-    //        stepKey: String::from("01"),
-    //        statusWord: None,
-    //        commandID: String::from("seSecureCheck"),
-    //        cardRetDataList: None,
-    //    };
-    //    let req_data = serde_json::to_vec_pretty(&reqdata).unwrap();
-    //    println!("{:?}", req_data);
-
-    //    let json = r#"{"library":"hyper"}"#;
-    //    let uri: hyper::Uri = "https://localhost:8443/imkey/seSecureCheck"
-    //        .parse()
-    //        .unwrap();
-    //    let mut req = Request::new(Body::from(resdata));
-    //    //    let mut req = Request::new(Body::empty());
-    //    *req.method_mut() = Method::POST;
-    //    *req.uri_mut() = uri.clone();
-    //    req.headers_mut().insert(
-    //        hyper::header::CONTENT_TYPE,
-    //        HeaderValue::from_static("application/json"),
-    //    );
-    //
-    //    let mut event_loop = Core::new().unwrap();
-    //    let handle = event_loop.handle();
-    //
-    //    //rt::run(rt::lazy(|| {
-    //    // 4 is number of blocking DNS threads
-    //    let https = hyper_tls::HttpsConnector::new(4).unwrap();
-    //    let client = Client::builder().build::<_, hyper::Body>(https);
-    //
-    //    let work = client.request(req).and_then(|res| {
-    //        println!("Response: {}", res.status());
-    //        //println!("Headers: \n{}", res.headers());
-    //
-    //        res.into_body()
-    //            .fold(Vec::new(), |mut v, chunk| {
-    //                v.extend(&chunk[..]);
-    //                future::ok::<_, Error>(v)
-    //            })
-    //            .and_then(|chunks| {
-    //                let s = String::from_utf8(chunks).unwrap();
-    //                future::ok::<_, Error>(s)
-    //            })
-    //    });
-    //
-    //    let user = event_loop.run(work).unwrap();
-    //    println!("We've made it outside the request! \
-    //              We got back the following from our \
-    //              request:\n");
-    //    println!("{}", user);
-
-    //GET
-    //        client
-    //            .get("https://localhost:8443/imkey/test".parse().unwrap()).map(|res|{
-    //            println!("{}", res.status());
-    //        }).map_err(|e|{
-    //            println!("request error: {}", e);
-    //        })
-
-    //        let future = client.request(req).and_then(|body|{
-    //
-    //            let s = ::std::str::from_utf8(&body.into()).expect("httpbin sends utf-8 JSON");
-    //            println!("{}", s);
-    //        });
-
-    //POST
-    /*
-    client.request(req).and_then(|res| {
-        println!("Response: {}", res.status());
-        /*
-        res
-                .into_body()
-                // Body is a stream, so as each chunk arrives...
-                .for_each(|chunk| {
-                    io::stdout()
-                        .write_all(&chunk)
-                        .map_err(|e| {
-                            panic!("example expects stdout is open, error={}", e)
-                        })
-                })
-        */
-        res.body()
-            .fold(Vec::new(), |mut v, chunk| {
-                v.extend(&chunk[..]);
-                //future::ok::<_, _>(v);
-            })
-            .and_then(|chunks| {
-                let s = String::from_utf8(chunks).unwrap();
-                //future::ok::<_, _>(s);
-            })
-    })
-    */
-    //}));
-    //}
-
-    //fn test(req_data : Vec<u8>, action : &str)-> Result<String, ImkeyError>{
-    //    let uri: hyper::Uri = "https://localhost:8443/imkey/seSecureCheck"
-    //        .parse()
-    //        .unwrap();
-    //    let mut req = Request::new(Body::from(req_data));
-    //    //    let mut req = Request::new(Body::empty());
-    //    *req.method_mut() = Method::POST;
-    //    *req.uri_mut() = uri.clone();
-    //    req.headers_mut().insert(
-    //        hyper::header::CONTENT_TYPE,
-    //        HeaderValue::from_static("application/json"),
-    //    );
-    //
-    //    let mut event_loop = Core::new().unwrap();
-    //    let handle = event_loop.handle();
-    //
-    //    let https = hyper_tls::HttpsConnector::new(4).unwrap();
-    //    let client = Client::builder().build::<_, hyper::Body>(https);
-    //
-    //    let work = client.request(req).and_then(|res| {
-    //        println!("Response: {}", res.status());
-    ////        if(!res.status().is_success()){
-    ////            Err(ImkeyError::NETWORK_ERROR)
-    ////        }
-    //        res.into_body()
-    //            .fold(Vec::new(), |mut v, chunk| {
-    //                v.extend(&chunk[..]);
-    //                future::ok::<_, Error>(v)
-    //            })
-    //            .and_then(|chunks| {
-    //                let s = String::from_utf8(chunks).unwrap();
-    //                future::ok::<_, Error>(s)
-    //            })
-    //    });
-    //
-    //    let res_data = event_loop.run(work).unwrap();
-    //    println!("We've made it outside the request! \
-    //              We got back the following from our \
-    //              request:\n");
-    //    println!("{}", res_data);
-    //    Ok(res_data)
-    //}
-
-    //        se_query_request::build_request_data(seid, sn, None).se_query();
-
-    //    use key_manager::KeyManager;
-    //    let mut temp = KeyManager::new();
-    //    temp.gen_encrypt_key(&"18090000000000860001010000000204".to_string(), &"imKey01190300020".to_string());
-    //    println!("{:?}", temp.encry_key.unwrap());
-    //    println!("{:?}", temp.iv.unwrap());
-    //    let r = KeyManager::get_key_file_data(&String::from("/Users/caixiaoguang/workspace/GIT/imkey-core/"), &"18090000000000860001010000000204".to_string());
-    //    println!("{}", r);
-    //
-    //    temp.decrypt_keys(r.as_bytes());
-    //    println!("\n");
-    //    println!("encry_key value is : {:?}", temp.encry_key.unwrap());
-    //    println!("check_sum value is : {:?}", temp.check_sum.unwrap());
-    //    println!("session_key value is : {:?}", temp.session_key.unwrap());
-    ////    println!(se_pub_key value is : "{:?}", temp.se_pub_key.unwrap());
-    ////    println!(pub_key value is : "{:?}", temp.pub_key.unwrap());
-    //    println!("pri_key value is : {:?}", temp.pri_key.unwrap());
-    //    println!("iv value is : {:?}", temp.iv.unwrap());
-    //
-    //    //本地生成ECC密钥对
-    //    temp.gen_local_keys();
 
 //    let device_manager = DeviceManage::new();
 //    device_manager.bind_check();
 //    device_manager.bind_acquire(&"xxxxxxxxx".to_string());
+
+//    let pub_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxmJ6bwSFsz3cHKfgYsZOiEETO5JGpB9A0HZ7rkTqsu9FPQCP+we42f380hiCSH7MTakzyX5JQkKto84CxaBRiapJQQ53GmboEA5Dyxr2zGELWe5OuyNv84xirXsdEd+9TgVNGeM0k5GjH16JynISNGmpNfSOuJjLq3LLOUw/7J5BY16ulUEHoXrHuMYyHY8XVa05FanSOY2yaKP2Qs7py+n4Ls1a1k6+3d5mYB3CuJHi/t33La9if6j6FvfGQNtmG+Fdy0J02VdtmNvrIMJTCQIDAQAB";
+//    let data = decode(pub_key).unwrap();
+//    println!("{:?}", hex::encode(data));
+//    //30820122300d06092a864886f70d01010105000382010f003082010a0282010100c6627a6f0485b33ddc1ca7e062c64e8841133b9246a41f40d0767bae44eab2ef453d008ffb07b8d9fdfcd21882487ecc4da933c97e494242ada3ce02c5a05189aa49410e771a66e8100e43cb1af6cc610b59ee4ebb236ff38c62ad7b1d11dfbd4e054d19e3349391a31f5e89ca72123469a935f48eb898cbab72cb394c3fec9e41635eae954107a17ac7b8c6321d8f1755ad3915a9d2398db268a3f642cee9cbe9f82ecd5ad64ebeddde66601dc2b891e2feddf72daf627fa8fa16f7c640db661be15dcb4274d9576d98dbeb20c253090203010001
+
+    let n = Vec::from_hex("C6627A6F0485B33DDC1CA7E062C64E8841133B9246A41F40D0767BAE44EAB2EF453D008FFB07B8D9FDFCD21882487ECC4DA933C97E494242ADA3CE02C5A05189AA49410E771A66E8100E43CB1AF6CC610B59EE4EBB236FF38C62AD7B1D11DFBD4E054D19E3349391A31F5E89CA721292B7380295745D8968CC5C2D223AC6750BB0ACA27773687E9CD76065E47F42F4AE005459BCE5746BD760646A5BD119BA3469A935F48EB898CBAB72CB394C3FEC9E41635EAE954107A17AC7B8C6321D8F1755AD3915A9D2398DB268A3F642CEE9CBE9F82ECD5AD64EBEDDDE66601DC2B891E2FEDDF72DAF627FA8FA16F7C640DB661BE15DCB4274D9576D98DBEB20C25309");
+    let e = Vec::from_hex("010001");
+    let mut u32_vec_n= Vec::new();
+    for val in n.unwrap() {
+        u32_vec_n.push(val as u32);
+    }
+    let mut u32_vec_e= Vec::new();
+    for val in e.unwrap() {
+        u32_vec_e.push(val as u32);
+    }
+//    let rsa_pub_key = RSAPublicKey::new(BigUint::new(u32_vec_n), BigUint::new(u32_vec_e));
+//    let mut rng = OsRng::new().unwrap();
+//    let text = "AAAAAAAA".as_bytes();
+//    let result = rsa_pub_key.unwrap().encrypt(&mut rng, PaddingScheme::PKCS1v15, &text);
+//    println!("{:?}", hex::encode(result.unwrap()));
+
+    let mut rng = OsRng::new().expect("no secure randomness available");
+    let bits = 2048;
+    let key = RSAPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
+//    let n = key.n();
+//    let e = key.e();
+    let d = key.d();
+    let primes = key.primes();
+    println!("{:?}", hex::encode(key.n().to_bytes_be()));
+    println!("{:?}", hex::encode(key.e().to_bytes_be()));
+    println!("{:?}", key.d().to_bytes_be());
+//    println!("{:?}", key.primes().to);
+//    let rsa_pub_key = RSAPublicKey::new(n.clone(), e.clone());
+    let rsa_pub_key = RSAPublicKey::new(BigUint::new(u32_vec_n), BigUint::new(u32_vec_e));
+    //加密
+    let a = "AAAAAAAA".as_bytes();
+    println!("{:?}", a);
+    let enc_data = rsa_pub_key.unwrap().encrypt(&mut rng, PaddingScheme::PKCS1v15, a);
+    let b = enc_data.unwrap();
+    println!("{:?}", b);
+    let dec_data = key.decrypt( PaddingScheme::PKCS1v15, b.as_ref()).expect("failed to encrypt");
+    println!("{:?}", dec_data.as_slice());
+
 
 }
