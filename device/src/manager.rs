@@ -6,6 +6,9 @@ use super::se_secure_check::se_secure_check_request;
 use app_update::app_update_request;
 use se_activate::se_activate_request;
 use mq::message::send_apdu;
+use super::se_query::se_query_request;
+use crate::app_download::app_download_request;
+use crate::app_delete::app_delete_request;
 
 pub fn get_se_id() -> String{
     send_apdu("00A4040000".to_string());
@@ -50,7 +53,36 @@ pub fn check_update() {
     let device_cert : String = get_cert();
 
     let instance_aid: String = "695F657468".to_string();
+    //todo: param an return
+    se_query_request::build_request_data(seid, sn, None).se_query();
+}
+
+pub fn app_download() {
+    let seid: String = get_se_id();
+    let sn: String = get_sn();
+    let device_cert : String = get_cert();
+
+    let instance_aid: String = "695F657468".to_string();
+    //todo: param an return
+    app_download_request::build_request_data(seid, instance_aid, device_cert, None).app_download();
+}
+
+pub fn app_update() {
+    let seid: String = get_se_id();
+    let sn: String = get_sn();
+    let device_cert : String = get_cert();
+
+    let instance_aid: String = "695F657468".to_string();
+    //todo: param an return
     app_update_request::build_request_data(seid, instance_aid, device_cert, None).app_update();
 }
 
-pub fn download() {}
+pub fn app_delete() {
+    let seid: String = get_se_id();
+    let sn: String = get_sn();
+    let device_cert : String = get_cert();
+
+    let instance_aid: String = "695F657468".to_string();
+    //todo: param an return
+    app_delete_request::build_request_data(seid, instance_aid, device_cert).app_delete();
+}

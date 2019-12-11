@@ -121,3 +121,23 @@ pub extern "C" fn check_device() {
 pub extern "C" fn active_device() {
     manager::active_device();
 }
+
+#[no_mangle]
+pub extern "C" fn check_update() {
+    manager::check_update();
+}
+
+#[no_mangle]
+pub extern "C" fn app_download() {
+    manager::app_download();
+}
+
+#[no_mangle]
+pub extern "C" fn app_update() {
+    manager::app_update();
+}
+
+#[no_mangle]
+pub extern "C" fn app_delete() {
+    manager::app_delete();
+}

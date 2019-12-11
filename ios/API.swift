@@ -56,4 +56,24 @@ public class API{
   public class func checkDevice(){
     return check_device()
   }
+  
+  public class func activeDevice(){
+    return active_device()
+  }
+  
+  public class func checkUpdate(){
+    return checkUpdate()
+  }
+  
+  public class func downloadApp(){
+    return app_download()
+  }
+  
+  public class func updateApp(){
+    return app_update()
+  }
+  
+  public class func deleteApp(){
+    return app_delete()
+  }
 }
