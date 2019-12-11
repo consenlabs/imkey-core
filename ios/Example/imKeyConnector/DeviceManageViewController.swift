@@ -118,8 +118,9 @@ class DeviceManageViewController: UIViewController {
   
   @IBAction func checkUpdateClick(_ sender: Any) {
     do {
-      let response = try Manager.checkUpdate(handle: handle)
-      Log.d("\n\(response)")
+//      let response = try Manager.checkUpdate(handle: handle)
+//      Log.d("\n\(response)")
+      API.checkUpdate()
       toastMsg(message: "success")
     } catch let e as ImkeyError {
       Log.d("!!!error:\(e.message)")
@@ -144,7 +145,8 @@ class DeviceManageViewController: UIViewController {
   
   @IBAction func activeDeviceClick(_ sender: Any) {
     do {
-      try Manager.activeDevice(handle: handle)
+//      try Manager.activeDevice(handle: handle)
+      API.activeDevice()
       toastMsg(message: "success")
     } catch let e as ImkeyError {
       Log.d("!!!error:\(e.message)")
@@ -159,7 +161,8 @@ class DeviceManageViewController: UIViewController {
   
   @IBAction func downloadClick(_ sender: Any) {
     do {
-      try Manager.downloadAPP(handle: handle,appletName: appletName)
+//      try Manager.downloadAPP(handle: handle,appletName: appletName)
+      API.downloadApp()
       toastMsg(message: "success")
     } catch let e as ImkeyError {
       Log.d("!!!error:\(e.message)")
@@ -171,7 +174,8 @@ class DeviceManageViewController: UIViewController {
   
   @IBAction func updateClick(_ sender: Any) {
     do {
-      try Manager.updateAPP(handle: handle,appletName: appletName)
+//      try Manager.updateAPP(handle: handle,appletName: appletName)
+      API.updateApp()
       toastMsg(message: "success")
     } catch let e as ImkeyError {
       Log.d("!!!error:\(e.message)")
@@ -183,7 +187,8 @@ class DeviceManageViewController: UIViewController {
   
   @IBAction func deleteClick(_ sender: Any) {
     do {
-      try Manager.deleteAPP(handle: handle,appletName: appletName)
+//      try Manager.deleteAPP(handle: handle,appletName: appletName)
+      API.deleteApp()
       toastMsg(message: "success")
     } catch let e as ImkeyError {
       Log.d("!!!error:\(e.message)")

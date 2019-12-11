@@ -5,7 +5,15 @@
 
 void active_device(void);
 
+void app_delete(void);
+
+void app_download(void);
+
+void app_update(void);
+
 void check_device(void);
+
+void check_update(void);
 
 const char *get_apdu(void);
 
