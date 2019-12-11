@@ -1,7 +1,7 @@
 use common::constants::{TSM_ACTION_SE_ACTIVATE, TSM_RETURN_CODE_SUCCESS};
 use common::{error::ImkeyError, https};
-use serde::{Deserialize, Serialize};
 use mq::message;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct se_activate_request {
@@ -73,8 +73,8 @@ impl se_activate_request {
                             let status_word = "9000";
 
                             if "02".eq(next_step_key.as_str()) {
-//                                apdu_res.push(String::from("9000"));
-//                                apdu_res.push(String::from("5F49410465330B2F12ADEC9D6C61CA1768704261D02E5F39177762D5C457F0FDA4ABC87882ADD11C951941C003269874103F5C83269C3CF7A61231D2C746F4AE543D382F86100C1402F7FC4E1C3C1BD35674431261289000"));
+                                //                                apdu_res.push(String::from("9000"));
+                                //                                apdu_res.push(String::from("5F49410465330B2F12ADEC9D6C61CA1768704261D02E5F39177762D5C457F0FDA4ABC87882ADD11C951941C003269874103F5C83269C3CF7A61231D2C746F4AE543D382F86100C1402F7FC4E1C3C1BD35674431261289000"));
                                 apdu_res.push(String::from(&res));
                             } else {
                                 apdu_res.push(String::from(status_word));
@@ -82,7 +82,8 @@ impl se_activate_request {
 
                             //把最后一条指令结果上送给服务器
                             if index_val == apdu_list.len() - 1 {
-                                let status:String = res.chars().skip(res.len()-4).take(4).collect();
+                                let status: String =
+                                    res.chars().skip(res.len() - 4).take(4).collect();
                                 self.statusWord = Some(String::from(status));
                             }
                         }
