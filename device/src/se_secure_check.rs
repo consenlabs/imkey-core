@@ -83,7 +83,8 @@ impl se_secure_check_request {
                             }
 
                             if index_val == apdu_list.len() - 1 {
-                                let status:String = res.chars().skip(res.len()-4).take(4).collect();
+                                let status: String =
+                                    res.chars().skip(res.len() - 4).take(4).collect();
                                 self.statusWord = Some(String::from(status));
                             }
                         }
