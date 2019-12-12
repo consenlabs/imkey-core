@@ -33,25 +33,27 @@ class ETHViewController: UIViewController {
   
   
   @IBAction func signBtnClick(_ sender: Any) {
-    txtResult.text = ""
-    let path = "m/44'/60'/0'/0/0"
-    let signRes = try! Wallet.ethSignTransaction(
-      handle: handle,
-      raw:[        "nonce":        "7",
-                   "gasPrice":     "21000000000",
-                   "gasLimit":     "150000",
-                   "to":           "0xE6F4142dfFA574D1d9f18770BF73814df07931F3",
-                   "value":        "10000000000000000",
-                   "data":                      "",
-                   "preview":[
-                    "payment":      "0.01 ETH",
-                    "receiver":     "0xE6F4142dfFA574D1d9f18770BF73814df07931F3",
-                    "sender":       "0xAfbaf132E587D67125A224B947133cB942E6E312",
-                    "fee":          "0.0032 ether"
-        ]
-      ],chainID:61,path: path)
+//    txtResult.text = ""
+//    let path = "m/44'/60'/0'/0/0"
+//    let signRes = try! Wallet.ethSignTransaction(
+//      handle: handle,
+//      raw:[        "nonce":        "7",
+//                   "gasPrice":     "21000000000",
+//                   "gasLimit":     "150000",
+//                   "to":           "0xE6F4142dfFA574D1d9f18770BF73814df07931F3",
+//                   "value":        "10000000000000000",
+//                   "data":                      "",
+//                   "preview":[
+//                    "payment":      "0.01 ETH",
+//                    "receiver":     "0xE6F4142dfFA574D1d9f18770BF73814df07931F3",
+//                    "sender":       "0xAfbaf132E587D67125A224B947133cB942E6E312",
+//                    "fee":          "0.0032 ether"
+//        ]
+//      ],chainID:61,path: path)
+//
+//    txtResult.text = "eth sign transaction： \n \(signRes)"
     
-    txtResult.text = "eth sign transaction： \n \(signRes)"
+    API.signTransaction()
   }
   
   @IBAction func signMsgBtnClick(_ sender: Any) {
@@ -74,10 +76,11 @@ class ETHViewController: UIViewController {
   @IBAction func addressBtnClick(_ sender: Any) {
     txtResult.text = ""
     do {
-      let path = "m/44'/60'/0'/0/0"
-      let address = try Wallet.getETHAddress(handle:handle, path: path)
-      txtResult.text = "eth address： \n \(address)"
-      Log.d(address)
+//      let path = "m/44'/60'/0'/0/0"
+//      let address = try Wallet.getETHAddress(handle:handle, path: path)
+//      txtResult.text = "eth address： \n \(address)"
+//      Log.d(address)
+      API.getAddress()
     } catch let e as ImkeyError {
       Log.d("!!!error:\(e.message)")
       toastMsg(message: e.message)
