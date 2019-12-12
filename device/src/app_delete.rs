@@ -3,6 +3,7 @@ use common::constants::{TSM_ACTION_APP_DELETE, TSM_RETURN_CODE_SUCCESS};
 use common::{error::ImkeyError, https};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use mq::message;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct app_delete_request {
@@ -70,18 +71,13 @@ impl app_delete_request {
                         for (index_val, apdu_val) in apdu_list.iter().enumerate() {
                             //调用发送指令接口，并获取执行结果
                             println!("download apdu --> {}", apdu_val);
-                            let status_word = "9000";
+                            let res = message::send_apdu(apdu_val.to_string());
 
-                            if "02".eq(next_step_key.as_str()) {
-                                apdu_res.push(String::from("9000"));
-                                apdu_res.push(String::from("5F49410465330B2F12ADEC9D6C61CA1768704261D02E5F39177762D5C457F0FDA4ABC87882ADD11C951941C003269874103F5C83269C3CF7A61231D2C746F4AE543D382F86100C1402F7FC4E1C3C1BD35674431261289000"));
-                            } else {
-                                apdu_res.push(String::from(status_word));
-                            }
-
-                            //把最后一条指令结果上送给服务器
+                            apdu_res.push(String::from(&res));
                             if index_val == apdu_list.len() - 1 {
-                                self.statusWord = Some(String::from(status_word));
+                                let status: String =
+                                    res.chars().skip(res.len() - 4).take(4).collect();
+                                self.statusWord = Some(String::from(status));
                             }
                         }
                         self.cardRetDataList = Some(apdu_res);

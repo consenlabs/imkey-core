@@ -15,3 +15,5 @@ pub const TSM_RETURN_CODE_SUCCESS: &str = "000000";
 pub const LC_MAX: u32 = 245;
 
 pub const ETH_AID: &str = "695F657468";
+
+pub const VERSION: &str = "1.2.00";

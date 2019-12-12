@@ -62,7 +62,7 @@ public class API{
   }
   
   public class func checkUpdate(){
-    return checkUpdate()
+    return check_update()
   }
   
   public class func downloadApp(){
