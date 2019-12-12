@@ -1,5 +1,5 @@
-mod ethereum_address;
-mod ethereum_signer;
+pub mod ethereum_address;
+pub mod ethereum_signer;
 
 #[cfg(test)]
 mod tests {

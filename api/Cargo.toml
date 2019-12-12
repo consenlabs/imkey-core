@@ -15,6 +15,9 @@ log = {version = "0.4", features = ["std"]}
 #android_logger = "0.8.6"
 mq = {path = "../mq"}
 device = {path = "../device"}
+interface = {path = "../wallet/interface"}
+coin-ethereum = {path = "../wallet/coin-ethereum"}
+ethereum-types = "0.6.0"
 
 
 [lib]

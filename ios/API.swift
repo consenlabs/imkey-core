@@ -76,4 +76,12 @@ public class API{
   public class func deleteApp(){
     return app_delete()
   }
+  
+  public class func getAddress(){
+    return get_address()
+  }
+  
+  public class func signTransaction(){
+    return sign_transaction()
+  }
 }

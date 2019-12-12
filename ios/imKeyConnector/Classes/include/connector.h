@@ -15,6 +15,8 @@ void check_device(void);
 
 void check_update(void);
 
+void get_address(void);
+
 const char *get_apdu(void);
 
 const char *get_apdu_return(void);
@@ -30,3 +32,5 @@ void rust_hello_free(char *s);
 void set_apdu(const char *apdu);
 
 void set_apdu_return(const char *apdu_return);
+
+void sign_transaction(void);
