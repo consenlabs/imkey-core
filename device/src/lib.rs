@@ -11,6 +11,7 @@ extern crate common;
 pub mod device_manager;
 pub mod key_manager;
 pub mod manager;
+pub mod hid_api;
 
 #[cfg(test)]
 mod tests {
