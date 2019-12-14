@@ -127,7 +127,7 @@ impl KeyManager {
         let mut temp_pri_key = [0u8; 32];
         temp_pri_key.copy_from_slice(&decrypted_data[..32]);
         self.pri_key = Some(temp_pri_key);
-        println!("{:?}", hex::encode_upper(temp_pub_key.to_vec()));
+        println!("{:?}", hex::encode_upper(temp_pri_key.to_vec()));
         //pub key
         let mut temp_pub_key = [0u8; 65];
         temp_pub_key.copy_from_slice(&decrypted_data[32..97]);
