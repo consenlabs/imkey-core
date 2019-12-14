@@ -98,7 +98,7 @@ fn read_device_response(device: &hidapi::HidDevice) -> Result<( Vec<u8>), Error>
     for u in &data[..data.len()] {
         receive_data_string.push_str((format!("{:02X}", u)).as_ref());
     }
-    println!("{}", "receive-->".to_owned()+&receive_data_string);
+//    println!("{}", "receive-->".to_owned()+&receive_data_string);
 
     Ok(data[..msg_size as usize].to_vec())
 }
@@ -109,7 +109,7 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
     for u in &msg[..msg.len()] {
         send_data_string.push_str((format!("{:02X}", u)).as_ref());
     }
-    println!("{}", "send-->".to_owned()+&send_data_string);
+//    println!("{}", "send-->".to_owned()+&send_data_string);
 
     let msg_size = msg.len();
     let mut headerdata = Vec::new();

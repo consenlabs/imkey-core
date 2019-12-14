@@ -93,13 +93,6 @@ impl DeviceManage {
 
     pub fn bind_acquire(&self, binding_code: &String) {
 
-        //TODO
-        let hid_device = hid_api::connect();
-        let select_imk_applet = Apdu::select_applet("695F696D6B");
-        let response = hid_api::send(&hid_device, &select_imk_applet);
-        let gen_auth_code_apdu = Apdu::generate_auth_code();
-        let binding_code = hid_api::send(&hid_device, &gen_auth_code_apdu);
-
         let temp_binding_code = binding_code.to_uppercase();
         let binding_code_bytes = temp_binding_code.as_bytes();
         //绑定码校验 TODO
@@ -125,27 +118,24 @@ impl DeviceManage {
         //计算HASH
         let mut data: Vec<u8> = Vec::new();
         data.extend(binding_code_bytes);
-        data.extend(self.key_manager.pub_key.unwrap().iter());
+        data.extend(self.key_manager.pub_key.unwrap().as_ref().iter());
         println!("pub_key:{:?}", self.key_manager.pub_key.unwrap().iter());
+        println!("pub_key:{:?}", hex::encode_upper(self.key_manager.pub_key.unwrap().as_ref()));
+
         data.extend(self.key_manager.se_pub_key.unwrap().iter());
-        println!(
-            "se_pub_key:{:?}",
-            self.key_manager.se_pub_key.unwrap().iter()
-        );
+        println!("se_pub_key:{:?}", self.key_manager.se_pub_key.unwrap().iter());
         let data_hash = digest::digest(&digest::SHA256, data.as_slice());
         println!("hash value:{:?}", data_hash.as_ref());
+
         //用sessionKey加密HASH值
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
-        println!(
-            "session_key:{:?}",
-            self.key_manager.session_key.unwrap().iter()
-        );
+        println!("session_key:{:?}", self.key_manager.session_key.unwrap().iter());
+
         let cipher = Aes128Cbc::new_var(
             self.key_manager.session_key.unwrap().as_ref(),
             &gen_iv(&temp_binding_code).as_ref(),
-        )
-        .unwrap();
-        let ciphertext = cipher.encrypt_vec(data.as_ref());
+        ).unwrap();
+        let ciphertext = cipher.encrypt_vec(data_hash.as_ref());
         println!("ciphertext:{:?}", ciphertext.as_slice());
         //生成identityVerify指令数据
         let mut apdu_data = Vec::new();
@@ -153,6 +143,7 @@ impl DeviceManage {
         apdu_data.extend(ciphertext);
         println!("{:?}", apdu_data.as_slice());
         let identity_verify_apdu = Apdu::identity_verify(&apdu_data);
+        println!("{:?}", identity_verify_apdu);
         //发送指令到设备
         let response = hid_api::send(&hid_device, &identity_verify_apdu);
     }
