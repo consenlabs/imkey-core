@@ -2,7 +2,7 @@ use base64::{decode, encode};
 use ring::digest;
 use std::convert::TryInto;
 use std::fs::File;
-use std::io::{Error, Read, ErrorKind, Write};
+use std::io::{Error, ErrorKind, Read, Write};
 use std::path::Path;
 
 extern crate aes_soft as aes;
@@ -99,12 +99,10 @@ impl KeyManager {
             Ok(mut f) => {
                 f.read_to_string(&mut return_data).expect("read file error");
                 return_data
-            },
-            Err(e) => {
-                match e.kind() {
-                    ErrorKind::NotFound => return_data,
-                    _ => panic!("open file error"),
-                }
+            }
+            Err(e) => match e.kind() {
+                ErrorKind::NotFound => return_data,
+                _ => panic!("open file error"),
             },
         }
     }

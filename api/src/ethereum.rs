@@ -13,13 +13,10 @@ pub extern "C" fn get_address() {
 
 #[no_mangle]
 pub extern "C" fn sign_transaction() {
-
     let nonce = U256::from(8);
     let gas_price = U256::from(20000000008 as usize);
     let gas_limit = U256::from(189000);
-    let to = Action::Call(
-        Address::from_str("3535353535353535353535353535353535353535").unwrap(),
-    );
+    let to = Action::Call(Address::from_str("3535353535353535353535353535353535353535").unwrap());
     let value = U256::from(512 as usize);
     let data = Vec::new();
 
@@ -29,5 +26,7 @@ pub extern "C" fn sign_transaction() {
     let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b";
     let fee = "0.0032 ether";
 
-    EthereumSigner::sign_transaction(nonce,gas_price,gas_limit,to,value,data,None,path,payment,receiver,sender,fee);
+    EthereumSigner::sign_transaction(
+        nonce, gas_price, gas_limit, to, value, data, None, path, payment, receiver, sender, fee,
+    );
 }

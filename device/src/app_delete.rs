@@ -1,9 +1,9 @@
 extern crate reqwest;
 use common::constants::{TSM_ACTION_APP_DELETE, TSM_RETURN_CODE_SUCCESS};
 use common::{error::ImkeyError, https};
+use mq::message;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use mq::message;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct app_delete_request {
