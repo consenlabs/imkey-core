@@ -106,8 +106,8 @@ impl Apdu {
     /**
     binding check apdu build
     */
-    pub fn bind_check(data : &Vec<u8>) -> String{
-        if data.len() > 256{
+    pub fn bind_check(data: &Vec<u8>) -> String {
+        if data.len() > 256 {
             panic!("data to long");
         }
         let mut apdu = Vec::new();
@@ -123,7 +123,7 @@ impl Apdu {
     /**
     binding check apdu build
     */
-    pub fn generate_auth_code() -> String{
+    pub fn generate_auth_code() -> String {
         let mut apdu = Vec::new();
         apdu.push(0x80);
         apdu.push(0x72);
@@ -132,8 +132,8 @@ impl Apdu {
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
     }
-    pub fn identity_verify(data : &Vec<u8>) -> String{
-        if data.len() > 256{
+    pub fn identity_verify(data: &Vec<u8>) -> String {
+        if data.len() > 256 {
             panic!("data to long");
         }
         let mut apdu = Vec::new();

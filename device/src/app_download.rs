@@ -1,7 +1,7 @@
 use common::constants::{TSM_ACTION_APP_DOWNLOAD, TSM_RETURN_CODE_SUCCESS};
 use common::{error::ImkeyError, https};
-use serde::{Deserialize, Serialize};
 use mq::message;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct app_download_request {

@@ -27,10 +27,7 @@ pub struct auth_code_storage_response {
 }
 
 impl auth_code_storage_request {
-    pub fn build_request_data(
-        seid: String,
-        auth_code: String,
-    ) -> auth_code_storage_request {
+    pub fn build_request_data(seid: String, auth_code: String) -> auth_code_storage_request {
         auth_code_storage_request {
             seid: seid,
             authCode: auth_code,
@@ -57,7 +54,10 @@ impl auth_code_storage_request {
             return Ok(return_bean);
         //            }
         } else {
-            println!("验证码存储服务器执行失败并返回 : {}", return_bean._ReturnMsg);
+            println!(
+                "验证码存储服务器执行失败并返回 : {}",
+                return_bean._ReturnMsg
+            );
             return Err(ImkeyError::BSE0010);
         }
     }

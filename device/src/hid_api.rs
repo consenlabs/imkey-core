@@ -1,9 +1,9 @@
 extern crate hidapi;
 
-use hidapi::{HidApi, HidDevice};
-use std::time::Duration;
-use std::thread::sleep;
 use hex::FromHex;
+use hidapi::{HidApi, HidDevice};
+use std::thread::sleep;
+use std::time::Duration;
 
 const RETRY_SEC: u64 = 1;
 const RETRY_SEC1: u64 = 30;
@@ -16,10 +16,9 @@ fn main() {
     let response = send(&hid_device, &apdu);
     println!("{:?}", response);
 
-
-//    println!("Execution Successful, auto-exit in 30 seconds.");
-//    //等待20秒
-//    sleep(Duration::from_secs(RETRY_SEC1));
+    //    println!("Execution Successful, auto-exit in 30 seconds.");
+    //    //等待20秒
+    //    sleep(Duration::from_secs(RETRY_SEC1));
 }
 
 #[no_mangle]
@@ -38,25 +37,25 @@ pub enum Error {
     ClosedDevice(String),
 }
 #[no_mangle]
-pub fn send(hid_device : &HidDevice, apdu : &String) -> String {
+pub fn send(hid_device: &HidDevice, apdu: &String) -> String {
     println!("-->{}", apdu);
-//    let temp_apdu = Vec::from_hex(apdu.as_str()).unwrap().as_slice();
+    //    let temp_apdu = Vec::from_hex(apdu.as_str()).unwrap().as_slice();
 
     send_device_message(hid_device, Vec::from_hex(apdu.as_str()).unwrap().as_slice());
     let return_data = read_device_response(hid_device).ok().unwrap();
     println!("<--{}", hex::encode_upper(return_data.clone()));
     let hex_str = hex::encode_upper(return_data.clone());
-    hex_str.chars().take(hex_str.len()-4).collect()
+    hex_str.chars().take(hex_str.len() - 4).collect()
 }
 #[no_mangle]
-fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<( Vec<u8>), Error> {
+fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<(Vec<u8>), Error> {
     let protocol_err = Error::Protocol(&"Unexpected wire response from imkey Device");
     let firstSendcmd: [u8; 8] = [0x00, 0x00, 0x00, 0x00, 0x01, 0x86, 0x00, 0x00];
     let mut send_first_data_string = String::new();
     for u in &firstSendcmd[..firstSendcmd.len()] {
         send_first_data_string.push_str((format!("{:02X}", u)).as_ref());
     }
-//    println!("{}", "send first cmd-->".to_owned()+ &send_first_data_string);
+    //    println!("{}", "send first cmd-->".to_owned()+ &send_first_data_string);
     let res = device.write(&firstSendcmd);
 
     let mut buf = vec![0; 64];
@@ -66,26 +65,26 @@ fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<( Vec<
     for u in &buf[..buf.len()] {
         receive_first_data_string.push_str((format!("{:02X}", u)).as_ref());
     }
-//    println!("{}", "receive first res-->".to_owned()+&receive_first_data_string);
+    //    println!("{}", "receive first res-->".to_owned()+&receive_first_data_string);
 
     Ok(buf[..64].to_vec())
 }
 #[no_mangle]
-fn read_device_response(device: &hidapi::HidDevice) -> Result<( Vec<u8>), Error> {
+fn read_device_response(device: &hidapi::HidDevice) -> Result<(Vec<u8>), Error> {
     let protocol_err = Error::Protocol(&"Unexpected wire response from imkey Device");
     let mut buf = vec![0; 64];
 
     let first_res = device.read_timeout(&mut buf, 300_000);
-    if(first_res.is_err()){
+    if (first_res.is_err()) {
         return Err(protocol_err);
     }
-    let msg_size = ((buf[5] as u8 & 0xFF)) + ((buf[6] as u8 & 0xFF));
+    let msg_size = (buf[5] as u8 & 0xFF) + (buf[6] as u8 & 0xFF);
     let mut data = Vec::new();
     data.extend_from_slice(&buf[7..]);
     while data.len() < (msg_size as usize) {
-        println!("{}",  data.len() as usize);
-        let res =   device.read_timeout(&mut buf, 10_000);
-        if(res.is_err()){
+        println!("{}", data.len() as usize);
+        let res = device.read_timeout(&mut buf, 10_000);
+        if (res.is_err()) {
             return Err(protocol_err);
         }
 
@@ -98,7 +97,7 @@ fn read_device_response(device: &hidapi::HidDevice) -> Result<( Vec<u8>), Error>
     for u in &data[..data.len()] {
         receive_data_string.push_str((format!("{:02X}", u)).as_ref());
     }
-//    println!("{}", "receive-->".to_owned()+&receive_data_string);
+    //    println!("{}", "receive-->".to_owned()+&receive_data_string);
 
     Ok(data[..msg_size as usize].to_vec())
 }
@@ -109,7 +108,7 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
     for u in &msg[..msg.len()] {
         send_data_string.push_str((format!("{:02X}", u)).as_ref());
     }
-//    println!("{}", "send-->".to_owned()+&send_data_string);
+    //    println!("{}", "send-->".to_owned()+&send_data_string);
 
     let msg_size = msg.len();
     let mut headerdata = Vec::new();
@@ -127,16 +126,15 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
         data.extend_from_slice(&headerdata[0..8]);
         data.extend_from_slice(&msg[0..msg_size]);
     } else {
-
         let mut datalenflage = 0;
-        while(true){
-            if (msg_size - datalenflage < 64-8) {
+        while (true) {
+            if (msg_size - datalenflage < 64 - 8) {
                 data.extend_from_slice(&headerdata[0..5]);
                 data.push(0x00 as u8);
                 data.extend_from_slice(&msg[datalenflage..msg_size]);
                 datalenflage += msg_size - datalenflage;
                 break;
-            }else {
+            } else {
                 if (datalenflage == 0) {
                     data.extend_from_slice(&headerdata[0..8]);
                     data.extend_from_slice(&msg[datalenflage..64 - 8]);
@@ -147,7 +145,6 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
                     data.extend_from_slice(&msg[datalenflage..64 - 6]);
                     datalenflage += (64 - 6);
                 }
-
             }
         }
     }
@@ -159,7 +156,7 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
     let mut total_written = 0;
     for chunk in data.chunks(64) {
         let res = device.write(&chunk);
-        if(res.is_err()){
+        if (res.is_err()) {
             return Err(protocol_err);
         }
     }
@@ -167,7 +164,6 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
 }
 #[no_mangle]
 pub fn connect() -> HidDevice {
-
     let api = HidApi::new().expect("HID API object creation failed");
 
     loop {
@@ -175,7 +171,7 @@ pub fn connect() -> HidDevice {
             Ok(dev) => {
                 println!("device connected!!!");
                 first_write_read_device_response(&dev);
-                return  dev;
+                return dev;
             }
             Err(err) => {
                 println!("{}", err);
@@ -183,5 +179,4 @@ pub fn connect() -> HidDevice {
             }
         }
     }
-
 }
