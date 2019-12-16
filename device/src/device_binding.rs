@@ -73,6 +73,7 @@ impl DeviceManage {
 
             //协商会话密钥
             let se_pub_key_obj = PublicKey::from_slice(temp_se_pub_key.as_ref()).unwrap();
+            println!("pri_key : {:?}", hex::encode_upper(temp_key_manager.pri_key.unwrap().as_ref()));
             let locl_pri_key_obj =
                 SecretKey::from_slice(temp_key_manager.pri_key.unwrap().as_ref()).unwrap();
             let sec = SharedSecret::new(&se_pub_key_obj, &locl_pri_key_obj);
@@ -81,6 +82,7 @@ impl DeviceManage {
             //设置session key
             let mut temp_session_key = [0u8; 16];
             temp_session_key.copy_from_slice(&sha1_data[..16]);
+            println!("sessionkey : {:?}", hex::encode_upper(temp_session_key.to_vec()));
             temp_key_manager.session_key = Some(temp_session_key);
 
             //保存密钥到本地文件
@@ -91,7 +93,7 @@ impl DeviceManage {
         }
     }
 
-    pub fn bind_acquire(&self, binding_code: &String) {
+    pub fn bind_acquire(&self, binding_code: &String) -> String {
 
         let temp_binding_code = binding_code.to_uppercase();
         let binding_code_bytes = temp_binding_code.as_bytes();
@@ -118,25 +120,28 @@ impl DeviceManage {
         //计算HASH
         let mut data: Vec<u8> = Vec::new();
         data.extend(binding_code_bytes);
+        println!("{}", hex::encode_upper(binding_code_bytes));
         data.extend(self.key_manager.pub_key.unwrap().as_ref().iter());
-        println!("pub_key:{:?}", self.key_manager.pub_key.unwrap().iter());
         println!("pub_key:{:?}", hex::encode_upper(self.key_manager.pub_key.unwrap().as_ref()));
 
         data.extend(self.key_manager.se_pub_key.unwrap().iter());
-        println!("se_pub_key:{:?}", self.key_manager.se_pub_key.unwrap().iter());
+        println!("se_pub_key:{:?}", hex::encode_upper(self.key_manager.se_pub_key.unwrap().as_ref()));
+        println!("data : {:?}", hex::encode_upper(data.as_slice()));
         let data_hash = digest::digest(&digest::SHA256, data.as_slice());
         println!("hash value:{:?}", data_hash.as_ref());
+        println!("data : {:?}", hex::encode_upper(data_hash.as_ref()));
 
         //用sessionKey加密HASH值
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
-        println!("session_key:{:?}", self.key_manager.session_key.unwrap().iter());
+        println!("session_key:{:?}", hex::encode_upper(self.key_manager.session_key.unwrap().as_ref()));
+        println!("iv : {:?}", hex::encode_upper(gen_iv(&temp_binding_code)));
 
         let cipher = Aes128Cbc::new_var(
             self.key_manager.session_key.unwrap().as_ref(),
             &gen_iv(&temp_binding_code).as_ref(),
         ).unwrap();
         let ciphertext = cipher.encrypt_vec(data_hash.as_ref());
-        println!("ciphertext:{:?}", ciphertext.as_slice());
+        println!("ciphertext:{:?}", hex::encode_upper(ciphertext.as_slice()));
         //生成identityVerify指令数据
         let mut apdu_data = Vec::new();
         apdu_data.extend(self.key_manager.pub_key.unwrap().as_ref());
@@ -146,6 +151,7 @@ impl DeviceManage {
         println!("{:?}", identity_verify_apdu);
         //发送指令到设备
         let response = hid_api::send(&hid_device, &identity_verify_apdu);
+        response.chars().take(2).collect()
     }
 }
 

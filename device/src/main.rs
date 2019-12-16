@@ -90,14 +90,14 @@ fn main() {
     //    println!("{:?}", hex::encode(data));
     //    //30820122300d06092a864886f70d01010105000382010f003082010a0282010100c6627a6f0485b33ddc1ca7e062c64e8841133b9246a41f40d0767bae44eab2ef453d008ffb07b8d9fdfcd21882487ecc4da933c97e494242ada3ce02c5a05189aa49410e771a66e8100e43cb1af6cc610b59ee4ebb236ff38c62ad7b1d11dfbd4e054d19e3349391a31f5e89ca72123469a935f48eb898cbab72cb394c3fec9e41635eae954107a17ac7b8c6321d8f1755ad3915a9d2398db268a3f642cee9cbe9f82ecd5ad64ebeddde66601dc2b891e2feddf72daf627fa8fa16f7c640db661be15dcb4274d9576d98dbeb20c253090203010001
 
-    let path = "/Users/caixiaoguang/workspace/GIT/imkey-core/".to_string();
-    let bind_code = "WBMDJM9S".to_string();
-    let mut temp_devvice_manager = device_binding::DeviceManage::new();
-    temp_devvice_manager.bind_check(&path);
-//    let bind_code = device_binding::display_bind_code();
-//    let test_data = String::from_utf8(auth_code.into_bytes());
-//    println!("{}", test_data.unwrap());
-    temp_devvice_manager.bind_acquire(&bind_code);
+//    let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+//    let bind_code = "WBMDJM9S".to_string();
+//    let mut temp_devvice_manager = device_binding::DeviceManage::new();
+//    temp_devvice_manager.bind_check(&path);
+////    let bind_code = device_binding::display_bind_code();
+////    let test_data = String::from_utf8(auth_code.into_bytes());
+////    println!("{}", test_data.unwrap());
+//    temp_devvice_manager.bind_acquire(&bind_code);
 
 
 //    let hid_device = hid_api::connect();
@@ -107,5 +107,15 @@ fn main() {
 //    let response = hid_api::send(&hid_device, &"80CA004400".to_string());
 //    println!("{}", response);
 
+    use secp256k1::ecdh::SharedSecret;
+    use secp256k1::{PublicKey, SecretKey};
+
+    let pub_key = Vec::from_hex("0403089D8A83A87F24D906303A49D39669D17B0F7AB76EB098A65AFEF31154E75DEE5B87B69CBF78F11E831A4961C8A8F031C2869EA0716C798F76F5E91338DC35");
+    let pri_key = Vec::from_hex("D83332655D254FB8BF9BD43570C5A3E188113363749E9F9A27AA4CC0600D3089");
+    let se_pub_key_obj = PublicKey::from_slice(pub_key.unwrap().as_slice()).unwrap();
+
+    let locl_pri_key_obj = SecretKey::from_slice(pri_key.unwrap().as_slice()).unwrap();
+    let sec = SharedSecret::new(&se_pub_key_obj, &locl_pri_key_obj);
+    println!("{:?}", hex::encode_upper(&sec[..]));
 
 }
