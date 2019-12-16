@@ -93,6 +93,7 @@ impl KeyManager {
     */
     pub fn get_key_file_data(path: &String, seid: &String) -> String {
         let mut return_data = String::new();
+        println!("{}", format!("{}key{}{}", path, seid, ".txt"));
         let file = File::open(format!("{}key{}{}", path, seid, ".txt").as_str());
         match file {
             Ok(mut f) => {
@@ -137,6 +138,7 @@ impl KeyManager {
         //se pub key
         let mut temp_se_pub_key = [0u8; 65];
         temp_se_pub_key.copy_from_slice(&decrypted_data[97..162]);
+        println!("{:?}", hex::encode_upper(temp_se_pub_key.to_vec()));
         self.se_pub_key = Some(temp_se_pub_key);
         //session key
         let mut temp_session_key = [0u8; 16];
