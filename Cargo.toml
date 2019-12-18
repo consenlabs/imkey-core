@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "proto",
     "api",
     "device",
     "wallet/coin-ethereum",
@@ -7,5 +8,5 @@ members = [
     "mq",
     "crypto",
     "common",
-    "testcase"
+    "testcase",
 ]
