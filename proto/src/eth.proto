@@ -1,0 +1,38 @@
+syntax = "proto3";
+package ethapi;
+
+// FUNCTION: sign_tx(SignParam{input: EthTxInput}): EthTxOutput
+message EthTxInput {
+    string nonce = 1;
+    string gas_price = 2;
+    string gas_limit = 3;
+    bytes to = 4;
+    string value = 5;
+    bytes data = 6;
+    uint64 chain_id = 7;
+    string path = 8;
+    string payment = 9;
+    string receiver = 10;
+    string sender = 11;
+    string fee = 12;
+    string rawData = 13;
+}
+
+message EthTxOutput {
+    string signature = 1;
+    string txHash = 2;
+}
+
+// FUNCTION: tron_sign_message(SignParam): TronMessageOutput
+//
+// This api use the a common struct named `SignParam`, you should
+// build the `TronMessageInput` and put it in the `input` field
+message TronMessageInput {
+    string value = 1;
+    bool isHex = 2;
+    bool isTronHeader = 3;
+}
+
+message TronMessageOutput {
+    string signature = 1;
+}
