@@ -53,4 +53,12 @@ impl EosPubkey {
             return "03".to_owned() + x;
         }
     }
+
+    pub fn display_pubkey(path: &str) -> Result<String, Error> {
+        let pubkey = EosPubkey::get_pubkey(path).unwrap();
+        let reg_apdu = EosApdu::register_pubkey(pubkey.as_bytes());
+        let res_reg = message::send_apdu(reg_apdu);
+        //todo: check response
+        Ok(res_reg)
+    }
 }
