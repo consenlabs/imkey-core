@@ -8,8 +8,8 @@ use hex;
 pub struct EthereumSigner {}
 
 impl EthereumSigner {
+    //@@XM TODO: just for demo debugging purpose, will delete
     pub fn sign_transaction(
-        //@@XM TODO: optimize parameter passing later
         nonce: U256,
         gas_price: U256,
         gas_limit: U256,

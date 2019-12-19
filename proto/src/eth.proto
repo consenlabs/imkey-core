@@ -6,7 +6,7 @@ message EthTxInput {
     string nonce = 1;
     string gas_price = 2;
     string gas_limit = 3;
-    bytes to = 4;
+    string to = 4;
     string value = 5;
     bytes data = 6;
     uint64 chain_id = 7;
