@@ -1,5 +1,6 @@
-use crate::api::SignParam;
+use crate::api::{SignParam, AddressParam};
 use crate::ethereum_signer::sign_eth_transaction;
+use crate::ethereum_address::get_eth_address;
 use bytes::BytesMut;
 use common::error::Error;
 use interface::ethereum_signer::EthereumSigner;
@@ -17,6 +18,15 @@ pub fn sign_tx(data: &[u8]) -> Result<Vec<u8>, Error> {
 
     match param.chain_type.as_str() {
         "ETH" => sign_eth_transaction(&param),
+        _ => Err(Error::ChainTypeError),
+    }
+}
+
+pub fn get_address(data: &[u8]) -> Result<Vec<u8>, Error> {
+    let param: AddressParam = AddressParam::decode(data).expect("AddressParam");
+
+    match param.chain_type.as_str() {
+        "ETH" => get_eth_address(&param),
         _ => Err(Error::ChainTypeError),
     }
 }

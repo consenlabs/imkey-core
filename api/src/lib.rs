@@ -4,6 +4,7 @@ pub mod api;
 pub mod ethapi;
 pub mod ethereum;
 pub mod ethereum_signer;
+pub mod ethereum_address;
 pub mod wallet_handler;
 
 //#[macro_use]

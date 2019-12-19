@@ -88,6 +88,14 @@ message AccountsResponse {
     repeated AccountResponse accounts = 1;
 }
 
+message AddressResponse {
+    string address = 1;
+}
+
+message AddressParam{
+    string chainType = 1;
+    string path = 2;
+}
 // FUNCTION: hd_store_export(KeystoreCommonExportResult): KeystoreCommonExistsResult
 //
 // export the mnemonic from a hd keystore
