@@ -168,6 +168,26 @@ impl EthApdu {
     }
 }
 
+pub struct EosApdu {}
+
+impl EosApdu {
+    pub fn select_applet() -> String {
+        Apdu::select_applet(ETH_AID)
+    }
+
+    pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
+        Apdu::prepare_sign(0x51, data)
+    }
+
+    pub fn get_pubkey(path: &str, verify_flag: bool) -> String {
+        Apdu::get_pubkey(0x63, path, verify_flag)
+    }
+
+    pub fn sign_digest(path: &str) -> String {
+        Apdu::sign_digest(0x52, 0x00, 0x00, path)
+    }
+}
+
 /**
 获取xpub
 */
