@@ -9,4 +9,5 @@ members = [
     "crypto",
     "common",
     "testcase",
+    "wallet/coin-eos",
 ]
