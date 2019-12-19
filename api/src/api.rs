@@ -120,6 +120,18 @@ pub struct AccountsResponse {
     #[prost(message, repeated, tag = "1")]
     pub accounts: ::std::vec::Vec<AccountResponse>,
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddressResponse {
+    #[prost(string, tag = "1")]
+    pub address: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddressParam {
+    #[prost(string, tag = "1")]
+    pub chain_type: std::string::String,
+    #[prost(string, tag = "2")]
+    pub path: std::string::String,
+}
 /// FUNCTION: hd_store_export(KeystoreCommonExportResult): KeystoreCommonExistsResult
 ///
 /// export the mnemonic from a hd keystore

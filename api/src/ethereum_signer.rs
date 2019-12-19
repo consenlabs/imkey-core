@@ -32,13 +32,6 @@ pub fn sign_eth_transaction(param: &SignParam) -> Result<Vec<u8>, Error> {
         &input.sender,
         &input.fee,
     )?;
-    /*
-    let tx_sign_result = TxSignResult {
-        signature: hex::encode(signed.0),
-        tx_hash: signed.1.hash.to_string(), //@@XM TODO: check this conversion
-        wtx_id: "".to_string(),
-    };
-    */
     let tx_sign_result = EthTxOutput {
         signature: hex::encode(signed.0),
         tx_hash: signed.1.hash.to_string(),
