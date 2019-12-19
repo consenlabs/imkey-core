@@ -88,6 +88,21 @@ impl Apdu {
         hex::encode(apdu)
     }
 
+    pub fn register_address(ins: u8, data: &[u8]) -> String {
+        if data.len() > 256 {
+            panic!("data to long");
+        }
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(ins);
+        apdu.push(0x00);
+        apdu.push(0x00);
+        apdu.push(data.len() as u8);
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
     pub fn sign_digest(ins: u8, index: u8, hashtype: u8, path: &str) -> String {
         let path_bytes = path.as_bytes();
         if path_bytes.len() > 256 {
@@ -181,6 +196,10 @@ impl EosApdu {
 
     pub fn get_pubkey(path: &str, verify_flag: bool) -> String {
         Apdu::get_pubkey(0x63, path, verify_flag)
+    }
+
+    pub fn register_pubkey(data: &[u8]) -> String {
+        Apdu::register_address(0x66,data)
     }
 
     pub fn sign_digest(path: &str) -> String {
