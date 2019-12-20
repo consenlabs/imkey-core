@@ -1,11 +1,20 @@
+use crate::api::TcxAction;
+use crate::wallet_handler::{get_address, sign_tx};
+use common::error::Error;
+use prost::Message;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 pub mod api;
+pub mod error_handling;
 pub mod ethapi;
 pub mod ethereum;
 pub mod ethereum_address;
 pub mod ethereum_signer;
 pub mod wallet_handler;
+#[macro_use]
+extern crate failure;
+
+use crate::error_handling::{landingpad, Result, LAST_BACKTRACE, LAST_ERROR};
 
 //#[macro_use]
 //extern crate log;
@@ -146,4 +155,30 @@ pub extern "C" fn app_update() {
 #[no_mangle]
 pub extern "C" fn app_delete() {
     manager::app_delete();
+}
+
+/// dispatch protobuf rpc call
+/// //@@XM TODO: add in error handling
+#[no_mangle]
+pub unsafe extern "C" fn call_tcx_api(hex_str: *const c_char) -> *const c_char {
+    let hex_c_str = CStr::from_ptr(hex_str);
+    let hex_str = hex_c_str.to_str().expect("parse_arguments to_str");
+
+    let data = hex::decode(hex_str).expect("parse_arguments hex decode");
+    let action: TcxAction = TcxAction::decode(data).expect("decode tcx api");
+    let reply: Vec<u8> = match action.method.to_lowercase().as_str() {
+        "sign_tx" => sign_tx(&action.param.unwrap().value).unwrap(),
+        "get_address" => get_address(&action.param.unwrap().value).unwrap(),
+        _ => Vec::new(),
+        /*
+        "sign_tx" => landingpad(|| sign_tx(&action.param.unwrap().value)),
+
+        "get_address" => landingpad(|| get_address(&action.param.unwrap().value)),
+
+        _ => landingpad(|| Err(format_err!("unsupported_method"))),
+        */
+    };
+
+    let ret_str = hex::encode(reply);
+    CString::new(ret_str).unwrap().into_raw()
 }
