@@ -1,6 +1,6 @@
-use crate::api::{SignParam, AddressParam};
-use crate::ethereum_signer::sign_eth_transaction;
+use crate::api::{AddressParam, SignParam};
 use crate::ethereum_address::get_eth_address;
+use crate::ethereum_signer::sign_eth_transaction;
 use bytes::BytesMut;
 use common::error::Error;
 use interface::ethereum_signer::EthereumSigner;

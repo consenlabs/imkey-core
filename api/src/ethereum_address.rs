@@ -1,4 +1,5 @@
 use crate::api::AddressParam;
+use crate::wallet_handler::encode_message;
 use coin_ethereum::address::EthAddress;
 use common::apdu::EthApdu;
 use common::error::Error;
@@ -9,7 +10,6 @@ use hex;
 use mq::message::send_apdu;
 use prost::Message;
 use std::str::FromStr;
-use crate::wallet_handler::encode_message;
 
 pub fn get_eth_address(data: &AddressParam) -> Result<Vec<u8>, Error> {
     //let address_param: AddressParam = AddressParam::decode(data).expect("EthTxInput");
