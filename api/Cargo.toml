@@ -23,6 +23,7 @@ prost = "0.5.0"
 bytes = "0.4.12"
 prost-types = "0.5.0"
 hex = "0.3"
+failure = "0.1.5"
 
 [lib]
 name="connector"
