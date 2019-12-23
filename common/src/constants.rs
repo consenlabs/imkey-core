@@ -16,5 +16,8 @@ pub const LC_MAX: u32 = 245;
 
 pub const ETH_AID: &str = "695F657468";
 pub const EOS_AID: &str = "695F656F73";
+pub const BTC_AID: &str = "695F627463";
 
 pub const VERSION: &str = "1.2.00";
+
+pub const MAX_UTXO_NUMBER: usize = 252;
