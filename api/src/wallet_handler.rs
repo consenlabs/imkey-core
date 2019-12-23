@@ -1,4 +1,5 @@
-use crate::api::{AddressParam, SignParam};
+use crate::api::{AddressParam, DeviceParam, SignParam};
+use crate::deviceapi::{AppAction, AuthCode, BindCode, DeviceCert};
 use crate::ethereum_address::get_eth_address;
 use crate::ethereum_signer::sign_eth_transaction;
 use bytes::BytesMut;
@@ -27,6 +28,21 @@ pub fn get_address(data: &[u8]) -> Result<Vec<u8>, Error> {
 
     match param.chain_type.as_str() {
         "ETH" => get_eth_address(&param),
+        _ => Err(Error::ChainTypeError),
+    }
+}
+
+pub fn device_manage(data: &[u8]) -> Result<Vec<u8>, Error> {
+    let param: DeviceParam = DeviceParam::decode(data).expect("AddressParam");
+
+    match param.action.as_str() {
+        "app_download" => Err(Error::ChainTypeError),
+        "app_update" => Err(Error::ChainTypeError),
+        "app_delete" => Err(Error::ChainTypeError),
+        "check_cert" => Err(Error::ChainTypeError),
+        "store_authcode" => Err(Error::ChainTypeError),
+        "bind_acquire" => Err(Error::ChainTypeError),
+        "set_device_name" => Err(Error::ChainTypeError),
         _ => Err(Error::ChainTypeError),
     }
 }

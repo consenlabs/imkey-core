@@ -1,0 +1,29 @@
+syntax = "proto3";
+package deviceapi;
+
+//for app download, update, delete and so on
+message AppAction {
+    string app_name = 1;
+}
+
+//for device cert related
+message DeviceCert {
+    string se_id = 1;
+    string sn = 2;
+    string device_cert = 3;
+}
+
+//auth code related
+message AuthCode {
+    string auth_code = 1;
+}
+
+//binding code related
+message BindCode {
+    string bind_code = 1;
+}
+
+//name related
+message DeviceName {
+    string ble_name = 1;
+}

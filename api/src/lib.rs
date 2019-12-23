@@ -1,10 +1,11 @@
 use crate::api::TcxAction;
-use crate::wallet_handler::{get_address, sign_tx};
+use crate::wallet_handler::{device_manage, get_address, sign_tx};
 use common::error::Error;
 use prost::Message;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 pub mod api;
+pub mod deviceapi;
 pub mod error_handling;
 pub mod ethapi;
 pub mod ethereum;
@@ -169,14 +170,15 @@ pub unsafe extern "C" fn call_tcx_api(hex_str: *const c_char) -> *const c_char {
     let reply: Vec<u8> = match action.method.to_lowercase().as_str() {
         "sign_tx" => sign_tx(&action.param.unwrap().value).unwrap(),
         "get_address" => get_address(&action.param.unwrap().value).unwrap(),
-        _ => Vec::new(),
-        /*
-        "sign_tx" => landingpad(|| sign_tx(&action.param.unwrap().value)),
+        "device_manage" => device_manage(&action.param.unwrap().value).unwrap(),
+        _ => Vec::new(), //@@XM TODO: change to error message
+                         /*
+                         "sign_tx" => landingpad(|| sign_tx(&action.param.unwrap().value)),
 
-        "get_address" => landingpad(|| get_address(&action.param.unwrap().value)),
+                         "get_address" => landingpad(|| get_address(&action.param.unwrap().value)),
 
-        _ => landingpad(|| Err(format_err!("unsupported_method"))),
-        */
+                         _ => landingpad(|| Err(format_err!("unsupported_method"))),
+                         */
     };
 
     let ret_str = hex::encode(reply);

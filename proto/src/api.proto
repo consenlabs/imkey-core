@@ -225,3 +225,10 @@ message HdStoreExtendedPublicKeyParam {
 message HdStoreExtendedPublicKeyResponse {
     string extendedPublicKey = 1;
 }
+
+//for device manager
+
+message DeviceParam {
+    string action = 1;
+    google.protobuf.Any param = 2;
+}
