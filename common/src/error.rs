@@ -12,6 +12,8 @@ pub enum Error {
     DataError,
     SignError,
     PathError,
+    ChainTypeError,
+    ProtoError,
 }
 
 macro_rules! from_err {
@@ -41,6 +43,8 @@ impl fmt::Display for Error {
             Error::DataError => write!(f, "data field wrong format"),
             Error::SignError => write!(f, "signature error"),
             Error::PathError => write!(f, "path parameter error"),
+            Error::ChainTypeError => write!(f, "unsupported chain"),
+            Error::ProtoError => write!(f, "protobuf error"),
         }
     }
 }
