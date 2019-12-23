@@ -8,9 +8,9 @@ use app_delete::app_delete_request;
 use app_download::app_download_request;
 use app_update::app_update_request;
 use device::se_query::se_query_request;
-use ecdh;
-use ecdh::private_key::PrivateKey as ecdhPrivateKey;
-use ecdh::public_key::PublicKey as ecdhPublicKey;
+//use ecdh;
+//use ecdh::private_key::PrivateKey as ecdhPrivateKey;
+//use ecdh::public_key::PublicKey as ecdhPublicKey;
 use se_activate::se_activate_request;
 use se_secure_check::se_secure_check_request;
 
@@ -56,6 +56,7 @@ use base64::{decode, encode};
 use hex::FromHex;
 use rand::rngs::OsRng;
 use rsa::{BigUint, PaddingScheme, PublicKey, RSAPrivateKey, RSAPublicKey};
+use ring::digest;
 
 fn main() {
     //SE安全检查
@@ -108,9 +109,11 @@ fn main() {
     //    println!("{}", response);
     //    let response = hid_api::send(&hid_device, &"80CA004400".to_string());
     //    println!("{}", response);
-
+    use rand::thread_rng;
     use secp256k1::ecdh::SharedSecret;
     use secp256k1::{PublicKey, SecretKey};
+    use secp256k1::Secp256k1;
+
 
     //let pub_key = Vec::from_hex("0403089D8A83A87F24D906303A49D39669D17B0F7AB76EB098A65AFEF31154E75DEE5B87B69CBF78F11E831A4961C8A8F031C2869EA0716C798F76F5E91338DC35");
     //let pri_key = Vec::from_hex("D83332655D254FB8BF9BD43570C5A3E188113363749E9F9A27AA4CC0600D3089");
@@ -122,48 +125,22 @@ fn main() {
     let locl_pri_key_obj = SecretKey::from_slice(pri_key.clone().unwrap().as_slice()).unwrap();
     let sec = SharedSecret::new(&se_pub_key_obj, &locl_pri_key_obj);
     println!("{:?}", hex::encode_upper(&sec[..]));
-    let ptr: *const u8 = sec.as_ptr() as *const u8;
-    unsafe {
-        if let Some(val_back) = ptr.as_ref() {
-            println!("We got back the value: {}!", val_back);
-        }
-    }
+    let aa = digest::digest(&digest::SHA256, &sec[..]);
+    println!("{:?}", hex::encode_upper(aa.as_ref()));
 
-    /*
-    let public_key = vec![
-        2, 1, 0, 163, 215, 7, 212, 111, 65, 12, 71, 241, 53, 52, 251, 41, 237, 3, 29, 101, 63, 116,
-        130, 150, 64, 159, 132, 150, 85, 202, 191, 31, 227, 17, 30, 34, 46, 102, 166, 187, 133, 4,
-        84, 239, 190, 162, 174, 161, 40, 3, 203, 213, 79, 238, 16, 123, 90, 254, 108, 134, 181,
-        104, 112, 100, 116, 20, 238,
-    ];
-    let private_key = vec![
-        1, 220, 254, 121, 176, 90, 169, 167, 226, 22, 16, 143, 36, 56, 183, 61, 167, 195, 174, 191,
-        140, 134, 86, 16, 123, 213, 40, 103, 174, 46, 250, 54, 119, 172, 247, 135, 144, 60, 99, 14,
-        242, 129, 212, 64, 121, 172, 200, 4, 121, 60, 129, 126, 58, 16, 23, 225, 56, 245, 56, 32,
-        109, 226, 94, 27, 162, 83,
-    ];
-    */
-    let test_pubkey = ecdhPublicKey::from_vec(&pub_key.unwrap()).unwrap();
-    let test_prvkey = ecdhPrivateKey::from_vec(&pri_key.unwrap()).unwrap();
 
-    //let test_pubkey = ecdhPublicKey::from_vec(&public_key).unwrap();
-    //let test_prvkey = ecdhPrivateKey::from_vec(&private_key).unwrap();
+//    let s = Secp256k1::signing_only();
+//    let (sk1, pk1) = s.generate_keypair(&mut thread_rng());
+//    println!("{:?}", sk1.to_string());
+//    println!("{:?}", pk1.to_string());
+//    let (sk2, pk2) = s.generate_keypair(&mut thread_rng());
+//    println!("{:?}", sk2.to_string());
+//    println!("{:?}", pk2.to_string());
+//    let sec1 = SharedSecret::new(&pk1, &sk2);
+//    let sec2 = SharedSecret::new(&pk2, &sk1);
+//    let sec_odd = SharedSecret::new(&pk1, &sk1);
+//    println!("{:?}", hex::encode_upper(&sec1[..]));
+//    println!("{:?}", hex::encode_upper(&sec2[..]))
 
-    let alice = ecdhPrivateKey::generate().unwrap();
-    let bob = ecdhPrivateKey::generate().unwrap();
-    let eve = ecdhPrivateKey::generate().unwrap();
 
-    //let alice_symm_key = ecdh::ECDH::compute_key(&alice, &bob.get_public_key());
-    let alice_symm_key = ecdh::ECDH::compute_key(&test_prvkey, &test_pubkey);
-    let bob_symm_key = ecdh::ECDH::compute_key(&bob, &alice.get_public_key());
-    let eve_symm_key = ecdh::ECDH::compute_key(&eve, &alice.get_public_key());
-
-    println!("alice priv: {:?}", alice.to_vec());
-    println!("alice pub: {:?}", alice.get_public_key().to_vec());
-    println!("bob priv: {:?}", bob.to_vec());
-    println!("bob pub: {:?}", bob.get_public_key().to_vec());
-
-    println!("alice_symm_key: {:?}", alice_symm_key.unwrap().to_vec());
-    println!("bob_symm_key: {:?}", bob_symm_key.unwrap().to_vec());
-    println!("eve_symm_key: {:?}", eve_symm_key.unwrap().to_vec());
 }
