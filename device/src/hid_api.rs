@@ -82,7 +82,7 @@ fn read_device_response(device: &hidapi::HidDevice) -> Result<(Vec<u8>), Error> 
     let mut data = Vec::new();
     data.extend_from_slice(&buf[7..]);
     while data.len() < (msg_size as usize) {
-        println!("{}", data.len() as usize);
+//        println!("{}", data.len() as usize);
         let res = device.read_timeout(&mut buf, 10_000);
         if (res.is_err()) {
             return Err(protocol_err);

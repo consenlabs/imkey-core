@@ -1,4 +1,4 @@
-use crate::constants::{ETH_AID, LC_MAX};
+use crate::constants::{ETH_AID, LC_MAX, BTC_AID};
 use hex;
 use rustc_serialize::hex::ToHex;
 
@@ -207,30 +207,36 @@ impl EosApdu {
     }
 }
 
-/**
-获取xpub
-*/
-pub fn get_xpub(path: &str, verify_flag: bool) -> String {
-    if path.as_bytes().len() > 256 {
-        panic!("data to long");
+pub struct BtcApdu{}
+
+impl BtcApdu{
+    pub fn select_applet() -> String{
+        Apdu::select_applet(BTC_AID)
     }
 
-    let mut apdu = Vec::new();
-    apdu.push(0x80); //CLA
-    apdu.push(0x43); //INS
-    apdu.push(0x00); //P1
-                     //p2
-    if verify_flag {
-        apdu.push(0x00);
-    } else {
-        apdu.push(0x01);
+    /**
+    获取xpub
+    */
+    pub fn get_xpub(path: &str, verify_flag: bool) -> String {
+        if path.as_bytes().len() > 256 {
+            panic!("data to long");
+        }
+        let mut apdu = Vec::new();
+        apdu.push(0x80); //CLA
+        apdu.push(0x43); //INS
+        apdu.push(0x00); //P1
+        //p2
+        if verify_flag {
+            apdu.push(0x01);
+        } else {
+            apdu.push(0x00);
+        }
+        let path_bytes = path.as_bytes();
+        apdu.push(path_bytes.len() as u8); //Lc
+        apdu.extend(path_bytes.iter());//data
+        apdu.push(0x00); //Le
+        apdu.to_hex().to_uppercase()
     }
-    apdu.push(path.clone().bytes().len() as u8); //Lc
-    let mut temp_path_byte = path.as_bytes().to_vec(); //DATA
-    apdu.append(&mut temp_path_byte);
-    apdu.push(0x00); //Le
-    println!("get xpub apdu -->{}", apdu.to_hex().to_uppercase());
-    apdu.to_hex().to_uppercase()
 }
 
 /**
@@ -253,14 +259,14 @@ pub fn bind_check(data: &Vec<u8>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use crate::apdu::get_xpub;
+    use crate::apdu::BtcApdu;
 
     #[test]
     fn get_xpub_test() {
         let path = String::from("m/44/0/0");
         let verify_flag = false;
         assert_eq!(
-            get_xpub(&path, verify_flag),
+            BtcApdu::get_xpub(&path, verify_flag),
             String::from("80430001086D2F34342F302F3000")
         );
     }

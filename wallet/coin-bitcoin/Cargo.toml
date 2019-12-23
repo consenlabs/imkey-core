@@ -1,15 +1,15 @@
 [package]
-name = "interface"
+name = "coin-bitcoin"
 version = "0.1.0"
-authors = ["IMLXM <liuxm1986@gmail.com>"]
+authors = ["xiaoguang101010 <xiaoguang101010@163.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 common = {path = "../../common"}
-coin-ethereum = {path = "../coin-ethereum"}
-coin-bitcoin = {path = "../coin-bitcoin"}
-ethereum-types = "0.6.0"
+device = {path = "../../device"}
+bitcoin = "0.21.0"
 hex = "0.3"
-mq = {path = "../../mq"}
+secp256k1 = "0.17.1"
+ring = "0.16.9"
