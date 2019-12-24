@@ -5,6 +5,7 @@ use prost::Message;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 pub mod api;
+pub mod device_manager;
 pub mod deviceapi;
 pub mod error_handling;
 pub mod ethapi;

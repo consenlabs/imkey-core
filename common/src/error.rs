@@ -14,6 +14,7 @@ pub enum Error {
     PathError,
     ChainTypeError,
     ProtoError,
+    DeviceOpError,
 }
 
 macro_rules! from_err {
@@ -45,6 +46,7 @@ impl fmt::Display for Error {
             Error::PathError => write!(f, "path parameter error"),
             Error::ChainTypeError => write!(f, "unsupported chain"),
             Error::ProtoError => write!(f, "protobuf error"),
+            Error::DeviceOpError => write!(f, "device operation error"),
         }
     }
 }

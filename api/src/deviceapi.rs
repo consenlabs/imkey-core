@@ -18,7 +18,27 @@ pub struct DeviceCert {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AuthCode {
     #[prost(string, tag="1")]
+    pub se_id: std::string::String,
+    #[prost(string, tag="2")]
     pub auth_code: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AuthCodeResponse {
+    #[prost(string, tag="1")]
+    pub se_id: std::string::String,
+    #[prost(string, tag="2")]
+    pub next_stepkey: std::string::String,
+    #[prost(string, repeated, tag="3")]
+    pub apdu_list: ::std::vec::Vec<std::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AuthCodeServiceResponse {
+    #[prost(string, tag="1")]
+    pub return_code: std::string::String,
+    #[prost(string, tag="2")]
+    pub return_msg: std::string::String,
+    #[prost(message, optional, tag="3")]
+    pub return_data: ::std::option::Option<AuthCodeResponse>,
 }
 ///binding code related
 #[derive(Clone, PartialEq, ::prost::Message)]

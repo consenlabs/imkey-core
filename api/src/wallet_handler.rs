@@ -4,8 +4,10 @@ use crate::ethereum_address::get_eth_address;
 use crate::ethereum_signer::sign_eth_transaction;
 use bytes::BytesMut;
 use common::error::Error;
+use device::manager;
 use interface::ethereum_signer::EthereumSigner;
 use prost::Message;
+use crate::device_manager::device_store_authcode;
 
 pub fn encode_message(msg: impl Message) -> Result<Vec<u8>, Error> {
     println!("{:#?}", msg);
@@ -36,13 +38,13 @@ pub fn device_manage(data: &[u8]) -> Result<Vec<u8>, Error> {
     let param: DeviceParam = DeviceParam::decode(data).expect("AddressParam");
 
     match param.action.as_str() {
-        "app_download" => Err(Error::ChainTypeError),
-        "app_update" => Err(Error::ChainTypeError),
-        "app_delete" => Err(Error::ChainTypeError),
-        "check_cert" => Err(Error::ChainTypeError),
-        "store_authcode" => Err(Error::ChainTypeError),
-        "bind_acquire" => Err(Error::ChainTypeError),
-        "set_device_name" => Err(Error::ChainTypeError),
+        //"app_download" => manager::app_download(),
+        //"app_update" => manager::app_update(),
+        //"app_delete" => manager::app_delete()
+        //"check_cert" => manager::get_cert(),
+        "store_authcode" => device_store_authcode(&param),
+        //"bind_acquire" => manager::,
+        //"set_device_name" => manager::,
         _ => Err(Error::ChainTypeError),
     }
 }
