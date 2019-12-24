@@ -55,8 +55,8 @@ pub mod key_manager;
 use base64::{decode, encode};
 use hex::FromHex;
 use rand::rngs::OsRng;
-use rsa::{BigUint, PaddingScheme, PublicKey, RSAPrivateKey, RSAPublicKey};
 use ring::digest;
+use rsa::{BigUint, PaddingScheme, PublicKey, RSAPrivateKey, RSAPublicKey};
 
 fn main() {
     //SE安全检查
@@ -111,9 +111,8 @@ fn main() {
     //    println!("{}", response);
     use rand::thread_rng;
     use secp256k1::ecdh::SharedSecret;
-    use secp256k1::{PublicKey, SecretKey};
     use secp256k1::Secp256k1;
-
+    use secp256k1::{PublicKey, SecretKey};
 
     //let pub_key = Vec::from_hex("0403089D8A83A87F24D906303A49D39669D17B0F7AB76EB098A65AFEF31154E75DEE5B87B69CBF78F11E831A4961C8A8F031C2869EA0716C798F76F5E91338DC35");
     //let pri_key = Vec::from_hex("D83332655D254FB8BF9BD43570C5A3E188113363749E9F9A27AA4CC0600D3089");
@@ -128,19 +127,16 @@ fn main() {
     let aa = digest::digest(&digest::SHA256, &sec[..]);
     println!("{:?}", hex::encode_upper(aa.as_ref()));
 
-
-//    let s = Secp256k1::signing_only();
-//    let (sk1, pk1) = s.generate_keypair(&mut thread_rng());
-//    println!("{:?}", sk1.to_string());
-//    println!("{:?}", pk1.to_string());
-//    let (sk2, pk2) = s.generate_keypair(&mut thread_rng());
-//    println!("{:?}", sk2.to_string());
-//    println!("{:?}", pk2.to_string());
-//    let sec1 = SharedSecret::new(&pk1, &sk2);
-//    let sec2 = SharedSecret::new(&pk2, &sk1);
-//    let sec_odd = SharedSecret::new(&pk1, &sk1);
-//    println!("{:?}", hex::encode_upper(&sec1[..]));
-//    println!("{:?}", hex::encode_upper(&sec2[..]))
-
-
+    //    let s = Secp256k1::signing_only();
+    //    let (sk1, pk1) = s.generate_keypair(&mut thread_rng());
+    //    println!("{:?}", sk1.to_string());
+    //    println!("{:?}", pk1.to_string());
+    //    let (sk2, pk2) = s.generate_keypair(&mut thread_rng());
+    //    println!("{:?}", sk2.to_string());
+    //    println!("{:?}", pk2.to_string());
+    //    let sec1 = SharedSecret::new(&pk1, &sk2);
+    //    let sec2 = SharedSecret::new(&pk2, &sk1);
+    //    let sec_odd = SharedSecret::new(&pk1, &sk1);
+    //    println!("{:?}", hex::encode_upper(&sec1[..]));
+    //    println!("{:?}", hex::encode_upper(&sec2[..]))
 }

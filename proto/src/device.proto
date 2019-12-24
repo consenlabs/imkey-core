@@ -15,7 +15,20 @@ message DeviceCert {
 
 //auth code related
 message AuthCode {
-    string auth_code = 1;
+    string se_id = 1;
+    string auth_code = 2;
+}
+
+message AuthCodeResponse {
+    string se_id = 1;
+    string next_stepkey = 2;
+    repeated string apdu_list = 3;
+}
+
+message AuthCodeServiceResponse {
+    string return_code = 1;
+    string return_msg = 2;
+    AuthCodeResponse return_data = 3;
 }
 
 //binding code related
