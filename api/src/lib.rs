@@ -89,9 +89,10 @@ pub extern "C" fn get_seid() -> *const c_char {
 
 //should move out
 fn get_seid_internal() -> *const c_char {
-    message::send_apdu(String::from("00A4040000"));
-    let res = message::send_apdu(String::from("80CB800005DFFF028101"));
-    CString::new(res).unwrap().into_raw()
+    // message::send_apdu(String::from("00A4040000"));
+    // let res = message::send_apdu(String::from("80CB800005DFFF028101"));
+    // CString::new(res).unwrap().into_raw()
+    CString::new("ok").unwrap().into_raw()
 }
 
 #[no_mangle]
