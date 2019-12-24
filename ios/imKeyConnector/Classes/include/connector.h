@@ -11,6 +11,12 @@ void app_download(void);
 
 void app_update(void);
 
+/**
+ * dispatch protobuf rpc call
+ * //@@XM TODO: add in error handling
+ */
+const char *call_tcx_api(const char *hex_str);
+
 void check_device(void);
 
 void check_update(void);
