@@ -33,7 +33,7 @@ import com.mk.imkeylibrary.bluetooth.ErrorCode;
 import com.mk.imkeylibrary.device.DeviceManager;
 import com.mk.imkeylibrary.exception.ImkeyException;
 import com.mk.imkeylibrary.keycore.Api;
-import com.mk.imkeylibrary.keycore.RustApi;
+//import com.mk.imkeylibrary.keycore.RustApi;
 import com.mk.imkeylibrary.utils.LogUtil;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
@@ -49,24 +49,28 @@ public class MainActivity extends AppCompatActivity {
     private BleDevice mDevice;//current connect device
     private DeviceManager mManager;
 
-//    static {
-//        System.loadLibrary("connector");
-//    }
+    static {
+        System.loadLibrary("crypto");
+        System.loadLibrary("ssl");
+        System.loadLibrary("connector");
+    }
 
     public native String hello(String to);
     public native String getXPub();
+    public native String get_seid();
+    public native String get_apdu();
 
     public String sendApdu(String apdu) {
         LogUtil.d("sendadadada....");
         return "22";
     }
 
-    public interface CTreble extends Library {
-       CTreble INSTANCE = (CTreble) Native.load("connector",CTreble.class);
-
-        int treble(int value);
-//        int jni_call_static_method_safe();
-    }
+//    public interface CTreble extends Library {
+////       CTreble INSTANCE = (CTreble) Native.load("connector",CTreble.class);
+//
+//        int treble(int value);
+////        int jni_call_static_method_safe();
+//    }
 
 //    public interface ThingLibrary extends Library {
 //        public static final String JNA_LIBRARY_NAME = "connector";
@@ -231,11 +235,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void tempTest(){
-        String seid = Api.getSeid();
+        String seid = get_seid();
         LogUtil.d("seid = " + seid);
 
-//        String seid = LogUtil.getSeid();
-//        LogUtil.d("seid = " + seid);
+//        String apdu = get_apdu();
+//        LogUtil.d("apdu = " + apdu);
     }
 
     private void showSearchDialog() {
