@@ -21,3 +21,5 @@ pub const BTC_AID: &str = "695F627463";
 pub const VERSION: &str = "1.2.00";
 
 pub const MAX_UTXO_NUMBER: usize = 252;
+pub const EACH_ROUND_NUMBER: usize = 5;
+

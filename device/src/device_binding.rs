@@ -25,9 +25,9 @@ impl DeviceManage {
     }
     pub fn bind_check(&mut self, file_path: &String) {
         //获取seid
-        let seid = String::from("18080000000000860001010000000106");
+        let seid = String::from("19060000000200860001010000000014");
         //获取SN号
-        let sn = String::from("imKey01191200010");
+        let sn = String::from("imKey01191200001");
 
         //计算文件加密密钥
         //        let mut temp_key_manager = KeyManager::new();

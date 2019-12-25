@@ -1,5 +1,6 @@
 pub mod transaction;
 pub mod error;
+pub mod tx_signer;
 
 #[cfg(test)]
 mod tests {
