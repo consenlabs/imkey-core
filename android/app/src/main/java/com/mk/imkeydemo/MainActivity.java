@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     public native String hello(String to);
     public native String getXPub();
     public native String get_seid();
-    public native String get_apdu();
+    public native String test();
 
     public String sendApdu(String apdu) {
         LogUtil.d("sendadadada....");
@@ -235,8 +235,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void tempTest(){
-        String seid = get_seid();
-        LogUtil.d("seid = " + seid);
+        String str = test();
+        LogUtil.d("seid = " + test());
 
 //        String apdu = get_apdu();
 //        LogUtil.d("apdu = " + apdu);

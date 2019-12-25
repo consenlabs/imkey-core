@@ -83,6 +83,11 @@ pub extern "C" fn get_se_id(
 // }
 
 #[no_mangle]
+pub extern "C" fn Java_com_mk_imkeydemo_MainActivity_test() -> *const c_char {
+    CString::new("ok").unwrap().into_raw()
+}
+
+#[no_mangle]
 pub extern "C" fn get_seid() -> *const c_char {
     get_seid_internal()
 }
