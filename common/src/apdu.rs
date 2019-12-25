@@ -1,6 +1,7 @@
 use crate::constants::{ETH_AID, LC_MAX, BTC_AID};
 use hex;
 use rustc_serialize::hex::ToHex;
+use regex::internal::Input;
 
 pub struct Apdu {}
 
@@ -237,6 +238,69 @@ impl BtcApdu{
         apdu.push(0x00); //Le
         apdu.to_hex().to_uppercase()
     }
+
+    pub fn btc_prepare(ins : u8, p1 : u8, data : &Vec<u8>) -> Vec<String>{
+        let mut apdu_vec = Vec::new();
+        let apdu_number = (data.len() - 1) / LC_MAX as usize + 1;
+        for index in (0..apdu_number) {
+            if index == apdu_number - 1{
+                let length = if data.len() % LC_MAX as usize == 0 {
+                    LC_MAX
+                }else {
+                    (data.len() % LC_MAX as usize) as u32
+                };
+                let mut temp_apdu_vec = Vec::new();
+                temp_apdu_vec.push(0x80);
+                temp_apdu_vec.push(ins);
+                temp_apdu_vec.push(p1);
+                temp_apdu_vec.push(0x80);
+                temp_apdu_vec.push(length as u8);
+                println!("left:{}", index * LC_MAX as usize);
+//                println!("right:{}", length as usize);
+                temp_apdu_vec.extend_from_slice(&data[index * LC_MAX as usize..]);
+                apdu_vec.push(hex::encode_upper(temp_apdu_vec));
+            }else {
+                let mut temp_apdu_vec = Vec::new();
+                temp_apdu_vec.push(0x80);
+                temp_apdu_vec.push(ins);
+                temp_apdu_vec.push(p1);
+                temp_apdu_vec.push(0x80);
+                temp_apdu_vec.push(LC_MAX as u8);
+                temp_apdu_vec.extend_from_slice(&data[index * LC_MAX as usize..((index + 1) * LC_MAX as usize) as usize]);
+                apdu_vec.push(hex::encode_upper(temp_apdu_vec));
+            }
+        }
+        return apdu_vec;
+    }
+
+    pub fn btc_perpare_input(p1 : u8, data : &Vec<u8>) -> String{
+        if data.len() > 256 {
+            panic!("data to long");
+        }
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(0x41);
+        apdu.push(p1);
+        apdu.push(0x00);
+        apdu.push(data.len() as u8);
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
+    pub fn btc_sign(index : u8, hash_type : u8, path : &str) -> String{
+        let path_bytes = path.as_bytes();
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(0x42);
+        apdu.push(index);
+        apdu.push(hash_type);
+        apdu.push(path_bytes.len() as u8);
+        apdu.extend(path_bytes.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
 }
 
 /**
@@ -260,6 +324,7 @@ pub fn bind_check(data: &Vec<u8>) -> String {
 #[cfg(test)]
 mod tests {
     use crate::apdu::BtcApdu;
+    use hex::FromHex;
 
     #[test]
     fn get_xpub_test() {
@@ -269,5 +334,13 @@ mod tests {
             BtcApdu::get_xpub(&path, verify_flag),
             String::from("80430001086D2F34342F302F3000")
         );
+    }
+    #[test]
+    fn btc_prepare(){
+        let data = Vec::from_hex("004630440220041038231F1C5E8D98EF941347BD9B6C220578128677BD561D258EC9B4CDFA3502203D18C43F7D06EE32D9527C8322F4D675F58856EC227ABF7085CCE65D5E5100C1019501000000040220D9AE2F000000001976A91455BDC1B42E3BED851959846DDF600E96125423E088AC0000000000000000536A4C500200000080A10BC28928F4C17A287318125115C3F098ED20A8237D1E8E4125BC25D1BE99752ADAD0A7B9CECA853768AEBB6965ECA126A62965F698A0C1BC43D83DB632AD7F717276057E6012AFA99385000000000100000000000000000027106F004630440220041038231F1C5E8D98EF941347BD9B6C220578128677BD561D258EC9B4CDFA3502203D18C43F7D06EE32D9527C8322F4D675F58856EC227ABF7085CCE65D5E5100C1019501000000040220D9AE2F000000001976A91455BDC1B42E3BED851959846DDF600E96125423E088AC0000000000000000536A4C500200000080A10BC28928F4C17A287318125115C3F098ED20A8237D1E8E4125BC25D1BE99752ADAD0A7B9CECA853768AEBB6965ECA126A62965F698A0C1BC43D83DB632AD7F717276057E6012AFA99385000000000100000000000000000027106F004630440220041038231F1C5E8D98EF941347BD9B6C220578128677BD561D258EC9B4CDFA3502203D18C43F7D06EE32D9527C8322F4D675F58856EC227ABF7085CCE65D5E5100C1019501000000040220D9AE2F000000001976A91455BDC1B42E3BED851959846DDF600E96125423E088AC0000000000000000536A4C500200000080A10BC28928F4C17A287318125115C3F098ED20A8237D1E8E4125BC25D1BE99752ADAD0A7B9CECA853768AEBB6965ECA126A62965F698A0C1BC43D83DB632AD7F717276057E6012AFA99385000000000100000000000000000027106F004630440220041038231F1C5E8D98EF941347BD9B6C220578128677BD561D258EC9B4CDFA3502203D18C43F7D06EE32D9527C8322F4D675F58856EC227ABF7085CCE65D5E5100C1019501000000040220D9AE2F000000001976A91455BDC1B42E3BED851959846DDF600E96125423E088AC0000000000000000536A4C500200000080A10BC28928F4C17A287318125115C3F098ED20A8237D1E8E4125BC25D1BE99752ADAD0A7B9CECA853768AEBB6965ECA126A62965F698A0C1BC43D83DB632AD7F717276057E6012AFA99385000000000100000000000000000027106F").unwrap();
+        let apdu_vec = BtcApdu::btc_prepare(0x41, 0x00, &data);
+        for apdu in apdu_vec {
+            println!("apdu-->{:?}", apdu);
+        }
     }
 }
