@@ -11,6 +11,7 @@
 #endif
 
 #import "imKeyConnector.h"
+#import "connector.h"
 #import "ErrorCodesAndMacros.h"
 #import "FTBLEDelegate.h"
 #import "FTBLEInterface.h"
