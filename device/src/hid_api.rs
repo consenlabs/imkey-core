@@ -45,6 +45,9 @@ pub fn send(hid_device: &HidDevice, apdu: &String) -> String {
     let return_data = read_device_response(hid_device).ok().unwrap();
     println!("<--{}", hex::encode_upper(return_data.clone()));
     let hex_str = hex::encode_upper(return_data.clone());
+    if(!"9000".eq(&hex_str[(hex_str.len() - 4) ..])){
+        panic!("指令执行失败");
+    }
     hex_str.chars().take(hex_str.len() - 4).collect()
 }
 #[no_mangle]
@@ -108,7 +111,7 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
     for u in &msg[..msg.len()] {
         send_data_string.push_str((format!("{:02X}", u)).as_ref());
     }
-    //    println!("{}", "send-->".to_owned()+&send_data_string);
+//    println!("{}", "send-->".to_owned()+&send_data_string);
 
     let msg_size = msg.len();
     let mut headerdata = Vec::new();
@@ -122,41 +125,44 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
     headerdata.push((msg_size & 0xFF00) as u8);
     headerdata.push((msg_size & 0x00FF) as u8);
     let mut data = Vec::new();
-    if ((msg_size + 8) < 64) {
+    if ((msg_size + 8) < 65) {
         data.extend_from_slice(&headerdata[0..8]);
         data.extend_from_slice(&msg[0..msg_size]);
     } else {
+
         let mut datalenflage = 0;
-        while (true) {
-            if (msg_size - datalenflage < 64 - 8) {
+        let mut flg = 0;
+        while(true){
+            if (msg_size - datalenflage < 65-8) {
                 data.extend_from_slice(&headerdata[0..5]);
-                data.push(0x00 as u8);
+                data.push(flg as u8);
                 data.extend_from_slice(&msg[datalenflage..msg_size]);
                 datalenflage += msg_size - datalenflage;
                 break;
-            } else {
-                if (datalenflage == 0) {
-                    data.extend_from_slice(&headerdata[0..8]);
-                    data.extend_from_slice(&msg[datalenflage..64 - 8]);
-                    datalenflage += (64 - 8);
-                } else {
+            }else {
+                if !(datalenflage == 0) {
                     data.extend_from_slice(&headerdata[0..5]);
-                    data.push(0x00 as u8);
-                    data.extend_from_slice(&msg[datalenflage..64 - 6]);
-                    datalenflage += (64 - 6);
+                    data.push(flg as u8);
+                    flg = 1+flg;
+                    data.extend_from_slice(&msg[datalenflage..datalenflage+65 - 6]);
+                    datalenflage += (65 - 6);
+                } else {
+                    data.extend_from_slice(&headerdata[0..8]);
+                    data.extend_from_slice(&msg[datalenflage..65 - 8]);
+                    datalenflage += (65 - 8);
                 }
             }
         }
     }
 
-    while data.len() % 64 > 0 {
+    while data.len() % 65 > 0 {
         data.push(0);
     }
 
     let mut total_written = 0;
-    for chunk in data.chunks(64) {
+    for chunk in data.chunks(65) {
         let res = device.write(&chunk);
-        if (res.is_err()) {
+        if(res.is_err()){
             return Err(protocol_err);
         }
     }
