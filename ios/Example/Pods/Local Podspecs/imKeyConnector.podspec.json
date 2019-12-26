@@ -19,7 +19,7 @@
     "ios": "9.0"
   },
   "source_files": "imKeyConnector/Classes/**/*.{h,m,swift,a}",
-  "swift_version": "4",
+  "swift_versions": "4",
   "ios": {
     "vendored_libraries": "imKeyConnector/Classes/include/libFtBTKeyApi.a"
   },
@@ -46,5 +46,6 @@
     "OrderedDictionary": [
       "~> 1.4"
     ]
-  }
+  },
+  "swift_version": "4"
 }

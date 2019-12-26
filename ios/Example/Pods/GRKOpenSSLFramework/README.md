@@ -61,8 +61,8 @@ While the repository does contain the pre-built frameworks, if you want to re-bu
 The build scripts and projects are all tailored for the 1.0 series of OpenSSL, so if you're attempting to use a different series you might run into some issues.
 
 1. Download the source tarball from [https://www.openssl.org/source/](https://www.openssl.org/source/)
-2. Download the PGP sig as well, and validate the tarball's signature.
-3. Place the downloaded file in this directory.
+2. Download the PGP sig as well, and validate the tarball's signature. (see [GPGVerify](https://github.com/levigroker/GPGVerify))
+3. Place the downloaded files in this directory.
 4. Update the `OPENSSL_VERSION` value in the `_master_build.sh`
 5. Clean, using the `./_master_build.sh clean` command.
 6. Build, using the `./_master_build.sh build` command.
