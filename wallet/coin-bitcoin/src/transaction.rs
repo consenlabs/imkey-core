@@ -243,14 +243,14 @@ impl BtcTransaction{
                 //发送签名指令到设备并获取签名结果
                 let btc_sign_apdu_return = hid_api::send(&hid_device, &btc_sign_apdu);
                 let sign_result_str = btc_sign_apdu_return[2..btc_sign_apdu_return.len() - 2].to_string();
-                println!("sign_result_str --> {:?}", sign_result_str);
-                //截取掉第一和最后一个字节编程 R/S格式 417FBE1AA92E06847B600E62769576D39215836BAABDDD05D8454304B8411FEAD7C211548DD6AFA82BB6E72BD3DD84F02B832DB672B0BA3F4A77A146DEE01F7BC800
-//                let sign_result_vec = Vec::from_hex("7FBE1AA92E06847B600E62769576D39215836BAABDDD05D8454304B8411FEAD7C211548DD6AFA82BB6E72BD3DD84F02B832DB672B0BA3F4A77A146DEE01F7BC8").unwrap();
+
                 let sign_result_vec = Vec::from_hex(&sign_result_str).unwrap();
-                let mut temp_signature = Signature::from_compact(sign_result_vec.as_slice()).unwrap().serialize_der().to_vec();
+                let mut temp_signnture_obj = Signature::from_compact(sign_result_vec.as_slice()).unwrap();
+                temp_signnture_obj.normalize_s();
+                let mut sign_result_vec = temp_signnture_obj.serialize_der().to_vec();
 
                 //添加HASH类型
-                temp_signature.push(0x01);
+                sign_result_vec.push(0x01);
                 let temp_lock_script = Builder::new().push_slice(&sign_result_vec)
                             .push_slice(Vec::from_hex(utxo_pub_key_vec.get(y).unwrap()).unwrap().as_slice())
                             .into_script();
@@ -279,7 +279,7 @@ impl BtcTransaction{
         Ok(TxSignResult {
             signature: tx_bytes.to_hex(),
             tx_hash: tx_to_sign.txid().to_hex(),
-            wtx_id: tx_to_sign.ntxid().to_hex(), //@@XM TODO: check this witness txid
+            wtx_id: tx_to_sign.ntxid().to_hex(), 
         })
     }
 }
