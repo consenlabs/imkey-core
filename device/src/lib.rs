@@ -9,7 +9,6 @@ pub mod se_query;
 pub mod se_secure_check;
 extern crate common;
 pub mod device_manager;
-pub mod hid_api;
 pub mod key_manager;
 pub mod manager;
 
