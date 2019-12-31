@@ -1,9 +1,13 @@
 use crate::api::{AddressParam, DeviceParam, SignParam};
+use crate::btc_signer::sign_btc_transaction;
+use crate::cosmos_signer::sign_cosmos_transaction;
 use crate::device_manager::{
     device_activate, device_app_delete, device_app_download, device_app_update,
     device_bind_acquire, device_bind_check, device_cert_check, device_display_bind_code,
     device_query, device_secure_check, device_store_authcode,
 };
+use crate::eos_pubkey::{display_eos_pubkey, get_eos_pubkey};
+use crate::eos_signer::sign_eos_transaction;
 use crate::ethereum_address::get_eth_address;
 use crate::ethereum_signer::sign_eth_transaction;
 use bytes::BytesMut;
@@ -22,6 +26,9 @@ pub fn sign_tx(data: &[u8]) -> Result<Vec<u8>, Error> {
 
     match param.chain_type.as_str() {
         "ETH" => sign_eth_transaction(&param),
+        "BTC" => sign_btc_transaction(&param),
+        "EOS" => sign_eos_transaction(&param),
+        "COSMOS" => sign_cosmos_transaction(&param),
         _ => Err(Error::ChainTypeError),
     }
 }
@@ -31,6 +38,16 @@ pub fn get_address(data: &[u8]) -> Result<Vec<u8>, Error> {
 
     match param.chain_type.as_str() {
         "ETH" => get_eth_address(&param),
+        "EOS" => display_eos_pubkey(&param),
+        _ => Err(Error::ChainTypeError),
+    }
+}
+
+pub fn get_pubkey_eos(data: &[u8]) -> Result<Vec<u8>, Error> {
+    let param: AddressParam = AddressParam::decode(data).expect("AddressParam");
+
+    match param.chain_type.as_str() {
+        "EOS" => get_eos_pubkey(&param),
         _ => Err(Error::ChainTypeError),
     }
 }

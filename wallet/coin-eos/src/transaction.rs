@@ -1,35 +1,35 @@
+use bitcoin_hashes::hex::ToHex;
+use bitcoin_hashes::{sha256, Hash};
+use bytes::BufMut;
+use common::apdu::EosApdu;
 use common::error::Error;
 use common::path;
-use common::apdu::EosApdu;
 use mq::message;
-use bytes::BufMut;
-use bitcoin_hashes::{sha256, Hash};
 use std::io::Read;
-use bitcoin_hashes::hex::ToHex;
 
 #[derive(Debug)]
 pub struct EosTransaction {
     pub path: String,
-    pub sign_datas:Vec<EosSignData>,
+    pub sign_datas: Vec<EosSignData>,
 }
 
 #[derive(Debug)]
 pub struct EosSignData {
     pub tx_hash: String,
     pub pub_keys: Vec<String>,
-    pub chain_id:String,
-    pub to:String,
-    pub from:String,
-    pub payment:String,
+    pub chain_id: String,
+    pub to: String,
+    pub from: String,
+    pub payment: String,
 }
 
 #[derive(Debug)]
-pub struct EosSignResult{
-    pub hash:String,
-    pub signs:Vec<String>,
+pub struct EosSignResult {
+    pub hash: String,
+    pub signs: Vec<String>,
 }
 
-impl EosTransaction{
+impl EosTransaction {
     pub fn sign(&mut self) -> Result<EosSignResult, Error> {
         path::check_path_validity(&self.path);
 
@@ -37,23 +37,23 @@ impl EosTransaction{
         let select_response = message::send_apdu(select_apdu);
         //todo: check select response
 
-        let eos_tx = EosSignResult{
+        let eos_tx = EosSignResult {
             hash: "".to_string(),
-            signs: vec![]
+            signs: vec![],
         };
 
         for signdata in &self.sign_datas {
-            let mut tx_hash_pack:Vec<u8> = Vec::new();
-//            let hash_data = signdata.chain_id.to_owned() + &signdata.tx_hash;
-//            tx_hash_pack.put_slice(hash_data.as_bytes());
+            let mut tx_hash_pack: Vec<u8> = Vec::new();
+            //            let hash_data = signdata.chain_id.to_owned() + &signdata.tx_hash;
+            //            tx_hash_pack.put_slice(hash_data.as_bytes());
             tx_hash_pack.put_slice(signdata.chain_id.as_bytes());
             tx_hash_pack.put_slice(signdata.tx_hash.as_bytes());
-            let context_free_actions = [0;32];
+            let context_free_actions = [0; 32];
             tx_hash_pack.put_slice(&context_free_actions);
             let tx_hash_sha256 = sha256::Hash::from_slice(&tx_hash_pack).unwrap();
             let tx_hash = "0120".to_owned() + &hex::encode(&tx_hash_sha256);
 
-            let mut tx_pack:Vec<u8> = Vec::new();
+            let mut tx_pack: Vec<u8> = Vec::new();
 
             //sha256(chainid + txhash + contextFreeActions)
             tx_pack.put_slice(tx_hash.as_bytes());
@@ -81,7 +81,6 @@ impl EosTransaction{
         }
 
         let ss = &self.path;
-
 
         Ok(eos_tx)
     }
