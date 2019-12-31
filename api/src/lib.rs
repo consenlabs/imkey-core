@@ -1,5 +1,5 @@
 use crate::api::TcxAction;
-use crate::wallet_handler::{device_manage, get_address, sign_tx};
+use crate::wallet_handler::{device_manage, get_address, sign_tx, get_pubkey_eos};
 use common::error::Error;
 use prost::Message;
 use std::ffi::{CStr, CString};
@@ -13,6 +13,13 @@ pub mod ethereum;
 pub mod ethereum_address;
 pub mod ethereum_signer;
 pub mod wallet_handler;
+pub mod cosmosapi;
+pub mod cosmos_signer;
+pub mod btc_signer;
+pub mod btcapi;
+pub mod eos_pubkey;
+pub mod eos_signer;
+pub mod eosapi;
 #[macro_use]
 extern crate failure;
 
@@ -172,6 +179,7 @@ pub unsafe extern "C" fn call_tcx_api(hex_str: *const c_char) -> *const c_char {
         "sign_tx" => sign_tx(&action.param.unwrap().value).unwrap(),
         "get_address" => get_address(&action.param.unwrap().value).unwrap(),
         "device_manage" => device_manage(&action.param.unwrap().value).unwrap(),
+        "get_pubkey_eos" => get_pubkey_eos(&action.param.unwrap().value).unwrap(),
         _ => Vec::new(), //@@XM TODO: change to error message
                          /*
                          "sign_tx" => landingpad(|| sign_tx(&action.param.unwrap().value)),
