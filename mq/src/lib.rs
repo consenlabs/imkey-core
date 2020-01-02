@@ -1,5 +1,5 @@
-pub mod message;
 pub mod hid_api;
+pub mod message;
 
 //#[macro_use]
 ////extern crate log;

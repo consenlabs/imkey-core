@@ -56,4 +56,5 @@ TODO: Add long description of the pod here.
   s.dependency "CoreBitcoin"
   s.dependency "secp256k1.swift"
   s.dependency "OrderedDictionary", "~> 1.4"
+  s.dependency "SwiftProtobuf", "~> 1.0"
 end

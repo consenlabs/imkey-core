@@ -15,6 +15,7 @@ target 'imKeyConnector_Example' do
   pod 'imKeyConnector', :path => '../'
   
   pod 'LTHRadioButton'
+  pod 'SwiftProtobuf', '~> 1.0'
 
   target 'imKeyConnector_Tests' do
     inherit! :search_paths

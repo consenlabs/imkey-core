@@ -45,6 +45,9 @@
     ],
     "OrderedDictionary": [
       "~> 1.4"
+    ],
+    "SwiftProtobuf": [
+      "~> 1.0"
     ]
   },
   "swift_version": "4"
