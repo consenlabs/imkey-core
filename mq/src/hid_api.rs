@@ -1,6 +1,9 @@
+#[cfg(target_os = "macos")]
 extern crate hidapi;
 
 use hex::FromHex;
+
+#[cfg(target_os = "macos")]
 use hidapi::{HidApi, HidDevice};
 use std::thread::sleep;
 use std::time::Duration;
@@ -10,6 +13,7 @@ const RETRY_SEC1: u64 = 30;
 const DEV_VID: u16 = 0x096e;
 const DEV_PID: u16 = 0x0891;
 
+#[cfg(target_os = "macos")]
 fn main() {
     let hid_device = connect();
     let apdu = "00A40400".to_string();
@@ -21,6 +25,7 @@ fn main() {
     //    sleep(Duration::from_secs(RETRY_SEC1));
 }
 
+#[cfg(target_os = "macos")]
 #[no_mangle]
 pub enum Error {
     /// Ethereum wallet protocol error.
@@ -36,6 +41,8 @@ pub enum Error {
     /// Trying to read from a closed device at the given path
     ClosedDevice(String),
 }
+
+#[cfg(target_os = "macos")]
 #[no_mangle]
 pub fn send(hid_device: &HidDevice, apdu: &String) -> String {
     println!("-->{}", apdu);
@@ -45,11 +52,13 @@ pub fn send(hid_device: &HidDevice, apdu: &String) -> String {
     let return_data = read_device_response(hid_device).ok().unwrap();
     println!("<--{}", hex::encode_upper(return_data.clone()));
     let hex_str = hex::encode_upper(return_data.clone());
-    if(!"9000".eq(&hex_str[(hex_str.len() - 4) ..])){
+    if (!"9000".eq(&hex_str[(hex_str.len() - 4)..])) {
         panic!("指令执行失败");
     }
     hex_str.chars().take(hex_str.len() - 4).collect()
 }
+
+#[cfg(target_os = "macos")]
 #[no_mangle]
 fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<(Vec<u8>), Error> {
     let protocol_err = Error::Protocol(&"Unexpected wire response from imkey Device");
@@ -72,6 +81,8 @@ fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<(Vec<u
 
     Ok(buf[..64].to_vec())
 }
+
+#[cfg(target_os = "macos")]
 #[no_mangle]
 fn read_device_response(device: &hidapi::HidDevice) -> Result<(Vec<u8>), Error> {
     let protocol_err = Error::Protocol(&"Unexpected wire response from imkey Device");
@@ -104,6 +115,8 @@ fn read_device_response(device: &hidapi::HidDevice) -> Result<(Vec<u8>), Error> 
 
     Ok(data[..msg_size as usize].to_vec())
 }
+
+#[cfg(target_os = "macos")]
 #[no_mangle]
 fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, Error> {
     let protocol_err = Error::Protocol(&"Unexpected wire response from imkey Device");
@@ -111,7 +124,7 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
     for u in &msg[..msg.len()] {
         send_data_string.push_str((format!("{:02X}", u)).as_ref());
     }
-//    println!("{}", "send-->".to_owned()+&send_data_string);
+    //    println!("{}", "send-->".to_owned()+&send_data_string);
 
     let msg_size = msg.len();
     let mut headerdata = Vec::new();
@@ -129,22 +142,21 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
         data.extend_from_slice(&headerdata[0..8]);
         data.extend_from_slice(&msg[0..msg_size]);
     } else {
-
         let mut datalenflage = 0;
         let mut flg = 0;
-        while(true){
-            if (msg_size - datalenflage < 65-8) {
+        while (true) {
+            if (msg_size - datalenflage < 65 - 8) {
                 data.extend_from_slice(&headerdata[0..5]);
                 data.push(flg as u8);
                 data.extend_from_slice(&msg[datalenflage..msg_size]);
                 datalenflage += msg_size - datalenflage;
                 break;
-            }else {
+            } else {
                 if !(datalenflage == 0) {
                     data.extend_from_slice(&headerdata[0..5]);
                     data.push(flg as u8);
-                    flg = 1+flg;
-                    data.extend_from_slice(&msg[datalenflage..datalenflage+65 - 6]);
+                    flg = 1 + flg;
+                    data.extend_from_slice(&msg[datalenflage..datalenflage + 65 - 6]);
                     datalenflage += (65 - 6);
                 } else {
                     data.extend_from_slice(&headerdata[0..8]);
@@ -162,12 +174,14 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
     let mut total_written = 0;
     for chunk in data.chunks(65) {
         let res = device.write(&chunk);
-        if(res.is_err()){
+        if (res.is_err()) {
             return Err(protocol_err);
         }
     }
     Ok(total_written)
 }
+
+#[cfg(target_os = "macos")]
 #[no_mangle]
 pub fn connect() -> HidDevice {
     let api = HidApi::new().expect("HID API object creation failed");

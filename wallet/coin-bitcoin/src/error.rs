@@ -1,6 +1,6 @@
 use std::fmt;
 
-pub enum BtcError{
+pub enum BtcError {
     ImkeyExceededMaxUtxoNumber,
     ImkeyAddressMismatchWithPath,
     ImkeySignatureVerifyFail,

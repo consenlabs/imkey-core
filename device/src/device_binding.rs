@@ -5,13 +5,13 @@ use block_modes::block_padding::Pkcs7;
 use block_modes::{BlockMode, Cbc};
 use common::apdu::Apdu;
 use hex::FromHex;
+use mq::message::send_apdu;
 use rand::rngs::OsRng;
 use ring::digest;
 use rsa::{BigUint, PaddingScheme, PublicKey as RSAPublic, RSAPrivateKey, RSAPublicKey};
 use secp256k1::ecdh::SharedSecret;
 use secp256k1::{PublicKey, SecretKey};
 use sha1::Sha1;
-use mq::message::send_apdu;
 
 pub struct DeviceManage {
     key_manager: KeyManager,
@@ -53,13 +53,12 @@ impl DeviceManage {
             Apdu::bind_check(&temp_key_manager.pub_key.unwrap().as_ref().to_vec());
 
         //发送bindcheck指令，并获取返回数据 TODO
-//        let hid_device = hid_api::connect();
-//        let select_imk_applet = Apdu::select_applet("695F696D6B");
-//        let response = hid_api::send(&hid_device, &select_imk_applet);
-//        let bind_check_apdu_resp_data = hid_api::send(&hid_device, &bind_check_apdu);
+        //        let hid_device = hid_api::connect();
+        //        let select_imk_applet = Apdu::select_applet("695F696D6B");
+        //        let response = hid_api::send(&hid_device, &select_imk_applet);
+        //        let bind_check_apdu_resp_data = hid_api::send(&hid_device, &bind_check_apdu);
         send_apdu(Apdu::select_applet("695F696D6B"));
         let bind_check_apdu_resp_data = send_apdu(bind_check_apdu);
-
 
         //获取状态值 //状态 0x00: 未绑定  0x55: 与传入appPK绑定  0xAA：与其他appPK绑定
         let status: String = bind_check_apdu_resp_data.chars().take(2).collect();
@@ -121,9 +120,9 @@ impl DeviceManage {
 
         //选择IMK applet TODO
         //        select_imk_applet();
-//        let hid_device = hid_api::connect();
-//        let select_imk_applet = Apdu::select_applet("695F696D6B");
-//        let response = hid_api::send(&hid_device, &select_imk_applet);
+        //        let hid_device = hid_api::connect();
+        //        let select_imk_applet = Apdu::select_applet("695F696D6B");
+        //        let response = hid_api::send(&hid_device, &select_imk_applet);
         send_apdu(Apdu::select_applet("695F696D6B"));
 
         //计算HASH
@@ -169,7 +168,7 @@ impl DeviceManage {
         let identity_verify_apdu = Apdu::identity_verify(&apdu_data);
         println!("{:?}", identity_verify_apdu);
         //发送指令到设备
-//        let response = hid_api::send(&hid_device, &identity_verify_apdu);
+        //        let response = hid_api::send(&hid_device, &identity_verify_apdu);
         let response = send_apdu(identity_verify_apdu);
         response.chars().take(2).collect()
     }
@@ -214,12 +213,12 @@ fn auth_code_encrypt(auth_code: &String) -> String {
 }
 
 pub fn display_bind_code() -> String {
-//    let hid_device = hid_api::connect();
-//    let select_imk_applet = Apdu::select_applet("695F696D6B");
-//    let response = hid_api::send(&hid_device, &select_imk_applet);
-//    let gen_auth_code_apdu = Apdu::generate_auth_code();
-//    let bind_code = hid_api::send(&hid_device, &gen_auth_code_apdu);
-//    bind_code
+    //    let hid_device = hid_api::connect();
+    //    let select_imk_applet = Apdu::select_applet("695F696D6B");
+    //    let response = hid_api::send(&hid_device, &select_imk_applet);
+    //    let gen_auth_code_apdu = Apdu::generate_auth_code();
+    //    let bind_code = hid_api::send(&hid_device, &gen_auth_code_apdu);
+    //    bind_code
     send_apdu(Apdu::select_applet("695F696D6B"));
     let gen_auth_code_ret_data = send_apdu(Apdu::generate_auth_code());
     gen_auth_code_ret_data

@@ -1,8 +1,10 @@
+#[cfg(target_os = "macos")]
+use super::hid_api;
+#[cfg(target_os = "macos")]
+use hidapi::{HidApi, HidDevice};
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 use std::sync::Mutex;
-use super::hid_api;
-use hidapi::{HidApi, HidDevice};
 //extern crate android_logger;
 
 lazy_static! {
@@ -12,7 +14,14 @@ lazy_static! {
     pub static ref STRING: Mutex<String> = Mutex::new("".to_string());
     pub static ref FUNCS:Mutex<Vec<extern "C" fn(*const i8) -> *const i8>> = Mutex::new(vec![]);
     // pub static ref FUNC:Box<extern "C" fn(*const i8) -> *const i8> = Box::new();
-    pub static ref DEVICE:Mutex<HidDevice> = Mutex::new(hid_api::connect());
+//    if cfg!(target_os = "macos") {
+//        pub static ref DEVICE:Mutex<HidDevice> = Mutex::new(hid_api::connect());
+//    }
+}
+
+#[cfg(target_os = "macos")]
+lazy_static! {
+    pub static ref DEVICE: Mutex<HidDevice> = Mutex::new(hid_api::connect());
 }
 
 #[no_mangle]
@@ -182,10 +191,15 @@ pub fn set_apdu_return(apdu_return: *const c_char) {
 //     }
 // }
 
+#[cfg(target_os = "macos")]
 pub fn send_apdu(apdu: String) -> String {
-//    set_apdu_r(apdu);
-//    get_apdu_return_r()
     hid_api::send(&DEVICE.lock().unwrap(), &apdu)
+}
+
+#[cfg(target_os = "ios")]
+pub fn send_apdu(apdu: String) -> String {
+    set_apdu_r(apdu);
+    get_apdu_return_r()
 }
 
 #[test]
