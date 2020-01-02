@@ -8,20 +8,28 @@ use std::sync::Mutex;
 //extern crate android_logger;
 
 lazy_static! {
-//    pub static ref CALLBACK: extern "C" fn(apdu:*const c_char)->*const c_char;
     pub static ref APDU: Mutex<String> = Mutex::new("".to_string());
     pub static ref APDU_RETURN: Mutex<String> = Mutex::new("".to_string());
     pub static ref STRING: Mutex<String> = Mutex::new("".to_string());
-    pub static ref FUNCS:Mutex<Vec<extern "C" fn(*const i8) -> *const i8>> = Mutex::new(vec![]);
-    // pub static ref FUNC:Box<extern "C" fn(*const i8) -> *const i8> = Box::new();
-//    if cfg!(target_os = "macos") {
-//        pub static ref DEVICE:Mutex<HidDevice> = Mutex::new(hid_api::connect());
-//    }
+    pub static ref CALLBACK: Mutex<extern "C" fn(*const i8) -> *const i8> =
+        Mutex::new(default_callback);
 }
 
 #[cfg(target_os = "macos")]
 lazy_static! {
     pub static ref DEVICE: Mutex<HidDevice> = Mutex::new(hid_api::connect());
+}
+
+#[no_mangle]
+pub extern "C" fn default_callback(apdu: *const c_char) -> *const c_char {
+    CString::new("need set callback!".to_owned())
+        .unwrap()
+        .into_raw()
+}
+
+pub fn set_callback(callback: extern "C" fn(apdu: *const c_char) -> *const c_char) {
+    let mut _callback = CALLBACK.lock().unwrap();
+    *_callback = callback;
 }
 
 #[no_mangle]

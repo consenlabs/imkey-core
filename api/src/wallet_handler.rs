@@ -1,7 +1,7 @@
 use crate::api::{AddressParam, DeviceParam, SignParam};
 use crate::btc_signer::sign_btc_transaction;
-use crate::cosmos_signer::sign_cosmos_transaction;
 use crate::cosmos_address::{display_cosmos_address, get_cosmos_address};
+use crate::cosmos_signer::sign_cosmos_transaction;
 use crate::device_manager::{
     device_activate, device_app_delete, device_app_download, device_app_update,
     device_bind_acquire, device_bind_check, device_cert_check, device_display_bind_code,
