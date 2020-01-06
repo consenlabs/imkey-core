@@ -44,9 +44,13 @@ class EOSViewController: UIViewController {
     ]
     
     do {
-      let result = try EOSTransactionSigner(txs: txs, handle: handle,path:BIP44.EOS_LEDGER).sign()
-      Log.d(result)
-      txtResult.text = "eos sign result:\n\(result)"
+//      let result = try EOSTransactionSigner(txs: txs, handle: handle,path:BIP44.EOS_LEDGER).sign()
+//      Log.d(result)
+//      txtResult.text = "eos sign result:\n\(result)"
+      
+      API.eosSignTx()
+//      API.startMessageDeamon()
+//      API.checkUpdate()
     }catch let e as ImkeyError {
       Log.d("!!!error:\(e.message)")
       toastMsg(message: e.message)

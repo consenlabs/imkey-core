@@ -492,6 +492,7 @@
 		46EB2E00004AA0 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EB2E00004A90 /* SwiftProtobuf.framework */; };
 		D8059B9F23BB495F0014B4DD /* libconnector.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8059B9E23BB495F0014B4DD /* libconnector.a */; };
 		D8059BA423BD90850014B4DD /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8059BA323BD90850014B4DD /* API.swift */; };
+		D8CBD7F223C46867006FEDD8 /* eos.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CBD7F123C46867006FEDD8 /* eos.pb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1177,6 +1178,7 @@
 		46EB2E00004A90 /* SwiftProtobuf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftProtobuf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8059B9E23BB495F0014B4DD /* libconnector.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libconnector.a; sourceTree = "<group>"; };
 		D8059BA323BD90850014B4DD /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		D8CBD7F123C46867006FEDD8 /* eos.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = eos.pb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1953,6 +1955,7 @@
 		46EB2E000017A0 /* Proto */ = {
 			isa = PBXGroup;
 			children = (
+				D8CBD7F123C46867006FEDD8 /* eos.pb.swift */,
 				46EB2E000017B0 /* api.pb.swift */,
 				46EB2E000017C0 /* device.pb.swift */,
 				46EB2E000017D0 /* eth.pb.swift */,
@@ -3164,6 +3167,7 @@
 				46EB2E00003C60 /* ETHTransaction.swift in Sources */,
 				46EB2E00003E50 /* Hex.swift in Sources */,
 				46EB2E00003D00 /* HTTP.swift in Sources */,
+				D8CBD7F223C46867006FEDD8 /* eos.pb.swift in Sources */,
 				46EB2E00003F90 /* imKeyConnector-dummy.m in Sources */,
 				D8059BA423BD90850014B4DD /* API.swift in Sources */,
 				46EB2E00003C70 /* ImkeyError.swift in Sources */,

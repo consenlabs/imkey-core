@@ -167,6 +167,7 @@ pub extern "C" fn app_delete() {
     manager::app_delete();
 }
 
+
 /// dispatch protobuf rpc call
 /// //@@XM TODO: add in error handling
 #[no_mangle]
