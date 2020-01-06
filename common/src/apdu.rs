@@ -302,6 +302,23 @@ impl BtcApdu {
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
     }
+
+    pub fn btc_segwit_sign(last_one : bool, hash_type : u8, data : Vec<u8>) -> String{
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(0x32);
+        if last_one {
+            apdu.push(0x80);
+        }else{
+            apdu.push(0x00);
+        }
+        apdu.push(hash_type);
+        apdu.push(data.len() as u8);
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
 }
 
 /**
