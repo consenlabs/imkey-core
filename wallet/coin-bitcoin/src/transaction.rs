@@ -17,6 +17,7 @@ use ring::digest;
 use mq::message::send_apdu;
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::Hash;
+use common::utility::hex_to_bytes;
 
 #[derive(Clone)]
 pub struct Utxo {
@@ -525,7 +526,7 @@ impl BtcTransaction {
             }
             data.extend(utxo_amount.iter());
 
-            //sequence TODO
+            //sequence
             data.extend(hex::decode("FFFFFFFF").unwrap());
 
             //set length
@@ -559,104 +560,60 @@ impl BtcTransaction {
             send_apdu(apdu);
         }
 
-        for wegwit_sign_apdu in sign_apdu_vec {
-            send_apdu(wegwit_sign_apdu);
-        }
-
-
-
-
-
-
+        //send sign apdu
         let mut lock_script_ver : Vec<Script> = Vec::new();
-        let count = (self.unspents.len() - 1 )/ EACH_ROUND_NUMBER + 1;
-        for i in (0..count) {
-            for (x, temp_utxo) in self.unspents.iter().enumerate() {
-                let mut input_data_vec = Vec::new();
-                input_data_vec.push(x as u8);
+        let mut witnesses: Vec<(Vec<u8>, Vec<u8>)> = vec![];
+        for (index, wegwit_sign_apdu) in sign_apdu_vec.iter().enumerate() {
+            let sign_apdu_return_data = send_apdu(wegwit_sign_apdu.clone());
+            let sign_result_str = sign_apdu_return_data[2..sign_apdu_return_data.len() - 2].to_string();
+            println!("sign_apdu_return_data@@@@@@@@@-->{:?}", sign_apdu_return_data.clone());
+            let sign_result_vec = Vec::from_hex(&sign_result_str).unwrap();
+            let mut temp_signnture_obj =
+                Signature::from_compact(sign_result_vec.as_slice()).unwrap();
+            temp_signnture_obj.normalize_s();
+            let mut sign_result_vec = temp_signnture_obj.serialize_der().to_vec();
+            //设置hash类型
+            sign_result_vec.push(0x01);
+            println!("sign_result_vec@@@@@@@@@@-->{:?}", hex::encode_upper(sign_result_vec.clone()));
+            witnesses.push((sign_result_vec, hex::decode(utxo_pub_key_vec.get(index).unwrap()).unwrap()));
 
-                let mut temp_serialize_txin = TxIn {
-                    previous_output: OutPoint {
-                        txid: Hash256::from_hex(temp_utxo.txhash.as_str()).unwrap(),
-                        vout: temp_utxo.vout as u32,
-                    },
-                    script_sig: Script::default(),
-                    sequence: 0xFFFFFFFF as u32,
-                    witness: vec![],
-                };
-                if (x >= i * EACH_ROUND_NUMBER) && (x < (i + 1) * EACH_ROUND_NUMBER) {
-                    temp_serialize_txin.script_sig =
-                        Script::from(Vec::from_hex(temp_utxo.script_pubkey.as_str()).unwrap());
-                }
-                input_data_vec.extend_from_slice(serialize(&temp_serialize_txin).as_slice());
-                let btc_perpare_apdu = BtcApdu::btc_perpare_input(0x80, &input_data_vec);
-                //发送签名指令到设备并获取返回数据
-                //                let btc_perpare_apdu_return = hid_api::send(&hid_device, &btc_perpare_apdu);
-                let btc_perpare_apdu_return = send_apdu(btc_perpare_apdu);
-            }
-            for y in i * EACH_ROUND_NUMBER..(i + 1) * EACH_ROUND_NUMBER {
-                if y >= utxo_pub_key_vec.len() {
-                    break;
-                }
-                let btc_sign_apdu = BtcApdu::btc_sign(
-                    y as u8,
-                    0x01,
-                    format!(
-                        "{}{}{}",
-                        path,
-                        "/",
-                        self.unspents.get(y).unwrap().derive_path
-                    )
-                    .as_str(),
-                );
-                //发送签名指令到设备并获取签名结果
-                //                let btc_sign_apdu_return = hid_api::send(&hid_device, &btc_sign_apdu);
-                let btc_sign_apdu_return = send_apdu(btc_sign_apdu);
-                let sign_result_str =
-                    btc_sign_apdu_return[2..btc_sign_apdu_return.len() - 2].to_string();
-
-                let sign_result_vec = Vec::from_hex(&sign_result_str).unwrap();
-                let mut temp_signnture_obj =
-                    Signature::from_compact(sign_result_vec.as_slice()).unwrap();
-                temp_signnture_obj.normalize_s();
-                let mut sign_result_vec = temp_signnture_obj.serialize_der().to_vec();
-
-                //添加HASH类型
-                sign_result_vec.push(0x01);
-                let temp_lock_script = Builder::new()
-                    .push_slice(&sign_result_vec)
-                    .push_slice(
-                        Vec::from_hex(utxo_pub_key_vec.get(y).unwrap())
-                            .unwrap()
-                            .as_slice(),
-                    )
-                    .into_script();
-
-                lock_script_ver.push(temp_lock_script);
-            }
         }
-        let mut txinputs: Vec<TxIn> = Vec::new();
-        for (index, unspent) in self.unspents.iter().enumerate() {
-            let txin = TxIn {
-                previous_output: OutPoint {
-                    txid: Hash256::from_hex(&unspent.txhash).unwrap(),
-                    vout: unspent.vout as u32,
-                },
-                script_sig: lock_script_ver.get(index).unwrap().clone(),
-                sequence: 0xFFFFFFFF as u32,
-                witness: vec![],
-            };
-            txinputs.push(txin);
-        }
-        tx_to_sign.input = txinputs;
+
+        let input_with_sigs: Result<Vec<TxIn>, _> = tx_to_sign
+            .input
+            .iter()
+            .enumerate()
+            .map(|(i, txin)| {
+//                let pub_key = &self.prvkeys[0].public_key(&s);
+//                let hash = hash160::Hash::hash(&pub_key.to_bytes()).into_inner();
+                let hash = hash160::Hash::hash(hex_to_bytes(utxo_pub_key_vec.get(i).unwrap()).unwrap().as_slice()).into_inner();
+                let hex = format!("160014{}", hex::encode(&hash));
+
+                Ok(TxIn {
+                    script_sig: Script::from(hex::decode(hex).unwrap()),
+                    witness: vec![witnesses[i].0.clone(), witnesses[i].1.clone()],
+                    ..*txin
+                })
+            })
+            .collect();
+
+//        let signed_tx = Transaction {
+//            version: tx_to_sign.version,
+//            lock_time: tx_to_sign.lock_time,
+//            input: input_with_sigs?,
+//            output: tx_to_sign.output.clone(),
+//        };
+        tx_to_sign.input = input_with_sigs?;
         let tx_bytes = serialize(&tx_to_sign);
-        println!("signature-->{:?}", tx_bytes.to_hex());
-        println!("tx_hash-->{:?}", tx_to_sign.txid().to_hex());
-        println!("ntxid-->{:?}", tx_to_sign.ntxid().to_hex());
+        println!("seralize--->{:?}", hex::encode_upper(tx_bytes.clone()));
+        println!("tx_bytes--->{:?}", tx_bytes.to_hex());
+        println!("txid--->{:?}", tx_to_sign.txid().to_hex());
+        println!("ntxid--->{:?}", tx_to_sign.ntxid().to_hex());
+
         Ok(TxSignResult {
             signature: tx_bytes.to_hex(),
             tx_hash: tx_to_sign.txid().to_hex(),
-            wtx_id: tx_to_sign.ntxid().to_hex(),
+            wtx_id: tx_to_sign.ntxid().to_hex(), //@@XM TODO: check this witness txid
         })
     }
 }
