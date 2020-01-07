@@ -1,4 +1,4 @@
-use crate::constants::{BTC_AID, ETH_AID, LC_MAX};
+use crate::constants::{BTC_AID, ETH_AID, LC_MAX, COSMOS_AID};
 use hex;
 use regex::internal::Input;
 use rustc_serialize::hex::ToHex;
@@ -205,6 +205,30 @@ impl EosApdu {
 
     pub fn sign_digest(path: &str) -> String {
         Apdu::sign_digest(0x52, 0x00, 0x00, path)
+    }
+}
+
+pub struct CosmosApdu {}
+
+impl CosmosApdu {
+    pub fn select_applet() -> String {
+        Apdu::select_applet(COSMOS_AID)
+    }
+
+    pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
+        Apdu::prepare_sign(0x71, data)
+    }
+
+    pub fn get_pubkey(path: &str, verify_flag: bool) -> String {
+        Apdu::get_pubkey(0x73, path, verify_flag)
+    }
+
+    pub fn register_pubkey(data: &[u8]) -> String {
+        Apdu::register_address(0x76, data)
+    }
+
+    pub fn sign_digest(path: &str) -> String {
+        Apdu::sign_digest(0x72, 0x00, 0x00, path)
     }
 }
 
