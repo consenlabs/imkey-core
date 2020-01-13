@@ -343,6 +343,21 @@ impl BtcApdu {
         apdu.to_hex().to_uppercase()
     }
 
+    pub fn omni_prepare_data(p1 : u8, data : Vec<u8>) -> String {
+        if data.len() > 256 {
+            panic!("data to long");
+        }
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(0x44);
+        apdu.push(p1);
+        apdu.push(0x00);
+        apdu.push(data.len() as u8);
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
 }
 
 /**

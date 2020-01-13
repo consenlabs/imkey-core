@@ -32,7 +32,7 @@ pub struct Utxo {
 
 pub struct BtcTransaction {
     pub to: Address,
-    pub change_idx: i32,
+//    pub change_idx: i32,
     pub amount: i64,
     pub unspents: Vec<Utxo>,
     pub fee: i64,
@@ -40,7 +40,8 @@ pub struct BtcTransaction {
     pub to_dis: Address,
     pub from: Address,
     pub fee_dis: String,
-    pub extra_data: Vec<u8>,
+//    pub extra_data: Vec<u8>,
+    pub property_id: i32,
 }
 
 impl BtcTransaction {
@@ -51,12 +52,13 @@ impl BtcTransaction {
         if &self.unspents.len() > &MAX_UTXO_NUMBER {
             return Err(BtcError::ImkeyExceededMaxUtxoNumber);
         }
+
+        //检查找零金额是否小于最小值
+        if self.amount - self.fee < 546 {
+            return Err(BtcError::ImkeyAmountLessThanMinimum);
+        }
+
         //3.get main public key(xpub)
-//        let select_btc_apdu: String = BtcApdu::select_applet();
-//        let hid_device = hid_api::connect();
-//        let apdu_response = hid_api::send(&hid_device, &select_btc_apdu);
-//        let get_xpub_apdu = BtcApdu::get_xpub(path.as_str(), false);
-//        let xpub_data = hid_api::send(&hid_device, &get_xpub_apdu);
         send_apdu(BtcApdu::select_applet());
         let xpub_data = send_apdu(BtcApdu::get_xpub(path.as_str(), false));
 
@@ -117,7 +119,6 @@ impl BtcTransaction {
                 network,
             ).to_string();
             let temp_utxo_address = utxo.address.to_string();
-
             if !temp_address.eq(&temp_utxo_address) {
                 return Err(BtcError::ImkeyAddressMismatchWithPath);
             }
@@ -129,51 +130,53 @@ impl BtcTransaction {
         for unspent in &self.unspents {
             total_amount += unspent.amount;
         }
-        if total_amount < self.amount {
-            return Err(BtcError::ImkeyInsufficientFunds);
-        }
+
+        //6.add change output
+        let mut txouts: Vec<TxOut> = Vec::new();
+        let change_amount = total_amount - 546 - self.fee;
+        let receiver_address = &self.unspents.get(0).unwrap().address;
 
         //5.add send to output
-        let mut txouts: Vec<TxOut> = Vec::new();
         let txout_send_output = TxOut {
-            value: self.amount as u64,
+            value: change_amount as u64,
+            script_pubkey: receiver_address.script_pubkey(),
+        };
+        txouts.push(txout_send_output);//找零信息
+
+        let txout_change_output = TxOut {
+            value: 546 as u64,
             script_pubkey: self.to.script_pubkey(),
         };
-        txouts.push(txout_send_output);//交易信息
-        //6.add change output
-        let change_amount = total_amount - self.amount - self.fee;
-        if change_amount > 2730 {
-            //获取找零地址 TODO
-//            println!("path --> {}", format!("{}{}{}", path, "/1/", self.change_idx).as_str());
-//            let get_xpub_apdu = BtcApdu::get_xpub(format!("{}{}{}", path, "/1/", self.change_idx).as_str(), true);
-//            let xpub_data = hid_api::send(&hid_device, &get_xpub_apdu);
+        txouts.push(txout_change_output);//交易信息
 
-            let pub_key = &sign_source_val[..130];
-            let mut temp_public_Key = PublicKey::from_str(pub_key).unwrap();
-            temp_public_Key.compressed = true;
-            let change_addr = Address::p2pkh(&temp_public_Key, network);
-            let txout_change_output = TxOut {//xxxxxxxxxxxxxxxxxxxxxxxxxxx找零金额貌似不对
-                value: self.amount as u64,
-                script_pubkey: change_addr.script_pubkey(),
-            };
-            txouts.push(txout_change_output);//找零信息
-
-        }
-        //7.add the op_return
-        if (!self.extra_data.is_empty()) {
-            if self.extra_data.len() > 80 {
-                return Err(BtcError::ImkeySdkIllegalArgument);
+        //budile omni data
+        let mut property_id_bytes = num_bigint::BigInt::from(self.property_id).to_signed_bytes_le();
+        if(property_id_bytes.len() < 4){
+            let temp_number = 4 - property_id_bytes.len();
+            for i in (0..temp_number) {
+                property_id_bytes.push(0x00);
             }
-            let opreturn_script = Builder::new()
-                .push_opcode(opcodes::all::OP_RETURN)
-                .push_slice(&self.extra_data[..])
-                .into_script();
-            let txout_opreturn = TxOut {
-                value: 0u64,
-                script_pubkey: opreturn_script,
-            };
-            txouts.push(txout_opreturn);
         }
+        property_id_bytes.reverse();
+        let mut omni_data = hex::decode("6f6d6e6900000000").unwrap();
+        omni_data.extend(property_id_bytes.iter());
+        let mut amount_bytes = num_bigint::BigInt::from(self.amount).to_signed_bytes_le();
+        if(amount_bytes.len() < 8){
+            let temp_number = 8 - amount_bytes.len();
+            for i in (0..temp_number) {
+                amount_bytes.push(0x00);
+            }
+        }
+        amount_bytes.reverse();
+        omni_data.extend(amount_bytes.iter());
+        println!("@@@@@@{}", hex::encode_upper(omni_data.clone()));
+        let omni_output = TxOut {
+            value: 0u64,
+            script_pubkey: Builder::new().push_opcode(opcodes::all::OP_RETURN).push_slice(&omni_data[..]).into_script(),
+        };
+
+        println!("omni data-->{:?}", serialize(&omni_output).to_hex());
+        txouts.push(omni_output);
 
         //8.output data serialize
         let mut tx_to_sign = Transaction {
@@ -183,6 +186,11 @@ impl BtcTransaction {
             output: txouts,
         };
         let mut output_serialize_data =  serialize(&tx_to_sign);
+
+//        //先手动填入omni output TODO==================
+//        output_serialize_data.extend(hex::decode("00000000000000002C6A146F6D6E69000000000000001F000000025706D4806A146F6D6E69000000000000001F000000025706D48000000000010000000000000000000FA06F").unwrap().iter());
+
+
         println!("AAAAA->{:?}", hex::encode_upper(output_serialize_data.as_slice()));
         //删除多余的input序列化数据
         output_serialize_data.remove(5);
@@ -193,10 +201,10 @@ impl BtcTransaction {
         output_serialize_data.remove(4);
         output_serialize_data.insert(4, self.unspents.len() as u8);
         //添加旷工费用 0000000000002710 TODO
-        output_serialize_data.extend_from_slice(hex::decode("0000000000002710").unwrap().as_slice());
+        output_serialize_data.extend_from_slice(hex::decode("0000000000000FA0").unwrap().as_slice());
         //添加地址版本 TODO
         output_serialize_data.extend_from_slice(hex::decode("6F").unwrap().as_slice());
-
+        println!("signedHez-->{:?}", hex::encode_upper(output_serialize_data.clone()));
         //
         output_serialize_data.insert(0, output_serialize_data.len() as u8);
         output_serialize_data.insert(0, 0x01);
@@ -206,7 +214,7 @@ impl BtcTransaction {
         let message_hash = digest::digest(&digest::SHA256, message_hash.as_ref());
 
         //使用本地私钥对数据进行签名 TODO
-        let private_key = "05366894B4D914A203BBE512766960A7E861E81A19E3E68666F1F6D04AA1F87F";
+        let private_key = "B226EA7A230A75DA23EDA981566988A96D12578FB695958BF06BD579230D6710";
         let temp_secret_key = SecretKey::from_slice(hex::decode(private_key).unwrap().as_slice());
         let message_data = Message::from_slice(message_hash.as_ref()).unwrap();
         let secp = Secp256k1::new();
@@ -217,13 +225,14 @@ impl BtcTransaction {
         sign_data.extend_from_slice(sign_result.as_slice());
 
         sign_data.extend_from_slice(output_serialize_data.as_slice());
-
-        let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x41, 0x00, &sign_data);
+        println!("package data-->{:?}", hex::encode_upper(sign_data.clone()));
+        let omni_prepare_apdu_str = BtcApdu::omni_prepare_data(0x00, sign_data);
         //output序列化 TODO
-        for temp_str in btc_prepare_apdu_vec {
-//            let xpub_data = hid_api::send(&hid_device, &temp_str);
-            send_apdu(temp_str);
-        }
+//        for temp_str in btc_prepare_apdu_vec {
+////            let xpub_data = hid_api::send(&hid_device, &temp_str);
+//            send_apdu(temp_str);
+//        }
+        send_apdu(omni_prepare_apdu_str);
 
         let mut lock_script_ver : Vec<Script> = Vec::new();
         let count = (self.unspents.len() - 1 )/ EACH_ROUND_NUMBER + 1;
@@ -382,49 +391,53 @@ impl BtcTransaction {
         for unspent in &self.unspents {
             total_amount += unspent.amount;
         }
-        if total_amount < self.amount {
-            return Err(BtcError::ImkeyInsufficientFunds);
-        }
 
-        //5.add send to output
+        //5.add change output
         let mut txouts: Vec<TxOut> = Vec::new();
+        let change_amount = total_amount - 546 - self.fee;
+        let receiver_address = &self.unspents.get(0).unwrap().address;
+
+        //6.add send to output
         let txout_send_output = TxOut {
-            value: self.amount as u64,
+            value: change_amount as u64,
+            script_pubkey: receiver_address.script_pubkey(),
+        };
+        txouts.push(txout_send_output);//找零信息
+
+        let txout_change_output = TxOut {
+            value: 546 as u64,
             script_pubkey: self.to.script_pubkey(),
         };
-        txouts.push(txout_send_output); //交易信息
-                                        //6.add change output
-        let change_amount = total_amount - self.amount - self.fee;
-        if change_amount > 2730 {
-            //获取找零地址
-            //            println!("path --> {}", format!("{}{}{}", path, "/1/", self.change_idx).as_str());
-            //            let get_xpub_apdu = BtcApdu::get_xpub(format!("{}{}{}", path, "/1/", self.change_idx).as_str(), true);
-            //            let xpub_data = hid_api::send(&hid_device, &get_xpub_apdu);
-            let pub_key = &sign_source_val[..130];
-            let mut temp_public_Key = PublicKey::from_str(pub_key).unwrap();
-            temp_public_Key.compressed = true;
-            let change_addr = Address::p2pkh(&temp_public_Key, network);
-            let txout_change_output = TxOut {
-                value: self.amount as u64,
-                script_pubkey: change_addr.script_pubkey(),
-            };
-            txouts.push(txout_change_output); //找零信息
-        }
-        //7.add the op_return
-        if (!self.extra_data.is_empty()) {
-            if self.extra_data.len() > 80 {
-                return Err(BtcError::ImkeySdkIllegalArgument);
+        txouts.push(txout_change_output);//交易信息
+
+        //budile omni data
+        let mut property_id_bytes = num_bigint::BigInt::from(self.property_id).to_signed_bytes_le();
+        if(property_id_bytes.len() < 4){
+            let temp_number = 4 - property_id_bytes.len();
+            for i in (0..temp_number) {
+                property_id_bytes.push(0x00);
             }
-            let opreturn_script = Builder::new()
-                .push_opcode(opcodes::all::OP_RETURN)
-                .push_slice(&self.extra_data[..])
-                .into_script();
-            let txout_opreturn = TxOut {
-                value: 0u64,
-                script_pubkey: opreturn_script,
-            };
-            txouts.push(txout_opreturn);
         }
+        property_id_bytes.reverse();
+        let mut omni_data = hex::decode("6f6d6e6900000000").unwrap();
+        omni_data.extend(property_id_bytes.iter());
+        let mut amount_bytes = num_bigint::BigInt::from(self.amount).to_signed_bytes_le();
+        if(amount_bytes.len() < 8){
+            let temp_number = 8 - amount_bytes.len();
+            for i in (0..temp_number) {
+                amount_bytes.push(0x00);
+            }
+        }
+        amount_bytes.reverse();
+        omni_data.extend(amount_bytes.iter());
+        println!("@@@@@@{}", hex::encode_upper(omni_data.clone()));
+        let omni_output = TxOut {
+            value: 0u64,
+            script_pubkey: Builder::new().push_opcode(opcodes::all::OP_RETURN).push_slice(&omni_data[..]).into_script(),
+        };
+
+        println!("omni data-->{:?}", serialize(&omni_output).to_hex());
+        txouts.push(omni_output);
 
         //8.output data serialize
         let mut tx_to_sign = Transaction {
@@ -449,9 +462,9 @@ impl BtcTransaction {
         output_serialize_data.insert(4, self.unspents.len() as u8);
         //添加旷工费用 0000000000002710 TODO
         output_serialize_data
-            .extend_from_slice(hex::decode("0000000000002710").unwrap().as_slice());
+            .extend_from_slice(hex::decode("0000000000000FA0").unwrap().as_slice());
         //添加地址版本 TODO
-        output_serialize_data.extend_from_slice(hex::decode("C4").unwrap().as_slice());
+        output_serialize_data.extend_from_slice(hex::decode("6F").unwrap().as_slice());
 
         //
         output_serialize_data.insert(0, output_serialize_data.len() as u8);
@@ -462,7 +475,7 @@ impl BtcTransaction {
         let message_hash = digest::digest(&digest::SHA256, message_hash.as_ref());
 
         //使用本地私钥对数据进行签名 TODO
-        let private_key = "05366894B4D914A203BBE512766960A7E861E81A19E3E68666F1F6D04AA1F87F";
+        let private_key = "B226EA7A230A75DA23EDA981566988A96D12578FB695958BF06BD579230D6710";
         let temp_secret_key = SecretKey::from_slice(hex::decode(private_key).unwrap().as_slice());
         let message_data = Message::from_slice(message_hash.as_ref()).unwrap();
         let secp = Secp256k1::new();
@@ -477,7 +490,7 @@ impl BtcTransaction {
 
         sign_data.extend_from_slice(output_serialize_data.as_slice());
         println!("segwit serialize data->{:?}", hex::encode_upper(sign_data.clone()));
-        let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x31, 0x00, &sign_data);
+        let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x34, 0x00, &sign_data);
         //output序列化 TODO
         for temp_str in btc_prepare_apdu_vec {
             //            let xpub_data = hid_api::send(&hid_device, &temp_str);
@@ -563,8 +576,8 @@ impl BtcTransaction {
         //send sign apdu
         let mut lock_script_ver : Vec<Script> = Vec::new();
         let mut witnesses: Vec<(Vec<u8>, Vec<u8>)> = vec![];
-        for (index, wegwit_sign_apdu) in sign_apdu_vec.iter().enumerate() {
-            let sign_apdu_return_data = send_apdu(wegwit_sign_apdu.clone());
+        for (index, segwit_sign_apdu) in sign_apdu_vec.iter().enumerate() {
+            let sign_apdu_return_data = send_apdu(segwit_sign_apdu.clone());
             let sign_result_str = sign_apdu_return_data[2..sign_apdu_return_data.len() - 2].to_string();
             println!("sign_apdu_return_data@@@@@@@@@-->{:?}", sign_apdu_return_data.clone());
             let sign_result_vec = Vec::from_hex(&sign_result_str).unwrap();
@@ -620,7 +633,7 @@ impl BtcTransaction {
 
 #[cfg(test)]
 mod tests {
-    use crate::transaction::{BtcTransaction, Transaction, Utxo};
+    use crate::usdt_transaction::{BtcTransaction, Transaction, Utxo};
     use bitcoin::{Address, Network};
     use hex::FromHex;
     use std::collections::HashMap;
@@ -630,74 +643,11 @@ mod tests {
     fn test_sign_transaction() {
         //        let mut extra_data = HashMap::new();
         //        extra_data.insert("opReturn".to_string(), "0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385".to_string());
-        let extra_data = Vec::from_hex("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385").unwrap();
+//        let extra_data = Vec::from_hex("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385").unwrap();
         let utxo = Utxo {
-            txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
+            txhash: "0dd195c815c5086c5995f43a0c67d28344ae5fa130739a5e03ef40fea54f2031".to_string(),
             vout: 0,
-            amount: 200000000,
-            address: Address::from_str("mh7jj2ELSQUvRQELbn9qyA4q5nADhmJmUC").unwrap(),
-            script_pubkey: "76a914118c3123196e030a8a607c22bafc1577af61497d88ac".to_string(),
-            derive_path: "0/22".to_string(),
-            sequence: 4294967295,
-        };
-        let utxo2 = Utxo {
-            txhash: "45ef8ac7f78b3d7d5ce71ae7934aea02f4ece1af458773f12af8ca4d79a9b531".to_string(),
-            vout: 1,
-            amount: 200000000,
-            address: Address::from_str("mkeNU5nVnozJiaACDELLCsVUc8Wxoh1rQN").unwrap(),
-            script_pubkey: "76a914383fb81cb0a3fc724b5e08cf8bbd404336d711f688ac".to_string(),
-            derive_path: "0/0".to_string(),
-            sequence: 4294967295,
-        };
-        let utxo3 = Utxo {
-            txhash: "14c67e92611dc33df31887bbc468fbbb6df4b77f551071d888a195d1df402ca9".to_string(),
-            vout: 0,
-            amount: 200000000,
-            address: Address::from_str("mkeNU5nVnozJiaACDELLCsVUc8Wxoh1rQN").unwrap(),
-            script_pubkey: "76a914383fb81cb0a3fc724b5e08cf8bbd404336d711f688ac".to_string(),
-            derive_path: "0/0".to_string(),
-            sequence: 4294967295,
-        };
-        let utxo4 = Utxo {
-            txhash: "117fb6b85ded92e87ee3b599fb0468f13aa0c24b4a442a0d334fb184883e9ab9".to_string(),
-            vout: 1,
-            amount: 200000000,
-            address: Address::from_str("mkeNU5nVnozJiaACDELLCsVUc8Wxoh1rQN").unwrap(),
-            script_pubkey: "76a914383fb81cb0a3fc724b5e08cf8bbd404336d711f688ac".to_string(),
-            derive_path: "0/0".to_string(),
-            sequence: 4294967295,
-        };
-        let utxo5 = Utxo {
-            txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
-            vout: 0,
-            amount: 200000000,
-            address: Address::from_str("mh7jj2ELSQUvRQELbn9qyA4q5nADhmJmUC").unwrap(),
-            script_pubkey: "76a914118c3123196e030a8a607c22bafc1577af61497d88ac".to_string(),
-            derive_path: "0/22".to_string(),
-            sequence: 4294967295,
-        };
-        let utxo6 = Utxo {
-            txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
-            vout: 1,
-            amount: 200000000,
-            address: Address::from_str("mkeNU5nVnozJiaACDELLCsVUc8Wxoh1rQN").unwrap(),
-            script_pubkey: "76a914383fb81cb0a3fc724b5e08cf8bbd404336d711f688ac".to_string(),
-            derive_path: "0/0".to_string(),
-            sequence: 4294967295,
-        };
-        let utxo7 = Utxo {
-            txhash: "14c67e92611dc33df31887bbc468fbbb6df4b77f551071d888a195d1df402ca9".to_string(),
-            vout: 0,
-            amount: 200000000,
-            address: Address::from_str("mkeNU5nVnozJiaACDELLCsVUc8Wxoh1rQN").unwrap(),
-            script_pubkey: "76a914383fb81cb0a3fc724b5e08cf8bbd404336d711f688ac".to_string(),
-            derive_path: "0/0".to_string(),
-            sequence: 4294967295,
-        };
-        let utxo8 = Utxo {
-            txhash: "117fb6b85ded92e87ee3b599fb0468f13aa0c24b4a442a0d334fb184883e9ab9".to_string(),
-            vout: 0,
-            amount: 200000000,
+            amount: 14824854,
             address: Address::from_str("mkeNU5nVnozJiaACDELLCsVUc8Wxoh1rQN").unwrap(),
             script_pubkey: "76a914383fb81cb0a3fc724b5e08cf8bbd404336d711f688ac".to_string(),
             derive_path: "0/0".to_string(),
@@ -705,24 +655,18 @@ mod tests {
         };
         let mut utxos = Vec::new();
         utxos.push(utxo);
-        utxos.push(utxo2);
-        utxos.push(utxo3);
-        utxos.push(utxo4);
-        //        utxos.push(utxo5);
-        //        utxos.push(utxo6);
-        //        utxos.push(utxo7);
-        //        utxos.push(utxo8);
+
         let transaction_req_data = BtcTransaction {
             to: Address::from_str("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3").unwrap(),
-            change_idx: 53,
-            amount: 799988000,
+//            change_idx: 53,
+            amount: 10050000000,
             unspents: utxos,
-            fee: 10000,
-            payment: "0.0001 BT".to_string(),
-            to_dis: Address::from_str("3CVD68V71no5jn2UZpLLq6hASpXu1jrByt").unwrap(),
-            from: Address::from_str("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy").unwrap(),
-            fee_dis: "0.00007945 BTC".to_string(),
-            extra_data: extra_data,
+            fee: 4000,
+            payment: "100 USDT".to_string(),
+            to_dis: Address::from_str("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3").unwrap(),
+            from: Address::from_str("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB").unwrap(),
+            fee_dis: "0.0004 BTC".to_string(),
+            property_id: 31,
         };
         transaction_req_data.sign_transaction(Network::Testnet, &"m/44'/1'/0'".to_string());
     }
@@ -731,37 +675,28 @@ mod tests {
     fn test_sign_segwit_transaction() {
         let extra_data = Vec::from_hex("1234").unwrap();
         let utxo = Utxo {
-            txhash: "c2ceb5088cf39b677705526065667a3992c68cc18593a9af12607e057672717f".to_string(),
-            vout: 0,
-            amount: 50000,
+            txhash: "9baf6fd0e560f9f199f4879c23cb73b9c4affb54a1cfdbacb85687efa89f4c78".to_string(),
+            vout: 1,
+            amount: 21863396,
             address: Address::from_str("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB").unwrap(),
             script_pubkey: "a9142d2b1ef5ee4cf6c3ebc8cf66a602783798f7875987".to_string(),
             derive_path: "0/0".to_string(),
             sequence: 0,
         };
-        let utxo2 = Utxo {
-            txhash: "9ad628d450952a575af59f7d416c9bc337d184024608f1d2e13383c44bd5cd74".to_string(),
-            vout: 0,
-            amount: 50000,
-            address: Address::from_str("2N54wJxopnWTvBfqgAPVWqXVEdaqoH7Suvf").unwrap(),
-            script_pubkey: "a91481af6d803fdc6dca1f3a1d03f5ffe8124cd1b44787".to_string(),
-            derive_path: "0/1".to_string(),
-            sequence: 0,
-        };
+
         let mut utxos = Vec::new();
         utxos.push(utxo);
-        utxos.push(utxo2);
         let transaction_req_data = BtcTransaction {
-            to: Address::from_str("2N9wBy6f1KTUF5h2UUeqRdKnBT6oSMh4Whp").unwrap(),
-            change_idx: 0,
-            amount: 88000,
+            to: Address::from_str("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3").unwrap(),
+//            change_idx: 0,
+            amount: 10000000000,
             unspents: utxos,
-            fee: 10000,
-            payment: "0.0001 BT".to_string(),
-            to_dis: Address::from_str("3CVD68V71no5jn2UZpLLq6hASpXu1jrByt").unwrap(),
-            from: Address::from_str("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy").unwrap(),
-            fee_dis: "0.00007945 BTC".to_string(),
-            extra_data: extra_data,
+            fee: 4000,
+            payment: "100 USDT".to_string(),
+            to_dis: Address::from_str("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3").unwrap(),
+            from: Address::from_str("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB").unwrap(),
+            fee_dis: "0.0004 BTC".to_string(),
+            property_id: 31
         };
         transaction_req_data.sign_segwit_transaction(Network::Testnet, &"m/49'/1'/0'/".to_string());
     }
