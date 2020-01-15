@@ -6,7 +6,7 @@ use bitcoin::secp256k1::Secp256k1;
 use std::str::FromStr;
 use crate::error::BtcError;
 
-pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8], network : Network) -> Result<Vec<String>, BtcError>{
+pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8], network : Network, flg : &str) -> Result<Vec<String>, BtcError>{
     let mut utxo_pub_key_vec: Vec<String> = Vec::new();
     for utxo in utxos {
         //4.get utxo public key
@@ -33,10 +33,24 @@ pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8],
             extend_public_key = extend_public_key.ckd_pub(&bitcoin_secp, test_chain_number).unwrap();
         }
         //verify address
-        let se_gen_address = Address::p2pkh(
-            &PublicKey::from_str(extend_public_key.public_key.to_string().as_str()).unwrap(),
-            network,
-        ).to_string();
+//        let se_gen_address = Address::p2pkh(
+//            &PublicKey::from_str(extend_public_key.public_key.to_string().as_str()).unwrap(),
+//            network,
+//        ).to_string();
+
+        let mut se_gen_address = String::new();
+        if flg.eq("btc") {
+            se_gen_address = Address::p2pkh(
+                &PublicKey::from_str(extend_public_key.public_key.to_string().as_str()).unwrap(),
+                network,
+            ).to_string();
+        }else {
+            se_gen_address = Address::p2shwpkh(
+                &PublicKey::from_str(extend_public_key.public_key.to_string().as_str()).unwrap(),
+                network,
+            ).to_string();
+        }
+
         let utxo_address = utxo.address.to_string();
 
         if !se_gen_address.eq(&utxo_address) {
