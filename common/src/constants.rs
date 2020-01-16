@@ -24,3 +24,4 @@ pub const VERSION: &str = "1.2.00";
 pub const MAX_UTXO_NUMBER: usize = 252;
 pub const EACH_ROUND_NUMBER: usize = 5;
 pub const DUST_THRESHOLD: i64 = 2730;
+pub const MIN_NONDUST_OUTPUT: i64 = 546;
