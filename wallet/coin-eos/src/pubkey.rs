@@ -61,7 +61,7 @@ impl EosPubkey {
         let reg_apdu = EosApdu::register_pubkey(pubkey.as_bytes());
         let res_reg = message::send_apdu(reg_apdu);
         //todo: check response
-        Ok(res_reg)
+        Ok(pubkey)
     }
 }
 
@@ -73,6 +73,12 @@ mod tests {
     #[test]
     fn test_get_pubkey() {
         let pubkey = EosPubkey::get_pubkey(constants::EOS_PATH);
-        println!("address:{}",pubkey.unwrap());
+        println!("pubkey:{}",pubkey.unwrap());
+    }
+
+    #[test]
+    fn test_display_pubkey() {
+        let pubkey = EosPubkey::display_pubkey(constants::EOS_PATH);
+        println!("pubkey:{}",pubkey.unwrap());
     }
 }
