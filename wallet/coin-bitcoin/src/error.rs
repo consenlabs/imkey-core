@@ -6,6 +6,7 @@ pub enum BtcError {
     ImkeySignatureVerifyFail,
     ImkeyInsufficientFunds,
     ImkeySdkIllegalArgument,
+    ImkeyAmountLessThanMinimum,
 }
 
 impl fmt::Display for BtcError {
@@ -16,6 +17,7 @@ impl fmt::Display for BtcError {
             BtcError::ImkeySignatureVerifyFail => write!(f, "imkey_signature_verify_fail"),
             BtcError::ImkeyInsufficientFunds => write!(f, "imkey_insufficient_funds"),
             BtcError::ImkeySdkIllegalArgument => write!(f, "imkey_sdk_illegal_argument"),
+            BtcError::ImkeyAmountLessThanMinimum => write!(f, "imkey_amount_less_than_minimum"),
         }
     }
 }
