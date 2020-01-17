@@ -1,13 +1,13 @@
 use bitcoin::util::base58;
 use bitcoin_hashes::hex::FromHex;
-use bitcoin_hashes::{hash160, Hash};
+use bitcoin_hashes::{ripemd160, Hash};
 use common::apdu::EosApdu;
 use common::error::Error;
 use common::path;
 use mq::message;
 use num_bigint::BigInt;
 use num_integer::Integer;
-use num_traits::{FromPrimitive, Zero};
+use num_traits::{FromPrimitive, Zero, Num};
 use std::str::FromStr;
 
 #[derive(Debug)]
@@ -21,29 +21,31 @@ impl EosPubkey {
         let select_response = message::send_apdu(select_apdu);
         //todo: check select response
 
-        //get public
+        //get public key
         let msg_pubkey = EosApdu::get_pubkey(&path, true);
         let res_msg_pubkey = message::send_apdu(msg_pubkey);
+
+        //compressed key
         let uncomprs_pubkey: String = res_msg_pubkey
             .chars()
             .take(res_msg_pubkey.len() - 4)
             .collect();
         let comprs_pubkey = EosPubkey::cal_comprs_pubkey(&uncomprs_pubkey);
-        //        let pub_key_hash = hash160::Hash::hash(&pub_key_bytes).into_inner();
-        let pubkey_hash = hash160::Hash::from_hex(&comprs_pubkey)
-            .unwrap()
-            .into_inner();
-        //        let pubkey_hash = hex::encode(&pubkey_hash);
-        //        let check_sum:String = pubkey_hash.chars().take(4).collect();
-        //        let pk_with_checksum = comprs_pubkey + &check_sum;
-        let pk_base58 = base58::check_encode_slice(&pubkey_hash);
-        Ok(pk_base58)
+
+        //checksum base58
+        let mut comprs_pubkey_slice = hex::decode(comprs_pubkey).expect("Decoding failed");
+        let pubkey_hash = ripemd160::Hash::hash(&comprs_pubkey_slice);
+        let check_sum = &pubkey_hash[0..4];
+        comprs_pubkey_slice.extend(check_sum);
+        let eos_pk = "EOS".to_owned() + base58::encode_slice(&comprs_pubkey_slice).as_ref();
+        Ok(eos_pk)
     }
 
     pub fn cal_comprs_pubkey(uncomprs_pubkey: &str) -> String {
-        let x = &uncomprs_pubkey[2..=66];
+        let x = &uncomprs_pubkey[2..66];
         let y = &uncomprs_pubkey[66..130];
-        let y_bint = BigInt::from_str(&y).unwrap();
+//        let y_bint = BigInt::from_str(&y).unwrap();
+        let y_bint = BigInt::from_str_radix(&y,16).unwrap();
         let two_bint = BigInt::from_i64(2).unwrap();
 
         let (_d, m) = y_bint.div_mod_floor(&two_bint);
@@ -60,5 +62,17 @@ impl EosPubkey {
         let res_reg = message::send_apdu(reg_apdu);
         //todo: check response
         Ok(res_reg)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::pubkey::EosPubkey;
+    use common::constants;
+
+    #[test]
+    fn test_get_pubkey() {
+        let pubkey = EosPubkey::get_pubkey(constants::EOS_PATH);
+        println!("address:{}",pubkey.unwrap());
     }
 }
