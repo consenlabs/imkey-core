@@ -22,4 +22,6 @@ regex = "1"
 ring = "0.16.9"
 secp256k1 = "0.17.1"
 num-bigint = "0.2"
+num-traits = "0.2"
+num-integer = "0.1"
 

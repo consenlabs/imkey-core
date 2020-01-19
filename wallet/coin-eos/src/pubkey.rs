@@ -3,11 +3,8 @@ use bitcoin_hashes::hex::FromHex;
 use bitcoin_hashes::{ripemd160, Hash};
 use common::apdu::EosApdu;
 use common::error::Error;
-use common::path;
+use common::{path, utility};
 use mq::message;
-use num_bigint::BigInt;
-use num_integer::Integer;
-use num_traits::{FromPrimitive, Zero, Num};
 use std::str::FromStr;
 
 #[derive(Debug)]
@@ -30,7 +27,7 @@ impl EosPubkey {
             .chars()
             .take(res_msg_pubkey.len() - 4)
             .collect();
-        let comprs_pubkey = EosPubkey::cal_comprs_pubkey(&uncomprs_pubkey);
+        let comprs_pubkey = utility::uncompress_pubkey_2_compress(&uncomprs_pubkey);
 
         //checksum base58
         let mut comprs_pubkey_slice = hex::decode(comprs_pubkey).expect("Decoding failed");
@@ -39,21 +36,6 @@ impl EosPubkey {
         comprs_pubkey_slice.extend(check_sum);
         let eos_pk = "EOS".to_owned() + base58::encode_slice(&comprs_pubkey_slice).as_ref();
         Ok(eos_pk)
-    }
-
-    pub fn cal_comprs_pubkey(uncomprs_pubkey: &str) -> String {
-        let x = &uncomprs_pubkey[2..66];
-        let y = &uncomprs_pubkey[66..130];
-//        let y_bint = BigInt::from_str(&y).unwrap();
-        let y_bint = BigInt::from_str_radix(&y,16).unwrap();
-        let two_bint = BigInt::from_i64(2).unwrap();
-
-        let (_d, m) = y_bint.div_mod_floor(&two_bint);
-        if m.is_zero() {
-            return "02".to_owned() + x;
-        } else {
-            return "03".to_owned() + x;
-        }
     }
 
     pub fn display_pubkey(path: &str) -> Result<String, Error> {

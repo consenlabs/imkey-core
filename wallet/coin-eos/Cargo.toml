@@ -9,9 +9,6 @@ edition = "2018"
 [dependencies]
 common = {path = "../../common"}
 mq = {path = "../../mq"}
-num-bigint = "0.2"
-num-traits = "0.2"
-num-integer = "0.1"
 bitcoin_hashes = "0.7"
 hex = "0.3.2"
 bitcoin = "0.19.1"
