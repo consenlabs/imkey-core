@@ -3,6 +3,8 @@ use std::result::Result;
 use ring::digest;
 use secp256k1::{Secp256k1, Message, Signature, PublicKey as PublicKey2, SecretKey};
 use num_bigint::BigInt;
+use num_traits::{Num, FromPrimitive, Zero};
+use num_integer::Integer;
 
 pub fn hex_to_bytes(value: &str) -> Result<Vec<u8>, FromHexError> {
     if value.to_lowercase().starts_with("0x") {
@@ -56,4 +58,18 @@ pub fn bigint_to_byte_vec(val : i64) -> Vec<u8>{
         return_data.insert(0, 0x00);
     }
     return_data
+}
+
+pub fn uncompress_pubkey_2_compress(uncomprs_pubkey: &str) -> String {
+    let x = &uncomprs_pubkey[2..66];
+    let y = &uncomprs_pubkey[66..130];
+    let y_bint = BigInt::from_str_radix(&y,16).unwrap();
+    let two_bint = BigInt::from_i64(2).unwrap();
+
+    let (_d, m) = y_bint.div_mod_floor(&two_bint);
+    return if m.is_zero() {
+        "02".to_owned() + x
+    } else {
+        "03".to_owned() + x
+    }
 }

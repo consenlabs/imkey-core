@@ -2,12 +2,10 @@ use common::error::Error;
 use hex;
 use common::apdu::CosmosApdu;
 use mq::message;
-use num_bigint::BigInt;
-use num_integer::Integer;
-use num_traits::{FromPrimitive, Zero, Num};
 use std::str::FromStr;
 use common::constants;
 use common::path;
+use common::utility;
 use hex::FromHex;
 use secp256k1::{Secp256k1, Message, Signature, PublicKey as PublicKey2, SecretKey};
 use ring::digest;
@@ -65,7 +63,7 @@ impl CosmosAddress {
             .chars()
             .take(res_msg_pubkey.len() - 4)
             .collect();
-        let comprs_pubkey = CosmosAddress::cal_comprs_pubkey(&uncomprs_pubkey);
+        let comprs_pubkey = utility::uncompress_pubkey_2_compress(&uncomprs_pubkey);
 
 //        let mut buf = vec![];
 //        buf.extend(vec![0x1, 0x00]); // append short version for locks with popular codehash and default code hash index
@@ -74,21 +72,6 @@ impl CosmosAddress {
 
         let prefix = "cosmos";
         Ok(bech32::encode(prefix, buf.to_base32()).unwrap())
-    }
-
-    pub fn cal_comprs_pubkey(uncomprs_pubkey: &str) -> String {
-        let x = &uncomprs_pubkey[2..66];
-        let y = &uncomprs_pubkey[66..130];
-//        let y_bint = BigInt::from_str(&y).unwrap();
-        let y_bint = BigInt::from_str_radix(&y,16).unwrap();
-        let two_bint = BigInt::from_i64(2).unwrap();
-
-        let (_d, m) = y_bint.div_mod_floor(&two_bint);
-        if m.is_zero() {
-            return "02".to_owned() + x;
-        } else {
-            return "03".to_owned() + x;
-        }
     }
 
     pub fn display_address(path: &str) -> Result<String, Error> {
