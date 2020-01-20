@@ -20,6 +20,7 @@ use bitcoin_hashes::Hash;
 use common::utility::{hex_to_bytes, secp256k1_sign_verify, bigint_to_byte_vec, secp256k1_sign};
 use crate::common::address_verify;
 use bitcoin::util::psbt::serialize::Serialize;
+use device::key_manager::KeyManager;
 
 #[derive(Clone)]
 pub struct Utxo {
@@ -63,6 +64,8 @@ impl BtcTransaction {
 
         let pub_key = &sign_source_val[..130];
         let chain_code = &sign_source_val[130..];
+
+        //get se public key
 
         //use se public key verify sign
         let se_pub_key = "04FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44";
@@ -487,6 +490,10 @@ impl BtcTransaction {
         Builder::new().push_slice(&signed_vec)
             .push_slice(Vec::from_hex(utxo_public_key).unwrap().as_slice())
             .into_script()
+    }
+
+    pub fn get_se_pub_key(se_cert : &str) -> String{
+        return "".to_string();
     }
 
 }
