@@ -15,65 +15,65 @@ use block_modes::{BlockMode, Cbc};
 
 use self::aes::Aes256;
 use hex::FromHex;
-use rand::OsRng;
-use secp256k1::ecdh::SharedSecret;
-use secp256k1::rand::thread_rng;
-use secp256k1::{Message, Secp256k1};
+//use rand::{OsRng, thread_rng};
+//use secp256k1::ecdh::SharedSecret;
+//use secp256k1::rand::thread_rng;
+//use secp256k1::{Message, Secp256k1, SecretKey, PublicKey};
+//use std::str::FromStr;
+use secp256k1::key::{SecretKey, PublicKey};
+use rand::{RngCore, thread_rng};
+use std::str::FromStr;
+use secp256k1::key;
+
 
 pub struct KeyManager {
-    pub pri_key: Option<[u8; 32]>,
-    pub pub_key: Option<[u8; 65]>,
-    pub se_pub_key: Option<[u8; 65]>,
-    pub session_key: Option<[u8; 16]>,
-    pub check_sum: Option<[u8; 4]>,
-    pub encry_key: Option<[u8; 16]>,
-    pub iv: Option<[u8; 16]>,
+    pub pri_key: Vec<u8>,//32 byte
+    pub pub_key: Vec<u8>,//65 byte
+    pub se_pub_key: Vec<u8>,//65 byte
+    pub session_key: Vec<u8>,//16 byte
+    pub check_sum: Vec<u8>,//4 byte
+    pub encry_key: Vec<u8>,//16 byte
+    pub iv: Vec<u8>,//16 byte
 }
 
 impl KeyManager {
     pub fn new() -> KeyManager {
         KeyManager {
-            pri_key: None,
-            pub_key: None,
-            se_pub_key: None,
-            session_key: None,
-            check_sum: None,
-            encry_key: None,
-            iv: None,
+            pri_key: vec![],
+            pub_key: vec![],
+            se_pub_key: vec![],
+            session_key: vec![],
+            check_sum: vec![],
+            encry_key: vec![],
+            iv: vec![],
         }
     }
     /**
     生成加密密钥
     */
-    pub fn gen_encrypt_key(&mut self, seid: &String, sn: &String) {
-        let seid_hash = digest::digest(&digest::SHA256, seid.as_bytes());
-        let sn_hash = digest::digest(&digest::SHA256, sn.as_bytes());
+    pub fn gen_encrypt_key(&mut self, seid: &str, sn: &str) {
+        //calc seid and sn hash
+        let seid_hash = digest::digest(&digest::SHA256, seid.as_bytes()).as_ref().to_vec();
+        let sn_hash = digest::digest(&digest::SHA256, sn.as_bytes()).as_ref().to_vec();
 
-        let seid_hash = seid_hash.as_ref();
-        let sn_hash = sn_hash.as_ref();
-
-        let mut result: [u8; 32] = [0x00; 32];
+        let mut xor_result : Vec<u8> = vec![];
         for (index, value) in seid_hash.iter().enumerate() {
-            result[index] = value ^ sn_hash.get(index).unwrap();
+            xor_result.push(value ^ sn_hash.get(index).unwrap());
         }
-
-        let mut temp_encry_key = [0u8; 16];
-        temp_encry_key.copy_from_slice(&result[..16]);
-        let mut temp_iv = [0u8; 16];
-        temp_iv.copy_from_slice(&result[16..]);
-        self.encry_key = Some(temp_encry_key);
-        self.iv = Some(temp_iv);
+        self.encry_key = xor_result[..16].to_vec();
+        self.iv = xor_result[16..].to_vec();
     }
+
     /**
     加密密钥文件数据
     */
     pub fn encrypt_data(&self) -> String {
-        let mut data = Vec::new();
+        let mut data = vec![];
         //组织原数据
-        data.extend(self.pri_key.unwrap().iter());
-        data.extend(self.pub_key.unwrap().iter());
-        data.extend(self.se_pub_key.unwrap().iter());
-        data.extend(self.session_key.unwrap().iter());
+        data.extend(self.pri_key.iter());
+        data.extend(self.pub_key.iter());
+        data.extend(self.se_pub_key.iter());
+        data.extend(self.session_key.iter());
 
         //计算HASH
         let hash = digest::digest(&digest::SHA256, data.as_slice());
@@ -82,12 +82,13 @@ impl KeyManager {
         //进行AES-CBC加密
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
         let cipher =
-            Aes128Cbc::new_var(self.encry_key.unwrap().as_ref(), self.iv.unwrap().as_ref())
-                .unwrap();
+            Aes128Cbc::new_var(self.encry_key.as_ref(), self.iv.as_ref()).expect("aes cbc encrypt error");
         let ciphertext = cipher.encrypt_vec(data.as_ref());
+
         //base64编码
         encode(&ciphertext)
     }
+
     /**
     获取密钥文件数据
     */
@@ -106,6 +107,7 @@ impl KeyManager {
             },
         }
     }
+
     /**
     解密密钥文件数据
     */
@@ -115,43 +117,31 @@ impl KeyManager {
 
         //AES CBC解密
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
-
         let cipher =
-            Aes128Cbc::new_var(self.encry_key.unwrap().as_ref(), self.iv.unwrap().as_ref())
-                .unwrap();
+            Aes128Cbc::new_var(self.encry_key.as_ref(), self.iv.as_ref()).unwrap();
         let decrypted_data = cipher.decrypt_vec(&ciphertext_bytes).unwrap();
 
         //解析明文数据
         //pri_key
-        let mut temp_pri_key = [0u8; 32];
-        temp_pri_key.copy_from_slice(&decrypted_data[..32]);
-        self.pri_key = Some(temp_pri_key);
-        println!("{:?}", hex::encode_upper(temp_pri_key.to_vec()));
+        self.pri_key = decrypted_data[..32].to_vec();
+        println!("{:?}", hex::encode_upper(&self.pri_key));
         //pub key
-        let mut temp_pub_key = [0u8; 65];
-        temp_pub_key.copy_from_slice(&decrypted_data[32..97]);
-        println!("{:?}", hex::encode_upper(temp_pub_key.to_vec()));
-        self.pub_key = Some(temp_pub_key);
+        self.pub_key = decrypted_data[32..97].to_vec();
 
         //se pub key
-        let mut temp_se_pub_key = [0u8; 65];
-        temp_se_pub_key.copy_from_slice(&decrypted_data[97..162]);
-        println!("{:?}", hex::encode_upper(temp_se_pub_key.to_vec()));
-        self.se_pub_key = Some(temp_se_pub_key);
+        self.se_pub_key = decrypted_data[97..162].to_vec();
+
         //session key
-        let mut temp_session_key = [0u8; 16];
-        temp_session_key.copy_from_slice(&decrypted_data[162..178]);
-        self.session_key = Some(temp_session_key);
+        self.session_key = decrypted_data[162..178].to_vec();
+
         //check sum
-        let mut temp_check_sum = [0u8; 4];
-        temp_check_sum.copy_from_slice(&decrypted_data[178..]);
-        self.check_sum = Some(temp_check_sum);
+        self.check_sum = decrypted_data[178..].to_vec();
 
         //校验checksum，检验成功则返回true，否则返回false
         let mut data = &decrypted_data[..178];
         let data_hash = digest::digest(&digest::SHA256, data);
         let data_hash_byte = data_hash.as_ref();
-        for (index, val) in temp_check_sum.iter().enumerate() {
+        for (index, val) in self.check_sum.iter().enumerate() {
             if val != &data_hash_byte[index] {
                 return false;
             }
@@ -163,16 +153,28 @@ impl KeyManager {
     生成本地密钥对
     */
     pub fn gen_local_keys(&mut self) {
-        let s = Secp256k1::signing_only();
-        let (sk1, pk1) = s.generate_keypair(&mut thread_rng());
-        let mut temp_pri_key = [0u8; 32];
-        temp_pri_key.copy_from_slice(&Vec::from_hex(sk1.to_string()).unwrap().as_slice()[..]);
-        self.pri_key = Some(temp_pri_key);
-        let mut temp_pub_key = [0u8; 65];
-        temp_pub_key.copy_from_slice(&pk1.serialize_uncompressed()[..]);
-        self.pub_key = Some(temp_pub_key);
-    }
+//        let s = Secp256k1::signing_only();
+//        let (sk1, pk1) = s.generate_keypair(&mut thread_rng());
 
+//        let mut temp_pri_key = [0u8; 32];
+//        temp_pri_key.copy_from_slice(&Vec::from_hex(sk1.to_string()).unwrap().as_slice()[..]);
+//        self.pri_key = Some(temp_pri_key);
+//        let mut temp_pub_key = [0u8; 65];
+//        temp_pub_key.copy_from_slice(&pk1.serialize_uncompressed()[..]);
+//        self.pub_key = Some(temp_pub_key);
+
+//        self.pri_key = Vec::from_hex(sk1.to_string()).unwrap();
+//        self.pub_key = pk1.serialize_uncompressed().to_vec();
+
+        let sk1 = key::SecretKey::from_str("54fc5f5de25aa66bcda162a730a1807f6d88e1f681c3d6d21b6295d528a5eca6").unwrap();
+        let pk1 = key::PublicKey::from_str("041cd63634037ea0f54ce523dba73caeb03751ee03448ba8c720b302cb185a8d11f6dba9d134c043023e8f23f7c396ab7bfba59ebb81e7c453637a809372f212c3").unwrap();
+
+        self.pri_key = Vec::from_hex(sk1.to_string()).unwrap();
+        self.pub_key = pk1.serialize_uncompressed().to_vec();
+    }
+    /**
+     保存密钥倒本地文件
+    */
     pub fn save_keys_to_local_file(keys: &String, path: &String, seid: &String) {
         let file = File::open(Path::new(format!("{}key{}{}", path, seid, ".txt").as_str()));
         let mut file = match file {
@@ -189,5 +191,28 @@ impl KeyManager {
             },
         };
         file.write_all(keys.as_bytes());
+    }
+}
+
+#[cfg(test)]
+mod test{
+    use crate::key_manager::KeyManager;
+
+    #[test]
+    fn gen_encrypt_key_test(){
+        let seid = "19060000000200860001010000000014";
+        let sn = "imKey01191200001";
+        let mut key_manager_obj = KeyManager::new();
+        key_manager_obj.gen_encrypt_key(&seid, &sn);
+        println!("encry key-->{:?}", hex::encode_upper(&key_manager_obj.encry_key));
+        println!("iv-->{:?}", hex::encode_upper(&key_manager_obj.iv));
+        assert_eq!(
+            hex::encode_upper(key_manager_obj.encry_key),
+            "A49CDEDE0370D1543033E41A413EBC4E".to_string()
+        );
+        assert_eq!(
+            hex::encode_upper(key_manager_obj.iv),
+            "92AF372F64C10BAA942478560F91F346".to_string()
+        );
     }
 }
