@@ -1,4 +1,4 @@
-use crate::constants::{BTC_AID, ETH_AID, LC_MAX, COSMOS_AID};
+use crate::constants::{BTC_AID, ETH_AID, LC_MAX, COSMOS_AID, EOS_AID};
 use hex;
 use regex::internal::Input;
 use rustc_serialize::hex::ToHex;
@@ -188,7 +188,7 @@ pub struct EosApdu {}
 
 impl EosApdu {
     pub fn select_applet() -> String {
-        Apdu::select_applet(ETH_AID)
+        Apdu::select_applet(EOS_AID)
     }
 
     pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
