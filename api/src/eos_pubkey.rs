@@ -1,5 +1,5 @@
 use crate::api::AddressParam;
-use crate::eosapi::EosPubkeyResponse;
+use common::eosapi::EosPubkeyResponse;
 use crate::wallet_handler::encode_message;
 use coin_eos::pubkey::EosPubkey;
 use common::error::Error;

@@ -87,7 +87,8 @@ class CosmosViewController: UIViewController {
   @IBAction func addressBtnClick(_ sender: Any) {
     txtResult.text = ""
     do {
-      let address = try CosmosKey.getCosmosAddress(handle: handle, path: BIP44.cosmos)
+//      let address = try CosmosKey.getCosmosAddress(handle: handle, path: BIP44.cosmos)
+      let address = API.cosmosAddress(path: BIP44.cosmos)
       Log.d(address)
       txtResult.text = address
     } catch let e as ImkeyError {

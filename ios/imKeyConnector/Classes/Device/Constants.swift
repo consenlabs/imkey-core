@@ -8,7 +8,7 @@
 public struct Constants {
   public static let sdkVersion = "1.2.10"
   
-  #if DEBUG
+  #if false
   //test environment
   public static let host = "https://imkeyserver.com:10443/imkey/"
   public static let pinnedCertificateHash = "eO+e/9d7NH9MmrNmcrB3sgS4g/EBNftSdTgLPvXP6gM="

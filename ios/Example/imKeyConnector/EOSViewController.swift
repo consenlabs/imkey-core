@@ -69,7 +69,8 @@ class EOSViewController: UIViewController {
   
   @IBAction func addressBtnClick(_ sender: Any) {
     txtResult.text = ""
-    let pubkey = try! Wallet.getEOSPubkey(handle: handle, path: BIP44.EOS_LEDGER)
+//    let pubkey = try! Wallet.getEOSPubkey(handle: handle, path: BIP44.EOS_LEDGER)
+    let pubkey = API.eosPubkey(path: BIP44.EOS_LEDGER)
     txtResult.text = "pubkey： \n \(pubkey)"
     Log.d(pubkey)
   }

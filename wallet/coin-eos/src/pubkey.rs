@@ -27,13 +27,13 @@ impl EosPubkey {
         let pub_key = &sign_source_val[..130];
 
         //use se public key verify sign
-        let se_pub_key = "04E03248A0012603C6B20786C2A86EB6B9DC1767BC56674EBE471ED5FDF287A063985885E0523E100319E0643810F0EAF66A0D4102AEAE49FD7BC7AC232247A3DC";
-        let sign_verify_result = utility::secp256k1_sign_verify(hex::decode(se_pub_key).unwrap().as_slice(),
-                                                                hex::decode(sign_result).unwrap().as_slice(),
-                                                                hex::decode(sign_source_val).unwrap().as_slice());
-        if !sign_verify_result {
-            return Err(Error::MessageError);
-        }
+//        let se_pub_key = "04E03248A0012603C6B20786C2A86EB6B9DC1767BC56674EBE471ED5FDF287A063985885E0523E100319E0643810F0EAF66A0D4102AEAE49FD7BC7AC232247A3DC";
+//        let sign_verify_result = utility::secp256k1_sign_verify(hex::decode(se_pub_key).unwrap().as_slice(),
+//                                                                hex::decode(sign_result).unwrap().as_slice(),
+//                                                                hex::decode(sign_source_val).unwrap().as_slice());
+//        if !sign_verify_result {
+//            return Err(Error::MessageError);
+//        }
 
         //compressed key
         let uncomprs_pubkey: String = res_msg_pubkey
@@ -48,6 +48,7 @@ impl EosPubkey {
         let check_sum = &pubkey_hash[0..4];
         comprs_pubkey_slice.extend(check_sum);
         let eos_pk = "EOS".to_owned() + base58::encode_slice(&comprs_pubkey_slice).as_ref();
+
         Ok(eos_pk)
     }
 

@@ -33,3 +33,7 @@ message CosmosTxOutput {
     string signature = 1;
     string txHash = 2;
 }
+
+message CosmosAddressResponse {
+    string address = 1;
+}
