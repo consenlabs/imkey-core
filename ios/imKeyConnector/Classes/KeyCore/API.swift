@@ -55,27 +55,88 @@ public class API{
   }
   
   public class func checkDevice(){
-    return check_device()
+    Log.d("check device ......")
+    var deviceParam = Api_DeviceParam()
+    deviceParam.action = "se_secure_check"
+    deviceParam.param = Google_Protobuf_Any()
+    
+    var action = Api_TcxAction()
+    action.method = "device_manage"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! deviceParam.serializedData()
+    
+    let paramHex = try! action.serializedData().key_toHexString()
+    call_tcx_api(paramHex)
   }
   
   public class func activeDevice(){
-    return active_device()
+    var deviceParam = Api_DeviceParam()
+    deviceParam.action = "se_activate"
+    deviceParam.param = Google_Protobuf_Any()
+    
+    var action = Api_TcxAction()
+    action.method = "device_manage"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! deviceParam.serializedData()
+    
+    let paramHex = try! action.serializedData().key_toHexString()
+    call_tcx_api(paramHex)
   }
   
   public class func checkUpdate(){
-    return check_update()
+    var deviceParam = Api_DeviceParam()
+    deviceParam.action = "se_query"
+    deviceParam.param = Google_Protobuf_Any()
+    
+    var action = Api_TcxAction()
+    action.method = "device_manage"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! deviceParam.serializedData()
+    
+    let paramHex = try! action.serializedData().key_toHexString()
+    call_tcx_api(paramHex)
   }
   
   public class func downloadApp(){
-    return app_download()
+    var deviceParam = Api_DeviceParam()
+    deviceParam.action = "app_download"
+    deviceParam.param = Google_Protobuf_Any()
+    
+    var action = Api_TcxAction()
+    action.method = "device_manage"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! deviceParam.serializedData()
+    
+    let paramHex = try! action.serializedData().key_toHexString()
+    call_tcx_api(paramHex)
   }
   
   public class func updateApp(){
-    return app_update()
+    var deviceParam = Api_DeviceParam()
+    deviceParam.action = "app_update"
+    deviceParam.param = Google_Protobuf_Any()
+    
+    var action = Api_TcxAction()
+    action.method = "device_manage"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! deviceParam.serializedData()
+    
+    let paramHex = try! action.serializedData().key_toHexString()
+    call_tcx_api(paramHex)
   }
   
   public class func deleteApp(){
-    return app_delete()
+    var deviceParam = Api_DeviceParam()
+    deviceParam.action = "app_delete"
+    deviceParam.param = Google_Protobuf_Any()
+    
+    var action = Api_TcxAction()
+    action.method = "device_manage"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! deviceParam.serializedData()
+    
+    let paramHex = try! action.serializedData().key_toHexString()
+    call_tcx_api(paramHex)
   }
   
   public class func getAddress(){
@@ -116,4 +177,45 @@ public class API{
     call_tcx_api(paramHex)
   }
   
+  public class func eosPubkey(path:String) -> String{
+    var addressParam = Api_AddressParam()
+    addressParam.chainType = "EOS"
+    addressParam.path = path
+    
+    var action = Api_TcxAction()
+    action.method = "get_address"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! addressParam.serializedData()
+    
+    let paramHex = try! action.serializedData().key_toHexString()
+    let res = call_tcx_api(paramHex)
+    
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let eosPubkeyResponse = try! Eosapi_EosPubkeyResponse(serializedData: dataRes)
+    return eosPubkeyResponse.pubkey
+  }
+  
+  public class func cosmosAddress(path:String) -> String{
+    var addressParam = Api_AddressParam()
+    addressParam.chainType = "COSMOS"
+    addressParam.path = path
+    
+    var action = Api_TcxAction()
+    action.method = "get_address"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! addressParam.serializedData()
+    
+    let paramHex = try! action.serializedData().key_toHexString()
+    let res = call_tcx_api(paramHex)
+    
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let eosPubkeyResponse = try! Cosmosapi_CosmosAddressResponse(serializedData: dataRes)
+    return eosPubkeyResponse.address
+  }
+  
+  public class func ethAddress(path:String){
+
+  }
 }

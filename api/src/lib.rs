@@ -14,7 +14,6 @@ pub mod device_manager;
 pub mod deviceapi;
 pub mod eos_pubkey;
 pub mod eos_signer;
-pub mod eosapi;
 pub mod error_handling;
 pub mod ethapi;
 pub mod ethereum;

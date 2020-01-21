@@ -5,6 +5,7 @@ pub mod https;
 pub mod path;
 pub mod sign_res;
 pub mod utility;
+pub mod eosapi;
 
 #[cfg(test)]
 mod tests {

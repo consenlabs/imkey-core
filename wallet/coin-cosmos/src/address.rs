@@ -32,13 +32,13 @@ impl CosmosAddress {
         let pub_key = &sign_source_val[..130];
 
         //use se public key verify sign
-        let se_pub_key = "04E03248A0012603C6B20786C2A86EB6B9DC1767BC56674EBE471ED5FDF287A063985885E0523E100319E0643810F0EAF66A0D4102AEAE49FD7BC7AC232247A3DC";
-        let sign_verify_result = utility::secp256k1_sign_verify(hex::decode(se_pub_key).unwrap().as_slice(),
-                                                       hex::decode(sign_result).unwrap().as_slice(),
-                                                       hex::decode(sign_source_val).unwrap().as_slice());
-        if !sign_verify_result {
-            return Err(error::Error::MessageError);
-        }
+//        let se_pub_key = "04E03248A0012603C6B20786C2A86EB6B9DC1767BC56674EBE471ED5FDF287A063985885E0523E100319E0643810F0EAF66A0D4102AEAE49FD7BC7AC232247A3DC";
+//        let sign_verify_result = utility::secp256k1_sign_verify(hex::decode(se_pub_key).unwrap().as_slice(),
+//                                                                hex::decode(sign_result).unwrap().as_slice(),
+//                                                                hex::decode(sign_source_val).unwrap().as_slice());
+//        if !sign_verify_result {
+//            return Err(error::Error::MessageError);
+//        }
 
 
 //        let uncomprs_pubkey: String = res_msg_pubkey
@@ -102,6 +102,12 @@ mod tests {
     #[test]
     fn test_get_address() {
         let address = CosmosAddress::get_address(constants::COSMOS_PATH);
+        println!("address:{}",address.unwrap());
+    }
+
+    #[test]
+    fn test_display_address() {
+        let address = CosmosAddress::display_address(constants::COSMOS_PATH);
         println!("address:{}",address.unwrap());
     }
 }
