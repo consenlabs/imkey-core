@@ -52,10 +52,11 @@ pub fn send(hid_device: &HidDevice, apdu: &String) -> String {
     let return_data = read_device_response(hid_device).ok().unwrap();
     println!("<--{}", hex::encode_upper(return_data.clone()));
     let hex_str = hex::encode_upper(return_data.clone());
-    if (!"9000".eq(&hex_str[(hex_str.len() - 4)..])) {
-        panic!("指令执行失败");
-    }
-    hex_str.chars().take(hex_str.len() - 4).collect()
+//    if (!"9000".eq(&hex_str[(hex_str.len() - 4)..])) {
+//        panic!("指令执行失败");
+//    }
+//    hex_str.chars().take(hex_str.len() - 4).collect()
+    return hex_str;
 }
 
 #[cfg(target_os = "macos")]

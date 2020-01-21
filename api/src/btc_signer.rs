@@ -28,7 +28,7 @@ pub fn sign_btc_transaction(param: &SignParam) -> Result<Vec<u8>, Error> {
 
     let btc_tx = BtcTransaction {
         to: Address::from_str(&input.to).map_err(|_err| Error::AddressError)?,
-        change_idx: input.change_address_index as i32,
+//        change_idx: input.change_address_index as i32,
         amount: input.amount,
         unspents: unspents,
         fee: input.fee,
@@ -36,7 +36,7 @@ pub fn sign_btc_transaction(param: &SignParam) -> Result<Vec<u8>, Error> {
         to_dis: Address::from_str(&input.to_dis).map_err(|_err| Error::AddressError)?,
         from: Address::from_str(&input.from).map_err(|_err| Error::AddressError)?,
         fee_dis: input.fee_dis,
-        extra_data: input.extra_data,
+//        extra_data: input.extra_data,
     };
 
     let network = if input.network == "TESTNET".to_string() {
@@ -45,7 +45,7 @@ pub fn sign_btc_transaction(param: &SignParam) -> Result<Vec<u8>, Error> {
         Network::Bitcoin
     };
     let signed = btc_tx
-        .sign_transaction(network, &input.path_prefix)
+        .sign_transaction(network, &input.path_prefix, input.change_address_index as i32, &input.extra_data)
         .map_err(|_err| Error::SignError)?;
     let tx_sign_result = BtcTxOutput {
         signature: signed.signature,

@@ -20,6 +20,7 @@ use bitcoin_hashes::Hash;
 use common::utility::{hex_to_bytes, secp256k1_sign_verify, bigint_to_byte_vec, secp256k1_sign};
 use crate::common::address_verify;
 use bitcoin::util::psbt::serialize::Serialize;
+use device::key_manager::KeyManager;
 
 #[derive(Clone)]
 pub struct Utxo {
@@ -34,7 +35,7 @@ pub struct Utxo {
 
 pub struct BtcTransaction {
     pub to: Address,
-    pub change_idx: i32,
+//    pub change_idx: i32,
     pub amount: i64,
     pub unspents: Vec<Utxo>,
     pub fee: i64,
@@ -42,11 +43,11 @@ pub struct BtcTransaction {
     pub to_dis: Address,
     pub from: Address,
     pub fee_dis: String,
-    pub extra_data: Vec<u8>,
+//    pub extra_data: Vec<u8>,
 }
 
 impl BtcTransaction {
-    pub fn sign_transaction(&self, network : Network, path : &String) -> Result<TxSignResult, BtcError>{
+    pub fn sign_transaction(&self, network : Network, path : &String, change_idx: i32, extra_data : &Vec<u8>) -> Result<TxSignResult, BtcError>{
         //path校验
 
         //check uxto number
@@ -63,6 +64,8 @@ impl BtcTransaction {
 
         let pub_key = &sign_source_val[..130];
         let chain_code = &sign_source_val[130..];
+
+        //get se public key
 
         //use se public key verify sign
         let se_pub_key = "04FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44";
@@ -84,10 +87,10 @@ impl BtcTransaction {
         let mut utxo_pub_key_vec: Vec<String> = address_verify_result.ok().unwrap();
 
         //calc utxo total amount
-        let mut total_amount = self.get_total_amount();
-        if total_amount < self.amount {
-            return Err(BtcError::ImkeyInsufficientFunds);
-        }
+//        let mut total_amount = self.get_total_amount();
+//        if total_amount < self.amount {
+//            return Err(BtcError::ImkeyInsufficientFunds);
+//        }
 
         //add send to output
         let mut txouts: Vec<TxOut> = Vec::new();
@@ -99,11 +102,11 @@ impl BtcTransaction {
             txouts.push(self.build_change_output(pub_key, network));
         }
         //add the op_return
-        if (!self.extra_data.is_empty()) {
-            if self.extra_data.len() > 80 {
+        if (!extra_data.is_empty()) {
+            if extra_data.len() > 80 {
                 return Err(BtcError::ImkeySdkIllegalArgument);
             }
-            txouts.push(self.build_op_return_output())
+            txouts.push(self.build_op_return_output(&extra_data))
         }
 
         //output data serialize
@@ -211,11 +214,7 @@ impl BtcTransaction {
         })
     }
 
-    pub fn sign_segwit_transaction(
-        &self,
-        network: Network,
-        path: &String,
-    ) -> Result<TxSignResult, BtcError> {
+    pub fn sign_segwit_transaction(&self, network: Network, path: &String,change_idx: i32, extra_data : &Vec<u8>) -> Result<TxSignResult, BtcError> {
         //path check
 
         //check utxo number
@@ -268,11 +267,11 @@ impl BtcTransaction {
             txouts.push(self.build_change_output(pub_key, network));
         }
         //add the op_return
-        if (!self.extra_data.is_empty()) {
-            if self.extra_data.len() > 80 {
+        if (!extra_data.is_empty()) {
+            if extra_data.len() > 80 {
                 return Err(BtcError::ImkeySdkIllegalArgument);
             }
-            txouts.push(self.build_op_return_output());
+            txouts.push(self.build_op_return_output(extra_data));
         }
 
         //8.output data serialize
@@ -315,7 +314,7 @@ impl BtcTransaction {
         let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x31, 0x00, &output_pareper_data);
         //send output pareper command  TODO
         for temp_str in btc_prepare_apdu_vec {
-            let xpub_data = send_apdu(temp_str);
+            send_apdu(temp_str);
         }
 
         let mut txinputs: Vec<TxIn> = vec![];
@@ -436,7 +435,7 @@ impl BtcTransaction {
         })
     }
 
-    fn get_total_amount(&self) -> i64 {
+    pub fn get_total_amount(&self) -> i64 {
         let mut total_amount: i64 = 0;
         for unspent in &self.unspents {
             total_amount += unspent.amount;
@@ -444,20 +443,20 @@ impl BtcTransaction {
         total_amount
     }
 
-    fn get_change_amount(&self) -> i64 {
+    pub fn get_change_amount(&self) -> i64 {
         let total_amount = self.get_total_amount();
         let change_amout = total_amount - self.amount - self.fee;
         change_amout
     }
 
-    fn build_send_to_output(&self) -> TxOut {
+    pub fn build_send_to_output(&self) -> TxOut {
         TxOut {
             value: self.amount as u64,
             script_pubkey: self.to.script_pubkey(),
         }
     }
 
-    fn build_change_output(&self, pub_key : &str, network : Network) ->TxOut {
+    pub fn build_change_output(&self, pub_key : &str, network : Network) ->TxOut {
         //get change address
         let mut public_key_obj = PublicKey::from_str(pub_key).unwrap();
         public_key_obj.compressed = true;
@@ -469,10 +468,10 @@ impl BtcTransaction {
         }
     }
 
-    fn build_op_return_output(&self) -> TxOut {
+    pub fn build_op_return_output(&self, extra_data : &Vec<u8>) -> TxOut {
         let opreturn_script = Builder::new()
             .push_opcode(opcodes::all::OP_RETURN)
-            .push_slice(&self.extra_data[..])
+            .push_slice(&extra_data[..])
             .into_script();
         TxOut {
             value: 0u64,
@@ -480,7 +479,7 @@ impl BtcTransaction {
         }
     }
 
-    fn build_lock_script(&self, signed : &str, utxo_public_key : &str) -> Script{
+    pub fn build_lock_script(&self, signed : &str, utxo_public_key : &str) -> Script{
         let signed_vec = Vec::from_hex(&signed).unwrap();
         let mut signnture_obj = Signature::from_compact(signed_vec.as_slice()).unwrap();
         signnture_obj.normalize_s();
@@ -491,6 +490,10 @@ impl BtcTransaction {
         Builder::new().push_slice(&signed_vec)
             .push_slice(Vec::from_hex(utxo_public_key).unwrap().as_slice())
             .into_script()
+    }
+
+    pub fn get_se_pub_key(se_cert : &str) -> String{
+        return "".to_string();
     }
 
 }
@@ -591,7 +594,7 @@ mod tests {
         //        utxos.push(utxo8);
         let transaction_req_data = BtcTransaction {
             to: Address::from_str("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3").unwrap(),
-            change_idx: 53,
+//            change_idx: 53,
             amount: 799988000,
             unspents: utxos,
             fee: 10000,
@@ -599,9 +602,9 @@ mod tests {
             to_dis: Address::from_str("3CVD68V71no5jn2UZpLLq6hASpXu1jrByt").unwrap(),
             from: Address::from_str("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy").unwrap(),
             fee_dis: "0.00007945 BTC".to_string(),
-            extra_data: extra_data,
+//            extra_data: extra_data,
         };
-        transaction_req_data.sign_transaction(Network::Testnet, &"m/44'/1'/0'".to_string());
+        transaction_req_data.sign_transaction(Network::Testnet, &"m/44'/1'/0'".to_string(), 53, &extra_data);
     }
 
     #[test]
@@ -630,7 +633,7 @@ mod tests {
         utxos.push(utxo2);
         let transaction_req_data = BtcTransaction {
             to: Address::from_str("2N9wBy6f1KTUF5h2UUeqRdKnBT6oSMh4Whp").unwrap(),
-            change_idx: 0,
+//            change_idx: 0,
             amount: 88000,
             unspents: utxos,
             fee: 10000,
@@ -638,8 +641,8 @@ mod tests {
             to_dis: Address::from_str("3CVD68V71no5jn2UZpLLq6hASpXu1jrByt").unwrap(),
             from: Address::from_str("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy").unwrap(),
             fee_dis: "0.00007945 BTC".to_string(),
-            extra_data: extra_data,
+//            extra_data: extra_data,
         };
-        transaction_req_data.sign_segwit_transaction(Network::Testnet, &"m/49'/1'/0'/".to_string());
+        transaction_req_data.sign_segwit_transaction(Network::Testnet, &"m/49'/1'/0'/".to_string(), 0, &extra_data);
     }
 }
