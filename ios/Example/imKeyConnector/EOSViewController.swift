@@ -75,6 +75,14 @@ class EOSViewController: UIViewController {
     Log.d(pubkey)
   }
   
+    @IBAction func reginAddressBtnClick(_ sender: Any) {
+      txtResult.text = ""
+  //    let pubkey = try! Wallet.getEOSPubkey(handle: handle, path: BIP44.EOS_LEDGER)
+      let pubkey = API.eosReginPubkey(path: BIP44.EOS_LEDGER)
+      txtResult.text = "pubkey： \n \(pubkey)"
+      Log.d(pubkey)
+    }
+  
   func appendResult(msg:String){
     DispatchQueue.main.async {
       self.txtResult.text += msg

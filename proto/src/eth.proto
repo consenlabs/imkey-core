@@ -22,3 +22,7 @@ message EthTxOutput {
     string signature = 1;
     string txHash = 2;
 }
+
+message EthAddressResponse {
+    string address = 1;
+}

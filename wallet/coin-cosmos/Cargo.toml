@@ -15,4 +15,5 @@ bitcoin = "0.19.1"
 bytes = "0.4.8"
 secp256k1 = "0.17.1"
 ring = "0.16.9"
-bech32 = "0.7.1"
+#bech32 = "0.7.1"
+bech32 = { git = "https://github.com/sipa/bech32" }

@@ -78,9 +78,10 @@ class ETHViewController: UIViewController {
     do {
 //      let path = "m/44'/60'/0'/0/0"
 //      let address = try Wallet.getETHAddress(handle:handle, path: path)
-//      txtResult.text = "eth address： \n \(address)"
-//      Log.d(address)
-      API.getAddress()
+      let address = API.ethAddress(path: BIP44.eth)
+      txtResult.text = "eth address： \n \(address)"
+      Log.d(address)
+//      API.getAddress()
     } catch let e as ImkeyError {
       Log.d("!!!error:\(e.message)")
       toastMsg(message: e.message)
@@ -88,6 +89,23 @@ class ETHViewController: UIViewController {
       Log.d(error)
     }
   }
+  
+    @IBAction func reginAddressBtnClick(_ sender: Any) {
+      txtResult.text = ""
+      do {
+//        let path = "m/44'/60'/0'/0/0"
+  //      let address = try Wallet.getETHAddress(handle:handle, path: path)
+        let address = API.ethReginAddress(path: BIP44.eth)
+        txtResult.text = "eth address： \n \(address)"
+        Log.d(address)
+  //      API.getAddress()
+      } catch let e as ImkeyError {
+        Log.d("!!!error:\(e.message)")
+        toastMsg(message: e.message)
+      }catch{
+        Log.d(error)
+      }
+    }
   
   func appendResult(msg:String){
     DispatchQueue.main.async {

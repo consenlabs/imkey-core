@@ -60,7 +60,7 @@ impl BtcTransaction {
 
         //get xpub data
         let sign_source_val = &xpub_data[..194];
-        let sign_result = &xpub_data[194..];
+        let sign_result = &xpub_data[194..xpub_data.len()-4];
 
         let pub_key = &sign_source_val[..130];
         let chain_code = &sign_source_val[130..];

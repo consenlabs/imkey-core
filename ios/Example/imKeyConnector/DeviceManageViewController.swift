@@ -118,9 +118,9 @@ class DeviceManageViewController: UIViewController {
   
   @IBAction func checkUpdateClick(_ sender: Any) {
     do {
-//      let response = try Manager.checkUpdate(handle: handle)
-//      Log.d("\n\(response)")
-      API.checkUpdate()
+      let response = try Manager.checkUpdate(handle: handle)
+      Log.d("\n\(response)")
+//      API.checkUpdate()
       toastMsg(message: "success")
     } catch let e as ImkeyError {
       Log.d("!!!error:\(e.message)")

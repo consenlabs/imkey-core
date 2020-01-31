@@ -25,7 +25,7 @@ public class HTTP{
     
     let session = URLSession(
       configuration: URLSessionConfiguration.ephemeral,
-      delegate: URLSessionPinningDelegate(),
+      delegate: nil,
       delegateQueue: nil)
 //    let session = URLSession.shared //for test
 
@@ -90,6 +90,7 @@ class URLSessionPinningDelegate: NSObject, URLSessionDelegate {
             let certHashData = (serverCertificateData as Data).sha256().base64EncodedData()
             
             let certHash = String(bytes: certHashData, encoding: .ascii)
+            Log.d("certHash:" + certHash!)
             if (certHash == Constants.pinnedCertificateHash) {
               // Success! This is our server
               completionHandler(.useCredential, URLCredential(trust:serverTrust))

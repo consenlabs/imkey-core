@@ -179,6 +179,10 @@ impl EthApdu {
         Apdu::get_pubkey(0x53, path, verify_flag)
     }
 
+    pub fn register_address(data: &[u8]) -> String {
+        Apdu::register_address(0x56, data)
+    }
+
     pub fn sign_digest(path: &str) -> String {
         Apdu::sign_digest(0x52, 0x00, 0x00, path)
     }
