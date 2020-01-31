@@ -4,6 +4,7 @@ mkdir ../../ios/imKeyConnector/Classes/Proto
 
 protoc --swift_out=../../ios/imKeyConnector/Classes/Proto api.proto
 protoc --swift_out=../../ios/imKeyConnector/Classes/Proto device.proto
+protoc --swift_out=../../ios/imKeyConnector/Classes/Proto btc.proto
 protoc --swift_out=../../ios/imKeyConnector/Classes/Proto eth.proto
 protoc --swift_out=../../ios/imKeyConnector/Classes/Proto eos.proto
 protoc --swift_out=../../ios/imKeyConnector/Classes/Proto cosmos.proto

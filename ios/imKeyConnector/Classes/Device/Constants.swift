@@ -11,7 +11,7 @@ public struct Constants {
   #if false
   //test environment
   public static let host = "https://imkeyserver.com:10443/imkey/"
-  public static let pinnedCertificateHash = "eO+e/9d7NH9MmrNmcrB3sgS4g/EBNftSdTgLPvXP6gM="
+  public static let pinnedCertificateHash = "PmHzekO6Q7O4fM1eXXq4g9bNkVVks2arM2UVkXNqvuQ="
   #else
   //prod environment
   public static let host = "https://imkey.online:1000/imkey/"

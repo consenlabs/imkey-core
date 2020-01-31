@@ -23,6 +23,7 @@ pub const COSMOS_AID: &str = "695F636F736D6F73";
 //path
 pub const COSMOS_PATH: &str = "m/44'/118'/0'/0/0";
 pub const EOS_PATH: &str = "m/44'/194'/0'/0/0";
+pub const ETH_PATH: &str = "m/44'/60'/0'/0/0";
 
 pub const VERSION: &str = "1.2.00";
 

@@ -35,3 +35,8 @@ pub struct EthTxOutput {
     #[prost(string, tag="2")]
     pub tx_hash: std::string::String,
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EthAddressResponse {
+    #[prost(string, tag="1")]
+    pub address: std::string::String,
+}

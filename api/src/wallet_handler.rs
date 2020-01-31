@@ -9,7 +9,7 @@ use crate::device_manager::{
 };
 use crate::eos_pubkey::{display_eos_pubkey, get_eos_pubkey};
 use crate::eos_signer::sign_eos_transaction;
-use crate::ethereum_address::get_eth_address;
+use crate::ethereum_address::{get_eth_address, display_eth_address};
 use crate::ethereum_signer::sign_eth_transaction;
 use bytes::BytesMut;
 use common::error::Error;
@@ -49,6 +49,7 @@ pub fn register_coin(data: &[u8]) -> Result<Vec<u8>, Error> {
     let param: AddressParam = AddressParam::decode(data).expect("AddressParam");
 
     match param.chain_type.as_str() {
+        "ETH" => display_eth_address(&param),
         "EOS" => display_eos_pubkey(&param),
         "COSMOS" => display_cosmos_address(&param),
         _ => Err(Error::ChainTypeError),

@@ -1,5 +1,5 @@
 use coin_ethereum::address::EthAddress;
-use common::apdu::EthApdu;
+use common::apdu::{EthApdu, EosApdu};
 use common::error::Error;
 use common::path::check_path_validity;
 use common::utility::hex_to_bytes;
@@ -11,16 +11,43 @@ impl EthereumAddress {
     pub fn get_address(path: &str) -> Result<String, Error> {
         check_path_validity(path);
 
-        EthApdu::select_applet();
+        let select_apdu = EthApdu::select_applet();
+        let select_response = send_apdu(select_apdu);
 
         //get public
         let msg_pubkey = EthApdu::get_pubkey(&path, false);
-        let res_msg_pubkey = send_apdu(hex::encode(msg_pubkey));
+        let res_msg_pubkey = send_apdu(msg_pubkey);
 
         let pubkey_raw =
             hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError)?;
 
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;
         Ok(address_main)
+    }
+
+    pub fn display_address(path: &str) -> Result<String, Error> {
+        let address = EthereumAddress::get_address(path).unwrap();
+        let reg_apdu = EthApdu::register_address(address.as_bytes());
+        let res_reg = send_apdu(reg_apdu);
+        //todo: check response
+        Ok(address)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use common::constants;
+    use crate::ethereum_address::EthereumAddress;
+
+    #[test]
+    fn test_get_address() {
+        let address = EthereumAddress::get_address(constants::ETH_PATH);
+        println!("address:{}",address.unwrap());
+    }
+
+    #[test]
+    fn test_display_address() {
+        let address = EthereumAddress::display_address(constants::ETH_PATH);
+        println!("address:{}", address.unwrap());
     }
 }

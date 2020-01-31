@@ -99,6 +99,21 @@ class CosmosViewController: UIViewController {
     }
   }
   
+    @IBAction func reginAddressBtnClick(_ sender: Any) {
+      txtResult.text = ""
+      do {
+  //      let address = try CosmosKey.getCosmosAddress(handle: handle, path: BIP44.cosmos)
+        let address = API.cosmosReginAddress(path: BIP44.cosmos)
+        Log.d(address)
+        txtResult.text = address
+      } catch let e as ImkeyError {
+        Log.d("!!!error:\(e.message)")
+        toastMsg(message: e.message)
+      }catch{
+        Log.d(error)
+      }
+    }
+  
   func appendResult(msg:String){
     DispatchQueue.main.async {
       self.txtResult.text += msg
