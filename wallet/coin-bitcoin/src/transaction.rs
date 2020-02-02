@@ -55,8 +55,15 @@ impl BtcTransaction {
             return Err(BtcError::ImkeyExceededMaxUtxoNumber);
         }
         //get main public key(xpub)
-        send_apdu(BtcApdu::select_applet());
+        let apdu_response = send_apdu(BtcApdu::select_applet());
+        if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
+            panic!("selcet btc error");
+        }
         let xpub_data = send_apdu(BtcApdu::get_xpub(path.as_str(), false));
+        if !"9000".eq(&xpub_data[xpub_data.len() - 4 ..]) {
+            panic!("get xpub apdu error");
+        }
+        let xpub_data = &xpub_data[..xpub_data.len() - 4].to_string();
 
         //get xpub data
         let sign_source_val = &xpub_data[..194];
@@ -147,7 +154,10 @@ impl BtcTransaction {
 
         let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x41, 0x00, &output_pareper_data);
         for temp_str in btc_prepare_apdu_vec {
-            send_apdu(temp_str);
+            let apdu_response = send_apdu(temp_str);
+            if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
+                panic!("btc output pareper apdu error");
+            }
         }
 
         let mut lock_script_ver : Vec<Script> = Vec::new();
@@ -172,7 +182,10 @@ impl BtcTransaction {
                 input_data_vec.extend_from_slice(serialize(&temp_serialize_txin).as_slice());
                 let btc_perpare_apdu = BtcApdu::btc_perpare_input(0x80, &input_data_vec);
                 //发送签名指令到设备并获取返回数据
-                send_apdu(btc_perpare_apdu);
+                let apdu_response = send_apdu(btc_perpare_apdu);
+                if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
+                    panic!("btc pareper apdu error");
+                }
             }
             for y in i * EACH_ROUND_NUMBER..(i+1) * EACH_ROUND_NUMBER {
                 if y >= utxo_pub_key_vec.len(){
@@ -183,6 +196,10 @@ impl BtcTransaction {
                                                       format!("{}{}{}", path, "/", self.unspents.get(y).unwrap().derive_path).as_str());
                 //发送签名指令到设备并获取签名结果
                 let btc_sign_apdu_return = send_apdu(btc_sign_apdu);
+                if !"9000".eq(&btc_sign_apdu_return[btc_sign_apdu_return.len() - 4 ..]) {
+                    panic!("btc sign apdu error");
+                }
+                let btc_sign_apdu_return = &btc_sign_apdu_return[..btc_sign_apdu_return.len() - 4].to_string();
                 let sign_result_str = btc_sign_apdu_return[2..btc_sign_apdu_return.len() - 2].to_string();
 
                 lock_script_ver.push(self.build_lock_script(sign_result_str.as_str(),
@@ -223,8 +240,14 @@ impl BtcTransaction {
         }
 
         //get main public key(xpub)
-        send_apdu(BtcApdu::select_applet());
+        let apdu_response = send_apdu(BtcApdu::select_applet());
+        if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
+            panic!("selcet btc error");
+        }
         let xpub_data = send_apdu(BtcApdu::get_xpub(path.as_str(), false));
+        if !"9000".eq(&xpub_data[xpub_data.len() - 4 ..]) {
+            panic!("get xpub apdu error");
+        }
 
         //get xpub data
         let sign_source_val = &xpub_data[..194];
@@ -314,7 +337,10 @@ impl BtcTransaction {
         let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x31, 0x00, &output_pareper_data);
         //send output pareper command  TODO
         for temp_str in btc_prepare_apdu_vec {
-            send_apdu(temp_str);
+            let apdu_response = send_apdu(temp_str);
+            if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
+                panic!("btc output pareper apdu error");
+            }
         }
 
         let mut txinputs: Vec<TxIn> = vec![];
@@ -385,7 +411,10 @@ impl BtcTransaction {
         let mut sequence_prepare_apdu_vec = BtcApdu::btc_prepare(0x31, 0x80, &sequence_vec);
         txhash_vout_prepare_apdu_vec.append(&mut sequence_prepare_apdu_vec);
         for apdu in txhash_vout_prepare_apdu_vec {
-            send_apdu(apdu);
+            let apdu_response = send_apdu(apdu);
+            if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
+                panic!("usdt txhash vout pareper apdu error");
+            }
         }
 
         //send sign apdu
@@ -394,6 +423,9 @@ impl BtcTransaction {
         for (index, wegwit_sign_apdu) in sign_apdu_vec.iter().enumerate() {
             //send sign apdu
             let sign_apdu_return_data = send_apdu(wegwit_sign_apdu.clone());
+            if !"9000".eq(&sign_apdu_return_data[sign_apdu_return_data.len() - 4 ..]) {
+                panic!("btc segwit sign apdu error");
+            }
             //build signature obj
             let sign_result_vec = Vec::from_hex(&sign_apdu_return_data[2..sign_apdu_return_data.len() - 2]).unwrap();
             let mut signnture_obj =
