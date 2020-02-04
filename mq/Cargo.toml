@@ -13,7 +13,6 @@ hex = "0.3"
 [target.'cfg(target_os = "macos")'.dependencies]
 hidapi = "1.1.0"
 
-
 # log = {version = "0.4", features = ["std"]}
 # log-panics = {version = "2.0.0", features = ["with-backtrace"]}
 # [target.'cfg(target_os = "android")'.dependencies]

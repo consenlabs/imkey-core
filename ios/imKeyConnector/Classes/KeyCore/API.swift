@@ -177,6 +177,29 @@ public class API{
     call_tcx_api(paramHex)
   }
   
+  public class func cosmosSignTx(cosmosInput:Cosmosapi_CosmosTxInput) -> Cosmosapi_CosmosTxOutput{
+    //call api
+    var signParam = Api_SignParam()
+    signParam.chainType = "COSMOS"
+    signParam.input = Google_Protobuf_Any()
+    signParam.input.value = try! cosmosInput.serializedData()
+
+    var action = Api_TcxAction()
+    action.method = "sign_tx"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! signParam.serializedData()
+
+    let paramHex = try! action.serializedData().key_toHexString()
+    
+    //response
+    Log.d("cosmos param ready..")
+    let res = call_tcx_api(paramHex)
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let cosmosOutput = try! Cosmosapi_CosmosTxOutput(serializedData: dataRes)
+    return cosmosOutput
+  }
+  
   public class func eosPubkey(path:String) -> String{
     var addressParam = Api_AddressParam()
     addressParam.chainType = "EOS"
@@ -358,4 +381,8 @@ public class API{
     let hexRes = String(cString:res!).key_toHexString()
     Log.d(hexRes)
   }
+  
+//  public class func cosmosSignxTX() -> TransactionSignedResult{
+//    Cosmosapi_CosmosTxInput
+//  }
 }

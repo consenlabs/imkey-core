@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.mk.imkeydemo.core.wallet.transaction.ImKeyCosmosTransactionTest;
 import com.mk.imkeylibrary.core.wallet.Cosmos;
 import com.mk.imkeylibrary.core.wallet.Path;
 import com.mk.imkeylibrary.core.wallet.transaction.TransactionSignedResult;
+import com.mk.imkeylibrary.utils.LogUtil;
 
 public class CosmosActivity extends AppCompatActivity {
     private ExecutorService es = ImKeyApp.es;
@@ -78,6 +80,7 @@ public class CosmosActivity extends AppCompatActivity {
             public void run() {
                 try {
                     TransactionSignedResult result = ImKeyCosmosTransactionTest.testCosmosTxSign();
+                    LogUtil.d(result.toString());
                     showResult(result.toString());
                 } catch (Exception e) {
                     showResult(e.getMessage());
