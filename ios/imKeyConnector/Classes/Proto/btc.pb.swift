@@ -19,80 +19,80 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct Btcapi_Utxo {
+public struct Btcapi_Utxo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var txHash: String = String()
+  public var txHash: String = String()
 
-  var vout: Int32 = 0
+  public var vout: Int32 = 0
 
-  var amount: Int64 = 0
+  public var amount: Int64 = 0
 
-  var address: String = String()
+  public var address: String = String()
 
-  var scriptPubKey: String = String()
+  public var scriptPubKey: String = String()
 
-  var derivedPath: String = String()
+  public var derivedPath: String = String()
 
-  var sequence: Int64 = 0
+  public var sequence: Int64 = 0
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Btcapi_BtcTxInput {
+public struct Btcapi_BtcTxInput {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var to: String = String()
+  public var to: String = String()
 
-  var amount: Int64 = 0
+  public var amount: Int64 = 0
 
-  var unspents: [Btcapi_Utxo] = []
+  public var unspents: [Btcapi_Utxo] = []
 
-  var fee: Int64 = 0
+  public var fee: Int64 = 0
 
-  var changeAddressIndex: UInt32 = 0
+  public var changeAddressIndex: UInt32 = 0
 
-  var changeAddress: String = String()
+  public var changeAddress: String = String()
 
-  var network: String = String()
+  public var network: String = String()
 
-  var segWit: String = String()
+  public var segWit: String = String()
 
-  var payment: String = String()
+  public var payment: String = String()
 
-  var toDis: String = String()
+  public var toDis: String = String()
 
-  var from: String = String()
+  public var from: String = String()
 
-  var feeDis: String = String()
+  public var feeDis: String = String()
 
-  var extraData: Data = SwiftProtobuf.Internal.emptyData
+  public var extraData: Data = SwiftProtobuf.Internal.emptyData
 
-  var pathPrefix: String = String()
+  public var pathPrefix: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Btcapi_BtcTxOutput {
+public struct Btcapi_BtcTxOutput {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var signature: String = String()
+  public var signature: String = String()
 
-  var txHash: String = String()
+  public var txHash: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -100,8 +100,8 @@ struct Btcapi_BtcTxOutput {
 fileprivate let _protobuf_package = "btcapi"
 
 extension Btcapi_Utxo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Utxo"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".Utxo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "txHash"),
     2: .same(proto: "vout"),
     3: .same(proto: "amount"),
@@ -111,7 +111,7 @@ extension Btcapi_Utxo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
     7: .same(proto: "sequence"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.txHash)
@@ -126,7 +126,7 @@ extension Btcapi_Utxo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.txHash.isEmpty {
       try visitor.visitSingularStringField(value: self.txHash, fieldNumber: 1)
     }
@@ -151,7 +151,7 @@ extension Btcapi_Utxo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Btcapi_Utxo, rhs: Btcapi_Utxo) -> Bool {
+  public static func ==(lhs: Btcapi_Utxo, rhs: Btcapi_Utxo) -> Bool {
     if lhs.txHash != rhs.txHash {return false}
     if lhs.vout != rhs.vout {return false}
     if lhs.amount != rhs.amount {return false}
@@ -165,8 +165,8 @@ extension Btcapi_Utxo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
 }
 
 extension Btcapi_BtcTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".BtcTxInput"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".BtcTxInput"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "to"),
     2: .same(proto: "amount"),
     3: .same(proto: "unspents"),
@@ -183,7 +183,7 @@ extension Btcapi_BtcTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     14: .standard(proto: "path_prefix"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.to)
@@ -205,7 +205,7 @@ extension Btcapi_BtcTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.to.isEmpty {
       try visitor.visitSingularStringField(value: self.to, fieldNumber: 1)
     }
@@ -251,7 +251,7 @@ extension Btcapi_BtcTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Btcapi_BtcTxInput, rhs: Btcapi_BtcTxInput) -> Bool {
+  public static func ==(lhs: Btcapi_BtcTxInput, rhs: Btcapi_BtcTxInput) -> Bool {
     if lhs.to != rhs.to {return false}
     if lhs.amount != rhs.amount {return false}
     if lhs.unspents != rhs.unspents {return false}
@@ -272,13 +272,13 @@ extension Btcapi_BtcTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
 }
 
 extension Btcapi_BtcTxOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".BtcTxOutput"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".BtcTxOutput"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "signature"),
     2: .same(proto: "txHash"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.signature)
@@ -288,7 +288,7 @@ extension Btcapi_BtcTxOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.signature.isEmpty {
       try visitor.visitSingularStringField(value: self.signature, fieldNumber: 1)
     }
@@ -298,7 +298,7 @@ extension Btcapi_BtcTxOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Btcapi_BtcTxOutput, rhs: Btcapi_BtcTxOutput) -> Bool {
+  public static func ==(lhs: Btcapi_BtcTxOutput, rhs: Btcapi_BtcTxOutput) -> Bool {
     if lhs.signature != rhs.signature {return false}
     if lhs.txHash != rhs.txHash {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
