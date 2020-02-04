@@ -35,6 +35,7 @@ import com.mk.imkeylibrary.core.wallet.transaction.TxMultiSignResult;
 import com.mk.imkeylibrary.device.Applet;
 import com.mk.imkeylibrary.exception.ImkeyException;
 import com.mk.imkeylibrary.utils.ByteUtil;
+import com.mk.imkeylibrary.utils.LogUtil;
 import com.mk.imkeylibrary.utils.NumericUtil;
 
 
@@ -118,6 +119,8 @@ public class ImKeyCosmosTransaction implements TransactionSigner {
     try {
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
       jsonMapper().writeValue(outputStream, this);
+      String data = new String(outputStream.toByteArray());
+      LogUtil.d(data);
       return outputStream.toByteArray();
     } catch (IOException ex) {
       throw new ImkeyException(Messages.IMKEY_COSMOS_JSON_ERROR, ex);

@@ -9,7 +9,7 @@ pub mod btc_signer;
 pub mod btcapi;
 pub mod cosmos_address;
 pub mod cosmos_signer;
-pub mod cosmosapi;
+//pub mod cosmosapi;
 pub mod device_manager;
 pub mod deviceapi;
 pub mod eos_pubkey;

@@ -67,6 +67,7 @@ public struct SigUtil {
       throw SDKError.notBindCheck
     }
     let prvKey = ByteUtil.uint8Array2HexString(data: KeyManager.shared().prvKey)
+    Log.d("prvKey:\(prvKey)")
     let result = ecsign(with: prvKey, data: ByteUtil.uint8Array2HexString(data: hash).lowercased())
     let sig = try TLVUtil.encodeSignature(r: result["r"] as! String, s: result["s"] as! String)
     guard let sigBytes = ByteUtil.hexString2Uint8Array(data: sig) else{

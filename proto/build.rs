@@ -19,7 +19,7 @@ fn main() {
     prost_build::compile_protos(&["src/eos.proto"], &["src/"]).unwrap();
 
     // tcx-cosmos
-    env::set_var("OUT_DIR", "../api/src");
+    env::set_var("OUT_DIR", "../common/src");
     prost_build::compile_protos(&["src/cosmos.proto"], &["src/"]).unwrap();
 }
 
@@ -49,7 +49,11 @@ mod tests {
         prost_build::compile_protos(&["src/eos.proto"], &["src/"]).unwrap();
 
         // tcx-cosmos
-        env::set_var("OUT_DIR", "../api/src");
+        env::set_var("OUT_DIR", "../common/src");
         prost_build::compile_protos(&["src/cosmos.proto"], &["src/"]).unwrap();
+
+        // tcx-device
+        env::set_var("OUT_DIR", "../api/src");
+        prost_build::compile_protos(&["src/device.proto"], &["src/"]).unwrap();
     }
 }

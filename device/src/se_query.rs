@@ -65,3 +65,15 @@ impl se_query_request {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::se_query::se_query_request;
+
+    #[test]
+    fn se_query_test() {
+        let seid: String = "19060000000200860001010000000014".to_string();
+        let sn: String = "imKey01191200001".to_string();
+        se_query_request::build_request_data(seid, sn, None).se_query();
+    }
+}

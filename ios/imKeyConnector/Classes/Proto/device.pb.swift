@@ -265,6 +265,18 @@ struct Deviceapi_DeviceName {
   init() {}
 }
 
+struct Deviceapi_Test {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var tt: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "deviceapi"
@@ -853,6 +865,35 @@ extension Deviceapi_DeviceName: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
 
   static func ==(lhs: Deviceapi_DeviceName, rhs: Deviceapi_DeviceName) -> Bool {
     if lhs.bleName != rhs.bleName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_Test: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Test"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "tt"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.tt)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.tt.isEmpty {
+      try visitor.visitSingularStringField(value: self.tt, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Deviceapi_Test, rhs: Deviceapi_Test) -> Bool {
+    if lhs.tt != rhs.tt {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
