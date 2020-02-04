@@ -19,78 +19,78 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct Eosapi_EosSignData {
+public struct Eosapi_EosSignData {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var txHash: String = String()
+  public var txHash: String = String()
 
-  var pubKeys: [String] = []
+  public var pubKeys: [String] = []
 
-  var chainID: String = String()
+  public var chainID: String = String()
 
-  var to: String = String()
+  public var to: String = String()
 
-  var from: String = String()
+  public var from: String = String()
 
-  var payment: String = String()
+  public var payment: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Eosapi_EosTxInput {
+public struct Eosapi_EosTxInput {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var path: String = String()
+  public var path: String = String()
 
-  var signDatas: [Eosapi_EosSignData] = []
+  public var signDatas: [Eosapi_EosSignData] = []
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Eosapi_EosTxOutput {
+public struct Eosapi_EosTxOutput {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var hash: String = String()
+  public var hash: String = String()
 
-  var signs: [String] = []
+  public var signs: [String] = []
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Eosapi_EosPubkey {
+public struct Eosapi_EosPubkey {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var path: String = String()
+  public var path: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Eosapi_EosPubkeyResponse {
+public struct Eosapi_EosPubkeyResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var pubkey: String = String()
+  public var pubkey: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -98,8 +98,8 @@ struct Eosapi_EosPubkeyResponse {
 fileprivate let _protobuf_package = "eosapi"
 
 extension Eosapi_EosSignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".EosSignData"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".EosSignData"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "tx_hash"),
     2: .standard(proto: "pub_keys"),
     3: .standard(proto: "chain_id"),
@@ -108,7 +108,7 @@ extension Eosapi_EosSignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     6: .same(proto: "payment"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.txHash)
@@ -122,7 +122,7 @@ extension Eosapi_EosSignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.txHash.isEmpty {
       try visitor.visitSingularStringField(value: self.txHash, fieldNumber: 1)
     }
@@ -144,7 +144,7 @@ extension Eosapi_EosSignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Eosapi_EosSignData, rhs: Eosapi_EosSignData) -> Bool {
+  public static func ==(lhs: Eosapi_EosSignData, rhs: Eosapi_EosSignData) -> Bool {
     if lhs.txHash != rhs.txHash {return false}
     if lhs.pubKeys != rhs.pubKeys {return false}
     if lhs.chainID != rhs.chainID {return false}
@@ -157,13 +157,13 @@ extension Eosapi_EosSignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
 }
 
 extension Eosapi_EosTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".EosTxInput"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".EosTxInput"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "path"),
     2: .standard(proto: "sign_datas"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.path)
@@ -173,7 +173,7 @@ extension Eosapi_EosTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.path.isEmpty {
       try visitor.visitSingularStringField(value: self.path, fieldNumber: 1)
     }
@@ -183,7 +183,7 @@ extension Eosapi_EosTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Eosapi_EosTxInput, rhs: Eosapi_EosTxInput) -> Bool {
+  public static func ==(lhs: Eosapi_EosTxInput, rhs: Eosapi_EosTxInput) -> Bool {
     if lhs.path != rhs.path {return false}
     if lhs.signDatas != rhs.signDatas {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -192,13 +192,13 @@ extension Eosapi_EosTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
 }
 
 extension Eosapi_EosTxOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".EosTxOutput"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".EosTxOutput"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "hash"),
     2: .same(proto: "signs"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.hash)
@@ -208,7 +208,7 @@ extension Eosapi_EosTxOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.hash.isEmpty {
       try visitor.visitSingularStringField(value: self.hash, fieldNumber: 1)
     }
@@ -218,7 +218,7 @@ extension Eosapi_EosTxOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Eosapi_EosTxOutput, rhs: Eosapi_EosTxOutput) -> Bool {
+  public static func ==(lhs: Eosapi_EosTxOutput, rhs: Eosapi_EosTxOutput) -> Bool {
     if lhs.hash != rhs.hash {return false}
     if lhs.signs != rhs.signs {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -227,12 +227,12 @@ extension Eosapi_EosTxOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
 }
 
 extension Eosapi_EosPubkey: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".EosPubkey"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".EosPubkey"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "path"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.path)
@@ -241,14 +241,14 @@ extension Eosapi_EosPubkey: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.path.isEmpty {
       try visitor.visitSingularStringField(value: self.path, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Eosapi_EosPubkey, rhs: Eosapi_EosPubkey) -> Bool {
+  public static func ==(lhs: Eosapi_EosPubkey, rhs: Eosapi_EosPubkey) -> Bool {
     if lhs.path != rhs.path {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -256,12 +256,12 @@ extension Eosapi_EosPubkey: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
 }
 
 extension Eosapi_EosPubkeyResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".EosPubkeyResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".EosPubkeyResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "pubkey"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.pubkey)
@@ -270,14 +270,14 @@ extension Eosapi_EosPubkeyResponse: SwiftProtobuf.Message, SwiftProtobuf._Messag
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.pubkey.isEmpty {
       try visitor.visitSingularStringField(value: self.pubkey, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Eosapi_EosPubkeyResponse, rhs: Eosapi_EosPubkeyResponse) -> Bool {
+  public static func ==(lhs: Eosapi_EosPubkeyResponse, rhs: Eosapi_EosPubkeyResponse) -> Bool {
     if lhs.pubkey != rhs.pubkey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
