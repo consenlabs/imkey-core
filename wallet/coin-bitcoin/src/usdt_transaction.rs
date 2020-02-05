@@ -21,6 +21,7 @@ use crate::transaction::{BtcTransaction, Utxo};
 use common::utility::{hex_to_bytes, secp256k1_sign_verify, bigint_to_byte_vec, secp256k1_sign};
 use crate::common::address_verify;
 use bitcoin::util::psbt::serialize::Serialize;
+use device::key_manager::{KeyManager, SE_PUB_KEY, LOCL_PRI_KEY};
 
 impl BtcTransaction {
     pub fn sign_omni_transaction(&self, network : Network, path : &String, property_id : i32) -> Result<TxSignResult, BtcError>{
@@ -45,17 +46,18 @@ impl BtcTransaction {
         if !"9000".eq(&xpub_data[xpub_data.len() - 4 ..]) {
             panic!("get xpub apdu error");
         }
-
+        let xpub_data = &xpub_data[..xpub_data.len() - 4].to_string();
         //get xpub data
         let sign_source_val = &xpub_data[..194];
         let sign_result = &xpub_data[194..];
+        println!("@@@@{:?}", sign_result);
 
         let pub_key = &sign_source_val[..130];
         let chain_code = &sign_source_val[130..];
 
         //use se public key verify sign
-        let se_pub_key = "04FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44";
-        let sign_verify_result = secp256k1_sign_verify(hex::decode(se_pub_key).unwrap().as_slice(),
+//        let se_pub_key = "04FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44";
+        let sign_verify_result = secp256k1_sign_verify(hex::decode(SE_PUB_KEY.lock().unwrap().as_str()).unwrap().as_slice(),
                                                        hex::decode(sign_result).unwrap().as_slice(),
                                                        hex::decode(sign_source_val).unwrap().as_slice());
         if !sign_verify_result {
@@ -128,7 +130,8 @@ impl BtcTransaction {
         output_serialize_data.insert(0, 0x01);
 
         //use local private key sign data
-        let private_key = hex_to_bytes("B226EA7A230A75DA23EDA981566988A96D12578FB695958BF06BD579230D6710").unwrap();
+//        let private_key = hex_to_bytes("B226EA7A230A75DA23EDA981566988A96D12578FB695958BF06BD579230D6710").unwrap();
+        let private_key = hex_to_bytes(LOCL_PRI_KEY.lock().unwrap().as_str()).unwrap();
         let mut output_pareper_data = secp256k1_sign(&private_key, &output_serialize_data);
         output_pareper_data.insert(0, output_pareper_data.len() as u8);
         output_pareper_data.insert(0, 0x00);
@@ -179,7 +182,7 @@ impl BtcTransaction {
                 if !"9000".eq(&btc_sign_apdu_return[btc_sign_apdu_return.len() - 4 ..]) {
                     panic!("usdt sign apdu error");
                 }
-                let sign_result_str = btc_sign_apdu_return[2..btc_sign_apdu_return.len() - 2].to_string();
+                let sign_result_str = btc_sign_apdu_return[2..btc_sign_apdu_return.len() - 6].to_string();
 
                 lock_script_ver.push(self.build_lock_script(sign_result_str.as_str(),
                                                             utxo_pub_key_vec.get(y).unwrap()));
@@ -258,7 +261,7 @@ impl BtcTransaction {
         if !"9000".eq(&xpub_data[xpub_data.len() - 4 ..]) {
             panic!("get xpub apdu error");
         }
-
+        let xpub_data = &xpub_data[..xpub_data.len() - 4].to_string();
         //get xpub data
         let sign_source_val = &xpub_data[..194];
         let sign_result = &xpub_data[194..];
@@ -266,8 +269,8 @@ impl BtcTransaction {
         let chain_code = &sign_source_val[130..];
 
         //use se public key verify sign
-        let se_pub_key = "04FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44";
-        let sign_verify_result = secp256k1_sign_verify(hex::decode(se_pub_key).unwrap().as_slice(),
+//        let se_pub_key = "04FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44";
+        let sign_verify_result = secp256k1_sign_verify(hex::decode(SE_PUB_KEY.lock().unwrap().as_str()).unwrap().as_slice(),
                                                        hex::decode(sign_result).unwrap().as_slice(),
                                                        hex::decode(sign_source_val).unwrap().as_slice());
         if !sign_verify_result {
@@ -339,7 +342,8 @@ impl BtcTransaction {
         output_serialize_data.insert(0, 0x01);
 
         //use local private key sign data
-        let private_key = hex_to_bytes("B226EA7A230A75DA23EDA981566988A96D12578FB695958BF06BD579230D6710").unwrap();
+//        let private_key = hex_to_bytes("B226EA7A230A75DA23EDA981566988A96D12578FB695958BF06BD579230D6710").unwrap();
+        let private_key = hex_to_bytes(LOCL_PRI_KEY.lock().unwrap().as_str()).unwrap();
         let mut output_pareper_data = secp256k1_sign(&private_key, &output_serialize_data);
         output_pareper_data.insert(0, output_pareper_data.len() as u8);
         output_pareper_data.insert(0, 0x00);
@@ -437,7 +441,7 @@ impl BtcTransaction {
                 panic!("usdt segwit sign apdu error");
             }
             //build signature obj
-            let sign_result_vec = Vec::from_hex(&sign_apdu_return_data[2..sign_apdu_return_data.len() - 2]).unwrap();
+            let sign_result_vec = Vec::from_hex(&sign_apdu_return_data[2..sign_apdu_return_data.len() - 6]).unwrap();
             let mut temp_signnture_obj =
                 Signature::from_compact(sign_result_vec.as_slice()).unwrap();
             temp_signnture_obj.normalize_s();
@@ -488,8 +492,14 @@ mod tests {
     use std::str::FromStr;
     use crate::transaction::{BtcTransaction, Utxo};
 
+    use device::key_manager::KeyManager;
+    use device::device_binding::DeviceManage;
+
     #[test]
     fn test_sign_transaction() {
+        //设备绑定
+        device_binding_test();
+
         let utxo = Utxo {
             txhash: "0dd195c815c5086c5995f43a0c67d28344ae5fa130739a5e03ef40fea54f2031".to_string(),
             vout: 0,
@@ -517,6 +527,9 @@ mod tests {
 
     #[test]
     fn test_sign_segwit_transaction() {
+        //设备绑定
+        device_binding_test();
+
         let extra_data = Vec::from_hex("1234").unwrap();
         let utxo = Utxo {
             txhash: "9baf6fd0e560f9f199f4879c23cb73b9c4affb54a1cfdbacb85687efa89f4c78".to_string(),
@@ -541,5 +554,23 @@ mod tests {
             fee_dis: "0.0004 BTC".to_string(),
         };
         transaction_req_data.sign_omni_segwit_transaction(Network::Testnet, &"m/49'/1'/0'/".to_string(), 31);
+    }
+
+    #[test]
+    fn device_binding_test(){
+        //设备绑定
+        let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+        let bind_code = "E4APZZRT".to_string();
+        let mut device_manage = DeviceManage::new();
+        let check_result = device_manage.bind_check(&path);
+        if !"bound_this".eq(check_result.as_str()) { //如果未和本设备绑定则进行绑定操作
+            let bind_result = device_manage.bind_acquire(&bind_code);
+            if "5A".eq(bind_result.as_str()) {
+                println!("{:?}", "binding success");
+            }else {
+                println!("{:?}", "binding error");
+                return;
+            }
+        }
     }
 }
