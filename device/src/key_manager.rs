@@ -15,15 +15,10 @@ use block_modes::{BlockMode, Cbc};
 
 use self::aes::Aes256;
 use hex::FromHex;
-//use rand::{OsRng, thread_rng};
-//use secp256k1::ecdh::SharedSecret;
-//use secp256k1::rand::thread_rng;
-//use secp256k1::{Message, Secp256k1, SecretKey, PublicKey};
-//use std::str::FromStr;
+use secp256k1::Secp256k1;
 use secp256k1::key::{SecretKey, PublicKey};
 use rand::{RngCore, thread_rng};
 use std::str::FromStr;
-use secp256k1::key;
 
 use lazy_static;
 use std::sync::Mutex;
@@ -168,28 +163,15 @@ impl KeyManager {
     生成本地密钥对
     */
     pub fn gen_local_keys(&mut self) {
-//        let s = Secp256k1::signing_only();
-//        let (sk1, pk1) = s.generate_keypair(&mut thread_rng());
-
-//        let mut temp_pri_key = [0u8; 32];
-//        temp_pri_key.copy_from_slice(&Vec::from_hex(sk1.to_string()).unwrap().as_slice()[..]);
-//        self.pri_key = Some(temp_pri_key);
-//        let mut temp_pub_key = [0u8; 65];
-//        temp_pub_key.copy_from_slice(&pk1.serialize_uncompressed()[..]);
-//        self.pub_key = Some(temp_pub_key);
-
-//        self.pri_key = Vec::from_hex(sk1.to_string()).unwrap();
-//        self.pub_key = pk1.serialize_uncompressed().to_vec();
-
-        let sk1 = key::SecretKey::from_str("54fc5f5de25aa66bcda162a730a1807f6d88e1f681c3d6d21b6295d528a5eca6").unwrap();
-        let pk1 = key::PublicKey::from_str("041cd63634037ea0f54ce523dba73caeb03751ee03448ba8c720b302cb185a8d11f6dba9d134c043023e8f23f7c396ab7bfba59ebb81e7c453637a809372f212c3").unwrap();
+        let s = Secp256k1::new();
+        let (sk, pk) = s.generate_keypair(&mut thread_rng());
 
         let mut temp_pri_key = LOCL_PRI_KEY.lock().unwrap();
-        *temp_pri_key = sk1.to_string();
+        *temp_pri_key = sk.to_string();
         std::mem::drop(temp_pri_key);
 
-        self.pri_key = Vec::from_hex(sk1.to_string()).unwrap();
-        self.pub_key = pk1.serialize_uncompressed().to_vec();
+        self.pri_key = Vec::from_hex(sk.to_string()).unwrap();
+        self.pub_key = pk.serialize_uncompressed().to_vec();
     }
     /**
      保存密钥倒本地文件
