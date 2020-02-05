@@ -25,6 +25,14 @@ use rand::{RngCore, thread_rng};
 use std::str::FromStr;
 use secp256k1::key;
 
+use lazy_static;
+use std::sync::Mutex;
+
+lazy_static! {
+    pub static ref SE_PUB_KEY: Mutex<String> = Mutex::new("".to_string());
+    pub static ref LOCL_PRI_KEY: Mutex<String> = Mutex::new("".to_string());
+}
+
 
 pub struct KeyManager {
     pub pri_key: Vec<u8>,//32 byte
@@ -125,11 +133,18 @@ impl KeyManager {
         //pri_key
         self.pri_key = decrypted_data[..32].to_vec();
         println!("{:?}", hex::encode_upper(&self.pri_key));
+        let mut temp_pri_key = LOCL_PRI_KEY.lock().unwrap();
+        *temp_pri_key = hex::encode_upper(decrypted_data[..32].to_vec());
+        std::mem::drop(temp_pri_key);
+
         //pub key
         self.pub_key = decrypted_data[32..97].to_vec();
 
         //se pub key
         self.se_pub_key = decrypted_data[97..162].to_vec();
+        let mut temp_se_pub_key = SE_PUB_KEY.lock().unwrap();
+        *temp_se_pub_key = hex::encode_upper(decrypted_data[97..162].to_vec());
+        std::mem::drop(temp_se_pub_key);
 
         //session key
         self.session_key = decrypted_data[162..178].to_vec();
@@ -168,6 +183,10 @@ impl KeyManager {
 
         let sk1 = key::SecretKey::from_str("54fc5f5de25aa66bcda162a730a1807f6d88e1f681c3d6d21b6295d528a5eca6").unwrap();
         let pk1 = key::PublicKey::from_str("041cd63634037ea0f54ce523dba73caeb03751ee03448ba8c720b302cb185a8d11f6dba9d134c043023e8f23f7c396ab7bfba59ebb81e7c453637a809372f212c3").unwrap();
+
+        let mut temp_pri_key = LOCL_PRI_KEY.lock().unwrap();
+        *temp_pri_key = sk1.to_string();
+        std::mem::drop(temp_pri_key);
 
         self.pri_key = Vec::from_hex(sk1.to_string()).unwrap();
         self.pub_key = pk1.serialize_uncompressed().to_vec();
@@ -215,4 +234,5 @@ mod test{
             "92AF372F64C10BAA942478560F91F346".to_string()
         );
     }
+
 }

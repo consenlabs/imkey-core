@@ -13,6 +13,7 @@ use secp256k1::ecdh::SharedSecret;
 use secp256k1::{PublicKey, SecretKey};
 use sha1::Sha1;
 use crate::manager;
+use crate::key_manager::SE_PUB_KEY;
 
 pub struct DeviceManage {
     key_manager: KeyManager,
@@ -88,6 +89,10 @@ pub fn bind_check(&mut self, file_path: &String) -> String {
         }
 
         let temp_se_pub_key = &se_cert_str[index + 10..index + 130 + 10];
+        let mut se_pub_key_ = SE_PUB_KEY.lock().unwrap();
+        *se_pub_key_ = temp_se_pub_key.to_string();
+        std::mem::drop(se_pub_key_);
+
         key_manager_obj.se_pub_key = hex::decode(temp_se_pub_key).unwrap();
 
         //协商会话密钥
@@ -239,7 +244,7 @@ mod test{
     use crate::device_binding::DeviceManage;
 
     #[test]
-    fn bind_check_test(){
+    fn device_bind_test(){
 
         let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
         let bind_code = "E4APZZRT".to_string();
@@ -251,19 +256,20 @@ mod test{
 //        println!("{:?}", hex::encode_upper(sn.as_bytes()));
 //        println!("{:?}", String::from_utf8(sn.as_bytes().to_vec()));
 
-//        //证书解析
-//        let cert = "BF2181CA7F2181C6931019060000000200860001010000000014420200015F200401020304950200805F2504201810145F2404FFFFFFFF53007F4947B04104FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44F002DFFE5F374830460221008CB58D54BDED501236621B83B320081E6F9B6B5539AE5EC9D36B660EC445A5E8022100A203CA1F9ABEE69751EA402A2ACDFD6B4A87697D6CD721F60540959095EC";
-//        if cert.contains("7F4947B041") || cert.contains("7F4946B041"){
-//            println!("success");
-//            let index = cert.find("7F4947B041").expect("get tager index error");
-//            let se_pub_key = &cert[index + 10..index + 140];
-//            println!("{:?}", se_pub_key);
-//        }
-
-
     }
+
     #[test]
-    fn bind_acquire_test(){
-
+    fn cert_parsing(){
+        //证书解析
+        let cert = "BF2181CA7F2181C6931019060000000200860001010000000014420200015F200401020304950200805F2504201810145F2404FFFFFFFF53007F4947B04104FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44F002DFFE5F374830460221008CB58D54BDED501236621B83B320081E6F9B6B5539AE5EC9D36B660EC445A5E8022100A203CA1F9ABEE69751EA402A2ACDFD6B4A87697D6CD721F60540959095EC";
+        if cert.contains("7F4947B041") || cert.contains("7F4946B041"){
+            println!("success");
+            let index = cert.find("7F4947B041").expect("get tager index error");
+            let se_pub_key = &cert[index + 10..index + 140];
+            println!("{:?}", se_pub_key);
+        }else {
+            println!("{:?}", "cert error");
+        }
     }
+
 }

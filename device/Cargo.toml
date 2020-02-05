@@ -31,3 +31,4 @@ secp256k1 = {version ="0.17.2", features = ["recovery"] }
 rand = "0.6"
 sha1 = "0.6.0"
 rsa = "0.1.4"
+lazy_static = "1.4.0"
