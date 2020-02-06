@@ -28,10 +28,8 @@ impl DeviceManage {
 
 pub fn bind_check(&mut self, file_path: &String) -> String {
     //获取seid
-//    let seid = String::from("19060000000200860001010000000014");
     let seid = manager::get_se_id();
     //获取SN号
-//    let sn = String::from("imKey01191200001");
     let sn = manager::get_sn();
     let sn = String::from_utf8(hex::decode(sn).unwrap()).unwrap();
     //计算文件加密密钥
@@ -57,7 +55,7 @@ pub fn bind_check(&mut self, file_path: &String) -> String {
     let bind_check_apdu =
         Apdu::bind_check(&key_manager_obj.pub_key);
 
-    //发送bindcheck指令，并获取返回数据 TODO
+    //发送bindcheck指令，并获取返回数据
     let apdu_response = send_apdu(Apdu::select_applet("695F696D6B"));
     if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
         panic!("selcet imk error");
@@ -96,17 +94,6 @@ pub fn bind_check(&mut self, file_path: &String) -> String {
         key_manager_obj.se_pub_key = hex::decode(temp_se_pub_key).unwrap();
 
         //协商会话密钥
-//        let se_pub_key_obj = PublicKey::from_slice(temp_se_pub_key.as_ref()).unwrap();
-//        println!(
-//            "pri_key : {:?}",
-//            hex::encode_upper(key_manager_obj.pri_key.unwrap().as_ref())
-//        );
-//        let locl_pri_key_obj =
-//            SecretKey::from_slice(key_manager_obj.pri_key.unwrap().as_ref()).unwrap();
-//        let sec = SharedSecret::new(&se_pub_key_obj, &locl_pri_key_obj);
-//        //SHA1
-//        let sha1_data = Sha1::from(&sec[..]).digest().bytes();
-
         let pk2 = PublicKey::from_slice(key_manager_obj.se_pub_key.as_slice()).expect("generator public key error");
         let sk1 = SecretKey::from_slice(key_manager_obj.pri_key.as_slice()).expect("generator private key error");
         let expect_result: [u8; 64] = [123; 64];

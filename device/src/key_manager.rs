@@ -1,7 +1,7 @@
 use base64::{decode, encode};
 use ring::digest;
 use std::convert::TryInto;
-use std::fs::File;
+use std::fs::{File, OpenOptions};
 use std::io::{Error, ErrorKind, Read, Write};
 use std::path::Path;
 
@@ -9,7 +9,7 @@ extern crate aes_soft as aes;
 extern crate block_modes;
 extern crate hex_literal;
 
-use aes::Aes128;
+use aes_soft::Aes128;
 use block_modes::block_padding::Pkcs7;
 use block_modes::{BlockMode, Cbc};
 
@@ -122,12 +122,16 @@ impl KeyManager {
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
         let cipher =
             Aes128Cbc::new_var(self.encry_key.as_ref(), self.iv.as_ref()).unwrap();
-        let decrypted_data = cipher.decrypt_vec(&ciphertext_bytes).unwrap();
+        let decrypt_result = cipher.decrypt_vec(&ciphertext_bytes);
+        if decrypt_result.is_err() {
+            return false;
+        }
+        let decrypted_data = decrypt_result.unwrap();
 
         //解析明文数据
         //pri_key
         self.pri_key = decrypted_data[..32].to_vec();
-        println!("{:?}", hex::encode_upper(&self.pri_key));
+
         let mut temp_pri_key = LOCL_PRI_KEY.lock().unwrap();
         *temp_pri_key = hex::encode_upper(decrypted_data[..32].to_vec());
         std::mem::drop(temp_pri_key);
@@ -177,21 +181,14 @@ impl KeyManager {
      保存密钥倒本地文件
     */
     pub fn save_keys_to_local_file(keys: &String, path: &String, seid: &String) {
-        let file = File::open(Path::new(format!("{}key{}{}", path, seid, ".txt").as_str()));
-        let mut file = match file {
-            Ok(f) => f,
-            Err(e) => match e.kind() {
-                ErrorKind::NotFound => {
-                    match File::create(Path::new(format!("{}key{}{}", path, seid, ".txt").as_str()))
-                    {
-                        Ok(fc) => fc,
-                        Err(e) => panic!("create file error"),
-                    }
-                }
-                _ => panic!("open file error"),
-            },
-        };
+
+        let mut file = OpenOptions::new()
+            .read(true)
+            .write(true)
+            .create(true)
+            .open(Path::new(format!("{}key{}{}", path, seid, ".txt").as_str())).expect("open key file error");
         file.write_all(keys.as_bytes());
+        
     }
 }
 
