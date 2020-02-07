@@ -114,7 +114,7 @@ impl CosmosTransaction {
 
         //use local private key sign data
 //        let private_key = hex_to_bytes("15A3C9A55EAE204B1CC8F2DBA25AE9A4F35793D7226E9CDE8731D58D43D6C72C").unwrap();
-        let private_key = hex_to_bytes("38289461EC26791114FC0B8F3257F47D117C125E9A01F50F1FF8B999EC4AD404").unwrap();//ios
+        let private_key = hex_to_bytes("7CD950180EDFF1C4A21270AD293A274580D20C84DE06666467F6386FB7DDA352").unwrap();//ios
         let mut prepare_data = secp256k1_sign(&private_key, &sign_pack_vec.as_slice());
         let mut prepare_data_hex = hex::encode(&prepare_data);
         println!("prepare_data_hex:{}", &prepare_data_hex);

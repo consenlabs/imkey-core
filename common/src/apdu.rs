@@ -196,7 +196,7 @@ impl EosApdu {
     }
 
     pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
-        Apdu::prepare_sign(0x51, data)
+        Apdu::prepare_sign(0x61, data)
     }
 
     pub fn get_pubkey(path: &str, verify_flag: bool) -> String {
@@ -209,6 +209,19 @@ impl EosApdu {
 
     pub fn sign_digest(path: &str) -> String {
         Apdu::sign_digest(0x52, 0x00, 0x00, path)
+    }
+
+    pub fn sign_tx(nonce: usize) -> String {
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(0x62);
+        apdu.push(0x00);
+        apdu.push(0x00);
+        apdu.push(2 as u8);
+        apdu.push(((nonce & 0xFF00) >> 8) as u8);
+        apdu.push((nonce & 0x00FF) as u8);
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
     }
 }
 

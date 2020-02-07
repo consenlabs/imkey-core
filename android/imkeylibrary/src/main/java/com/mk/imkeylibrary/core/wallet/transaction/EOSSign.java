@@ -19,6 +19,7 @@ import com.mk.imkeylibrary.core.wallet.Wallet;
 import com.mk.imkeylibrary.device.Applet;
 import com.mk.imkeylibrary.exception.ImkeyException;
 import com.mk.imkeylibrary.utils.ByteUtil;
+import com.mk.imkeylibrary.utils.LogUtil;
 import com.mk.imkeylibrary.utils.NumericUtil;
 
 import static org.bitcoinj.core.ECKey.CURVE;
@@ -185,6 +186,7 @@ public class EOSSign {
   }
 
   private static String serialEOSSignature(byte[] data) {
+    LogUtil.d("data:" + ByteUtil.byteArrayToHexString(data) );
     byte[] toHash = ByteUtil.concat(data, "K1".getBytes());
     RIPEMD160Digest digest = new RIPEMD160Digest();
     digest.update(toHash, 0, toHash.length);

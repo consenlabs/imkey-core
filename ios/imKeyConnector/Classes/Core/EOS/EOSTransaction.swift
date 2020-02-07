@@ -67,7 +67,9 @@ public final class EOSTransaction {
         throw SDKError.unwrapError
       }
       let hash = bytes.sha256().sha256()
+      Log.d("hhhash\(ByteUtil.uint8Array2HexString(data: hash))")
       var sig = try SigUtil.ecSignHash(hash: hash)
+      Log.d("sig\(ByteUtil.uint8Array2HexString(data: sig))")
       sig.insert(UInt8(sig.count), at: 0)
       sig.insert(0x00, at: 0)
       sig.append(contentsOf: bytes)
@@ -87,6 +89,7 @@ public final class EOSTransaction {
     let ret = NSMutableData()
     ret.append(data)
     ret.append(Data(bytes: checksum))
+    Log.d("ret:\((ret as Data).key_toHexString())")
     
     return "SIG_K1_\(BTCBase58StringWithData(ret as Data)!)"
   }
