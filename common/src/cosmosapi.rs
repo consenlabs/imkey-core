@@ -1,3 +1,5 @@
+//import "google/protobuf/any.proto";
+
 // FUNCTION: sign_tx(SignParam{input: CosmosTxInput}): CosmosTxOutput
 
 #[derive(Clone, PartialEq, ::prost::Message)]

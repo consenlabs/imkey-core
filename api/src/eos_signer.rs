@@ -13,7 +13,7 @@ pub fn sign_eos_transaction(param: &SignParam) -> Result<Vec<u8>, Error> {
     let mut sign_datas = Vec::new();
     for sign_data in input.sign_datas {
         let new_sign_data = EosSignDataFinal {
-            tx_hash: sign_data.tx_hash,
+            tx_data: sign_data.tx_hash,
             pub_keys: sign_data.pub_keys,
             chain_id: sign_data.chain_id,
             to: sign_data.to,
@@ -28,7 +28,7 @@ pub fn sign_eos_transaction(param: &SignParam) -> Result<Vec<u8>, Error> {
         sign_datas: sign_datas,
     };
 
-    let signed = eos_tx.sign().map_err(|_err| Error::SignError)?;
+    let signed = eos_tx.sign_tx().map_err(|_err| Error::SignError)?;
     let tx_sign_result = EosTxOutput {
         hash: signed.hash,
         signs: signed.signs,
