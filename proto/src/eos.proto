@@ -2,7 +2,7 @@ syntax = "proto3";
 package eosapi;
 
 message EosSignData {
-    string tx_hash = 1;
+    string tx_data = 1;
     repeated string pub_keys = 2;
     string chain_id = 3;
     string to = 4;
