@@ -11,48 +11,30 @@ use mq::message::send_apdu;
 use bitcoin::util::base58;
 use bitcoin::secp256k1::Signature;
 use hex::FromHex;
+use common::eosapi::{EosTxInput, EosTxOutput};
 
 #[derive(Debug)]
-pub struct EosTransaction {
-    pub path: String,
-    pub sign_datas: Vec<EosSignData>,
-}
-
-#[derive(Debug)]
-pub struct EosSignData {
-    pub tx_data: String,
-    pub pub_keys: Vec<String>,
-    pub chain_id: String,
-    pub to: String,
-    pub from: String,
-    pub payment: String,
-}
-
-#[derive(Debug)]
-pub struct EosSignResult {
-    pub hash: String,
-    pub signs: Vec<String>,
-}
+pub struct EosTransaction {}
 
 impl EosTransaction {
-    pub fn sign_tx(&mut self) -> Result<EosSignResult, Error> {
-        path::check_path_validity(&self.path);
+    pub fn sign_tx(tx_input:EosTxInput) -> Result<EosTxOutput, Error> {
+        path::check_path_validity(&tx_input.path);
 
         let select_apdu = EosApdu::select_applet();
         let select_response = message::send_apdu(select_apdu);
         //todo: check select response
 
-        let mut eos_sign_reuslt = EosSignResult {
+        let mut tx_output = EosTxOutput {
             hash: "".to_string(),
             signs: vec![],
         };
 
-        for sign_data in &self.sign_datas {
+        for sign_data in &tx_input.sign_datas {
             //tx hash
             let tx_data_bytes = hex::decode(&sign_data.tx_data).unwrap();
             let tx_hash = sha256_hash(&tx_data_bytes).to_hex();
             println!("tx_hash:{}", &tx_hash);
-            eos_sign_reuslt.hash = tx_hash;
+            tx_output.hash = tx_hash;
 
 
             //pack tx data
@@ -84,8 +66,8 @@ impl EosTransaction {
                 sign_data_pack.push(tx_data_hash.len() as u8);//hash len
                 sign_data_pack.extend(tx_data_hash.iter());
                 sign_data_pack.push(0x02);
-                sign_data_pack.push(self.path.len() as u8);//hash len
-                sign_data_pack.extend(self.path.as_bytes());
+                sign_data_pack.push(tx_input.path.len() as u8);//hash len
+                sign_data_pack.extend(tx_input.path.as_bytes());
                 sign_data_pack.extend(hex::decode(&view_info).unwrap().as_slice());
                 println!("sign_data_pack:{}", &hex::encode(&sign_data_pack));
 
@@ -175,20 +157,21 @@ impl EosTransaction {
                     signature_slice.extend(check_sum);
                     let sigature_base58 = "SIG_K1_".to_owned() + base58::encode_slice(&signature_slice).as_ref();
                     println!("sigature_base58:{}", &sigature_base58);
-                    eos_sign_reuslt.signs.push(sigature_base58);
+                    tx_output.signs.push(sigature_base58);
                 }
 
             }
         }
 
-        Ok(eos_sign_reuslt)
+        Ok(tx_output)
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::transaction::{EosSignData, EosTransaction};
     use common::constants;
+    use common::eosapi::{EosTxInput, EosSignData};
+    use crate::transaction::EosTransaction;
 
     #[test]
     fn test_sgin_tx() {
@@ -201,12 +184,12 @@ mod tests {
             payment: "undelegatebw 0.0100 EOS".to_string()
         };
 
-        let mut eosTx = EosTransaction{
+        let mut eox_tx_input = EosTxInput{
             path: constants::EOS_PATH.to_string(),
             sign_datas: vec![eos_sign_data]
         };
 
-        let result = eosTx.sign_tx().unwrap();
+        let result = EosTransaction::sign_tx(eox_tx_input).unwrap();
 //        println!("result:{}",result);
     }
 }

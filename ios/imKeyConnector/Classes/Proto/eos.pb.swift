@@ -24,7 +24,7 @@ public struct Eosapi_EosSignData {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var txHash: String = String()
+  public var txData: String = String()
 
   public var pubKeys: [String] = []
 
@@ -100,7 +100,7 @@ fileprivate let _protobuf_package = "eosapi"
 extension Eosapi_EosSignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".EosSignData"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "tx_hash"),
+    1: .standard(proto: "tx_data"),
     2: .standard(proto: "pub_keys"),
     3: .standard(proto: "chain_id"),
     4: .same(proto: "to"),
@@ -111,7 +111,7 @@ extension Eosapi_EosSignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.txHash)
+      case 1: try decoder.decodeSingularStringField(value: &self.txData)
       case 2: try decoder.decodeRepeatedStringField(value: &self.pubKeys)
       case 3: try decoder.decodeSingularStringField(value: &self.chainID)
       case 4: try decoder.decodeSingularStringField(value: &self.to)
@@ -123,8 +123,8 @@ extension Eosapi_EosSignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.txHash.isEmpty {
-      try visitor.visitSingularStringField(value: self.txHash, fieldNumber: 1)
+    if !self.txData.isEmpty {
+      try visitor.visitSingularStringField(value: self.txData, fieldNumber: 1)
     }
     if !self.pubKeys.isEmpty {
       try visitor.visitRepeatedStringField(value: self.pubKeys, fieldNumber: 2)
@@ -145,7 +145,7 @@ extension Eosapi_EosSignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
   }
 
   public static func ==(lhs: Eosapi_EosSignData, rhs: Eosapi_EosSignData) -> Bool {
-    if lhs.txHash != rhs.txHash {return false}
+    if lhs.txData != rhs.txData {return false}
     if lhs.pubKeys != rhs.pubKeys {return false}
     if lhs.chainID != rhs.chainID {return false}
     if lhs.to != rhs.to {return false}
