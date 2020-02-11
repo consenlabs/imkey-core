@@ -14,6 +14,7 @@ use secp256k1::{PublicKey, SecretKey};
 use sha1::Sha1;
 use crate::manager;
 use crate::key_manager::SE_PUB_KEY;
+use crate::auth_code_storage::auth_code_storage_request;
 
 pub struct DeviceManage {
     key_manager: KeyManager,
@@ -137,11 +138,11 @@ pub fn bind_check(&mut self, file_path: &String) -> String {
         let auth_code_ciphertext = auth_code_encrypt(&temp_binding_code);
 
         //保存绑定码 TODO
-//        let seid = String::from("18090000000000860001010000000204");
-//        let auth_code_storage_result = auth_code_storage_request::build_request_data(seid, auth_code_ciphertext).auth_code_storage();
-//        if auth_code_storage_result.is_err() {
-//            //TODO
-//        }
+        let seid = manager::get_se_id();
+        let auth_code_storage_result = auth_code_storage_request::build_request_data(seid, auth_code_ciphertext).auth_code_storage();
+        if auth_code_storage_result.is_err() {
+            panic!("auth code storage error");
+        }
 
         //选择IMK applet TODO
         let apdu_response = send_apdu(Apdu::select_applet("695F696D6B"));
