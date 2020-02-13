@@ -186,6 +186,14 @@ impl EthApdu {
     pub fn sign_digest(path: &str) -> String {
         Apdu::sign_digest(0x52, 0x00, 0x00, path)
     }
+
+    pub fn prepare_personal_sign(data: Vec<u8>) -> Vec<String> {
+        Apdu::prepare_sign(0x54, data)
+    }
+
+    pub fn personal_sign(path: &str) -> String {
+        Apdu::sign_digest(0x55, 0x00, 0x00, path)
+    }
 }
 
 pub struct EosApdu {}
