@@ -15,7 +15,7 @@ const DEV_PID: u16 = 0x0891;
 
 #[cfg(target_os = "macos")]
 fn main() {
-    let hid_device = connect();
+    let hid_device = hid_connect();
     let apdu = "00A40400".to_string();
     let response = send(&hid_device, &apdu);
     println!("{:?}", response);
@@ -184,7 +184,7 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
 
 #[cfg(target_os = "macos")]
 #[no_mangle]
-pub fn connect() -> HidDevice {
+pub fn hid_connect() -> HidDevice {
     let api = HidApi::new().expect("HID API object creation failed");
 
     loop {

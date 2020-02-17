@@ -17,7 +17,7 @@ lazy_static! {
 
 #[cfg(target_os = "macos")]
 lazy_static! {
-    pub static ref DEVICE: Mutex<HidDevice> = Mutex::new(hid_api::connect());
+    pub static ref DEVICE: Mutex<HidDevice> = Mutex::new(hid_api::hid_connect());
 }
 
 #[no_mangle]
