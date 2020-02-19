@@ -7,10 +7,12 @@ use crate::manager;
 use common::utility::hex_to_bytes;
 use crate::app_download::app_download_request;
 use std::sync::Mutex;
-//#[cfg(target_os = "macos")]
-//use mq::hid_api;
-//#[cfg(target_os = "macos")]
-//use hidapi::{HidApi, HidDevice};
+#[cfg(target_os = "macos")]
+use mq::hid_api;
+#[cfg(target_os = "macos")]
+use hidapi::{HidApi, HidDevice};
+use lazy_static;
+use mq::hid_api::{hid_connect, send};
 
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -93,9 +95,10 @@ impl cos_upgrade_request {
             sn = "0000000000000000".to_string();
             is_jump = true;
             let mut temp_device_cert = hex_to_bytes("bf2181").unwrap();
-            temp_device_cert.push(((device_cert.len() - 4) / 2) as u8);
-            temp_device_cert.extend(hex_to_bytes(&device_cert[..device_cert.len() - 4]).unwrap().iter());
-//            device_cert = hex::encode_upper(temp_device_cert);
+            temp_device_cert.push(((device_cert.len()) / 2) as u8);
+//            temp_device_cert.extend(hex_to_bytes(&device_cert[..device_cert.len() - 4]).unwrap().iter()); TODO
+            temp_device_cert.extend(hex_to_bytes(&device_cert[..device_cert.len()]).unwrap().iter());
+            device_cert = hex::encode_upper(temp_device_cert);
 //            device_cert = "BF2181CA7F2181C6931019060000000200860001010000000014420200015F200401020304950200805F2504201810145F2404FFFFFFFF53007F4947B04104FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44F002DFFE5F374830460221008CB58D54BDED501236621B83B320081E6F9B6B5539AE5EC9D36B660EC445A5E8022100A203CA1F9ABEE69751EA402A2ACDFD6B4A87697D6CD721F60540959095EC9466".to_string();
         } else {
             return Err(ImkeyError::COS_UPGRADE_ERROR);
@@ -161,17 +164,20 @@ impl cos_upgrade_request {
                             }
                         }
                         request_data.cardRetDataList = Some(apdu_res);
-                        request_data.stepKey = next_step_key;
                     }
                     None => (),
                 }
+
 //                if "03".eq(next_step_key.as_str()) || "06".eq(next_step_key.as_str()) {
-//                    loop {
-//                        let hid_device = &DEVICE.lock().unwrap();
-//                        *hid_device = Mutex::new(hid_api::connect());
-//                        std::mem::drop(hid_device);
-//                    }
+//                    let mut device = DEVICE.lock().unwrap();
+//                    std::mem::drop(device);
+////                    *device = hid_api::hid_connect();
+//                    hid_api::hid_connect();
+//
+//                    let mut device_cert = manager::get_cert();
+//                    println!("aaaaa{}", device_cert);
 //                }
+                request_data.stepKey = next_step_key;
             } else {
                 println!("应用服务器执行失败并返回 : {}", return_bean._ReturnMsg);
                 return Err(ImkeyError::BAPP0006);
