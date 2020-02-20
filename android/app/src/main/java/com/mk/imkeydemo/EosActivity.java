@@ -16,6 +16,7 @@ import com.mk.imkeydemo.core.wallet.transaction.ImKeyEosTransactionTest;
 import com.mk.imkeylibrary.core.wallet.Eos;
 import com.mk.imkeylibrary.core.wallet.Path;
 import com.mk.imkeylibrary.core.wallet.transaction.TxMultiSignResult;
+import com.mk.imkeylibrary.utils.LogUtil;
 
 public class EosActivity extends AppCompatActivity {
     private ExecutorService es = ImKeyApp.es;
@@ -124,6 +125,7 @@ public class EosActivity extends AppCompatActivity {
             @Override
             public void run() {
                 tvSignResult.setText(msg);
+                LogUtil.d(msg);
             }
         });
     }
