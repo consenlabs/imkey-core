@@ -11,6 +11,10 @@ extern crate common;
 pub mod device_manager;
 pub mod key_manager;
 pub mod manager;
+pub mod cos_upgrade;
+#[macro_use]
+extern crate lazy_static;
+extern crate mq;
 
 #[cfg(test)]
 mod tests {

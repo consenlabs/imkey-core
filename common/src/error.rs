@@ -65,6 +65,7 @@ pub enum ImkeyError {
     BAPP0008,
     BAPP0011,
     NETWORK_ERROR,
+    COS_UPGRADE_ERROR,
 }
 
 impl fmt::Display for ImkeyError {
@@ -83,6 +84,7 @@ impl fmt::Display for ImkeyError {
             ImkeyError::BAPP0008 => write!(f, "imkey_tsm_app_update_fail"),
             ImkeyError::BAPP0011 => write!(f, "imkey_tsm_app_delete_fail"),
             ImkeyError::NETWORK_ERROR => write!(f, "imkey_tsm_network_error"),
+            ImkeyError::COS_UPGRADE_ERROR => write!(f, "imkey_tsm_cos_upgrade_error"),
         }
     }
 }

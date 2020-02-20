@@ -1,5 +1,10 @@
 //pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
+<<<<<<< HEAD
 pub const URL: &str = "https://imkey.online:1000/imkey/";
+=======
+//pub const URL: &str = "https://imkey.online:1000/imkey/";
+pub const URL: &str = "http://localhost:8080/imkey/";
+>>>>>>> 56d52bf49f00d39cd76d7205e3985c000a18b859
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
 pub const TSM_ACTION_APP_DOWNLOAD: &str = "/appDownload";
@@ -9,6 +14,7 @@ pub const TSM_ACTION_SE_ACTIVATE: &str = "/seActivate";
 pub const TSM_ACTION_SE_QUERY: &str = "/seInfoQuery";
 pub const TSM_ACTION_AUTHCODE_STORAGE: &str = "/authCodeStorage";
 pub const TSM_ACTION_DEVICE_CERT_CHECK: &str = "/deviceCertCheck";
+pub const TSM_ACTION_COS_UPGRADE: &str = "/seCosUpdate";
 
 pub const TSM_RETURN_CODE_SUCCESS: &str = "000000";
 
