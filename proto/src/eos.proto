@@ -27,3 +27,14 @@ message EosPubkey {
 message EosPubkeyResponse {
     string pubkey = 1;
 }
+
+message EosMessageInput{
+    string path = 1;
+    string data = 2;
+    bool is_hex = 3;
+    string pubkey = 4;
+}
+
+message EosMessageOutput{
+    string signature = 1;
+}
