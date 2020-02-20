@@ -13,6 +13,8 @@ use secp256k1::ecdh::SharedSecret;
 use secp256k1::{PublicKey, SecretKey};
 use sha1::Sha1;
 use crate::manager;
+use crate::key_manager::SE_PUB_KEY;
+use crate::auth_code_storage::auth_code_storage_request;
 
 pub struct DeviceManage {
     key_manager: KeyManager,
@@ -27,10 +29,8 @@ impl DeviceManage {
 
 pub fn bind_check(&mut self, file_path: &String) -> String {
     //获取seid
-//    let seid = String::from("19060000000200860001010000000014");
     let seid = manager::get_se_id();
     //获取SN号
-//    let sn = String::from("imKey01191200001");
     let sn = manager::get_sn();
     let sn = String::from_utf8(hex::decode(sn).unwrap()).unwrap();
     //计算文件加密密钥
@@ -56,7 +56,7 @@ pub fn bind_check(&mut self, file_path: &String) -> String {
     let bind_check_apdu =
         Apdu::bind_check(&key_manager_obj.pub_key);
 
-    //发送bindcheck指令，并获取返回数据 TODO
+    //发送bindcheck指令，并获取返回数据
     let apdu_response = send_apdu(Apdu::select_applet("695F696D6B"));
     if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
         panic!("selcet imk error");
@@ -88,20 +88,13 @@ pub fn bind_check(&mut self, file_path: &String) -> String {
         }
 
         let temp_se_pub_key = &se_cert_str[index + 10..index + 130 + 10];
+        let mut se_pub_key_ = SE_PUB_KEY.lock().unwrap();
+        *se_pub_key_ = temp_se_pub_key.to_string();
+        std::mem::drop(se_pub_key_);
+
         key_manager_obj.se_pub_key = hex::decode(temp_se_pub_key).unwrap();
 
         //协商会话密钥
-//        let se_pub_key_obj = PublicKey::from_slice(temp_se_pub_key.as_ref()).unwrap();
-//        println!(
-//            "pri_key : {:?}",
-//            hex::encode_upper(key_manager_obj.pri_key.unwrap().as_ref())
-//        );
-//        let locl_pri_key_obj =
-//            SecretKey::from_slice(key_manager_obj.pri_key.unwrap().as_ref()).unwrap();
-//        let sec = SharedSecret::new(&se_pub_key_obj, &locl_pri_key_obj);
-//        //SHA1
-//        let sha1_data = Sha1::from(&sec[..]).digest().bytes();
-
         let pk2 = PublicKey::from_slice(key_manager_obj.se_pub_key.as_slice()).expect("generator public key error");
         let sk1 = SecretKey::from_slice(key_manager_obj.pri_key.as_slice()).expect("generator private key error");
         let expect_result: [u8; 64] = [123; 64];
@@ -145,11 +138,11 @@ pub fn bind_check(&mut self, file_path: &String) -> String {
         let auth_code_ciphertext = auth_code_encrypt(&temp_binding_code);
 
         //保存绑定码 TODO
-//        let seid = String::from("18090000000000860001010000000204");
-//        let auth_code_storage_result = auth_code_storage_request::build_request_data(seid, auth_code_ciphertext).auth_code_storage();
-//        if auth_code_storage_result.is_err() {
-//            //TODO
-//        }
+        let seid = manager::get_se_id();
+        let auth_code_storage_result = auth_code_storage_request::build_request_data(seid, auth_code_ciphertext).auth_code_storage();
+        if auth_code_storage_result.is_err() {
+            panic!("auth code storage error");
+        }
 
         //选择IMK applet TODO
         let apdu_response = send_apdu(Apdu::select_applet("695F696D6B"));
@@ -239,7 +232,7 @@ mod test{
     use crate::device_binding::DeviceManage;
 
     #[test]
-    fn bind_check_test(){
+    fn device_bind_test(){
 
         let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
         let bind_code = "E4APZZRT".to_string();
@@ -251,19 +244,20 @@ mod test{
 //        println!("{:?}", hex::encode_upper(sn.as_bytes()));
 //        println!("{:?}", String::from_utf8(sn.as_bytes().to_vec()));
 
-//        //证书解析
-//        let cert = "BF2181CA7F2181C6931019060000000200860001010000000014420200015F200401020304950200805F2504201810145F2404FFFFFFFF53007F4947B04104FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44F002DFFE5F374830460221008CB58D54BDED501236621B83B320081E6F9B6B5539AE5EC9D36B660EC445A5E8022100A203CA1F9ABEE69751EA402A2ACDFD6B4A87697D6CD721F60540959095EC";
-//        if cert.contains("7F4947B041") || cert.contains("7F4946B041"){
-//            println!("success");
-//            let index = cert.find("7F4947B041").expect("get tager index error");
-//            let se_pub_key = &cert[index + 10..index + 140];
-//            println!("{:?}", se_pub_key);
-//        }
-
-
     }
+
     #[test]
-    fn bind_acquire_test(){
-
+    fn cert_parsing(){
+        //证书解析
+        let cert = "BF2181CA7F2181C6931019060000000200860001010000000014420200015F200401020304950200805F2504201810145F2404FFFFFFFF53007F4947B04104FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44F002DFFE5F374830460221008CB58D54BDED501236621B83B320081E6F9B6B5539AE5EC9D36B660EC445A5E8022100A203CA1F9ABEE69751EA402A2ACDFD6B4A87697D6CD721F60540959095EC";
+        if cert.contains("7F4947B041") || cert.contains("7F4946B041"){
+            println!("success");
+            let index = cert.find("7F4947B041").expect("get tager index error");
+            let se_pub_key = &cert[index + 10..index + 140];
+            println!("{:?}", se_pub_key);
+        }else {
+            println!("{:?}", "cert error");
+        }
     }
+
 }

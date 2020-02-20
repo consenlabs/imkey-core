@@ -76,4 +76,8 @@ mod tests {
         let sn: String = "imKey01191200001".to_string();
         se_query_request::build_request_data(seid, sn, None).se_query();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 56d52bf49f00d39cd76d7205e3985c000a18b859
