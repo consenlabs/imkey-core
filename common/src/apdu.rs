@@ -231,6 +231,23 @@ impl EosApdu {
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
     }
+
+    pub fn prepare_message_sign(data: Vec<u8>) -> Vec<String> {
+        Apdu::prepare_sign(0x64, data)
+    }
+
+    pub fn sign_message(nonce: usize) -> String {
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(0x65);
+        apdu.push(0x00);
+        apdu.push(0x00);
+        apdu.push(2 as u8);
+        apdu.push(((nonce & 0xFF00) >> 8) as u8);
+        apdu.push((nonce & 0x00FF) as u8);
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
 }
 
 pub struct CosmosApdu {}
