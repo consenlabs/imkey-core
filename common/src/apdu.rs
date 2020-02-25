@@ -291,13 +291,13 @@ impl BtcApdu {
         let mut apdu = Vec::new();
         apdu.push(0x80); //CLA
         apdu.push(0x43); //INS
-        apdu.push(0x00); //P1
-                         //p2
+        //p1
         if verify_flag {
             apdu.push(0x01);
         } else {
             apdu.push(0x00);
         }
+        apdu.push(0x00); //P2
         let path_bytes = path.as_bytes();
         apdu.push(path_bytes.len() as u8); //Lc
         apdu.extend(path_bytes.iter()); //data
