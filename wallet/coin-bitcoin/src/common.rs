@@ -5,6 +5,9 @@ use bitcoin::{Address, PublicKey, Network, TxOut, Transaction, TxIn, OutPoint, S
 use bitcoin::secp256k1::Secp256k1;
 use std::str::FromStr;
 use crate::error::BtcError;
+use common::error::ImkeyError;
+use mq::message::send_apdu;
+use common::apdu::BtcApdu;
 
 pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8], network : Network, flg : &str) -> Result<Vec<String>, BtcError>{
     let mut utxo_pub_key_vec: Vec<String> = Vec::new();
@@ -60,4 +63,19 @@ pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8],
 
     }
     Ok(utxo_pub_key_vec)
+}
+
+/**
+get xpub
+*/
+pub fn get_xpub_data(path: &str, verify_flag: bool) -> Result<String, ImkeyError>{
+    let apdu_response = send_apdu(BtcApdu::select_applet());
+    if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
+        return Err(ImkeyError::GET_XPUB_ERROR);
+    }
+    let xpub_data = send_apdu(BtcApdu::get_xpub(path, verify_flag));
+    if !"9000".eq(&xpub_data[xpub_data.len() - 4 ..]) {
+        return Err(ImkeyError::GET_XPUB_ERROR);
+    }
+    Ok(xpub_data)
 }
