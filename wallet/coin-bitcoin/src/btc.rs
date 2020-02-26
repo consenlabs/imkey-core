@@ -1,5 +1,3 @@
-use mq::message::send_apdu;
-use common::apdu::BtcApdu;
 use bitcoin::{Address, PublicKey, Network};
 use std::str::FromStr;
 use bitcoin::util::bip32::{ExtendedPubKey, ChainCode, ChildNumber, DerivationPath, Fingerprint};
@@ -9,6 +7,7 @@ use bitcoin::hashes::core::convert::TryFrom;
 use bitcoin::hashes::{hash160, Hash};
 use common::error::ImkeyError;
 use common::path::check_path_validity;
+use crate::common::get_xpub_data;
 
 /**
 get btc xpub by path
@@ -22,25 +21,26 @@ pub fn get_xpub(network : Network, path : &str) -> Result<String, ImkeyError>{
     }
 
     //get xpub data
-    let apdu_response = send_apdu(BtcApdu::select_applet());
-    if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
-        panic!("selcet btc error");
+    let xpub_data_result = get_xpub_data(path, true);
+    if xpub_data_result.is_err() {
+        return Err(xpub_data_result.err().unwrap());
     }
-    let xpub_data = send_apdu(BtcApdu::get_xpub(path, true));
-    if !"9000".eq(&xpub_data[xpub_data.len() - 4 ..]) {
-        panic!("get xpub apdu error");
-    }
+    let xpub_data = xpub_data_result.ok().unwrap();
     let xpub_data = &xpub_data[..194].to_string();
+
     //get public key and chain code
     let pub_key = &xpub_data[..130];
     let chain_code = &xpub_data[130..];
 
     //build parent public key obj
-    let parent_xpub_data = send_apdu(BtcApdu::get_xpub(get_parent_path(path), true));
-    if !"9000".eq(&parent_xpub_data[parent_xpub_data.len() - 4 ..]) {
-        panic!("get xpub apdu error");
+    let parent_xpub_result = get_xpub_data(get_parent_path(path), true);
+    if parent_xpub_result.is_err() {
+        return Err(parent_xpub_result.err().unwrap());
     }
-    let parent_pub_key_result = PublicKey::from_str(&parent_xpub_data[..130]);
+    let parent_xpub = parent_xpub_result.ok().unwrap();
+    let parent_xpub = &parent_xpub[..130].to_string();
+
+    let parent_pub_key_result = PublicKey::from_str(parent_xpub);
     if parent_pub_key_result.is_err() {
         return Err(ImkeyError::INVALID_PUBLIC_KEY);
     }
@@ -93,16 +93,12 @@ pub fn get_address(network : Network, path : &str) -> Result<String, ImkeyError>
         return Err(ImkeyError::IMKEY_PATH_ILLEGAL);
     }
 
-    //get main public key(xpub)
-    let apdu_response = send_apdu(BtcApdu::select_applet());
-    if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
-        panic!("selcet btc error");
+    //get xpub
+    let xpub_data_result = get_xpub_data(path, true);
+    if xpub_data_result.is_err() {
+        return Err(xpub_data_result.err().unwrap());
     }
-    let xpub_data = send_apdu(BtcApdu::get_xpub(path, true));
-    if !"9000".eq(&xpub_data[xpub_data.len() - 4 ..]) {
-        panic!("get xpub apdu error");
-    }
-    let xpub_data = &xpub_data[..xpub_data.len() - 4].to_string();
+    let xpub_data = xpub_data_result.ok().unwrap();
     let pub_key = &xpub_data[..130];
 
     let pub_key_result = PublicKey::from_str(pub_key);
@@ -125,16 +121,12 @@ pub fn get_segwit_address(network : Network, path : &str) -> Result<String, Imke
         return Err(ImkeyError::IMKEY_PATH_ILLEGAL);
     }
 
-    //get main public key(xpub)
-    let apdu_response = send_apdu(BtcApdu::select_applet());
-    if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
-        panic!("selcet btc error");
+    //get xpub
+    let xpub_data_result = get_xpub_data(path, true);
+    if xpub_data_result.is_err() {
+        return Err(xpub_data_result.err().unwrap());
     }
-    let xpub_data = send_apdu(BtcApdu::get_xpub(path, true));
-    if !"9000".eq(&xpub_data[xpub_data.len() - 4 ..]) {
-        panic!("get xpub apdu error");
-    }
-    let xpub_data = &xpub_data[..xpub_data.len() - 4].to_string();
+    let xpub_data = xpub_data_result.ok().unwrap();
     let pub_key = &xpub_data[..130];
 
     let pub_key_result = PublicKey::from_str(pub_key);

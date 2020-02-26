@@ -68,7 +68,7 @@ pub enum ImkeyError {
     COS_UPGRADE_ERROR,
     IMKEY_PATH_ILLEGAL,
     INVALID_PUBLIC_KEY,
-
+    GET_XPUB_ERROR,
 }
 
 impl fmt::Display for ImkeyError {
@@ -90,6 +90,7 @@ impl fmt::Display for ImkeyError {
             ImkeyError::COS_UPGRADE_ERROR => write!(f, "imkey_tsm_cos_upgrade_error"),
             ImkeyError::IMKEY_PATH_ILLEGAL => write!(f, "imkey_path_illegal"),
             ImkeyError::INVALID_PUBLIC_KEY => write!(f, "secp: malformed public key"),
+            ImkeyError::GET_XPUB_ERROR => write!(f, "get_xpub_error"),
         }
     }
 }
