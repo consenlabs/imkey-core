@@ -7,15 +7,21 @@ use hex::decode;
 use bitcoin::secp256k1::Secp256k1;
 use bitcoin::hashes::core::convert::TryFrom;
 use bitcoin::hashes::{hash160, Hash};
+use common::error::ImkeyError;
+use common::path::check_path_validity;
 
 /**
 get btc xpub by path
 */
-pub fn get_xpub(network : Network, path : &str) -> String{
+pub fn get_xpub(network : Network, path : &str) -> Result<String, ImkeyError>{
 
-    //path check TODO
+    //path check
+    let check_result = check_path_validity(path);
+    if check_result.is_err() {
+        return Err(ImkeyError::IMKEY_PATH_ILLEGAL);
+    }
 
-    //get main public key(xpub)
+    //get xpub data
     let apdu_response = send_apdu(BtcApdu::select_applet());
     if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
         panic!("selcet btc error");
@@ -31,10 +37,22 @@ pub fn get_xpub(network : Network, path : &str) -> String{
 
     //build parent public key obj
     let parent_xpub_data = send_apdu(BtcApdu::get_xpub(get_parent_path(path), true));
-    let mut parent_pub_key_obj = PublicKey::from_str(&parent_xpub_data[..130]).expect("budile public obj error");
+    if !"9000".eq(&parent_xpub_data[parent_xpub_data.len() - 4 ..]) {
+        panic!("get xpub apdu error");
+    }
+    let parent_pub_key_result = PublicKey::from_str(&parent_xpub_data[..130]);
+    if parent_pub_key_result.is_err() {
+        return Err(ImkeyError::INVALID_PUBLIC_KEY);
+    }
+    let mut parent_pub_key_obj = parent_pub_key_result.ok().unwrap();
     parent_pub_key_obj.compressed = true;
+
     //build child public key obj
-    let mut pub_key_obj = PublicKey::from_str(pub_key).expect("budile public obj error");
+    let pub_key_result = PublicKey::from_str(pub_key);
+    if pub_key_result.is_err() {
+        return Err(ImkeyError::INVALID_PUBLIC_KEY);
+    }
+    let mut pub_key_obj = pub_key_result.ok().unwrap();
     pub_key_obj.compressed = true;
 
     //get parent public key fingerprint
@@ -61,15 +79,19 @@ pub fn get_xpub(network : Network, path : &str) -> String{
         chain_code: chain_code_obj,
     };
     //get and return xpub
-    extend_public_key.to_string()
+    Ok(extend_public_key.to_string())
 
 }
 
 /**
 get btc address by path
 */
-pub fn get_address(network : Network, path : &str) -> String{
-    //path check TODO
+pub fn get_address(network : Network, path : &str) -> Result<String, ImkeyError>{
+    //path check
+    let check_result = check_path_validity(path);
+    if check_result.is_err() {
+        return Err(ImkeyError::IMKEY_PATH_ILLEGAL);
+    }
 
     //get main public key(xpub)
     let apdu_response = send_apdu(BtcApdu::select_applet());
@@ -83,17 +105,25 @@ pub fn get_address(network : Network, path : &str) -> String{
     let xpub_data = &xpub_data[..xpub_data.len() - 4].to_string();
     let pub_key = &xpub_data[..130];
 
-    let mut pub_key_obj = PublicKey::from_str(pub_key).expect("budile public obj error");
+    let pub_key_result = PublicKey::from_str(pub_key);
+    if pub_key_result.is_err() {
+        return Err(ImkeyError::INVALID_PUBLIC_KEY);
+    }
+    let mut pub_key_obj= pub_key_result.unwrap();
     pub_key_obj.compressed = true;
 
-    Address::p2pkh(&pub_key_obj, network).to_string()
+    Ok(Address::p2pkh(&pub_key_obj, network).to_string())
 }
 
 /**
 get segwit address by path
 */
-pub fn get_segwit_address(network : Network, path : &str) -> String{
-    //path check TODO
+pub fn get_segwit_address(network : Network, path : &str) -> Result<String, ImkeyError>{
+    //path check
+    let check_result = check_path_validity(path);
+    if check_result.is_err() {
+        return Err(ImkeyError::IMKEY_PATH_ILLEGAL);
+    }
 
     //get main public key(xpub)
     let apdu_response = send_apdu(BtcApdu::select_applet());
@@ -107,10 +137,14 @@ pub fn get_segwit_address(network : Network, path : &str) -> String{
     let xpub_data = &xpub_data[..xpub_data.len() - 4].to_string();
     let pub_key = &xpub_data[..130];
 
-    let mut pub_key_obj = PublicKey::from_str(pub_key).expect("budile public obj error");
+    let pub_key_result = PublicKey::from_str(pub_key);
+    if pub_key_result.is_err() {
+        return Err(ImkeyError::INVALID_PUBLIC_KEY);
+    }
+    let mut pub_key_obj= pub_key_result.unwrap();
     pub_key_obj.compressed = true;
 
-    Address::p2shwpkh(&pub_key_obj, network).to_string()
+    Ok(Address::p2shwpkh(&pub_key_obj, network).to_string())
 }
 
 /**
@@ -137,8 +171,15 @@ mod test{
 
         let version : Network = Network::Bitcoin;
         let path : &str = "m/44'/0'/0'/0/0";
-        let xpub_str = get_xpub(version, path);
-        println!("xpub : {:?}", xpub_str);
+        let get_xpub_result = get_xpub(version, path);
+        if get_xpub_result.is_ok() {
+            let xpub = get_xpub_result.ok().unwrap();
+            println!("xpub : {:?}", xpub);
+            assert_eq!("xpub6FuzpGNBc46EfvmcvECyqXjrzGcKErQgpQcpvhw1tiC5yXvi1jUkzudMpdg5AaguiFstdVR5ASDbSceBswKRy6cAhpTgozmgxMUayPDrLLX", xpub);
+        }else {
+            panic!("get xpub error");
+        }
+
     }
 
     #[test]
@@ -148,8 +189,15 @@ mod test{
 
         let version : Network = Network::Bitcoin;
         let path : &str = "m/44'/0'/0'/0/0";
-        let btc_address_str = get_address(version, path);
-        println!("btc address : {:?}", btc_address_str);
+        let get_btc_address_result = get_address(version, path);
+        if get_btc_address_result.is_ok() {
+            let btc_address = get_btc_address_result.ok().unwrap();
+            println!("btc address : {:?}", btc_address);
+            assert_eq!("12z6UzsA3tjpaeuvA2Zr9jwx19Azz74D6g", btc_address);
+        }else {
+            panic!("get btc address error");
+        }
+
     }
 
     #[test]
@@ -159,8 +207,14 @@ mod test{
 
         let version : Network = Network::Bitcoin;
         let path : &str = "m/49'/0'/0'/0/22";
-        let segwit_address_str = get_segwit_address(version, path);
-        println!("segwit address : {:?}", segwit_address_str);
+        let segwit_address_result = get_segwit_address(version, path);
+        if segwit_address_result.is_ok() {
+            let segwit_address = segwit_address_result.ok().unwrap();
+            println!("segwit address : {:?}", segwit_address);
+            assert_eq!("37E2J9ViM4QFiewo7aw5L3drF2QKB99F9e", segwit_address);
+        }else {
+            panic!("get segwit address error");
+        }
     }
 
     #[test]
