@@ -66,6 +66,9 @@ pub enum ImkeyError {
     BAPP0011,
     NETWORK_ERROR,
     COS_UPGRADE_ERROR,
+    IMKEY_PATH_ILLEGAL,
+    INVALID_PUBLIC_KEY,
+
 }
 
 impl fmt::Display for ImkeyError {
@@ -85,6 +88,8 @@ impl fmt::Display for ImkeyError {
             ImkeyError::BAPP0011 => write!(f, "imkey_tsm_app_delete_fail"),
             ImkeyError::NETWORK_ERROR => write!(f, "imkey_tsm_network_error"),
             ImkeyError::COS_UPGRADE_ERROR => write!(f, "imkey_tsm_cos_upgrade_error"),
+            ImkeyError::IMKEY_PATH_ILLEGAL => write!(f, "imkey_path_illegal"),
+            ImkeyError::INVALID_PUBLIC_KEY => write!(f, "secp: malformed public key"),
         }
     }
 }
