@@ -5,19 +5,19 @@ use hex::decode;
 use bitcoin::secp256k1::Secp256k1;
 use bitcoin::hashes::core::convert::TryFrom;
 use bitcoin::hashes::{hash160, Hash};
-use common::error::ImkeyError;
+use crate::error::BtcError;
 use common::path::check_path_validity;
 use crate::common::get_xpub_data;
 
 /**
 get btc xpub by path
 */
-pub fn get_xpub(network : Network, path : &str) -> Result<String, ImkeyError>{
+pub fn get_xpub(network : Network, path : &str) -> Result<String, BtcError>{
 
     //path check
     let check_result = check_path_validity(path);
     if check_result.is_err() {
-        return Err(ImkeyError::IMKEY_PATH_ILLEGAL);
+        return Err(BtcError::ImkeyPathIllegal);
     }
 
     //get xpub data
@@ -42,7 +42,7 @@ pub fn get_xpub(network : Network, path : &str) -> Result<String, ImkeyError>{
 
     let parent_pub_key_result = PublicKey::from_str(parent_xpub);
     if parent_pub_key_result.is_err() {
-        return Err(ImkeyError::INVALID_PUBLIC_KEY);
+        return Err(BtcError::InvalidPublicKey);
     }
     let mut parent_pub_key_obj = parent_pub_key_result.ok().unwrap();
     parent_pub_key_obj.compressed = true;
@@ -50,7 +50,7 @@ pub fn get_xpub(network : Network, path : &str) -> Result<String, ImkeyError>{
     //build child public key obj
     let pub_key_result = PublicKey::from_str(pub_key);
     if pub_key_result.is_err() {
-        return Err(ImkeyError::INVALID_PUBLIC_KEY);
+        return Err(BtcError::InvalidPublicKey);
     }
     let mut pub_key_obj = pub_key_result.ok().unwrap();
     pub_key_obj.compressed = true;
@@ -86,11 +86,11 @@ pub fn get_xpub(network : Network, path : &str) -> Result<String, ImkeyError>{
 /**
 get btc address by path
 */
-pub fn get_address(network : Network, path : &str) -> Result<String, ImkeyError>{
+pub fn get_address(network : Network, path : &str) -> Result<String, BtcError>{
     //path check
     let check_result = check_path_validity(path);
     if check_result.is_err() {
-        return Err(ImkeyError::IMKEY_PATH_ILLEGAL);
+        return Err(BtcError::ImkeyPathIllegal);
     }
 
     //get xpub
@@ -103,7 +103,7 @@ pub fn get_address(network : Network, path : &str) -> Result<String, ImkeyError>
 
     let pub_key_result = PublicKey::from_str(pub_key);
     if pub_key_result.is_err() {
-        return Err(ImkeyError::INVALID_PUBLIC_KEY);
+        return Err(BtcError::InvalidPublicKey);
     }
     let mut pub_key_obj= pub_key_result.unwrap();
     pub_key_obj.compressed = true;
@@ -114,11 +114,11 @@ pub fn get_address(network : Network, path : &str) -> Result<String, ImkeyError>
 /**
 get segwit address by path
 */
-pub fn get_segwit_address(network : Network, path : &str) -> Result<String, ImkeyError>{
+pub fn get_segwit_address(network : Network, path : &str) -> Result<String, BtcError>{
     //path check
     let check_result = check_path_validity(path);
     if check_result.is_err() {
-        return Err(ImkeyError::IMKEY_PATH_ILLEGAL);
+        return Err(BtcError::ImkeyPathIllegal);
     }
 
     //get xpub
@@ -131,7 +131,7 @@ pub fn get_segwit_address(network : Network, path : &str) -> Result<String, Imke
 
     let pub_key_result = PublicKey::from_str(pub_key);
     if pub_key_result.is_err() {
-        return Err(ImkeyError::INVALID_PUBLIC_KEY);
+        return Err(BtcError::InvalidPublicKey);
     }
     let mut pub_key_obj= pub_key_result.unwrap();
     pub_key_obj.compressed = true;
