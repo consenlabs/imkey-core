@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import javax.crypto.KeyAgreement;
 
+import com.google.protobuf.Any;
 import com.mk.imkeylibrary.bluetooth.Ble;
 import com.mk.imkeylibrary.common.Constants;
 import com.mk.imkeylibrary.common.Messages;
@@ -44,8 +45,13 @@ import com.mk.imkeylibrary.device.model.SeInfoQueryResponse;
 import com.mk.imkeylibrary.device.model.SeSecureCheckRequest;
 import com.mk.imkeylibrary.device.model.SeSecureCheckResponse;
 import com.mk.imkeylibrary.exception.ImkeyException;
+import com.mk.imkeylibrary.keycore.Api;
+import com.mk.imkeylibrary.keycore.RustApi;
 import com.mk.imkeylibrary.utils.ByteUtil;
 import com.mk.imkeylibrary.utils.LogUtil;
+import com.mk.imkeylibrary.utils.NumericUtil;
+
+import deviceapi.Device;
 
 public class DeviceManager {
 
@@ -55,23 +61,55 @@ public class DeviceManager {
      * @return
      */
     public String getSeId() {
-        //select ISD
+        /*//select ISD
         Ble.getInstance().sendApdu(Constants.APDU_SELECT_ISD);
         String res = Ble.getInstance().sendApdu(Constants.APDU_GET_SEID);
         Apdu.checkResponse(res);
-        return Apdu.getResponseData(res);
+        return Apdu.getResponseData(res);*/
+
+        String seid = RustApi.INSTANCE.get_seid();
+        seid = seid.substring(0, seid.length()-4);
+        return seid;
     }
 
     public String getSn() {
 
-        //select ISD
+        /*//select ISD
         Ble.getInstance().sendApdu(Constants.APDU_SELECT_ISD);
         String res = Ble.getInstance().sendApdu(Constants.APDU_GET_SN);
         Apdu.checkResponse(res);
         String snHex = Apdu.getResponseData(res);
         String sn = new String(ByteUtil.hexStringToByteArray(snHex));
         LogUtil.d(sn);
+        return sn;*/
+
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("get_sn")
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        String sn = null;
+        try {
+            String sn_result = RustApi.INSTANCE.call_tcx_api(hex);
+            Device.GetSnResponse response = Device.GetSnResponse.parseFrom(ByteUtil.hexStringToByteArray(sn_result));
+            sn = response.getSn();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        sn = new String(ByteUtil.hexStringToByteArray(sn));
         return sn;
+
 
     }
 
@@ -190,7 +228,44 @@ public class DeviceManager {
 
     public void checkDevice() {
 
-        String seId = getSeId();
+        String seid = getSeId();
+        String sn = getSn();
+
+        deviceapi.Device.SeAction seAction = deviceapi.Device.SeAction.newBuilder()
+                .setSeId(seid)
+                .setSn(sn)
+                .setSdkVersion(Constants.version)
+                .build();
+
+        Any any = Any.newBuilder()
+                .setValue(seAction.toByteString())
+                .build();
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("se_query")
+                .setParam(any)
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            Device.SeQueryResponse response = Device.SeQueryResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            String s = response.toString();
+            LogUtil.d(s);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*String seId = getSeId();
         String sn = getSn();
 
         // 组织请求参数
@@ -222,7 +297,7 @@ public class DeviceManager {
             } else {
                 throw new ImkeyException(Messages.IMKEY_TSM_SERVER_ERROR + "_" + returnCode);
             }
-        }
+        }*/
     }
 
 
@@ -466,7 +541,11 @@ public class DeviceManager {
      */
     public String bindCheck() {
 
-        // 获取seid
+        //deviceapi.Device.BindCheck bindCheck = new deviceapi.Device.BindCheck().;
+        return  "";
+
+
+        /*// 获取seid
         String seid = getSeId();
         // 获取sn
         String sn = getSn();
@@ -552,12 +631,12 @@ public class DeviceManager {
         }
 
         // 返回状态
-        return Constants.bindcheckStatusMap.get(status);
+        return Constants.bindcheckStatusMap.get(status);*/
 
     }
 
     /**
-     * 显示绑定码
+         * 显示绑定码
      * @return
      */
     public void displayBindingCode() {
