@@ -7,6 +7,9 @@ pub enum BtcError {
     ImkeyInsufficientFunds,
     ImkeySdkIllegalArgument,
     ImkeyAmountLessThanMinimum,
+    ImkeyPathIllegal,
+    InvalidPublicKey,
+    GetXpubError,
 }
 
 impl fmt::Display for BtcError {
@@ -18,6 +21,9 @@ impl fmt::Display for BtcError {
             BtcError::ImkeyInsufficientFunds => write!(f, "imkey_insufficient_funds"),
             BtcError::ImkeySdkIllegalArgument => write!(f, "imkey_sdk_illegal_argument"),
             BtcError::ImkeyAmountLessThanMinimum => write!(f, "imkey_amount_less_than_minimum"),
+            BtcError::ImkeyPathIllegal => write!(f, "imkey_path_illegal"),
+            BtcError::InvalidPublicKey => write!(f, "secp: malformed public key"),
+            BtcError::GetXpubError => write!(f, "get_xpub_error"),
         }
     }
 }

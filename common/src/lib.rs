@@ -6,6 +6,8 @@ pub mod path;
 pub mod sign_res;
 pub mod utility;
 pub mod eosapi;
+pub mod cosmosapi;
+pub mod ethapi;
 
 #[cfg(test)]
 mod tests {

@@ -6,7 +6,7 @@ use mq::message::send_apdu;
 use prost::Message;
 use std::str::FromStr;
 use coin_cosmos::address::CosmosAddress;
-use crate::cosmosapi::CosmosAddressResponse;
+use common::cosmosapi::CosmosAddressResponse;
 
 pub fn display_cosmos_address(data: &AddressParam) -> Result<Vec<u8>, Error> {
     let cosmos_address = CosmosAddress::display_address(&data.path).map_err(|_err| Error::PubKeyError)?;

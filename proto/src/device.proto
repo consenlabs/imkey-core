@@ -85,3 +85,7 @@ message DeviceName {
 message GetSnResponse {
     string sn = 1;
 }
+
+message Test{
+    string tt = 1;
+}

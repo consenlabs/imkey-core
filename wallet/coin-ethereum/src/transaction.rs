@@ -4,7 +4,7 @@ use bitcoin::hashes::{sha256d, Hash};
 use common::apdu::EthApdu;
 use common::error::Error;
 use common::path::check_path_validity;
-use common::utility::hex_to_bytes;
+use common::utility::{hex_to_bytes, sha256_hash, secp256k1_sign_hash, secp256k1_sign};
 use ethereum_types::{Address, H256, U256};
 use keccak_hash::keccak;
 use lazy_static::lazy_static;
@@ -13,6 +13,8 @@ use rlp::{self, DecoderError, Encodable, Rlp, RlpStream};
 use secp256k1::key::{PublicKey, SecretKey};
 use secp256k1::recovery::{RecoverableSignature, RecoveryId};
 use secp256k1::{self, Message as SecpMessage, Secp256k1};
+use common::ethapi::{EthPersonalSignInput, EthPersonalSignOutput};
+use common::utility;
 
 lazy_static! {
     pub static ref SECP256K1: secp256k1::Secp256k1<secp256k1::All> = secp256k1::Secp256k1::new();
@@ -42,7 +44,9 @@ impl Transaction {
         //check path
         check_path_validity(path);
         //select applet
-        let msg_select = EthApdu::select_applet();
+        let select_apdu = EthApdu::select_applet();
+        let select_result = send_apdu(select_apdu);
+
         //organize data
         let mut apdu_pack = Vec::new();
         let encode_tx = self.rlp_encode_tx(chain_id);
@@ -172,6 +176,83 @@ impl Transaction {
             27
         }
     }
+
+    pub fn sign_persional_message(input:EthPersonalSignInput) -> EthPersonalSignOutput{
+//        let select_apdu = EthApdu::select_applet();
+//        let select_result = send_apdu(select_apdu);
+//        let message_vec = hex::decode(input.message).expect();
+//        hex::decode()
+        let header = format!("Ethereum Signed Message:\n{}", &input.message.as_bytes().len());
+        println!("header:{}", &header);
+
+        let mut data = Vec::new();
+        data.extend(header.as_bytes());
+        data.extend(input.message.as_bytes());
+        println!("data:{}", &hex::encode(&data));
+
+        let mut data_to_sign: Vec<u8>  = Vec::new();
+        data_to_sign.push(0x01);
+        data_to_sign.push(((data.len() & 0xFF00) >> 8) as u8);
+        data_to_sign.push((data.len() & 0x00FF) as u8);
+        data_to_sign.extend(data.as_slice());
+        println!("data_to_sign:{}", &hex::encode(&data_to_sign));
+
+        let private_key = hex_to_bytes("15A3C9A55EAE204B1CC8F2DBA25AE9A4F35793D7226E9CDE8731D58D43D6C72C").unwrap();//ios
+        let mut bind_signature = secp256k1_sign(&private_key, &data_to_sign);
+        println!("bind_signature:{}", &hex::encode(&bind_signature));
+
+        let mut apdu_pack: Vec<u8>  = Vec::new();
+        apdu_pack.push(0x00);
+        apdu_pack.push(bind_signature.len() as u8);
+        apdu_pack.extend(bind_signature.as_slice());
+        apdu_pack.extend(data_to_sign.as_slice());
+        println!("apdu_pack:{}", &hex::encode(&apdu_pack));
+
+        let select_apdu = EthApdu::select_applet();
+        let select_result = send_apdu(select_apdu);
+
+        let msg_pubkey = EthApdu::get_pubkey(&input.path, false);
+        let res_msg_pubkey = send_apdu(msg_pubkey);
+        let pubkey_raw = hex_to_bytes(&res_msg_pubkey[2..130]).unwrap();
+        let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone()).unwrap();
+        println!("address_main:{}", &hex::encode(&address_main));
+
+        //todo check address
+        if &address_main == &input.sender {
+        }
+
+        let prepare_apdus = EthApdu::prepare_personal_sign(apdu_pack);
+        for apdu in prepare_apdus {
+            println!("prepare apdu:{}", &apdu);
+            send_apdu(apdu);//todo check response
+        }
+
+        let sign_apdu = EthApdu::personal_sign(&input.path);
+        let sign_response = send_apdu(sign_apdu);
+
+        let r = &sign_response[2..66];
+        let s = &sign_response[66..130];
+
+        //calc v
+//        let pub_key_raw = hex::decode(&pubkey_raw).unwrap();
+        let sign_compact = hex::decode(&sign_response[2..130]).unwrap();
+        let data_hash = tiny_keccak::keccak256(&data);
+        let rec_id = utility::retrieve_recid(data_hash.as_ref(), &sign_compact, &pubkey_raw).unwrap();
+        let rec_id = rec_id.to_i32();
+        println!("rec_id:{}", &rec_id);
+        let v = rec_id + 27 + 4;
+
+        let mut signature = "".to_string();
+        signature.push_str(&format!("{:02X}", &v));
+        signature.push_str(r);
+        signature.push_str(s);
+        println!("signature:{}", &signature);
+
+        let output = EthPersonalSignOutput{
+            signature
+        };
+        output
+    }
 }
 
 #[derive(Debug, Clone, Eq, PartialEq)]
@@ -276,6 +357,7 @@ mod tests {
     use rustc_hex::{FromHex, ToHex};
     use serde;
     use std::str::FromStr;
+    use common::constants;
 
     #[test]
     fn test_apdu_pack() {
@@ -303,5 +385,15 @@ mod tests {
         //4A817C8088302E2489435353535353535353535353535353535353535358202
         //00801C80800708302E303120455448082A30784536463431343264664641353
         //7344431643966313837373042463733383134646630373933314633090C302E30303332206574686572"
+    }
+
+    #[test]
+    fn test_sign_personal_message(){
+        let input = EthPersonalSignInput{
+            path: constants::ETH_PATH.to_string(),
+            message: "Hello imKey".to_string(),
+            sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string()
+        };
+        let output = Transaction::sign_persional_message(input);
     }
 }

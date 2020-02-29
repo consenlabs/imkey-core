@@ -1,5 +1,5 @@
-pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
-//pub const URL: &str = "https://imkey.online:1000/imkey/";
+//pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
+pub const URL: &str = "http://localhost:8080/imkey/";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
 pub const TSM_ACTION_APP_DOWNLOAD: &str = "/appDownload";
@@ -9,6 +9,7 @@ pub const TSM_ACTION_SE_ACTIVATE: &str = "/seActivate";
 pub const TSM_ACTION_SE_QUERY: &str = "/seInfoQuery";
 pub const TSM_ACTION_AUTHCODE_STORAGE: &str = "/authCodeStorage";
 pub const TSM_ACTION_DEVICE_CERT_CHECK: &str = "/deviceCertCheck";
+pub const TSM_ACTION_COS_UPGRADE: &str = "/seCosUpdate";
 
 pub const TSM_RETURN_CODE_SUCCESS: &str = "000000";
 
@@ -19,6 +20,7 @@ pub const ETH_AID: &str = "695F657468";
 pub const EOS_AID: &str = "695F656F73";
 pub const BTC_AID: &str = "695F627463";
 pub const COSMOS_AID: &str = "695F636F736D6F73";
+pub const IMK_AID: &str = "695F696D6B";
 
 //path
 pub const COSMOS_PATH: &str = "m/44'/118'/0'/0/0";

@@ -1,21 +1,19 @@
 syntax = "proto3";
 package ethapi;
 
-// FUNCTION: sign_tx(SignParam{input: EthTxInput}): EthTxOutput
 message EthTxInput {
     string nonce = 1;
     string gas_price = 2;
     string gas_limit = 3;
     string to = 4;
     string value = 5;
-    bytes data = 6;
-    uint64 chain_id = 7;
+    string data = 6;
+    string chain_id = 7;
     string path = 8;
     string payment = 9;
     string receiver = 10;
     string sender = 11;
     string fee = 12;
-    string rawData = 13;
 }
 
 message EthTxOutput {
@@ -25,4 +23,14 @@ message EthTxOutput {
 
 message EthAddressResponse {
     string address = 1;
+}
+
+message EthPersonalSignInput {
+    string path = 1;
+    string message = 2;
+    string sender = 3;
+}
+
+message EthPersonalSignOutput {
+    string signature = 1;
 }

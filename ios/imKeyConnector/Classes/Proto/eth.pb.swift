@@ -20,66 +20,66 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// FUNCTION: sign_tx(SignParam{input: EthTxInput}): EthTxOutput
-struct Ethapi_EthTxInput {
+public struct Ethapi_EthTxInput {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var nonce: String = String()
+  public var nonce: String = String()
 
-  var gasPrice: String = String()
+  public var gasPrice: String = String()
 
-  var gasLimit: String = String()
+  public var gasLimit: String = String()
 
-  var to: String = String()
+  public var to: String = String()
 
-  var value: String = String()
+  public var value: String = String()
 
-  var data: Data = SwiftProtobuf.Internal.emptyData
+  public var data: Data = SwiftProtobuf.Internal.emptyData
 
-  var chainID: UInt64 = 0
+  public var chainID: UInt64 = 0
 
-  var path: String = String()
+  public var path: String = String()
 
-  var payment: String = String()
+  public var payment: String = String()
 
-  var receiver: String = String()
+  public var receiver: String = String()
 
-  var sender: String = String()
+  public var sender: String = String()
 
-  var fee: String = String()
+  public var fee: String = String()
 
-  var rawData: String = String()
+  public var rawData: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Ethapi_EthTxOutput {
+public struct Ethapi_EthTxOutput {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var signature: String = String()
+  public var signature: String = String()
 
-  var txHash: String = String()
+  public var txHash: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Ethapi_EthAddressResponse {
+public struct Ethapi_EthAddressResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var address: String = String()
+  public var address: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -87,8 +87,8 @@ struct Ethapi_EthAddressResponse {
 fileprivate let _protobuf_package = "ethapi"
 
 extension Ethapi_EthTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".EthTxInput"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".EthTxInput"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "nonce"),
     2: .standard(proto: "gas_price"),
     3: .standard(proto: "gas_limit"),
@@ -104,7 +104,7 @@ extension Ethapi_EthTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     13: .same(proto: "rawData"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.nonce)
@@ -125,7 +125,7 @@ extension Ethapi_EthTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.nonce.isEmpty {
       try visitor.visitSingularStringField(value: self.nonce, fieldNumber: 1)
     }
@@ -168,7 +168,7 @@ extension Ethapi_EthTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Ethapi_EthTxInput, rhs: Ethapi_EthTxInput) -> Bool {
+  public static func ==(lhs: Ethapi_EthTxInput, rhs: Ethapi_EthTxInput) -> Bool {
     if lhs.nonce != rhs.nonce {return false}
     if lhs.gasPrice != rhs.gasPrice {return false}
     if lhs.gasLimit != rhs.gasLimit {return false}
@@ -188,13 +188,13 @@ extension Ethapi_EthTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
 }
 
 extension Ethapi_EthTxOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".EthTxOutput"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".EthTxOutput"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "signature"),
     2: .same(proto: "txHash"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.signature)
@@ -204,7 +204,7 @@ extension Ethapi_EthTxOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.signature.isEmpty {
       try visitor.visitSingularStringField(value: self.signature, fieldNumber: 1)
     }
@@ -214,7 +214,7 @@ extension Ethapi_EthTxOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Ethapi_EthTxOutput, rhs: Ethapi_EthTxOutput) -> Bool {
+  public static func ==(lhs: Ethapi_EthTxOutput, rhs: Ethapi_EthTxOutput) -> Bool {
     if lhs.signature != rhs.signature {return false}
     if lhs.txHash != rhs.txHash {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -223,12 +223,12 @@ extension Ethapi_EthTxOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
 }
 
 extension Ethapi_EthAddressResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".EthAddressResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".EthAddressResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "address"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.address)
@@ -237,14 +237,14 @@ extension Ethapi_EthAddressResponse: SwiftProtobuf.Message, SwiftProtobuf._Messa
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.address.isEmpty {
       try visitor.visitSingularStringField(value: self.address, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Ethapi_EthAddressResponse, rhs: Ethapi_EthAddressResponse) -> Bool {
+  public static func ==(lhs: Ethapi_EthAddressResponse, rhs: Ethapi_EthAddressResponse) -> Bool {
     if lhs.address != rhs.address {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

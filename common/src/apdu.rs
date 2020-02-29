@@ -118,50 +118,6 @@ impl Apdu {
         apdu.push(0x00); //le
         hex::encode(apdu)
     }
-
-    /**
-    binding check apdu build
-    */
-    pub fn bind_check(data: &Vec<u8>) -> String {
-        if data.len() > 256 {
-            panic!("data to long");
-        }
-        let mut apdu = Vec::new();
-        apdu.push(0x80);
-        apdu.push(0x71);
-        apdu.push(0x00);
-        apdu.push(0x00);
-        apdu.push(data.len() as u8);
-        apdu.extend(data.iter());
-        apdu.push(0x00);
-        apdu.to_hex().to_uppercase()
-    }
-    /**
-    binding check apdu build
-    */
-    pub fn generate_auth_code() -> String {
-        let mut apdu = Vec::new();
-        apdu.push(0x80);
-        apdu.push(0x72);
-        apdu.push(0x00);
-        apdu.push(0x00);
-        apdu.push(0x00);
-        apdu.to_hex().to_uppercase()
-    }
-    pub fn identity_verify(data: &Vec<u8>) -> String {
-        if data.len() > 256 {
-            panic!("data to long");
-        }
-        let mut apdu = Vec::new();
-        apdu.push(0x80);
-        apdu.push(0x73);
-        apdu.push(0x80);
-        apdu.push(0x00);
-        apdu.push(data.len() as u8);
-        apdu.extend(data.iter());
-        apdu.push(0x00);
-        apdu.to_hex().to_uppercase()
-    }
 }
 
 pub struct EthApdu {}
@@ -186,6 +142,14 @@ impl EthApdu {
     pub fn sign_digest(path: &str) -> String {
         Apdu::sign_digest(0x52, 0x00, 0x00, path)
     }
+
+    pub fn prepare_personal_sign(data: Vec<u8>) -> Vec<String> {
+        Apdu::prepare_sign(0x54, data)
+    }
+
+    pub fn personal_sign(path: &str) -> String {
+        Apdu::sign_digest(0x55, 0x00, 0x00, path)
+    }
 }
 
 pub struct EosApdu {}
@@ -196,7 +160,7 @@ impl EosApdu {
     }
 
     pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
-        Apdu::prepare_sign(0x51, data)
+        Apdu::prepare_sign(0x61, data)
     }
 
     pub fn get_pubkey(path: &str, verify_flag: bool) -> String {
@@ -209,6 +173,36 @@ impl EosApdu {
 
     pub fn sign_digest(path: &str) -> String {
         Apdu::sign_digest(0x52, 0x00, 0x00, path)
+    }
+
+    pub fn sign_tx(nonce: usize) -> String {
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(0x62);
+        apdu.push(0x00);
+        apdu.push(0x00);
+        apdu.push(2 as u8);
+        apdu.push(((nonce & 0xFF00) >> 8) as u8);
+        apdu.push((nonce & 0x00FF) as u8);
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
+    pub fn prepare_message_sign(data: Vec<u8>) -> Vec<String> {
+        Apdu::prepare_sign(0x64, data)
+    }
+
+    pub fn sign_message(nonce: usize) -> String {
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(0x65);
+        apdu.push(0x00);
+        apdu.push(0x00);
+        apdu.push(2 as u8);
+        apdu.push(((nonce & 0xFF00) >> 8) as u8);
+        apdu.push((nonce & 0x00FF) as u8);
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
     }
 }
 
@@ -253,13 +247,13 @@ impl BtcApdu {
         let mut apdu = Vec::new();
         apdu.push(0x80); //CLA
         apdu.push(0x43); //INS
-        apdu.push(0x00); //P1
-                         //p2
+        //p1
         if verify_flag {
             apdu.push(0x01);
         } else {
             apdu.push(0x00);
         }
+        apdu.push(0x00); //P2
         let path_bytes = path.as_bytes();
         apdu.push(path_bytes.len() as u8); //Lc
         apdu.extend(path_bytes.iter()); //data
@@ -362,22 +356,57 @@ impl BtcApdu {
 
 }
 
-/**
-binding check apdu build
-*/
-pub fn bind_check(data: &Vec<u8>) -> String {
-    if data.len() > 256 {
-        panic!("data to long");
+pub struct DeviceBindingApdu{}
+
+impl DeviceBindingApdu {
+    /**
+    binding check apdu build
+    */
+    pub fn bind_check(data: &Vec<u8>) -> String {
+        if data.len() > 256 {
+            panic!("data to long");
+        }
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(0x71);
+        apdu.push(0x00);
+        apdu.push(0x00);
+        apdu.push(data.len() as u8);
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
     }
-    let mut apdu = Vec::new();
-    apdu.push(0x80);
-    apdu.push(0x71);
-    apdu.push(0x00);
-    apdu.push(0x00);
-    apdu.push(data.len() as u8);
-    apdu.extend(data.iter());
-    apdu.push(0x00);
-    apdu.to_hex().to_uppercase()
+
+    /**
+    binding check apdu build
+    */
+    pub fn generate_auth_code() -> String {
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(0x72);
+        apdu.push(0x00);
+        apdu.push(0x00);
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
+    /**
+    bind code verify
+    */
+    pub fn identity_verify(data: &Vec<u8>) -> String {
+        if data.len() > 256 {
+            panic!("data to long");
+        }
+        let mut apdu = Vec::new();
+        apdu.push(0x80);
+        apdu.push(0x73);
+        apdu.push(0x80);
+        apdu.push(0x00);
+        apdu.push(data.len() as u8);
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
 }
 
 #[cfg(test)]
