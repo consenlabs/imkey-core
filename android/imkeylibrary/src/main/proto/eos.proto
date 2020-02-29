@@ -1,0 +1,29 @@
+syntax = "proto3";
+package eosapi;
+
+message EosSignData {
+    string tx_hash = 1;
+    repeated string pub_keys = 2;
+    string chain_id = 3;
+    string to = 4;
+    string from = 5;
+    string payment = 6;
+}
+
+message EosTxInput {
+    string path = 1;
+    repeated EosSignData sign_datas = 2;
+}
+
+message EosTxOutput {
+    string hash = 1;
+    repeated string signs = 2;
+}
+
+message EosPubkey {
+    string path = 1;
+}
+
+message EosPubkeyResponse {
+    string pubkey = 1;
+}
