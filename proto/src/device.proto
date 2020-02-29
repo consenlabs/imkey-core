@@ -81,3 +81,7 @@ message BindDisplayResponse {
 message DeviceName {
     string ble_name = 1;
 }
+
+message GetSnResponse {
+    string sn = 1;
+}
