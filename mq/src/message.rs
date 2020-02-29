@@ -11,7 +11,7 @@ lazy_static! {
     pub static ref APDU: Mutex<String> = Mutex::new("".to_string());
     pub static ref APDU_RETURN: Mutex<String> = Mutex::new("".to_string());
     pub static ref STRING: Mutex<String> = Mutex::new("".to_string());
-    pub static ref CALLBACK: Mutex<extern "C" fn(*const i8) -> *const i8> =
+    pub static ref CALLBACK: Mutex<extern "C" fn(*const u8) -> *const u8> =
         Mutex::new(default_callback);
 }
 
@@ -209,6 +209,14 @@ pub fn send_apdu(apdu: String) -> String {
     set_apdu_r(apdu);
     get_apdu_return_r()
 }
+
+
+#[cfg(target_os = "android")]
+pub fn send_apdu(apdu: String) -> String {
+    set_apdu_r(apdu);
+    get_apdu_return_r()
+}
+
 
 #[test]
 fn test_str() {
