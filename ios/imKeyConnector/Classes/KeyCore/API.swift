@@ -147,20 +147,7 @@ public class API{
     return sign_transaction()
   }
   
-  public class func eosSignTx(){
-    Log.d("eos sign ...")
-    var eosSignData = Eosapi_EosSignData()
-    eosSignData.txHash = "c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00"
-    eosSignData.pubKeys = ["EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF"]
-    eosSignData.chainID = "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906"
-    eosSignData.to = "liujianmin12"
-    eosSignData.from = "liujianmin13"
-    eosSignData.payment = "sellram 0.0739 EOS"
-
-    var eosInput = Eosapi_EosTxInput()
-    eosInput.path = BIP44.EOS_LEDGER
-    eosInput.signDatas = [eosSignData]
-
+  public class func eosSignTx(eosInput:Eosapi_EosTxInput) -> Eosapi_EosTxOutput{
     var signParam = Api_SignParam()
     signParam.chainType = "EOS"
     signParam.input = Google_Protobuf_Any()
@@ -174,7 +161,34 @@ public class API{
     let paramHex = try! action.serializedData().key_toHexString()
     
     Log.d("eos param ready..")
-    call_tcx_api(paramHex)
+    let res = call_tcx_api(paramHex)
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let eosOutput = try! Eosapi_EosTxOutput(serializedData: dataRes)
+    return eosOutput
+  }
+  
+  public class func cosmosSignTx(cosmosInput:Cosmosapi_CosmosTxInput) -> Cosmosapi_CosmosTxOutput{
+    //call api
+    var signParam = Api_SignParam()
+    signParam.chainType = "COSMOS"
+    signParam.input = Google_Protobuf_Any()
+    signParam.input.value = try! cosmosInput.serializedData()
+
+    var action = Api_TcxAction()
+    action.method = "sign_tx"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! signParam.serializedData()
+
+    let paramHex = try! action.serializedData().key_toHexString()
+    
+    //response
+    Log.d("cosmos param ready..")
+    let res = call_tcx_api(paramHex)
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let cosmosOutput = try! Cosmosapi_CosmosTxOutput(serializedData: dataRes)
+    return cosmosOutput
   }
   
   public class func eosPubkey(path:String) -> String{
@@ -358,4 +372,8 @@ public class API{
     let hexRes = String(cString:res!).key_toHexString()
     Log.d(hexRes)
   }
+  
+//  public class func cosmosSignxTX() -> TransactionSignedResult{
+//    Cosmosapi_CosmosTxInput
+//  }
 }

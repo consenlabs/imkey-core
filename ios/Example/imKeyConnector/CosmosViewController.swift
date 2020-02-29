@@ -34,13 +34,15 @@ class CosmosViewController: UIViewController {
     txtResult.text = ""
     let cosmosTx = createCosmosTX()
     do {
-      let cosmosSigner = try CosmosTransaction(raw: cosmosTx)
-      
-      let to = "cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt";
-      let fee = "0.00075 atom";
-      let signResult = try cosmosSigner.sign(handle: handle, path: BIP44.cosmos, paymentDis: nil, toDis: to, feeDis: fee)
-      Log.d(signResult)
-      txtResult.text = "cosmos sign result:\n\(signResult)"
+//      let cosmosSigner = try CosmosTransaction(raw: cosmosTx)
+//
+//      let to = "cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt";
+//      let fee = "0.00075 atom";
+//      let signResult = try cosmosSigner.sign(handle: handle, path: BIP44.cosmos, paymentDis: nil, toDis: to, feeDis: fee)
+//      Log.d(signResult)
+      let comsosInput = createCosmosInput()
+      let comsosOutput = API.cosmosSignTx(cosmosInput: comsosInput)
+      txtResult.text = "cosmos sign result:\n\(comsosOutput)"
     } catch let e as ImkeyError {
       Log.d("!!!error:\(e.message)")
       toastMsg(message: e.message)
@@ -49,8 +51,51 @@ class CosmosViewController: UIViewController {
     }
   }
   
+  func createCosmosInput() -> Cosmosapi_CosmosTxInput{
+    var feeCoin = Cosmosapi_Coin()
+    feeCoin.amount = "0"
+    feeCoin.denom = ""
+    
+    var fee = Cosmosapi_StdFee()
+    fee.gas = "21906"
+    fee.amount = [feeCoin]
+    
+    //msgs
+    var msgCoin = Cosmosapi_Coin()
+    msgCoin.amount = "10"
+    msgCoin.denom = "atom"
+    
+    var msgValue = Cosmosapi_MsgValue()
+    msgValue.amount = [msgCoin]
+    msgValue.delegatorAddress = "cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f"
+    msgValue.validatorAddress = "cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"
+    
+    var msg = Cosmosapi_Msg()
+    msg.type = "cosmos-sdk/MsgDelegate"
+    msg.value = msgValue
+    
+    //signData
+    var signData = Cosmosapi_SignData()
+    signData.accountNumber = "1"
+    signData.chainID = "tendermint_test"
+    signData.fee = fee
+    signData.memo = ""
+    signData.msgs = [msg]
+    signData.sequence = "0"
+    
+    //cosmosInput
+    var cosmosInput = Cosmosapi_CosmosTxInput()
+    cosmosInput.signData = signData
+    cosmosInput.path = BIP44.cosmos
+    cosmosInput.paymentDis = ""
+    cosmosInput.toDis = "cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt"
+    cosmosInput.feeDis = "0.00075 atom"
+    
+    return cosmosInput
+  }
   
-  private func createCosmosTX() -> [String: Any]{
+  
+  private func  createCosmosTX() -> [String: Any]{
     let cosmosTx: [String: Any] = [
       "accountNumber": "1",
       "sequence": "0",
@@ -79,7 +124,7 @@ class CosmosViewController: UIViewController {
         "gas": "21906"
       ],
       "signatures": Optional<Int>.none,
-      "memo": Optional<String>.none,
+//      "memo": Optional<String>.none,
     ]
     return cosmosTx
   }

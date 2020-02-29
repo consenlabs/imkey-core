@@ -32,6 +32,7 @@ class EOSKey {
     var resCode: Int
     var sigResult = ""
     try Wallet.selectApplet(handle: handle, aid: Applet.eosAID)
+    Log.d("pre data:\(forhash.bytes.toHexString())")
     let commands = APDU.eosPre(data: forhash.bytes.toHexString())   /* @XM@20180923 TODO: check this conversion */
     if let apdus = commands {
       resApdu = try BLE.shared().sendPrepareApdus(handle: handle, apdus: apdus)

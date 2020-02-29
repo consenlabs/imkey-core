@@ -247,6 +247,7 @@ public class Wallet {
     public static byte[] signPackage(Sha256Hash hashData) {
 
         byte[] privateKey = KeyManager.getInstance().getPrivKey();
+        LogUtil.d("privateKey:" + ByteUtil.byteArrayToHexString(privateKey));
 
         if(Arrays.equals(privateKey, new byte[32])) {
             throw new ImkeyException(Messages.IMKEY_NOT_BIND_CHECK);

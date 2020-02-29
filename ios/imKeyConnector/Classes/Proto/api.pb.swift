@@ -20,17 +20,17 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// only support two types
-enum Api_KeyType: SwiftProtobuf.Enum {
-  typealias RawValue = Int
+public enum Api_KeyType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
   case mnemonic // = 0
   case privateKey // = 1
   case UNRECOGNIZED(Int)
 
-  init() {
+  public init() {
     self = .mnemonic
   }
 
-  init?(rawValue: Int) {
+  public init?(rawValue: Int) {
     switch rawValue {
     case 0: self = .mnemonic
     case 1: self = .privateKey
@@ -38,7 +38,7 @@ enum Api_KeyType: SwiftProtobuf.Enum {
     }
   }
 
-  var rawValue: Int {
+  public var rawValue: Int {
     switch self {
     case .mnemonic: return 0
     case .privateKey: return 1
@@ -52,7 +52,7 @@ enum Api_KeyType: SwiftProtobuf.Enum {
 
 extension Api_KeyType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Api_KeyType] = [
+  public static var allCases: [Api_KeyType] = [
     .mnemonic,
     .privateKey,
   ]
@@ -65,539 +65,539 @@ extension Api_KeyType: CaseIterable {
 /// the real action and param field is the real param of that method.
 /// When an error occurred, the `call_tcx_api` will return a `Response` which isSuccess field be false and error field is the reason
 /// which cause the error.
-struct Api_TcxAction {
+public struct Api_TcxAction {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var method: String {
+  public var method: String {
     get {return _storage._method}
     set {_uniqueStorage()._method = newValue}
   }
 
-  var param: SwiftProtobuf.Google_Protobuf_Any {
+  public var param: SwiftProtobuf.Google_Protobuf_Any {
     get {return _storage._param ?? SwiftProtobuf.Google_Protobuf_Any()}
     set {_uniqueStorage()._param = newValue}
   }
   /// Returns true if `param` has been explicitly set.
-  var hasParam: Bool {return _storage._param != nil}
+  public var hasParam: Bool {return _storage._param != nil}
   /// Clears the value of `param`. Subsequent reads from it will return its default value.
-  mutating func clearParam() {_uniqueStorage()._param = nil}
+  public mutating func clearParam() {_uniqueStorage()._param = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// A common response when error occurred.
-struct Api_Response {
+public struct Api_Response {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var isSuccess: Bool = false
+  public var isSuccess: Bool = false
 
-  var error: String = String()
+  public var error: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// FUNCTION: init_token_core_x(InitTokenCoreXParam)
 ///
 /// initialize tcx by passing keystore folder and xpub encryption params
-struct Api_InitTokenCoreXParam {
+public struct Api_InitTokenCoreXParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var fileDir: String = String()
+  public var fileDir: String = String()
 
-  var xpubCommonKey: String = String()
+  public var xpubCommonKey: String = String()
 
-  var xpubCommonIv: String = String()
+  public var xpubCommonIv: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// FUNCTION: hd_store_create(HdStoreCreateParam): WalletResult
 ///
 /// create a new hd keystore
-struct Api_HdStoreCreateParam {
+public struct Api_HdStoreCreateParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var password: String = String()
+  public var password: String = String()
 
-  var passwordHint: String = String()
+  public var passwordHint: String = String()
 
-  var name: String = String()
+  public var name: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Api_WalletResult {
+public struct Api_WalletResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var id: String = String()
+  public var id: String = String()
 
-  var name: String = String()
+  public var name: String = String()
 
-  var source: String = String()
+  public var source: String = String()
 
-  var accounts: [Api_AccountResponse] = []
+  public var accounts: [Api_AccountResponse] = []
 
-  var createdAt: Int64 = 0
+  public var createdAt: Int64 = 0
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// FUNCTION: hd_store_import(HdStoreImportParam): WalletResult
 ///
 /// create a new hd keystore by mnemonic
-struct Api_HdStoreImportParam {
+public struct Api_HdStoreImportParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var mnemonic: String = String()
+  public var mnemonic: String = String()
 
-  var password: String = String()
+  public var password: String = String()
 
-  var source: String = String()
+  public var source: String = String()
 
-  var name: String = String()
+  public var name: String = String()
 
-  var passwordHint: String = String()
+  public var passwordHint: String = String()
 
-  var overwrite: Bool = false
+  public var overwrite: Bool = false
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// FUNCTION: hd_store_derive(HdStoreDeriveParam): AccountsResponse
 ///
 /// derive new accounts from a hd keystore
-struct Api_HdStoreDeriveParam {
+public struct Api_HdStoreDeriveParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var id: String = String()
+  public var id: String = String()
 
-  var password: String = String()
+  public var password: String = String()
 
-  var derivations: [Api_HdStoreDeriveParam.Derivation] = []
+  public var derivations: [Api_HdStoreDeriveParam.Derivation] = []
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  struct Derivation {
+  public struct Derivation {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    var chainType: String = String()
+    public var chainType: String = String()
 
-    var path: String = String()
+    public var path: String = String()
 
-    var network: String = String()
+    public var network: String = String()
 
-    var segWit: String = String()
+    public var segWit: String = String()
 
-    var chainID: String = String()
+    public var chainID: String = String()
 
-    var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    init() {}
+    public init() {}
   }
 
-  init() {}
+  public init() {}
 }
 
-struct Api_AccountResponse {
+public struct Api_AccountResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var chainType: String = String()
+  public var chainType: String = String()
 
-  var address: String = String()
+  public var address: String = String()
 
-  var path: String = String()
+  public var path: String = String()
 
-  var extendedXpubKey: String = String()
+  public var extendedXpubKey: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Api_AccountsResponse {
+public struct Api_AccountsResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var accounts: [Api_AccountResponse] = []
+  public var accounts: [Api_AccountResponse] = []
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Api_AddressResponse {
+public struct Api_AddressResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var address: String = String()
+  public var address: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Api_AddressParam {
+public struct Api_AddressParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var chainType: String = String()
+  public var chainType: String = String()
 
-  var path: String = String()
+  public var path: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// FUNCTION: hd_store_export(KeystoreCommonExportResult): KeystoreCommonExistsResult
 ///
 /// export the mnemonic from a hd keystore
-struct Api_KeystoreCommonExportResult {
+public struct Api_KeystoreCommonExportResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var id: String = String()
+  public var id: String = String()
 
-  var type: Api_KeyType = .mnemonic
+  public var type: Api_KeyType = .mnemonic
 
-  var value: String = String()
+  public var value: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// FUNCTION: private_key_store_import(PrivateKeyStoreImportParam): WalletResult
 ///
 /// create a new private key keystore by a private key
-struct Api_PrivateKeyStoreImportParam {
+public struct Api_PrivateKeyStoreImportParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var privateKey: String = String()
+  public var privateKey: String = String()
 
-  var password: String = String()
+  public var password: String = String()
 
-  var chainType: String = String()
+  public var chainType: String = String()
 
-  var network: String = String()
+  public var network: String = String()
 
-  var segWit: String = String()
+  public var segWit: String = String()
 
-  var overwrite: Bool = false
+  public var overwrite: Bool = false
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// FUNCTION: private_key_store_export(PrivateKeyStoreExportParam): KeystoreCommonExportResult
 ///
 /// export the private key from a private key keystore
-struct Api_PrivateKeyStoreExportParam {
+public struct Api_PrivateKeyStoreExportParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var id: String = String()
+  public var id: String = String()
 
-  var password: String = String()
+  public var password: String = String()
 
-  var chainType: String = String()
+  public var chainType: String = String()
 
-  var network: String = String()
+  public var network: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// FUNCTION: keystore_common_verify(WalletKeyParam) -> Response
 ///
 /// verify the password of the keystore
-struct Api_WalletKeyParam {
+public struct Api_WalletKeyParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var id: String = String()
+  public var id: String = String()
 
-  var password: String = String()
+  public var password: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// FUNCTION: keystore_common_exists(KeystoreCommonExistsParam): KeystoreCommonExistsResult
 ///
 /// Check is there a keystore was generate by the special privateKey or mnemonic
-struct Api_KeystoreCommonExistsParam {
+public struct Api_KeystoreCommonExistsParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var type: Api_KeyType = .mnemonic
+  public var type: Api_KeyType = .mnemonic
 
-  var value: String = String()
+  public var value: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Api_KeystoreCommonExistsResult {
+public struct Api_KeystoreCommonExistsResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var isExists: Bool = false
+  public var isExists: Bool = false
 
-  var id: String = String()
+  public var id: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// FUNCTION: keystore_common_accounts(KeystoreCommonAccountsParam): AccountsResponse
 ///
 /// List all accounts from the keystore
-struct Api_KeystoreCommonAccountsParam {
+public struct Api_KeystoreCommonAccountsParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var id: String = String()
+  public var id: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
 /// FUNCTION: sign_tx(SignParam)
 ///
 /// Sign transaction. This api is used for sign any chain_type, you should build the right TxInput instance and
 /// put it in the `input` field
-struct Api_SignParam {
+public struct Api_SignParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var id: String {
+  public var id: String {
     get {return _storage._id}
     set {_uniqueStorage()._id = newValue}
   }
 
-  var password: String {
+  public var password: String {
     get {return _storage._password}
     set {_uniqueStorage()._password = newValue}
   }
 
-  var chainType: String {
+  public var chainType: String {
     get {return _storage._chainType}
     set {_uniqueStorage()._chainType = newValue}
   }
 
-  var address: String {
+  public var address: String {
     get {return _storage._address}
     set {_uniqueStorage()._address = newValue}
   }
 
-  var input: SwiftProtobuf.Google_Protobuf_Any {
+  public var input: SwiftProtobuf.Google_Protobuf_Any {
     get {return _storage._input ?? SwiftProtobuf.Google_Protobuf_Any()}
     set {_uniqueStorage()._input = newValue}
   }
   /// Returns true if `input` has been explicitly set.
-  var hasInput: Bool {return _storage._input != nil}
+  public var hasInput: Bool {return _storage._input != nil}
   /// Clears the value of `input`. Subsequent reads from it will return its default value.
-  mutating func clearInput() {_uniqueStorage()._input = nil}
+  public mutating func clearInput() {_uniqueStorage()._input = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// btc-fork
-struct Api_ExternalAddressParam {
+public struct Api_ExternalAddressParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var id: String = String()
+  public var id: String = String()
 
-  var chainType: String = String()
+  public var chainType: String = String()
 
-  var externalIdx: UInt32 = 0
+  public var externalIdx: UInt32 = 0
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Api_ExternalAddressResult {
+public struct Api_ExternalAddressResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var address: String = String()
+  public var address: String = String()
 
-  var derivedPath: String = String()
+  public var derivedPath: String = String()
 
-  var type: String = String()
+  public var type: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Api_ExternalAddressExtra {
+public struct Api_ExternalAddressExtra {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var encXpub: String {
+  public var encXpub: String {
     get {return _storage._encXpub}
     set {_uniqueStorage()._encXpub = newValue}
   }
 
-  var externalAddress: Api_ExternalAddressExtra.ExternalAddress {
+  public var externalAddress: Api_ExternalAddressExtra.ExternalAddress {
     get {return _storage._externalAddress ?? Api_ExternalAddressExtra.ExternalAddress()}
     set {_uniqueStorage()._externalAddress = newValue}
   }
   /// Returns true if `externalAddress` has been explicitly set.
-  var hasExternalAddress: Bool {return _storage._externalAddress != nil}
+  public var hasExternalAddress: Bool {return _storage._externalAddress != nil}
   /// Clears the value of `externalAddress`. Subsequent reads from it will return its default value.
-  mutating func clearExternalAddress() {_uniqueStorage()._externalAddress = nil}
+  public mutating func clearExternalAddress() {_uniqueStorage()._externalAddress = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  struct ExternalAddress {
+  public struct ExternalAddress {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    var address: String = String()
+    public var address: String = String()
 
-    var derivedPath: String = String()
+    public var derivedPath: String = String()
 
-    var type: String = String()
+    public var type: String = String()
 
-    var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    init() {}
+    public init() {}
   }
 
-  init() {}
+  public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct Api_BtcForkDeriveExtraParam {
+public struct Api_BtcForkDeriveExtraParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var network: String = String()
+  public var network: String = String()
 
-  var segWit: String = String()
+  public var segWit: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Api_HdStoreExtendedPublicKeyParam {
+public struct Api_HdStoreExtendedPublicKeyParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var id: String = String()
+  public var id: String = String()
 
-  var password: String = String()
+  public var password: String = String()
 
-  var chainType: String = String()
+  public var chainType: String = String()
 
-  var address: String = String()
+  public var address: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Api_HdStoreExtendedPublicKeyResponse {
+public struct Api_HdStoreExtendedPublicKeyResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var extendedPublicKey: String = String()
+  public var extendedPublicKey: String = String()
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 }
 
-struct Api_DeviceParam {
+public struct Api_DeviceParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var action: String {
+  public var action: String {
     get {return _storage._action}
     set {_uniqueStorage()._action = newValue}
   }
 
-  var param: SwiftProtobuf.Google_Protobuf_Any {
+  public var param: SwiftProtobuf.Google_Protobuf_Any {
     get {return _storage._param ?? SwiftProtobuf.Google_Protobuf_Any()}
     set {_uniqueStorage()._param = newValue}
   }
   /// Returns true if `param` has been explicitly set.
-  var hasParam: Bool {return _storage._param != nil}
+  public var hasParam: Bool {return _storage._param != nil}
   /// Clears the value of `param`. Subsequent reads from it will return its default value.
-  mutating func clearParam() {_uniqueStorage()._param = nil}
+  public mutating func clearParam() {_uniqueStorage()._param = nil}
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  init() {}
+  public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
@@ -607,15 +607,15 @@ struct Api_DeviceParam {
 fileprivate let _protobuf_package = "api"
 
 extension Api_KeyType: SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "MNEMONIC"),
     1: .same(proto: "PRIVATE_KEY"),
   ]
 }
 
 extension Api_TcxAction: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".TcxAction"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".TcxAction"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "method"),
     2: .same(proto: "param"),
   ]
@@ -641,7 +641,7 @@ extension Api_TcxAction: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     return _storage
   }
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
@@ -654,7 +654,7 @@ extension Api_TcxAction: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if !_storage._method.isEmpty {
         try visitor.visitSingularStringField(value: _storage._method, fieldNumber: 1)
@@ -666,7 +666,7 @@ extension Api_TcxAction: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_TcxAction, rhs: Api_TcxAction) -> Bool {
+  public static func ==(lhs: Api_TcxAction, rhs: Api_TcxAction) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -683,13 +683,13 @@ extension Api_TcxAction: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
 }
 
 extension Api_Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Response"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "isSuccess"),
     2: .same(proto: "error"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularBoolField(value: &self.isSuccess)
@@ -699,7 +699,7 @@ extension Api_Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.isSuccess != false {
       try visitor.visitSingularBoolField(value: self.isSuccess, fieldNumber: 1)
     }
@@ -709,7 +709,7 @@ extension Api_Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_Response, rhs: Api_Response) -> Bool {
+  public static func ==(lhs: Api_Response, rhs: Api_Response) -> Bool {
     if lhs.isSuccess != rhs.isSuccess {return false}
     if lhs.error != rhs.error {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -718,14 +718,14 @@ extension Api_Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
 }
 
 extension Api_InitTokenCoreXParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".InitTokenCoreXParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".InitTokenCoreXParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "fileDir"),
     2: .same(proto: "xpubCommonKey"),
     3: .same(proto: "xpubCommonIv"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.fileDir)
@@ -736,7 +736,7 @@ extension Api_InitTokenCoreXParam: SwiftProtobuf.Message, SwiftProtobuf._Message
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.fileDir.isEmpty {
       try visitor.visitSingularStringField(value: self.fileDir, fieldNumber: 1)
     }
@@ -749,7 +749,7 @@ extension Api_InitTokenCoreXParam: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_InitTokenCoreXParam, rhs: Api_InitTokenCoreXParam) -> Bool {
+  public static func ==(lhs: Api_InitTokenCoreXParam, rhs: Api_InitTokenCoreXParam) -> Bool {
     if lhs.fileDir != rhs.fileDir {return false}
     if lhs.xpubCommonKey != rhs.xpubCommonKey {return false}
     if lhs.xpubCommonIv != rhs.xpubCommonIv {return false}
@@ -759,14 +759,14 @@ extension Api_InitTokenCoreXParam: SwiftProtobuf.Message, SwiftProtobuf._Message
 }
 
 extension Api_HdStoreCreateParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".HdStoreCreateParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".HdStoreCreateParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "password"),
     2: .same(proto: "passwordHint"),
     3: .same(proto: "name"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.password)
@@ -777,7 +777,7 @@ extension Api_HdStoreCreateParam: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.password.isEmpty {
       try visitor.visitSingularStringField(value: self.password, fieldNumber: 1)
     }
@@ -790,7 +790,7 @@ extension Api_HdStoreCreateParam: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_HdStoreCreateParam, rhs: Api_HdStoreCreateParam) -> Bool {
+  public static func ==(lhs: Api_HdStoreCreateParam, rhs: Api_HdStoreCreateParam) -> Bool {
     if lhs.password != rhs.password {return false}
     if lhs.passwordHint != rhs.passwordHint {return false}
     if lhs.name != rhs.name {return false}
@@ -800,8 +800,8 @@ extension Api_HdStoreCreateParam: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 }
 
 extension Api_WalletResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".WalletResult"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".WalletResult"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "name"),
     3: .same(proto: "source"),
@@ -809,7 +809,7 @@ extension Api_WalletResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     5: .same(proto: "createdAt"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.id)
@@ -822,7 +822,7 @@ extension Api_WalletResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
@@ -841,7 +841,7 @@ extension Api_WalletResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_WalletResult, rhs: Api_WalletResult) -> Bool {
+  public static func ==(lhs: Api_WalletResult, rhs: Api_WalletResult) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.name != rhs.name {return false}
     if lhs.source != rhs.source {return false}
@@ -853,8 +853,8 @@ extension Api_WalletResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
 }
 
 extension Api_HdStoreImportParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".HdStoreImportParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".HdStoreImportParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "mnemonic"),
     2: .same(proto: "password"),
     3: .same(proto: "source"),
@@ -863,7 +863,7 @@ extension Api_HdStoreImportParam: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     6: .same(proto: "overwrite"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.mnemonic)
@@ -877,7 +877,7 @@ extension Api_HdStoreImportParam: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.mnemonic.isEmpty {
       try visitor.visitSingularStringField(value: self.mnemonic, fieldNumber: 1)
     }
@@ -899,7 +899,7 @@ extension Api_HdStoreImportParam: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_HdStoreImportParam, rhs: Api_HdStoreImportParam) -> Bool {
+  public static func ==(lhs: Api_HdStoreImportParam, rhs: Api_HdStoreImportParam) -> Bool {
     if lhs.mnemonic != rhs.mnemonic {return false}
     if lhs.password != rhs.password {return false}
     if lhs.source != rhs.source {return false}
@@ -912,14 +912,14 @@ extension Api_HdStoreImportParam: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 }
 
 extension Api_HdStoreDeriveParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".HdStoreDeriveParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".HdStoreDeriveParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "password"),
     3: .same(proto: "derivations"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.id)
@@ -930,7 +930,7 @@ extension Api_HdStoreDeriveParam: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
@@ -943,7 +943,7 @@ extension Api_HdStoreDeriveParam: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_HdStoreDeriveParam, rhs: Api_HdStoreDeriveParam) -> Bool {
+  public static func ==(lhs: Api_HdStoreDeriveParam, rhs: Api_HdStoreDeriveParam) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.password != rhs.password {return false}
     if lhs.derivations != rhs.derivations {return false}
@@ -953,8 +953,8 @@ extension Api_HdStoreDeriveParam: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 }
 
 extension Api_HdStoreDeriveParam.Derivation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Api_HdStoreDeriveParam.protoMessageName + ".Derivation"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Api_HdStoreDeriveParam.protoMessageName + ".Derivation"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "chainType"),
     2: .same(proto: "path"),
     3: .same(proto: "network"),
@@ -962,7 +962,7 @@ extension Api_HdStoreDeriveParam.Derivation: SwiftProtobuf.Message, SwiftProtobu
     5: .same(proto: "chainId"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.chainType)
@@ -975,7 +975,7 @@ extension Api_HdStoreDeriveParam.Derivation: SwiftProtobuf.Message, SwiftProtobu
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.chainType.isEmpty {
       try visitor.visitSingularStringField(value: self.chainType, fieldNumber: 1)
     }
@@ -994,7 +994,7 @@ extension Api_HdStoreDeriveParam.Derivation: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_HdStoreDeriveParam.Derivation, rhs: Api_HdStoreDeriveParam.Derivation) -> Bool {
+  public static func ==(lhs: Api_HdStoreDeriveParam.Derivation, rhs: Api_HdStoreDeriveParam.Derivation) -> Bool {
     if lhs.chainType != rhs.chainType {return false}
     if lhs.path != rhs.path {return false}
     if lhs.network != rhs.network {return false}
@@ -1006,15 +1006,15 @@ extension Api_HdStoreDeriveParam.Derivation: SwiftProtobuf.Message, SwiftProtobu
 }
 
 extension Api_AccountResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".AccountResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".AccountResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "chainType"),
     2: .same(proto: "address"),
     3: .same(proto: "path"),
     4: .same(proto: "extendedXpubKey"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.chainType)
@@ -1026,7 +1026,7 @@ extension Api_AccountResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.chainType.isEmpty {
       try visitor.visitSingularStringField(value: self.chainType, fieldNumber: 1)
     }
@@ -1042,7 +1042,7 @@ extension Api_AccountResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_AccountResponse, rhs: Api_AccountResponse) -> Bool {
+  public static func ==(lhs: Api_AccountResponse, rhs: Api_AccountResponse) -> Bool {
     if lhs.chainType != rhs.chainType {return false}
     if lhs.address != rhs.address {return false}
     if lhs.path != rhs.path {return false}
@@ -1053,12 +1053,12 @@ extension Api_AccountResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
 }
 
 extension Api_AccountsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".AccountsResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".AccountsResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "accounts"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeRepeatedMessageField(value: &self.accounts)
@@ -1067,14 +1067,14 @@ extension Api_AccountsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.accounts.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.accounts, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_AccountsResponse, rhs: Api_AccountsResponse) -> Bool {
+  public static func ==(lhs: Api_AccountsResponse, rhs: Api_AccountsResponse) -> Bool {
     if lhs.accounts != rhs.accounts {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -1082,12 +1082,12 @@ extension Api_AccountsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
 }
 
 extension Api_AddressResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".AddressResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".AddressResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "address"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.address)
@@ -1096,14 +1096,14 @@ extension Api_AddressResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.address.isEmpty {
       try visitor.visitSingularStringField(value: self.address, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_AddressResponse, rhs: Api_AddressResponse) -> Bool {
+  public static func ==(lhs: Api_AddressResponse, rhs: Api_AddressResponse) -> Bool {
     if lhs.address != rhs.address {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -1111,13 +1111,13 @@ extension Api_AddressResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
 }
 
 extension Api_AddressParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".AddressParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".AddressParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "chainType"),
     2: .same(proto: "path"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.chainType)
@@ -1127,7 +1127,7 @@ extension Api_AddressParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.chainType.isEmpty {
       try visitor.visitSingularStringField(value: self.chainType, fieldNumber: 1)
     }
@@ -1137,7 +1137,7 @@ extension Api_AddressParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_AddressParam, rhs: Api_AddressParam) -> Bool {
+  public static func ==(lhs: Api_AddressParam, rhs: Api_AddressParam) -> Bool {
     if lhs.chainType != rhs.chainType {return false}
     if lhs.path != rhs.path {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -1146,14 +1146,14 @@ extension Api_AddressParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
 }
 
 extension Api_KeystoreCommonExportResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".KeystoreCommonExportResult"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".KeystoreCommonExportResult"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "type"),
     3: .same(proto: "value"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.id)
@@ -1164,7 +1164,7 @@ extension Api_KeystoreCommonExportResult: SwiftProtobuf.Message, SwiftProtobuf._
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
@@ -1177,7 +1177,7 @@ extension Api_KeystoreCommonExportResult: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_KeystoreCommonExportResult, rhs: Api_KeystoreCommonExportResult) -> Bool {
+  public static func ==(lhs: Api_KeystoreCommonExportResult, rhs: Api_KeystoreCommonExportResult) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.type != rhs.type {return false}
     if lhs.value != rhs.value {return false}
@@ -1187,8 +1187,8 @@ extension Api_KeystoreCommonExportResult: SwiftProtobuf.Message, SwiftProtobuf._
 }
 
 extension Api_PrivateKeyStoreImportParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".PrivateKeyStoreImportParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".PrivateKeyStoreImportParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "privateKey"),
     2: .same(proto: "password"),
     3: .same(proto: "chainType"),
@@ -1197,7 +1197,7 @@ extension Api_PrivateKeyStoreImportParam: SwiftProtobuf.Message, SwiftProtobuf._
     10: .same(proto: "overwrite"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.privateKey)
@@ -1211,7 +1211,7 @@ extension Api_PrivateKeyStoreImportParam: SwiftProtobuf.Message, SwiftProtobuf._
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.privateKey.isEmpty {
       try visitor.visitSingularStringField(value: self.privateKey, fieldNumber: 1)
     }
@@ -1233,7 +1233,7 @@ extension Api_PrivateKeyStoreImportParam: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_PrivateKeyStoreImportParam, rhs: Api_PrivateKeyStoreImportParam) -> Bool {
+  public static func ==(lhs: Api_PrivateKeyStoreImportParam, rhs: Api_PrivateKeyStoreImportParam) -> Bool {
     if lhs.privateKey != rhs.privateKey {return false}
     if lhs.password != rhs.password {return false}
     if lhs.chainType != rhs.chainType {return false}
@@ -1246,15 +1246,15 @@ extension Api_PrivateKeyStoreImportParam: SwiftProtobuf.Message, SwiftProtobuf._
 }
 
 extension Api_PrivateKeyStoreExportParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".PrivateKeyStoreExportParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".PrivateKeyStoreExportParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "password"),
     3: .same(proto: "chainType"),
     4: .same(proto: "network"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.id)
@@ -1266,7 +1266,7 @@ extension Api_PrivateKeyStoreExportParam: SwiftProtobuf.Message, SwiftProtobuf._
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
@@ -1282,7 +1282,7 @@ extension Api_PrivateKeyStoreExportParam: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_PrivateKeyStoreExportParam, rhs: Api_PrivateKeyStoreExportParam) -> Bool {
+  public static func ==(lhs: Api_PrivateKeyStoreExportParam, rhs: Api_PrivateKeyStoreExportParam) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.password != rhs.password {return false}
     if lhs.chainType != rhs.chainType {return false}
@@ -1293,13 +1293,13 @@ extension Api_PrivateKeyStoreExportParam: SwiftProtobuf.Message, SwiftProtobuf._
 }
 
 extension Api_WalletKeyParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".WalletKeyParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".WalletKeyParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "password"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.id)
@@ -1309,7 +1309,7 @@ extension Api_WalletKeyParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
@@ -1319,7 +1319,7 @@ extension Api_WalletKeyParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_WalletKeyParam, rhs: Api_WalletKeyParam) -> Bool {
+  public static func ==(lhs: Api_WalletKeyParam, rhs: Api_WalletKeyParam) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.password != rhs.password {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -1328,13 +1328,13 @@ extension Api_WalletKeyParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
 }
 
 extension Api_KeystoreCommonExistsParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".KeystoreCommonExistsParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".KeystoreCommonExistsParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "type"),
     2: .same(proto: "value"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularEnumField(value: &self.type)
@@ -1344,7 +1344,7 @@ extension Api_KeystoreCommonExistsParam: SwiftProtobuf.Message, SwiftProtobuf._M
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.type != .mnemonic {
       try visitor.visitSingularEnumField(value: self.type, fieldNumber: 1)
     }
@@ -1354,7 +1354,7 @@ extension Api_KeystoreCommonExistsParam: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_KeystoreCommonExistsParam, rhs: Api_KeystoreCommonExistsParam) -> Bool {
+  public static func ==(lhs: Api_KeystoreCommonExistsParam, rhs: Api_KeystoreCommonExistsParam) -> Bool {
     if lhs.type != rhs.type {return false}
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -1363,13 +1363,13 @@ extension Api_KeystoreCommonExistsParam: SwiftProtobuf.Message, SwiftProtobuf._M
 }
 
 extension Api_KeystoreCommonExistsResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".KeystoreCommonExistsResult"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".KeystoreCommonExistsResult"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "isExists"),
     2: .same(proto: "id"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularBoolField(value: &self.isExists)
@@ -1379,7 +1379,7 @@ extension Api_KeystoreCommonExistsResult: SwiftProtobuf.Message, SwiftProtobuf._
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.isExists != false {
       try visitor.visitSingularBoolField(value: self.isExists, fieldNumber: 1)
     }
@@ -1389,7 +1389,7 @@ extension Api_KeystoreCommonExistsResult: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_KeystoreCommonExistsResult, rhs: Api_KeystoreCommonExistsResult) -> Bool {
+  public static func ==(lhs: Api_KeystoreCommonExistsResult, rhs: Api_KeystoreCommonExistsResult) -> Bool {
     if lhs.isExists != rhs.isExists {return false}
     if lhs.id != rhs.id {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -1398,12 +1398,12 @@ extension Api_KeystoreCommonExistsResult: SwiftProtobuf.Message, SwiftProtobuf._
 }
 
 extension Api_KeystoreCommonAccountsParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".KeystoreCommonAccountsParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".KeystoreCommonAccountsParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.id)
@@ -1412,14 +1412,14 @@ extension Api_KeystoreCommonAccountsParam: SwiftProtobuf.Message, SwiftProtobuf.
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_KeystoreCommonAccountsParam, rhs: Api_KeystoreCommonAccountsParam) -> Bool {
+  public static func ==(lhs: Api_KeystoreCommonAccountsParam, rhs: Api_KeystoreCommonAccountsParam) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -1427,8 +1427,8 @@ extension Api_KeystoreCommonAccountsParam: SwiftProtobuf.Message, SwiftProtobuf.
 }
 
 extension Api_SignParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SignParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".SignParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "password"),
     3: .same(proto: "chainType"),
@@ -1463,7 +1463,7 @@ extension Api_SignParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     return _storage
   }
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1479,7 +1479,7 @@ extension Api_SignParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if !_storage._id.isEmpty {
         try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
@@ -1500,7 +1500,7 @@ extension Api_SignParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_SignParam, rhs: Api_SignParam) -> Bool {
+  public static func ==(lhs: Api_SignParam, rhs: Api_SignParam) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1520,14 +1520,14 @@ extension Api_SignParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
 }
 
 extension Api_ExternalAddressParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ExternalAddressParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".ExternalAddressParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "chainType"),
     3: .same(proto: "externalIdx"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.id)
@@ -1538,7 +1538,7 @@ extension Api_ExternalAddressParam: SwiftProtobuf.Message, SwiftProtobuf._Messag
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
@@ -1551,7 +1551,7 @@ extension Api_ExternalAddressParam: SwiftProtobuf.Message, SwiftProtobuf._Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_ExternalAddressParam, rhs: Api_ExternalAddressParam) -> Bool {
+  public static func ==(lhs: Api_ExternalAddressParam, rhs: Api_ExternalAddressParam) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.chainType != rhs.chainType {return false}
     if lhs.externalIdx != rhs.externalIdx {return false}
@@ -1561,14 +1561,14 @@ extension Api_ExternalAddressParam: SwiftProtobuf.Message, SwiftProtobuf._Messag
 }
 
 extension Api_ExternalAddressResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ExternalAddressResult"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".ExternalAddressResult"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "address"),
     2: .same(proto: "derivedPath"),
     3: .same(proto: "type"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.address)
@@ -1579,7 +1579,7 @@ extension Api_ExternalAddressResult: SwiftProtobuf.Message, SwiftProtobuf._Messa
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.address.isEmpty {
       try visitor.visitSingularStringField(value: self.address, fieldNumber: 1)
     }
@@ -1592,7 +1592,7 @@ extension Api_ExternalAddressResult: SwiftProtobuf.Message, SwiftProtobuf._Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_ExternalAddressResult, rhs: Api_ExternalAddressResult) -> Bool {
+  public static func ==(lhs: Api_ExternalAddressResult, rhs: Api_ExternalAddressResult) -> Bool {
     if lhs.address != rhs.address {return false}
     if lhs.derivedPath != rhs.derivedPath {return false}
     if lhs.type != rhs.type {return false}
@@ -1602,8 +1602,8 @@ extension Api_ExternalAddressResult: SwiftProtobuf.Message, SwiftProtobuf._Messa
 }
 
 extension Api_ExternalAddressExtra: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ExternalAddressExtra"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".ExternalAddressExtra"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "encXpub"),
     2: .same(proto: "externalAddress"),
   ]
@@ -1629,7 +1629,7 @@ extension Api_ExternalAddressExtra: SwiftProtobuf.Message, SwiftProtobuf._Messag
     return _storage
   }
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1642,7 +1642,7 @@ extension Api_ExternalAddressExtra: SwiftProtobuf.Message, SwiftProtobuf._Messag
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if !_storage._encXpub.isEmpty {
         try visitor.visitSingularStringField(value: _storage._encXpub, fieldNumber: 1)
@@ -1654,7 +1654,7 @@ extension Api_ExternalAddressExtra: SwiftProtobuf.Message, SwiftProtobuf._Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_ExternalAddressExtra, rhs: Api_ExternalAddressExtra) -> Bool {
+  public static func ==(lhs: Api_ExternalAddressExtra, rhs: Api_ExternalAddressExtra) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1671,14 +1671,14 @@ extension Api_ExternalAddressExtra: SwiftProtobuf.Message, SwiftProtobuf._Messag
 }
 
 extension Api_ExternalAddressExtra.ExternalAddress: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Api_ExternalAddressExtra.protoMessageName + ".ExternalAddress"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Api_ExternalAddressExtra.protoMessageName + ".ExternalAddress"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "address"),
     2: .same(proto: "derivedPath"),
     3: .same(proto: "type"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.address)
@@ -1689,7 +1689,7 @@ extension Api_ExternalAddressExtra.ExternalAddress: SwiftProtobuf.Message, Swift
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.address.isEmpty {
       try visitor.visitSingularStringField(value: self.address, fieldNumber: 1)
     }
@@ -1702,7 +1702,7 @@ extension Api_ExternalAddressExtra.ExternalAddress: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_ExternalAddressExtra.ExternalAddress, rhs: Api_ExternalAddressExtra.ExternalAddress) -> Bool {
+  public static func ==(lhs: Api_ExternalAddressExtra.ExternalAddress, rhs: Api_ExternalAddressExtra.ExternalAddress) -> Bool {
     if lhs.address != rhs.address {return false}
     if lhs.derivedPath != rhs.derivedPath {return false}
     if lhs.type != rhs.type {return false}
@@ -1712,13 +1712,13 @@ extension Api_ExternalAddressExtra.ExternalAddress: SwiftProtobuf.Message, Swift
 }
 
 extension Api_BtcForkDeriveExtraParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".BtcForkDeriveExtraParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".BtcForkDeriveExtraParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "network"),
     2: .same(proto: "segWit"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.network)
@@ -1728,7 +1728,7 @@ extension Api_BtcForkDeriveExtraParam: SwiftProtobuf.Message, SwiftProtobuf._Mes
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.network.isEmpty {
       try visitor.visitSingularStringField(value: self.network, fieldNumber: 1)
     }
@@ -1738,7 +1738,7 @@ extension Api_BtcForkDeriveExtraParam: SwiftProtobuf.Message, SwiftProtobuf._Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_BtcForkDeriveExtraParam, rhs: Api_BtcForkDeriveExtraParam) -> Bool {
+  public static func ==(lhs: Api_BtcForkDeriveExtraParam, rhs: Api_BtcForkDeriveExtraParam) -> Bool {
     if lhs.network != rhs.network {return false}
     if lhs.segWit != rhs.segWit {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -1747,15 +1747,15 @@ extension Api_BtcForkDeriveExtraParam: SwiftProtobuf.Message, SwiftProtobuf._Mes
 }
 
 extension Api_HdStoreExtendedPublicKeyParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".HdStoreExtendedPublicKeyParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".HdStoreExtendedPublicKeyParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "password"),
     3: .same(proto: "chainType"),
     4: .same(proto: "address"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.id)
@@ -1767,7 +1767,7 @@ extension Api_HdStoreExtendedPublicKeyParam: SwiftProtobuf.Message, SwiftProtobu
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
@@ -1783,7 +1783,7 @@ extension Api_HdStoreExtendedPublicKeyParam: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_HdStoreExtendedPublicKeyParam, rhs: Api_HdStoreExtendedPublicKeyParam) -> Bool {
+  public static func ==(lhs: Api_HdStoreExtendedPublicKeyParam, rhs: Api_HdStoreExtendedPublicKeyParam) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.password != rhs.password {return false}
     if lhs.chainType != rhs.chainType {return false}
@@ -1794,12 +1794,12 @@ extension Api_HdStoreExtendedPublicKeyParam: SwiftProtobuf.Message, SwiftProtobu
 }
 
 extension Api_HdStoreExtendedPublicKeyResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".HdStoreExtendedPublicKeyResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".HdStoreExtendedPublicKeyResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "extendedPublicKey"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.extendedPublicKey)
@@ -1808,14 +1808,14 @@ extension Api_HdStoreExtendedPublicKeyResponse: SwiftProtobuf.Message, SwiftProt
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.extendedPublicKey.isEmpty {
       try visitor.visitSingularStringField(value: self.extendedPublicKey, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_HdStoreExtendedPublicKeyResponse, rhs: Api_HdStoreExtendedPublicKeyResponse) -> Bool {
+  public static func ==(lhs: Api_HdStoreExtendedPublicKeyResponse, rhs: Api_HdStoreExtendedPublicKeyResponse) -> Bool {
     if lhs.extendedPublicKey != rhs.extendedPublicKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -1823,8 +1823,8 @@ extension Api_HdStoreExtendedPublicKeyResponse: SwiftProtobuf.Message, SwiftProt
 }
 
 extension Api_DeviceParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".DeviceParam"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".DeviceParam"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "action"),
     2: .same(proto: "param"),
   ]
@@ -1850,7 +1850,7 @@ extension Api_DeviceParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
     return _storage
   }
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     _ = _uniqueStorage()
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1863,7 +1863,7 @@ extension Api_DeviceParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if !_storage._action.isEmpty {
         try visitor.visitSingularStringField(value: _storage._action, fieldNumber: 1)
@@ -1875,7 +1875,7 @@ extension Api_DeviceParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Api_DeviceParam, rhs: Api_DeviceParam) -> Bool {
+  public static func ==(lhs: Api_DeviceParam, rhs: Api_DeviceParam) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0

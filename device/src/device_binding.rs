@@ -3,7 +3,7 @@ use super::key_manager::KeyManager;
 use aes::Aes128;
 use block_modes::block_padding::Pkcs7;
 use block_modes::{BlockMode, Cbc};
-use common::apdu::Apdu;
+use common::apdu::{Apdu, DeviceBindingApdu};
 use hex::FromHex;
 use mq::message::send_apdu;
 use rand::rngs::OsRng;
@@ -15,6 +15,8 @@ use sha1::Sha1;
 use crate::manager;
 use crate::key_manager::SE_PUB_KEY;
 use crate::auth_code_storage::auth_code_storage_request;
+use common::constants::{IMK_AID};
+use regex::Regex;
 
 pub struct DeviceManage {
     key_manager: KeyManager,
@@ -54,10 +56,10 @@ pub fn bind_check(&mut self, file_path: &String) -> String {
 
     //生成bindcheck指令
     let bind_check_apdu =
-        Apdu::bind_check(&key_manager_obj.pub_key);
+        DeviceBindingApdu::bind_check(&key_manager_obj.pub_key);
 
     //发送bindcheck指令，并获取返回数据
-    let apdu_response = send_apdu(Apdu::select_applet("695F696D6B"));
+    let apdu_response = send_apdu(Apdu::select_applet(IMK_AID));
     if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
         panic!("selcet imk error");
     }
@@ -131,13 +133,15 @@ pub fn bind_check(&mut self, file_path: &String) -> String {
     pub fn bind_acquire(&self, binding_code: &String) -> String {
         let temp_binding_code = binding_code.to_uppercase();
         let binding_code_bytes = temp_binding_code.as_bytes();
-        //绑定码校验 TODO
-        let reg_ex = "^[A-HJ-NP-Z2-9]{8}$";
-
+        //绑定码校验
+        let bind_code_verify_regex = Regex::new(r"^[A-HJ-NP-Z2-9]{8}$").unwrap();
+        if !bind_code_verify_regex.is_match(binding_code) {
+            panic!("bind code verify error");
+        }
         //RSA加密绑定码
         let auth_code_ciphertext = auth_code_encrypt(&temp_binding_code);
 
-        //保存绑定码 TODO
+        //保存绑定码
         let seid = manager::get_se_id();
         let auth_code_storage_result = auth_code_storage_request::build_request_data(seid, auth_code_ciphertext).auth_code_storage();
         if auth_code_storage_result.is_err() {
@@ -145,7 +149,7 @@ pub fn bind_check(&mut self, file_path: &String) -> String {
         }
 
         //选择IMK applet TODO
-        let apdu_response = send_apdu(Apdu::select_applet("695F696D6B"));
+        let apdu_response = send_apdu(Apdu::select_applet(IMK_AID));
         if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
             panic!("selcet imk error");
         }
@@ -169,7 +173,7 @@ pub fn bind_check(&mut self, file_path: &String) -> String {
         let mut apdu_data = Vec::new();
         apdu_data.extend(&self.key_manager.pub_key);
         apdu_data.extend(ciphertext);
-        let identity_verify_apdu = Apdu::identity_verify(&apdu_data);
+        let identity_verify_apdu = DeviceBindingApdu::identity_verify(&apdu_data);
         //发送指令到设备
         //        let response = hid_api::send(&hid_device, &identity_verify_apdu);
         let response = send_apdu(identity_verify_apdu);
@@ -181,10 +185,13 @@ pub fn bind_check(&mut self, file_path: &String) -> String {
 }
 
 fn select_imk_applet() {
-    let select_imkey = Apdu::select_applet("695F696D6B");
+    let select_imkey = Apdu::select_applet(IMK_AID);
     //把指令把指令发送到设备
 }
 
+/**
+generator iv
+*/
 fn gen_iv(auth_code: &String) -> [u8; 16] {
     let salt_bytes = digest::digest(&digest::SHA256, "bindingCode".as_bytes());
     let auth_code_hash = digest::digest(&digest::SHA256, auth_code.as_bytes());
@@ -215,11 +222,11 @@ fn auth_code_encrypt(auth_code: &String) -> String {
 }
 
 pub fn display_bind_code() -> String {
-    let apdu_response = send_apdu(Apdu::select_applet("695F696D6B"));
+    let apdu_response = send_apdu(Apdu::select_applet(IMK_AID));
     if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
         panic!("selcet imk error");
     }
-    let gen_auth_code_ret_data = send_apdu(Apdu::generate_auth_code());
+    let gen_auth_code_ret_data = send_apdu(DeviceBindingApdu::generate_auth_code());
     if !"9000".eq(&gen_auth_code_ret_data[gen_auth_code_ret_data.len() - 4 ..]) {
         panic!("gen auth code apdu error");
     }

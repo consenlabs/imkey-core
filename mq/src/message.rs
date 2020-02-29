@@ -5,6 +5,7 @@ use hidapi::{HidApi, HidDevice};
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 use std::sync::Mutex;
+//use secp256k1::Secp256k1;
 //extern crate android_logger;
 
 lazy_static! {
@@ -17,7 +18,7 @@ lazy_static! {
 
 #[cfg(target_os = "macos")]
 lazy_static! {
-    pub static ref DEVICE: Mutex<HidDevice> = Mutex::new(hid_api::connect());
+    pub static ref DEVICE: Mutex<HidDevice> = Mutex::new(hid_api::hid_connect());
 }
 
 #[no_mangle]
@@ -224,7 +225,8 @@ fn test_str() {
 
     // string.push_str("hello");
     *string = String::from("dereferenced22");
-    std::mem::drop(string);
+//    std::mem::drop(string);
+
 
     let mut str2 = STRING.lock().unwrap();
     // str2.push_str("hah");
@@ -240,5 +242,5 @@ fn test_str() {
 
     let hello = "hello123456".to_string();
     let s: String = hello.chars().skip(hello.len() - 4).take(4).collect();
-    println!("s:{}", s)
+    println!("s:{}", s);
 }

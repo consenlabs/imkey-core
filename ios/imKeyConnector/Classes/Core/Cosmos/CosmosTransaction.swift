@@ -89,15 +89,19 @@ public final class CosmosTransaction {
     let toDisBytes: [UInt8] = Array(toDis.utf8)
     let feeDisBytes: [UInt8] = Array(feeDis.utf8)
     
+    let jsonHash = signMessageWithSlashRemoved.sha256()
+    Log.d("json hash:\(jsonHash)")
     let signPack = "0120" + signMessageWithSlashRemoved.sha256()
       + "07" + String(format:"%02x", paymentDisBytes.count) + paymentDisBytes.toHexString()
       + "08" + String(format:"%02x", toDisBytes.count) + toDisBytes.toHexString()
       + "09" + String(format:"%02x", feeDisBytes.count) + feeDisBytes.toHexString()
+    Log.d("signPack:\(signPack)")
     
     guard let bytes = ByteUtil.hexString2Uint8Array(data: signPack)else{
       throw SDKError.unwrapError
     }
     let hash = bytes.sha256().sha256()
+    Log.d("hash:\(ByteUtil.uint8Array2HexString(data: hash))")
     var sig = try SigUtil.ecSignHash(hash: hash)
     sig.insert(UInt8(sig.count), at: 0)
     sig.insert(0x00, at: 0)
