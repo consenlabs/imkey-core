@@ -23,6 +23,48 @@ pub fn get_sn() -> String {
     res.chars().take(res.len() - 4).collect()
 }
 
+pub fn get_ram_size() -> String {
+    //send_apdu("00A4040000".to_string());
+    let res = send_apdu("80CB800005DFFF02814600".to_string());
+    res.chars().take(res.len() - 4).collect()
+}
+
+pub fn get_firmware_version() -> String {
+    send_apdu("00A4040000".to_string());
+    let res = send_apdu("80CB800005DFFF02800300".to_string());
+    res.chars().take(res.len() - 4).collect()
+}
+
+pub fn get_battery_power() -> String {
+    send_apdu("00A4040000".to_string());
+    let res = send_apdu("00D6FEED01".to_string());
+    res.chars().take(res.len() - 4).collect()
+}
+
+pub fn get_life_time() -> String {
+    //send_apdu("00A4040000".to_string());
+    let res = send_apdu("FFDCFEED00".to_string());
+    res.chars().take(res.len() - 4).collect()
+}
+
+pub fn get_ble_name() -> String {
+    //send_apdu("00A4040000".to_string());
+    let res = send_apdu("FFDB465400".to_string());
+    res.chars().take(res.len() - 4).collect()
+}
+
+pub fn set_ble_name() -> String {
+    //send_apdu("00A4040000".to_string());
+    let res = send_apdu("FFDCFEED00".to_string());
+    res.chars().take(res.len() - 4).collect()
+}
+
+pub fn get_ble_version() -> String {
+    send_apdu("00A4040000".to_string());
+    let res = send_apdu("80CB800005DFFF02810000".to_string());
+    res.chars().take(res.len() - 4).collect()
+}
+
 pub fn get_cert() -> String {
     send_apdu("00A4040000".to_string());
     let res = send_apdu("80CABF2106A6048302151800".to_string());

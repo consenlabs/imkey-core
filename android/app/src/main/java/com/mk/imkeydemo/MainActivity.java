@@ -49,9 +49,10 @@ public class MainActivity extends AppCompatActivity {
     private BleDevice mDevice;//current connect device
     private DeviceManager mManager;
 
-//    static {
-//        System.loadLibrary("connector");
-//    }
+   static {
+       System.loadLibrary("crypto");
+       System.loadLibrary("ssl");
+   }
 
     public native String hello(String to);
     public native String getXPub();
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 //        LogUtil.installApplet();
 
 //        Api.initRustLog();
-//        Api.startMessageDeamon();
+        Api.startMessageDeamon();
 //        Api.check_update();
     }
 
@@ -313,6 +314,7 @@ public class MainActivity extends AppCompatActivity {
                 final int ramSize = mManager.getRamSize();
                 final String battery = mManager.getBatteryPower();
                 final String lifeCycle = mManager.getLifeTime();
+                final String sn = mManager.getSn();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -321,6 +323,7 @@ public class MainActivity extends AppCompatActivity {
                         mTxtState.append("\n剩余空间：" + ramSize);
                         mTxtState.append("\n剩余电量：" + battery);
                         mTxtState.append("\n生命周期：" + lifeCycle);
+                        mTxtState.append("\nsn：" + sn);
                         pd.cancel();
                     }
                 });
