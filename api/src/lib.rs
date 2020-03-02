@@ -23,6 +23,10 @@ pub mod wallet_handler;
 #[macro_use]
 extern crate failure;
 
+#[macro_use]
+extern crate log;
+
+
 use crate::error_handling::{landingpad, Result, LAST_BACKTRACE, LAST_ERROR};
 
 //#[macro_use]

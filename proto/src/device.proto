@@ -45,10 +45,21 @@ message SeAction {
     string sdk_version = 4;
 }
 
+message AvailableAppBean {
+    string app_logo = 1;
+    string install_mode = 2;
+    string installed_version = 3;
+    string instance_aid = 4;
+    string last_updated = 5;
+    string latest_version = 6;
+}
+
 message SeQueryResponse {
     string se_id = 1;
     string next_stepkey = 2;
-    repeated string apdu_list = 3;
+    string sn = 3;
+    string sdk_mode = 4;
+    repeated AvailableAppBean available_app_bean_list = 5;
 }
 
 message SeQueryServiceResponse {
@@ -80,6 +91,14 @@ message BindDisplayResponse {
 //name related
 message DeviceName {
     string ble_name = 1;
+}
+
+message GetSnResponse {
+    string sn = 1;
+}
+
+message ApduResponse {
+    string result = 1;
 }
 
 message Test{

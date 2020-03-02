@@ -62,13 +62,32 @@ pub struct SeAction {
     pub sdk_version: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AvailableAppBean {
+    #[prost(string, tag="1")]
+    pub app_logo: std::string::String,
+    #[prost(string, tag="2")]
+    pub install_mode: std::string::String,
+    #[prost(string, tag="3")]
+    pub installed_version: std::string::String,
+    #[prost(string, tag="4")]
+    pub instance_aid: std::string::String,
+    #[prost(string, tag="5")]
+    pub last_updated: std::string::String,
+    #[prost(string, tag="6")]
+    pub latest_version: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SeQueryResponse {
     #[prost(string, tag="1")]
     pub se_id: std::string::String,
     #[prost(string, tag="2")]
     pub next_stepkey: std::string::String,
-    #[prost(string, repeated, tag="3")]
-    pub apdu_list: ::std::vec::Vec<std::string::String>,
+    #[prost(string, tag="3")]
+    pub sn: std::string::String,
+    #[prost(string, tag="4")]
+    pub sdk_mode: std::string::String,
+    #[prost(message, repeated, tag="5")]
+    pub available_app_bean_list: ::std::vec::Vec<AvailableAppBean>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SeQueryServiceResponse {
@@ -110,7 +129,17 @@ pub struct DeviceName {
     pub ble_name: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Testtttt {
+pub struct GetSnResponse {
+    #[prost(string, tag="1")]
+    pub sn: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ApduResponse {
+    #[prost(string, tag="1")]
+    pub result: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Test {
     #[prost(string, tag="1")]
     pub tt: std::string::String,
 }

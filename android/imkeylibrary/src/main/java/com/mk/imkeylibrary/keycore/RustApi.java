@@ -5,6 +5,7 @@ import com.sun.jna.Library;
 import com.sun.jna.Native;
 
 public interface RustApi extends Library{
+
     RustApi INSTANCE = (RustApi) Native.load("connector",RustApi.class);
 
     String get_seid();
@@ -17,4 +18,5 @@ public interface RustApi extends Library{
     void init();
 
     void check_update();
+    String call_tcx_api(String value);
 }
