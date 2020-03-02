@@ -67,9 +67,35 @@ public class DeviceManager {
         Apdu.checkResponse(res);
         return Apdu.getResponseData(res);*/
 
-        String seid = RustApi.INSTANCE.get_seid();
+        /*String seid = RustApi.INSTANCE.get_seid();
         seid = seid.substring(0, seid.length()-4);
+        return seid;*/
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("get_seid")
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        String seid = null;
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            seid = response.getResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return seid;
+
     }
 
     public String getSn() {
@@ -101,8 +127,8 @@ public class DeviceManager {
         String sn = null;
         try {
             String sn_result = RustApi.INSTANCE.call_tcx_api(hex);
-            Device.GetSnResponse response = Device.GetSnResponse.parseFrom(ByteUtil.hexStringToByteArray(sn_result));
-            sn = response.getSn();
+            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(sn_result));
+            sn = response.getResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -114,8 +140,32 @@ public class DeviceManager {
     }
 
     public int getRamSize() {
-        String res = Ble.getInstance().sendApdu(Constants.APDU_GET_RAM_SIZE);
-        Apdu.checkResponse(res);
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("get_ram_size")
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        String res = null;
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            res = response.getResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*String res = Ble.getInstance().sendApdu(Constants.APDU_GET_RAM_SIZE);
+        Apdu.checkResponse(res);*/
         String hexSize = res.substring(4,8);
         return Integer.parseInt(hexSize,16);
     }
@@ -126,9 +176,34 @@ public class DeviceManager {
      */
     public String getFirmwareVersion() {
 
-        Ble.getInstance().sendApdu(Constants.APDU_SELECT_ISD);
-        String res = Ble.getInstance().sendApdu(Constants.APDU_GET_COS_VERSION);
-        Apdu.checkResponse(res);
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("get_firmware_version")
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        String res = null;
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            res = response.getResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        /*Ble.getInstance().sendApdu(Constants.APDU_SELECT_ISD);
+        String res = Ble.getInstance().sendApdu(Constants.APDU_GET_COS_VERSION);*/
+        //Apdu.checkResponse(res);
 
         String version = Apdu.getResponseData(res);
         StringBuffer sb = new StringBuffer();
@@ -147,11 +222,35 @@ public class DeviceManager {
      */
     public String getBatteryPower() {
 
-        Ble.getInstance().sendApdu(Constants.APDU_SELECT_ISD);
-        String res = Ble.getInstance().sendApdu(Constants.APDU_GET_BATTERY_POWER);
-        Apdu.checkResponse(res);
-        String batteryPower = Apdu.getResponseData(res);
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("get_battery_power")
+                .build();
 
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        String res = null;
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            res = response.getResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*Ble.getInstance().sendApdu(Constants.APDU_SELECT_ISD);
+        String res = Ble.getInstance().sendApdu(Constants.APDU_GET_BATTERY_POWER);*/
+        //Apdu.checkResponse(res);
+        //String batteryPower = Apdu.getResponseData(res);
+
+        String batteryPower = res;
         if (!batteryPower.equals(Constants.BATTERY_CHARGING_SIGN)) {
             batteryPower = String.valueOf(Integer.parseInt(batteryPower, 16));
         }
@@ -165,10 +264,33 @@ public class DeviceManager {
      */
     public String getLifeTime() {
 
-        String res = Ble.getInstance().sendApdu(Constants.APDU_GET_LIFE_TIME);
-        Apdu.checkResponse(res);
-        String lifeTime = Apdu.getResponseData(res);
-        switch (lifeTime) {
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("get_life_time")
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        String res = null;
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            res = response.getResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*String res = Ble.getInstance().sendApdu(Constants.APDU_GET_LIFE_TIME);
+        Apdu.checkResponse(res);*/
+        //String lifeTime = Apdu.getResponseData(res);
+        switch (res) {
             case "80":
                 return Constants.LIFE_TIME_DEVICE_INITED;
             case "89":
@@ -190,11 +312,34 @@ public class DeviceManager {
 
     public String getBleName() {
 
-        String result = Ble.getInstance().sendApdu(Constants.APDU_GET_BLE_NAME);
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("get_life_time")
+                .build();
 
-        byte[] bytes = ByteUtil.hexStringToByteArray(result);
-        result = new String(bytes);
-        return result;
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        String res = null;
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            res = response.getResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*String result = Ble.getInstance().sendApdu(Constants.APDU_GET_BLE_NAME);*/
+
+        byte[] bytes = ByteUtil.hexStringToByteArray(res);
+        res = new String(bytes);
+        return res;
     }
 
     public void setBleName(String bleName) {
@@ -213,10 +358,35 @@ public class DeviceManager {
      * @return
      */
     public String getBleVersion() {
-        Ble.getInstance().sendApdu(Constants.APDU_SELECT_ISD);
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("get_ble_version")
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        String res = null;
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            res = response.getResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        /*Ble.getInstance().sendApdu(Constants.APDU_SELECT_ISD);
         String result = Ble.getInstance().sendApdu(Constants.APDU_GET_BLE_VERSION);
-        Apdu.checkResponse(result);
-        String version = result.substring(0, 4);
+        Apdu.checkResponse(result);*/
+        String version = res.substring(0, 4);
         String[] chas = version.split("");
         return chas[1] + "." + chas[2] + "." + chas[3] + chas[4];
     }
@@ -242,7 +412,7 @@ public class DeviceManager {
                 .build();
 
         api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("se_query")
+                .setAction("se_secure_check")
                 .setParam(any)
                 .build();
 
@@ -258,9 +428,9 @@ public class DeviceManager {
 
         try {
             String result = RustApi.INSTANCE.call_tcx_api(hex);
-            Device.SeQueryResponse response = Device.SeQueryResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
-            String s = response.toString();
-            LogUtil.d(s);
+            //Device.SeQueryResponse response = Device.SeQueryResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            //String s = response.toString();
+            LogUtil.d(result);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -303,6 +473,44 @@ public class DeviceManager {
 
     public void activeDevice() {
 
+        String seid = getSeId();
+        String sn = getSn();
+
+        deviceapi.Device.SeAction seAction = deviceapi.Device.SeAction.newBuilder()
+                .setSeId(seid)
+                .setSn(sn)
+                .setSdkVersion(Constants.version)
+                .build();
+
+        Any any = Any.newBuilder()
+                .setValue(seAction.toByteString())
+                .build();
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("se_activate")
+                .setParam(any)
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            //Device.SeQueryResponse response = Device.SeQueryResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            //String s = response.toString();
+            LogUtil.d(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*
         String seId = getSeId();
         String sn = getSn();
 
@@ -329,13 +537,50 @@ public class DeviceManager {
             } else {
                 throw new ImkeyException(Messages.IMKEY_TSM_SERVER_ERROR + "_" + returnCode);
             }
-        }
+        }*/
 
     }
 
-    public ImKeyDevice checkUpdate() {
+    public String checkUpdate() {
 
-        ImKeyDevice imKeyDevice = new ImKeyDevice();
+        String seid = getSeId();
+        String sn = getSn();
+
+        deviceapi.Device.SeAction seAction = deviceapi.Device.SeAction.newBuilder()
+                .setSeId(seid)
+                .setSn(sn)
+                .setSdkVersion(Constants.version)
+                .build();
+
+        Any any = Any.newBuilder()
+                .setValue(seAction.toByteString())
+                .build();
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("se_query")
+                .setParam(any)
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        Device.SeQueryServiceResponse response = null;
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            response = Device.SeQueryServiceResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response.toString();
+
+        /*ImKeyDevice imKeyDevice = new ImKeyDevice();
         String seId = getSeId();
         String sn = getSn();
 
@@ -371,11 +616,48 @@ public class DeviceManager {
         } else {
             throw new ImkeyException(Messages.IMKEY_TSM_SERVER_ERROR + "_" + returnCode);
         }
-        return imKeyDevice;
+        return imKeyDevice;*/
     }
 
     public void download(String appletName) {
 
+        String seid = getSeId();
+        String sn = getSn();
+
+        deviceapi.Device.SeAction seAction = deviceapi.Device.SeAction.newBuilder()
+                .setSeId(seid)
+                .setSn(sn)
+                .setSdkVersion(Constants.version)
+                .build();
+
+        Any any = Any.newBuilder()
+                .setValue(seAction.toByteString())
+                .build();
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("app_download")
+                .setParam(any)
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            //Device.SeQueryResponse response = Device.SeQueryResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            //String s = response.toString();
+            LogUtil.d(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        /*
         String seId = getSeId();
 
         AppDownloadRequest request = new AppDownloadRequest();
@@ -404,12 +686,49 @@ public class DeviceManager {
             } else {
                 throw new ImkeyException(Messages.IMKEY_TSM_SERVER_ERROR + "_" + returnCode);
             }
-        }
+        }*/
 
     }
 
     public void update(String appletName) {
 
+        String seid = getSeId();
+        String sn = getSn();
+
+        deviceapi.Device.SeAction seAction = deviceapi.Device.SeAction.newBuilder()
+                .setSeId(seid)
+                .setSn(sn)
+                .setSdkVersion(Constants.version)
+                .build();
+
+        Any any = Any.newBuilder()
+                .setValue(seAction.toByteString())
+                .build();
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("app_update")
+                .setParam(any)
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            //Device.SeQueryResponse response = Device.SeQueryResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            //String s = response.toString();
+            LogUtil.d(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        /*
         String seId = getSeId();
 
         AppUpdateRequest request = new AppUpdateRequest();
@@ -438,12 +757,49 @@ public class DeviceManager {
             } else {
                 throw new ImkeyException(Messages.IMKEY_TSM_SERVER_ERROR + "_" + returnCode);
             }
-        }
+        }*/
 
     }
 
     public void delete(String appletName) {
 
+        String seid = getSeId();
+        String sn = getSn();
+
+        deviceapi.Device.SeAction seAction = deviceapi.Device.SeAction.newBuilder()
+                .setSeId(seid)
+                .setSn(sn)
+                .setSdkVersion(Constants.version)
+                .build();
+
+        Any any = Any.newBuilder()
+                .setValue(seAction.toByteString())
+                .build();
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("app_delete")
+                .setParam(any)
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            //Device.SeQueryResponse response = Device.SeQueryResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            //String s = response.toString();
+            LogUtil.d(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        /*
         String seId = getSeId();
 
         AppDeleteRequest request = new AppDeleteRequest();
@@ -472,7 +828,7 @@ public class DeviceManager {
             } else {
                 throw new ImkeyException(Messages.IMKEY_TSM_SERVER_ERROR + "_" + returnCode);
             }
-        }
+        }*/
 
     }
 
