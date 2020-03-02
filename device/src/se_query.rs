@@ -2,10 +2,6 @@ use common::constants::{TSM_ACTION_SE_QUERY, TSM_RETURN_CODE_SUCCESS};
 use common::{error::ImkeyError, https};
 use serde::{Deserialize, Serialize};
 
-extern crate android_logger;
-use log::Level;
-use android_logger::Config;
-
 #[derive(Debug, Serialize, Deserialize)]
 pub struct se_query_request {
     pub seid: String,
@@ -67,12 +63,6 @@ impl se_query_request {
             serde_json::from_str(response_data.ok().unwrap().as_str().clone())
                 .expect("imkey message seriailize error");
         println!("反馈报文：{:#?}", return_bean);
-        android_logger::init_once(
-            Config::default().with_min_level(Level::Trace),
-        );
-
-        info!("se_query this is a debug {:#?}", return_bean);
-        //info!("se_query this is a debug {:#?}", return_bean);
 
         if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
             //判断步骤key是否已经结束
