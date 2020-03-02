@@ -164,8 +164,8 @@ public class DeviceManageActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    ImKeyDevice imKeyDevice = mManager.checkUpdate();
-                    LogUtil.d(imKeyDevice.toString());
+                    String result = mManager.checkUpdate();
+                    LogUtil.d(result);
                     toast("检查更新完成");
                 }catch (ImkeyException e) {
                     toast(e.getMessage());
