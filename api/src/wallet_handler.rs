@@ -5,7 +5,8 @@ use crate::cosmos_signer::sign_cosmos_transaction;
 use crate::device_manager::{
     device_activate, device_app_delete, device_app_download, device_app_update,
     device_bind_acquire, device_bind_check, device_cert_check, device_display_bind_code,
-    device_query, device_secure_check, device_store_authcode,
+    device_query, device_secure_check, device_store_authcode, get_seid, get_sn, get_ram_size,
+    get_firmware_version, get_battery_power, get_life_time, get_ble_name, set_ble_name, get_ble_version
 };
 use crate::eos_pubkey::{display_eos_pubkey, get_eos_pubkey};
 use crate::eos_signer::sign_eos_transaction;
@@ -71,7 +72,15 @@ pub fn device_manage(data: &[u8]) -> Result<Vec<u8>, Error> {
         "bind_acquire" => device_bind_acquire(&param),
         "bind_check" => device_bind_check(&param),
         "bind_display" => device_display_bind_code(&param),
-        "set_device_name" => Err(Error::DeviceOpError), //not implemeted yet
+        "get_seid" => get_seid(&param),
+        "get_sn" => get_sn(&param),
+        "get_ram_size" => get_ram_size(&param),
+        "get_firmware_version" => get_firmware_version(&param),
+        "get_battery_power" => get_battery_power(&param),
+        "get_life_time" => get_life_time(&param),
+        "get_ble_name" => get_ble_name(&param),
+        "set_ble_name" => set_ble_name(&param),
+        "get_ble_version" => get_ble_version(&param),
         _ => Err(Error::DeviceOpError),
     }
 }
