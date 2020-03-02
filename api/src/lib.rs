@@ -41,6 +41,7 @@ use mq::message;
 use device::manager;
 
 #[no_mangle]
+/*
 pub extern "C" fn rust_hello(
     to: *const c_char,
     callback: extern "C" fn(apdu: *const c_char) -> *const c_char,
@@ -60,19 +61,20 @@ pub extern "C" fn rust_hello(
         .unwrap()
         .into_raw()
 }
+*/
 
 #[no_mangle]
-pub extern "C" fn rust_hello_free(s: *mut c_char) {
+/*pub extern "C" fn rust_hello_free(s: *mut c_char) {
     unsafe {
         if s.is_null() {
             return;
         }
         CString::from_raw(s)
     };
-}
+}*/
 
 #[no_mangle]
-pub extern "C" fn get_se_id(
+/*pub extern "C" fn get_se_id(
     callback: extern "C" fn(apdu: *const c_char) -> *const c_char,
 ) -> *const c_char {
     callback(CString::new("00A4040000".to_owned()).unwrap().into_raw());
@@ -81,7 +83,7 @@ pub extern "C" fn get_se_id(
             .unwrap()
             .into_raw(),
     )
-}
+}*/
 
 // #[no_mangle]
 // pub extern "C" fn get_se_id(callback: extern "C" fn(apdu:*const c_char)->*const c_char) -> *const c_char {
