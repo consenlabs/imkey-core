@@ -9,6 +9,7 @@ use mq::message::send_apdu;
 use common::apdu::BtcApdu;
 use secp256k1::{Secp256k1, Message, Signature, PublicKey as PublicKey2, SecretKey, Error};
 use common::utility::{sha256_hash};
+use bitcoin::util::base58;
 
 /**
 utxo address verify
@@ -100,4 +101,44 @@ pub fn secp256k1_sign_verify(public : &[u8], signed : &[u8], message : &[u8]) ->
     //verify
     Ok(secp.verify(&message_obj, &sig_obj, &public_obj).is_ok())
 
+}
+
+/**
+get address version
+*/
+pub fn get_address_version(network: Network, address: &str) -> Result<u8, BtcError>{
+    //check address
+    if network == Network::Bitcoin{
+        if !address.starts_with('1') && !address.starts_with('3') {
+            return Err(BtcError::AddressTypeMismatch);
+        }
+    }else if network == Network::Testnet {
+        if !address.starts_with('m') &&
+            !address.starts_with('n') &&
+            !address.starts_with('2') {
+            return Err(BtcError::AddressTypeMismatch);
+        }
+    }else {
+        //TODO
+    }
+    //get address version
+    let address_bytes = base58::from(address).expect("base58 address convert error");
+    Ok(address_bytes.as_slice()[0])
+}
+
+#[cfg(test)]
+mod test{
+    use crate::common::get_address_version;
+    use bitcoin::Network;
+
+    #[test]
+    fn get_address_version_test(){
+        let address_version = get_address_version(Network::Bitcoin, "3CVD68V71no5jn2UZpLLq6hASpXu1jrByt");
+        if address_version.is_ok() {
+            println!("address version is : {}", address_version.ok().unwrap());
+        }else {
+            println!("get address version error");
+        }
+
+    }
 }
