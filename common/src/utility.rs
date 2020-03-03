@@ -49,6 +49,25 @@ pub fn secp256k1_sign_hash(private_key : &[u8], hash : &[u8]) -> Vec<u8>{
     secp.sign(&message_data, &secret_key).serialize_der().to_vec()
 }
 
+/**
+sign verify
+*/
+pub fn secp256k1_sign_verify(public : &[u8], signed : &[u8], message : &[u8]) -> bool{
+
+    let secp = Secp256k1::new();
+    //build public
+    let public_obj = PublicKey2::from_slice(public).expect("build publickey obj error");
+    //build message
+    let hash_result = sha256_hash(message);
+    let message_obj = Message::from_slice(hash_result.as_ref()).expect("build message obj error");
+    //build signature obj
+    let mut sig_obj = Signature::from_der(signed).expect("bild signature obj error");
+    sig_obj.normalize_s();
+    //verify
+    secp.verify(&message_obj, &sig_obj, &public_obj).is_ok()
+
+}
+
 pub fn bigint_to_byte_vec(val : i64) -> Vec<u8>{
     let mut return_data = BigInt::from(val).to_signed_bytes_be();
     while return_data.len() < 8 {
