@@ -10,6 +10,7 @@ pub enum BtcError {
     ImkeyPathIllegal,
     InvalidPublicKey,
     GetXpubError,
+    AddressTypeMismatch,
 }
 
 impl fmt::Display for BtcError {
@@ -24,6 +25,7 @@ impl fmt::Display for BtcError {
             BtcError::ImkeyPathIllegal => write!(f, "imkey_path_illegal"),
             BtcError::InvalidPublicKey => write!(f, "secp: malformed public key"),
             BtcError::GetXpubError => write!(f, "get_xpub_error"),
+            BtcError::AddressTypeMismatch => write!(f, "address_type_mismatch"),
         }
     }
 }

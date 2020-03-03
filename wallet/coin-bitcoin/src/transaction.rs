@@ -18,7 +18,7 @@ use mq::message::send_apdu;
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::Hash;
 use common::utility::{hex_to_bytes, bigint_to_byte_vec, secp256k1_sign};
-use crate::common::{address_verify, get_xpub_data, secp256k1_sign_verify};
+use crate::common::{address_verify, get_xpub_data, secp256k1_sign_verify, get_address_version};
 use bitcoin::util::psbt::serialize::Serialize;
 use device::key_manager::{KeyManager, SE_PUB_KEY, LOCL_PRI_KEY};
 use common::path::check_path_validity;
@@ -139,8 +139,12 @@ impl BtcTransaction {
         //add fee amount
         output_serialize_data.extend(bigint_to_byte_vec(self.fee));
 
-        //add address version TODO
-        output_serialize_data.extend_from_slice(hex::decode("6F").unwrap().as_slice());
+        //add address version
+        let address_version = get_address_version(network, self.to.to_string().as_str());
+        if address_version.is_err() {
+            return Err(address_version.err().unwrap());
+        }
+        output_serialize_data.push(address_version.ok().unwrap());
 
         //set 01 tag and length
         output_serialize_data.insert(0, output_serialize_data.len() as u8);
@@ -324,8 +328,12 @@ impl BtcTransaction {
         //add fee amount
         output_serialize_data.extend(bigint_to_byte_vec(self.fee));
 
-        //add address version TODO
-        output_serialize_data.extend_from_slice(hex::decode("C4").unwrap().as_slice());
+        //add address version
+        let address_version = get_address_version(network, self.to.to_string().as_str());
+        if address_version.is_err() {
+            return Err(address_version.err().unwrap());
+        }
+        output_serialize_data.push(address_version.ok().unwrap());
 
         //set 01 tag and length
         output_serialize_data.insert(0, output_serialize_data.len() as u8);
