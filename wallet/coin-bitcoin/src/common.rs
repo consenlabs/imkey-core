@@ -126,6 +126,12 @@ pub fn get_address_version(network: Network, address: &str) -> Result<u8, BtcErr
     Ok(address_bytes.as_slice()[0])
 }
 
+pub struct TxSignResult {
+    pub signature: String,
+    pub tx_hash: String,
+    pub wtx_id: String,
+}
+
 #[cfg(test)]
 mod test{
     use crate::common::get_address_version;

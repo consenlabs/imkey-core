@@ -11,7 +11,6 @@ use bitcoin::secp256k1::Secp256k1 as BitcoinSecp256k1;
 use bitcoin::blockdata::{opcodes, script::Builder};
 use bitcoin::consensus::{serialize, Encodable};
 use bitcoin_hashes::sha256d::Hash as Hash256;
-use crate::tx_signer::TxSignResult;
 use bitcoin_hashes::hex::ToHex;
 use ring::digest;
 use mq::message::send_apdu;
@@ -19,7 +18,7 @@ use bitcoin_hashes::hash160;
 use bitcoin_hashes::Hash;
 use crate::transaction::{BtcTransaction, Utxo};
 use common::utility::{hex_to_bytes, bigint_to_byte_vec, secp256k1_sign};
-use crate::common::{address_verify, get_xpub_data, secp256k1_sign_verify, get_address_version};
+use crate::common::{address_verify, get_xpub_data, secp256k1_sign_verify, get_address_version, TxSignResult};
 use bitcoin::util::psbt::serialize::Serialize;
 use device::key_manager::{KeyManager, SE_PUB_KEY, LOCL_PRI_KEY};
 use common::path::check_path_validity;
@@ -51,7 +50,6 @@ impl BtcTransaction {
         //get xpub data
         let sign_source_val = &xpub_data[..194];
         let sign_result = &xpub_data[194..];
-        println!("@@@@{:?}", sign_result);
 
         let pub_key = &sign_source_val[..130];
         let chain_code = &sign_source_val[130..];
