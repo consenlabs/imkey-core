@@ -33,6 +33,7 @@ sha1 = "0.6.0"
 rsa = "0.1.4"
 lazy_static = "1.4.0"
 regex = "1"
+failure = "0.1.6"
 log = {version = "0.4", features = ["std"]}
 
 [target.'cfg(target_os = "macos")'.dependencies]
