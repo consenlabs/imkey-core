@@ -15,6 +15,11 @@ pub mod cos_upgrade;
 #[macro_use]
 extern crate lazy_static;
 extern crate mq;
+#[macro_use]
+extern crate failure;
+
+use core::result;
+pub type Result<T> = result::Result<T, failure::Error>;
 
 #[cfg(test)]
 mod tests {

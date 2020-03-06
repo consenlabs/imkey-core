@@ -18,6 +18,8 @@ use crate::auth_code_storage::auth_code_storage_request;
 use common::constants::{IMK_AID};
 use regex::Regex;
 
+use crate::Result;
+
 pub struct DeviceManage {
     key_manager: KeyManager,
 }
@@ -29,106 +31,207 @@ impl DeviceManage {
         }
     }
 
-pub fn bind_check(&mut self, file_path: &String) -> String {
-    //获取seid
-    let seid = manager::get_se_id();
-    //获取SN号
-    let sn = manager::get_sn();
-    let sn = String::from_utf8(hex::decode(sn).unwrap()).unwrap();
-    //计算文件加密密钥
-    //        let mut temp_key_manager = KeyManager::new();
-    let mut key_manager_obj = &mut self.key_manager;
-    key_manager_obj.gen_encrypt_key(&seid, &sn);
+//    pub fn bind_check(&mut self, file_path: &String) -> String {
+//        //获取seid
+//        let seid = manager::get_se_id();
+//        //获取SN号
+//        let sn = manager::get_sn();
+//        let sn = String::from_utf8(hex::decode(sn).unwrap()).unwrap();
+//        //计算文件加密密钥
+//        //        let mut temp_key_manager = KeyManager::new();
+//        let mut key_manager_obj = &mut self.key_manager;
+//        key_manager_obj.gen_encrypt_key(&seid, &sn);
+//
+//        //获取本地密钥文件内容
+//        let ciphertext = KeyManager::get_key_file_data(file_path, &seid);
+//        let mut key_flag = false;
+//        if !ciphertext.is_empty() {
+//            key_flag = !key_manager_obj.decrypt_keys(ciphertext.as_bytes());
+//        }
+//
+//        //如果密钥文件不存在或者密钥文件里没有数据则重新生成
+//        if ciphertext.is_empty() || key_flag {
+//            //生成公私钥
+//            key_manager_obj.gen_local_keys();
+//            key_flag = true;
+//        }
+//
+//        //生成bindcheck指令
+//        let bind_check_apdu =
+//            DeviceBindingApdu::bind_check(&key_manager_obj.pub_key);
+//
+//        //发送bindcheck指令，并获取返回数据
+//        let apdu_response = send_apdu(Apdu::select_applet(IMK_AID));
+//        if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
+//            panic!("selcet imk error");
+//        }
+//        let bind_check_apdu_resp_data = send_apdu(bind_check_apdu);
+//        if !"9000".eq(&bind_check_apdu_resp_data[bind_check_apdu_resp_data.len() - 4 ..]) {
+//            panic!("bind check apdu error");
+//        }
+//
+//        //获取状态值 //状态 0x00: 未绑定  0x55: 与传入appPK绑定  0xAA：与其他appPK绑定
+//        let status: String = bind_check_apdu_resp_data.chars().take(2).collect();
+//        let se_pub_key_cert: String = bind_check_apdu_resp_data.chars().skip(2).collect();
+//        if status.eq("00") || status.eq("AA") {
+//            //验证SE证书 TODO
+//
+//            //解析SE公钥证书，获取SE公钥
+//            //82cc68ac4bd131d84d4dcfeab1bb606cae40b9be267892326f3ccfa1a0f862a1
+//            //040258df4552fbe4f1eb2b4d2ed30978511e2e3bc1f9eed02502b5ef766a98900124f8ea6965322edb80f45de48058c2b5c2cc5df57e755f9437d5d47d0d14c7d1
+//    //        let temp_se_pub_key = Vec::from_hex("04FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44").unwrap();
+//            let se_cert_str = manager::get_cert();
+//            println!("{:?}", se_cert_str);
+//            let mut index = 0;
+//            if se_cert_str.contains("7F4947B041") {
+//                index = se_cert_str.find("7F4947B041").expect("get tager index error");
+//            }else if se_cert_str.contains("7F4946B041") {
+//                index = se_cert_str.find("7F4946B041").expect("get tager index error");
+//            }else {
+//                panic!("se cert error");
+//            }
+//
+//            let temp_se_pub_key = &se_cert_str[index + 10..index + 130 + 10];
+//            let mut se_pub_key_ = SE_PUB_KEY.lock().unwrap();
+//            *se_pub_key_ = temp_se_pub_key.to_string();
+//            std::mem::drop(se_pub_key_);
+//
+//            key_manager_obj.se_pub_key = hex::decode(temp_se_pub_key).unwrap();
+//
+//            //协商会话密钥
+//            let pk2 = PublicKey::from_slice(key_manager_obj.se_pub_key.as_slice()).expect("generator public key error");
+//            let sk1 = SecretKey::from_slice(key_manager_obj.pri_key.as_slice()).expect("generator private key error");
+//            let expect_result: [u8; 64] = [123; 64];
+//            let mut x_out = [0u8; 32];
+//            let mut y_out = [0u8; 32];
+//    //        SharedSecret
+//            let result = SharedSecret::new_with_hash(&pk2, &sk1, | x, y | {
+//                x_out = x;
+//                y_out = y;
+//                expect_result.into()
+//            }).unwrap();
+//            let sha1_result = Sha1::from(&x_out[..]).digest().bytes();
+//
+//            //设置session key
+//            key_manager_obj.session_key = sha1_result[..16].to_vec();
+//
+//            //保存密钥到本地文件
+//            if key_flag {
+//                let ciphertext = key_manager_obj.encrypt_data();
+//                KeyManager::save_keys_to_local_file(&ciphertext, file_path, &seid);
+//            }
+//        }
+//        if status.eq("00") {
+//            return "unbound".to_string();
+//        }else if status.eq("55") {
+//            return "bound_this".to_string();
+//        }else if status.eq("AA") {
+//            return "bound_other".to_string()
+//        }else {
+//            panic!("bind check status error");
+//        }
+//    }
 
-    //获取本地密钥文件内容
-    let ciphertext = KeyManager::get_key_file_data(file_path, &seid);
-    let mut key_flag = false;
-    if !ciphertext.is_empty() {
-        key_flag = !key_manager_obj.decrypt_keys(ciphertext.as_bytes());
-    }
+    pub fn bind_check(&mut self, file_path: &String) -> Result<String> {
+        //获取seid
+        let seid = manager::get_se_id();
+        //获取SN号
+        let sn = manager::get_sn();
+        let sn = String::from_utf8(hex::decode(sn).unwrap()).unwrap();
+        //计算文件加密密钥
+        //        let mut temp_key_manager = KeyManager::new();
+        let mut key_manager_obj = &mut self.key_manager;
+        key_manager_obj.gen_encrypt_key(&seid, &sn);
 
-    //如果密钥文件不存在或者密钥文件里没有数据则重新生成
-    if ciphertext.is_empty() || key_flag {
-        //生成公私钥
-        key_manager_obj.gen_local_keys();
-        key_flag = true;
-    }
+        //获取本地密钥文件内容
+        let ciphertext = KeyManager::get_key_file_data(file_path, &seid);
+        let mut key_flag = false;
+        if !ciphertext.is_empty() {
+            key_flag = !key_manager_obj.decrypt_keys(ciphertext.as_bytes());
+        }
 
-    //生成bindcheck指令
-    let bind_check_apdu =
-        DeviceBindingApdu::bind_check(&key_manager_obj.pub_key);
+        //如果密钥文件不存在或者密钥文件里没有数据则重新生成
+        if ciphertext.is_empty() || key_flag {
+            //生成公私钥
+            key_manager_obj.gen_local_keys();
+            key_flag = true;
+        }
 
-    //发送bindcheck指令，并获取返回数据
-    let apdu_response = send_apdu(Apdu::select_applet(IMK_AID));
-    if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
-        panic!("selcet imk error");
-    }
-    let bind_check_apdu_resp_data = send_apdu(bind_check_apdu);
-    if !"9000".eq(&bind_check_apdu_resp_data[bind_check_apdu_resp_data.len() - 4 ..]) {
-        panic!("bind check apdu error");
-    }
+        //生成bindcheck指令
+        let bind_check_apdu =
+            DeviceBindingApdu::bind_check(&key_manager_obj.pub_key);
 
-    //获取状态值 //状态 0x00: 未绑定  0x55: 与传入appPK绑定  0xAA：与其他appPK绑定
-    let status: String = bind_check_apdu_resp_data.chars().take(2).collect();
-    let se_pub_key_cert: String = bind_check_apdu_resp_data.chars().skip(2).collect();
-    if status.eq("00") || status.eq("AA") {
-        //验证SE证书 TODO
+        //发送bindcheck指令，并获取返回数据
+        let apdu_response = send_apdu(Apdu::select_applet(IMK_AID));
+        if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
+            panic!("selcet imk error");
+        }
+        let bind_check_apdu_resp_data = send_apdu(bind_check_apdu);
+        if !"9000".eq(&bind_check_apdu_resp_data[bind_check_apdu_resp_data.len() - 4 ..]) {
+            panic!("bind check apdu error");
+        }
 
-        //解析SE公钥证书，获取SE公钥
-        //82cc68ac4bd131d84d4dcfeab1bb606cae40b9be267892326f3ccfa1a0f862a1
-        //040258df4552fbe4f1eb2b4d2ed30978511e2e3bc1f9eed02502b5ef766a98900124f8ea6965322edb80f45de48058c2b5c2cc5df57e755f9437d5d47d0d14c7d1
+        //获取状态值 //状态 0x00: 未绑定  0x55: 与传入appPK绑定  0xAA：与其他appPK绑定
+        let status: String = bind_check_apdu_resp_data.chars().take(2).collect();
+        let se_pub_key_cert: String = bind_check_apdu_resp_data.chars().skip(2).collect();
+        if status.eq("00") || status.eq("AA") {
+            //验证SE证书 TODO
+
+            //解析SE公钥证书，获取SE公钥
+            //82cc68ac4bd131d84d4dcfeab1bb606cae40b9be267892326f3ccfa1a0f862a1
+            //040258df4552fbe4f1eb2b4d2ed30978511e2e3bc1f9eed02502b5ef766a98900124f8ea6965322edb80f45de48058c2b5c2cc5df57e755f9437d5d47d0d14c7d1
 //        let temp_se_pub_key = Vec::from_hex("04FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44").unwrap();
-        let se_cert_str = manager::get_cert();
-        println!("{:?}", se_cert_str);
-        let mut index = 0;
-        if se_cert_str.contains("7F4947B041") {
-            index = se_cert_str.find("7F4947B041").expect("get tager index error");
-        }else if se_cert_str.contains("7F4946B041") {
-            index = se_cert_str.find("7F4946B041").expect("get tager index error");
-        }else {
-            panic!("se cert error");
-        }
+            let se_cert_str = manager::get_cert();
+            println!("{:?}", se_cert_str);
+            let mut index = 0;
+            if se_cert_str.contains("7F4947B041") {
+                index = se_cert_str.find("7F4947B041").expect("get tager index error");
+            }else if se_cert_str.contains("7F4946B041") {
+                index = se_cert_str.find("7F4946B041").expect("get tager index error");
+            }else {
+                panic!("se cert error");
+            }
 
-        let temp_se_pub_key = &se_cert_str[index + 10..index + 130 + 10];
-        let mut se_pub_key_ = SE_PUB_KEY.lock().unwrap();
-        *se_pub_key_ = temp_se_pub_key.to_string();
-        std::mem::drop(se_pub_key_);
+            let temp_se_pub_key = &se_cert_str[index + 10..index + 130 + 10];
+            let mut se_pub_key_ = SE_PUB_KEY.lock().unwrap();
+            *se_pub_key_ = temp_se_pub_key.to_string();
+            std::mem::drop(se_pub_key_);
 
-        key_manager_obj.se_pub_key = hex::decode(temp_se_pub_key).unwrap();
+            key_manager_obj.se_pub_key = hex::decode(temp_se_pub_key).unwrap();
 
-        //协商会话密钥
-        let pk2 = PublicKey::from_slice(key_manager_obj.se_pub_key.as_slice()).expect("generator public key error");
-        let sk1 = SecretKey::from_slice(key_manager_obj.pri_key.as_slice()).expect("generator private key error");
-        let expect_result: [u8; 64] = [123; 64];
-        let mut x_out = [0u8; 32];
-        let mut y_out = [0u8; 32];
+            //协商会话密钥
+            let pk2 = PublicKey::from_slice(key_manager_obj.se_pub_key.as_slice()).expect("generator public key error");
+            let sk1 = SecretKey::from_slice(key_manager_obj.pri_key.as_slice()).expect("generator private key error");
+            let expect_result: [u8; 64] = [123; 64];
+            let mut x_out = [0u8; 32];
+            let mut y_out = [0u8; 32];
 //        SharedSecret
-        let result = SharedSecret::new_with_hash(&pk2, &sk1, | x, y | {
-            x_out = x;
-            y_out = y;
-            expect_result.into()
-        }).unwrap();
-        let sha1_result = Sha1::from(&x_out[..]).digest().bytes();
+            let result = SharedSecret::new_with_hash(&pk2, &sk1, | x, y | {
+                x_out = x;
+                y_out = y;
+                expect_result.into()
+            }).unwrap();
+            let sha1_result = Sha1::from(&x_out[..]).digest().bytes();
 
-        //设置session key
-        key_manager_obj.session_key = sha1_result[..16].to_vec();
+            //设置session key
+            key_manager_obj.session_key = sha1_result[..16].to_vec();
 
-        //保存密钥到本地文件
-        if key_flag {
-            let ciphertext = key_manager_obj.encrypt_data();
-            KeyManager::save_keys_to_local_file(&ciphertext, file_path, &seid);
+            //保存密钥到本地文件
+            if key_flag {
+                let ciphertext = key_manager_obj.encrypt_data();
+                KeyManager::save_keys_to_local_file(&ciphertext, file_path, &seid);
+            }
+        }
+        if status.eq("00") {
+            return Ok("unbound".to_string());
+        }else if status.eq("55") {
+            return Ok("bound_this".to_string());
+        }else if status.eq("AA") {
+            return Ok("bound_other".to_string());
+        }else {
+            panic!("bind check status error");
         }
     }
-    if status.eq("00") {
-        return "unbound".to_string();
-    }else if status.eq("55") {
-        return "bound_this".to_string();
-    }else if status.eq("AA") {
-        return "bound_other".to_string()
-    }else {
-        panic!("bind check status error");
-    }
-}
 
     pub fn bind_acquire(&self, binding_code: &String) -> String {
         let temp_binding_code = binding_code.to_uppercase();
