@@ -1,5 +1,5 @@
-//pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
-pub const URL: &str = "http://localhost:8080/imkey/";
+pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
+//pub const URL: &str = "http://localhost:8080/imkey/";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
 pub const TSM_ACTION_APP_DOWNLOAD: &str = "/appDownload";
@@ -10,8 +10,6 @@ pub const TSM_ACTION_SE_QUERY: &str = "/seInfoQuery";
 pub const TSM_ACTION_AUTHCODE_STORAGE: &str = "/authCodeStorage";
 pub const TSM_ACTION_DEVICE_CERT_CHECK: &str = "/deviceCertCheck";
 pub const TSM_ACTION_COS_UPGRADE: &str = "/seCosUpdate";
-
-pub const TSM_RETURN_CODE_SUCCESS: &str = "000000";
 
 //apud related constant
 pub const LC_MAX: u32 = 245;
@@ -33,3 +31,11 @@ pub const MAX_UTXO_NUMBER: usize = 252;
 pub const EACH_ROUND_NUMBER: usize = 5;
 pub const DUST_THRESHOLD: i64 = 2730;
 pub const MIN_NONDUST_OUTPUT: i64 = 546;
+
+// imkey device status
+pub const IMKEY_DEV_STATUS_INACTIVATED: &str = "inactivated";
+pub const IMKEY_DEV_STATUS_LATEST: &str = "latest";
+
+// tsm return code
+pub const TSM_RETURN_CODE_SUCCESS: &str = "000000";
+pub const TSM_RETURNCODE_DEV_INACTIVATED : &str = "BSE0007";

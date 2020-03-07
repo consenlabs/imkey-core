@@ -5,13 +5,7 @@ pub struct EmptyResponse {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AppAction {
     #[prost(string, tag="1")]
-    pub se_id: std::string::String,
-    #[prost(string, tag="2")]
-    pub instance_aid: std::string::String,
-    #[prost(string, tag="3")]
-    pub device_cert: std::string::String,
-    #[prost(string, tag="4")]
-    pub sdk_version: std::string::String,
+    pub app_name: std::string::String,
 }
 ///for device cert related
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -60,21 +54,6 @@ pub struct SeAction {
     pub device_cert: std::string::String,
     #[prost(string, tag="4")]
     pub sdk_version: std::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AvailableAppBean {
-    #[prost(string, tag="1")]
-    pub app_logo: std::string::String,
-    #[prost(string, tag="2")]
-    pub install_mode: std::string::String,
-    #[prost(string, tag="3")]
-    pub installed_version: std::string::String,
-    #[prost(string, tag="4")]
-    pub instance_aid: std::string::String,
-    #[prost(string, tag="5")]
-    pub last_updated: std::string::String,
-    #[prost(string, tag="6")]
-    pub latest_version: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SeQueryResponse {
@@ -142,4 +121,43 @@ pub struct ApduResponse {
 pub struct Test {
     #[prost(string, tag="1")]
     pub tt: std::string::String,
+}
+/// check_update api
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CheckUpdateResponse {
+    #[prost(string, tag="1")]
+    pub se_id: std::string::String,
+    #[prost(string, tag="2")]
+    pub sn: std::string::String,
+    #[prost(string, tag="3")]
+    pub status: std::string::String,
+    #[prost(string, tag="4")]
+    pub sdk_mode: std::string::String,
+    #[prost(message, repeated, tag="5")]
+    pub available_app_list: ::std::vec::Vec<AvailableAppBean>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AvailableAppBean {
+    #[prost(string, tag="1")]
+    pub app_name: std::string::String,
+    #[prost(string, tag="2")]
+    pub app_logo: std::string::String,
+    #[prost(string, tag="3")]
+    pub installed_version: std::string::String,
+    #[prost(string, tag="4")]
+    pub last_updated: std::string::String,
+    #[prost(string, tag="5")]
+    pub latest_version: std::string::String,
+    #[prost(string, tag="6")]
+    pub install_mode: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SdkInfoResponse {
+    #[prost(string, tag="1")]
+    pub sdk_version: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BleAction {
+    #[prost(string, tag="1")]
+    pub ble_name: std::string::String,
 }
