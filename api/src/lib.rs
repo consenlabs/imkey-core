@@ -1,5 +1,5 @@
-use crate::api::TcxAction;
-use crate::wallet_handler::{device_manage, get_address, register_coin, sign_tx};
+use crate::api::{TcxAction, Response};
+use crate::wallet_handler::{device_manage, get_address, register_coin, sign_tx, encode_message};
 use common::error::Error;
 use prost::Message;
 use std::ffi::{CStr, CString};
@@ -168,4 +168,33 @@ pub unsafe extern "C" fn call_tcx_api(hex_str: *const c_char) -> *const c_char {
 
     let ret_str = hex::encode(reply);
     CString::new(ret_str).unwrap().into_raw()
+}
+
+
+#[no_mangle]
+pub unsafe extern "C" fn clear_err() {
+    LAST_ERROR.with(|e| {
+        *e.borrow_mut() = None;
+    });
+    LAST_BACKTRACE.with(|e| {
+        *e.borrow_mut() = None;
+    });
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn get_last_err_message() -> *const c_char {
+    LAST_ERROR.with(|e| {
+        if let Some(ref err) = *e.borrow() {
+            let rsp = Response {
+                is_success: false,
+                error: err.to_string(),
+            };
+            // eprintln!("{:#?}", rsp);
+            let rsp_bytes = encode_message(rsp).expect("encode error");
+            let ret_str = hex::encode(rsp_bytes);
+            CString::new(ret_str).unwrap().into_raw()
+        } else {
+            CString::new("").unwrap().into_raw()
+        }
+    })
 }
