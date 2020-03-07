@@ -6,10 +6,7 @@ message EmptyResponse {
 
 //for app download, update, delete and so on
 message AppAction {
-    string se_id = 1;
-    string instance_aid = 2;
-    string device_cert = 3;
-    string sdk_version = 4;
+    string app_name = 1;
 }
 
 //for device cert related
@@ -43,15 +40,6 @@ message SeAction {
     string sn = 2;
     string device_cert = 3;
     string sdk_version = 4;
-}
-
-message AvailableAppBean {
-    string app_logo = 1;
-    string install_mode = 2;
-    string installed_version = 3;
-    string instance_aid = 4;
-    string last_updated = 5;
-    string latest_version = 6;
 }
 
 message SeQueryResponse {
@@ -103,4 +91,30 @@ message ApduResponse {
 
 message Test{
     string tt = 1;
+}
+
+// check_update api
+message CheckUpdateResponse {
+    string se_id = 1;
+    string sn = 2;
+    string status = 3;
+    string sdk_mode = 4;
+    repeated AvailableAppBean available_app_list = 5;
+}
+
+message AvailableAppBean {
+    string app_name = 1;
+    string app_logo = 2;
+    string installed_version = 3;
+    string last_updated = 4;
+    string latest_version = 5;
+    string install_mode = 6;
+}
+
+message SdkInfoResponse {
+    string sdk_version = 1;
+}
+
+message BleAction {
+    string ble_name = 1;
 }

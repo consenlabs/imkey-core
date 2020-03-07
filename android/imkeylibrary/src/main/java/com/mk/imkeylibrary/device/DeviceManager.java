@@ -133,7 +133,8 @@ public class DeviceManager {
             e.printStackTrace();
         }
 
-        sn = new String(ByteUtil.hexStringToByteArray(sn));
+        //sn = new String(ByteUtil.hexStringToByteArray(sn));
+
         return sn;
 
 
@@ -192,6 +193,7 @@ public class DeviceManager {
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         String res = null;
+        String version = null;
         try {
             String result = RustApi.INSTANCE.call_tcx_api(hex);
             Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
@@ -205,13 +207,13 @@ public class DeviceManager {
         String res = Ble.getInstance().sendApdu(Constants.APDU_GET_COS_VERSION);*/
         //Apdu.checkResponse(res);
 
-        String version = Apdu.getResponseData(res);
+        //String version = Apdu.getResponseData(res);
         StringBuffer sb = new StringBuffer();
-        sb.append(version.substring(0, 1));
+        sb.append(res.substring(0, 1));
         sb.append('.');
-        sb.append(version.substring(1, 2));
+        sb.append(res.substring(1, 2));
         sb.append('.');
-        sb.append(version.substring(2));
+        sb.append(res.substring(2));
         return sb.toString();
     }
 
@@ -313,7 +315,7 @@ public class DeviceManager {
     public String getBleName() {
 
         api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("get_life_time")
+                .setAction("get_ble_name")
                 .build();
 
         Any any2 = Any.newBuilder()
@@ -335,7 +337,7 @@ public class DeviceManager {
             e.printStackTrace();
         }
 
-        /*String result = Ble.getInstance().sendApdu(Constants.APDU_GET_BLE_NAME);*/
+        //String result = Ble.getInstance().sendApdu(Constants.APDU_GET_BLE_NAME);
 
         byte[] bytes = ByteUtil.hexStringToByteArray(res);
         res = new String(bytes);
@@ -348,9 +350,47 @@ public class DeviceManager {
         if(!Pattern.matches(regEx, bleName)) {
             throw new ImkeyException(Messages.IMKEY_SDK_ILLEGAL_ARGUMENT);
         }
-        String apdu = Apdu.setBleName(bleName);
+
+//        String apdu = Apdu.setBleName(bleName);
+//        String result = Ble.getInstance().sendApdu(apdu);
+
+        deviceapi.Device.BleAction bleAction = deviceapi.Device.BleAction.newBuilder()
+                .setBleName(bleName)
+                .build();
+
+        Any any = Any.newBuilder()
+                .setValue(bleAction.toByteString())
+                .build();
+
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("set_ble_name")
+                .setParam(any)
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            //Device.SeQueryResponse response = Device.SeQueryResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            //String s = response.toString();
+            LogUtil.d(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        /*String apdu = Apdu.setBleName(bleName);
         String result = Ble.getInstance().sendApdu(apdu);
-        Apdu.checkResponse(result);
+        Apdu.checkResponse(result);*/
     }
 
     /**
@@ -398,22 +438,9 @@ public class DeviceManager {
 
     public void checkDevice() {
 
-        String seid = getSeId();
-        String sn = getSn();
-
-        deviceapi.Device.SeAction seAction = deviceapi.Device.SeAction.newBuilder()
-                .setSeId(seid)
-                .setSn(sn)
-                .setSdkVersion(Constants.version)
-                .build();
-
-        Any any = Any.newBuilder()
-                .setValue(seAction.toByteString())
-                .build();
 
         api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
                 .setAction("se_secure_check")
-                .setParam(any)
                 .build();
 
         Any any2 = Any.newBuilder()
@@ -447,7 +474,7 @@ public class DeviceManager {
         List<String> list = new ArrayList<>();
         request.setCardRetDataList(list);
 
-        SeSecureCheckResponse response = new SeCheck().checkSe(request);
+        SeSecureCheckResponse response = Constantsnew SeCheck().checkSe(request);
 
         // 判断处理状态
         String returnCode = response.get_ReturnCode();
@@ -473,22 +500,9 @@ public class DeviceManager {
 
     public void activeDevice() {
 
-        String seid = getSeId();
-        String sn = getSn();
-
-        deviceapi.Device.SeAction seAction = deviceapi.Device.SeAction.newBuilder()
-                .setSeId(seid)
-                .setSn(sn)
-                .setSdkVersion(Constants.version)
-                .build();
-
-        Any any = Any.newBuilder()
-                .setValue(seAction.toByteString())
-                .build();
 
         api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
                 .setAction("se_activate")
-                .setParam(any)
                 .build();
 
         Any any2 = Any.newBuilder()
@@ -543,22 +557,8 @@ public class DeviceManager {
 
     public String checkUpdate() {
 
-        String seid = getSeId();
-        String sn = getSn();
-
-        deviceapi.Device.SeAction seAction = deviceapi.Device.SeAction.newBuilder()
-                .setSeId(seid)
-                .setSn(sn)
-                .setSdkVersion(Constants.version)
-                .build();
-
-        Any any = Any.newBuilder()
-                .setValue(seAction.toByteString())
-                .build();
-
         api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("se_query")
-                .setParam(any)
+                .setAction("check_update")
                 .build();
 
         Any any2 = Any.newBuilder()
@@ -571,10 +571,10 @@ public class DeviceManager {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        Device.SeQueryServiceResponse response = null;
+        Device.CheckUpdateResponse response = null;
         try {
             String result = RustApi.INSTANCE.call_tcx_api(hex);
-            response = Device.SeQueryServiceResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            response = Device.CheckUpdateResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -621,17 +621,13 @@ public class DeviceManager {
 
     public void download(String appletName) {
 
-        String seid = getSeId();
-        String sn = getSn();
 
-        deviceapi.Device.SeAction seAction = deviceapi.Device.SeAction.newBuilder()
-                .setSeId(seid)
-                .setSn(sn)
-                .setSdkVersion(Constants.version)
+        deviceapi.Device.AppAction appAction = deviceapi.Device.AppAction.newBuilder()
+                .setAppName(appletName)
                 .build();
 
         Any any = Any.newBuilder()
-                .setValue(seAction.toByteString())
+                .setValue(appAction.toByteString())
                 .build();
 
         api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
@@ -692,17 +688,12 @@ public class DeviceManager {
 
     public void update(String appletName) {
 
-        String seid = getSeId();
-        String sn = getSn();
-
-        deviceapi.Device.SeAction seAction = deviceapi.Device.SeAction.newBuilder()
-                .setSeId(seid)
-                .setSn(sn)
-                .setSdkVersion(Constants.version)
+        deviceapi.Device.AppAction appAction = deviceapi.Device.AppAction.newBuilder()
+                .setAppName(appletName)
                 .build();
 
         Any any = Any.newBuilder()
-                .setValue(seAction.toByteString())
+                .setValue(appAction.toByteString())
                 .build();
 
         api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
@@ -763,18 +754,14 @@ public class DeviceManager {
 
     public void delete(String appletName) {
 
-        String seid = getSeId();
-        String sn = getSn();
-
-        deviceapi.Device.SeAction seAction = deviceapi.Device.SeAction.newBuilder()
-                .setSeId(seid)
-                .setSn(sn)
-                .setSdkVersion(Constants.version)
+        deviceapi.Device.AppAction appAction = deviceapi.Device.AppAction.newBuilder()
+                .setAppName(appletName)
                 .build();
 
         Any any = Any.newBuilder()
-                .setValue(seAction.toByteString())
+                .setValue(appAction.toByteString())
                 .build();
+
 
         api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
                 .setAction("app_delete")
@@ -1064,8 +1051,32 @@ public class DeviceManager {
     }
 
     public SdkInfo getSdkInfo() {
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("get_sdk_info")
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        String res = null;
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            Device.SdkInfoResponse response = Device.SdkInfoResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            res = response.getSdkVersion();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         SdkInfo sdkInfo = new SdkInfo();
-        sdkInfo.setSdkVersion(Constants.version);
+        sdkInfo.setSdkVersion(res);
         return sdkInfo;
     }
 
