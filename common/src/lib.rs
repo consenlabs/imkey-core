@@ -8,6 +8,7 @@ pub mod utility;
 pub mod eosapi;
 pub mod cosmosapi;
 pub mod ethapi;
+pub mod applet;
 
 #[cfg(test)]
 mod tests {

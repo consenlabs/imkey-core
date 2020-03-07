@@ -142,37 +142,6 @@ pub extern "C" fn set_apdu_return(apdu_return: *const c_char) {
 //    );
 //}
 
-#[no_mangle]
-pub extern "C" fn check_device() {
-    manager::check_device();
-}
-
-#[no_mangle]
-pub extern "C" fn active_device() {
-    manager::active_device();
-}
-
-#[no_mangle]
-pub extern "C" fn check_update() {
-    manager::check_update();
-}
-
-#[no_mangle]
-pub extern "C" fn app_download() {
-    manager::app_download();
-}
-
-#[no_mangle]
-pub extern "C" fn app_update() {
-    manager::app_update();
-}
-
-#[no_mangle]
-pub extern "C" fn app_delete() {
-    manager::app_delete();
-}
-
-
 /// dispatch protobuf rpc call
 /// //@@XM TODO: add in error handling
 #[no_mangle]

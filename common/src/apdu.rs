@@ -118,7 +118,16 @@ impl Apdu {
         apdu.push(0x00); //le
         hex::encode(apdu)
     }
-}
+
+    pub fn set_ble_name(ble_name: &str) -> String {
+        let ble_name_array = ble_name.as_bytes();
+        let mut apdu = Vec::new();
+        let apdu_header = ApduHeader::new(0xFF, 0xDA, 0x46, 0x54, ble_name_array.len() as u8);
+        apdu.extend(apdu_header.to_array().iter());
+        apdu.extend(ble_name_array.iter());
+        apdu.push(0x00); //Le
+        hex::encode(apdu)
+    }}
 
 pub struct EthApdu {}
 
