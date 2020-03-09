@@ -31,6 +31,7 @@ import com.mk.imkeylibrary.bluetooth.BleDevice;
 import com.mk.imkeylibrary.bluetooth.Callback.ConnectCallback;
 import com.mk.imkeylibrary.bluetooth.ErrorCode;
 import com.mk.imkeylibrary.device.DeviceManager;
+import com.mk.imkeylibrary.device.model.SdkInfo;
 import com.mk.imkeylibrary.exception.ImkeyException;
 import com.mk.imkeylibrary.keycore.Api;
 import com.mk.imkeylibrary.keycore.RustApi;
@@ -49,9 +50,10 @@ public class MainActivity extends AppCompatActivity {
     private BleDevice mDevice;//current connect device
     private DeviceManager mManager;
 
-//    static {
-//        System.loadLibrary("connector");
-//    }
+   static {
+       System.loadLibrary("crypto");
+       System.loadLibrary("ssl");
+   }
 
     public native String hello(String to);
     public native String getXPub();
@@ -125,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 //        LogUtil.installApplet();
 
 //        Api.initRustLog();
-//        Api.startMessageDeamon();
+        Api.startMessageDeamon();
 //        Api.check_update();
     }
 
@@ -313,6 +315,11 @@ public class MainActivity extends AppCompatActivity {
                 final int ramSize = mManager.getRamSize();
                 final String battery = mManager.getBatteryPower();
                 final String lifeCycle = mManager.getLifeTime();
+                final String sn = mManager.getSn();
+                final String firmwareVersion = mManager.getFirmwareVersion();
+                final String bleName = mManager.getBleName();
+                final SdkInfo sdkInfo = mManager.getSdkInfo();
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -321,6 +328,10 @@ public class MainActivity extends AppCompatActivity {
                         mTxtState.append("\n剩余空间：" + ramSize);
                         mTxtState.append("\n剩余电量：" + battery);
                         mTxtState.append("\n生命周期：" + lifeCycle);
+                        mTxtState.append("\n固件版本：" + firmwareVersion);
+                        mTxtState.append("\n蓝牙名称：" + bleName);
+                        mTxtState.append("\nSDK版本：" + sdkInfo.getSdkVersion());
+                        mTxtState.append("\nsn：" + sn);
                         pd.cancel();
                     }
                 });

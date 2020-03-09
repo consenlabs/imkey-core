@@ -2,7 +2,7 @@ use common::constants::{TSM_ACTION_COS_UPGRADE, TSM_RETURN_CODE_SUCCESS};
 use common::{error::ImkeyError, https};
 //use mq::message;
 use serde::{Deserialize, Serialize};
-use mq::message::{send_apdu, DEVICE};
+use mq::message::{send_apdu};
 use crate::manager;
 use common::utility::hex_to_bytes;
 use crate::app_download::app_download_request;
@@ -12,6 +12,7 @@ use mq::hid_api;
 #[cfg(target_os = "macos")]
 use hidapi::{HidApi, HidDevice};
 use lazy_static;
+#[cfg(target_os = "macos")]
 use mq::hid_api::{hid_connect, send};
 
 

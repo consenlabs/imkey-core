@@ -11,22 +11,25 @@ use bitcoin::secp256k1::Secp256k1 as BitcoinSecp256k1;
 use bitcoin::blockdata::{opcodes, script::Builder};
 use bitcoin::consensus::{serialize, Encodable};
 use bitcoin_hashes::sha256d::Hash as Hash256;
-use crate::tx_signer::TxSignResult;
 use bitcoin_hashes::hex::ToHex;
 use ring::digest;
 use mq::message::send_apdu;
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::Hash;
 use crate::transaction::{BtcTransaction, Utxo};
-use common::utility::{hex_to_bytes, secp256k1_sign_verify, bigint_to_byte_vec, secp256k1_sign};
-use crate::common::address_verify;
+use common::utility::{hex_to_bytes, bigint_to_byte_vec, secp256k1_sign};
+use crate::common::{address_verify, get_xpub_data, secp256k1_sign_verify, get_address_version, TxSignResult};
 use bitcoin::util::psbt::serialize::Serialize;
 use device::key_manager::{KeyManager, SE_PUB_KEY, LOCL_PRI_KEY};
+use common::path::check_path_validity;
 
 impl BtcTransaction {
     pub fn sign_omni_transaction(&self, network : Network, path : &String, property_id : i32) -> Result<TxSignResult, BtcError>{
         //path check
-
+        let check_result = check_path_validity(path);
+        if check_result.is_err() {
+            return Err(BtcError::ImkeyPathIllegal);
+        }
         //check uxto number
         if &self.unspents.len() > &MAX_UTXO_NUMBER {
             return Err(BtcError::ImkeyExceededMaxUtxoNumber);
@@ -37,20 +40,16 @@ impl BtcTransaction {
             return Err(BtcError::ImkeyAmountLessThanMinimum);
         }
 
-        //get main public key(xpub)
-        let apdu_response = send_apdu(BtcApdu::select_applet());
-        if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
-            panic!("selcet btc error");
+        //get xpub and sign data
+        let xpub_data_result = get_xpub_data(path, true);
+        if xpub_data_result.is_err() {
+            return Err(xpub_data_result.err().unwrap());
         }
-        let xpub_data = send_apdu(BtcApdu::get_xpub(path.as_str(), false));
-        if !"9000".eq(&xpub_data[xpub_data.len() - 4 ..]) {
-            panic!("get xpub apdu error");
-        }
+        let xpub_data = xpub_data_result.ok().unwrap();
         let xpub_data = &xpub_data[..xpub_data.len() - 4].to_string();
         //get xpub data
         let sign_source_val = &xpub_data[..194];
         let sign_result = &xpub_data[194..];
-        println!("@@@@{:?}", sign_result);
 
         let pub_key = &sign_source_val[..130];
         let chain_code = &sign_source_val[130..];
@@ -60,7 +59,7 @@ impl BtcTransaction {
         let sign_verify_result = secp256k1_sign_verify(hex::decode(SE_PUB_KEY.lock().unwrap().as_str()).unwrap().as_slice(),
                                                        hex::decode(sign_result).unwrap().as_slice(),
                                                        hex::decode(sign_source_val).unwrap().as_slice());
-        if !sign_verify_result {
+        if sign_verify_result.is_err() || !sign_verify_result.ok().unwrap() {
             return Err(BtcError::ImkeySignatureVerifyFail);
         }
 
@@ -122,8 +121,12 @@ impl BtcTransaction {
         output_serialize_data.extend(bigint_to_byte_vec(self.fee));
 
 
-        //添加地址版本 TODO
-        output_serialize_data.extend_from_slice(hex::decode("6F").unwrap().as_slice());
+        //添加地址版本
+        let address_version = get_address_version(network, self.to.to_string().as_str());
+        if address_version.is_err() {
+            return Err(address_version.err().unwrap());
+        }
+        output_serialize_data.push(address_version.ok().unwrap());
 
         //set 01 tag and length
         output_serialize_data.insert(0, output_serialize_data.len() as u8);
@@ -241,7 +244,10 @@ impl BtcTransaction {
 
     pub fn sign_omni_segwit_transaction(&self, network: Network, path: &String, property_id : i32) -> Result<TxSignResult, BtcError> {
         //path check
-
+        let check_result = check_path_validity(path);
+        if check_result.is_err() {
+            return Err(BtcError::ImkeyPathIllegal);
+        }
         //check uxto number
         if &self.unspents.len() > &MAX_UTXO_NUMBER {
             return Err(BtcError::ImkeyExceededMaxUtxoNumber);
@@ -252,16 +258,14 @@ impl BtcTransaction {
             return Err(BtcError::ImkeyAmountLessThanMinimum);
         }
 
-        //3.get main public key(xpub)
-        let apdu_response = send_apdu(BtcApdu::select_applet());
-        if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
-            panic!("selcet btc error");
+        //get xpub and sign data
+        let xpub_data_result = get_xpub_data(path, true);
+        if xpub_data_result.is_err() {
+            return Err(xpub_data_result.err().unwrap());
         }
-        let xpub_data = send_apdu(BtcApdu::get_xpub(path.as_str(), false));
-        if !"9000".eq(&xpub_data[xpub_data.len() - 4 ..]) {
-            panic!("get xpub apdu error");
-        }
+        let xpub_data = xpub_data_result.ok().unwrap();
         let xpub_data = &xpub_data[..xpub_data.len() - 4].to_string();
+
         //get xpub data
         let sign_source_val = &xpub_data[..194];
         let sign_result = &xpub_data[194..];
@@ -273,7 +277,7 @@ impl BtcTransaction {
         let sign_verify_result = secp256k1_sign_verify(hex::decode(SE_PUB_KEY.lock().unwrap().as_str()).unwrap().as_slice(),
                                                        hex::decode(sign_result).unwrap().as_slice(),
                                                        hex::decode(sign_source_val).unwrap().as_slice());
-        if !sign_verify_result {
+        if sign_verify_result.is_err() || !sign_verify_result.ok().unwrap() {
             return Err(BtcError::ImkeySignatureVerifyFail);
         }
 
@@ -334,8 +338,12 @@ impl BtcTransaction {
         //add fee amount
         output_serialize_data.extend(bigint_to_byte_vec(self.fee));
 
-        //添加地址版本 TODO
-        output_serialize_data.extend_from_slice(hex::decode("6F").unwrap().as_slice());
+        //添加地址版本
+        let address_version = get_address_version(network, self.to.to_string().as_str());
+        if address_version.is_err() {
+            return Err(address_version.err().unwrap());
+        }
+        output_serialize_data.push(address_version.ok().unwrap());
 
         //set 01 tag and length
         output_serialize_data.insert(0, output_serialize_data.len() as u8);
