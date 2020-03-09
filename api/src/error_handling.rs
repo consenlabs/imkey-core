@@ -2,6 +2,7 @@ use core::result;
 #[macro_use]
 use failure::{Backtrace, Error};
 use std::{cell::RefCell, mem, panic};
+use device::device_binding::DeviceManage;
 
 pub type Result<T> = result::Result<T, Error>;
 
@@ -40,5 +41,28 @@ pub unsafe fn landingpad<F: FnOnce() -> Result<T> + panic::UnwindSafe, T>(f: F) 
             notify_err(format_err!("{}", msg));
             mem::zeroed()
         }
+    }
+}
+
+pub unsafe fn error_test(){
+    let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+    let bind_code = "E4APZZRT".to_string();
+
+    landingpad(|| {
+        let mut device_manage = DeviceManage::new();
+        device_manage.bind_check(&path)
+    });
+
+}
+
+#[cfg(test)]
+mod test{
+    use crate::error_handling::{landingpad, error_test};
+    use crate::device_manager::get_seid;
+    use device::device_binding::DeviceManage;
+
+    #[test]
+    fn exception_test(){
+        unsafe {error_test()};
     }
 }

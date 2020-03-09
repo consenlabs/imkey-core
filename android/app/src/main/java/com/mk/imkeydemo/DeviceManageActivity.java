@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class DeviceManageActivity extends AppCompatActivity {
     private DeviceManager mManager;
     private int type = TYPE_BTC;
     private String appletName = Applet.BTC_NAME;
+    private EditText bleNameEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class DeviceManageActivity extends AppCompatActivity {
 
         mContext = this;
         mManager = new DeviceManager();
+
+        bleNameEdit = findViewById(R.id.edit_ble_name);
 
         pd = new ProgressDialog(this);
         pd.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -124,6 +128,9 @@ public class DeviceManageActivity extends AppCompatActivity {
                 type = TYPE_COSMOS;
                 switchApplet();
                 break;
+            case R.id.btn_set_ble_name:
+                setBleName();
+                break;
 
             default:
                 break;
@@ -164,8 +171,8 @@ public class DeviceManageActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    ImKeyDevice imKeyDevice = mManager.checkUpdate();
-                    LogUtil.d(imKeyDevice.toString());
+                    String result = mManager.checkUpdate();
+                    LogUtil.d(result);
                     toast("检查更新完成");
                 }catch (ImkeyException e) {
                     toast(e.getMessage());
@@ -267,6 +274,23 @@ public class DeviceManageActivity extends AppCompatActivity {
                     toast(e.getMessage());
                 }
                 pdCancel();
+            }
+        });
+    }
+
+    private void setBleName() {
+
+        es.execute(new Runnable() {
+            @Override
+            public void run() {
+            try {
+                String bleName = bleNameEdit.getText().toString();
+                mManager.setBleName(bleName);
+                toast("蓝牙名设置完成");
+            }catch (ImkeyException e) {
+                toast(e.getMessage());
+            }
+            pdCancel();
             }
         });
     }

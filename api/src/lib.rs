@@ -1,5 +1,5 @@
-use crate::api::TcxAction;
-use crate::wallet_handler::{device_manage, get_address, register_coin, sign_tx};
+use crate::api::{TcxAction, Response};
+use crate::wallet_handler::{device_manage, get_address, register_coin, sign_tx, encode_message};
 use common::error::Error;
 use prost::Message;
 use std::ffi::{CStr, CString};
@@ -23,6 +23,10 @@ pub mod wallet_handler;
 #[macro_use]
 extern crate failure;
 
+#[macro_use]
+extern crate log;
+
+
 use crate::error_handling::{landingpad, Result, LAST_BACKTRACE, LAST_ERROR};
 
 //#[macro_use]
@@ -37,6 +41,7 @@ use mq::message;
 use device::manager;
 
 #[no_mangle]
+/*
 pub extern "C" fn rust_hello(
     to: *const c_char,
     callback: extern "C" fn(apdu: *const c_char) -> *const c_char,
@@ -56,19 +61,20 @@ pub extern "C" fn rust_hello(
         .unwrap()
         .into_raw()
 }
+*/
 
 #[no_mangle]
-pub extern "C" fn rust_hello_free(s: *mut c_char) {
+/*pub extern "C" fn rust_hello_free(s: *mut c_char) {
     unsafe {
         if s.is_null() {
             return;
         }
         CString::from_raw(s)
     };
-}
+}*/
 
 #[no_mangle]
-pub extern "C" fn get_se_id(
+/*pub extern "C" fn get_se_id(
     callback: extern "C" fn(apdu: *const c_char) -> *const c_char,
 ) -> *const c_char {
     callback(CString::new("00A4040000".to_owned()).unwrap().into_raw());
@@ -77,7 +83,7 @@ pub extern "C" fn get_se_id(
             .unwrap()
             .into_raw(),
     )
-}
+}*/
 
 // #[no_mangle]
 // pub extern "C" fn get_se_id(callback: extern "C" fn(apdu:*const c_char)->*const c_char) -> *const c_char {
@@ -136,37 +142,6 @@ pub extern "C" fn set_apdu_return(apdu_return: *const c_char) {
 //    );
 //}
 
-#[no_mangle]
-pub extern "C" fn check_device() {
-    manager::check_device();
-}
-
-#[no_mangle]
-pub extern "C" fn active_device() {
-    manager::active_device();
-}
-
-#[no_mangle]
-pub extern "C" fn check_update() {
-    manager::check_update();
-}
-
-#[no_mangle]
-pub extern "C" fn app_download() {
-    manager::app_download();
-}
-
-#[no_mangle]
-pub extern "C" fn app_update() {
-    manager::app_update();
-}
-
-#[no_mangle]
-pub extern "C" fn app_delete() {
-    manager::app_delete();
-}
-
-
 /// dispatch protobuf rpc call
 /// //@@XM TODO: add in error handling
 #[no_mangle]
@@ -193,4 +168,33 @@ pub unsafe extern "C" fn call_tcx_api(hex_str: *const c_char) -> *const c_char {
 
     let ret_str = hex::encode(reply);
     CString::new(ret_str).unwrap().into_raw()
+}
+
+
+#[no_mangle]
+pub unsafe extern "C" fn clear_err() {
+    LAST_ERROR.with(|e| {
+        *e.borrow_mut() = None;
+    });
+    LAST_BACKTRACE.with(|e| {
+        *e.borrow_mut() = None;
+    });
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn get_last_err_message() -> *const c_char {
+    LAST_ERROR.with(|e| {
+        if let Some(ref err) = *e.borrow() {
+            let rsp = Response {
+                is_success: false,
+                error: err.to_string(),
+            };
+            // eprintln!("{:#?}", rsp);
+            let rsp_bytes = encode_message(rsp).expect("encode error");
+            let ret_str = hex::encode(rsp_bytes);
+            CString::new(ret_str).unwrap().into_raw()
+        } else {
+            CString::new("").unwrap().into_raw()
+        }
+    })
 }

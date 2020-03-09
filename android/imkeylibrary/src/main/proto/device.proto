@@ -1,0 +1,120 @@
+syntax = "proto3";
+package deviceapi;
+
+message EmptyResponse {
+}
+
+//for app download, update, delete and so on
+message AppAction {
+    string app_name = 1;
+}
+
+//for device cert related
+message DeviceCert {
+    string se_id = 1;
+    string sn = 2;
+    string device_cert = 3;
+}
+
+//auth code related
+message AuthCode {
+    string se_id = 1;
+    string auth_code = 2;
+}
+
+message AuthCodeResponse {
+    string se_id = 1;
+    string next_stepkey = 2;
+    repeated string apdu_list = 3;
+}
+
+message AuthCodeServiceResponse {
+    string return_code = 1;
+    string return_msg = 2;
+    AuthCodeResponse return_data = 3;
+}
+
+//se related
+message SeAction {
+    string se_id = 1;
+    string sn = 2;
+    string device_cert = 3;
+    string sdk_version = 4;
+}
+
+message SeQueryResponse {
+    string se_id = 1;
+    string next_stepkey = 2;
+    string sn = 3;
+    string sdk_mode = 4;
+    repeated AvailableAppBean available_app_bean_list = 5;
+}
+
+message SeQueryServiceResponse {
+    string return_code = 1;
+    string return_msg = 2;
+    SeQueryResponse return_data = 3;
+}
+
+//binding related
+message BindCheck {
+    string file_path = 1;
+}
+
+message BindAcquire {
+    string bind_code = 1;
+}
+
+message BindAcquireResponse {
+    string bind_result = 1;
+}
+
+message BindDisplay {
+}
+
+message BindDisplayResponse {
+    string bind_display_result = 1;
+}
+
+//name related
+message DeviceName {
+    string ble_name = 1;
+}
+
+message GetSnResponse {
+    string sn = 1;
+}
+
+message ApduResponse {
+    string result = 1;
+}
+
+message Test{
+    string tt = 1;
+}
+
+// check_update api
+message CheckUpdateResponse {
+    string se_id = 1;
+    string sn = 2;
+    string status = 3;
+    string sdk_mode = 4;
+    repeated AvailableAppBean available_app_list = 5;
+}
+
+message AvailableAppBean {
+    string app_name = 1;
+    string app_logo = 2;
+    string installed_version = 3;
+    string last_updated = 4;
+    string latest_version = 5;
+    string install_mode = 6;
+}
+
+message SdkInfoResponse {
+    string sdk_version = 1;
+}
+
+message BleAction {
+    string ble_name = 1;
+}

@@ -2,6 +2,11 @@
 use super::hid_api;
 #[cfg(target_os = "macos")]
 use hidapi::{HidApi, HidDevice};
+
+#[cfg(target_os = "windows")]
+use super::hid_api;
+#[cfg(target_os = "windows")]
+use hidapi::{HidApi, HidDevice};
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 use std::sync::Mutex;
@@ -12,11 +17,15 @@ lazy_static! {
     pub static ref APDU: Mutex<String> = Mutex::new("".to_string());
     pub static ref APDU_RETURN: Mutex<String> = Mutex::new("".to_string());
     pub static ref STRING: Mutex<String> = Mutex::new("".to_string());
-    pub static ref CALLBACK: Mutex<extern "C" fn(*const i8) -> *const i8> =
+    pub static ref CALLBACK: Mutex<extern "C" fn(*const u8) -> *const u8> =
         Mutex::new(default_callback);
 }
 
 #[cfg(target_os = "macos")]
+lazy_static! {
+    pub static ref DEVICE: Mutex<HidDevice> = Mutex::new(hid_api::hid_connect());
+}
+#[cfg(target_os = "windows")]
 lazy_static! {
     pub static ref DEVICE: Mutex<HidDevice> = Mutex::new(hid_api::hid_connect());
 }
@@ -88,10 +97,12 @@ pub extern "C" fn get_se_id(
 // }
 
 #[no_mangle]
+#[cfg(target_os = "ios")]
 pub extern "C" fn get_seid() -> *const c_char {
     get_seid_internal()
 }
 
+#[cfg(target_os = "ios")]
 fn get_seid_internal() -> *const c_char {
     //debug!("get_seid_internal...");
     // set_apdu_r(String::from("00A4040000"));
@@ -205,11 +216,25 @@ pub fn send_apdu(apdu: String) -> String {
     hid_api::send(&DEVICE.lock().unwrap(), &apdu)
 }
 
+#[cfg(target_os = "windows")]
+pub fn send_apdu(apdu: String) -> String {
+    hid_api::send(&DEVICE.lock().unwrap(), &apdu)
+}
+
+
 #[cfg(target_os = "ios")]
 pub fn send_apdu(apdu: String) -> String {
     set_apdu_r(apdu);
     get_apdu_return_r()
 }
+
+
+#[cfg(target_os = "android")]
+pub fn send_apdu(apdu: String) -> String {
+    set_apdu_r(apdu);
+    get_apdu_return_r()
+}
+
 
 #[test]
 fn test_str() {
