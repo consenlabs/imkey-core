@@ -2,6 +2,8 @@ use common::constants::{TSM_ACTION_APP_UPDATE, TSM_RETURN_CODE_SUCCESS};
 use common::{error::ImkeyError, https};
 use mq::message;
 use serde::{Deserialize, Serialize};
+use crate::Result;
+use common::error::BAPP0008;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct app_update_request {
@@ -48,7 +50,7 @@ impl app_update_request {
         }
     }
 
-    pub fn app_update(&mut self) -> Result<(), ImkeyError> {
+    pub fn app_update(&mut self) -> Result<()> {
         loop {
             println!("请求报文：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
@@ -88,7 +90,8 @@ impl app_update_request {
                 }
             } else {
                 println!("应用更新服务器执行失败并返回 : {}", return_bean._ReturnMsg);
-                return Err(ImkeyError::BAPP0008);
+//                return Err(ImkeyError::BAPP0008);
+                return Err(format_err!("imkey_tsm_app_update_fail"));
             }
         }
     }

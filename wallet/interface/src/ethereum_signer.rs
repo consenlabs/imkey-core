@@ -4,6 +4,7 @@ use common::error::Error;
 use common::sign_res::TxSignResult;
 use ethereum_types::{Address, H256, U256};
 use hex;
+use crate::Result;
 
 pub struct EthereumSigner {}
 
@@ -22,7 +23,7 @@ impl EthereumSigner {
         receiver: &str,
         sender: &str,
         fee: &str,
-    ) -> Result<TxSignResult, Error> {
+    ) -> Result<TxSignResult> {
         let eth_tx = Transaction {
             nonce: nonce,
             gas_price: gas_price,

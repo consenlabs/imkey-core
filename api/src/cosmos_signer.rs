@@ -9,8 +9,9 @@ use std::str::FromStr;
 use common::cosmosapi::CosmosTxInput;
 use coin_cosmos::transaction::{StdFee, Coin, Msg, MsgValue, SignData, CosmosTransaction};
 use common::constants;
+use crate::error_handling::Result;
 
-pub fn sign_cosmos_transaction(param: &SignParam) -> Result<Vec<u8>, Error> {
+pub fn sign_cosmos_transaction(param: &SignParam) -> Result<Vec<u8>> {
     let input: CosmosTxInput =
         CosmosTxInput::decode(&param.input.as_ref().expect("tx_iput").value.clone())
             .expect("CosmosTxInput");

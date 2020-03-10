@@ -7,14 +7,15 @@ use prost::Message;
 use std::str::FromStr;
 use coin_cosmos::address::CosmosAddress;
 use common::cosmosapi::CosmosAddressResponse;
+use crate::error_handling::Result;
 
-pub fn display_cosmos_address(data: &AddressParam) -> Result<Vec<u8>, Error> {
+pub fn display_cosmos_address(data: &AddressParam) -> Result<Vec<u8>> {
     let cosmos_address = CosmosAddress::display_address(&data.path).map_err(|_err| Error::PubKeyError)?;
     let address_message = CosmosAddressResponse { address: cosmos_address };
     encode_message(address_message)
 }
 
-pub fn get_cosmos_address(data: &AddressParam) -> Result<Vec<u8>, Error> {
+pub fn get_cosmos_address(data: &AddressParam) -> Result<Vec<u8>> {
     let cosmos_address = CosmosAddress::get_address(&data.path).map_err(|_err| Error::PubKeyError)?;
     let address_message = CosmosAddressResponse { address: cosmos_address };
     encode_message(address_message)

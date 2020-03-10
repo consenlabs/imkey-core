@@ -6,8 +6,9 @@ use coin_bitcoin::transaction::{BtcTransaction, Utxo};
 use common::error::Error;
 use prost::Message;
 use std::str::FromStr;
+use crate::error_handling::Result;
 
-pub fn sign_btc_transaction(param: &SignParam) -> Result<Vec<u8>, Error> {
+pub fn sign_btc_transaction(param: &SignParam) -> Result<Vec<u8>> {
     let input: BtcTxInput =
         BtcTxInput::decode(&param.input.as_ref().expect("tx_iput").value.clone())
             .expect("BtcTxInput");

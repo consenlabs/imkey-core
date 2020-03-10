@@ -4,6 +4,8 @@ use common::{error::ImkeyError, https};
 use mq::message;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use crate::Result;
+use common::error::BAPP0011;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct app_delete_request {
@@ -47,7 +49,7 @@ impl app_delete_request {
         }
     }
 
-    pub fn app_delete(&mut self) -> Result<(), ImkeyError> {
+    pub fn app_delete(&mut self) -> Result<()> {
         loop {
             println!("请求报文：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
@@ -87,7 +89,8 @@ impl app_delete_request {
                 }
             } else {
                 println!("应用删除服务器执行失败并返回 : {}", return_bean._ReturnMsg);
-                return Err(ImkeyError::BAPP0011);
+//                return Err(ImkeyError::BAPP0011);
+                return Err(format_err!("imkey_tsm_app_delete_fail"));
             }
         }
     }

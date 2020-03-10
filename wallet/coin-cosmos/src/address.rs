@@ -15,12 +15,13 @@ use bitcoin_hashes::{hash160, Hash};
 use common::error;
 use ring::digest;
 use secp256k1::{Message, PublicKey as PublicKey2, Secp256k1, SecretKey, Signature};
+use crate::Result;
 
 #[derive(Debug)]
 pub struct CosmosAddress {}
 
 impl CosmosAddress {
-    pub fn get_pub_key(path: &str) -> Result<String, Error> {
+    pub fn get_pub_key(path: &str) -> Result<String> {
         path::check_path_validity(path);
 
         let select_apdu = CosmosApdu::select_applet();
@@ -43,7 +44,8 @@ impl CosmosAddress {
             hex::decode(sign_source_val).unwrap().as_slice(),
         );
         if !sign_verify_result {
-            return Err(error::Error::AddressError);
+//            return Err(error::Error::AddressError);
+            return Err(format_err!("AddressError"));
         }
 
         //        let uncomprs_pubkey: String = res_msg_pubkey
@@ -94,7 +96,7 @@ impl CosmosAddress {
         Ok(comprs_pubkey)
     }
 
-    pub fn get_address(path: &str) -> Result<String, Error> {
+    pub fn get_address(path: &str) -> Result<String> {
         let comprs_pubkey = CosmosAddress::get_pub_key(path).unwrap();
         //hash160
         let pub_key_bytes = hex::decode(comprs_pubkey).expect("Decoding failed");
@@ -109,12 +111,13 @@ impl CosmosAddress {
         }; //todo use bitcoin_hash istead
         let address = match b32.to_string() {
             Ok(s) => s,
-            Err(e) => return Err(error::Error::AddressError),
+//            Err(e) => return Err(error::Error::AddressError),
+            Err(e) => return Err(format_err!("AddressError")),
         };
         Ok(address)
     }
 
-    pub fn display_address(path: &str) -> Result<String, Error> {
+    pub fn display_address(path: &str) -> Result<String> {
         let address = CosmosAddress::get_address(path).unwrap();
         let reg_apdu = CosmosApdu::register_pubkey(address.as_bytes());
         let res_reg = message::send_apdu(reg_apdu);

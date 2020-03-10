@@ -6,12 +6,13 @@ use common::error::Error;
 use common::{path, utility};
 use mq::message;
 use std::str::FromStr;
+use crate::Result;
 
 #[derive(Debug)]
 pub struct EosPubkey {}
 
 impl EosPubkey {
-    pub fn get_pubkey(path: &str) -> Result<String, Error> {
+    pub fn get_pubkey(path: &str) -> Result<String> {
         path::check_path_validity(path);
 
         let select_apdu = EosApdu::select_applet();
@@ -32,7 +33,8 @@ impl EosPubkey {
                                                                 hex::decode(sign_result).unwrap().as_slice(),
                                                                 hex::decode(sign_source_val).unwrap().as_slice());
         if !sign_verify_result {
-            return Err(Error::MessageError);
+//            return Err(Error::MessageError);
+            return Err(format_err!("MessageError"));
         }
 
         //compressed key
@@ -52,7 +54,7 @@ impl EosPubkey {
         Ok(eos_pk)
     }
 
-    pub fn display_pubkey(path: &str) -> Result<String, Error> {
+    pub fn display_pubkey(path: &str) -> Result<String> {
         let pubkey = EosPubkey::get_pubkey(path).unwrap();
         let reg_apdu = EosApdu::register_pubkey(pubkey.as_bytes());
         let res_reg = message::send_apdu(reg_apdu);

@@ -9,8 +9,9 @@ use ethereum_types::{Address, H256, U256};
 use hex;
 use prost::Message;
 use std::str::FromStr;
+use crate::error_handling::Result;
 
-pub fn sign_eth_transaction(param: &SignParam) -> Result<Vec<u8>, Error> {
+pub fn sign_eth_transaction(param: &SignParam) -> Result<Vec<u8>> {
     let input: EthTxInput =
         EthTxInput::decode(&param.input.as_ref().expect("tx_iput").value.clone())
             .expect("EthTxInput");
