@@ -77,8 +77,8 @@ impl cos_upgrade_request {
 
         //read seid and sn number
         if device_cert.starts_with("bf21") || device_cert.starts_with("BF21") {
-            seid = manager::get_se_id();
-            sn = String::from_utf8(hex_to_bytes(&manager::get_sn()).unwrap()).expect("conver sn number error");
+            seid = manager::get_se_id().ok().unwrap();
+            sn = String::from_utf8(hex_to_bytes(&manager::get_sn().ok().unwrap()).unwrap()).expect("conver sn number error");
             //read se cos version
             send_apdu("00A4040000".to_string());
             let apdu_response = send_apdu("80CB800005DFFF02800300".to_string());

@@ -25,9 +25,10 @@ use prost::Message;
 use device::manager;
 use mq::message;
 use std::ffi::{CStr, CString};
+use crate::error_handling::Result;
 
 
-pub fn device_app_delete(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn device_app_delete(param: &DeviceParam) -> Result<Vec<u8>> {
     let app_action: AppAction =
         AppAction::decode(&param.param.as_ref().expect("device_param").value.clone())
             .expect("app_action");
@@ -36,7 +37,7 @@ pub fn device_app_delete(param: &DeviceParam) -> Result<Vec<u8>, Error> {
     encode_message(response_msg)
 }
 
-pub fn device_app_download(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn device_app_download(param: &DeviceParam) -> Result<Vec<u8>> {
 //    let app_action: AppAction =
 //        AppAction::decode(&param.param.as_ref().expect("device_param").value.clone())
 //            .expect("app_action");
@@ -57,7 +58,7 @@ pub fn device_app_download(param: &DeviceParam) -> Result<Vec<u8>, Error> {
     encode_message(response_msg)
 }
 
-pub fn device_app_update(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn device_app_update(param: &DeviceParam) -> Result<Vec<u8>> {
 //    let app_action: AppAction =
 //        AppAction::decode(&param.param.as_ref().expect("device_param").value.clone())
 //            .expect("app_action");
@@ -76,7 +77,7 @@ pub fn device_app_update(param: &DeviceParam) -> Result<Vec<u8>, Error> {
     encode_message(response_msg)
 }
 
-pub fn device_activate(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn device_activate(param: &DeviceParam) -> Result<Vec<u8>> {
 //    let se_action: SeAction =
 ////        SeAction::decode(&param.param.as_ref().expect("device_param").value.clone())
 ////            .expect("se_activate");
@@ -92,9 +93,9 @@ pub fn device_activate(param: &DeviceParam) -> Result<Vec<u8>, Error> {
     encode_message(response_msg)
 }
 
-pub fn device_query(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn device_query(param: &DeviceParam) -> Result<Vec<u8>> {
 
-    let response = manager::check_update().map_err(|_err| Error::DeviceOpError)?;
+    let response = manager::check_update()?;//todo check
 
     let mut available_bean_list: Vec<AvailableAppBean> = Vec::new();
     for (index, value) in response._ReturnData.availableAppBeanList.unwrap().iter().enumerate() {
@@ -131,13 +132,13 @@ pub fn device_query(param: &DeviceParam) -> Result<Vec<u8>, Error> {
     encode_message(response_msg)
 }
 
-pub fn device_secure_check(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn device_secure_check(param: &DeviceParam) -> Result<Vec<u8>> {
     manager::check_device();
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
 
-pub fn device_bind_check(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn device_bind_check(param: &DeviceParam) -> Result<Vec<u8>> {
     let bind_check: BindCheck =
         BindCheck::decode(&param.param.as_ref().expect("device_param").value.clone())
             .expect("bind_check");
@@ -146,22 +147,22 @@ pub fn device_bind_check(param: &DeviceParam) -> Result<Vec<u8>, Error> {
     encode_message(response_msg)
 }
 
-pub fn device_bind_acquire(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn device_bind_acquire(param: &DeviceParam) -> Result<Vec<u8>> {
     let bind_acquire: BindAcquire =
         BindAcquire::decode(&param.param.as_ref().expect("device_param").value.clone())
             .expect("bind_acquire");
-    let bind_result = DeviceManage::new().bind_acquire(&bind_acquire.bind_code);
+    let bind_result = DeviceManage::new().bind_acquire(&bind_acquire.bind_code).ok().expect("bind_acquire_error");
     let response_msg = BindAcquireResponse {
         bind_result: bind_result,
     };
     encode_message(response_msg)
 }
 
-pub fn device_display_bind_code(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn device_display_bind_code(param: &DeviceParam) -> Result<Vec<u8>> {
     let _bind_display: BindDisplay =
         BindDisplay::decode(&param.param.as_ref().expect("device_param").value.clone())
             .expect("bind_display_code");
-    let display_result = display_bind_code(); //no param
+    let display_result = display_bind_code().ok().expect("display_bind_code_error"); //no param
     let response_msg = BindDisplayResponse {
         bind_display_result: display_result,
     };
@@ -170,64 +171,36 @@ pub fn device_display_bind_code(param: &DeviceParam) -> Result<Vec<u8>, Error> {
 
 
 
-pub fn get_seid(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn get_seid(param: &DeviceParam) -> Result<Vec<u8>> {
 
-    let result = manager::get_se_id();
+    let result = manager::get_se_id().ok().expect("get_seid_error");
     let response_msg = ApduResponse {
         result: result,
     };
     encode_message(response_msg)
 }
 
-pub fn get_sn(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn get_sn(param: &DeviceParam) -> Result<Vec<u8>> {
 
-    let result = manager::get_sn();
+    let result = manager::get_sn().ok().expect("get_sn_error");
     let response_msg = ApduResponse {
         result: result,
     };
     encode_message(response_msg)
 }
 
-pub fn get_ram_size(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn get_ram_size(param: &DeviceParam) -> Result<Vec<u8>> {
 
-    let result = manager::get_ram_size();
+    let result = manager::get_ram_size().ok().expect("get_ram_size_error");
     let response_msg = ApduResponse {
         result: result,
     };
     encode_message(response_msg)
 }
 
-pub fn get_firmware_version(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn get_firmware_version(param: &DeviceParam) -> Result<Vec<u8>> {
 
-    let result = manager::get_firmware_version();
-
-    let response_msg = ApduResponse {
-        result: result,
-    };
-    encode_message(response_msg)
-}
-
-pub fn get_battery_power(param: &DeviceParam) -> Result<Vec<u8>, Error> {
-
-    let result = manager::get_battery_power();
-    let response_msg = ApduResponse {
-        result: result,
-    };
-    encode_message(response_msg)
-}
-
-pub fn get_life_time(param: &DeviceParam) -> Result<Vec<u8>, Error> {
-
-    let result = manager::get_life_time();
-    let response_msg = ApduResponse {
-        result: result,
-    };
-    encode_message(response_msg)
-}
-
-pub fn get_ble_name(param: &DeviceParam) -> Result<Vec<u8>, Error> {
-
-    let result = manager::get_ble_name();
+    let result = manager::get_firmware_version().ok().expect("get_firmware_version_error");
 
     let response_msg = ApduResponse {
         result: result,
@@ -235,29 +208,57 @@ pub fn get_ble_name(param: &DeviceParam) -> Result<Vec<u8>, Error> {
     encode_message(response_msg)
 }
 
-pub fn set_ble_name(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn get_battery_power(param: &DeviceParam) -> Result<Vec<u8>> {
+
+    let result = manager::get_battery_power().ok().expect("get_battery_power_error");
+    let response_msg = ApduResponse {
+        result: result,
+    };
+    encode_message(response_msg)
+}
+
+pub fn get_life_time(param: &DeviceParam) -> Result<Vec<u8>> {
+
+    let result = manager::get_life_time().ok().expect("get_life_time_error");
+    let response_msg = ApduResponse {
+        result: result,
+    };
+    encode_message(response_msg)
+}
+
+pub fn get_ble_name(param: &DeviceParam) -> Result<Vec<u8>> {
+
+    let result = manager::get_ble_name().ok().expect("get_ble_name_error");
+
+    let response_msg = ApduResponse {
+        result: result,
+    };
+    encode_message(response_msg)
+}
+
+pub fn set_ble_name(param: &DeviceParam) -> Result<Vec<u8>> {
 
     let ble_action: BleAction =
         BleAction::decode(&param.param.as_ref().expect("device_param").value.clone())
             .expect("ble_action");
 
-    let result = manager::set_ble_name(ble_action.ble_name);
+    let result = manager::set_ble_name(ble_action.ble_name).ok().expect("set_ble_name_error");
     let response_msg = ApduResponse {
         result: result,
     };
     encode_message(response_msg)
 }
 
-pub fn get_ble_version(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn get_ble_version(param: &DeviceParam) -> Result<Vec<u8>> {
 
-    let result = manager::get_ble_version();
+    let result = manager::get_ble_version().ok().expect("get_ble_version_error");
     let response_msg = ApduResponse {
         result: result,
     };
     encode_message(response_msg)
 }
 
-pub fn get_sdk_info(param: &DeviceParam) -> Result<Vec<u8>, Error> {
+pub fn get_sdk_info(param: &DeviceParam) -> Result<Vec<u8>> {
     let response_msg = SdkInfoResponse {
         sdk_version: constants::VERSION.to_string(),
     };

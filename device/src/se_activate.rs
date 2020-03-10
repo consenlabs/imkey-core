@@ -2,6 +2,8 @@ use common::constants::{TSM_ACTION_SE_ACTIVATE, TSM_RETURN_CODE_SUCCESS};
 use common::{error::ImkeyError, https};
 use mq::message;
 use serde::{Deserialize, Serialize};
+use crate::Result;
+use common::error::BSE0015;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct se_activate_request {
@@ -44,7 +46,7 @@ impl se_activate_request {
         }
     }
 
-    pub fn se_activate(&mut self) -> Result<(), ImkeyError> {
+    pub fn se_activate(&mut self) -> Result<()> {
         loop {
             println!("请求报文：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
@@ -84,7 +86,8 @@ impl se_activate_request {
                 }
             } else {
                 println!("SE激活服务器执行失败并返回 : {}", return_bean._ReturnMsg);
-                return Err(ImkeyError::BSE0015);
+//                return Err(ImkeyError::BSE0015);
+                return Err(format_err!("imkey_tsm_device_active_fail"));
             }
         }
     }

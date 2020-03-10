@@ -13,12 +13,13 @@ use bitcoin::secp256k1::Signature;
 use hex::FromHex;
 use common::eosapi::{EosTxInput, EosTxOutput, EosMessageInput, EosMessageOutput};
 use crate::pubkey::EosPubkey;
+use crate::Result;
 
 #[derive(Debug)]
 pub struct EosTransaction {}
 
 impl EosTransaction {
-    pub fn sign_tx(tx_input:EosTxInput) -> Result<EosTxOutput, Error> {
+    pub fn sign_tx(tx_input:EosTxInput) -> Result<EosTxOutput> {
         path::check_path_validity(&tx_input.path);
 
         let select_apdu = EosApdu::select_applet();
@@ -134,7 +135,8 @@ impl EosTransaction {
                             //calc v
                             let pub_key_raw = hex::decode(&uncomprs_pubkey).unwrap();
                             let sign_compact = hex::decode(&sign_result[2..130]).unwrap();
-                            let rec_id = retrieve_recid(&tx_data_hash, &sign_compact, &pub_key_raw)?;
+//                            let rec_id = retrieve_recid(&tx_data_hash, &sign_compact, &pub_key_raw)?;//TODO
+                            let rec_id = retrieve_recid(&tx_data_hash, &sign_compact, &pub_key_raw).expect("retrieve_recid_error");
                             let rec_id = rec_id.to_i32();
                             println!("rec_id:{}", &rec_id);
                             let v = rec_id + 27 + 4;
