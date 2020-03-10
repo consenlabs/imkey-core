@@ -10,15 +10,17 @@ use crate::ethereum_signer::sign_eth_transaction;
 use bytes::BytesMut;
 use common::error::Error;
 use prost::Message;
+use crate::error_handling::Result;
 
-pub fn encode_message(msg: impl Message) -> Result<Vec<u8>, Error> {
+pub fn encode_message(msg: impl Message) -> Result<Vec<u8>> {
     println!("{:#?}", msg);
     let mut buf = BytesMut::with_capacity(msg.encoded_len());
-    msg.encode(&mut buf).map_err(|_err| Error::ProtoError)?;
+//    msg.encode(&mut buf).map_err(|_err| Error::ProtoError)?;
+        msg.encode(&mut buf)?;//TODO
     Ok(buf.to_vec())
 }
 
-pub fn sign_tx(data: &[u8]) -> Result<Vec<u8>, Error> {
+pub fn sign_tx(data: &[u8]) -> Result<Vec<u8>> {
     let param: SignParam = SignParam::decode(data).expect("SignTxParam");
 
     match param.chain_type.as_str() {
@@ -26,33 +28,35 @@ pub fn sign_tx(data: &[u8]) -> Result<Vec<u8>, Error> {
         "BTC" => sign_btc_transaction(&param),
         "EOS" => sign_eos_transaction(&param),
         "COSMOS" => sign_cosmos_transaction(&param),
-        _ => Err(Error::ChainTypeError),
+        _ => Err(format_err!("unsupported chain")),//TODO
     }
 }
 
-pub fn get_address(data: &[u8]) -> Result<Vec<u8>, Error> {
+pub fn get_address(data: &[u8]) -> Result<Vec<u8>> {
     let param: AddressParam = AddressParam::decode(data).expect("AddressParam");
 
     match param.chain_type.as_str() {
         "ETH" => get_eth_address(&param),
         "EOS" => get_eos_pubkey(&param),
         "COSMOS" => get_cosmos_address(&param),
-        _ => Err(Error::ChainTypeError),
+//        _ => Err(Error::ChainTypeError),
+        _ => Err(format_err!("unsupported chain")),//TODO
     }
 }
 
-pub fn register_coin(data: &[u8]) -> Result<Vec<u8>, Error> {
+pub fn register_coin(data: &[u8]) -> Result<Vec<u8>> {
     let param: AddressParam = AddressParam::decode(data).expect("AddressParam");
 
     match param.chain_type.as_str() {
         "ETH" => display_eth_address(&param),
         "EOS" => display_eos_pubkey(&param),
         "COSMOS" => display_cosmos_address(&param),
-        _ => Err(Error::ChainTypeError),
+//        _ => Err(Error::ChainTypeError),
+        _ => Err(format_err!("unsupported chain")),//TODO
     }
 }
 
-pub fn device_manage(data: &[u8]) -> Result<Vec<u8>, Error> {
+pub fn device_manage(data: &[u8]) -> Result<Vec<u8>> {
     let param: DeviceParam = DeviceParam::decode(data).expect("AddressParam");
 
     match param.action.as_str() {
@@ -75,6 +79,7 @@ pub fn device_manage(data: &[u8]) -> Result<Vec<u8>, Error> {
         "set_ble_name" => set_ble_name(&param),
         "get_ble_version" => get_ble_version(&param),
         "get_sdk_info" => get_sdk_info(&param),
-        _ => Err(Error::DeviceOpError),
+//        _ => Err(Error::DeviceOpError),
+        _ => Err(format_err!("device_open_error")),//TODO
     }
 }
