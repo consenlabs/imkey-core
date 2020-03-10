@@ -152,10 +152,10 @@ pub unsafe extern "C" fn call_tcx_api(hex_str: *const c_char) -> *const c_char {
     let data = hex::decode(hex_str).expect("parse_arguments hex decode");
     let action: TcxAction = TcxAction::decode(data).expect("decode tcx api");
     let reply: Vec<u8> = match action.method.to_lowercase().as_str() {
-        "sign_tx" => sign_tx(&action.param.unwrap().value).unwrap(),
-        "get_address" => get_address(&action.param.unwrap().value).unwrap(),
-        "device_manage" => device_manage(&action.param.unwrap().value).unwrap(),
-        "register_coin" => register_coin(&action.param.unwrap().value).unwrap(),
+        "sign_tx" => landingpad(|| sign_tx(&action.param.unwrap().value)),
+        "get_address" => landingpad(|| get_address(&action.param.unwrap().value)),
+        "device_manage" => landingpad(|| device_manage(&action.param.unwrap().value)),
+        "register_coin" => landingpad(|| register_coin(&action.param.unwrap().value)),
         _ => Vec::new(), //@@XM TODO: change to error message
                          /*
                          "sign_tx" => landingpad(|| sign_tx(&action.param.unwrap().value)),

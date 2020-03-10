@@ -11,8 +11,9 @@ use mq::message::send_apdu;
 use prost::Message;
 use std::str::FromStr;
 use crate::ethapi::EthAddressResponse;
+use crate::error_handling::Result;
 
-pub fn get_eth_address(data: &AddressParam) -> Result<Vec<u8>, Error> {
+pub fn get_eth_address(data: &AddressParam) -> Result<Vec<u8>> {
     //let address_param: AddressParam = AddressParam::decode(data).expect("EthTxInput");
 
     check_path_validity(&data.path);
@@ -24,14 +25,14 @@ pub fn get_eth_address(data: &AddressParam) -> Result<Vec<u8>, Error> {
     let msg_pubkey = EthApdu::get_pubkey(&data.path, false);
     let res_msg_pubkey = send_apdu(msg_pubkey);
 
-    let pubkey_raw = hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError)?;
+    let pubkey_raw = hex_to_bytes(&res_msg_pubkey[2..130])?;
 
-    let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;
+    let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;//todo check
     let address_message = EthAddressResponse { address: address_main };
     encode_message(address_message)
 }
 
-pub fn display_eth_address(data: &AddressParam) -> Result<Vec<u8>, Error> {
+pub fn display_eth_address(data: &AddressParam) -> Result<Vec<u8>> {
     check_path_validity(&data.path);
 
     let select_apdu = EthApdu::select_applet();
@@ -41,7 +42,7 @@ pub fn display_eth_address(data: &AddressParam) -> Result<Vec<u8>, Error> {
     let msg_pubkey = EthApdu::get_pubkey(&data.path, false);
     let res_msg_pubkey = send_apdu(msg_pubkey);
 
-    let pubkey_raw = hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError)?;
+    let pubkey_raw = hex_to_bytes(&res_msg_pubkey[2..130])?;//todo check
 
     let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;
     let reg_apdu = EthApdu::register_address(address_main.as_bytes());

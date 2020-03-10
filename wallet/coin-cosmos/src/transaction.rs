@@ -12,6 +12,7 @@ use num_bigint::BigInt;
 use num_traits::Num;
 use std::ops::Sub;
 use crate::address::CosmosAddress;
+use crate::Result;
 
 #[derive(Debug)]
 pub struct CosmosTransaction {
@@ -84,7 +85,7 @@ pub struct StdTx{
 }
 
 impl CosmosTransaction {
-    pub fn sign(mut self) -> CosmosTxOutput {
+    pub fn sign(mut self) -> Result<CosmosTxOutput> {
         let json = serde_json::to_vec(&self.sign_data).unwrap();
         let json = String::from_utf8(json.to_owned()).unwrap();
         println!("{}", &json);//todo sort json
@@ -205,7 +206,7 @@ impl CosmosTransaction {
             signature: json.to_string(),
             tx_hash: "".to_string(),
         };
-        ouput
+        Ok(ouput)
     }
 }
 

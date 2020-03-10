@@ -6,11 +6,12 @@ use common::sign_res::TxSignResult;
 use hex;
 use prost::Message;
 use std::str::FromStr;
-use common::cosmosapi::CosmosTxInput;
+use common::cosmosapi::{CosmosTxInput, CosmosTxOutput};
 use coin_cosmos::transaction::{StdFee, Coin, Msg, MsgValue, SignData, CosmosTransaction};
 use common::constants;
+use crate::error_handling::Result;
 
-pub fn sign_cosmos_transaction(param: &SignParam) -> Result<Vec<u8>, Error> {
+pub fn sign_cosmos_transaction(param: &SignParam) -> Result<Vec<u8>> {
     let input: CosmosTxInput =
         CosmosTxInput::decode(&param.input.as_ref().expect("tx_iput").value.clone())
             .expect("CosmosTxInput");
@@ -75,7 +76,11 @@ pub fn sign_cosmos_transaction(param: &SignParam) -> Result<Vec<u8>, Error> {
     };
     let cosmosTxOutput = cosmosInput.sign();
 
-    encode_message(cosmosTxOutput)
+    let output = CosmosTxOutput{
+        signature: "".to_string(),
+        tx_hash: "".to_string()
+    };
+    encode_message(output)
     /* @@XM TODO: to replace using proper cosmos api. now haven't implemented
     let eth_tx = Transaction {
         nonce: U256::from_dec_str(&input.nonce).map_err(|_err| Error::DataError)?,

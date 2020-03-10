@@ -134,9 +134,9 @@ impl DeviceManage {
 
     pub fn bind_check(&mut self, file_path: &String) -> Result<String> {
         //获取seid
-        let seid = manager::get_se_id();
+        let seid = manager::get_se_id().ok().unwrap();
         //获取SN号
-        let sn = manager::get_sn();
+        let sn = manager::get_sn().ok().unwrap();
         let sn = String::from_utf8(hex::decode(sn).unwrap()).unwrap();
         //计算文件加密密钥
         //        let mut temp_key_manager = KeyManager::new();
@@ -233,7 +233,7 @@ impl DeviceManage {
         }
     }
 
-    pub fn bind_acquire(&self, binding_code: &String) -> String {
+    pub fn bind_acquire(&self, binding_code: &String) -> Result<String> {
         let temp_binding_code = binding_code.to_uppercase();
         let binding_code_bytes = temp_binding_code.as_bytes();
         //绑定码校验
@@ -245,7 +245,7 @@ impl DeviceManage {
         let auth_code_ciphertext = auth_code_encrypt(&temp_binding_code);
 
         //保存绑定码
-        let seid = manager::get_se_id();
+        let seid = manager::get_se_id().ok().unwrap();
         let auth_code_storage_result = auth_code_storage_request::build_request_data(seid, auth_code_ciphertext).auth_code_storage();
         if auth_code_storage_result.is_err() {
             panic!("auth code storage error");
@@ -283,7 +283,7 @@ impl DeviceManage {
         if !"9000".eq(&response[response.len() - 4 ..]) {
             panic!("identity verify apdu error");
         }
-        response.chars().take(2).collect()
+        Ok(response.chars().take(2).collect())
     }
 }
 
@@ -324,7 +324,7 @@ fn auth_code_encrypt(auth_code: &String) -> String {
     hex::encode_upper(enc_data.unwrap())
 }
 
-pub fn display_bind_code() -> String {
+pub fn display_bind_code() -> Result<String> {
     let apdu_response = send_apdu(Apdu::select_applet(IMK_AID));
     if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
         panic!("selcet imk error");
@@ -333,7 +333,7 @@ pub fn display_bind_code() -> String {
     if !"9000".eq(&gen_auth_code_ret_data[gen_auth_code_ret_data.len() - 4 ..]) {
         panic!("gen auth code apdu error");
     }
-    gen_auth_code_ret_data[..gen_auth_code_ret_data.len() - 4].to_string()
+    Ok(gen_auth_code_ret_data[..gen_auth_code_ret_data.len() - 4].to_string())
 }
 
 #[cfg(test)]

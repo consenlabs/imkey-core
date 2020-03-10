@@ -1,6 +1,8 @@
 use common::constants::{TSM_ACTION_SE_QUERY, TSM_RETURN_CODE_SUCCESS};
 use common::{error::ImkeyError, https};
 use serde::{Deserialize, Serialize};
+use crate::Result;
+use common::error::BSE0018;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct se_query_request {
@@ -55,7 +57,7 @@ impl se_query_request {
         }
     }
 
-    pub fn se_query(&mut self) -> Result<service_response, ImkeyError> {
+    pub fn se_query(&mut self) -> Result<service_response> {
         println!("请求报文：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
         let mut response_data = https::post(TSM_ACTION_SE_QUERY, req_data);
@@ -73,7 +75,8 @@ impl se_query_request {
         //            }
         } else {
             println!("应用查询服务器执行失败并返回 : {}", return_bean._ReturnMsg);
-            return Err(ImkeyError::BSE0008);
+//            return Err(ImkeyError::BSE0008);
+            return Err(format_err!("imkey_tsm_device_update_check_fail"))
         }
     }
 }
