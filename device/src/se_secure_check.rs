@@ -2,6 +2,8 @@ use common::constants::{TSM_ACTION_SE_SECURE_CHECK, TSM_RETURN_CODE_SUCCESS};
 use common::{error::ImkeyError, https};
 use mq::message;
 use serde::{Deserialize, Serialize};
+use crate::Result;
+use common::error::BSE0009;
 
 // SE安全检查请求bean
 #[derive(Debug, Serialize, Deserialize)]
@@ -46,7 +48,7 @@ impl se_secure_check_request {
         }
     }
 
-    pub fn se_secure_check(&mut self) -> Result<(), ImkeyError> {
+    pub fn se_secure_check(&mut self) -> Result<()> {
         loop {
             println!("请求报文：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
@@ -89,7 +91,8 @@ impl se_secure_check_request {
                     "SE安全检查服务器执行失败并返回 : {}",
                     return_bean._ReturnMsg
                 );
-                return Err(ImkeyError::BSE0009);
+//                return Err(ImkeyError::BSE0009);
+                return Err(format_err!("imkey_tsm_device_authenticity_check_fail"));
             }
         }
     }

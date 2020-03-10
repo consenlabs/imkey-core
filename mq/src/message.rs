@@ -17,8 +17,8 @@ lazy_static! {
     pub static ref APDU: Mutex<String> = Mutex::new("".to_string());
     pub static ref APDU_RETURN: Mutex<String> = Mutex::new("".to_string());
     pub static ref STRING: Mutex<String> = Mutex::new("".to_string());
-    pub static ref CALLBACK: Mutex<extern "C" fn(*const u8) -> *const u8> =
-        Mutex::new(default_callback);
+    // pub static ref CALLBACK: Mutex<extern "C" fn(*const u8) -> *const u8> =
+    //     Mutex::new(default_callback);
 }
 
 #[cfg(target_os = "macos")]
@@ -37,10 +37,10 @@ pub extern "C" fn default_callback(apdu: *const c_char) -> *const c_char {
         .into_raw()
 }
 
-pub fn set_callback(callback: extern "C" fn(apdu: *const c_char) -> *const c_char) {
-    let mut _callback = CALLBACK.lock().unwrap();
-    *_callback = callback;
-}
+// pub fn set_callback(callback: extern "C" fn(apdu: *const c_char) -> *const c_char) {
+//     let mut _callback = CALLBACK.lock().unwrap();
+//     *_callback = callback;
+// }
 
 #[no_mangle]
 pub extern "C" fn rust_hello(

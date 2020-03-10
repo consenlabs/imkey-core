@@ -13,12 +13,13 @@ use bitcoin::secp256k1::Signature;
 use hex::FromHex;
 use common::eosapi::{EosTxInput, EosTxOutput, EosMessageInput, EosMessageOutput};
 use crate::pubkey::EosPubkey;
+use crate::Result;
 
 #[derive(Debug)]
 pub struct EosTransaction {}
 
 impl EosTransaction {
-    pub fn sign_tx(tx_input:EosTxInput) -> Result<EosTxOutput, Error> {
+    pub fn sign_tx(tx_input:EosTxInput) -> Result<EosTxOutput> {
         path::check_path_validity(&tx_input.path);
 
         let select_apdu = EosApdu::select_applet();
@@ -134,7 +135,8 @@ impl EosTransaction {
                             //calc v
                             let pub_key_raw = hex::decode(&uncomprs_pubkey).unwrap();
                             let sign_compact = hex::decode(&sign_result[2..130]).unwrap();
-                            let rec_id = retrieve_recid(&tx_data_hash, &sign_compact, &pub_key_raw)?;
+//                            let rec_id = retrieve_recid(&tx_data_hash, &sign_compact, &pub_key_raw)?;//TODO
+                            let rec_id = retrieve_recid(&tx_data_hash, &sign_compact, &pub_key_raw).expect("retrieve_recid_error");
                             let rec_id = rec_id.to_i32();
                             println!("rec_id:{}", &rec_id);
                             let v = rec_id + 27 + 4;
@@ -174,6 +176,7 @@ impl EosTransaction {
         }else{
             hash = sha256_hash(input.data.as_bytes());
         }
+        println!("hash:{}", &hex::encode(&hash));
 
         let mut data_pack: Vec<u8>  = Vec::new();
         data_pack.push(0x01);
@@ -191,6 +194,8 @@ impl EosTransaction {
         prepare_pack.push(0x00);
         prepare_pack.push(bind_signature.len() as u8);
         prepare_pack.extend(bind_signature.iter());
+        prepare_pack.extend(data_pack.iter());
+        println!("prepare_pack:{}", &hex::encode(&prepare_pack));
 
         let select_apdu = EosApdu::select_applet();
         let select_response = send_apdu(select_apdu);
@@ -203,8 +208,8 @@ impl EosTransaction {
         }
 
 
-        //todo optmize
-        let pubkey = EosPubkey::get_pubkey(&input.path).unwrap();
+        //todo optmize,calc from prepare response
+        let pubkey = EosPubkey::pubkey_from_response(&prepare_response).unwrap();
         let mut signature = "".to_string();
         if pubkey == input.pubkey {
             //sign

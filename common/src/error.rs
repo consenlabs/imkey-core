@@ -50,6 +50,21 @@ impl fmt::Display for Error {
         }
     }
 }
+//=======================================================================
+pub const RpcError: &str = "rpc call error: {}";//TODO
+pub const AddressError: &str = "address is wrong";
+pub const PrvKeyError: &str = "private key parse error";
+pub const PubKeyError: &str = "public key parse error";
+pub const MessageError: &str = "sigh hash got error";
+pub const DataError: &str = "data field wrong format";
+pub const SignError: &str = "signature error";
+pub const PathError: &str = "path parameter error";
+pub const ChainTypeError: &str = "unsupported chain";
+pub const ProtoError: &str = "protobuf error";
+pub const DeviceOpError: &str = "device operation error";
+
+
+
 
 pub enum ImkeyError {
     BSE0007,
@@ -88,3 +103,12 @@ impl fmt::Display for ImkeyError {
         }
     }
 }
+
+//device manager error message
+pub const BAPP0006: &str = "imkey_tsm_app_download_fail";
+pub const BAPP0008: &str = "imkey_tsm_app_update_fail";
+pub const BAPP0011: &str = "imkey_tsm_app_delete_fail";
+pub const BSE0015: &str = "imkey_tsm_device_active_fail";
+pub const BSE0018: &str = "imkey_tsm_device_update_check_fail";
+pub const BSE0009: &str = "imkey_tsm_device_authenticity_check_fail";
+

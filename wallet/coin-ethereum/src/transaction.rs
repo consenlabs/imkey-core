@@ -15,6 +15,7 @@ use secp256k1::recovery::{RecoverableSignature, RecoveryId};
 use secp256k1::{self, Message as SecpMessage, Secp256k1};
 use common::ethapi::{EthPersonalSignInput, EthPersonalSignOutput};
 use common::utility;
+use crate::Result as Result2;
 
 lazy_static! {
     pub static ref SECP256K1: secp256k1::Secp256k1<secp256k1::All> = secp256k1::Secp256k1::new();
@@ -40,7 +41,7 @@ impl Transaction {
         receiver: &str,
         sender: &str,
         fee: &str,
-    ) -> Result<(Vec<u8>, UnverifiedTransaction), Error> {
+    ) -> Result2<(Vec<u8>, UnverifiedTransaction)> {
         //check path
         check_path_validity(path);
         //select applet
@@ -92,14 +93,17 @@ impl Transaction {
         let msg_pubkey = EthApdu::get_pubkey(path, false);
         let res_msg_pubkey = send_apdu(hex::encode(msg_pubkey));
 
+//        let pubkey_raw =
+//            hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError)?;//TODO
         let pubkey_raw =
-            hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError)?;
+            hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError).expect("conversion error");
 
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;
         let address_checksummed = EthAddress::address_checksummed(&address_main);
         //compare address
         if address_checksummed != *sender {
-            return Err(Error::AddressError);
+//            return Err(Error::AddressError);
+            return Err(format_err!("address is wrong"));
         }
         //sign
         let msg_sign = EthApdu::sign_digest(path);
@@ -110,11 +114,14 @@ impl Transaction {
         //let r = &sign_res[2..66];
         //let s = &sign_res[66..130];
         let sign_compact = &res_msg_sign[2..130];
-        let sign_compact_vec = hex_to_bytes(sign_compact).map_err(|_err| Error::SignError)?;
+//        let sign_compact_vec = hex_to_bytes(sign_compact).map_err(|_err| Error::SignError)?;//TODO
+        let sign_compact_vec = hex_to_bytes(sign_compact).map_err(|_err| Error::SignError).expect("hex_to_bytes");
 
         let msg_hash = self.hash(chain_id);
+//        let msg_to_sign =
+//            &SecpMessage::from_slice(&msg_hash[..]).map_err(|_err| Error::MessageError)?;//TODO
         let msg_to_sign =
-            &SecpMessage::from_slice(&msg_hash[..]).map_err(|_err| Error::MessageError)?;
+            &SecpMessage::from_slice(&msg_hash[..]).map_err(|_err| Error::MessageError).expect("get message obj error");
 
         let rec_id = retrieve_recid(msg_to_sign, &sign_compact_vec, &pubkey_raw)?;
 
@@ -326,14 +333,16 @@ pub fn retrieve_recid(
     msg: &SecpMessage,
     sign_compact: &Vec<u8>,
     pubkey: &Vec<u8>,
-) -> Result<RecoveryId, Error> {
+) -> Result2<RecoveryId> {
     let secp_context = &SECP256K1;
 
     let mut recid_final = -1i32;
     for i in 0..4 {
         let rec_id = RecoveryId::from_i32(i as i32).unwrap();
+//        let sig = RecoverableSignature::from_compact(&sign_compact, rec_id)
+//            .map_err(|_err| Error::SignError)?;//TODO
         let sig = RecoverableSignature::from_compact(&sign_compact, rec_id)
-            .map_err(|_err| Error::SignError)?;
+            .map_err(|_err| Error::SignError).expect("error");
         if let Ok(rec_pubkey) = secp_context.recover(&msg, &sig) {
             let rec_pubkey_raw = rec_pubkey.serialize_uncompressed();
             if rec_pubkey_raw[1..65].to_vec() == *pubkey {
@@ -345,8 +354,10 @@ pub fn retrieve_recid(
         }
     }
 
-    let rec_id = RecoveryId::from_i32(recid_final).map_err(|_err| Error::SignError);
-    rec_id
+//    let rec_id = RecoveryId::from_i32(recid_final).map_err(|_err| Error::SignError);//TODO
+//    rec_id
+    let rec_id = RecoveryId::from_i32(recid_final).map_err(|_err| Error::SignError).expect("convertion error");
+    Ok(rec_id)
 }
 
 #[cfg(test)]
