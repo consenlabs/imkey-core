@@ -10,6 +10,11 @@ pub mod cosmosapi;
 pub mod ethapi;
 pub mod applet;
 
+#[macro_use]
+extern crate failure;
+use core::result;
+pub type Result<T> = result::Result<T, failure::Error>;
+
 #[cfg(test)]
 mod tests {
     #[test]

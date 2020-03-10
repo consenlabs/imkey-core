@@ -15,65 +15,65 @@ use common::{error::ImkeyError};
 use hex::decode;
 use futures::future::err;
 use common::apdu::Apdu;
+use crate::Result;
 
-
-pub fn get_se_id() -> String {
+pub fn get_se_id() -> Result<String> {
     send_apdu("00A4040000".to_string());
     let res = send_apdu("80CB800005DFFF028101".to_string());
-    String::from(&res[0..res.len()-4])
+    Ok(String::from(&res[0..res.len()-4]))
     //res.chars().take(res.len() - 4).collect()
 }
 
-pub fn get_sn() -> String {
+pub fn get_sn() -> Result<String> {
     send_apdu("00A4040000".to_string());
     let res = send_apdu("80CA004400".to_string());
     let hex_decode = hex::decode(String::from(&res[0..res.len()-4]));
     match hex_decode {
-        Ok(sn) => String::from_utf8(sn).unwrap(),
-        Err(error) => error.to_string()
+        Ok(sn) => Ok(String::from_utf8(sn).unwrap()),
+        Err(error) => Err(format_err!("get_sn_number_error")),//TODO
     }
 }
 
-pub fn get_ram_size() -> String {
+pub fn get_ram_size() -> Result<String> {
     //send_apdu("00A4040000".to_string());
     let res = send_apdu("80CB800005DFFF02814600".to_string());
-    res.chars().take(res.len() - 4).collect()
+    Ok(res.chars().take(res.len() - 4).collect())
 }
 
-pub fn get_firmware_version() -> String {
+pub fn get_firmware_version() -> Result<String> {
     send_apdu("00A4040000".to_string());
     let res = send_apdu("80CB800005DFFF02800300".to_string());
-    res.chars().take(res.len() - 4).collect()
+    Ok(res.chars().take(res.len() - 4).collect())
 }
 
-pub fn get_battery_power() -> String {
+pub fn get_battery_power() -> Result<String> {
     send_apdu("00A4040000".to_string());
     let res = send_apdu("00D6FEED01".to_string());
-    res.chars().take(res.len() - 4).collect()
+    Ok(res.chars().take(res.len() - 4).collect())
 }
 
-pub fn get_life_time() -> String {
+pub fn get_life_time() -> Result<String> {
     //send_apdu("00A4040000".to_string());
     let res = send_apdu("FFDCFEED00".to_string());
-    res.chars().take(res.len() - 4).collect()
+    Ok(res.chars().take(res.len() - 4).collect())
 }
 
-pub fn get_ble_name() -> String {
+pub fn get_ble_name() -> Result<String> {
     //send_apdu("00A4040000".to_string());
     let res = send_apdu("FFDB465400".to_string());
-    res.chars().collect()
+    Ok(res.chars().collect())
 }
 
-pub fn set_ble_name(ble_name: String) -> String {
+pub fn set_ble_name(ble_name: String) -> Result<String> {
     let apdu = Apdu::set_ble_name(ble_name.as_ref());
     let res = send_apdu(apdu);
-    res.chars().take(res.len() - 4).collect()
+    Ok(res.chars().take(res.len() - 4).collect())
 }
 
-pub fn get_ble_version() -> String {
+pub fn get_ble_version() -> Result<String> {
     send_apdu("00A4040000".to_string());
     let res = send_apdu("80CB800005DFFF02810000".to_string());
-    res.chars().take(res.len() - 4).collect()
+    Ok(res.chars().take(res.len() - 4).collect())
 }
 
 pub fn get_cert() -> String {
@@ -83,8 +83,8 @@ pub fn get_cert() -> String {
 }
 
 pub fn check_device() {
-    let seid: String = get_se_id();
-    let sn: String = get_sn();
+    let seid: String = get_se_id().ok().unwrap();
+    let sn: String = get_sn().ok().unwrap();
     let device_cert: String = get_cert();
 
     match se_secure_check_request::build_request_data(seid, sn, device_cert).se_secure_check() {
@@ -94,22 +94,22 @@ pub fn check_device() {
 }
 
 pub fn active_device() {
-    let seid: String = get_se_id();
-    let sn: String = get_sn();
+    let seid: String = get_se_id().ok().unwrap();
+    let sn: String = get_sn().ok().unwrap();
     let device_cert: String = get_cert();
 
     se_activate_request::build_request_data(seid, sn, device_cert).se_activate();
 }
 
-pub fn check_update() -> Result<service_response, ImkeyError>  {
-    let seid: String = get_se_id();
-    let sn: String = get_sn();
+pub fn check_update() -> Result<service_response>  {
+    let seid: String = get_se_id().ok().unwrap();
+    let sn: String = get_sn().ok().unwrap();
     let sdk_version = Some(constants::VERSION.to_string());
     se_query_request::build_request_data(seid, sn, sdk_version).se_query()
 }
 
 pub fn app_download(app_name: &str) {
-    let seid: String = get_se_id();
+    let seid: String = get_se_id().ok().unwrap();
     let device_cert: String = get_cert();
     let sdk_version = Some(constants::VERSION.to_string());
     let instance_aid: String = applet::get_instid_by_appname(app_name).unwrap().to_string();
@@ -118,7 +118,7 @@ pub fn app_download(app_name: &str) {
 }
 
 pub fn app_update(app_name: &str) {
-    let seid: String = get_se_id();
+    let seid: String = get_se_id().ok().unwrap();
     let device_cert: String = get_cert();
     let sdk_version = Some(constants::VERSION.to_string());
     let instance_aid: String = applet::get_instid_by_appname(app_name).unwrap().to_string();
@@ -127,7 +127,7 @@ pub fn app_update(app_name: &str) {
 }
 
 pub fn app_delete(app_name: &str) {
-    let seid: String = get_se_id();
+    let seid: String = get_se_id().ok().unwrap();
     let device_cert: String = get_cert();
     let instance_aid: String = applet::get_instid_by_appname(app_name).unwrap().to_string();
     app_delete_request::build_request_data(seid, instance_aid, device_cert).app_delete();

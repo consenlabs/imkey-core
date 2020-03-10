@@ -11,8 +11,9 @@ use mq::message::send_apdu;
 use prost::Message;
 use std::str::FromStr;
 use crate::ethapi::EthAddressResponse;
+use crate::error_handling::Result;
 
-pub fn get_eth_address(data: &AddressParam) -> Result<Vec<u8>, Error> {
+pub fn get_eth_address(data: &AddressParam) -> Result<Vec<u8>> {
     //let address_param: AddressParam = AddressParam::decode(data).expect("EthTxInput");
 
     check_path_validity(&data.path);
@@ -31,7 +32,7 @@ pub fn get_eth_address(data: &AddressParam) -> Result<Vec<u8>, Error> {
     encode_message(address_message)
 }
 
-pub fn display_eth_address(data: &AddressParam) -> Result<Vec<u8>, Error> {
+pub fn display_eth_address(data: &AddressParam) -> Result<Vec<u8>> {
     check_path_validity(&data.path);
 
     let select_apdu = EthApdu::select_applet();

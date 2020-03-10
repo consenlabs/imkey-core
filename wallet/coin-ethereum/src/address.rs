@@ -2,15 +2,17 @@ use common::error::Error;
 use hex;
 use keccak_hash::keccak;
 use regex::Regex;
+use crate::Result;
 
 #[derive(Debug)]
 pub struct EthAddress {}
 
 impl EthAddress {
-    pub fn address_from_pubkey(pubkey: Vec<u8>) -> Result<String, Error> {
+    pub fn address_from_pubkey(pubkey: Vec<u8>) -> Result<String> {
         //length check
         if pubkey.len() != 64 {
-            return Err(Error::PubKeyError);
+//            return Err(Error::PubKeyError);
+            return Err(format_err!("PubKeyError"));
         }
 
         let pubkey_hash = keccak(pubkey);

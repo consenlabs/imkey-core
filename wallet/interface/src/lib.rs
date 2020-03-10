@@ -1,6 +1,11 @@
 pub mod ethereum_address;
 pub mod ethereum_signer;
 
+#[macro_use]
+extern crate failure;
+use core::result;
+pub type Result<T> = result::Result<T, failure::Error>;
+
 #[cfg(test)]
 mod tests {
     #[test]

@@ -2,6 +2,8 @@ use common::constants::{TSM_ACTION_APP_DOWNLOAD, TSM_RETURN_CODE_SUCCESS};
 use common::{error::ImkeyError, https};
 use mq::message;
 use serde::{Deserialize, Serialize};
+use crate::Result;
+use common::error::BAPP0006;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct app_download_request {
@@ -48,7 +50,7 @@ impl app_download_request {
         }
     }
 
-    pub fn app_download(&mut self) -> Result<(), ImkeyError> {
+    pub fn app_download(&mut self) -> Result<()> {
         loop {
             println!("请求报文：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
@@ -88,7 +90,8 @@ impl app_download_request {
                 }
             } else {
                 println!("应用服务器执行失败并返回 : {}", return_bean._ReturnMsg);
-                return Err(ImkeyError::BAPP0006);
+//                return Err(ImkeyError::BAPP0006);
+                return Err(format_err!("imkey_tsm_app_download_fail"));
             }
         }
     }
