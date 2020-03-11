@@ -83,6 +83,12 @@ pub struct BindCheck {
     #[prost(string, tag="1")]
     pub file_path: std::string::String,
 }
+///binding related
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BindCheckResponse {
+    #[prost(string, tag="1")]
+    pub bind_status: std::string::String,
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BindAcquire {
     #[prost(string, tag="1")]

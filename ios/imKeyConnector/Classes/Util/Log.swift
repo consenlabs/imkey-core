@@ -47,13 +47,13 @@ public class Log{
       return p
     }
     
-    let result2 = get_se_id(swiftCallback2)
-    let swift_result2 = String(cString: result2!)
-    rust_hello_free(UnsafeMutablePointer(mutating: result2))
-    print(swift_result2)
+//    let result2 = get_se_id(swiftCallback2)
+//    let swift_result2 = String(cString: result2!)
+//    rust_hello_free(UnsafeMutablePointer(mutating: result2))
+//    print(swift_result2)
   }
   
-  public static func checkDevice(){
-    check_device()
-  }
+//  public static func checkDevice(){
+//    check_device()
+//  }
 }

@@ -24,6 +24,8 @@ impl EthereumAddress {
         let pubkey_raw =
             hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError).expect("hex_to_bytes_error");
 
+        println!("pubkey_raw:{}", &hex::encode(&pubkey_raw));
+
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;
         Ok(address_main)
     }

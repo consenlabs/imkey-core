@@ -1,5 +1,5 @@
 use crate::api::DeviceParam;
-use crate::deviceapi::{AppAction, SdkInfoResponse};
+use crate::deviceapi::{AppAction, SdkInfoResponse, BindCheckResponse};
 use crate::deviceapi::DeviceCert;
 use crate::deviceapi::DeviceName;
 use crate::deviceapi::EmptyResponse;
@@ -139,11 +139,14 @@ pub fn device_secure_check(param: &DeviceParam) -> Result<Vec<u8>> {
 }
 
 pub fn device_bind_check(param: &DeviceParam) -> Result<Vec<u8>> {
+    println!("bridge...");
     let bind_check: BindCheck =
         BindCheck::decode(&param.param.as_ref().expect("device_param").value.clone())
             .expect("bind_check");
-    let _check_result = DeviceManage::new().bind_check(&bind_check.file_path);
-    let response_msg = EmptyResponse {};
+    let check_result = DeviceManage::new().bind_check(&bind_check.file_path).unwrap_or_default();
+    let response_msg = BindCheckResponse{
+        bind_status: check_result
+    };
     encode_message(response_msg)
 }
 
@@ -153,7 +156,7 @@ pub fn device_bind_acquire(param: &DeviceParam) -> Result<Vec<u8>> {
             .expect("bind_acquire");
     let bind_result = DeviceManage::new().bind_acquire(&bind_acquire.bind_code).ok().expect("bind_acquire_error");
     let response_msg = BindAcquireResponse {
-        bind_result: bind_result,
+        bind_result,
     };
     encode_message(response_msg)
 }

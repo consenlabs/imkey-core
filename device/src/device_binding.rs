@@ -133,6 +133,7 @@ impl DeviceManage {
 //    }
 
     pub fn bind_check(&mut self, file_path: &String) -> Result<String> {
+        println!("bind check...");
         //获取seid
         let seid = manager::get_se_id().ok().unwrap();
         //获取SN号
@@ -143,12 +144,17 @@ impl DeviceManage {
         let mut key_manager_obj = &mut self.key_manager;
         key_manager_obj.gen_encrypt_key(&seid, &sn);
 
+        println!("start read file..");
+
         //获取本地密钥文件内容
         let ciphertext = KeyManager::get_key_file_data(file_path, &seid);
         let mut key_flag = false;
         if !ciphertext.is_empty() {
             key_flag = !key_manager_obj.decrypt_keys(ciphertext.as_bytes());
         }
+        println!("content:{}",ciphertext);
+
+        println!("end read file..");
 
         //如果密钥文件不存在或者密钥文件里没有数据则重新生成
         if ciphertext.is_empty() || key_flag {
@@ -344,12 +350,15 @@ mod test{
     #[test]
     fn device_bind_test(){
 
-        let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-        let bind_code = "E4APZZRT".to_string();
+        // let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        // let bind_code = "E4APZZRT".to_string();
+        let bind_code = "YDSGQPKX".to_string();
         let mut device_manage = DeviceManage::new();
-        device_manage.bind_check(&path);
-        device_manage.bind_acquire(&bind_code);
-
+        let check_result = device_manage.bind_check(&path).unwrap_or_default();
+        println!("result:{}",&check_result);
+        let bind_result = device_manage.bind_acquire(&bind_code).unwrap_or_default();
+        println!("result:{}",&bind_result);
 //        let sn = String::from("imKey01191200001");
 //        println!("{:?}", hex::encode_upper(sn.as_bytes()));
 //        println!("{:?}", String::from_utf8(sn.as_bytes().to_vec()));

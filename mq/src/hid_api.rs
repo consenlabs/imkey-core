@@ -21,7 +21,7 @@ const DEV_PID: u16 = 0x0891;
 fn main() {
     let hid_device = hid_connect();
     let apdu = "00A40400".to_string();
-    let response = send(&hid_device, &apdu);
+    let response = hid_send(&hid_device, &apdu);
     println!("{:?}", response);
 
     //    println!("Execution Successful, auto-exit in 30 seconds.");
@@ -48,7 +48,7 @@ pub enum Error {
 
 #[cfg(target_os = "macos")]
 #[no_mangle]
-pub fn send(hid_device: &HidDevice, apdu: &String) -> String {
+pub fn hid_send(hid_device: &HidDevice, apdu: &String) -> String {
     println!("-->{}", apdu);
     //    let temp_apdu = Vec::from_hex(apdu.as_str()).unwrap().as_slice();
 
@@ -211,7 +211,7 @@ pub fn hid_connect() -> HidDevice {
 fn main() {
     let hid_device = hid_connect();
     let apdu = "00A40400".to_string();
-    let response = send(&hid_device, &apdu);
+    let response = hid_send(&hid_device, &apdu);
     println!("{:?}", response);
 
     //    println!("Execution Successful, auto-exit in 30 seconds.");

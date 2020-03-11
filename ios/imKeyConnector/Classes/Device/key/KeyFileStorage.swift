@@ -51,6 +51,10 @@ public final class KeyFileStorage {
     }
   }
   
+  public func getPath() -> String {
+    return walletsDirectory.appendingPathComponent(KeyFileStorage.defaultFileName).path
+  }
+  
   var walletsDirectory: URL {
     let walletsPath = "\(NSHomeDirectory())/Documents/wallets/imkey"
     var walletsDirectory = URL(fileURLWithPath: walletsPath)
