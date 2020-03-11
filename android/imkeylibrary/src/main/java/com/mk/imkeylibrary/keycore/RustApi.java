@@ -19,4 +19,6 @@ public interface RustApi extends Library{
 
     void check_update();
     String call_tcx_api(String value);
+    void clear_err();
+    String get_last_err_message();
 }
