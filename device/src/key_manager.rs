@@ -22,6 +22,8 @@ use std::str::FromStr;
 
 use lazy_static;
 use std::sync::Mutex;
+use crate::Result;
+use crate::error::BindError;
 
 lazy_static! {
     pub static ref SE_PUB_KEY: Mutex<String> = Mutex::new("".to_string());
@@ -70,7 +72,7 @@ impl KeyManager {
     /**
     加密密钥文件数据
     */
-    pub fn encrypt_data(&self) -> String {
+    pub fn encrypt_data(&self) -> Result<String> {
         let mut data = vec![];
         //组织原数据
         data.extend(self.pri_key.iter());
@@ -85,28 +87,27 @@ impl KeyManager {
         //进行AES-CBC加密
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
         let cipher =
-            Aes128Cbc::new_var(self.encry_key.as_ref(), self.iv.as_ref()).expect("aes cbc encrypt error");
+            Aes128Cbc::new_var(self.encry_key.as_ref(), self.iv.as_ref()).expect("aes_128cbc_encrypt_error");
         let ciphertext = cipher.encrypt_vec(data.as_ref());
 
         //base64编码
-        encode(&ciphertext)
+        Ok(encode(&ciphertext))
     }
 
     /**
     获取密钥文件数据
     */
-    pub fn get_key_file_data(path: &String, seid: &String) -> String {
+    pub fn get_key_file_data(path: &String, seid: &String) -> Result<String> {
         let mut return_data = String::new();
-        println!("{}", format!("{}key{}{}", path, seid, ".txt"));
         let file = File::open(format!("{}key{}{}", path, seid, ".txt").as_str());
         match file {
             Ok(mut f) => {
-                f.read_to_string(&mut return_data).expect("read file error");
-                return_data
+                f.read_to_string(&mut return_data).expect("imkey_keyfile_io_error");
+                Ok(return_data)
             }
             Err(e) => match e.kind() {
-                ErrorKind::NotFound => return_data,
-                _ => panic!("open file error"),
+                ErrorKind::NotFound => Ok(return_data),
+                _ => Err(BindError::IMKEY_KEYFILE_IO_ERROR.into()),
             },
         }
     }
@@ -114,17 +115,17 @@ impl KeyManager {
     /**
     解密密钥文件数据
     */
-    pub fn decrypt_keys(&mut self, ciphertext: &[u8]) -> bool {
+    pub fn decrypt_keys(&mut self, ciphertext: &[u8]) -> Result<bool> {
         //base64解码
-        let ciphertext_bytes = decode(ciphertext).unwrap();
+        let ciphertext_bytes = decode(ciphertext)?;
 
         //AES CBC解密
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
         let cipher =
-            Aes128Cbc::new_var(self.encry_key.as_ref(), self.iv.as_ref()).unwrap();
+            Aes128Cbc::new_var(self.encry_key.as_ref(), self.iv.as_ref())?;
         let decrypt_result = cipher.decrypt_vec(&ciphertext_bytes);
         if decrypt_result.is_err() {
-            return false;
+            return Ok(false);
         }
         let decrypted_data = decrypt_result.unwrap();
 
@@ -157,10 +158,10 @@ impl KeyManager {
         let data_hash_byte = data_hash.as_ref();
         for (index, val) in self.check_sum.iter().enumerate() {
             if val != &data_hash_byte[index] {
-                return false;
+                return Ok(false);
             }
         }
-        return true;
+        Ok(true)
     }
 
     /**
@@ -186,7 +187,7 @@ impl KeyManager {
             .read(true)
             .write(true)
             .create(true)
-            .open(Path::new(format!("{}key{}{}", path, seid, ".txt").as_str())).expect("open key file error");
+            .open(Path::new(format!("{}key{}{}", path, seid, ".txt").as_str())).expect("imkey_keyfile_opertion_error");
         file.write_all(keys.as_bytes());
         
     }

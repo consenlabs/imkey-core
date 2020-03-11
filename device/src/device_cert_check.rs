@@ -28,6 +28,7 @@ pub struct service_response {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct device_cert_check_response {
     pub seid: Option<String>,
+    pub verifyResult: Option<bool>,
     pub nextStepKey: Option<String>,
     pub apduList: Option<Vec<String>>,
 }
@@ -49,17 +50,16 @@ impl device_cert_check_request {
         }
     }
 
-    pub fn device_cert_check(&mut self) -> Result<()> {
+    pub fn device_cert_check(&mut self) -> Result<service_response> {
         println!("请求报文：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
         let mut response_data = https::post(TSM_ACTION_DEVICE_CERT_CHECK, req_data)?;
         let return_bean: service_response = serde_json::from_str(response_data.as_str())?;
         println!("返回报文：{:#?}", return_bean);
-        if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
-            return Ok(());
-        } else {
+        if return_bean._ReturnCode.is_empty(){
             return Err(ImkeyError::BSE0009.into());
         }
+        Ok(return_bean)
     }
 }
 

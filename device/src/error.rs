@@ -33,24 +33,26 @@ pub enum ImkeyError {
     BAPP0011,
     #[fail(display = "imkey_tsm_cos_upgrade_fail")]
     BCOS0003,
+    #[fail(display = "imkey_tsm_device_authenticity_check_fail")]
+    IMKEY_TSM_DEVICE_AUTHENTICITY_CHECK_FAIL,
+    #[fail(display = "imkey_tsm_device_not_activated")]
+    IMKEY_TSM_DEVICE_NOT_ACTIVATED,
+    #[fail(display = "imkey_tsm_device_illegal")]
+    IMKEY_TSM_DEVICE_ILLEGAL,
+    #[fail(display = "imkey_tsm_device_stop_using")]
+    IMKEY_TSM_DEVICE_STOP_USING,
+    #[fail(display = "imkey_tsm_server_error")]
+    IMKEY_TSM_SERVER_ERROR,
+    #[fail(display = "imkey_se_cert_invalid")]
+    IMKEY_SE_CERT_INVALID,
 }
 
-//impl Display for ImkeyError {
-//    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-//        match &self {
-//            ImkeyError::BSE0007 => write!(f, "imkey_tsm_device_not_activated"),
-//            ImkeyError::BSE0008 => write!(f, "imkey_tsm_app_update_fail"),
-//            ImkeyError::BSE0009 => write!(f, "imkey_tsm_device_authenticity_check_fail"),
-//            ImkeyError::BSE0010 => write!(f, "imkey_tsm_oce_cert_check_fail"),
-//            ImkeyError::BSE0012 => write!(f, "imkey_tsm_receipt_check_fail"),
-//            ImkeyError::BSE0015 => write!(f, "imkey_tsm_device_active_fail"),
-//            ImkeyError::BSE0017 => write!(f, "imkey_tsm_device_illegal"),
-//            ImkeyError::BSE0018 => write!(f, "imkey_tsm_device_update_check_fail"),
-//            ImkeyError::BSE0019 => write!(f, "imkey_tsm_device_stop_using"),
-//            ImkeyError::BAPP0006 => write!(f, "imkey_tsm_app_download_fail"),
-//            ImkeyError::BAPP0008 => write!(f, "imkey_tsm_app_update_fail"),
-//            ImkeyError::BAPP0011 => write!(f, "imkey_tsm_app_delete_fail"),
-//        }
-//    }
-//}
-pub const MESSAGE_CONVER_ERROR: &str = "";
+#[derive(Fail, Debug, PartialOrd, PartialEq)]
+pub enum BindError {
+    #[fail(display = "imkey_keyfile_io_error")]
+    IMKEY_KEYFILE_IO_ERROR,
+    #[fail(display = "imkey_sdk_illegal_argument")]
+    IMKEY_SDK_ILLEGAL_ARGUMENT,
+    #[fail(display = "imkey_encrypt_authcode_fail")]
+    IMKEY_ENCRYPT_AUTHCODE_FAIL,
+}
