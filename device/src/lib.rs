@@ -15,7 +15,7 @@ pub mod cos_upgrade;
 #[macro_use]
 extern crate lazy_static;
 extern crate mq;
-
+pub mod error;
 #[macro_use]
 extern crate failure;
 use core::result;

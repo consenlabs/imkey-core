@@ -1,6 +1,5 @@
 use common::constants::{TSM_ACTION_COS_UPGRADE, TSM_RETURN_CODE_SUCCESS};
-use common::{error::ImkeyError, https};
-//use mq::message;
+use common::https;
 use serde::{Deserialize, Serialize};
 use mq::message::{send_apdu};
 use crate::manager;
@@ -14,6 +13,8 @@ use hidapi::{HidApi, HidDevice};
 use lazy_static;
 #[cfg(target_os = "macos")]
 use mq::hid_api::{hid_connect, hid_send};
+use crate::Result;
+use crate::error::ImkeyError;
 
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -64,7 +65,7 @@ impl cos_upgrade_request {
 //    }
 
     //    pub fn cos_upgrade(&mut self) -> Result<(), ImkeyError> {
-    pub fn cos_upgrade() -> Result<(), ImkeyError> {
+    pub fn cos_upgrade() -> Result<()> {
         //read se device cert
         let mut device_cert = manager::get_cert();
 //        if !"9000".eq(&device_cert[device_cert.len() - 4..]) {
@@ -83,7 +84,7 @@ impl cos_upgrade_request {
             send_apdu("00A4040000".to_string());
             let apdu_response = send_apdu("80CB800005DFFF02800300".to_string());
             if !"9000".eq(&apdu_response[apdu_response.len() - 4..]) {
-                return Err(ImkeyError::COS_UPGRADE_ERROR);
+                return Err(ImkeyError::BCOS0003.into());
             }
             se_cos_version = format!("{}.{}.{}",
                                      apdu_response[0..1].to_string(),
@@ -102,7 +103,7 @@ impl cos_upgrade_request {
             device_cert = hex::encode_upper(temp_device_cert);
 //            device_cert = "BF2181CA7F2181C6931019060000000200860001010000000014420200015F200401020304950200805F2504201810145F2404FFFFFFFF53007F4947B04104FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44F002DFFE5F374830460221008CB58D54BDED501236621B83B320081E6F9B6B5539AE5EC9D36B660EC445A5E8022100A203CA1F9ABEE69751EA402A2ACDFD6B4A87697D6CD721F60540959095EC9466".to_string();
         } else {
-            return Err(ImkeyError::COS_UPGRADE_ERROR);
+            return Err(ImkeyError::BCOS0003.into());
         }
 
         let mut request_data = cos_upgrade_request {
@@ -145,7 +146,7 @@ impl cos_upgrade_request {
                                                                                            None)
                             .app_download();
                         if app_dwonlaod_result.is_err() {
-                            return Err(ImkeyError::BAPP0006);
+                            return Err(ImkeyError::BCOS0003.into());
                         }
                     }
                 }
@@ -181,7 +182,7 @@ impl cos_upgrade_request {
                 request_data.stepKey = next_step_key;
             } else {
                 println!("应用服务器执行失败并返回 : {}", return_bean._ReturnMsg);
-                return Err(ImkeyError::BAPP0006);
+                return Err(ImkeyError::BCOS0003.into());
             }
         }
     }

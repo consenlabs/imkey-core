@@ -1,5 +1,6 @@
 //pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
-pub const URL: &str = "https://imkey.online:1000/imkey/";
+//pub const URL: &str = "https://imkey.online:1000/imkey/";
+pub const URL: &str = "http://localhost:8080/imkey/";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
 pub const TSM_ACTION_APP_DOWNLOAD: &str = "/appDownload";
@@ -39,3 +40,6 @@ pub const IMKEY_DEV_STATUS_LATEST: &str = "latest";
 // tsm return code
 pub const TSM_RETURN_CODE_SUCCESS: &str = "000000";
 pub const TSM_RETURNCODE_DEV_INACTIVATED : &str = "BSE0007";
+
+//tsm end flag
+pub const TSM_END_FLAG: &str = "end";
