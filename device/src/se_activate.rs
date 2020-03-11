@@ -1,4 +1,4 @@
-use common::constants::{TSM_ACTION_SE_ACTIVATE, TSM_RETURN_CODE_SUCCESS, TSM_END_FLAG};
+use common::constants;
 use common::https;
 use mq::message;
 use serde::{Deserialize, Serialize};
@@ -41,7 +41,7 @@ impl se_activate_request {
             deviceCert: device_cert,
             stepKey: String::from("01"),
             statusWord: None,
-            commandID: String::from(TSM_ACTION_SE_ACTIVATE),
+            commandID: String::from(constants::TSM_ACTION_SE_ACTIVATE),
             cardRetDataList: None,
         }
     }
@@ -50,13 +50,13 @@ impl se_activate_request {
         loop {
             println!("请求报文：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
-            let mut response_data = https::post(TSM_ACTION_SE_ACTIVATE, req_data)?;
+            let mut response_data = https::post(constants::TSM_ACTION_SE_ACTIVATE, req_data)?;
             let return_bean: service_response = serde_json::from_str(response_data.as_str())?;
             println!("反馈报文：{:#?}", return_bean);
-            if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
+            if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //判断步骤key是否已经结束
                 let next_step_key = return_bean._ReturnData.nextStepKey.unwrap();
-                if TSM_END_FLAG.eq(next_step_key.as_str()) {
+                if constants::TSM_END_FLAG.eq(next_step_key.as_str()) {
                     return Ok(());
                 }
 
@@ -78,7 +78,13 @@ impl se_activate_request {
                     None => (),
                 }
             } else {
-                return Err(ImkeyError::BSE0015.into());
+                let ret_code_check_result: Result<()> = match return_bean._ReturnCode.as_str() {
+                    constants::TSM_RETURNCODE_DEVICE_ACTIVE_FAIL => Err(ImkeyError::IMKEY_TSM_DEVICE_ACTIVE_FAIL.into()),
+                    constants::TSM_RETURNCODE_SEID_ILLEGAL => Err(ImkeyError::IMKEY_TSM_DEVICE_ILLEGAL.into()),
+                    constants::TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::IMKEY_TSM_DEVICE_STOP_USING.into()),
+                    _ => Err(ImkeyError::IMKEY_TSM_SERVER_ERROR.into()),
+                };
+                return ret_code_check_result;
             }
         }
     }
