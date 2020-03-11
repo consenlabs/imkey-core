@@ -501,7 +501,42 @@ public class DeviceManager {
     public void activeDevice() {
 
 
+        //error test
+        //清除
+        RustApi.INSTANCE.clear_err();
+
         api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("se_secure_check")
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("error_test")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            //String s = response.toString();
+            LogUtil.d(result);
+
+            String error = RustApi.INSTANCE.get_last_err_message();
+            api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+            response.getIsSuccess();
+            error = response.getError();
+            LogUtil.d("error信息：" + error);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+        /*api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
                 .setAction("se_activate")
                 .build();
 
@@ -523,7 +558,7 @@ public class DeviceManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+*/
         /*
         String seId = getSeId();
         String sn = getSn();
