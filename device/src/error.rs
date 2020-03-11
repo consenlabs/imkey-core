@@ -45,6 +45,20 @@ pub enum ImkeyError {
     IMKEY_TSM_SERVER_ERROR,
     #[fail(display = "imkey_se_cert_invalid")]
     IMKEY_SE_CERT_INVALID,
+    #[fail(display = "imkey_tsm_device_update_check_fail")]
+    IMKEY_TSM_DEVICE_UPDATE_CHECK_FAIL,
+    #[fail(display = "imkey_tsm_device_active_fail")]
+    IMKEY_TSM_DEVICE_ACTIVE_FAIL,
+    #[fail(display = "imkey_tsm_receipt_check_fail")]
+    IMKEY_TSM_RECEIPT_CHECK_FAIL,
+    #[fail(display = "imkey_tsm_app_download_fail")]
+    IMKEY_TSM_APP_DOWNLOAD_FAIL,
+    #[fail(display = "imkey_tsm_app_update_fail")]
+    IMKEY_TSM_APP_UPDATE_FAIL,
+    #[fail(display = "imkey_tsm_app_delete_fail")]
+    IMKEY_TSM_APP_DELETE_FAIL,
+    #[fail(display = "imkey_tsm_oce_cert_check_fail")]
+    IMKEY_TSM_OCE_CERT_CHECK_FAIL,
 }
 
 #[derive(Fail, Debug, PartialOrd, PartialEq)]

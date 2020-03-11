@@ -1,4 +1,4 @@
-use common::constants::{TSM_ACTION_SE_SECURE_CHECK, TSM_RETURN_CODE_SUCCESS, TSM_END_FLAG};
+use common::constants;
 use common::https;
 use mq::message;
 use serde::{Deserialize, Serialize};
@@ -43,7 +43,7 @@ impl se_secure_check_request {
             deviceCert: device_cert,
             stepKey: String::from("01"),
             statusWord: None,
-            commandID: String::from(TSM_ACTION_SE_SECURE_CHECK),
+            commandID: String::from(constants::TSM_ACTION_SE_SECURE_CHECK),
             cardRetDataList: None,
         }
     }
@@ -52,13 +52,13 @@ impl se_secure_check_request {
         loop {
             println!("请求报文：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
-            let mut response_data = https::post(TSM_ACTION_SE_SECURE_CHECK, req_data)?;
+            let mut response_data = https::post(constants::TSM_ACTION_SE_SECURE_CHECK, req_data)?;
             let return_bean: service_response = serde_json::from_str(response_data.as_str())?;
             println!("返回报文：{:#?}", return_bean);
-            if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
+            if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //判断步骤key是否已经结束
                 let next_step_key = return_bean._ReturnData.nextStepKey.unwrap();
-                if TSM_END_FLAG.eq(next_step_key.as_str()) {
+                if constants::TSM_END_FLAG.eq(next_step_key.as_str()) {
                     return Ok(());
                 }
 
@@ -79,7 +79,16 @@ impl se_secure_check_request {
                     None => (),
                 }
             } else {
-                return Err(ImkeyError::BSE0009.into());
+                let ret_code_check_result: Result<()> = match return_bean._ReturnCode.as_str() {
+                    constants::TSM_RETURNCODE_DEVICE_CHECK_FAIL => Err(ImkeyError::IMKEY_TSM_DEVICE_AUTHENTICITY_CHECK_FAIL.into()),
+                    constants::TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::IMKEY_TSM_DEVICE_NOT_ACTIVATED.into()),
+                    constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::IMKEY_TSM_DEVICE_ILLEGAL.into()),
+                    constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => Err(ImkeyError::IMKEY_TSM_OCE_CERT_CHECK_FAIL.into()),
+                    constants::TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::IMKEY_TSM_DEVICE_STOP_USING.into()),
+                    constants::TSM_RETURNCODE_RECEIPT_CHECK_FAIL => Err(ImkeyError::IMKEY_TSM_RECEIPT_CHECK_FAIL.into()),
+                    _ => Err(ImkeyError::IMKEY_TSM_SERVER_ERROR.into()),
+                };
+                return ret_code_check_result;
             }
         }
     }
