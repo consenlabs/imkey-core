@@ -7,6 +7,7 @@ use common::{path, utility};
 use mq::message;
 use std::str::FromStr;
 use crate::Result;
+use device::device_binding::KEY_MANAGER;
 
 #[derive(Debug)]
 pub struct EosPubkey {}
@@ -27,9 +28,11 @@ impl EosPubkey {
         let sign_result = &res_msg_pubkey[194..res_msg_pubkey.len()-4];
         let pub_key = &sign_source_val[..130];
 
+        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+
         //use se public key verify sign
-        let se_pub_key = "04E03248A0012603C6B20786C2A86EB6B9DC1767BC56674EBE471ED5FDF287A063985885E0523E100319E0643810F0EAF66A0D4102AEAE49FD7BC7AC232247A3DC";
-        let sign_verify_result = utility::secp256k1_sign_verify(hex::decode(se_pub_key).unwrap().as_slice(),
+        // let se_pub_key = "04E03248A0012603C6B20786C2A86EB6B9DC1767BC56674EBE471ED5FDF287A063985885E0523E100319E0643810F0EAF66A0D4102AEAE49FD7BC7AC232247A3DC";
+        let sign_verify_result = utility::secp256k1_sign_verify(&key_manager_obj.se_pub_key,
                                                                 hex::decode(sign_result).unwrap().as_slice(),
                                                                 hex::decode(sign_source_val).unwrap().as_slice());
         if !sign_verify_result {
@@ -84,9 +87,14 @@ impl EosPubkey {
 mod tests {
     use crate::pubkey::EosPubkey;
     use common::constants;
+    use device::device_binding::DeviceManage;
 
     #[test]
     fn test_get_pubkey() {
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        println!("check_result:{}",&check_result);
+
         let pubkey = EosPubkey::get_pubkey(constants::EOS_PATH);
         println!("pubkey:{}",pubkey.unwrap());
     }
