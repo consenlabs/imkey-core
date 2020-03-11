@@ -1,8 +1,8 @@
 use common::constants::{TSM_ACTION_SE_QUERY, TSM_RETURN_CODE_SUCCESS};
-use common::{error::ImkeyError, https};
+use common::https;
 use serde::{Deserialize, Serialize};
 use crate::Result;
-use common::error::BSE0018;
+use crate::error::ImkeyError;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct se_query_request {
@@ -60,23 +60,14 @@ impl se_query_request {
     pub fn se_query(&mut self) -> Result<service_response> {
         println!("请求报文：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
-        let mut response_data = https::post(TSM_ACTION_SE_QUERY, req_data);
-        let return_bean: service_response =
-            serde_json::from_str(response_data.ok().unwrap().as_str().clone())
-                .expect("imkey message seriailize error");
+        let mut response_data = https::post(TSM_ACTION_SE_QUERY, req_data)?;
+        let return_bean: service_response = serde_json::from_str(response_data.as_str())?;
         println!("反馈报文：{:#?}", return_bean);
 
         if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
-            //判断步骤key是否已经结束
-            //            let next_step_key = return_bean._ReturnData.nextStepKey.unwrap();
-            //            if "end".eq(next_step_key.as_str()) {
-            println!("SE应用查询成功结束");
             return Ok(return_bean);
-        //            }
         } else {
-            println!("应用查询服务器执行失败并返回 : {}", return_bean._ReturnMsg);
-//            return Err(ImkeyError::BSE0008);
-            return Err(format_err!("imkey_tsm_device_update_check_fail"))
+            return Err(ImkeyError::BSE0018.into());
         }
     }
 }
