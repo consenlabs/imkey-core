@@ -213,12 +213,12 @@ pub fn set_apdu_return(apdu_return: *const c_char) {
 
 #[cfg(target_os = "macos")]
 pub fn send_apdu(apdu: String) -> String {
-    hid_api::send(&DEVICE.lock().unwrap(), &apdu)
+    hid_api::hid_send(&DEVICE.lock().unwrap(), &apdu)
 }
 
 #[cfg(target_os = "windows")]
 pub fn send_apdu(apdu: String) -> String {
-    hid_api::send(&DEVICE.lock().unwrap(), &apdu)
+    hid_api::hid_send(&DEVICE.lock().unwrap(), &apdu)
 }
 
 

@@ -186,7 +186,7 @@ impl EosTransaction {
         data_pack.push(input.path.as_bytes().len() as u8);
         data_pack.extend(input.path.as_bytes());
 
-        let private_key = hex_to_bytes("15A3C9A55EAE204B1CC8F2DBA25AE9A4F35793D7226E9CDE8731D58D43D6C72C").unwrap();//ios
+        let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();//ios
         let mut bind_signature = secp256k1_sign(&private_key, &data_pack);
         println!("bind_signature:{}", &hex::encode(&bind_signature));
 
@@ -237,6 +237,9 @@ impl EosTransaction {
                     let uncomprs_pubkey: String = prepare_response.chars().take(prepare_response.len() - 4).collect();
                     let pub_key_raw = hex::decode(&uncomprs_pubkey).unwrap();
                     let sign_compact = hex::decode(&sign_result[2..130]).unwrap();
+                    println!("hash:{}", &hex::encode(&hash));
+                    println!("sign_compact:{}", &hex::encode(&sign_compact));
+                    println!("pub_key_raw:{}", &hex::encode(&pub_key_raw));
                     let rec_id = utility::retrieve_recid(&hash, &sign_compact, &pub_key_raw).unwrap();
                     let rec_id = rec_id.to_i32();
                     println!("rec_id:{}", &rec_id);

@@ -13,7 +13,7 @@ use mq::hid_api;
 use hidapi::{HidApi, HidDevice};
 use lazy_static;
 #[cfg(target_os = "macos")]
-use mq::hid_api::{hid_connect, send};
+use mq::hid_api::{hid_connect, hid_send};
 
 
 #[derive(Debug, Serialize, Deserialize)]

@@ -146,43 +146,49 @@ class ViewController: UIViewController,BLEDelegate {
   
   let userDefaults = UserDefaults.standard
   @IBAction func bindCheck(_ sender: Any) {
-    
-    DispatchQueue.global().async {
-      do {
-        let bindCode = self.userDefaults.string(forKey: self.currentDevice!.address)
-        if bindCode != nil{
-          Log.d("bindcode...............\(bindCode!)")
-        }
-        
-        let status = try KeyManager.shared().bindCheck(handle: self.handle)
-        if status == KeyManager.status_unbound{
-          try KeyManager.shared().displayBindingCode(handle: self.handle)
-          self.bindDevice(status: "未绑定过的设备，请输入绑定码", deviceMac: self.currentDevice!.address)
-        }else if status == KeyManager.status_bound_other{
-          if bindCode != nil{
-            self.toastMsg(message: "已绑定其他设备,重新绑定..")
-            let bindResult = try KeyManager.shared().bindAcquire(handle: self.handle, authCode: bindCode!)
-            if bindResult == KeyManager.result_success{
-              self.toastMsg(message: "绑定成功")
-            }else{
-              self.bindDevice(status: "绑定码错误，请重新输入绑定码", deviceMac: self.currentDevice!.address)
-            }
-          }else{
-            self.bindDevice(status: "未绑定过的设备，请先绑定", deviceMac: self.currentDevice!.address)
-          }
-        }else{
-          self.toastMsg(message: "已绑定")
-        }
-        
-        Log.d(status)
-        self.toastMsg(message: status)
-      }catch let e as ImkeyError {
-        Log.d("!!!error:\(e.message)")
-        self.toastMsg(message: e.message)
-      }catch{
-        Log.d(error)
-      }
-    }
+    let status = API.bindCheck()
+    print("status:\(status)")
+    let bindResult = API.bindAcquire(bindCode: "YDSGQPKX")
+    print("bind result:\(bindResult)")
+//
+////    DispatchQueue.global().async {
+//      do {
+//        let bindCode = self.userDefaults.string(forKey: self.currentDevice!.address)
+//        if bindCode != nil{
+//          Log.d("bindcode...............\(bindCode!)")
+//        }
+//
+////        let status = try KeyManager.shared().bindCheck(handle: self.handle)
+//        let status = API.bindCheck()
+//        if status == KeyManager.status_unbound{
+//          try KeyManager.shared().displayBindingCode(handle: self.handle)
+//          self.bindDevice(status: "未绑定过的设备，请输入绑定码", deviceMac: self.currentDevice!.address)
+//        }else if status == KeyManager.status_bound_other{
+//          if bindCode != nil{
+//            self.toastMsg(message: "已绑定其他设备,重新绑定..")
+////            let bindResult = try KeyManager.shared().bindAcquire(handle: self.handle, authCode: bindCode!)
+//            let bindResult = API.bindAcquire(bindCode: bindCode!)
+//            if bindResult == KeyManager.result_success{
+//              self.toastMsg(message: "绑定成功")
+//            }else{
+//              self.bindDevice(status: "绑定码错误，请重新输入绑定码", deviceMac: self.currentDevice!.address)
+//            }
+//          }else{
+//            self.bindDevice(status: "未绑定过的设备，请先绑定", deviceMac: self.currentDevice!.address)
+//          }
+//        }else{
+//          self.toastMsg(message: "已绑定")
+//        }
+//
+//        Log.d(status)
+//        self.toastMsg(message: status)
+//      }catch let e as ImkeyError {
+//        Log.d("!!!error:\(e.message)")
+//        self.toastMsg(message: e.message)
+//      }catch{
+//        Log.d(error)
+//      }
+////    }
   }
   
   func bindDevice(status:String,deviceMac:String){

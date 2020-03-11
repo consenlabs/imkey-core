@@ -305,6 +305,61 @@ public class API{
     return ethAddressResponse.address
   }
   
+  public class func bindCheck() -> String{
+    let storage = KeyFileStorage()
+    let path = storage.getPath()
+    
+    var bindCheckParam = Deviceapi_BindCheck()
+    bindCheckParam.filePath = path
+    
+    var deviceParam = Api_DeviceParam()
+    deviceParam.action = "bind_check"
+    deviceParam.param = Google_Protobuf_Any()
+    deviceParam.param.value = try! bindCheckParam.serializedData()
+    
+    var action = Api_TcxAction()
+    action.method = "device_manage"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! deviceParam.serializedData()
+    
+//    clear_err()
+    let paramHex = try! action.serializedData().key_toHexString()
+    let res = call_tcx_api(paramHex)
+//    let error = get_last_err_message()
+//    print(error)
+    
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let bindResponse = try! Deviceapi_BindCheckResponse(serializedData: dataRes)
+    return bindResponse.bindStatus
+  }
+  
+  public class func bindAcquire(bindCode:String) -> String{
+    var bindAcquireParam = Deviceapi_BindAcquire()
+    bindAcquireParam.bindCode = bindCode
+    
+    var deviceParam = Api_DeviceParam()
+    deviceParam.action = "bind_acquire"
+    deviceParam.param = Google_Protobuf_Any()
+    deviceParam.param.value = try! bindAcquireParam.serializedData()
+    
+    var action = Api_TcxAction()
+    action.method = "device_manage"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! deviceParam.serializedData()
+    
+    //    clear_err()
+    let paramHex = try! action.serializedData().key_toHexString()
+    let res = call_tcx_api(paramHex)
+    //    let error = get_last_err_message()
+    //    print(error)
+    
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let bindResponse = try! Deviceapi_BindAcquireResponse(serializedData: dataRes)
+    return bindResponse.bindResult
+  }
+  
   public class func btcSignTX(){
     Log.d("btc sign ...")
     var btcInput = Btcapi_BtcTxInput()

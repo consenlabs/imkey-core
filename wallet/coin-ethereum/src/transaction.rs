@@ -204,7 +204,7 @@ impl Transaction {
         data_to_sign.extend(data.as_slice());
         println!("data_to_sign:{}", &hex::encode(&data_to_sign));
 
-        let private_key = hex_to_bytes("15A3C9A55EAE204B1CC8F2DBA25AE9A4F35793D7226E9CDE8731D58D43D6C72C").unwrap();//ios
+        let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();//ios
         let mut bind_signature = secp256k1_sign(&private_key, &data_to_sign);
         println!("bind_signature:{}", &hex::encode(&bind_signature));
 
@@ -222,10 +222,12 @@ impl Transaction {
         let res_msg_pubkey = send_apdu(msg_pubkey);
         let pubkey_raw = hex_to_bytes(&res_msg_pubkey[2..130]).unwrap();
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone()).unwrap();
-        println!("address_main:{}", &hex::encode(&address_main));
+        let address_checksummed = EthAddress::address_checksummed(&address_main);
+        println!("address_checksummed:{}", &address_checksummed);
 
         //todo check address
-        if &address_main == &input.sender {
+        if &address_checksummed != &input.sender {
+            println!("IMKEY_ADDRESS_MISMATCH_WITH_PATH");//todo throw IMKEY_ADDRESS_MISMATCH_WITH_PATH
         }
 
         let prepare_apdus = EthApdu::prepare_personal_sign(apdu_pack);
@@ -244,7 +246,12 @@ impl Transaction {
 //        let pub_key_raw = hex::decode(&pubkey_raw).unwrap();
         let sign_compact = hex::decode(&sign_response[2..130]).unwrap();
         let data_hash = tiny_keccak::keccak256(&data);
-        let rec_id = utility::retrieve_recid(data_hash.as_ref(), &sign_compact, &pubkey_raw).unwrap();
+        println!("data_hash:{}", &hex::encode(&data_hash));
+        println!("sign_compact:{}", &hex::encode(&sign_compact));
+        println!("pubkey_raw:{}", &hex::encode(&pubkey_raw));
+        let hash = sha256_hash(&data);
+        println!("hash:{}", &hex::encode(&hash));
+        let rec_id = utility::retrieve_recid(&data_hash, &sign_compact, &pubkey_raw).unwrap();
         let rec_id = rec_id.to_i32();
         println!("rec_id:{}", &rec_id);
         let v = rec_id + 27 + 4;
@@ -406,5 +413,20 @@ mod tests {
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string()
         };
         let output = Transaction::sign_persional_message(input);
+    }
+
+    #[test]
+    fn test_retrieve_recid(){
+        let hash = "123faa96160f0b89a758c4f8585500d0ab6559565e184a02882c8b3cda20263d";
+        let sign = "397828f985a5d19546fe59425d44c745c72152eac845e54fd748b457ba306c682582567be75888645d623225af599cc0ae9f285f8d0d020e7c9a9246985b4dda";
+        let pubkey = "04aaf80e479aac0813b17950c390a16438b307aee9a814689d6706be4fb4a4e30a4d2a7f75ef43344fa80580b5b1fbf9f233c378d99d5adb5cac9ae86f562803e1";
+
+        // let hash = "67ef13584100dc37251f59cbc11f7e36ac719cb1e63be0af3b371fc259458e65";
+        // let sign = "d928f76ad80d63003c189b095078d94ae068dc2f18a5cafd97b3a630d7bc4746a4290e18b21d1773fa4d8e1e3a5746c955d5046283282bb90dcc29b64108ec5c";
+        // let pubkey = "80c98b8ea7cab630defb0c09a4295c2193cdee016c1d5b9b0cb18572b9c370fefbc790fc3291d3cb6441ac94c3952035c409f4374d1780f400c1ed92972ce83c";
+
+        let rec_id = utility::retrieve_recid(&hex::decode(hash).unwrap(), &&hex::decode(sign).unwrap(), &&hex::decode(pubkey).unwrap()).unwrap();
+        let rec_id = rec_id.to_i32();
+        println!("rec_id:{}", &rec_id);
     }
 }
