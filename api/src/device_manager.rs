@@ -27,32 +27,20 @@ use mq::message;
 use std::ffi::{CStr, CString};
 use crate::error_handling::Result;
 
-
 pub fn device_app_delete(param: &DeviceParam) -> Result<Vec<u8>> {
     let app_action: AppAction =
-        AppAction::decode(&param.param.as_ref().expect("device_param").value.clone())
-            .expect("app_action");
+        AppAction::decode(&param.param.as_ref().expect("imkey_illegal_param").value.clone())
+            .expect("imkey_illegal_param");
     manager::app_delete(app_action.app_name.as_ref());
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
 
 pub fn device_app_download(param: &DeviceParam) -> Result<Vec<u8>> {
-//    let app_action: AppAction =
-//        AppAction::decode(&param.param.as_ref().expect("device_param").value.clone())
-//            .expect("app_action");
-//    let mut request = app_download_request::build_request_data(
-//        app_action.se_id,
-//        app_action.instance_aid,
-//        app_action.device_cert,
-//        Some(app_action.sdk_version),
-//    );
-//    let _response = request
-//        .app_download()
-//        .map_err(|_err| Error::DeviceOpError)?;
+
     let app_action: AppAction =
-        AppAction::decode(&param.param.as_ref().expect("device_param").value.clone())
-            .expect("app_action");
+        AppAction::decode(&param.param.as_ref().expect("imkey_illegal_param").value.clone())
+            .expect("imkey_illegal_param");
     manager::app_download(app_action.app_name.as_ref());
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
@@ -70,8 +58,8 @@ pub fn device_app_update(param: &DeviceParam) -> Result<Vec<u8>> {
 //    );
 //    let _response = request.app_update().map_err(|_err| Error::DeviceOpError)?;
     let app_action: AppAction =
-        AppAction::decode(&param.param.as_ref().expect("device_param").value.clone())
-            .expect("app_action");
+        AppAction::decode(&param.param.as_ref().expect("imkey_illegal_prarm").value.clone())
+            .expect("imkey_illegal_prarm");
     manager::app_update(app_action.app_name.as_ref());
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
@@ -141,8 +129,8 @@ pub fn device_secure_check(param: &DeviceParam) -> Result<Vec<u8>> {
 pub fn device_bind_check(param: &DeviceParam) -> Result<Vec<u8>> {
     println!("bridge...");
     let bind_check: BindCheck =
-        BindCheck::decode(&param.param.as_ref().expect("device_param").value.clone())
-            .expect("bind_check");
+        BindCheck::decode(&param.param.as_ref().expect("imkey_illegal_param").value.clone())
+            .expect("imkey_illegal_param");
     let check_result = DeviceManage::bind_check(&bind_check.file_path).unwrap_or_default();
     let response_msg = BindCheckResponse{
         bind_status: check_result
@@ -152,8 +140,8 @@ pub fn device_bind_check(param: &DeviceParam) -> Result<Vec<u8>> {
 
 pub fn device_bind_acquire(param: &DeviceParam) -> Result<Vec<u8>> {
     let bind_acquire: BindAcquire =
-        BindAcquire::decode(&param.param.as_ref().expect("device_param").value.clone())
-            .expect("bind_acquire");
+        BindAcquire::decode(&param.param.as_ref().expect("imkey_illegal_param").value.clone())
+            .expect("imkey_illegal_param");
     let bind_result = DeviceManage::bind_acquire(&bind_acquire.bind_code).ok().expect("bind_acquire_error");
     let response_msg = BindAcquireResponse {
         bind_result,
@@ -163,15 +151,12 @@ pub fn device_bind_acquire(param: &DeviceParam) -> Result<Vec<u8>> {
 
 pub fn device_display_bind_code(param: &DeviceParam) -> Result<Vec<u8>> {
     let _bind_display: BindDisplay =
-        BindDisplay::decode(&param.param.as_ref().expect("device_param").value.clone())
-            .expect("bind_display_code");
-    BindDisplay::decode(&param.param.as_ref().expect("imkey_illegal_param").value.clone())
-        .expect("imkey_illegal_param");
+        BindDisplay::decode(&param.param.as_ref().expect("imkey_illegal_param").value.clone())
+            .expect("imkey_illegal_param");
     let display_result = display_bind_code();
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
-
 
 
 pub fn get_seid(param: &DeviceParam) -> Result<Vec<u8>> {
