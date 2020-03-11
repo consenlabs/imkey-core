@@ -40,6 +40,33 @@ pub const IMKEY_DEV_STATUS_LATEST: &str = "latest";
 // tsm return code
 pub const TSM_RETURN_CODE_SUCCESS: &str = "000000";
 pub const TSM_RETURNCODE_DEV_INACTIVATED : &str = "BSE0007";
+pub const TSM_RETURNCODE_DEVICE_ILLEGAL: &str = "BSE0017";
+pub const TSM_RETURNCODE_DEVICE_STOP_USING: &str = "BSE0019";
+pub const TSM_RETURNCODE_SE_QUERY_FAIL: &str = "BSE0018";
+pub const TSM_RETURNCODE_DEVICE_ACTIVE_FAIL: &str = "BSE0015";
+pub const TSM_RETURNCODE_SEID_ILLEGAL: &str = "BSE0008";
+pub const TSM_RETURNCODE_DEVICE_CHECK_FAIL: &str = "BSE0009";
+pub const TSM_RETURNCODE_RECEIPT_CHECK_FAIL: &str = "BSE0012";
+pub const TSM_RETURNCODE_OCE_CERT_CHECK_FAIL: &str = "BSE0010";
+pub const TSM_RETURNCODE_APP_DOWNLOAD_FAIL: &str = "BAPP0006";
+pub const TSM_RETURNCODE_APP_UPDATE_FAIL: &str = "BAPP0008";
+pub const TSM_RETURNCODE_APP_DELETE_FAIL: &str = "BAPP0011";
 
 //tsm end flag
 pub const TSM_END_FLAG: &str = "end";
+
+pub const APDU_RSP_SUCCESS: &str = "9000";
+pub const APDU_RSP_USER_NOT_CONFIRMED: &str = "6940";
+pub const APDU_CONDITIONS_NOT_SATISFIED: &str = "6985";
+pub const APDU_RSP_APPLET_NOT_EXIST: &str = "6A82";
+pub const APDU_RSP_INCORRECT_P1P2: &str = "6A86";
+pub const APDU_RSP_CLA_NOT_SUPPORTED: &str = "6E00";
+pub const APDU_RSP_APPLET_WRONG_DATA: &str = "6A80";
+pub const APDU_RSP_WRONG_LENGTH: &str = "6700";
+pub const APDU_RSP_SIGNATURE_VERIFY_FAILED: &str = "6942";
+pub const APDU_RSP_FUNCTION_NOT_SUPPORTED: &str = "6D00";
+pub const APDU_RSP_EXCEEDED_MAX_UTXO_NUMBER: &str = "6941";
+pub const APDU_RSP_WALLET_NOT_CREATED: &str = "F000";
+pub const APDU_RSP_IN_MENU_PAGE: &str = "F080";
+pub const APDU_RSP_PIN_NOT_VERIFIED: &str = "F081";
+pub const APDU_BLUETOOTH_CHANNEL_ERROR: &str = "6F01";
