@@ -27,32 +27,20 @@ use mq::message;
 use std::ffi::{CStr, CString};
 use crate::error_handling::Result;
 
-
 pub fn device_app_delete(param: &DeviceParam) -> Result<Vec<u8>> {
     let app_action: AppAction =
-        AppAction::decode(&param.param.as_ref().expect("device_param").value.clone())
-            .expect("app_action");
+        AppAction::decode(&param.param.as_ref().expect("imkey_illegal_prarm").value.clone())
+            .expect("imkey_illegal_prarm");
     manager::app_delete(app_action.app_name.as_ref());
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
 
 pub fn device_app_download(param: &DeviceParam) -> Result<Vec<u8>> {
-//    let app_action: AppAction =
-//        AppAction::decode(&param.param.as_ref().expect("device_param").value.clone())
-//            .expect("app_action");
-//    let mut request = app_download_request::build_request_data(
-//        app_action.se_id,
-//        app_action.instance_aid,
-//        app_action.device_cert,
-//        Some(app_action.sdk_version),
-//    );
-//    let _response = request
-//        .app_download()
-//        .map_err(|_err| Error::DeviceOpError)?;
+
     let app_action: AppAction =
-        AppAction::decode(&param.param.as_ref().expect("device_param").value.clone())
-            .expect("app_action");
+        AppAction::decode(&param.param.as_ref().expect("imkey_illegal_prarm").value.clone())
+            .expect("imkey_illegal_prarm");
     manager::app_download(app_action.app_name.as_ref());
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
@@ -70,8 +58,8 @@ pub fn device_app_update(param: &DeviceParam) -> Result<Vec<u8>> {
 //    );
 //    let _response = request.app_update().map_err(|_err| Error::DeviceOpError)?;
     let app_action: AppAction =
-        AppAction::decode(&param.param.as_ref().expect("device_param").value.clone())
-            .expect("app_action");
+        AppAction::decode(&param.param.as_ref().expect("imkey_illegal_prarm").value.clone())
+            .expect("imkey_illegal_prarm");
     manager::app_update(app_action.app_name.as_ref());
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
