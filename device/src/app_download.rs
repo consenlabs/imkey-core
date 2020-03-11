@@ -81,14 +81,15 @@ impl app_download_request {
                     None => (),
                 }
             } else {
-                match return_bean._ReturnCode.as_str() {
+                let ret_code_check_result: Result<()> = match return_bean._ReturnCode.as_str() {
                     constants::TSM_RETURNCODE_APP_DOWNLOAD_FAIL => Err(ImkeyError::IMKEY_TSM_APP_DOWNLOAD_FAIL.into()),
                     constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::IMKEY_TSM_DEVICE_ILLEGAL.into()),
                     constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => Err(ImkeyError::IMKEY_TSM_OCE_CERT_CHECK_FAIL.into()),
                     constants::TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::IMKEY_TSM_DEVICE_STOP_USING.into()),
                     constants::TSM_RETURNCODE_RECEIPT_CHECK_FAIL => Err(ImkeyError::IMKEY_TSM_RECEIPT_CHECK_FAIL.into()),
                     _ => Err(ImkeyError::IMKEY_TSM_SERVER_ERROR.into()),
-                }
+                };
+                return ret_code_check_result;
             }
         }
     }

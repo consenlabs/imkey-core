@@ -1,4 +1,4 @@
-use common::constants::{TSM_ACTION_SE_QUERY, TSM_RETURN_CODE_SUCCESS};
+use common::constants;
 use common::https;
 use serde::{Deserialize, Serialize};
 use crate::Result;
@@ -52,7 +52,7 @@ impl se_query_request {
             sdkVersion: sdk_version,
             stepKey: String::from("01"),
             statusWord: None,
-            commandID: String::from(TSM_ACTION_SE_QUERY),
+            commandID: String::from(constants::TSM_ACTION_SE_QUERY),
             cardRetDataList: None,
         }
     }
@@ -60,14 +60,16 @@ impl se_query_request {
     pub fn se_query(&mut self) -> Result<service_response> {
         println!("请求报文：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
-        let mut response_data = https::post(TSM_ACTION_SE_QUERY, req_data)?;
+        let mut response_data = https::post(constants::TSM_ACTION_SE_QUERY, req_data)?;
         let return_bean: service_response = serde_json::from_str(response_data.as_str())?;
         println!("反馈报文：{:#?}", return_bean);
 
-        if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
-            return Ok(return_bean);
-        } else {
-            return Err(ImkeyError::BSE0018.into());
+        match return_bean._ReturnCode.as_str() {
+            constants::TSM_RETURN_CODE_SUCCESS => Ok(return_bean),
+            constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::IMKEY_TSM_DEVICE_ILLEGAL.into()),
+            constants::TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::IMKEY_TSM_DEVICE_STOP_USING.into()),
+            constants::TSM_RETURNCODE_SE_QUERY_FAIL => Err(ImkeyError::IMKEY_TSM_DEVICE_UPDATE_CHECK_FAIL.into()),
+            _ => Err(ImkeyError::IMKEY_TSM_SERVER_ERROR.into()),
         }
     }
 }
