@@ -573,7 +573,7 @@ mod tests {
     #[test]
     fn test_sign_transaction() {
         //设备绑定
-        device_binding_test();
+        // device_binding_test();
 
        let extra_data = Vec::from_hex("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385").unwrap();
         let utxo = Utxo {
@@ -676,7 +676,7 @@ mod tests {
     fn test_sign_segwit_transaction() {
 
         //设备绑定
-        device_binding_test();
+        // device_binding_test();
 
         let extra_data = Vec::from_hex("1234").unwrap();
         let utxo = Utxo {
@@ -723,16 +723,35 @@ mod tests {
 
         let path = "/Users/joe/work/sdk_gen_key".to_string();
         let bind_code = "YDSGQPKX".to_string();
-        let mut device_manage = DeviceManage::new();
-        let check_result = device_manage.bind_check(&path).unwrap_or_default();
+        // let mut device_manage = DeviceManage::new();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
         if !"bound_this".eq(check_result.as_str()) { //如果未和本设备绑定则进行绑定操作
-            let bind_result = device_manage.bind_acquire(&bind_code).unwrap_or_default();
+            let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
             if "5A".eq(bind_result.as_str()) {
                 println!("{:?}", "binding success");
             }else {
                 println!("{:?}", "binding error");
                 return;
             }
+        }else{
+            println!("bind this");
         }
+    }
+
+    #[test]
+    fn test_bind_check(){
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let bind_code = "YDSGQPKX".to_string();
+        // let mut device_manage = DeviceManage::new();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        assert_eq!(check_result,"");
+    }
+
+    #[test]
+    fn test_bind_acquire(){
+        let bind_code = "YDSGQPKX".to_string();
+        // let mut device_manage = DeviceManage::new();
+        let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
+        assert_eq!(bind_result,"22");
     }
 }

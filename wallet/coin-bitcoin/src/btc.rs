@@ -217,10 +217,10 @@ mod test{
 
         let path = "/Users/joe/work/sdk_gen_key".to_string();
         let bind_code = "YDSGQPKX".to_string();
-        let mut device_manage = DeviceManage::new();
-        let check_result = device_manage.bind_check(&path).unwrap_or_default();
+        // let mut device_manage = DeviceManage::new();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
         if !"bound_this".eq(check_result.as_str()) { //如果未和本设备绑定则进行绑定操作
-            let bind_result = device_manage.bind_acquire(&bind_code).unwrap_or_default();
+            let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
             if "5A".eq(bind_result.as_str()) {
                 println!("{:?}", "binding success");
             }else {

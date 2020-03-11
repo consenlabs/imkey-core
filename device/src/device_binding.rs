@@ -23,8 +23,11 @@ use crate::error::{ImkeyError, BindError};
 use regex::Regex;
 use crate::Result;
 use futures::future::Err;
+use std::sync::Mutex;
 
-
+lazy_static! {
+    pub static ref KEY_MANAGER: Mutex<KeyManager> = Mutex::new(KeyManager::new());
+}
 
 pub struct DeviceManage {
     key_manager: KeyManager,
@@ -37,13 +40,14 @@ impl DeviceManage {
         }
     }
 
-    pub fn bind_check(&mut self, file_path: &String) -> Result<String> {
+    pub fn bind_check(file_path: &String) -> Result<String> {
         //获取seid
         let seid = manager::get_se_id()?;
         //获取SN号
         let sn = manager::get_sn()?;
         //计算文件加密密钥
-        let mut key_manager_obj = &mut self.key_manager;
+        // let mut key_manager_obj = &mut self.key_manager;
+        let mut key_manager_obj = KEY_MANAGER.lock().unwrap();
         key_manager_obj.gen_encrypt_key(&seid, &sn);
 
         //获取本地密钥文件内容
@@ -126,7 +130,7 @@ impl DeviceManage {
         }
     }
 
-    pub fn bind_acquire(&self, binding_code: &String) -> Result<String> {
+    pub fn bind_acquire(binding_code: &String) -> Result<String> {
         let temp_binding_code = binding_code.to_uppercase();
         let binding_code_bytes = temp_binding_code.as_bytes();
         //绑定码校验
@@ -141,26 +145,27 @@ impl DeviceManage {
         let seid = manager::get_se_id()?;
         auth_code_storage_request::build_request_data(seid, auth_code_ciphertext).auth_code_storage()?;
 
+        let mut key_manager_obj = KEY_MANAGER.lock().unwrap();
         //选择IMK applet
         select_imk_applet()?;
         //计算HASH
         let mut data: Vec<u8> = vec![];
         data.extend(binding_code_bytes);
-        data.extend(&self.key_manager.pub_key);
-        data.extend(&self.key_manager.se_pub_key);
+        data.extend(&key_manager_obj.pub_key);
+        data.extend(&key_manager_obj.se_pub_key);
         let data_hash = digest::digest(&digest::SHA256, data.as_slice());
 
         //用sessionKey加密HASH值
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
         let cipher = Aes128Cbc::new_var(
-            &self.key_manager.session_key,
+            &key_manager_obj.session_key,
             &gen_iv(&temp_binding_code).as_ref(),
         )?;
 
         let ciphertext = cipher.encrypt_vec(data_hash.as_ref());
         //生成identityVerify指令数据
         let mut apdu_data = vec![];
-        apdu_data.extend(&self.key_manager.pub_key);
+        apdu_data.extend(&key_manager_obj.pub_key);
         apdu_data.extend(ciphertext);
         let identity_verify_apdu = DeviceBindingApdu::identity_verify(&apdu_data);
         //发送指令到设备
@@ -240,14 +245,15 @@ mod test{
     #[test]
     fn device_bind_test(){
 
-         let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-//        let path = "/Users/joe/work/sdk_gen_key".to_string();
-         let bind_code = "E4APZZRT".to_string();
-//        let bind_code = "YDSGQPKX".to_string();
-        let mut device_manage = DeviceManage::new();
-        let check_result = device_manage.bind_check(&path).unwrap();
+         // let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+         // let bind_code = "E4APZZRT".to_string();
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let bind_code = "YDSGQPKX".to_string();
+        // let mut device_manage = DeviceManage::new();
+        // let check_result = device_manage.bind_check(&path).unwrap();
+        let check_result = DeviceManage::bind_check(&path).unwrap();
         println!("result:{}",&check_result);
-        let bind_result = device_manage.bind_acquire(&bind_code).unwrap();
+        let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap();
         println!("result:{}",&bind_result);
 //        let sn = String::from("imKey01191200001");
 //        println!("{:?}", hex::encode_upper(sn.as_bytes()));
