@@ -143,7 +143,7 @@ pub fn device_bind_check(param: &DeviceParam) -> Result<Vec<u8>> {
     let bind_check: BindCheck =
         BindCheck::decode(&param.param.as_ref().expect("device_param").value.clone())
             .expect("bind_check");
-    let check_result = DeviceManage::new().bind_check(&bind_check.file_path).unwrap_or_default();
+    let check_result = DeviceManage::bind_check(&bind_check.file_path).unwrap_or_default();
     let response_msg = BindCheckResponse{
         bind_status: check_result
     };
@@ -154,7 +154,7 @@ pub fn device_bind_acquire(param: &DeviceParam) -> Result<Vec<u8>> {
     let bind_acquire: BindAcquire =
         BindAcquire::decode(&param.param.as_ref().expect("device_param").value.clone())
             .expect("bind_acquire");
-    let bind_result = DeviceManage::new().bind_acquire(&bind_acquire.bind_code).ok().expect("bind_acquire_error");
+    let bind_result = DeviceManage::bind_acquire(&bind_acquire.bind_code).ok().expect("bind_acquire_error");
     let response_msg = BindAcquireResponse {
         bind_result,
     };
@@ -165,10 +165,10 @@ pub fn device_display_bind_code(param: &DeviceParam) -> Result<Vec<u8>> {
     let _bind_display: BindDisplay =
         BindDisplay::decode(&param.param.as_ref().expect("device_param").value.clone())
             .expect("bind_display_code");
-    let display_result = display_bind_code().ok().expect("display_bind_code_error"); //no param
-    let response_msg = BindDisplayResponse {
-        bind_display_result: display_result,
-    };
+    BindDisplay::decode(&param.param.as_ref().expect("imkey_illegal_param").value.clone())
+        .expect("imkey_illegal_param");
+    let display_result = display_bind_code();
+    let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
 
