@@ -1,6 +1,5 @@
 use crate::api::{TcxAction, Response};
 use crate::wallet_handler::{device_manage, get_address, register_coin, sign_tx, encode_message};
-use common::error::Error;
 use prost::Message;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
@@ -149,7 +148,7 @@ pub unsafe extern "C" fn call_tcx_api(hex_str: *const c_char) -> *const c_char {
     let hex_c_str = CStr::from_ptr(hex_str);
     let hex_str = hex_c_str.to_str().expect("parse_arguments to_str");
 
-    let data = hex::decode(hex_str).expect("parse_arguments hex decode");
+    let data = hex::decode(hex_str).expect("imkey_illegal_prarm");
     let action: TcxAction = TcxAction::decode(data).expect("decode tcx api");
     let reply: Vec<u8> = match action.method.to_lowercase().as_str() {
         "sign_tx" => landingpad(|| sign_tx(&action.param.unwrap().value)),
