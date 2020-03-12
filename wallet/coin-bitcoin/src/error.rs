@@ -1,31 +1,23 @@
 use std::fmt;
 
+#[derive(Fail, Debug, PartialOrd, PartialEq)]
 pub enum BtcError {
-    ImkeyExceededMaxUtxoNumber,
-    ImkeyAddressMismatchWithPath,
-    ImkeySignatureVerifyFail,
-    ImkeyInsufficientFunds,
-    ImkeySdkIllegalArgument,
-    ImkeyAmountLessThanMinimum,
+    #[fail(display = "imkey_exceeded_max_utxo_number")]
+    IMKEY_EXCEEDED_MAX_UTXO_NUMBER,
+    #[fail(display = "imkey_address_mismatch_with_path")]
+    IMKEY_ADDRESS_MISMATCH_WITH_PATH,
+    #[fail(display = "imkey_signature_verify_fail")]
+    IMKEY_SIGNATURE_VERIFY_FAIL,
+    #[fail(display = "imkey_insufficient_funds")]
+    IMKEY_INSUFFICIENT_FUNDS,
+    #[fail(display = "imkey_sdk_illegal_argument")]
+    IMKEY_SDK_ILLEGAL_ARGUMENT,
+    #[fail(display = "imkey_amount_less_than_minimum")]
+    IMKEY_AMOUNT_LESS_THAN_MINIMUM,
+    #[fail(display = "imkey_path_illegal")]
     ImkeyPathIllegal,
-    InvalidPublicKey,
+    #[fail(display = "get_xpub_error")]
     GetXpubError,
-    AddressTypeMismatch,
-}
-
-impl fmt::Display for BtcError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match &self {
-            BtcError::ImkeyExceededMaxUtxoNumber => write!(f, "imkey_exceeded_max_utxo_number"),
-            BtcError::ImkeyAddressMismatchWithPath => write!(f, "imkey_address_mismatch_with_path"),
-            BtcError::ImkeySignatureVerifyFail => write!(f, "imkey_signature_verify_fail"),
-            BtcError::ImkeyInsufficientFunds => write!(f, "imkey_insufficient_funds"),
-            BtcError::ImkeySdkIllegalArgument => write!(f, "imkey_sdk_illegal_argument"),
-            BtcError::ImkeyAmountLessThanMinimum => write!(f, "imkey_amount_less_than_minimum"),
-            BtcError::ImkeyPathIllegal => write!(f, "imkey_path_illegal"),
-            BtcError::InvalidPublicKey => write!(f, "secp: malformed public key"),
-            BtcError::GetXpubError => write!(f, "get_xpub_error"),
-            BtcError::AddressTypeMismatch => write!(f, "address_type_mismatch"),
-        }
-    }
+    #[fail(display = "address_type_mismatch")]
+    ADDRESS_TYPE_MISMATCH,
 }

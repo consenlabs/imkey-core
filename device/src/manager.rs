@@ -11,7 +11,6 @@ use common::constants;
 use common::applet;
 use mq::message::send_apdu;
 use se_activate::se_activate_request;
-use common::{error::ImkeyError};
 use hex::decode;
 use futures::future::err;
 use common::apdu::Apdu;

@@ -6,33 +6,30 @@ use bitcoin::secp256k1::Secp256k1 as BitcoinSecp256k1;
 use std::str::FromStr;
 use crate::error::BtcError;
 use mq::message::send_apdu;
-use common::apdu::BtcApdu;
+use common::apdu::{BtcApdu, ApduCheck};
 use secp256k1::{Secp256k1, Message, Signature, PublicKey as PublicKey2, SecretKey, Error};
 use common::utility::{sha256_hash};
 use bitcoin::util::base58;
+use crate::Result;
+
 
 /**
 utxo address verify
 */
-pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8], network : Network, flg : &str) -> Result<Vec<String>, BtcError>{
-    let mut utxo_pub_key_vec: Vec<String> = Vec::new();
+pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8], network : Network, flg : &str) -> Result<Vec<String>>{
+    let mut utxo_pub_key_vec: Vec<String> = vec![];
     for utxo in utxos {
-        //4.get utxo public key
-        let public_key_result = PublicKey::from_str(public_key);
-        if public_key_result.is_err() {
-            return Err(BtcError::InvalidPublicKey);
-        }
-        let mut public_key_obj= public_key_result.unwrap();
+        //get utxo public key
+        let mut public_key_obj = PublicKey::from_str(public_key)?;
         public_key_obj.compressed = true;
-
-//        let temp_chain_code_vec = Vec::from_hex(chain_code).unwrap();
+        //gen chain code obj
         let chain_code_obj = ChainCode::from(chain_code);
         //build extended public key
         let mut extend_public_key = ExtendedPubKey {
             network: network,
             depth: 0,
             parent_fingerprint: Default::default(),
-            child_number: ChildNumber::from_normal_idx(0).expect("build child number error"),
+            child_number: ChildNumber::from_normal_idx(0)?,
             public_key: public_key_obj,
             chain_code: chain_code_obj,
         };
@@ -41,30 +38,37 @@ pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8],
         let index_number_vec: Vec<&str> = utxo.derive_path.as_str().split('/').collect();
         for index_number in index_number_vec {
             let test_chain_number =
-                ChildNumber::from_normal_idx(index_number.parse().unwrap()).expect("build child number error");
-            extend_public_key = extend_public_key.ckd_pub(&bitcoin_secp, test_chain_number).expect(" ckd public key error");
+                ChildNumber::from_normal_idx(index_number.parse().unwrap())?;
+            extend_public_key = extend_public_key.ckd_pub(&bitcoin_secp, test_chain_number)?;
         }
         //verify address
-        let mut se_gen_address = String::new();
-        if flg.eq("btc") {
-            se_gen_address = Address::p2pkh(
-                &PublicKey::from_str(extend_public_key.public_key.to_string().as_str()).unwrap(),
-                network,
-            ).to_string();
-        }else {
-            se_gen_address = Address::p2shwpkh(
-                &PublicKey::from_str(extend_public_key.public_key.to_string().as_str()).unwrap(),
-                network,
-            ).to_string();
-        }
-
+//        let mut se_gen_address = String::new();
+//        if flg.eq("btc") {
+//            se_gen_address = Address::p2pkh(
+//                &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
+//                network,
+//            ).to_string();
+//        }else {
+//            se_gen_address = Address::p2shwpkh(
+//                &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
+//                network,
+//            ).to_string();
+//        }
+        let se_gen_address: Result<String> = match flg {
+            "btc" => Ok(Address::p2pkh(
+                &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
+                network).to_string()),
+            "segwit" => Ok(Address::p2shwpkh(
+                &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
+                network).to_string()),
+            _ => return Err(BtcError::IMKEY_ADDRESS_MISMATCH_WITH_PATH.into()),//TODO 返回错误信息不对
+        };
+        let se_gen_address_str = se_gen_address?;
         let utxo_address = utxo.address.to_string();
-
-        if !se_gen_address.eq(&utxo_address) {
-            return Err(BtcError::ImkeyAddressMismatchWithPath);
+        if !se_gen_address_str.eq(&utxo_address) {
+            return Err(BtcError::IMKEY_ADDRESS_MISMATCH_WITH_PATH.into());
         }
         utxo_pub_key_vec.push(extend_public_key.public_key.to_string());
-
     }
     Ok(utxo_pub_key_vec)
 }
@@ -72,22 +76,18 @@ pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8],
 /**
 get xpub
 */
-pub fn get_xpub_data(path: &str, verify_flag: bool) -> Result<String, BtcError>{
-    let apdu_response = send_apdu(BtcApdu::select_applet());
-    if !"9000".eq(&apdu_response[apdu_response.len() - 4 ..]) {
-        return Err(BtcError::GetXpubError);
-    }
+pub fn get_xpub_data(path: &str, verify_flag: bool) -> Result<String>{
+    let select_response = send_apdu(BtcApdu::select_applet());
+    ApduCheck::checke_response(&select_response)?;
     let xpub_data = send_apdu(BtcApdu::get_xpub(path, verify_flag));
-    if !"9000".eq(&xpub_data[xpub_data.len() - 4 ..]) {
-        return Err(BtcError::GetXpubError);
-    }
+    ApduCheck::checke_response(&xpub_data)?;
     Ok(xpub_data)
 }
 
 /**
 sign verify
 */
-pub fn secp256k1_sign_verify(public : &[u8], signed : &[u8], message : &[u8]) -> Result<bool, Error>{
+pub fn secp256k1_sign_verify(public : &[u8], signed : &[u8], message : &[u8]) -> Result<bool>{
 
     let secp = Secp256k1::new();
     //build public
@@ -106,23 +106,40 @@ pub fn secp256k1_sign_verify(public : &[u8], signed : &[u8], message : &[u8]) ->
 /**
 get address version
 */
-pub fn get_address_version(network: Network, address: &str) -> Result<u8, BtcError>{
+pub fn get_address_version(network: Network, address: &str) -> Result<u8>{
     //check address
-    if network == Network::Bitcoin{
-        if !address.starts_with('1') && !address.starts_with('3') {
-            return Err(BtcError::AddressTypeMismatch);
-        }
-    }else if network == Network::Testnet {
-        if !address.starts_with('m') &&
-            !address.starts_with('n') &&
-            !address.starts_with('2') {
-            return Err(BtcError::AddressTypeMismatch);
-        }
-    }else {
-        //TODO
+//    if network == Network::Bitcoin{
+//        if !address.starts_with('1') && !address.starts_with('3') {
+//            return Err(BtcError::AddressTypeMismatch);
+//        }
+//    }else if network == Network::Testnet {
+//        if !address.starts_with('m') &&
+//            !address.starts_with('n') &&
+//            !address.starts_with('2') {
+//            return Err(BtcError::AddressTypeMismatch);
+//        }
+//    }else {
+//        //TODO
+//    }
+    match network {
+        Network::Bitcoin => {
+            if !address.starts_with('1') && !address.starts_with('3') {
+                return Err(BtcError::ADDRESS_TYPE_MISMATCH.into());
+            }
+        },
+        Network::Testnet => {
+            if !address.starts_with('m') &&
+                !address.starts_with('n') &&
+                !address.starts_with('2') {
+                return Err(BtcError::ADDRESS_TYPE_MISMATCH.into());
+            }
+        },
+        _ => {
+            return Err(BtcError::IMKEY_SDK_ILLEGAL_ARGUMENT.into());
+        },
     }
     //get address version
-    let address_bytes = base58::from(address).expect("base58 address convert error");
+    let address_bytes = base58::from(address)?;
     Ok(address_bytes.as_slice()[0])
 }
 
