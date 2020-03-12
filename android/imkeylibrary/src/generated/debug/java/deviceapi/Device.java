@@ -7544,6 +7544,517 @@ public final class Device {
 
   }
 
+  public interface BindCheckResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.BindCheckResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string bind_status = 1;</code>
+     */
+    java.lang.String getBindStatus();
+    /**
+     * <code>optional string bind_status = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getBindStatusBytes();
+  }
+  /**
+   * <pre>
+   *binding related
+   * </pre>
+   *
+   * Protobuf type {@code deviceapi.BindCheckResponse}
+   */
+  public  static final class BindCheckResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.BindCheckResponse)
+      BindCheckResponseOrBuilder {
+    // Use BindCheckResponse.newBuilder() to construct.
+    private BindCheckResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BindCheckResponse() {
+      bindStatus_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private BindCheckResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              bindStatus_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_BindCheckResponse_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_BindCheckResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.BindCheckResponse.class, deviceapi.Device.BindCheckResponse.Builder.class);
+    }
+
+    public static final int BIND_STATUS_FIELD_NUMBER = 1;
+    private volatile java.lang.Object bindStatus_;
+    /**
+     * <code>optional string bind_status = 1;</code>
+     */
+    public java.lang.String getBindStatus() {
+      java.lang.Object ref = bindStatus_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        bindStatus_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string bind_status = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getBindStatusBytes() {
+      java.lang.Object ref = bindStatus_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        bindStatus_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getBindStatusBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, bindStatus_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getBindStatusBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, bindStatus_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.BindCheckResponse)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.BindCheckResponse other = (deviceapi.Device.BindCheckResponse) obj;
+
+      boolean result = true;
+      result = result && getBindStatus()
+          .equals(other.getBindStatus());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + BIND_STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + getBindStatus().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.BindCheckResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.BindCheckResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.BindCheckResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.BindCheckResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.BindCheckResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.BindCheckResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.BindCheckResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.BindCheckResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.BindCheckResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.BindCheckResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.BindCheckResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *binding related
+     * </pre>
+     *
+     * Protobuf type {@code deviceapi.BindCheckResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.BindCheckResponse)
+        deviceapi.Device.BindCheckResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_BindCheckResponse_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_BindCheckResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.BindCheckResponse.class, deviceapi.Device.BindCheckResponse.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.BindCheckResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        bindStatus_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_BindCheckResponse_descriptor;
+      }
+
+      public deviceapi.Device.BindCheckResponse getDefaultInstanceForType() {
+        return deviceapi.Device.BindCheckResponse.getDefaultInstance();
+      }
+
+      public deviceapi.Device.BindCheckResponse build() {
+        deviceapi.Device.BindCheckResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.BindCheckResponse buildPartial() {
+        deviceapi.Device.BindCheckResponse result = new deviceapi.Device.BindCheckResponse(this);
+        result.bindStatus_ = bindStatus_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.BindCheckResponse) {
+          return mergeFrom((deviceapi.Device.BindCheckResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.BindCheckResponse other) {
+        if (other == deviceapi.Device.BindCheckResponse.getDefaultInstance()) return this;
+        if (!other.getBindStatus().isEmpty()) {
+          bindStatus_ = other.bindStatus_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.BindCheckResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.BindCheckResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object bindStatus_ = "";
+      /**
+       * <code>optional string bind_status = 1;</code>
+       */
+      public java.lang.String getBindStatus() {
+        java.lang.Object ref = bindStatus_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          bindStatus_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string bind_status = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getBindStatusBytes() {
+        java.lang.Object ref = bindStatus_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          bindStatus_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string bind_status = 1;</code>
+       */
+      public Builder setBindStatus(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        bindStatus_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string bind_status = 1;</code>
+       */
+      public Builder clearBindStatus() {
+        
+        bindStatus_ = getDefaultInstance().getBindStatus();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string bind_status = 1;</code>
+       */
+      public Builder setBindStatusBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        bindStatus_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.BindCheckResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.BindCheckResponse)
+    private static final deviceapi.Device.BindCheckResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.BindCheckResponse();
+    }
+
+    public static deviceapi.Device.BindCheckResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BindCheckResponse>
+        PARSER = new com.google.protobuf.AbstractParser<BindCheckResponse>() {
+      public BindCheckResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new BindCheckResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BindCheckResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BindCheckResponse> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.BindCheckResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface BindAcquireOrBuilder extends
       // @@protoc_insertion_point(interface_extends:deviceapi.BindAcquire)
       com.google.protobuf.MessageOrBuilder {
@@ -14977,6 +15488,11 @@ public final class Device {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_deviceapi_BindCheck_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_BindCheckResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_BindCheckResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_deviceapi_BindAcquire_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -15063,23 +15579,24 @@ public final class Device {
       "pBean\"r\n\026SeQueryServiceResponse\022\023\n\013retur" +
       "n_code\030\001 \001(\t\022\022\n\nreturn_msg\030\002 \001(\t\022/\n\013retu" +
       "rn_data\030\003 \001(\0132\032.deviceapi.SeQueryRespons" +
-      "e\"\036\n\tBindCheck\022\021\n\tfile_path\030\001 \001(\t\" \n\013Bin" +
-      "dAcquire\022\021\n\tbind_code\030\001 \001(\t\"*\n\023BindAcqui",
-      "reResponse\022\023\n\013bind_result\030\001 \001(\t\"\r\n\013BindD" +
-      "isplay\"2\n\023BindDisplayResponse\022\033\n\023bind_di" +
-      "splay_result\030\001 \001(\t\"\036\n\nDeviceName\022\020\n\010ble_" +
-      "name\030\001 \001(\t\"\033\n\rGetSnResponse\022\n\n\002sn\030\001 \001(\t\"" +
-      "\036\n\014ApduResponse\022\016\n\006result\030\001 \001(\t\"\022\n\004Test\022" +
-      "\n\n\002tt\030\001 \001(\t\"\213\001\n\023CheckUpdateResponse\022\r\n\005s" +
-      "e_id\030\001 \001(\t\022\n\n\002sn\030\002 \001(\t\022\016\n\006status\030\003 \001(\t\022\020" +
-      "\n\010sdk_mode\030\004 \001(\t\0227\n\022available_app_list\030\005" +
-      " \003(\0132\033.deviceapi.AvailableAppBean\"\225\001\n\020Av" +
-      "ailableAppBean\022\020\n\010app_name\030\001 \001(\t\022\020\n\010app_",
-      "logo\030\002 \001(\t\022\031\n\021installed_version\030\003 \001(\t\022\024\n" +
-      "\014last_updated\030\004 \001(\t\022\026\n\016latest_version\030\005 " +
-      "\001(\t\022\024\n\014install_mode\030\006 \001(\t\"&\n\017SdkInfoResp" +
-      "onse\022\023\n\013sdk_version\030\001 \001(\t\"\035\n\tBleAction\022\020" +
-      "\n\010ble_name\030\001 \001(\tb\006proto3"
+      "e\"\036\n\tBindCheck\022\021\n\tfile_path\030\001 \001(\t\"(\n\021Bin" +
+      "dCheckResponse\022\023\n\013bind_status\030\001 \001(\t\" \n\013B",
+      "indAcquire\022\021\n\tbind_code\030\001 \001(\t\"*\n\023BindAcq" +
+      "uireResponse\022\023\n\013bind_result\030\001 \001(\t\"\r\n\013Bin" +
+      "dDisplay\"2\n\023BindDisplayResponse\022\033\n\023bind_" +
+      "display_result\030\001 \001(\t\"\036\n\nDeviceName\022\020\n\010bl" +
+      "e_name\030\001 \001(\t\"\033\n\rGetSnResponse\022\n\n\002sn\030\001 \001(" +
+      "\t\"\036\n\014ApduResponse\022\016\n\006result\030\001 \001(\t\"\022\n\004Tes" +
+      "t\022\n\n\002tt\030\001 \001(\t\"\213\001\n\023CheckUpdateResponse\022\r\n" +
+      "\005se_id\030\001 \001(\t\022\n\n\002sn\030\002 \001(\t\022\016\n\006status\030\003 \001(\t" +
+      "\022\020\n\010sdk_mode\030\004 \001(\t\0227\n\022available_app_list" +
+      "\030\005 \003(\0132\033.deviceapi.AvailableAppBean\"\225\001\n\020",
+      "AvailableAppBean\022\020\n\010app_name\030\001 \001(\t\022\020\n\010ap" +
+      "p_logo\030\002 \001(\t\022\031\n\021installed_version\030\003 \001(\t\022" +
+      "\024\n\014last_updated\030\004 \001(\t\022\026\n\016latest_version\030" +
+      "\005 \001(\t\022\024\n\014install_mode\030\006 \001(\t\"&\n\017SdkInfoRe" +
+      "sponse\022\023\n\013sdk_version\030\001 \001(\t\"\035\n\tBleAction" +
+      "\022\020\n\010ble_name\030\001 \001(\tb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -15153,74 +15670,80 @@ public final class Device {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_BindCheck_descriptor,
         new java.lang.String[] { "FilePath", });
-    internal_static_deviceapi_BindAcquire_descriptor =
+    internal_static_deviceapi_BindCheckResponse_descriptor =
       getDescriptor().getMessageTypes().get(10);
+    internal_static_deviceapi_BindCheckResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_BindCheckResponse_descriptor,
+        new java.lang.String[] { "BindStatus", });
+    internal_static_deviceapi_BindAcquire_descriptor =
+      getDescriptor().getMessageTypes().get(11);
     internal_static_deviceapi_BindAcquire_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_BindAcquire_descriptor,
         new java.lang.String[] { "BindCode", });
     internal_static_deviceapi_BindAcquireResponse_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_deviceapi_BindAcquireResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_BindAcquireResponse_descriptor,
         new java.lang.String[] { "BindResult", });
     internal_static_deviceapi_BindDisplay_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_deviceapi_BindDisplay_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_BindDisplay_descriptor,
         new java.lang.String[] { });
     internal_static_deviceapi_BindDisplayResponse_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_deviceapi_BindDisplayResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_BindDisplayResponse_descriptor,
         new java.lang.String[] { "BindDisplayResult", });
     internal_static_deviceapi_DeviceName_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_deviceapi_DeviceName_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_DeviceName_descriptor,
         new java.lang.String[] { "BleName", });
     internal_static_deviceapi_GetSnResponse_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_deviceapi_GetSnResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_GetSnResponse_descriptor,
         new java.lang.String[] { "Sn", });
     internal_static_deviceapi_ApduResponse_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_deviceapi_ApduResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_ApduResponse_descriptor,
         new java.lang.String[] { "Result", });
     internal_static_deviceapi_Test_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_deviceapi_Test_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_Test_descriptor,
         new java.lang.String[] { "Tt", });
     internal_static_deviceapi_CheckUpdateResponse_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_deviceapi_CheckUpdateResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_CheckUpdateResponse_descriptor,
         new java.lang.String[] { "SeId", "Sn", "Status", "SdkMode", "AvailableAppList", });
     internal_static_deviceapi_AvailableAppBean_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_deviceapi_AvailableAppBean_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_AvailableAppBean_descriptor,
         new java.lang.String[] { "AppName", "AppLogo", "InstalledVersion", "LastUpdated", "LatestVersion", "InstallMode", });
     internal_static_deviceapi_SdkInfoResponse_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_deviceapi_SdkInfoResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_SdkInfoResponse_descriptor,
         new java.lang.String[] { "SdkVersion", });
     internal_static_deviceapi_BleAction_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_deviceapi_BleAction_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_BleAction_descriptor,

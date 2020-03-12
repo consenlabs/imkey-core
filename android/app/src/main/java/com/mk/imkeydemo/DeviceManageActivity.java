@@ -17,12 +17,21 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.mk.imkeydemo.excepttest.devicemanger.ActiveDeviceTest;
+import com.mk.imkeydemo.excepttest.devicemanger.AppDeleteTest;
+import com.mk.imkeydemo.excepttest.devicemanger.AppUpdateTest;
+import com.mk.imkeydemo.excepttest.devicemanger.CheckDeviceTest;
+import com.mk.imkeydemo.excepttest.devicemanger.CheckUpdateTest;
 import com.mk.imkeylibrary.device.Applet;
 import com.mk.imkeylibrary.device.DeviceManager;
+import com.mk.imkeylibrary.device.model.AppDeleteRequest;
 import com.mk.imkeylibrary.device.model.AppUpdateResponse;
 import com.mk.imkeylibrary.device.model.ImKeyDevice;
 import com.mk.imkeylibrary.exception.ImkeyException;
 import com.mk.imkeylibrary.utils.LogUtil;
+
+import com.mk.imkeydemo.excepttest.devicemanger.AppDownloadTest;
+
 
 public class DeviceManageActivity extends AppCompatActivity {
     private static final int TYPE_BTC = 1;
@@ -171,8 +180,9 @@ public class DeviceManageActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    String result = mManager.checkUpdate();
-                    LogUtil.d(result);
+                    new CheckUpdateTest().checkUpdateTest();
+                    //String result = mManager.checkUpdate();
+                    //LogUtil.d(result);
                     toast("检查更新完成");
                 }catch (ImkeyException e) {
                     toast(e.getMessage());
@@ -189,6 +199,7 @@ public class DeviceManageActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
+                    new CheckDeviceTest().checkDeviceTest();
                     mManager.checkDevice();
                     toast("设备认证成功");
                 }catch (ImkeyException e) {
@@ -206,7 +217,8 @@ public class DeviceManageActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    mManager.activeDevice();
+                    new ActiveDeviceTest().activeDeviceTest();
+                    //mManager.activeDevice();
                     toast("设备激活成功");
                 } catch (ImkeyException e) {
                     toast(e.getMessage());
@@ -234,6 +246,7 @@ public class DeviceManageActivity extends AppCompatActivity {
             public void run() {
                 AppUpdateResponse response = null;
                 try {
+                    new AppUpdateTest().appUpdateTest();
                     mManager.update(appletName);
                     toast("applet更新成功");
                 } catch (ImkeyException e) {
@@ -251,6 +264,7 @@ public class DeviceManageActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
+                    //new AppDownloadTest().appDownloadTest();
                     mManager.download(appletName);
                     toast("applet下载成功");
                 } catch (ImkeyException e) {
@@ -268,6 +282,7 @@ public class DeviceManageActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
+                    //new AppDeleteTest().appDeleteTest();
                     mManager.delete(appletName);
                     toast("applet删除成功");
                 } catch (ImkeyException e) {
