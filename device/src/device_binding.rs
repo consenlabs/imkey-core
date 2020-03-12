@@ -135,7 +135,7 @@ impl DeviceManage {
         let binding_code_bytes = temp_binding_code.as_bytes();
         //绑定码校验
         let bind_code_verify_regex = Regex::new(r"^[A-HJ-NP-Z2-9]{8}$").unwrap();
-        if !bind_code_verify_regex.is_match(binding_code) {
+        if !bind_code_verify_regex.is_match(temp_binding_code.as_ref()) {
             return Err(BindError::IMKEY_SDK_ILLEGAL_ARGUMENT.into());
         }
         //RSA加密绑定码
