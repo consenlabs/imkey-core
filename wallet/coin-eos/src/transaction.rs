@@ -14,6 +14,7 @@ use hex::FromHex;
 use common::eosapi::{EosTxInput, EosTxOutput, EosMessageInput, EosMessageOutput};
 use crate::pubkey::EosPubkey;
 use crate::Result;
+use device::device_binding::KEY_MANAGER;
 
 #[derive(Debug)]
 pub struct EosTransaction {}
@@ -79,8 +80,9 @@ impl EosTransaction {
 
 
                 //bind signature
-                let private_key = hex_to_bytes("7CD950180EDFF1C4A21270AD293A274580D20C84DE06666467F6386FB7DDA352").unwrap();//ios
-                let mut bind_signature = secp256k1_sign_hash(&private_key, &sign_data_hash);
+                let key_manager_obj = KEY_MANAGER.lock().unwrap();
+                // let private_key = hex_to_bytes("7CD950180EDFF1C4A21270AD293A274580D20C84DE06666467F6386FB7DDA352").unwrap();//ios
+                let mut bind_signature = secp256k1_sign_hash(&key_manager_obj.pri_key, &sign_data_hash);
                 println!("bind_signature:{}", &hex::encode(&bind_signature));
 
                 //send prepare data
@@ -186,8 +188,9 @@ impl EosTransaction {
         data_pack.push(input.path.as_bytes().len() as u8);
         data_pack.extend(input.path.as_bytes());
 
-        let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();//ios
-        let mut bind_signature = secp256k1_sign(&private_key, &data_pack);
+        // let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();//ios
+        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let mut bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack);
         println!("bind_signature:{}", &hex::encode(&bind_signature));
 
         let mut prepare_pack: Vec<u8>  = Vec::new();
@@ -277,9 +280,14 @@ mod tests {
     use common::constants;
     use common::eosapi::{EosTxInput, EosSignData, EosMessageInput};
     use crate::transaction::EosTransaction;
+    use device::device_binding::DeviceManage;
 
     #[test]
     fn test_sgin_tx() {
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        println!("check_result:{}",&check_result);
+
         let eos_sign_data = EosSignData{
             tx_data: "c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00".to_string(),
             pub_keys: vec!["EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string()],
@@ -300,6 +308,10 @@ mod tests {
 
     #[test]
     fn test_sign_messgage(){
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        println!("check_result:{}",&check_result);
+
         let input = EosMessageInput{
             path: constants::EOS_PATH.to_string(),
             data: "imKey2019".to_string(),

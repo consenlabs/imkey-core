@@ -584,10 +584,10 @@ mod tests {
         //设备绑定
         let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
         let bind_code = "E4APZZRT".to_string();
-        let mut device_manage = DeviceManage::new();
-        let check_result = device_manage.bind_check(&path).unwrap_or_default();
+        // let mut device_manage = DeviceManage::new();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
         if !"bound_this".eq(check_result.as_str()) { //如果未和本设备绑定则进行绑定操作
-            let bind_result = device_manage.bind_acquire(&bind_code).unwrap_or_default();
+            let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
             if "5A".eq(bind_result.as_str()) {
                 println!("{:?}", "binding success");
             }else {

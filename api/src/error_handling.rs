@@ -49,8 +49,9 @@ pub unsafe fn error_test(){
     let bind_code = "E4APZZRT".to_string();
 
     landingpad(|| {
-        let mut device_manage = DeviceManage::new();
-        device_manage.bind_check(&path)
+        // let mut device_manage = DeviceManage::new();
+        // device_manage.bind_check(&path)
+        DeviceManage::bind_check(&path)
     });
 
 }
