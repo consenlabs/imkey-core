@@ -51,6 +51,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* BindCheck_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   BindCheck_reflection_ = NULL;
+const ::google::protobuf::Descriptor* BindCheckResponse_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  BindCheckResponse_reflection_ = NULL;
 const ::google::protobuf::Descriptor* BindAcquire_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   BindAcquire_reflection_ = NULL;
@@ -253,7 +256,21 @@ void protobuf_AssignDesc_device_2eproto() {
       -1,
       sizeof(BindCheck),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BindCheck, _internal_metadata_));
-  BindAcquire_descriptor_ = file->message_type(10);
+  BindCheckResponse_descriptor_ = file->message_type(10);
+  static const int BindCheckResponse_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BindCheckResponse, bind_status_),
+  };
+  BindCheckResponse_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      BindCheckResponse_descriptor_,
+      BindCheckResponse::internal_default_instance(),
+      BindCheckResponse_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(BindCheckResponse),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BindCheckResponse, _internal_metadata_));
+  BindAcquire_descriptor_ = file->message_type(11);
   static const int BindAcquire_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BindAcquire, bind_code_),
   };
@@ -267,7 +284,7 @@ void protobuf_AssignDesc_device_2eproto() {
       -1,
       sizeof(BindAcquire),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BindAcquire, _internal_metadata_));
-  BindAcquireResponse_descriptor_ = file->message_type(11);
+  BindAcquireResponse_descriptor_ = file->message_type(12);
   static const int BindAcquireResponse_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BindAcquireResponse, bind_result_),
   };
@@ -281,7 +298,7 @@ void protobuf_AssignDesc_device_2eproto() {
       -1,
       sizeof(BindAcquireResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BindAcquireResponse, _internal_metadata_));
-  BindDisplay_descriptor_ = file->message_type(12);
+  BindDisplay_descriptor_ = file->message_type(13);
   static const int BindDisplay_offsets_[1] = {
   };
   BindDisplay_reflection_ =
@@ -294,7 +311,7 @@ void protobuf_AssignDesc_device_2eproto() {
       -1,
       sizeof(BindDisplay),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BindDisplay, _internal_metadata_));
-  BindDisplayResponse_descriptor_ = file->message_type(13);
+  BindDisplayResponse_descriptor_ = file->message_type(14);
   static const int BindDisplayResponse_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BindDisplayResponse, bind_display_result_),
   };
@@ -308,7 +325,7 @@ void protobuf_AssignDesc_device_2eproto() {
       -1,
       sizeof(BindDisplayResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BindDisplayResponse, _internal_metadata_));
-  DeviceName_descriptor_ = file->message_type(14);
+  DeviceName_descriptor_ = file->message_type(15);
   static const int DeviceName_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceName, ble_name_),
   };
@@ -322,7 +339,7 @@ void protobuf_AssignDesc_device_2eproto() {
       -1,
       sizeof(DeviceName),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DeviceName, _internal_metadata_));
-  GetSnResponse_descriptor_ = file->message_type(15);
+  GetSnResponse_descriptor_ = file->message_type(16);
   static const int GetSnResponse_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetSnResponse, sn_),
   };
@@ -336,7 +353,7 @@ void protobuf_AssignDesc_device_2eproto() {
       -1,
       sizeof(GetSnResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetSnResponse, _internal_metadata_));
-  ApduResponse_descriptor_ = file->message_type(16);
+  ApduResponse_descriptor_ = file->message_type(17);
   static const int ApduResponse_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ApduResponse, result_),
   };
@@ -350,7 +367,7 @@ void protobuf_AssignDesc_device_2eproto() {
       -1,
       sizeof(ApduResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ApduResponse, _internal_metadata_));
-  Test_descriptor_ = file->message_type(17);
+  Test_descriptor_ = file->message_type(18);
   static const int Test_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Test, tt_),
   };
@@ -364,7 +381,7 @@ void protobuf_AssignDesc_device_2eproto() {
       -1,
       sizeof(Test),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Test, _internal_metadata_));
-  CheckUpdateResponse_descriptor_ = file->message_type(18);
+  CheckUpdateResponse_descriptor_ = file->message_type(19);
   static const int CheckUpdateResponse_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CheckUpdateResponse, se_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CheckUpdateResponse, sn_),
@@ -382,7 +399,7 @@ void protobuf_AssignDesc_device_2eproto() {
       -1,
       sizeof(CheckUpdateResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CheckUpdateResponse, _internal_metadata_));
-  AvailableAppBean_descriptor_ = file->message_type(19);
+  AvailableAppBean_descriptor_ = file->message_type(20);
   static const int AvailableAppBean_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AvailableAppBean, app_name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AvailableAppBean, app_logo_),
@@ -401,7 +418,7 @@ void protobuf_AssignDesc_device_2eproto() {
       -1,
       sizeof(AvailableAppBean),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AvailableAppBean, _internal_metadata_));
-  SdkInfoResponse_descriptor_ = file->message_type(20);
+  SdkInfoResponse_descriptor_ = file->message_type(21);
   static const int SdkInfoResponse_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SdkInfoResponse, sdk_version_),
   };
@@ -415,7 +432,7 @@ void protobuf_AssignDesc_device_2eproto() {
       -1,
       sizeof(SdkInfoResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SdkInfoResponse, _internal_metadata_));
-  BleAction_descriptor_ = file->message_type(21);
+  BleAction_descriptor_ = file->message_type(22);
   static const int BleAction_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BleAction, ble_name_),
   };
@@ -462,6 +479,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
       SeQueryServiceResponse_descriptor_, SeQueryServiceResponse::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       BindCheck_descriptor_, BindCheck::internal_default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      BindCheckResponse_descriptor_, BindCheckResponse::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       BindAcquire_descriptor_, BindAcquire::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -511,6 +530,8 @@ void protobuf_ShutdownFile_device_2eproto() {
   delete SeQueryServiceResponse_reflection_;
   BindCheck_default_instance_.Shutdown();
   delete BindCheck_reflection_;
+  BindCheckResponse_default_instance_.Shutdown();
+  delete BindCheckResponse_reflection_;
   BindAcquire_default_instance_.Shutdown();
   delete BindAcquire_reflection_;
   BindAcquireResponse_default_instance_.Shutdown();
@@ -560,6 +581,8 @@ void protobuf_InitDefaults_device_2eproto_impl() {
   ::google::protobuf::internal::GetEmptyString();
   BindCheck_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
+  BindCheckResponse_default_instance_.DefaultConstruct();
+  ::google::protobuf::internal::GetEmptyString();
   BindAcquire_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
   BindAcquireResponse_default_instance_.DefaultConstruct();
@@ -592,6 +615,7 @@ void protobuf_InitDefaults_device_2eproto_impl() {
   SeQueryResponse_default_instance_.get_mutable()->InitAsDefaultInstance();
   SeQueryServiceResponse_default_instance_.get_mutable()->InitAsDefaultInstance();
   BindCheck_default_instance_.get_mutable()->InitAsDefaultInstance();
+  BindCheckResponse_default_instance_.get_mutable()->InitAsDefaultInstance();
   BindAcquire_default_instance_.get_mutable()->InitAsDefaultInstance();
   BindAcquireResponse_default_instance_.get_mutable()->InitAsDefaultInstance();
   BindDisplay_default_instance_.get_mutable()->InitAsDefaultInstance();
@@ -634,23 +658,24 @@ void protobuf_AddDesc_device_2eproto_impl() {
     "pBean\"r\n\026SeQueryServiceResponse\022\023\n\013retur"
     "n_code\030\001 \001(\t\022\022\n\nreturn_msg\030\002 \001(\t\022/\n\013retu"
     "rn_data\030\003 \001(\0132\032.deviceapi.SeQueryRespons"
-    "e\"\036\n\tBindCheck\022\021\n\tfile_path\030\001 \001(\t\" \n\013Bin"
-    "dAcquire\022\021\n\tbind_code\030\001 \001(\t\"*\n\023BindAcqui"
-    "reResponse\022\023\n\013bind_result\030\001 \001(\t\"\r\n\013BindD"
-    "isplay\"2\n\023BindDisplayResponse\022\033\n\023bind_di"
-    "splay_result\030\001 \001(\t\"\036\n\nDeviceName\022\020\n\010ble_"
-    "name\030\001 \001(\t\"\033\n\rGetSnResponse\022\n\n\002sn\030\001 \001(\t\""
-    "\036\n\014ApduResponse\022\016\n\006result\030\001 \001(\t\"\022\n\004Test\022"
-    "\n\n\002tt\030\001 \001(\t\"\213\001\n\023CheckUpdateResponse\022\r\n\005s"
-    "e_id\030\001 \001(\t\022\n\n\002sn\030\002 \001(\t\022\016\n\006status\030\003 \001(\t\022\020"
-    "\n\010sdk_mode\030\004 \001(\t\0227\n\022available_app_list\030\005"
-    " \003(\0132\033.deviceapi.AvailableAppBean\"\225\001\n\020Av"
-    "ailableAppBean\022\020\n\010app_name\030\001 \001(\t\022\020\n\010app_"
-    "logo\030\002 \001(\t\022\031\n\021installed_version\030\003 \001(\t\022\024\n"
-    "\014last_updated\030\004 \001(\t\022\026\n\016latest_version\030\005 "
-    "\001(\t\022\024\n\014install_mode\030\006 \001(\t\"&\n\017SdkInfoResp"
-    "onse\022\023\n\013sdk_version\030\001 \001(\t\"\035\n\tBleAction\022\020"
-    "\n\010ble_name\030\001 \001(\tb\006proto3", 1384);
+    "e\"\036\n\tBindCheck\022\021\n\tfile_path\030\001 \001(\t\"(\n\021Bin"
+    "dCheckResponse\022\023\n\013bind_status\030\001 \001(\t\" \n\013B"
+    "indAcquire\022\021\n\tbind_code\030\001 \001(\t\"*\n\023BindAcq"
+    "uireResponse\022\023\n\013bind_result\030\001 \001(\t\"\r\n\013Bin"
+    "dDisplay\"2\n\023BindDisplayResponse\022\033\n\023bind_"
+    "display_result\030\001 \001(\t\"\036\n\nDeviceName\022\020\n\010bl"
+    "e_name\030\001 \001(\t\"\033\n\rGetSnResponse\022\n\n\002sn\030\001 \001("
+    "\t\"\036\n\014ApduResponse\022\016\n\006result\030\001 \001(\t\"\022\n\004Tes"
+    "t\022\n\n\002tt\030\001 \001(\t\"\213\001\n\023CheckUpdateResponse\022\r\n"
+    "\005se_id\030\001 \001(\t\022\n\n\002sn\030\002 \001(\t\022\016\n\006status\030\003 \001(\t"
+    "\022\020\n\010sdk_mode\030\004 \001(\t\0227\n\022available_app_list"
+    "\030\005 \003(\0132\033.deviceapi.AvailableAppBean\"\225\001\n\020"
+    "AvailableAppBean\022\020\n\010app_name\030\001 \001(\t\022\020\n\010ap"
+    "p_logo\030\002 \001(\t\022\031\n\021installed_version\030\003 \001(\t\022"
+    "\024\n\014last_updated\030\004 \001(\t\022\026\n\016latest_version\030"
+    "\005 \001(\t\022\024\n\014install_mode\030\006 \001(\t\"&\n\017SdkInfoRe"
+    "sponse\022\023\n\013sdk_version\030\001 \001(\t\"\035\n\tBleAction"
+    "\022\020\n\010ble_name\030\001 \001(\tb\006proto3", 1426);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "device.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_device_2eproto);
@@ -4990,6 +5015,295 @@ void BindCheck::set_allocated_file_path(::std::string* file_path) {
 
 inline const BindCheck* BindCheck::internal_default_instance() {
   return &BindCheck_default_instance_.get();
+}
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BindCheckResponse::kBindStatusFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BindCheckResponse::BindCheckResponse()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_device_2eproto();
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:deviceapi.BindCheckResponse)
+}
+
+void BindCheckResponse::InitAsDefaultInstance() {
+}
+
+BindCheckResponse::BindCheckResponse(const BindCheckResponse& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  UnsafeMergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:deviceapi.BindCheckResponse)
+}
+
+void BindCheckResponse::SharedCtor() {
+  bind_status_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _cached_size_ = 0;
+}
+
+BindCheckResponse::~BindCheckResponse() {
+  // @@protoc_insertion_point(destructor:deviceapi.BindCheckResponse)
+  SharedDtor();
+}
+
+void BindCheckResponse::SharedDtor() {
+  bind_status_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void BindCheckResponse::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* BindCheckResponse::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BindCheckResponse_descriptor_;
+}
+
+const BindCheckResponse& BindCheckResponse::default_instance() {
+  protobuf_InitDefaults_device_2eproto();
+  return *internal_default_instance();
+}
+
+::google::protobuf::internal::ExplicitlyConstructed<BindCheckResponse> BindCheckResponse_default_instance_;
+
+BindCheckResponse* BindCheckResponse::New(::google::protobuf::Arena* arena) const {
+  BindCheckResponse* n = new BindCheckResponse;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void BindCheckResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:deviceapi.BindCheckResponse)
+  bind_status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool BindCheckResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:deviceapi.BindCheckResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string bind_status = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_bind_status()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->bind_status().data(), this->bind_status().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "deviceapi.BindCheckResponse.bind_status"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:deviceapi.BindCheckResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:deviceapi.BindCheckResponse)
+  return false;
+#undef DO_
+}
+
+void BindCheckResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:deviceapi.BindCheckResponse)
+  // optional string bind_status = 1;
+  if (this->bind_status().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->bind_status().data(), this->bind_status().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "deviceapi.BindCheckResponse.bind_status");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->bind_status(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:deviceapi.BindCheckResponse)
+}
+
+::google::protobuf::uint8* BindCheckResponse::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:deviceapi.BindCheckResponse)
+  // optional string bind_status = 1;
+  if (this->bind_status().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->bind_status().data(), this->bind_status().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "deviceapi.BindCheckResponse.bind_status");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->bind_status(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:deviceapi.BindCheckResponse)
+  return target;
+}
+
+size_t BindCheckResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:deviceapi.BindCheckResponse)
+  size_t total_size = 0;
+
+  // optional string bind_status = 1;
+  if (this->bind_status().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->bind_status());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BindCheckResponse::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:deviceapi.BindCheckResponse)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const BindCheckResponse* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const BindCheckResponse>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:deviceapi.BindCheckResponse)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:deviceapi.BindCheckResponse)
+    UnsafeMergeFrom(*source);
+  }
+}
+
+void BindCheckResponse::MergeFrom(const BindCheckResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:deviceapi.BindCheckResponse)
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void BindCheckResponse::UnsafeMergeFrom(const BindCheckResponse& from) {
+  GOOGLE_DCHECK(&from != this);
+  if (from.bind_status().size() > 0) {
+
+    bind_status_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.bind_status_);
+  }
+}
+
+void BindCheckResponse::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:deviceapi.BindCheckResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BindCheckResponse::CopyFrom(const BindCheckResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:deviceapi.BindCheckResponse)
+  if (&from == this) return;
+  Clear();
+  UnsafeMergeFrom(from);
+}
+
+bool BindCheckResponse::IsInitialized() const {
+
+  return true;
+}
+
+void BindCheckResponse::Swap(BindCheckResponse* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void BindCheckResponse::InternalSwap(BindCheckResponse* other) {
+  bind_status_.Swap(&other->bind_status_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata BindCheckResponse::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = BindCheckResponse_descriptor_;
+  metadata.reflection = BindCheckResponse_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// BindCheckResponse
+
+// optional string bind_status = 1;
+void BindCheckResponse::clear_bind_status() {
+  bind_status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& BindCheckResponse::bind_status() const {
+  // @@protoc_insertion_point(field_get:deviceapi.BindCheckResponse.bind_status)
+  return bind_status_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void BindCheckResponse::set_bind_status(const ::std::string& value) {
+  
+  bind_status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:deviceapi.BindCheckResponse.bind_status)
+}
+void BindCheckResponse::set_bind_status(const char* value) {
+  
+  bind_status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:deviceapi.BindCheckResponse.bind_status)
+}
+void BindCheckResponse::set_bind_status(const char* value, size_t size) {
+  
+  bind_status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:deviceapi.BindCheckResponse.bind_status)
+}
+::std::string* BindCheckResponse::mutable_bind_status() {
+  
+  // @@protoc_insertion_point(field_mutable:deviceapi.BindCheckResponse.bind_status)
+  return bind_status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* BindCheckResponse::release_bind_status() {
+  // @@protoc_insertion_point(field_release:deviceapi.BindCheckResponse.bind_status)
+  
+  return bind_status_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void BindCheckResponse::set_allocated_bind_status(::std::string* bind_status) {
+  if (bind_status != NULL) {
+    
+  } else {
+    
+  }
+  bind_status_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), bind_status);
+  // @@protoc_insertion_point(field_set_allocated:deviceapi.BindCheckResponse.bind_status)
+}
+
+inline const BindCheckResponse* BindCheckResponse::internal_default_instance() {
+  return &BindCheckResponse_default_instance_.get();
 }
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 

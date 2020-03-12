@@ -61,6 +61,11 @@ message BindCheck {
     string file_path = 1;
 }
 
+//binding related
+message BindCheckResponse {
+    string bind_status = 1;
+}
+
 message BindAcquire {
     string bind_code = 1;
 }

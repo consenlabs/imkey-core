@@ -1,10 +1,12 @@
 package com.mk.imkeylibrary.device;
 
+import android.content.Context;
 import android.util.Base64;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
@@ -500,43 +502,7 @@ public class DeviceManager {
 
     public void activeDevice() {
 
-
-        //error test
-        //清除
-        RustApi.INSTANCE.clear_err();
-
         api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("se_secure_check")
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("error_test")
-                .setParam(any2)
-                .build();
-        String hex = NumericUtil.bytesToHex(action.toByteArray());
-
-        try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
-            //String s = response.toString();
-            LogUtil.d(result);
-
-            String error = RustApi.INSTANCE.get_last_err_message();
-            api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
-            response.getIsSuccess();
-            error = response.getError();
-            LogUtil.d("error信息：" + error);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-
-        /*api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
                 .setAction("se_activate")
                 .build();
 
@@ -558,7 +524,7 @@ public class DeviceManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-*/
+
         /*
         String seId = getSeId();
         String sn = getSn();
@@ -919,8 +885,48 @@ public class DeviceManager {
      */
     public String bindCheck() {
 
-        //deviceapi.Device.BindCheck bindCheck = new deviceapi.Device.BindCheck().;
-        return  "";
+        Context context = Ble.getInstance().getContext();
+        if(null == context) {
+            throw new ImkeyException(Messages.IMKEY_SDK_BLE_NOT_INITIALIZE);
+        }
+
+        // file名称与seid关联，支持一个手机，绑定多个设备
+        String  filePath = context.getFilesDir().getPath();
+
+        deviceapi.Device.BindCheck bindCheck = deviceapi.Device.BindCheck.newBuilder()
+                .setFilePath(filePath)
+                .build();
+
+        Any any = Any.newBuilder()
+                .setValue(bindCheck.toByteString())
+                .build();
+
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("bind_check")
+                .setParam(any)
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+        String status = null;
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            Device.BindCheckResponse response = Device.BindCheckResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            status = response.getBindStatus();
+            LogUtil.d("绑定状态：" + status);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return  status;
 
 
         /*// 获取seid
@@ -1018,14 +1024,74 @@ public class DeviceManager {
      * @return
      */
     public void displayBindingCode() {
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("bind_display")
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         //  产生随机绑定码
-        String generateAuthCodeApdu = Apdu.generateAuthCode();
+        /*String generateAuthCodeApdu = Apdu.generateAuthCode();
         String res = Ble.getInstance().sendApdu(generateAuthCodeApdu);
-        Apdu.checkResponse(res);
+        Apdu.checkResponse(res);*/
     }
 
 
     public String bindAcquire(String bindingCode) {
+
+        deviceapi.Device.BindAcquire bindCheck = deviceapi.Device.BindAcquire.newBuilder()
+                .setBindCode(bindingCode)
+                .build();
+
+        Any any = Any.newBuilder()
+                .setValue(bindCheck.toByteString())
+                .build();
+
+
+        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
+                .setAction("bind_acquire")
+                .setParam(any)
+                .build();
+
+        Any any2 = Any.newBuilder()
+                .setValue(deviceParam.toByteString())
+                .build();
+
+        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                .setMethod("device_manage")
+                .setParam(any2)
+                .build();
+        String hex = NumericUtil.bytesToHex(action.toByteArray());
+        String status = null;
+        try {
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            Device.BindAcquireResponse response = Device.BindAcquireResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            status = response.getBindResult();
+            status = Constants.identityVerifyStatusMap.get(status);
+            LogUtil.d("绑定状态：" + status);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return  status;
+        /*
+
+
         bindingCode = bindingCode.toUpperCase();
         // authCode 校验  0,1,I,O,排除
         String regEx = "^[A-HJ-NP-Z2-9]{8}$";
@@ -1060,9 +1126,9 @@ public class DeviceManager {
         String res = Ble.getInstance().sendApdu(identityVerifyApdu);
         Apdu.checkResponse(res);
 
-        String status = res.substring(0,2);
+        String status = res.substring(0,2);*/
         // 返回状态
-        return Constants.identityVerifyStatusMap.get(status);
+        //return Constants.identityVerifyStatusMap.get(status);
     }
 
 

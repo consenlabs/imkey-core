@@ -26,6 +26,7 @@ import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.mk.imkeydemo.excepttest.devicemanger.DeviceBindingTest;
 import com.mk.imkeylibrary.bluetooth.Ble;
 import com.mk.imkeylibrary.bluetooth.BleDevice;
 import com.mk.imkeylibrary.bluetooth.Callback.ConnectCallback;
@@ -387,6 +388,10 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                                 try {
                                     String bindCode = inputAuthCode.getText().toString();
+
+                                    // error test
+                                    new DeviceBindingTest().deviceBingdingTest();
+
                                     String status = mManager.bindAcquire(bindCode);
                                     toast(status);
                                     if("success".equals(status)){
