@@ -108,28 +108,28 @@ pub fn check_update() -> Result<service_response>  {
     se_query_request::build_request_data(seid, sn, sdk_version).se_query()
 }
 
-pub fn app_download(app_name: &str) {
+pub fn app_download(app_name: &str) -> Result<()> {
     let seid: String = get_se_id().ok().unwrap();
     let device_cert: String = get_cert();
     let sdk_version = Some(constants::VERSION.to_string());
     let instance_aid: String = applet::get_instid_by_appname(app_name).expect("imkey_app_name_not_exist").to_string();
     app_download_request::build_request_data(seid, instance_aid, device_cert, sdk_version)
-        .app_download();
+        .app_download()
 }
 
-pub fn app_update(app_name: &str) {
+pub fn app_update(app_name: &str) -> Result<()> {
     let seid: String = get_se_id().ok().unwrap();
     let device_cert: String = get_cert();
     let sdk_version = Some(constants::VERSION.to_string());
     let instance_aid: String = applet::get_instid_by_appname(app_name).expect("imkey_app_name_not_exist").to_string();
     app_update_request::build_request_data(seid, instance_aid, device_cert, sdk_version)
-        .app_update();
+        .app_update()
 }
 
-pub fn app_delete(app_name: &str) {
+pub fn app_delete(app_name: &str) -> Result<()> {
     let seid: String = get_se_id().ok().unwrap();
     let device_cert: String = get_cert();
     let instance_aid: String = applet::get_instid_by_appname(app_name).expect("imkey_app_name_not_exist").to_string();
-    app_delete_request::build_request_data(seid, instance_aid, device_cert).app_delete();
+    app_delete_request::build_request_data(seid, instance_aid, device_cert).app_delete()
 }
 

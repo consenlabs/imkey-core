@@ -84,6 +84,7 @@ impl app_delete_request {
                     constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => Err(ImkeyError::IMKEY_TSM_OCE_CERT_CHECK_FAIL.into()),
                     constants::TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::IMKEY_TSM_DEVICE_STOP_USING.into()),
                     constants::TSM_RETURNCODE_RECEIPT_CHECK_FAIL => Err(ImkeyError::IMKEY_TSM_RECEIPT_CHECK_FAIL.into()),
+                    constants::TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::IMKEY_TSM_DEVICE_NOT_ACTIVATED.into()),
                     _ => Err(ImkeyError::IMKEY_TSM_SERVER_ERROR.into()),
                 };
                 return ret_code_check_result;
