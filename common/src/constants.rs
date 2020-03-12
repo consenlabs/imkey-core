@@ -1,6 +1,6 @@
 //pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
-pub const URL: &str = "https://imkey.online:1000/imkey/";
-// pub const URL: &str = "http://localhost:8080/imkey/";
+//pub const URL: &str = "https://imkey.online:1000/imkey/";
+ pub const URL: &str = "http://localhost:8080/imkey/";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
 pub const TSM_ACTION_APP_DOWNLOAD: &str = "/appDownload";
@@ -32,6 +32,8 @@ pub const MAX_UTXO_NUMBER: usize = 252;
 pub const EACH_ROUND_NUMBER: usize = 5;
 pub const DUST_THRESHOLD: i64 = 2730;
 pub const MIN_NONDUST_OUTPUT: i64 = 546;
+// max op return size
+pub const MAX_OPRETURN_SIZE: usize = 80;
 
 // imkey device status
 pub const IMKEY_DEV_STATUS_INACTIVATED: &str = "inactivated";

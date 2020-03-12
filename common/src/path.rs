@@ -1,27 +1,18 @@
-use crate::error::Error;
+use crate::error::CommonError;
 use regex::Regex;
 use crate::Result;
 
 pub fn check_path_validity(path: &str) -> Result<()> {
-    //check depth
+    //check depth and length
     let strings: Vec<&str> = path.split("/").collect();
     let depth = strings.len();
     if depth < 2 || depth > 10 || path.len() > 100{
-//        return Err(Error::PathError);
-        return Err(format_err!("PathError"));
+        return Err(CommonError::IMKEY_PATH_ILLEGAL.into());
     }
-
-//    //check length
-//    if path.chars().count() > 100 {
-//        return Err(Error::PathError);
-//    }
-
     //regx check
     let re = Regex::new(r"^m/[0-9'/]+$").unwrap();
     if !re.is_match(path) {
-//        return Err(Error::PathError);
-        return Err(format_err!("PathError"));
+        return Err(CommonError::IMKEY_PATH_ILLEGAL.into());
     }
-
     Ok(())
 }
