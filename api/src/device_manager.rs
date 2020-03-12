@@ -9,7 +9,6 @@ use crate::deviceapi::{
 };
 use crate::deviceapi::{SeAction, SeQueryResponse, CheckUpdateResponse, AvailableAppBean, BleAction};
 use crate::wallet_handler::encode_message;
-use common::error::Error;
 use common::constants;
 use common::applet;
 use device::app_delete::app_delete_request;
@@ -31,7 +30,7 @@ pub fn device_app_delete(param: &DeviceParam) -> Result<Vec<u8>> {
     let app_action: AppAction =
         AppAction::decode(&param.param.as_ref().expect("imkey_illegal_param").value.clone())
             .expect("imkey_illegal_param");
-    manager::app_delete(app_action.app_name.as_ref());
+    manager::app_delete(app_action.app_name.as_ref())?;
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
@@ -41,49 +40,29 @@ pub fn device_app_download(param: &DeviceParam) -> Result<Vec<u8>> {
     let app_action: AppAction =
         AppAction::decode(&param.param.as_ref().expect("imkey_illegal_param").value.clone())
             .expect("imkey_illegal_param");
-    manager::app_download(app_action.app_name.as_ref());
+    manager::app_download(app_action.app_name.as_ref())?;
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
 
 pub fn device_app_update(param: &DeviceParam) -> Result<Vec<u8>> {
-//    let app_action: AppAction =
-//        AppAction::decode(&param.param.as_ref().expect("device_param").value.clone())
-//            .expect("app_action");
-//    let mut request = app_update_request::build_request_data(
-//        app_action.se_id,
-//        app_action.instance_aid,
-//        app_action.device_cert,
-//        Some(app_action.sdk_version),
-//    );
-//    let _response = request.app_update().map_err(|_err| Error::DeviceOpError)?;
     let app_action: AppAction =
         AppAction::decode(&param.param.as_ref().expect("imkey_illegal_prarm").value.clone())
             .expect("imkey_illegal_prarm");
-    manager::app_update(app_action.app_name.as_ref());
+    manager::app_update(app_action.app_name.as_ref())?;
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
 
 pub fn device_activate(param: &DeviceParam) -> Result<Vec<u8>> {
-//    let se_action: SeAction =
-////        SeAction::decode(&param.param.as_ref().expect("device_param").value.clone())
-////            .expect("se_activate");
-////    let mut request = se_activate_request::build_request_data(
-////        se_action.se_id,
-////        se_action.sn,
-////        se_action.device_cert,
-////    );
-////    let _response = request.se_activate().map_err(|_err| Error::DeviceOpError)?;
-
-    manager::active_device();
+    manager::active_device()?;
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
 
 pub fn device_query(param: &DeviceParam) -> Result<Vec<u8>> {
 
-    let response = manager::check_update()?;//todo check
+    let response = manager::check_update()?;
 
     let mut available_bean_list: Vec<AvailableAppBean> = Vec::new();
     for (index, value) in response._ReturnData.availableAppBeanList.unwrap().iter().enumerate() {
@@ -121,13 +100,12 @@ pub fn device_query(param: &DeviceParam) -> Result<Vec<u8>> {
 }
 
 pub fn device_secure_check(param: &DeviceParam) -> Result<Vec<u8>> {
-    manager::check_device();
+    manager::check_device()?;
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
 
 pub fn device_bind_check(param: &DeviceParam) -> Result<Vec<u8>> {
-    println!("bridge...");
     let bind_check: BindCheck =
         BindCheck::decode(&param.param.as_ref().expect("imkey_illegal_param").value.clone())
             .expect("imkey_illegal_param");
@@ -150,9 +128,6 @@ pub fn device_bind_acquire(param: &DeviceParam) -> Result<Vec<u8>> {
 }
 
 pub fn device_display_bind_code(param: &DeviceParam) -> Result<Vec<u8>> {
-    let _bind_display: BindDisplay =
-        BindDisplay::decode(&param.param.as_ref().expect("imkey_illegal_param").value.clone())
-            .expect("imkey_illegal_param");
     let display_result = display_bind_code();
     let response_msg = EmptyResponse {};
     encode_message(response_msg)

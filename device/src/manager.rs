@@ -81,23 +81,18 @@ pub fn get_cert() -> String {
     res.chars().take(res.len() - 4).collect()
 }
 
-pub fn check_device() {
+pub fn check_device() -> Result<()> {
     let seid: String = get_se_id().ok().unwrap();
     let sn: String = get_sn().ok().unwrap();
     let device_cert: String = get_cert();
-
-    match se_secure_check_request::build_request_data(seid, sn, device_cert).se_secure_check() {
-        Ok(()) => println!("success!"),
-        Err(e) => println!("{}", e),
-    }
+    se_secure_check_request::build_request_data(seid, sn, device_cert).se_secure_check()
 }
 
-pub fn active_device() {
+pub fn active_device() -> Result<()>{
     let seid: String = get_se_id().ok().unwrap();
     let sn: String = get_sn().ok().unwrap();
     let device_cert: String = get_cert();
-
-    se_activate_request::build_request_data(seid, sn, device_cert).se_activate();
+    se_activate_request::build_request_data(seid, sn, device_cert).se_activate()
 }
 
 pub fn check_update() -> Result<service_response>  {

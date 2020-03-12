@@ -8,7 +8,6 @@ use crate::eos_signer::sign_eos_transaction;
 use crate::ethereum_address::{get_eth_address, display_eth_address};
 use crate::ethereum_signer::sign_eth_transaction;
 use bytes::BytesMut;
-use common::error::Error;
 use prost::Message;
 use crate::error_handling::Result;
 
