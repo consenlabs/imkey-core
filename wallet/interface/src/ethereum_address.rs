@@ -1,6 +1,5 @@
 use coin_ethereum::address::EthAddress;
 use common::apdu::{EthApdu, EosApdu};
-use common::error::Error;
 use common::path::check_path_validity;
 use common::utility::hex_to_bytes;
 use mq::message::send_apdu;
@@ -21,8 +20,10 @@ impl EthereumAddress {
 
 //        let pubkey_raw =
 //            hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError)?;//TODO
+//         let pubkey_raw =
+//             hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError).expect("hex_to_bytes_error");
         let pubkey_raw =
-            hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError).expect("hex_to_bytes_error");
+            hex_to_bytes(&res_msg_pubkey[2..130]).expect("hex_to_bytes_error");//todo handle error
 
         println!("pubkey_raw:{}", &hex::encode(&pubkey_raw));
 

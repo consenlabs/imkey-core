@@ -2,7 +2,6 @@ use crate::address::EthAddress;
 use crate::types::{Action, Signature};
 use bitcoin::hashes::{sha256d, Hash};
 use common::apdu::EthApdu;
-use common::error::Error;
 use common::path::check_path_validity;
 use common::utility::{hex_to_bytes, sha256_hash, secp256k1_sign_hash, secp256k1_sign};
 use ethereum_types::{Address, H256, U256};
@@ -95,8 +94,10 @@ impl Transaction {
 
 //        let pubkey_raw =
 //            hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError)?;//TODO
+//         let pubkey_raw =
+//             hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError).expect("conversion error");
         let pubkey_raw =
-            hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError).expect("conversion error");
+            hex_to_bytes(&res_msg_pubkey[2..130]).expect("conversion error");//todo error
 
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;
         let address_checksummed = EthAddress::address_checksummed(&address_main);
@@ -115,13 +116,16 @@ impl Transaction {
         //let s = &sign_res[66..130];
         let sign_compact = &res_msg_sign[2..130];
 //        let sign_compact_vec = hex_to_bytes(sign_compact).map_err(|_err| Error::SignError)?;//TODO
-        let sign_compact_vec = hex_to_bytes(sign_compact).map_err(|_err| Error::SignError).expect("hex_to_bytes");
+//         let sign_compact_vec = hex_to_bytes(sign_compact).map_err(|_err| Error::SignError).expect("hex_to_bytes");
+        let sign_compact_vec = hex_to_bytes(sign_compact).expect("hex_to_bytes");//todo error
 
         let msg_hash = self.hash(chain_id);
 //        let msg_to_sign =
 //            &SecpMessage::from_slice(&msg_hash[..]).map_err(|_err| Error::MessageError)?;//TODO
+//         let msg_to_sign =
+//             &SecpMessage::from_slice(&msg_hash[..]).map_err(|_err| Error::MessageError).expect("get message obj error");
         let msg_to_sign =
-            &SecpMessage::from_slice(&msg_hash[..]).map_err(|_err| Error::MessageError).expect("get message obj error");
+            &SecpMessage::from_slice(&msg_hash[..]).expect("get message obj error");//todo error
 
         let rec_id = retrieve_recid(msg_to_sign, &sign_compact_vec, &pubkey_raw)?;
 
@@ -131,6 +135,13 @@ impl Transaction {
         let sig = Signature(data_arr);
 
         Ok(self.with_signature(sig, chain_id))
+
+
+
+
+
+
+
     }
 
     pub fn rlp_encode_tx(&self, chain_id: Option<u64>) -> Vec<u8> {
@@ -205,7 +216,7 @@ impl Transaction {
         println!("data_to_sign:{}", &hex::encode(&data_to_sign));
 
         let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();//ios
-        let mut bind_signature = secp256k1_sign(&private_key, &data_to_sign);
+        let mut bind_signature = secp256k1_sign(&private_key, &data_to_sign).unwrap_or_default();
         println!("bind_signature:{}", &hex::encode(&bind_signature));
 
         let mut apdu_pack: Vec<u8>  = Vec::new();
@@ -348,8 +359,11 @@ pub fn retrieve_recid(
         let rec_id = RecoveryId::from_i32(i as i32).unwrap();
 //        let sig = RecoverableSignature::from_compact(&sign_compact, rec_id)
 //            .map_err(|_err| Error::SignError)?;//TODO
+//         let sig = RecoverableSignature::from_compact(&sign_compact, rec_id)
+//             .map_err(|_err| Error::SignError).expect("error");
         let sig = RecoverableSignature::from_compact(&sign_compact, rec_id)
-            .map_err(|_err| Error::SignError).expect("error");
+            .expect("error");//todo handle error
+
         if let Ok(rec_pubkey) = secp_context.recover(&msg, &sig) {
             let rec_pubkey_raw = rec_pubkey.serialize_uncompressed();
             if rec_pubkey_raw[1..65].to_vec() == *pubkey {
@@ -363,7 +377,8 @@ pub fn retrieve_recid(
 
 //    let rec_id = RecoveryId::from_i32(recid_final).map_err(|_err| Error::SignError);//TODO
 //    rec_id
-    let rec_id = RecoveryId::from_i32(recid_final).map_err(|_err| Error::SignError).expect("convertion error");
+//     let rec_id = RecoveryId::from_i32(recid_final).map_err(|_err| Error::SignError).expect("convertion error");
+    let rec_id = RecoveryId::from_i32(recid_final).expect("convertion error");//todo handle error
     Ok(rec_id)
 }
 

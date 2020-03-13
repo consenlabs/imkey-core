@@ -2,7 +2,6 @@ use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::{sha256, Hash, ripemd160};
 use bytes::BufMut;
 use common::apdu::EosApdu;
-use common::error::Error;
 use common::{path, utility};
 use mq::message;
 use std::io::Read;
@@ -82,7 +81,7 @@ impl EosTransaction {
                 //bind signature
                 let key_manager_obj = KEY_MANAGER.lock().unwrap();
                 // let private_key = hex_to_bytes("7CD950180EDFF1C4A21270AD293A274580D20C84DE06666467F6386FB7DDA352").unwrap();//ios
-                let mut bind_signature = secp256k1_sign_hash(&key_manager_obj.pri_key, &sign_data_hash);
+                let mut bind_signature = secp256k1_sign_hash(&key_manager_obj.pri_key, &sign_data_hash)?;
                 println!("bind_signature:{}", &hex::encode(&bind_signature));
 
                 //send prepare data
@@ -190,7 +189,7 @@ impl EosTransaction {
 
         // let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();//ios
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
-        let mut bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack);
+        let mut bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap_or_default();
         println!("bind_signature:{}", &hex::encode(&bind_signature));
 
         let mut prepare_pack: Vec<u8>  = Vec::new();

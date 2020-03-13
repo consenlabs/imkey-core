@@ -2,7 +2,6 @@ use crate::api::AddressParam;
 use crate::wallet_handler::encode_message;
 use coin_ethereum::address::EthAddress;
 use common::apdu::EthApdu;
-use common::error::Error;
 use common::path::check_path_validity;
 use common::utility::hex_to_bytes;
 use ethereum_types::{Address, H256, U256};

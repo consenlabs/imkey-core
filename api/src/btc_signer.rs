@@ -3,7 +3,6 @@ use crate::btcapi::{BtcTxInput, BtcTxOutput};
 use crate::wallet_handler::encode_message;
 use bitcoin::{Address, Network};
 use coin_bitcoin::transaction::{BtcTransaction, Utxo};
-use common::error::Error;
 use prost::Message;
 use std::str::FromStr;
 use crate::error_handling::Result;

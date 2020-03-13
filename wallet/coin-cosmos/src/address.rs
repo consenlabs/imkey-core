@@ -1,6 +1,5 @@
 use common::apdu::CosmosApdu;
 use common::constants;
-use common::error::Error;
 use common::path;
 use common::utility;
 use hex;
@@ -12,7 +11,6 @@ use bech32::AddressError;
 use bitcoin::bech32::convert_bits;
 use bitcoin_hashes::hex::{FromHex, ToHex};
 use bitcoin_hashes::{hash160, Hash};
-use common::error;
 use ring::digest;
 use secp256k1::{Message, PublicKey as PublicKey2, Secp256k1, SecretKey, Signature};
 use crate::Result;
@@ -42,7 +40,7 @@ impl CosmosAddress {
             hex::decode(se_pub_key).unwrap().as_slice(),
             hex::decode(sign_result).unwrap().as_slice(),
             hex::decode(sign_source_val).unwrap().as_slice(),
-        );
+        )?;
         if !sign_verify_result {
 //            return Err(error::Error::AddressError);
             return Err(format_err!("AddressError"));

@@ -2,7 +2,6 @@ use bitcoin::util::base58;
 use bitcoin_hashes::hex::FromHex;
 use bitcoin_hashes::{ripemd160, Hash};
 use common::apdu::EosApdu;
-use common::error::Error;
 use common::{path, utility};
 use mq::message;
 use std::str::FromStr;
@@ -34,7 +33,7 @@ impl EosPubkey {
         // let se_pub_key = "04E03248A0012603C6B20786C2A86EB6B9DC1767BC56674EBE471ED5FDF287A063985885E0523E100319E0643810F0EAF66A0D4102AEAE49FD7BC7AC232247A3DC";
         let sign_verify_result = utility::secp256k1_sign_verify(&key_manager_obj.se_pub_key,
                                                                 hex::decode(sign_result).unwrap().as_slice(),
-                                                                hex::decode(sign_source_val).unwrap().as_slice());
+                                                                hex::decode(sign_source_val).unwrap().as_slice())?;
         if !sign_verify_result {
 //            return Err(Error::MessageError);
             return Err(format_err!("MessageError"));

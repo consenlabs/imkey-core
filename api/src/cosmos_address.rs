@@ -1,6 +1,5 @@
 use crate::api::AddressParam;
 use crate::wallet_handler::encode_message;
-use common::error::Error;
 use common::utility::hex_to_bytes;
 use mq::message::send_apdu;
 use prost::Message;
