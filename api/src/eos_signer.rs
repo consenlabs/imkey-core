@@ -1,7 +1,6 @@
 use crate::api::SignParam;
 use common::eosapi::{EosTxInput, EosTxOutput};
 use crate::wallet_handler::encode_message;
-use common::error::Error;
 use prost::Message;
 use coin_eos::transaction::EosTransaction;
 use crate::error_handling::Result;

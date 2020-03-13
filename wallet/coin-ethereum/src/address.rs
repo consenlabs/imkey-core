@@ -1,4 +1,3 @@
-use common::error::Error;
 use hex;
 use keccak_hash::keccak;
 use regex::Regex;

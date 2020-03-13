@@ -1,7 +1,6 @@
 use crate::api::SignParam;
 //use crate::cosmosapi::{CosmosTxInput, CosmosTxOutput};
 use crate::wallet_handler::encode_message;
-use common::error::Error;
 use common::sign_res::TxSignResult;
 use hex;
 use prost::Message;
