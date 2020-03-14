@@ -22,6 +22,7 @@ use bitcoin::util::psbt::serialize::Serialize;
 use device::device_binding::{KEY_MANAGER};
 use common::path::check_path_validity;
 use crate::Result;
+use crate::btc::{get_address, get_segwit_address};
 
 #[derive(Clone)]
 pub struct Utxo {
@@ -94,7 +95,13 @@ impl BtcTransaction {
         //add change output
         let change_amount = self.get_change_amount();
         if change_amount > DUST_THRESHOLD {
-            txouts.push(self.build_change_output(pub_key, network)?);
+            let path_temp = format!("{}{}{}", path, "/1/", change_idx);
+            let address_str = get_address(network, path_temp.as_str())?;
+            let address_obj = Address::from_str(address_str.as_str())?;
+            txouts.push(TxOut {
+                value: self.get_change_amount() as u64,
+                script_pubkey: address_obj.script_pubkey(),
+            });
         }
 
         //add the op_return
@@ -261,7 +268,13 @@ impl BtcTransaction {
         //add change output
         let change_amount = self.get_change_amount();
         if change_amount > DUST_THRESHOLD {
-            txouts.push(self.build_change_output(pub_key, network)?);
+            let path_temp = format!("{}{}{}", path, "/1/", change_idx);
+            let address_str = get_segwit_address(network, path_temp.as_str())?;
+            let address_obj = Address::from_str(address_str.as_str())?;
+            txouts.push(TxOut {
+                value: self.get_change_amount() as u64,
+                script_pubkey: address_obj.script_pubkey(),
+            });
         }
         //add the op_return
         if (!extra_data.is_empty()) {
@@ -454,17 +467,17 @@ impl BtcTransaction {
         }
     }
 
-    pub fn build_change_output(&self, pub_key : &str, network : Network) ->Result<TxOut> {
-        //get change address
-        let mut public_key_obj = PublicKey::from_str(pub_key)?;
-        public_key_obj.compressed = true;
-        let change_addr = Address::p2pkh(&public_key_obj, network);
-        //build change output
-        Ok(TxOut {
-            value: self.get_change_amount() as u64,
-            script_pubkey: change_addr.script_pubkey(),
-        })
-    }
+//    pub fn build_change_output(&self, pub_key : &str, network : Network) ->Result<TxOut> {
+//        //get change address
+//        let mut public_key_obj = PublicKey::from_str(pub_key)?;
+//        public_key_obj.compressed = true;
+//        let change_addr = Address::p2pkh(&public_key_obj, network);
+//        //build change output
+//        Ok(TxOut {
+//            value: self.get_change_amount() as u64,
+//            script_pubkey: change_addr.script_pubkey(),
+//        })
+//    }
 
     pub fn build_op_return_output(&self, extra_data : &Vec<u8>) -> TxOut {
         let opreturn_script = Builder::new()
@@ -674,6 +687,41 @@ mod tests {
             println!("bind this");
         }
     }
+
+    #[test]
+    fn test1(){
+        //设备绑定
+        device_binding_test();
+
+//        let extra_data = Vec::from_hex("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385").unwrap();
+        let extra_data = vec![];
+        let utxo = Utxo {
+            txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
+            vout: 0,
+            amount: 10000112345678,
+            address: Address::from_str("1Fj93kpLwM1KgTN6C75Z5Bokhays4MmJae").unwrap(),
+            script_pubkey: "76a914a189f2f7836812aa7a0e36e28a20a10e64010bf688ac".to_string(),
+            derive_path: "0/22".to_string(),
+            sequence: 0,
+        };
+        let mut utxos = Vec::new();
+        utxos.push(utxo);
+
+        let transaction_req_data = BtcTransaction {
+            to: Address::from_str("18pMkq6HK5HR36jr7bSd39MpkVCfnP68VV").unwrap(),
+//            change_idx: 53,
+            amount: 10000012345678,
+            unspents: utxos,
+            fee: 502130,
+            payment: "0.0001 BTC".to_string(),
+            to_dis: Address::from_str("3CVD68V71no5jn2UZpLLq6hASpXu1jrByt").unwrap(),
+            from: Address::from_str("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy").unwrap(),
+            fee_dis: "0.00007945 BTC".to_string(),
+        };
+        transaction_req_data.sign_transaction(Network::Bitcoin, &"m/44'/0'/0'".to_string(), 53, &extra_data);
+//        transaction_req_data.sign_segwit_transaction(Network::Bitcoin, &"m/44'/0'/0'".to_string(), 53, &extra_data);
+    }
+
 
     #[test]
     fn test_bind_check(){
