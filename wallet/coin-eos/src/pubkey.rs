@@ -35,8 +35,7 @@ impl EosPubkey {
                                                                 hex::decode(sign_result).unwrap().as_slice(),
                                                                 hex::decode(sign_source_val).unwrap().as_slice())?;
         if !sign_verify_result {
-//            return Err(Error::MessageError);
-            return Err(format_err!("MessageError"));
+            return Err(format_err!("imkey_signature_verify_fail"));
         }
 
         //compressed key

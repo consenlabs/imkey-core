@@ -14,6 +14,7 @@ use bitcoin_hashes::{hash160, Hash};
 use ring::digest;
 use secp256k1::{Message, PublicKey as PublicKey2, Secp256k1, SecretKey, Signature};
 use crate::Result;
+use device::device_binding::KEY_MANAGER;
 
 #[derive(Debug)]
 pub struct CosmosAddress {}
@@ -35,9 +36,11 @@ impl CosmosAddress {
         let pub_key = &sign_source_val[..130];
 
         //use se public key verify sign
-        let se_pub_key = "04E03248A0012603C6B20786C2A86EB6B9DC1767BC56674EBE471ED5FDF287A063985885E0523E100319E0643810F0EAF66A0D4102AEAE49FD7BC7AC232247A3DC";
+        // let se_pub_key = "04E03248A0012603C6B20786C2A86EB6B9DC1767BC56674EBE471ED5FDF287A063985885E0523E100319E0643810F0EAF66A0D4102AEAE49FD7BC7AC232247A3DC";
+        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+
         let sign_verify_result = utility::secp256k1_sign_verify(
-            hex::decode(se_pub_key).unwrap().as_slice(),
+            &key_manager_obj.se_pub_key,
             hex::decode(sign_result).unwrap().as_slice(),
             hex::decode(sign_source_val).unwrap().as_slice(),
         )?;
@@ -46,50 +49,11 @@ impl CosmosAddress {
             return Err(format_err!("AddressError"));
         }
 
-        //        let uncomprs_pubkey: String = res_msg_pubkey
-        //            .chars()
-        //            .take(res_msg_pubkey.len() - 4)
-        //            .collect();
-        //        let comprs_pubkey = cal_comprs_pubkey(&uncomprs_pubkey);
-        //        let pubkey_hash = hash160::Hash::from_hex(&comprs_pubkey)
-        //            .unwrap()
-        //            .into_inner();
-        //        let pk_base58 = base58::check_encode_slice(&pubkey_hash);
-        //        Ok(pk_base58)
-
-        //        let secp = Secp256k1::new();
-        //        let se_pub_key = "04E03248A0012603C6B20786C2A86EB6B9DC1767BC56674EBE471ED5FDF287A063985885E0523E100319E0643810F0EAF66A0D4102AEAE49FD7BC7AC232247A3DC";
-        //        let se_pub_key_obj = PublicKey2::from_str(se_pub_key).unwrap();
-        //
-        //        let message_hash = digest::digest(
-        //            &digest::SHA256,
-        //            Vec::from_hex(data).unwrap().as_slice(),
-        //        );
-        //        let message_obj = Message::from_slice(message_hash.as_ref()).unwrap();
-        //        let sig_data = Vec::from_hex(signature).unwrap().as_slice();
-        //        //生成签名结果对象
-        //        let mut sig = Signature::from_der(sig_data).unwrap();
-        //        sig.normalize_s();
-        //        let verify_result = secp.verify(&message_obj, &sig, &se_pub_key_obj).is_ok();
-        //        if !verify_result {
-        //            return Err(Error::MessageError);
-        //        }
-
         let uncomprs_pubkey: String = res_msg_pubkey
             .chars()
             .take(res_msg_pubkey.len() - 4)
             .collect();
         let comprs_pubkey = utility::uncompress_pubkey_2_compress(&uncomprs_pubkey);
-
-        //        let pubkey_hash = hash160::Hash::from_hex(&comprs_pubkey)
-        //            .unwrap()
-        //            .into_inner();
-        //        let pub_key_hash = hash160::Hash::hash(&comprs_pubkey.as_bytes()).into_inner().tohex();
-
-        //        let pub_key_bytes = comprs_pubkey.as_bytes();
-        //        let pub_key_hash = hash160::Hash::hash(&pub_key_bytes).to_hex();
-        //        let hex = format!("hash={}", hex::encode(&pub_key_hash));
-        //        println!(" :{}", hex);
 
         Ok(comprs_pubkey)
     }
@@ -129,15 +93,24 @@ mod tests {
     use crate::address::CosmosAddress;
     use bech32::bech32::Bech32;
     use common::constants;
+    use device::device_binding::DeviceManage;
 
     #[test]
     fn test_get_pub_key() {
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        println!("check_result:{}",&check_result);
+
         let comprs_pubkey = CosmosAddress::get_pub_key(constants::COSMOS_PATH).unwrap();
         assert_eq!(&comprs_pubkey,"0232C1EF21D73C19531B0AA4E863CF397C2B982B2F958F60CDB62969824C096D65");
     }
 
     #[test]
     fn test_get_address() {
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        println!("check_result:{}",&check_result);
+
         let address = CosmosAddress::get_address(constants::COSMOS_PATH).unwrap();
         assert_eq!(&address,"cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992");
     }

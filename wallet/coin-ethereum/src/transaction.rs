@@ -15,6 +15,7 @@ use secp256k1::{self, Message as SecpMessage, Secp256k1};
 use common::ethapi::{EthPersonalSignInput, EthPersonalSignOutput};
 use common::utility;
 use crate::Result as Result2;
+use device::device_binding::KEY_MANAGER;
 
 lazy_static! {
     pub static ref SECP256K1: secp256k1::Secp256k1<secp256k1::All> = secp256k1::Secp256k1::new();
@@ -41,17 +42,17 @@ impl Transaction {
         sender: &str,
         fee: &str,
     ) -> Result2<(Vec<u8>, UnverifiedTransaction)> {
+    // ) {
         //check path
         check_path_validity(path);
-        //select applet
-        let select_apdu = EthApdu::select_applet();
-        let select_result = send_apdu(select_apdu);
 
         //organize data
-        let mut apdu_pack = Vec::new();
+        let mut data_pack:Vec<u8> = Vec::new();
         let encode_tx = self.rlp_encode_tx(chain_id);
+        println!("encode_tx:{}", &hex::encode(&encode_tx));
+
         //rlp encoded tx in TLV format
-        apdu_pack.extend(
+        data_pack.extend(
             [
                 1,
                 ((encode_tx.len() & 0xFF00) >> 8) as u8,
@@ -59,38 +60,53 @@ impl Transaction {
             ]
             .iter(),
         );
-        apdu_pack.extend(encode_tx.iter());
+        data_pack.extend(encode_tx.iter());
         //payment info in TLV format
-        apdu_pack.extend([7, payment.as_bytes().len() as u8].iter());
-        apdu_pack.extend(payment.as_bytes().iter());
+        data_pack.extend([7, payment.as_bytes().len() as u8].iter());
+        data_pack.extend(payment.as_bytes().iter());
         //receiver info in TLV format
-        apdu_pack.extend([8, receiver.as_bytes().len() as u8].iter());
-        apdu_pack.extend(receiver.as_bytes().iter());
+        data_pack.extend([8, receiver.as_bytes().len() as u8].iter());
+        data_pack.extend(receiver.as_bytes().iter());
         //fee info in TLV format
-        apdu_pack.extend([9, fee.as_bytes().len() as u8].iter());
-        apdu_pack.extend(fee.as_bytes().iter());
-
-        let test_pack = hex::encode(apdu_pack.clone());
-        println!("test is {}", test_pack);
+        data_pack.extend([9, fee.as_bytes().len() as u8].iter());
+        data_pack.extend(fee.as_bytes().iter());
+        println!("data_pack:{}", hex::encode(&data_pack));
 
         //hash data for verification sign
-        let hash_data = sha256d::Hash::from_slice(&apdu_pack);
+        let hash_data = sha256d::Hash::from_slice(&data_pack);
 
-        //TODO: sign using private key, here need to bypass the checking in applet
-        let mut signature = vec![0; 65];
-        signature.insert(0, signature.len() as u8);
-        signature.insert(0, 0);
-        apdu_pack.splice(0..0, signature.iter().cloned()); //@@XM TODO: check this insertion
+        let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();
+        let mut bind_signature = secp256k1_sign(&private_key, &data_pack).unwrap_or_default();
+        // let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        // let mut bind_signature = secp256k1_sign_hash(&key_manager_obj.pri_key, &data_pack).unwrap_or_default();
+        println!("bind_signature:{}", &hex::encode(&bind_signature));
+
+        let mut apdu_pack: Vec<u8>  = Vec::new();
+        apdu_pack.push(0x00);
+        apdu_pack.push(bind_signature.len() as u8);
+        apdu_pack.extend(bind_signature.as_slice());
+        apdu_pack.extend(data_pack.as_slice());
+        println!("apdu_pack:{}", &hex::encode(&apdu_pack));
+
+//         //TODO: sign using private key, here need to bypass the checking in applet
+//         let mut signature = vec![0; 65];
+//         signature.insert(0, signature.len() as u8);
+//         signature.insert(0, 0);
+//         apdu_pack.splice(0..0, signature.iter().cloned()); //@@XM TODO: check this insertion
+
+        //select applet
+        let select_apdu = EthApdu::select_applet();
+        let select_result = send_apdu(select_apdu);
 
         //prepare apdu
         let msg_prepare = EthApdu::prepare_sign(apdu_pack);
         for msg in msg_prepare {
-            let res = send_apdu(hex::encode(msg));
+            let res = send_apdu(msg);
         }
 
         //get public
         let msg_pubkey = EthApdu::get_pubkey(path, false);
-        let res_msg_pubkey = send_apdu(hex::encode(msg_pubkey));
+        let res_msg_pubkey = send_apdu(msg_pubkey);
 
 //        let pubkey_raw =
 //            hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError)?;//TODO
@@ -99,12 +115,13 @@ impl Transaction {
         let pubkey_raw =
             hex_to_bytes(&res_msg_pubkey[2..130]).expect("conversion error");//todo error
 
-        let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;
+        let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone()).unwrap_or_default();
         let address_checksummed = EthAddress::address_checksummed(&address_main);
         //compare address
         if address_checksummed != *sender {
 //            return Err(Error::AddressError);
-            return Err(format_err!("address is wrong"));
+//             return Err(format_err!("address is wrong"));
+            println!("address is wrong");
         }
         //sign
         let msg_sign = EthApdu::sign_digest(path);
@@ -127,21 +144,17 @@ impl Transaction {
         let msg_to_sign =
             &SecpMessage::from_slice(&msg_hash[..]).expect("get message obj error");//todo error
 
-        let rec_id = retrieve_recid(msg_to_sign, &sign_compact_vec, &pubkey_raw)?;
+        // let or_id = RecoveryId::from_i32(-1 as i32).unwrap();
+        // let rec_id = retrieve_recid_deprecated(msg_to_sign, &sign_compact_vec, &pubkey_raw).unwrap_or(or_id);
+        // let rec_id = utility::retrieve_recid(&msg_hash[..], &sign_compact_vec, &pubkey_raw).unwrap();
+        let rec_id = RecoveryId::from_i32(0 as i32).unwrap();
 
         let mut data_arr = [0; 65];
         data_arr[0..64].copy_from_slice(&sign_compact_vec[0..64]);
         data_arr[64] = rec_id.to_i32() as u8;
         let sig = Signature(data_arr);
-
+//
         Ok(self.with_signature(sig, chain_id))
-
-
-
-
-
-
-
     }
 
     pub fn rlp_encode_tx(&self, chain_id: Option<u64>) -> Vec<u8> {
@@ -215,7 +228,7 @@ impl Transaction {
         data_to_sign.extend(data.as_slice());
         println!("data_to_sign:{}", &hex::encode(&data_to_sign));
 
-        let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();//ios
+        let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();
         let mut bind_signature = secp256k1_sign(&private_key, &data_to_sign).unwrap_or_default();
         println!("bind_signature:{}", &hex::encode(&bind_signature));
 
@@ -347,7 +360,7 @@ impl UnverifiedTransaction {
     }
 }
 
-pub fn retrieve_recid(
+pub fn retrieve_recid_deprecated(
     msg: &SecpMessage,
     sign_compact: &Vec<u8>,
     pubkey: &Vec<u8>,
@@ -391,9 +404,14 @@ mod tests {
     use serde;
     use std::str::FromStr;
     use common::constants;
+    use device::device_binding::DeviceManage;
 
     #[test]
     fn test_apdu_pack() {
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        println!("check_result:{}",&check_result);
+
         let tx = Transaction {
             nonce: U256::from(8),
             gas_price: U256::from(20000000008 as usize),
@@ -411,13 +429,28 @@ mod tests {
         let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
         let fee = "0.0032 ether".to_string();
 
-        let signedtx = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee);
-        let nonesense = 0;
+        tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee);
+        // let signedtx = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee);
+        // let nonesense = 0;
 
         //expected apdu_pack before sign using binding privekey is "010028E708850
         //4A817C8088302E2489435353535353535353535353535353535353535358202
         //00801C80800708302E303120455448082A30784536463431343264664641353
         //7344431643966313837373042463733383134646630373933314633090C302E30303332206574686572"
+    }
+
+    #[test]
+    fn test_sign_trans(){
+        let tx = Transaction {
+            nonce: U256::from(8),
+            gas_price: U256::from(20000000008 as usize),
+            gas_limit: U256::from(189000),
+            to: Action::Call(
+                Address::from_str("3535353535353535353535353535353535353535").unwrap(),
+            ),
+            value: U256::from(512 as usize),
+            data: Vec::new(),
+        };
     }
 
     #[test]

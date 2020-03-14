@@ -109,6 +109,9 @@ impl EosTransaction {
                 let check_sum = &pubkey_hash[0..4];
                 comprs_pubkey_slice.extend(check_sum);
                 let eos_pk = "EOS".to_owned() + base58::encode_slice(&comprs_pubkey_slice).as_ref();
+                if pub_key != &eos_pk{
+                    return Err(format_err!("imkey_publickey_mismatch_with_path"));
+                }
                 if pub_key == &eos_pk {
                     println!("eos_pk eq");
 
