@@ -25,10 +25,13 @@ use common::path::check_path_validity;
 use crate::Result;
 
 impl BtcTransaction {
-    pub fn sign_omni_transaction(&self, network : Network, path : &String, property_id : i32) -> Result<TxSignResult>{
+    pub fn sign_omni_transaction(&self, network : Network, path : &str, property_id : i32) -> Result<TxSignResult>{
         //path check
         check_path_validity(path)?;
-
+        let mut path_str = path.to_string();
+        if !path.ends_with("/") {
+            path_str = format!("{}{}", path_str, "/");
+        }
         //check uxto number
         if &self.unspents.len() > &MAX_UTXO_NUMBER {
             return Err(BtcError::IMKEY_EXCEEDED_MAX_UTXO_NUMBER.into());
@@ -40,7 +43,7 @@ impl BtcTransaction {
         }
 
         //get xpub and sign data
-        let xpub_data = get_xpub_data(path, true)?;
+        let xpub_data = get_xpub_data(path_str.as_str(), true)?;
         let xpub_data = &xpub_data[..xpub_data.len() - 4].to_string();
         //get xpub data
         let sign_source_val = &xpub_data[..194];
@@ -160,7 +163,7 @@ impl BtcTransaction {
                 }
                 let btc_sign_apdu = BtcApdu::btc_sign(y as u8,
                                                       SigHashType::All.as_u32() as u8,
-                                                      format!("{}{}{}", path, "/", self.unspents.get(y).unwrap().derive_path).as_str());
+                                                      format!("{}{}", path_str, self.unspents.get(y).unwrap().derive_path).as_str());
                 //发送签名指令到设备并获取签名结果
                 let btc_sign_apdu_return = send_apdu(btc_sign_apdu);
                 ApduCheck::checke_response(&apdu_response)?;
@@ -195,10 +198,13 @@ impl BtcTransaction {
         })
     }
 
-    pub fn sign_omni_segwit_transaction(&self, network: Network, path: &String, property_id : i32) -> Result<TxSignResult> {
+    pub fn sign_omni_segwit_transaction(&self, network: Network, path: &str, property_id : i32) -> Result<TxSignResult> {
         //path check
         check_path_validity(path)?;
-
+        let mut path_str = path.to_string();
+        if !path.ends_with("/") {
+            path_str = format!("{}{}", path_str, "/");
+        }
         //check uxto number
         if &self.unspents.len() > &MAX_UTXO_NUMBER {
             return Err(BtcError::IMKEY_EXCEEDED_MAX_UTXO_NUMBER.into());
@@ -210,7 +216,7 @@ impl BtcTransaction {
         }
 
         //get xpub and sign data
-        let xpub_data = get_xpub_data(path, true)?;
+        let xpub_data = get_xpub_data(path_str.as_str(), true)?;
         let xpub_data = &xpub_data[..xpub_data.len() - 4].to_string();
 
         //get xpub data
@@ -350,7 +356,7 @@ impl BtcTransaction {
 
             //address
             let mut address_data : Vec<u8> = vec![];
-            let sign_path = format!("{}{}", path, unspent.derive_path);
+            let sign_path = format!("{}{}", path_str, unspent.derive_path);
             address_data.push(sign_path.as_bytes().len() as u8);
             address_data.extend_from_slice(sign_path.as_bytes());
 
