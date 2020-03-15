@@ -13,6 +13,7 @@ use num_traits::Num;
 use std::ops::Sub;
 use crate::address::CosmosAddress;
 use crate::Result;
+use device::device_binding::KEY_MANAGER;
 
 #[derive(Debug)]
 pub struct CosmosTransaction {
@@ -114,9 +115,11 @@ impl CosmosTransaction {
 //        println!("sign_pack_hash:{}", &sign_pack_hash);
 
         //use local private key sign data
-//        let private_key = hex_to_bytes("15A3C9A55EAE204B1CC8F2DBA25AE9A4F35793D7226E9CDE8731D58D43D6C72C").unwrap();
-        let private_key = hex_to_bytes("7CD950180EDFF1C4A21270AD293A274580D20C84DE06666467F6386FB7DDA352").unwrap();//ios
-        let mut prepare_data = secp256k1_sign(&private_key, &sign_pack_vec.as_slice());
+       // let private_key = hex_to_bytes("15A3C9A55EAE204B1CC8F2DBA25AE9A4F35793D7226E9CDE8731D58D43D6C72C").unwrap();
+//         let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();//ios
+        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let mut prepare_data = secp256k1_sign(&key_manager_obj.pri_key, &sign_pack_vec.as_slice())?;
+        std::mem::drop(key_manager_obj);
         let mut prepare_data_hex = hex::encode(&prepare_data);
         println!("prepare_data_hex:{}", &prepare_data_hex);
         prepare_data.insert(0, prepare_data.len() as u8);
@@ -163,6 +166,7 @@ impl CosmosTransaction {
 
         let sign_base64 = base64::encode(&sign_bytes);
         println!("sign_base64:{}", &sign_base64);
+
 
         let pub_key = CosmosAddress::get_pub_key(&self.path).unwrap();
         let pub_key = hex::decode(pub_key).unwrap();
@@ -216,6 +220,7 @@ mod tests {
     use common::constants;
     use common::cosmosapi::CosmosTxInput;
     use common::utility::{secp256k1_sign, hex_to_bytes};
+    use device::device_binding::DeviceManage;
 
     #[test]
     fn test_hex_bytes() {}
@@ -224,7 +229,7 @@ mod tests {
     fn test_ecsign() {
         let sign_pack = hex_to_bytes("0120D560F6EAB74C1D26DD5FAB27B9F700F4C371AC76A82E9A2E534269322D129E2F070008000900").unwrap();
         let private_key = hex_to_bytes("F85B222058BBEFFF888AAF7AD1D08B0C9C5FF719027F7DB69859B72A17B28749").unwrap();
-        let mut prepare_data = secp256k1_sign(&private_key, &sign_pack.as_slice());
+        let mut prepare_data = secp256k1_sign(&private_key, &sign_pack.as_slice()).unwrap_or_default();
         let prepare_data_hex = hex::encode(&prepare_data);
         assert_eq!(prepare_data_hex,
         "3045022100a773a750391978586598843f89921d33083f670049906dc68ad312867df2826d0220312d22dcc102d8ba2a86972c7c73f082c53b29ef0a04ac630def935ed996d9c2"
@@ -243,6 +248,10 @@ mod tests {
 
     #[test]
     fn test_sign() {
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        println!("check_result:{}",&check_result);
+
         let stdfee = StdFee{
             amount: vec![Coin{
                 amount: "0".to_string(),

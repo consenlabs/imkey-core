@@ -11,6 +11,12 @@ use hidapi::{HidApi, HidDevice};
 use hidapi::{HidApi, HidDevice};
 use std::thread::sleep;
 use std::time::Duration;
+use std::sync::Mutex;
+use crate::message::DEVICE;
+
+lazy_static! {
+    pub static ref HID_API: Mutex<HidApi> = Mutex::new(HidApi::new().expect("device_connect_init_failure"));
+}
 
 const RETRY_SEC: u64 = 1;
 const RETRY_SEC1: u64 = 30;
@@ -50,17 +56,12 @@ pub enum Error {
 #[no_mangle]
 pub fn hid_send(hid_device: &HidDevice, apdu: &String) -> String {
     println!("-->{}", apdu);
-    //    let temp_apdu = Vec::from_hex(apdu.as_str()).unwrap().as_slice();
 
     send_device_message(hid_device, Vec::from_hex(apdu.as_str()).unwrap().as_slice());
     let return_data = read_device_response(hid_device).ok().unwrap();
-    println!("<--{}", hex::encode_upper(return_data.clone()));
-    let hex_str = hex::encode_upper(return_data.clone());
-//    if (!"9000".eq(&hex_str[(hex_str.len() - 4)..])) {
-//        panic!("指令执行失败");
-//    }
-//    hex_str.chars().take(hex_str.len() - 4).collect()
-    return hex_str;
+    let apdu_response = hex::encode_upper(return_data);
+    println!("<--{}", apdu_response.clone());
+    return apdu_response;
 }
 
 #[cfg(target_os = "macos")]
@@ -189,13 +190,16 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
 #[cfg(target_os = "macos")]
 #[no_mangle]
 pub fn hid_connect() -> HidDevice {
-    let api = HidApi::new().expect("HID API object creation failed");
+
+    let hid_api_obj = HID_API.lock().unwrap();
 
     loop {
-        match api.open(DEV_VID, DEV_PID) {
+        match hid_api_obj.open(DEV_VID, DEV_PID) {
             Ok(dev) => {
                 println!("device connected!!!");
                 first_write_read_device_response(&dev);
+//                let hid_device_obj = DEVICE.lock().unwrap();
+//                *hid_device_obj = dev.clone();
                 return dev;
             }
             Err(err) => {
@@ -203,6 +207,19 @@ pub fn hid_connect() -> HidDevice {
                 sleep(Duration::from_secs(RETRY_SEC));
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod test{
+    use crate::hid_api;
+
+    #[test]
+    fn hid_test(){
+        let hid_device = hid_api::hid_connect();
+        hid_api::hid_send(&hid_device, &"00a4040000".to_string());
+        let hid_device = hid_api::hid_connect();
+        hid_api::hid_send(&hid_device, &"00a4040000".to_string());
     }
 }
 
