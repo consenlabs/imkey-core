@@ -1,4 +1,4 @@
-use bitcoin::{Address, PublicKey, Network, TxOut, Transaction, TxIn, OutPoint, Script, SigHashType};
+use bitcoin::{Address, PublicKey, Network, TxOut, Transaction, TxIn, OutPoint, Script, SigHashType, BitcoinHash};
 use std::collections::HashMap;
 use crate::error::BtcError;
 use common::apdu::{BtcApdu, ApduCheck};
@@ -217,7 +217,7 @@ impl BtcTransaction {
         Ok(TxSignResult {
             signature: tx_bytes.to_hex(),
             tx_hash: tx_to_sign.txid().to_hex(),
-            wtx_id: tx_to_sign.ntxid().to_hex(),
+            wtx_id: tx_to_sign.txid().to_hex(),
         })
     }
 
@@ -442,7 +442,7 @@ impl BtcTransaction {
         Ok(TxSignResult {
             signature: tx_bytes.to_hex(),
             tx_hash: tx_to_sign.txid().to_hex(),
-            wtx_id: tx_to_sign.ntxid().to_hex(),
+            wtx_id: tx_to_sign.bitcoin_hash().to_hex(),
         })
     }
 
