@@ -13,7 +13,6 @@ use secp256k1::ecdh::SharedSecret;
 use secp256k1::{PublicKey, SecretKey};
 use sha1::Sha1;
 use crate::manager;
-use crate::key_manager::SE_PUB_KEY;
 use crate::auth_code_storage::auth_code_storage_request;
 use crate::device_cert_check::device_cert_check_request;
 use common::constants::{IMK_AID, APDU_RSP_SUCCESS, TSM_RETURN_CODE_SUCCESS, TSM_RETURNCODE_DEVICE_CHECK_FAIL,
@@ -91,10 +90,6 @@ impl DeviceManage {
             }
 
             let temp_se_pub_key = &se_cert_str[index + 10..index + 130 + 10];
-            let mut se_pub_key_ = SE_PUB_KEY.lock().unwrap();
-            *se_pub_key_ = temp_se_pub_key.to_string();
-            std::mem::drop(se_pub_key_);
-
             key_manager_obj.se_pub_key = hex::decode(temp_se_pub_key)?;
 
             //协商会话密钥
@@ -245,10 +240,10 @@ mod test{
     #[test]
     fn device_bind_test(){
 
-          // let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-          // let bind_code = "E4APZZRT".to_string();
-       let path = "/Users/joe/work/sdk_gen_key".to_string();
-       let bind_code = "YDSGQPKX".to_string();
+           let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+           let bind_code = "E4APZZRT".to_string();
+//       let path = "/Users/joe/work/sdk_gen_key".to_string();
+//       let bind_code = "YDSGQPKX".to_string();
         // let mut device_manage = DeviceManage::new();
         // let check_result = device_manage.bind_check(&path).unwrap();
         let check_result = DeviceManage::bind_check(&path).unwrap();
