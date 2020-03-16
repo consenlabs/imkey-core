@@ -209,9 +209,9 @@ impl BtcTransaction {
         if &self.unspents.len() > &MAX_UTXO_NUMBER {
             return Err(BtcError::IMKEY_EXCEEDED_MAX_UTXO_NUMBER.into());
         }
-
+        let change_amount = self.get_total_amount() - self.fee - MIN_NONDUST_OUTPUT;
         //check change amount
-        if self.amount - self.fee < MIN_NONDUST_OUTPUT {
+        if change_amount < MIN_NONDUST_OUTPUT {
             return Err(BtcError::IMKEY_AMOUNT_LESS_THAN_MINIMUM.into());
         }
 
@@ -245,8 +245,7 @@ impl BtcTransaction {
         let total_amount = self.get_total_amount();
 
         //5.add change output
-        let mut txouts: Vec<TxOut> = Vec::new();
-        let change_amount = total_amount - MIN_NONDUST_OUTPUT - self.fee;
+        let mut txouts: Vec<TxOut> = vec![];
         let receiver_address = &self.unspents.get(0).unwrap().address;
         let txout_send_output = TxOut {
             value: change_amount as u64,
@@ -618,6 +617,36 @@ mod tests {
         let transaction_req_data = BtcTransaction {
             to: Address::from_str("3PGEDofNu6aJ3KfgK9PHGt3EW3oZK5qY1a").unwrap(),
             amount: 750000000,
+            unspents: utxos,
+            fee: 502130,
+            payment: "0.0001 USDT".to_string(),
+            to_dis: Address::from_str("3CVD68V71no5jn2UZpLLq6hASpXu1jrByt").unwrap(),
+            from: Address::from_str("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy").unwrap(),
+            fee_dis: "0.00007945 BTC".to_string(),
+        };
+        transaction_req_data.sign_omni_segwit_transaction(Network::Bitcoin, &"m/49'/0'/0'/".to_string(), 31);
+    }
+
+    #[test]
+    fn test1(){
+        //设备绑定
+        device_binding_test();
+
+        let extra_data = Vec::from_hex("1234").unwrap();
+        let utxo = Utxo {
+            txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
+            vout: 0,
+            amount: 10000112345678,
+            address: Address::from_str("37E2J9ViM4QFiewo7aw5L3drF2QKB99F9e").unwrap(),
+            script_pubkey: "a9142d2b1ef5ee4cf6c3ebc8cf66a602783798f7875987".to_string(),
+            derive_path: "0/22".to_string(),
+            sequence: 0,
+        };
+        let mut utxos = Vec::new();
+        utxos.push(utxo);
+        let transaction_req_data = BtcTransaction {
+            to: Address::from_str("3PGEDofNu6aJ3KfgK9PHGt3EW3oZK5qY1a").unwrap(),
+            amount: 345678,
             unspents: utxos,
             fee: 502130,
             payment: "0.0001 USDT".to_string(),
