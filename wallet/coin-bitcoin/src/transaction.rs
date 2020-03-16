@@ -443,7 +443,7 @@ impl BtcTransaction {
         println!("seralize--->{:?}", hex::encode_upper(tx_bytes.clone()));
         println!("tx_bytes--->{:?}", tx_bytes.to_hex());
         println!("txid--->{:?}", tx_to_sign.txid().to_hex());
-        println!("ntxid--->{:?}", tx_to_sign.ntxid().to_hex());
+        println!("ntxid--->{:?}", tx_to_sign.bitcoin_hash().to_hex());
 
         Ok(TxSignResult {
             signature: tx_bytes.to_hex(),
