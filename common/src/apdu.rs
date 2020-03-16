@@ -295,7 +295,7 @@ impl BtcApdu {
                 temp_apdu_vec.push(0x80);
                 temp_apdu_vec.push(ins);
                 temp_apdu_vec.push(p1);
-                temp_apdu_vec.push(0x80);
+                temp_apdu_vec.push(0x00);
                 temp_apdu_vec.push(LC_MAX as u8);
                 temp_apdu_vec.extend_from_slice(
                     &data[index * LC_MAX as usize..((index + 1) * LC_MAX as usize) as usize],
