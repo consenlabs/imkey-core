@@ -25,11 +25,6 @@ use std::sync::Mutex;
 use crate::Result;
 use crate::error::BindError;
 
-lazy_static! {
-    pub static ref SE_PUB_KEY: Mutex<String> = Mutex::new("".to_string());
-    pub static ref LOCL_PRI_KEY: Mutex<String> = Mutex::new("".to_string());
-}
-
 
 pub struct KeyManager {
     pub pri_key: Vec<u8>,//32 byte
@@ -133,18 +128,11 @@ impl KeyManager {
         //pri_key
         self.pri_key = decrypted_data[..32].to_vec();
 
-        let mut temp_pri_key = LOCL_PRI_KEY.lock().unwrap();
-        *temp_pri_key = hex::encode_upper(decrypted_data[..32].to_vec());
-        std::mem::drop(temp_pri_key);
-
         //pub key
         self.pub_key = decrypted_data[32..97].to_vec();
 
         //se pub key
         self.se_pub_key = decrypted_data[97..162].to_vec();
-        let mut temp_se_pub_key = SE_PUB_KEY.lock().unwrap();
-        *temp_se_pub_key = hex::encode_upper(decrypted_data[97..162].to_vec());
-        std::mem::drop(temp_se_pub_key);
 
         //session key
         self.session_key = decrypted_data[162..178].to_vec();
@@ -170,11 +158,6 @@ impl KeyManager {
     pub fn gen_local_keys(&mut self) {
         let s = Secp256k1::new();
         let (sk, pk) = s.generate_keypair(&mut thread_rng());
-
-        let mut temp_pri_key = LOCL_PRI_KEY.lock().unwrap();
-        *temp_pri_key = sk.to_string();
-        std::mem::drop(temp_pri_key);
-
         self.pri_key = Vec::from_hex(sk.to_string()).unwrap();
         self.pub_key = pk.serialize_uncompressed().to_vec();
     }
