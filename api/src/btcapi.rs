@@ -45,6 +45,8 @@ pub struct BtcTxInput {
     pub extra_data: std::vec::Vec<u8>,
     #[prost(string, tag="14")]
     pub path_prefix: std::string::String,
+    #[prost(int32, tag="15")]
+    pub property_id: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BtcTxOutput {
@@ -52,4 +54,6 @@ pub struct BtcTxOutput {
     pub signature: std::string::String,
     #[prost(string, tag="2")]
     pub tx_hash: std::string::String,
+    #[prost(string, tag="3")]
+    pub wtx_id: std::string::String,
 }
