@@ -1,5 +1,5 @@
 use common::constants::{TSM_ACTION_COS_UPGRADE, TSM_RETURN_CODE_SUCCESS, TSM_END_FLAG};
-use common::https;
+use common::{https, constants};
 use serde::{Deserialize, Serialize};
 use mq::message::{send_apdu};
 use crate::manager::{get_se_id, get_sn, get_firmware_version, get_cert};
@@ -110,21 +110,6 @@ impl cos_upgrade_request {
                     return Ok(());
                 }
 
-                if "06".eq(next_step_key.as_str()) {//applet download
-                    let connect_ret = hid_api::hid_connect();
-                    let mut hid_device_obj = DEVICE.lock().unwrap();
-                    *hid_device_obj = connect_ret;
-                    std::mem::drop(hid_device_obj);
-                    let mut device_cert = get_cert();
-                    println!("aaaaa{}", device_cert);
-                    for temp_instance_aid in return_bean._ReturnData.InstanceAidList.unwrap().iter() {
-                        app_download_request::build_request_data(seid.clone(),
-                                                               temp_instance_aid.clone(),
-                                                               device_cert.clone(),
-                                                               sdk_version.clone()).app_download()?;
-                    }
-                }
-
                 let mut apdu_res: Vec<String> = vec![];
                 match return_bean._ReturnData.apduList {
                     Some(apdu_list) => {
@@ -134,6 +119,16 @@ impl cos_upgrade_request {
                             apdu_res.push(res.clone());
                             if index_val == apdu_list.len() - 1 {
                                 request_data.statusWord = Some(String::from(&res[res.len() -4..]));
+                                if constants::APDU_RSP_SUCCESS.eq(&res[res.len() -4..]) &&
+                                    ("03".eq(next_step_key.as_str()) ||
+                                        "05".eq(next_step_key.as_str())) {
+                                    let connect_ret = hid_api::hid_connect();
+                                    let mut hid_device_obj = DEVICE.lock().unwrap();
+                                    *hid_device_obj = connect_ret;
+                                    std::mem::drop(hid_device_obj);
+                                    let mut device_cert = get_cert();
+                                    println!("aaaaa{}", device_cert);
+                                }
                             }
                         }
                         request_data.cardRetDataList = Some(apdu_res);
@@ -141,19 +136,36 @@ impl cos_upgrade_request {
                     None => (),
                 }
 
-                if "03".eq(next_step_key.as_str()) {
-
-                    let connect_ret = hid_api::hid_connect();
-                    let mut hid_device_obj = DEVICE.lock().unwrap();
-                    *hid_device_obj = connect_ret;
-                    std::mem::drop(hid_device_obj);
-                    let mut device_cert = get_cert();
-                    println!("aaaaa{}", device_cert);
+                if "06".eq(next_step_key.as_str()) {//applet download
+                    match &return_bean._ReturnData.InstanceAidList {
+                        Some(aid_list) =>{
+                            for temp_instance_aid in return_bean._ReturnData.InstanceAidList.unwrap().iter() {
+                                app_download_request::build_request_data(seid.clone(),
+                                                                         temp_instance_aid.clone(),
+                                                                         device_cert.clone(),
+                                                                         sdk_version.clone()).app_download()?;
+                            }
+                        },
+                        None => (),
+                    };
                 }
+
                 request_data.stepKey = next_step_key;
             } else {
-                println!("应用服务器执行失败并返回");
-                return Err(ImkeyError::BCOS0003.into());
+                 return match return_bean._ReturnCode.as_str() {
+                    constants::TSM_RETURNCODE_COS_INFO_NO_CONF => Err(ImkeyError::IMKEY_TSM_COS_INFO_NO_CONF.into()),
+                    constants::TSM_RETURNCODE_COS_UPGRADE_FAIL => Err(ImkeyError::IMKEY_TSM_COS_UPGRADE_FAIL.into()),
+                    constants::TSM_RETURNCODE_UPLOAD_COS_VERSION_IS_NULL => Err(ImkeyError::IMKEY_TSM_UPLOAD_COS_VERSION_IS_NULL.into()),
+                    constants::TSM_RETURNCODE_SWITCH_BL_STATUS_FAIL => Err(ImkeyError::IMKEY_TSM_SWITCH_BL_STATUS_FAIL.into()),
+                    constants::TSM_RETURNCODE_WRITE_WALLET_ADDRESS_FAIL => Err(ImkeyError::IMKEY_TSM_WRITE_WALLET_ADDRESS_FAIL.into()),
+                    constants::TSM_RETURNCODE_DEVICE_CHECK_FAIL => Err(ImkeyError::BSE0009.into()),
+                     constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => Err(ImkeyError::BSE0010.into()),
+                     constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::BSE0017.into()),
+                     constants::TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::BSE0007.into()),
+                    _ => Err(ImkeyError::IMKEY_TSM_SERVER_ERROR.into()),
+                };
+
+
             }
         }
     }
