@@ -295,7 +295,7 @@ impl BtcApdu {
                 temp_apdu_vec.push(0x80);
                 temp_apdu_vec.push(ins);
                 temp_apdu_vec.push(p1);
-                temp_apdu_vec.push(0x80);
+                temp_apdu_vec.push(0x00);
                 temp_apdu_vec.push(LC_MAX as u8);
                 temp_apdu_vec.extend_from_slice(
                     &data[index * LC_MAX as usize..((index + 1) * LC_MAX as usize) as usize],
@@ -364,6 +364,22 @@ impl BtcApdu {
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
     }
+
+    pub fn btc_coin_reg(address : Vec<u8>) -> String {
+        if address.len() > 256 {
+            panic!("data to long");
+        }
+        let mut apdu = vec![];
+        apdu.push(0x80);
+        apdu.push(0x36);
+        apdu.push(0x00);
+        apdu.push(0x00);
+        apdu.push(address.len() as u8);
+        apdu.extend(address.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
 
 }
 

@@ -8,6 +8,9 @@ use bitcoin::hashes::{hash160, Hash};
 use common::path::check_path_validity;
 use crate::common::get_xpub_data;
 use crate::Result;
+use common::apdu::{BtcApdu, ApduCheck};
+use mq::message::send_apdu;
+
 /**
 get btc xpub by path
 */
@@ -106,6 +109,27 @@ pub fn get_parent_path(path: &str) -> &str{
     let end_flg = path.rfind("/").unwrap();
     &path[..end_flg]
 }
+
+pub fn display_Address(network: Network, path: &str) -> Result<String>{
+    //path check
+    check_path_validity(path)?;
+    let address_str =  get_address(network, path)?;
+    let btc_coin_reg = BtcApdu::btc_coin_reg(address_str.clone().into_bytes());
+    let apdu_res = send_apdu(BtcApdu::btc_coin_reg(address_str.clone().into_bytes()));
+    ApduCheck::checke_response(apdu_res.as_str())?;
+    Ok(address_str)
+}
+
+pub fn display_SegWit_Address(network: Network, path: &str) -> Result<String>{
+    //path check
+    check_path_validity(path)?;
+    let address_str =  get_segwit_address(network, path)?;
+    let btc_coin_reg = BtcApdu::btc_coin_reg(address_str.clone().into_bytes());
+    let apdu_res = send_apdu(BtcApdu::btc_coin_reg(address_str.clone().into_bytes()));
+    ApduCheck::checke_response(apdu_res.as_str())?;
+    Ok(address_str)
+}
+
 
 #[cfg(test)]
 mod test{
