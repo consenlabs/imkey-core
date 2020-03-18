@@ -34,3 +34,7 @@ message BtcTxOutput {
     string txHash = 2;
     string wtx_id = 3;
 }
+
+message BtcAddressResponse {
+    string address = 1;
+}

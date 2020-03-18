@@ -267,12 +267,12 @@ impl EosTransaction {
 
             let mut signature_slice = hex::decode(&signature).unwrap();
             signature_slice.extend(check_sum);
-            let signature = "SIG_K1_".to_owned() + base58::encode_slice(&signature_slice).as_ref();
+            signature = "SIG_K1_".to_owned() + base58::encode_slice(&signature_slice).as_ref();
             println!("signature:{}", &signature);
         }
 
         EosMessageOutput{
-            signature
+            signature: signature
         }
     }
 }

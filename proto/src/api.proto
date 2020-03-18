@@ -95,6 +95,7 @@ message AddressResponse {
 message AddressParam{
     string chainType = 1;
     string path = 2;
+    string network = 3;
 }
 // FUNCTION: hd_store_export(KeystoreCommonExportResult): KeystoreCommonExistsResult
 //

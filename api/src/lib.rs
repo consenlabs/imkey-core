@@ -1,9 +1,10 @@
 use crate::api::{TcxAction, Response};
-use crate::wallet_handler::{device_manage, get_address, register_coin, sign_tx, encode_message};
+use crate::wallet_handler::{device_manage, get_address, register_coin, sign_tx, encode_message, sign_msg};
 use prost::Message;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 pub mod api;
+pub mod btc_address;
 pub mod btc_signer;
 pub mod btcapi;
 pub mod cosmos_address;
@@ -18,6 +19,7 @@ pub mod ethapi;
 pub mod ethereum;
 pub mod ethereum_address;
 pub mod ethereum_signer;
+pub mod usdt_signer;
 pub mod wallet_handler;
 #[macro_use]
 extern crate failure;
@@ -152,6 +154,7 @@ pub unsafe extern "C" fn call_tcx_api(hex_str: *const c_char) -> *const c_char {
     let action: TcxAction = TcxAction::decode(data).expect("decode tcx api");
     let reply: Vec<u8> = match action.method.to_lowercase().as_str() {
         "sign_tx" => landingpad(|| sign_tx(&action.param.unwrap().value)),
+        "sign_msg" => landingpad(|| sign_msg(&action.param.unwrap().value)),
         "get_address" => landingpad(|| get_address(&action.param.unwrap().value)),
         "device_manage" => landingpad(|| device_manage(&action.param.unwrap().value)),
         "register_coin" => landingpad(|| register_coin(&action.param.unwrap().value)),

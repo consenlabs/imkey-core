@@ -131,6 +131,8 @@ pub struct AddressParam {
     pub chain_type: std::string::String,
     #[prost(string, tag="2")]
     pub path: std::string::String,
+    #[prost(string, tag="3")]
+    pub network: std::string::String,
 }
 /// FUNCTION: hd_store_export(KeystoreCommonExportResult): KeystoreCommonExistsResult
 ///

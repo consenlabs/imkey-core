@@ -16,6 +16,7 @@ use mq::hid_api::{hid_connect, hid_send};
 use crate::Result;
 use crate::error::ImkeyError;
 use common::apdu::ApduCheck;
+#[cfg(target_os = "macos")]
 use mq::message::DEVICE;
 
 
@@ -48,6 +49,7 @@ pub struct cos_upgrade_response {
 }
 
 impl cos_upgrade_request {
+    #[cfg(target_os = "macos")]
     pub fn cos_upgrade(sdk_version: Option<String>) -> Result<()> {
         //read se device cert
         let mut device_cert = get_cert();
