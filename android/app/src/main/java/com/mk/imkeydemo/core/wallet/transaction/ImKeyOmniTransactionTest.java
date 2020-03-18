@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.google.protobuf.Any;
+import com.google.protobuf.ByteString;
 import com.mk.imkeydemo.utils.ResourcesManager;
 import com.mk.imkeylibrary.common.Constants;
 import com.mk.imkeylibrary.common.Messages;
@@ -18,6 +20,10 @@ import com.mk.imkeylibrary.core.wallet.transaction.ImKeyBitcoinTransaction;
 import com.mk.imkeylibrary.core.wallet.transaction.ImKeyOmniTransaction;
 import com.mk.imkeylibrary.core.wallet.transaction.TransactionSignedResult;
 import com.mk.imkeylibrary.exception.ImkeyException;
+import com.mk.imkeylibrary.keycore.RustApi;
+import com.mk.imkeylibrary.utils.ByteUtil;
+import com.mk.imkeylibrary.utils.LogUtil;
+import com.mk.imkeylibrary.utils.NumericUtil;
 
 public class ImKeyOmniTransactionTest {
 
@@ -25,6 +31,138 @@ public class ImKeyOmniTransactionTest {
     public static Map<String, Object> result = new HashMap<String, Object>();
 
     public static Map<String, Object> testUxdtTxSign(Context context) {
+        int failCount = 0;
+        int successCount = 0;
+        ArrayList<String> failedCaseName = new ArrayList<>();
+
+        JSONObject testcases = ResourcesManager.getFromRaw(context, "usdttransactiontest");
+        Iterator<String> keys = testcases.keys();
+        try {
+            while (keys.hasNext()) {
+
+                btcapi.Btc.BtcTxInput.Builder builder = btcapi.Btc.BtcTxInput.newBuilder();
+
+                String key = keys.next();
+                JSONObject testcase = testcases.getJSONObject(key);
+                JSONArray utxoArray = testcase.getJSONArray("utxo");
+                for (int i = 0; i < utxoArray.length(); i++) {
+
+                    JSONObject utxoObj = utxoArray.getJSONObject(i);
+
+                    btcapi.Btc.Utxo utxo = btcapi.Btc.Utxo.newBuilder()
+                            .setTxHash(utxoObj.getString("txHash"))
+                            .setVout(utxoObj.getInt("vout"))
+                            .setAmount(utxoObj.getLong("amount"))
+                            .setAddress(utxoObj.getString("address"))
+                            .setScriptPubKey(utxoObj.getString("scriptPubKey"))
+                            .setDerivedPath(utxoObj.getString("derivedPath"))
+                            .build();
+                    builder.addUnspents(utxo);
+
+                }
+
+
+                builder
+                        .setTo(testcase.getString("to"))
+                        .setAmount(testcase.getLong("amount"))
+                        .setFee(testcase.getLong("fee"))
+                        .setPayment(testcase.getString("payment"))
+                        .setToDis(testcase.getString("toDis"))
+                        .setFrom(testcase.getString("from"))
+                        .setFeeDis(testcase.getString("feeDis"))
+                        .setNetwork(Constants.MAINNET)
+                        .setPathPrefix(Path.BTC_PATH_PREFIX)
+                        .setPropertyId(testcase.getInt("propertyId"))
+                        .build();
+
+
+                Any any = Any.newBuilder()
+                        .setValue(builder.build().toByteString())
+                        .build();
+
+
+                api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
+                        .setChainType("OMINI")
+                        .setInput(any)
+                        .build();
+
+                Any any2 = Any.newBuilder()
+                        .setValue(signParam.toByteString())
+                        .build();
+
+                api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                        .setMethod("sign_tx")
+                        .setParam(any2)
+                        .build();
+
+                Boolean retry = true;
+                int tryCount = 0;
+                while(retry) {
+                    tryCount ++;
+                    try {
+
+                        LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                        // clear_err
+                        RustApi.INSTANCE.clear_err();
+
+                        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+                        String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+                        //
+                        String error = RustApi.INSTANCE.get_last_err_message();
+                        if(!"".equals(error) && null != error) {
+                            api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                            Boolean isSuccess = errorResponse.getIsSuccess();
+                            if(!isSuccess) {
+                                LogUtil.d("异常： " + errorResponse.getError());
+                                failedCaseName.add(key);
+                                failCount++;
+                                retry = false;
+                                continue;
+                            }
+                        }
+
+                        btcapi.Btc.BtcTxOutput response = btcapi.Btc.BtcTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
+                        String signature = response.getSignature();
+                        String tx_hash = response.getTxHash();
+
+                        LogUtil.d("signature：" + signature);
+                        LogUtil.d("tx_hash：" + tx_hash);
+                        LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+
+                        TransactionSignedResult signedResult = new TransactionSignedResult(signature, tx_hash);
+                        String txHash = signedResult.getTxHash();
+                        if(txHash.equals(testcase.getString("txHash"))) {
+                            LogUtil.e("×××××××××××××××××××××××××××××××××××成功×××××××××××××××××××××××××××××××××××××××××××××××");
+                            successCount ++;
+                        } else {
+                            failedCaseName.add(key);
+                            failCount++;
+                        }
+                        retry = false;
+                    } catch (ImkeyException e) {
+                        if(!Messages.IMKEY_BLUETOOTH_CHANNEL_ERROR.equals(e.getMessage()) || tryCount >= 3) {
+                            retry = false;
+                            failedCaseName.add(key + ": " + e.getMessage());
+                            failCount++;
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new ImkeyException(e);
+        }
+
+        result.put("failCount", failCount);
+        result.put("successCount", successCount);
+        result.put("failedCaseName", failedCaseName);
+
+        return result;
+
+    }
+
+    /*public static Map<String, Object> testUxdtTxSign(Context context) {
         int failCount = 0;
         int successCount = 0;
         ArrayList<String> failedCaseName = new ArrayList<>();
@@ -63,7 +201,7 @@ public class ImKeyOmniTransactionTest {
                         testcase.getString("toDis"),
                         testcase.getString("from"),
                         testcase.getString("feeDis")
-                        );
+                );
 
                 Boolean retry = true;
                 int tryCount = 0;
@@ -99,8 +237,7 @@ public class ImKeyOmniTransactionTest {
         return result;
 
     }
-
-
+    */
     public static Map<String, Object> testUsdtSegwitTxSign(Context context) {
         int failCount = 0;
         int successCount = 0;
@@ -179,6 +316,109 @@ public class ImKeyOmniTransactionTest {
     }
 
     public static TransactionSignedResult testUxdtTxSign() {
+
+
+        TransactionSignedResult signedResult = null;
+
+        try {
+
+            btcapi.Btc.Utxo utxo0 = btcapi.Btc.Utxo.newBuilder()
+                    .setTxHash("0dd195c815c5086c5995f43a0c67d28344ae5fa130739a5e03ef40fea54f2031")
+                    .setVout(0)
+                    .setAmount(14824854)
+                    .setAddress("mkeNU5nVnozJiaACDELLCsVUc8Wxoh1rQN")
+                    .setScriptPubKey("76a914383fb81cb0a3fc724b5e08cf8bbd404336d711f688ac")
+                    .setDerivedPath("0/0")
+                    .setSequence(4294967295l)
+                    .build();
+
+
+            btcapi.Btc.BtcTxInput btcTxInput = btcapi.Btc.BtcTxInput.newBuilder()
+                    .setTo("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3")
+                    .setAmount(10050000000L)
+                    .setFee(4000)
+                    .addUnspents(utxo0)
+                    .setPayment("100 USDT")
+                    .setToDis("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3")
+                    .setFrom("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB")
+                    .setFeeDis("0.00007945 BTC")
+                    .setNetwork("TESTNET")
+                    .setPathPrefix(Path.BITCOIN_TESTNET_PATH)
+                    .setPropertyId(31)
+                    .build();
+
+
+            Any any = Any.newBuilder()
+                    .setValue(btcTxInput.toByteString())
+                    .build();
+
+
+            api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
+                    .setChainType("OMINI")
+                    .setInput(any)
+                    .build();
+
+            Any any2 = Any.newBuilder()
+                    .setValue(signParam.toByteString())
+                    .build();
+
+            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                    .setMethod("sign_tx")
+                    .setParam(any2)
+                    .build();
+            String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+            // clear_err
+            RustApi.INSTANCE.clear_err();
+
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+            String error = RustApi.INSTANCE.get_last_err_message();
+            if(!"".equals(error) && null != error) {
+                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Boolean isSuccess = errorResponse.getIsSuccess();
+                if(!isSuccess) {
+                    LogUtil.d("异常： " + errorResponse.getError());
+
+                }
+            } else {
+                btcapi.Btc.BtcTxOutput response = btcapi.Btc.BtcTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
+                String signature = response.getSignature();
+                String tx_hash = response.getTxHash();
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                LogUtil.d("signature：" + signature);
+                LogUtil.d("tx_hash：" + tx_hash);
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+
+                signedResult = new TransactionSignedResult(signature, tx_hash);
+            }
+
+        } catch (Exception e) {
+            LogUtil.d("异常：" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return signedResult;
+
+
+
+/*
+        utxo.add(new ImKeyOmniTransaction.UTXO(
+                "0dd195c815c5086c5995f43a0c67d28344ae5fa130739a5e03ef40fea54f2031", 0,
+                14824854, "mkeNU5nVnozJiaACDELLCsVUc8Wxoh1rQN",
+                "76a914383fb81cb0a3fc724b5e08cf8bbd404336d711f688ac",
+                "0/0"));
+
+        ImKeyOmniTransaction transaction = new ImKeyOmniTransaction("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3", 10050000000L,
+                4000, 31, utxo, "100 USDT", "moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3",
+                "2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB", "0.0004 BTC");
+
+        TransactionSignedResult result = transaction.signTransaction(Constants.TESTNET, Path.BITCOIN_TESTNET_PATH);
+        return result;*/
+    }
+
+    /*
+    public static TransactionSignedResult testUxdtTxSign() {
         ArrayList<ImKeyOmniTransaction.UTXO> utxo = new ArrayList<>();
 
         utxo.add(new ImKeyOmniTransaction.UTXO(
@@ -193,7 +433,7 @@ public class ImKeyOmniTransactionTest {
 
         TransactionSignedResult result = transaction.signTransaction(Constants.TESTNET, Path.BITCOIN_TESTNET_PATH);
         return result;
-    }
+    }*/
 
     public static TransactionSignedResult testUsdtSegwitTxSign() {
         ArrayList<ImKeyOmniTransaction.UTXO> utxo = new ArrayList<>();
