@@ -59,6 +59,16 @@ pub enum ImkeyError {
     IMKEY_TSM_APP_DELETE_FAIL,
     #[fail(display = "imkey_tsm_oce_cert_check_fail")]
     IMKEY_TSM_OCE_CERT_CHECK_FAIL,
+    #[fail(display = "imkey_tsm_cos_info_no_conf")]
+    IMKEY_TSM_COS_INFO_NO_CONF,
+    #[fail(display = "imkey_tsm_cos_upgrade_fail")]
+    IMKEY_TSM_COS_UPGRADE_FAIL,
+    #[fail(display = "imkey_tsm_upload_cos_version_is_null")]
+    IMKEY_TSM_UPLOAD_COS_VERSION_IS_NULL,
+    #[fail(display = "imkey_tsm_switch_bl_status_fail")]
+    IMKEY_TSM_SWITCH_BL_STATUS_FAIL,
+    #[fail(display = "imkey_tsm_write_wallet_address_fail")]
+    IMKEY_TSM_WRITE_WALLET_ADDRESS_FAIL,
 }
 
 #[derive(Fail, Debug, PartialOrd, PartialEq)]
