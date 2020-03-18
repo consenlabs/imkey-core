@@ -15,7 +15,7 @@ fn main() {
     prost_build::compile_protos(&["src/btc.proto"], &["src/"]).unwrap();
 
     // tcx-eos
-    env::set_var("OUT_DIR", "../api/src");
+    env::set_var("OUT_DIR", "../common/src");
     prost_build::compile_protos(&["src/eos.proto"], &["src/"]).unwrap();
 
     // tcx-cosmos
@@ -49,7 +49,7 @@ mod tests {
         prost_build::compile_protos(&["src/btc.proto"], &["src/"]).unwrap();
 
         // tcx-eos
-        env::set_var("OUT_DIR", "../api/src");
+        env::set_var("OUT_DIR", "../common/src");
         prost_build::compile_protos(&["src/eos.proto"], &["src/"]).unwrap();
 
         // tcx-cosmos
