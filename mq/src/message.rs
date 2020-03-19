@@ -1,12 +1,7 @@
-#[cfg(target_os = "macos")]
+
 use super::hid_api;
-#[cfg(target_os = "macos")]
 use hidapi::{HidApi, HidDevice};
 
-#[cfg(target_os = "windows")]
-use super::hid_api;
-#[cfg(target_os = "windows")]
-use hidapi::{HidApi, HidDevice};
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 use std::sync::Mutex;
@@ -21,11 +16,6 @@ lazy_static! {
     //     Mutex::new(default_callback);
 }
 
-#[cfg(target_os = "macos")]
-lazy_static! {
-    pub static ref DEVICE: Mutex<HidDevice> = Mutex::new(hid_api::hid_connect());
-}
-#[cfg(target_os = "windows")]
 lazy_static! {
     pub static ref DEVICE: Mutex<HidDevice> = Mutex::new(hid_api::hid_connect());
 }
@@ -36,11 +26,6 @@ pub extern "C" fn default_callback(apdu: *const c_char) -> *const c_char {
         .unwrap()
         .into_raw()
 }
-
-// pub fn set_callback(callback: extern "C" fn(apdu: *const c_char) -> *const c_char) {
-//     let mut _callback = CALLBACK.lock().unwrap();
-//     *_callback = callback;
-// }
 
 #[no_mangle]
 pub extern "C" fn rust_hello(
@@ -189,27 +174,6 @@ pub fn set_apdu_return(apdu_return: *const c_char) {
     //debug!("set_apdu_return...{}", str_buf);
     *_apdu_return = str_buf;
 }
-
-// #[no_mangle]
-// pub extern "C" fn set_apdu_return(apdu_return:*const c_char){
-//     loop{
-//         thread::sleep(Duration::from_millis(10));
-//         //debug!("set_apdu_return...");
-//         let mut _apdu_return = APDU_RETURN.lock().unwrap();
-//         if *_apdu_return == ""{
-//             //debug!("is null set...");
-//             thread::sleep(Duration::from_millis(200));
-//             //debug!("start set...");
-//             let c_str: &CStr = unsafe { CStr::from_ptr(apdu_return) };
-//             let str_slice: &str = c_str.to_str().unwrap();
-//             let str_buf: String = str_slice.to_owned();
-//             *_apdu_return = str_buf;
-//             break;
-//         }else{
-//             //debug!("not null {}",_apdu_return);
-//         }
-//     }
-// }
 
 #[cfg(target_os = "macos")]
 pub fn send_apdu(apdu: String) -> String {

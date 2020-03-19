@@ -163,6 +163,7 @@ impl DeviceManage {
         apdu_data.extend(&key_manager_obj.pub_key);
         apdu_data.extend(ciphertext);
         let identity_verify_apdu = DeviceBindingApdu::identity_verify(&apdu_data);
+        std::mem::drop(key_manager_obj);
         //发送指令到设备
         let apdu_ret_result = send_apdu(identity_verify_apdu);
         ApduCheck::checke_response(&apdu_ret_result)?;
