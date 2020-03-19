@@ -5,7 +5,7 @@ use std::collections::HashMap;
 use common::utility::{sha256_hash, hex_to_bytes, secp256k1_sign};
 use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::Hash;
-use common::apdu::CosmosApdu;
+use common::apdu::{CosmosApdu, ApduCheck};
 use mq::message::send_apdu;
 use common::constants;
 use num_bigint::BigInt;
@@ -129,13 +129,15 @@ impl CosmosTransaction {
         println!("prepare_data_hex:{}", &prepare_data_hex);
 
         let select_apdu = CosmosApdu::select_applet();
-        send_apdu(select_apdu);
+        let select_response = send_apdu(select_apdu);
+        ApduCheck::checke_response(&select_response)?;
 
         let prepare_apdus = CosmosApdu::prepare_sign(prepare_data);
 
         for apdu in prepare_apdus {
             println!("prepare_apdu:{}", &apdu);
-            send_apdu(apdu);
+            let response = send_apdu(apdu);
+            ApduCheck::checke_response(&response)?;
         }
 
         let sign_apdu = CosmosApdu::sign_digest(constants::COSMOS_PATH);
@@ -143,6 +145,7 @@ impl CosmosTransaction {
 
         let sign_result = send_apdu(sign_apdu);
         println!("sign_result:{}", &sign_result);
+        ApduCheck::checke_response(&sign_result)?;
 
         let r_hex:String = sign_result.chars().skip(2).take(64).collect();
         let s_hex:String = sign_result.chars().skip(66).take(64).collect();

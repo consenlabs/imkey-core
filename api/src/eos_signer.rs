@@ -11,9 +11,5 @@ pub fn sign_eos_transaction(param: &SignParam) -> Result<Vec<u8>> {
             .expect("EosTxInput");
 
     let signed = EosTransaction::sign_tx(input)?;//todo check
-    let tx_sign_result = EosTxOutput {
-        hash: signed.hash,
-        signs: signed.signs,
-    };
-    encode_message(tx_sign_result)
+    encode_message(signed)
 }

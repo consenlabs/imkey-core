@@ -22,6 +22,11 @@ pub struct EosTxInput {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EosTxOutput {
+    #[prost(message, repeated, tag="1")]
+    pub trans_multi_signs: ::std::vec::Vec<EosSignResult>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EosSignResult {
     #[prost(string, tag="1")]
     pub hash: std::string::String,
     #[prost(string, repeated, tag="2")]

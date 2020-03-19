@@ -365,6 +365,22 @@ impl BtcApdu {
         apdu.to_hex().to_uppercase()
     }
 
+    pub fn btc_coin_reg(address : Vec<u8>) -> String {
+        if address.len() > 256 {
+            panic!("data to long");
+        }
+        let mut apdu = vec![];
+        apdu.push(0x80);
+        apdu.push(0x36);
+        apdu.push(0x00);
+        apdu.push(0x00);
+        apdu.push(address.len() as u8);
+        apdu.extend(address.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
+
 }
 
 pub struct DeviceBindingApdu{}

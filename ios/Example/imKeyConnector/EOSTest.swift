@@ -27,35 +27,36 @@ class EOSTest: FeatTest {
           pks.append(item["publicKey"] as! String)
         }
         
-        let txs = [
-          EOSTransaction(
-            data: txHex,
-            publicKeys: pks,
-            chainID: chainId,
-            to: preview["receiver"] as! String,
-            from: preview["sender"] as! String,
-            payment: preview["payment"] as? String
-          )
-        ]
+        var eosSignData = Eosapi_EosSignData()
+        eosSignData.txData = txHex
+        eosSignData.pubKeys = pks
+        eosSignData.chainID = chainId
+        eosSignData.to = preview["receiver"] as! String
+        eosSignData.from = preview["sender"] as! String
+        eosSignData.payment = preview["payment"] as! String
+        
+        var eosInput = Eosapi_EosTxInput()
+        eosInput.path = BIP44.EOS_LEDGER
+        eosInput.signDatas = [eosSignData]
         
         for i in 0...3{
-          do {
-            let sign = try EOSTransactionSigner(txs: txs, handle: handle,path:BIP44.EOS_LEDGER).sign()
-            
-            if sign[0].hash == txHash{
+          clear_err()
+          let eosOutput = API.eosSignTx(eosInput: eosInput)
+          let err = get_last_err_message()
+          
+          if err != nil{
+            if eosOutput.transMultiSigns[0].hash == txHash{
               sucessCount += 1
               break
             }else{
               failCount += 1
               failCaseInfo.append("\(key)  \(i) time: Assert fail")
             }
-          } catch let e as ImkeyError {
+          }else{
             failCount += 1
-            failCaseInfo.append("\(key)  \(i) time: \(e.message)")
-          }catch{
-            failCount += 1
-            failCaseInfo.append("\(key)  \(i) time: \(error)")
+            failCaseInfo.append("\(key)  \(i) time: \(err)")
           }
+          
         }
       }
     }
