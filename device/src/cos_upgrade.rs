@@ -18,6 +18,11 @@ use crate::error::ImkeyError;
 use common::apdu::ApduCheck;
 use mq::message::DEVICE;
 
+#[cfg(target_os = "windows")]
+use mq::hid_api;
+#[cfg(target_os = "windows")]
+use hidapi::{HidApi, HidDevice};
+
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct cos_upgrade_request {
