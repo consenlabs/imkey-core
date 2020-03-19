@@ -9,6 +9,7 @@ use hex;
 use prost::Message;
 use std::str::FromStr;
 use crate::error_handling::Result;
+use common::ethapi::{EthPersonalSignInput, EthPersonalSignOutput};
 
 pub fn sign_eth_transaction(param: &SignParam) -> Result<Vec<u8>> {
     let input: EthTxInput =
@@ -44,3 +45,12 @@ pub fn sign_eth_transaction(param: &SignParam) -> Result<Vec<u8>> {
     };
     encode_message(tx_sign_result)
 }
+
+pub fn sign_eth_message(param: &SignParam) -> Result<Vec<u8>> {
+    let input: EthPersonalSignInput =
+        EthPersonalSignInput::decode(&param.input.as_ref().expect("tx_iput").value.clone())
+            .expect("EosMessageInput");
+    let signed = Transaction::sign_persional_message(input)?;//todo check
+    encode_message(signed)
+}
+

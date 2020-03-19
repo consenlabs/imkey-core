@@ -8,7 +8,7 @@ use crate::device_manager::{device_activate, device_app_delete, device_app_downl
 use crate::eos_pubkey::{display_eos_pubkey, get_eos_pubkey};
 use crate::eos_signer::{sign_eos_transaction, sign_eos_message};
 use crate::ethereum_address::{get_eth_address, display_eth_address};
-use crate::ethereum_signer::sign_eth_transaction;
+use crate::ethereum_signer::{sign_eth_transaction, sign_eth_message};
 use bytes::BytesMut;
 use prost::Message;
 use crate::error_handling::Result;
@@ -23,6 +23,8 @@ pub fn encode_message(msg: impl Message) -> Result<Vec<u8>> {
 
 pub fn sign_tx(data: &[u8]) -> Result<Vec<u8>> {
     let param: SignParam = SignParam::decode(data).expect("SignTxParam");
+
+
 
     match param.chain_type.as_str() {
         "BTC" => sign_btc_transaction(&param),
@@ -39,7 +41,7 @@ pub fn sign_tx(data: &[u8]) -> Result<Vec<u8>> {
 pub fn sign_msg(data: &[u8]) -> Result<Vec<u8>> {
     let param: SignParam = SignParam::decode(data).expect("SignMsgParam");
     match param.chain_type.as_str() {
-        "ETH" => sign_eth_transaction(&param),
+        "ETH" => sign_eth_message(&param),
         "EOS" => sign_eos_message(&param),
         _ => Err(format_err!("unsupported chain")),//TODO
     }
