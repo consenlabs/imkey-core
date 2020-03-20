@@ -81,13 +81,12 @@ pub extern "C" fn get_se_id(
 //         .into_raw())
 // }
 
-#[no_mangle]
-#[cfg(target_os = "ios")]
-pub extern "C" fn get_seid() -> *const c_char {
-    get_seid_internal()
-}
+//#[no_mangle]
+//#[cfg(target_os = "ios")]
+//pub extern "C" fn get_seid() -> *const c_char {
+//    get_seid_internal()
+//}
 
-#[cfg(target_os = "ios")]
 fn get_seid_internal() -> *const c_char {
     //debug!("get_seid_internal...");
     // set_apdu_r(String::from("00A4040000"));

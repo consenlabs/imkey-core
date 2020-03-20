@@ -8,11 +8,8 @@ use hidapi::{HidApi, HidDevice};
 use std::thread::sleep;
 use std::time::Duration;
 use std::sync::Mutex;
-
-#[cfg(target_os = "macos")]
 use crate::message::DEVICE;
 
-#[cfg(target_os = "macos")]
 lazy_static! {
     pub static ref HID_API: Mutex<HidApi> = Mutex::new(HidApi::new().expect("device_connect_init_failure"));
 }
