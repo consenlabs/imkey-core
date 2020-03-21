@@ -169,7 +169,7 @@ loop {
         match hid_api_obj.open(DEV_VID, DEV_PID) {
             Ok(dev) => {
                 println!("device connected!!!");
-                first_write_read_device_response(&dev);
+                //first_write_read_device_response(&dev);
 //                let hid_device_obj = DEVICE.lock().unwrap();
 //                *hid_device_obj = dev.clone();
                 return dev;
