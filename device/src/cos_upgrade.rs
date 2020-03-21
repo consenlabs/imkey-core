@@ -10,9 +10,9 @@ use lazy_static;
 use crate::Result;
 use crate::error::ImkeyError;
 use common::apdu::ApduCheck;
-#[cfg(any(macos, windows))]
+#[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::hid_api;
-#[cfg(any(macos, windows))]
+#[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::message::DEVICE;
 
 
@@ -45,7 +45,7 @@ pub struct cos_upgrade_response {
 }
 
 impl cos_upgrade_request {
-    #[cfg(any(macos, windows))]
+    #[cfg(any(target_os = "macos", target_os = "windows"))]
     pub fn cos_upgrade(sdk_version: Option<String>) -> Result<()> {
         //read se device cert
         let mut device_cert = get_cert();
