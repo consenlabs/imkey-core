@@ -19,19 +19,6 @@ const RETRY_SEC1: u64 = 30;
 const DEV_VID: u16 = 0x096e;
 const DEV_PID: u16 = 0x0891;
 
-#[cfg(target_os = "macos")]
-fn main() {
-    let hid_device = hid_connect();
-    let apdu = "00A40400".to_string();
-    let response = hid_send(&hid_device, &apdu);
-    println!("{:?}", response);
-
-    //    println!("Execution Successful, auto-exit in 30 seconds.");
-    //    //等待20秒
-    //    sleep(Duration::from_secs(RETRY_SEC1));
-}
-
-#[cfg(target_os = "macos")]
 #[no_mangle]
 pub enum Error {
     /// Ethereum wallet protocol error.
@@ -51,7 +38,6 @@ pub enum Error {
 #[no_mangle]
 pub fn hid_send(hid_device: &HidDevice, apdu: &String) -> String {
     println!("-->{}", apdu);
-
     send_device_message(hid_device, Vec::from_hex(apdu.as_str()).unwrap().as_slice());
     let return_data = read_device_response(hid_device).ok().unwrap();
     let apdu_response = hex::encode_upper(return_data);

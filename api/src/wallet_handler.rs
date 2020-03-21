@@ -1,12 +1,14 @@
 use crate::api::{AddressParam, DeviceParam, SignParam};
-use crate::btc_signer::sign_btc_transaction;
+use crate::btc_signer::{sign_btc_transaction, sign_segwit_transaction};
+use crate::usdt_signer::{sign_usdt_transaction, sign_usdt_segwit_transaction};
+use crate::btc_address::{get_btc_xpub, get_btc_address, get_segwit_address};
 use crate::cosmos_address::{display_cosmos_address, get_cosmos_address};
 use crate::cosmos_signer::sign_cosmos_transaction;
 use crate::device_manager::{device_activate, device_app_delete, device_app_download, device_app_update, device_bind_acquire, device_bind_check, device_display_bind_code, device_query, device_secure_check, get_seid, get_sn, get_ram_size, get_firmware_version, get_battery_power, get_life_time, get_ble_name, set_ble_name, get_ble_version, get_sdk_info};
 use crate::eos_pubkey::{display_eos_pubkey, get_eos_pubkey};
-use crate::eos_signer::sign_eos_transaction;
+use crate::eos_signer::{sign_eos_transaction, sign_eos_message};
 use crate::ethereum_address::{get_eth_address, display_eth_address};
-use crate::ethereum_signer::sign_eth_transaction;
+use crate::ethereum_signer::{sign_eth_transaction, sign_eth_message};
 use bytes::BytesMut;
 use prost::Message;
 use crate::error_handling::Result;
@@ -22,11 +24,25 @@ pub fn encode_message(msg: impl Message) -> Result<Vec<u8>> {
 pub fn sign_tx(data: &[u8]) -> Result<Vec<u8>> {
     let param: SignParam = SignParam::decode(data).expect("SignTxParam");
 
+
+
     match param.chain_type.as_str() {
-        "ETH" => sign_eth_transaction(&param),
         "BTC" => sign_btc_transaction(&param),
+        "BTC_SEGWIT" => sign_segwit_transaction(&param),
+        "OMINI" => sign_usdt_transaction(&param),
+        "OMINI_SEGWIT" => sign_usdt_segwit_transaction(&param),
+        "ETH" => sign_eth_transaction(&param),
         "EOS" => sign_eos_transaction(&param),
         "COSMOS" => sign_cosmos_transaction(&param),
+        _ => Err(format_err!("unsupported chain")),//TODO
+    }
+}
+
+pub fn sign_msg(data: &[u8]) -> Result<Vec<u8>> {
+    let param: SignParam = SignParam::decode(data).expect("SignMsgParam");
+    match param.chain_type.as_str() {
+        "ETH" => sign_eth_message(&param),
+        "EOS" => sign_eos_message(&param),
         _ => Err(format_err!("unsupported chain")),//TODO
     }
 }
@@ -35,6 +51,9 @@ pub fn get_address(data: &[u8]) -> Result<Vec<u8>> {
     let param: AddressParam = AddressParam::decode(data).expect("AddressParam");
 
     match param.chain_type.as_str() {
+        "BTC" => get_btc_address(&param),
+        "BTC_XPUB" => get_btc_xpub(&param),
+        "BTC_SEGWIT" => get_segwit_address(&param),
         "ETH" => get_eth_address(&param),
         "EOS" => get_eos_pubkey(&param),
         "COSMOS" => get_cosmos_address(&param),

@@ -57,3 +57,8 @@ pub struct BtcTxOutput {
     #[prost(string, tag="3")]
     pub wtx_id: std::string::String,
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BtcAddressResponse {
+    #[prost(string, tag="1")]
+    pub address: std::string::String,
+}

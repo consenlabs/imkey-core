@@ -18,54 +18,6 @@ class CosmosTest:FeatTest{
     for (key, value) in jsonRoot {
       if let dict = value as? [String: Any],let preview = dict["preview"] as? [String: Any],
         let sigs = dict["signatures"] as? [[String: Any]]{
-        
-        //fee
-        let sourcefee = dict["fee"] as! [String: Any]
-        let sourceFeeAmount = sourcefee["amount"] as! [[String: Any]]
-        
-        var feeCoin = Cosmosapi_Coin()
-        feeCoin.amount = sourceFeeAmount[0]["amount"] as! String
-        feeCoin.denom = sourceFeeAmount[0]["denom"] as! String
-        
-        var fee = Cosmosapi_StdFee()
-        fee.gas = sourcefee["gas"] as! String
-        fee.amount = [feeCoin]
-        
-        //msgs
-        let sourceMsg = dict["msg"] as! [[String: Any]]
-        let sourceMsgValue = sourceMsg[0]["value"] as! [String: Any]
-        
-        var msgCoin = Cosmosapi_Coin()
-        msgCoin.amount = "10"
-        msgCoin.denom = "atom"
-        
-        var msgValue = Cosmosapi_MsgValue()
-        msgValue.amount = [msgCoin]
-        msgValue.delegatorAddress = "cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f"
-        msgValue.validatorAddress = "cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"
-        
-        var msg = Cosmosapi_Msg()
-        msg.type = sourceMsg[0]["type"] as! String
-        msg.value = msgValue
-        
-        //signData
-        var signData = Cosmosapi_SignData()
-        signData.accountNumber = "1"
-        signData.chainID = "tendermint_test"
-        signData.fee = fee
-        signData.memo = ""
-        signData.msgs = [msg]
-        signData.sequence = "0"
-        
-        //cosmosInput
-        var cosmosInput = Cosmosapi_CosmosTxInput()
-        cosmosInput.signData = signData
-        cosmosInput.path = BIP44.cosmos
-        cosmosInput.paymentDis = ""
-        cosmosInput.toDis = "cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt"
-        cosmosInput.feeDis = "0.00075 atom"
-        
-        
         let raw = createCosmosRaw(dict: dict)
         print(raw)
         for i in 0...3{
@@ -108,5 +60,4 @@ class CosmosTest:FeatTest{
     ]
     return cosmosTx
   }
-  
 }

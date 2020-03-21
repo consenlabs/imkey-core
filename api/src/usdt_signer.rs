@@ -7,23 +7,10 @@ use prost::Message;
 use std::str::FromStr;
 use crate::error_handling::Result;
 
-
-extern crate android_logger;
-use log::Level;
-use android_logger::Config;
-
-
 pub fn sign_usdt_transaction(param: &SignParam) -> Result<Vec<u8>> {
     let input: BtcTxInput =
         BtcTxInput::decode(&param.input.as_ref().expect("tx_iput").value.clone())
             .expect("BtcTxInput");
-
-    android_logger::init_once(
-        Config::default().with_min_level(Level::Trace),
-    );
-
-    info!("************************************************");
-    info!("this is a BtcTxInput {:#?}", input);
 
     let mut unspents = Vec::new();
     for utxo in input.unspents {
@@ -71,13 +58,6 @@ pub fn sign_usdt_segwit_transaction(param: &SignParam) -> Result<Vec<u8>> {
     let input: BtcTxInput =
         BtcTxInput::decode(&param.input.as_ref().expect("tx_iput").value.clone())
             .expect("BtcTxInput");
-
-    android_logger::init_once(
-        Config::default().with_min_level(Level::Trace),
-    );
-
-    info!("************************************************");
-    info!("this is a BtcTxInput {:#?}", input);
 
     let mut unspents = Vec::new();
     for utxo in input.unspents {
