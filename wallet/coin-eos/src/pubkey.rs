@@ -1,7 +1,7 @@
 use bitcoin::util::base58;
 use bitcoin_hashes::hex::FromHex;
 use bitcoin_hashes::{ripemd160, Hash};
-use common::apdu::{EosApdu, ApduCheck};
+use common::apdu::EosApdu;
 use common::{path, utility};
 use mq::message;
 use std::str::FromStr;
@@ -17,12 +17,11 @@ impl EosPubkey {
 
         let select_apdu = EosApdu::select_applet();
         let select_response = message::send_apdu(select_apdu);
-        ApduCheck::checke_response(&select_response)?;
+        //todo: check select response
 
         //get public key
         let msg_pubkey = EosApdu::get_pubkey(&path, true);
         let res_msg_pubkey = message::send_apdu(msg_pubkey);
-        ApduCheck::checke_response(&res_msg_pubkey)?;
 
         let sign_source_val = &res_msg_pubkey[..194];
         let sign_result = &res_msg_pubkey[194..res_msg_pubkey.len()-4];
@@ -77,7 +76,7 @@ impl EosPubkey {
         let pubkey = EosPubkey::get_pubkey(path).unwrap();
         let reg_apdu = EosApdu::register_pubkey(pubkey.as_bytes());
         let res_reg = message::send_apdu(reg_apdu);
-        ApduCheck::checke_response(&res_reg)?;
+        //todo: check response
         Ok(pubkey)
     }
 }
@@ -107,10 +106,6 @@ mod tests {
 
     #[test]
     fn test_display_pubkey() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
-        println!("check_result:{}",&check_result);
-
         let pubkey = EosPubkey::display_pubkey(constants::EOS_PATH);
         println!("pubkey:{}",pubkey.unwrap());
     }

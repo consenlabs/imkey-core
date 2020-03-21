@@ -23,11 +23,11 @@ class EOSViewController: UIViewController {
   
   @IBAction func autoSignBtnClick(_ sender: Any) {
     txtResult.text = ""
-//    DispatchQueue.global().async {
+    DispatchQueue.global().async {
       let result = EOSTest.testEOSign(handle: self.handle)
       Log.d(result)
       self.appendResult(msg: result.description)
-//    }
+    }
   }
   
   @IBAction func signBtnClick(_ sender: Any) {

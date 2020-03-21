@@ -322,11 +322,11 @@ public class API{
     action.param = Google_Protobuf_Any()
     action.param.value = try! deviceParam.serializedData()
     
-    clear_err()
+//    clear_err()
     let paramHex = try! action.serializedData().key_toHexString()
     let res = call_tcx_api(paramHex)
-    let error = get_last_err_message()
-    print(error)
+//    let error = get_last_err_message()
+//    print(error)
     
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
@@ -348,46 +348,16 @@ public class API{
     action.param = Google_Protobuf_Any()
     action.param.value = try! deviceParam.serializedData()
     
-    clear_err()
+    //    clear_err()
     let paramHex = try! action.serializedData().key_toHexString()
     let res = call_tcx_api(paramHex)
-    let error = get_last_err_message()
-    print(error)
+    //    let error = get_last_err_message()
+    //    print(error)
     
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
     let bindResponse = try! Deviceapi_BindAcquireResponse(serializedData: dataRes)
     return bindResponse.bindResult
-  }
-  
-  public class func displayBindCode(){
-    var deviceParam = Api_DeviceParam()
-    deviceParam.action = "bind_display"
-    
-    var action = Api_TcxAction()
-    action.method = "device_manage"
-    action.param = Google_Protobuf_Any()
-    action.param.value = try! deviceParam.serializedData()
-    
-    clear_err()
-    let paramHex = try! action.serializedData().key_toHexString()
-    let res = call_tcx_api(paramHex)
-    let error = get_last_err_message()
-    print(error)
-  }
-  
-  public class func callKeyCoreApi(action:Api_TcxAction)throws -> Data{
-    clear_err()
-    let paramHex = try! action.serializedData().key_toHexString()
-    let res = call_tcx_api(paramHex)
-    let error = get_last_err_message()
-    if error != nil{
-      let strError = String(cString:error!)
-      throw strError
-    }
-    let strRes = String(cString:res!)
-    let dataRes = strRes.key_dataFromHexString()!
-    return dataRes
   }
   
   public class func btcSignTX(){

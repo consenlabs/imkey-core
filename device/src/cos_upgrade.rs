@@ -16,6 +16,7 @@ use mq::hid_api::{hid_connect, hid_send};
 use crate::Result;
 use crate::error::ImkeyError;
 use common::apdu::ApduCheck;
+#[cfg(target_os = "macos")]
 use mq::message::DEVICE;
 
 #[cfg(target_os = "windows")]
@@ -30,7 +31,6 @@ pub struct cos_upgrade_request {
     pub sn: String,
     pub deviceCert: String,
     pub seCosVersion: String,
-    pub isBLStatus: bool,
     pub stepKey: String,
     pub statusWord: Option<String>,
     pub commandID: String,
@@ -54,6 +54,7 @@ pub struct cos_upgrade_response {
 }
 
 impl cos_upgrade_request {
+    #[cfg(target_os = "macos")]
     pub fn cos_upgrade(sdk_version: Option<String>) -> Result<()> {
         //read se device cert
         let mut device_cert = get_cert();
@@ -63,10 +64,9 @@ impl cos_upgrade_request {
         let mut seid = String::new();
         let mut sn = String::new();
         let mut se_cos_version = String::new();
-        let mut is_bl_status = true;
+
         //read seid and sn number
         if device_cert.starts_with("bf21") || device_cert.starts_with("BF21") {
-            is_bl_status = false;
             seid = get_se_id()?;
             sn = get_sn()?;
             //read se cos version
@@ -93,7 +93,6 @@ impl cos_upgrade_request {
             sn: sn,
             deviceCert: device_cert.clone(),
             seCosVersion: se_cos_version,
-            isBLStatus: is_bl_status,
             stepKey: if is_jump { "03".to_string() } else {
                 "01".to_string()
             },
@@ -184,6 +183,6 @@ mod tests {
     #[test]
     fn cos_upgrade_test() {
         let upgrade_result = cos_upgrade_request::cos_upgrade(None);
-        assert_eq!(true, upgrade_result.is_ok());
+        println!("test result -->{}", upgrade_result.is_ok());
     }
 }
