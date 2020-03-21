@@ -9,9 +9,6 @@ edition = "2018"
 [dependencies]
 lazy_static = "1.4.0"
 hex = "0.3"
-hidapi = "1.1.0"
 
-# log = {version = "0.4", features = ["std"]}
-# log-panics = {version = "2.0.0", features = ["with-backtrace"]}
-# [target.'cfg(target_os = "android")'.dependencies]
-# android_logger = "0.8.6"
+[target.'cfg(any(macos, windows))'.dependencies]
+hidapi = "1.1.0"

@@ -1,3 +1,4 @@
+#[cfg(any(macos, windows))]
 pub mod hid_api;
 pub mod message;
 

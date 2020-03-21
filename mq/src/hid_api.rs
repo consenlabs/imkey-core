@@ -1,17 +1,12 @@
-#[cfg(target_os = "macos")]
-extern crate hidapi;
-
 use hex::FromHex;
-
-use hidapi::{HidApi, HidDevice};
-
 use std::thread::sleep;
 use std::time::Duration;
 use std::sync::Mutex;
 use crate::message::DEVICE;
+use hidapi::{HidApi, HidDevice};
 
 lazy_static! {
-    pub static ref HID_API: Mutex<HidApi> = Mutex::new(HidApi::new().expect("device_connect_init_failure"));
+    pub static ref HID_API: Mutex<HidApi> = Mutex::new(HidApi::new().unwrap());
 }
 
 const RETRY_SEC: u64 = 1;
@@ -170,8 +165,7 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
 pub fn hid_connect() -> HidDevice {
 
     let hid_api_obj = HID_API.lock().unwrap();
-
-    loop {
+loop {
         match hid_api_obj.open(DEV_VID, DEV_PID) {
             Ok(dev) => {
                 println!("device connected!!!");
