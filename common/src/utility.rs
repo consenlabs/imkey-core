@@ -108,6 +108,8 @@ pub fn retrieve_recid(
             let rec_pubkey_raw = rec_pubkey.serialize_uncompressed();
             let rec_pubkey = hex::encode(rec_pubkey_raw.iter());
             let pub_key = hex::encode(pubkey);
+            println!("rec_pubkey:{}", &rec_pubkey);
+            println!("pubkey:{}", &pub_key);
             if rec_pubkey_raw.to_vec() == *pubkey {
                 recid_final = i;
                 break;

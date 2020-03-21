@@ -241,10 +241,10 @@ mod test{
     #[test]
     fn device_bind_test(){
 
-           let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-           let bind_code = "E4APZZRT".to_string();
-//       let path = "/Users/joe/work/sdk_gen_key".to_string();
-//       let bind_code = "YDSGQPKX".to_string();
+           // let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+           // let bind_code = "E4APZZRT".to_string();
+      let path = "/Users/joe/work/sdk_gen_key".to_string();
+      let bind_code = "YDSGQPKX".to_string();
         // let mut device_manage = DeviceManage::new();
         // let check_result = device_manage.bind_check(&path).unwrap();
         let check_result = DeviceManage::bind_check(&path).unwrap();
