@@ -114,15 +114,14 @@ impl cos_upgrade_request {
                             apdu_res.push(res.clone());
                             if index_val == apdu_list.len() - 1 {
                                 request_data.statusWord = Some(String::from(&res[res.len() -4..]));
-                                if constants::APDU_RSP_SUCCESS.eq(&res[res.len() -4..]) &&
+                                if (constants::APDU_RSP_SUCCESS.eq(&res[res.len() -4..]) ||
+                                    constants::APDU_RSP_SWITCH_BL_STATUS_SUCCESS.eq(&res[res.len() -4..])) &&
                                     ("03".eq(next_step_key.as_str()) ||
                                         "05".eq(next_step_key.as_str())) {
                                     let connect_ret = hid_api::hid_connect();
                                     let mut hid_device_obj = DEVICE.lock().unwrap();
                                     *hid_device_obj = connect_ret;
                                     std::mem::drop(hid_device_obj);
-                                    let mut device_cert = get_cert();
-                                    println!("aaaaa{}", device_cert);
                                 }
                             }
                         }
