@@ -16,6 +16,10 @@ use common::ethapi::{EthPersonalSignInput, EthPersonalSignOutput};
 use common::utility;
 use crate::Result as Result2;
 use device::device_binding::KEY_MANAGER;
+use num_bigint::BigInt;
+use num_traits::Num;
+use std::ops::Sub;
+use bitcoin_hashes::hex::ToHex;
 
 lazy_static! {
     pub static ref SECP256K1: secp256k1::Secp256k1<secp256k1::All> = secp256k1::Secp256k1::new();
@@ -75,8 +79,9 @@ impl Transaction {
         //hash data for verification sign
         let hash_data = sha256d::Hash::from_slice(&data_pack);
 
-        let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();
-        let mut bind_signature = secp256k1_sign(&private_key, &data_pack).unwrap_or_default();
+        // let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();
+        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let mut bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap_or_default();
         // let key_manager_obj = KEY_MANAGER.lock().unwrap();
         // let mut bind_signature = secp256k1_sign_hash(&key_manager_obj.pri_key, &data_pack).unwrap_or_default();
         println!("bind_signature:{}", &hex::encode(&bind_signature));
@@ -228,8 +233,9 @@ impl Transaction {
         data_to_sign.extend(data.as_slice());
         println!("data_to_sign:{}", &hex::encode(&data_to_sign));
 
-        let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();
-        let mut bind_signature = secp256k1_sign(&private_key, &data_to_sign).unwrap_or_default();
+        // let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();
+        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let mut bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_to_sign).unwrap_or_default();
         println!("bind_signature:{}", &hex::encode(&bind_signature));
 
         let mut apdu_pack: Vec<u8>  = Vec::new();
@@ -244,7 +250,8 @@ impl Transaction {
 
         let msg_pubkey = EthApdu::get_pubkey(&input.path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey);
-        let pubkey_raw = hex_to_bytes(&res_msg_pubkey[2..130]).unwrap();
+        println!("res_msg_pubkey:{}", &res_msg_pubkey);
+        let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone()).unwrap();
         let address_checksummed = EthAddress::address_checksummed(&address_main);
         println!("address_checksummed:{}", &address_checksummed);
@@ -265,10 +272,26 @@ impl Transaction {
 
         let r = &sign_response[2..66];
         let s = &sign_response[66..130];
+        println!("r:{}", r);
+        println!("s:{}", s);
+
+        let mut s_big = BigInt::from_str_radix(&s,16).unwrap();
+        let half_curve_order = BigInt::from_str_radix("7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D576E7357A4501DDFE92F46681B20A0",16).unwrap();
+        let curve_n = BigInt::from_str_radix("7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D576E7357A4501DDFE92F46681B20A0",16).unwrap();
+        if s_big.gt(&half_curve_order) {
+            s_big = curve_n.sub(s_big);
+        }
+        let mut sLow = s_big.to_hex();
+        // while sLow.len() <64 {
+        //     sLow.insert_str(0,"0");
+        // }
+        println!("sLow:{}", &s_big);
+        let rec_sig = r.to_owned() + &sLow;
+
 
         //calc v
 //        let pub_key_raw = hex::decode(&pubkey_raw).unwrap();
-        let sign_compact = hex::decode(&sign_response[2..130]).unwrap();
+        let sign_compact = hex::decode(&rec_sig).unwrap();
         let data_hash = tiny_keccak::keccak256(&data);
         println!("data_hash:{}", &hex::encode(&data_hash));
         println!("sign_compact:{}", &hex::encode(&sign_compact));
@@ -278,12 +301,12 @@ impl Transaction {
         let rec_id = utility::retrieve_recid(&data_hash, &sign_compact, &pubkey_raw).unwrap();
         let rec_id = rec_id.to_i32();
         println!("rec_id:{}", &rec_id);
-        let v = rec_id + 27 + 4;
+        let v = rec_id + 27;
 
         let mut signature = "".to_string();
-        signature.push_str(&format!("{:02X}", &v));
         signature.push_str(r);
-        signature.push_str(s);
+        signature.push_str(&sLow);
+        signature.push_str(&format!("{:02X}", &v));
         println!("signature:{}", &signature);
 
         let output = EthPersonalSignOutput{
@@ -441,6 +464,10 @@ mod tests {
 
     #[test]
     fn test_sign_trans(){
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        println!("check_result:{}",&check_result);
+
         let tx = Transaction {
             nonce: U256::from(8),
             gas_price: U256::from(20000000008 as usize),
@@ -455,6 +482,10 @@ mod tests {
 
     #[test]
     fn test_sign_personal_message(){
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        println!("check_result:{}",&check_result);
+
         let input = EthPersonalSignInput{
             path: constants::ETH_PATH.to_string(),
             message: "Hello imKey".to_string(),

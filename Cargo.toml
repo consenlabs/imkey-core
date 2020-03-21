@@ -4,7 +4,6 @@ members = [
     "api",
     "device",
     "wallet/coin-ethereum",
-    "wallet/interface",
     "mq",
     "crypto",
     "common",

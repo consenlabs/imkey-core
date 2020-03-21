@@ -2,6 +2,10 @@ use hex;
 use keccak_hash::keccak;
 use regex::Regex;
 use crate::Result;
+use common::apdu::EthApdu;
+use mq::message::send_apdu;
+use common::utility::hex_to_bytes;
+use common::path::check_path_validity;
 
 #[derive(Debug)]
 pub struct EthAddress {}
@@ -9,12 +13,12 @@ pub struct EthAddress {}
 impl EthAddress {
     pub fn address_from_pubkey(pubkey: Vec<u8>) -> Result<String> {
         //length check
-        if pubkey.len() != 64 {
+        if pubkey.len() != 65 {
 //            return Err(Error::PubKeyError);
             return Err(format_err!("PubKeyError"));
         }
 
-        let pubkey_hash = keccak(pubkey);
+        let pubkey_hash = keccak(pubkey[1..].as_ref());
         let addr_bytes = &pubkey_hash[12..];
         Ok(hex::encode(addr_bytes))
     }
@@ -43,15 +47,47 @@ impl EthAddress {
 
         return checksum_address;
     }
+
+    pub fn get_address(path: &str) -> Result<String> {
+        check_path_validity(path);
+
+        let select_apdu = EthApdu::select_applet();
+        let select_response = send_apdu(select_apdu);
+
+        //get public
+        let msg_pubkey = EthApdu::get_pubkey(&path, false);
+        let res_msg_pubkey = send_apdu(msg_pubkey);
+
+//        let pubkey_raw =
+//            hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError)?;//TODO
+//         let pubkey_raw =
+//             hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError).expect("hex_to_bytes_error");
+        let pubkey_raw =
+            hex_to_bytes(&res_msg_pubkey[..130]).expect("hex_to_bytes_error");//todo handle error
+
+        println!("pubkey_raw:{}", &hex::encode(&pubkey_raw));
+
+        let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;
+        Ok(address_main)
+    }
+
+    pub fn display_address(path: &str) -> Result<String> {
+        let address = EthAddress::get_address(path).unwrap();
+        let reg_apdu = EthApdu::register_address(address.as_bytes());
+        let res_reg = send_apdu(reg_apdu);
+        //todo: check response
+        Ok(address)
+    }
 }
 
 #[cfg(test)]
 mod test {
-    use super::*;
+    use common::constants;
+    use crate::address::EthAddress;
 
     #[test]
     fn test_pubkey_to_address() {
-        let pubkey_string = "efb99d9860f4dec4cb548a5722c27e9ef58e37fbab9719c5b33d55c216db49311221a01f638ce5f255875b194e0acaa58b19a89d2e56a864427298f826a7f887";
+        let pubkey_string = "04efb99d9860f4dec4cb548a5722c27e9ef58e37fbab9719c5b33d55c216db49311221a01f638ce5f255875b194e0acaa58b19a89d2e56a864427298f826a7f887";
 
         let address_derived =
             EthAddress::address_from_pubkey(hex::decode(pubkey_string).unwrap()).unwrap();
@@ -79,6 +115,26 @@ mod test {
         assert_eq!(
             address_checksummed,
             "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359".to_string()
+        );
+    }
+
+    #[test]
+    fn test_get_address() {
+        let address = EthAddress::get_address(constants::ETH_PATH).unwrap();
+        println!("address:{}",&address);
+        assert_eq!(
+            &address,
+            "6031564e7b2f5cc33737807b2e58daff870b590b"
+        );
+    }
+
+    #[test]
+    fn test_display_address() {
+        let address = EthAddress::display_address(constants::ETH_PATH).unwrap();
+        println!("address:{}", &address);
+        assert_eq!(
+            &address,
+            "6031564e7b2f5cc33737807b2e58daff870b590b"
         );
     }
 }
