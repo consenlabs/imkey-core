@@ -10,5 +10,5 @@ edition = "2018"
 lazy_static = "1.4.0"
 hex = "0.3"
 
-[target.'cfg(any(macos, windows))'.dependencies]
+[target.'cfg(any(target_os = "macos", target_os = "windows"))'.dependencies]
 hidapi = "1.1.0"
