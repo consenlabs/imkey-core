@@ -6,23 +6,14 @@ use crate::manager::{get_se_id, get_sn, get_firmware_version, get_cert};
 use common::utility::hex_to_bytes;
 use crate::app_download::app_download_request;
 use std::sync::Mutex;
-#[cfg(target_os = "macos")]
-use mq::hid_api;
-#[cfg(target_os = "macos")]
-use hidapi::{HidApi, HidDevice};
 use lazy_static;
-#[cfg(target_os = "macos")]
-use mq::hid_api::{hid_connect, hid_send};
 use crate::Result;
 use crate::error::ImkeyError;
 use common::apdu::ApduCheck;
-#[cfg(target_os = "macos")]
-use mq::message::DEVICE;
-
-#[cfg(target_os = "windows")]
+#[cfg(any(macos, windows))]
 use mq::hid_api;
-#[cfg(target_os = "windows")]
-use hidapi::{HidApi, HidDevice};
+#[cfg(any(macos, windows))]
+use mq::message::DEVICE;
 
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -54,7 +45,7 @@ pub struct cos_upgrade_response {
 }
 
 impl cos_upgrade_request {
-    #[cfg(target_os = "macos")]
+    #[cfg(any(macos, windows))]
     pub fn cos_upgrade(sdk_version: Option<String>) -> Result<()> {
         //read se device cert
         let mut device_cert = get_cert();
