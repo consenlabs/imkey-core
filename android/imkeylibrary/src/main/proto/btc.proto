@@ -26,9 +26,15 @@ message BtcTxInput {
     string fee_dis = 12;
     bytes extra_data = 13;
     string path_prefix = 14;
+    int32 property_id = 15;
 }
 
 message BtcTxOutput {
     string signature = 1;
     string txHash = 2;
+    string wtx_id = 3;
+}
+
+message BtcAddressResponse {
+    string address = 1;
 }

@@ -6,23 +6,14 @@ use crate::manager::{get_se_id, get_sn, get_firmware_version, get_cert};
 use common::utility::hex_to_bytes;
 use crate::app_download::app_download_request;
 use std::sync::Mutex;
-#[cfg(target_os = "macos")]
-use mq::hid_api;
-#[cfg(target_os = "macos")]
-use hidapi::{HidApi, HidDevice};
 use lazy_static;
-#[cfg(target_os = "macos")]
-use mq::hid_api::{hid_connect, hid_send};
 use crate::Result;
 use crate::error::ImkeyError;
 use common::apdu::ApduCheck;
-#[cfg(target_os = "macos")]
-use mq::message::DEVICE;
-
-#[cfg(target_os = "windows")]
+#[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::hid_api;
-#[cfg(target_os = "windows")]
-use hidapi::{HidApi, HidDevice};
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+use mq::message::DEVICE;
 
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -31,6 +22,7 @@ pub struct cos_upgrade_request {
     pub sn: String,
     pub deviceCert: String,
     pub seCosVersion: String,
+    pub isBLStatus: bool,
     pub stepKey: String,
     pub statusWord: Option<String>,
     pub commandID: String,
@@ -54,7 +46,7 @@ pub struct cos_upgrade_response {
 }
 
 impl cos_upgrade_request {
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "windows"))]
     pub fn cos_upgrade(sdk_version: Option<String>) -> Result<()> {
         //read se device cert
         let mut device_cert = get_cert();
@@ -64,11 +56,12 @@ impl cos_upgrade_request {
         let mut seid = String::new();
         let mut sn = String::new();
         let mut se_cos_version = String::new();
-
+        let mut is_bl_status = true;
         //read seid and sn number
         if device_cert.starts_with("bf21") || device_cert.starts_with("BF21") {
             seid = get_se_id()?;
             sn = get_sn()?;
+            is_bl_status = false;
             //read se cos version
             se_cos_version = get_firmware_version()?;
             se_cos_version = format!("{}.{}.{}",
@@ -93,6 +86,7 @@ impl cos_upgrade_request {
             sn: sn,
             deviceCert: device_cert.clone(),
             seCosVersion: se_cos_version,
+            isBLStatus: is_bl_status,
             stepKey: if is_jump { "03".to_string() } else {
                 "01".to_string()
             },
@@ -123,15 +117,14 @@ impl cos_upgrade_request {
                             apdu_res.push(res.clone());
                             if index_val == apdu_list.len() - 1 {
                                 request_data.statusWord = Some(String::from(&res[res.len() -4..]));
-                                if constants::APDU_RSP_SUCCESS.eq(&res[res.len() -4..]) &&
+                                if (constants::APDU_RSP_SUCCESS.eq(&res[res.len() -4..]) ||
+                                    constants::APDU_RSP_SWITCH_BL_STATUS_SUCCESS.eq(&res[res.len() -4..])) &&
                                     ("03".eq(next_step_key.as_str()) ||
                                         "05".eq(next_step_key.as_str())) {
                                     let connect_ret = hid_api::hid_connect();
                                     let mut hid_device_obj = DEVICE.lock().unwrap();
                                     *hid_device_obj = connect_ret;
                                     std::mem::drop(hid_device_obj);
-                                    let mut device_cert = get_cert();
-                                    println!("aaaaa{}", device_cert);
                                 }
                             }
                         }

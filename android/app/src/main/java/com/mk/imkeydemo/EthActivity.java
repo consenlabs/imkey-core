@@ -109,6 +109,7 @@ public class EthActivity extends AppCompatActivity {
             public void run() {
                 try {
                     String address = new Eth().displayAddress(Path.ETH_LEDGER);
+                    new Eth().getAddress(Path.ETH_LEDGER);
                     showResult(address);
                 } catch (Exception e) {
                     showResult(e.getMessage());

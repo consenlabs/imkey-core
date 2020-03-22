@@ -1,7 +1,7 @@
 use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::{sha256, Hash, ripemd160};
 use bytes::BufMut;
-use common::apdu::EosApdu;
+use common::apdu::{EosApdu, ApduCheck};
 use common::{path, utility};
 use mq::message;
 use std::io::Read;
@@ -24,7 +24,7 @@ impl EosTransaction {
 
         let select_apdu = EosApdu::select_applet();
         let select_response = message::send_apdu(select_apdu);
-        //todo: check select response
+        ApduCheck::checke_response(&select_response)?;
 
         let mut tx_output = EosTxOutput {
             hash: "".to_string(),
@@ -96,7 +96,7 @@ impl EosTransaction {
                 let mut prepare_result = "".to_string();
                 for prepare_apdu in prepare_apdus {
                     prepare_result = send_apdu(prepare_apdu);
-                    //todo checkresponse
+                    ApduCheck::checke_response(&prepare_result)?;
                 }
                 println!("prepare_result:{}", &prepare_result);
 
@@ -111,7 +111,7 @@ impl EosTransaction {
                 let eos_pk = "EOS".to_owned() + base58::encode_slice(&comprs_pubkey_slice).as_ref();
                 if pub_key != &eos_pk{
                     return Err(format_err!("imkey_publickey_mismatch_with_path"));
-                }
+                }ApduCheck::checke_response(&select_response)?;
                 if pub_key == &eos_pk {
                     println!("eos_pk eq");
 
@@ -121,6 +121,7 @@ impl EosTransaction {
                         let sign_apdu = EosApdu::sign_tx(nonce);
                         println!("sign_apdu:{}", &sign_apdu);
                         let sign_result = send_apdu(sign_apdu);
+                        ApduCheck::checke_response(&sign_result)?;
                         println!("sign_reuslt:{}", &sign_result);
 
                         let sign_result_vec = Vec::from_hex(&sign_result[2..sign_result.len() - 6]).unwrap();
@@ -173,7 +174,7 @@ impl EosTransaction {
         Ok(tx_output)
     }
 
-    pub fn sign_message(input:EosMessageInput) -> EosMessageOutput{
+    pub fn sign_message(input:EosMessageInput) -> Result<EosMessageOutput>{
         let mut hash = Vec::new();
         if input.is_hex {
             hash = hex::decode(input.data).unwrap();
@@ -204,12 +205,14 @@ impl EosTransaction {
 
         let select_apdu = EosApdu::select_applet();
         let select_response = send_apdu(select_apdu);
+        ApduCheck::checke_response(&select_response)?;
 
         let prepare_apdus = EosApdu::prepare_message_sign(prepare_pack);
 
         let mut prepare_response = "".to_string();
         for apdu in prepare_apdus {
             prepare_response = send_apdu(apdu);
+            ApduCheck::checke_response(&prepare_response)?;
         }
 
 
@@ -223,6 +226,7 @@ impl EosTransaction {
                 let sign_apdu = EosApdu::sign_message(nonce);
                 println!("sign_apdu:{}", &sign_apdu);
                 let sign_result = send_apdu(sign_apdu);
+                ApduCheck::checke_response(&sign_result)?;
                 println!("sign_reuslt:{}", &sign_result);
 
                 let sign_result_vec = Vec::from_hex(&sign_result[2..sign_result.len() - 6]).unwrap();
@@ -271,9 +275,9 @@ impl EosTransaction {
             println!("signature:{}", &signature);
         }
 
-        EosMessageOutput{
+        Ok(EosMessageOutput{
             signature: signature
-        }
+        })
     }
 }
 
