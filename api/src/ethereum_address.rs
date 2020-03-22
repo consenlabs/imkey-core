@@ -24,7 +24,7 @@ pub fn get_eth_address(data: &AddressParam) -> Result<Vec<u8>> {
     let msg_pubkey = EthApdu::get_pubkey(&data.path, false);
     let res_msg_pubkey = send_apdu(msg_pubkey);
 
-    let pubkey_raw = hex_to_bytes(&res_msg_pubkey[2..130])?;
+    let pubkey_raw = hex_to_bytes(&res_msg_pubkey[0..130])?;
 
     let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;//todo check
     let address_message = EthAddressResponse { address: address_main };
@@ -41,7 +41,7 @@ pub fn display_eth_address(data: &AddressParam) -> Result<Vec<u8>> {
     let msg_pubkey = EthApdu::get_pubkey(&data.path, false);
     let res_msg_pubkey = send_apdu(msg_pubkey);
 
-    let pubkey_raw = hex_to_bytes(&res_msg_pubkey[2..130])?;//todo check
+    let pubkey_raw = hex_to_bytes(&res_msg_pubkey[0..130])?;//todo check
 
     let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;
     let reg_apdu = EthApdu::register_address(address_main.as_bytes());

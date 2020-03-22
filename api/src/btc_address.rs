@@ -22,6 +22,7 @@ pub fn get_btc_xpub(data: &AddressParam) -> Result<Vec<u8>> {
     encode_message(address_message)
 }
 
+
 pub fn get_btc_address(data: &AddressParam) -> Result<Vec<u8>> {
 
     let network = match data.network.as_ref() {
@@ -47,6 +48,38 @@ pub fn get_segwit_address(data: &AddressParam) -> Result<Vec<u8>> {
     };
 
     let address = btc::get_segwit_address(network, data.path.as_ref())?;
+
+    let address_message = BtcAddressResponse {
+        address: address
+    };
+    encode_message(address_message)
+}
+
+pub fn display_btc_address(data: &AddressParam) -> Result<Vec<u8>> {
+
+    let network = match data.network.as_ref() {
+        "MAINNET" => Network::Bitcoin,
+        "TESTNET" => Network::Testnet,
+        _ => Network::Testnet,
+    };
+
+    let address = btc::display_address(network, data.path.as_ref())?;
+
+    let address_message = BtcAddressResponse {
+        address: address
+    };
+    encode_message(address_message)
+}
+
+pub fn display_segwit_address(data: &AddressParam) -> Result<Vec<u8>> {
+
+    let network = match data.network.as_ref() {
+        "MAINNET" => Network::Bitcoin,
+        "TESTNET" => Network::Testnet,
+        _ => Network::Testnet,
+    };
+
+    let address = btc::display_segwit_address(network, data.path.as_ref())?;
 
     let address_message = BtcAddressResponse {
         address: address
