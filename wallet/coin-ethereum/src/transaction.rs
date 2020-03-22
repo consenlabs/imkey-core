@@ -11,8 +11,8 @@ use mq::message::send_apdu;
 use rlp::{self, DecoderError, Encodable, Rlp, RlpStream};
 use secp256k1::key::{PublicKey, SecretKey};
 use secp256k1::recovery::{RecoverableSignature, RecoveryId};
-use secp256k1::{self, Message as SecpMessage, Secp256k1};
-use common::ethapi::{EthPersonalSignInput, EthPersonalSignOutput};
+use secp256k1::{self, Message as SecpMessage, Secp256k1, Signature as SecpSignature};
+use common::ethapi::{EthPersonalSignInput, EthPersonalSignOutput, EthTxOutput};
 use common::utility;
 use crate::Result as Result2;
 use device::device_binding::KEY_MANAGER;
@@ -45,7 +45,7 @@ impl Transaction {
         receiver: &str,
         sender: &str,
         fee: &str,
-    ) -> Result2<(Vec<u8>, UnverifiedTransaction)> {
+    ) -> Result2<EthTxOutput> {
     // ) {
         //check path
         check_path_validity(path);
@@ -118,15 +118,15 @@ impl Transaction {
 //         let pubkey_raw =
 //             hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError).expect("conversion error");
         let pubkey_raw =
-            hex_to_bytes(&res_msg_pubkey[2..130]).expect("conversion error");//todo error
+            hex_to_bytes(&res_msg_pubkey[..130]).unwrap();//todo error
 
-        let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone()).unwrap_or_default();
+        let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone()).unwrap();
         let address_checksummed = EthAddress::address_checksummed(&address_main);
         //compare address
         if address_checksummed != *sender {
 //            return Err(Error::AddressError);
 //             return Err(format_err!("address is wrong"));
-            println!("address is wrong");
+            return Err(format_err!("imkey_address_mismatch_with_path"));
         }
         //sign
         let msg_sign = EthApdu::sign_digest(path);
@@ -139,27 +139,45 @@ impl Transaction {
         let sign_compact = &res_msg_sign[2..130];
 //        let sign_compact_vec = hex_to_bytes(sign_compact).map_err(|_err| Error::SignError)?;//TODO
 //         let sign_compact_vec = hex_to_bytes(sign_compact).map_err(|_err| Error::SignError).expect("hex_to_bytes");
-        let sign_compact_vec = hex_to_bytes(sign_compact).expect("hex_to_bytes");//todo error
+        let sign_compact_vec = hex_to_bytes(sign_compact).unwrap();//todo error
+
+
+        let mut signnture_obj = SecpSignature::from_compact(sign_compact_vec.as_slice()).unwrap();
+        signnture_obj.normalize_s();
+        let normalizes_sig_vec = signnture_obj.serialize_compact();
 
         let msg_hash = self.hash(chain_id);
 //        let msg_to_sign =
 //            &SecpMessage::from_slice(&msg_hash[..]).map_err(|_err| Error::MessageError)?;//TODO
 //         let msg_to_sign =
 //             &SecpMessage::from_slice(&msg_hash[..]).map_err(|_err| Error::MessageError).expect("get message obj error");
-        let msg_to_sign =
-            &SecpMessage::from_slice(&msg_hash[..]).expect("get message obj error");//todo error
+//         let msg_to_sign =
+//             &SecpMessage::from_slice(&msg_hash[..]).expect("get message obj error");//todo error
 
         // let or_id = RecoveryId::from_i32(-1 as i32).unwrap();
         // let rec_id = retrieve_recid_deprecated(msg_to_sign, &sign_compact_vec, &pubkey_raw).unwrap_or(or_id);
-        // let rec_id = utility::retrieve_recid(&msg_hash[..], &sign_compact_vec, &pubkey_raw).unwrap();
-        let rec_id = RecoveryId::from_i32(0 as i32).unwrap();
+        let rec_id = utility::retrieve_recid(&msg_hash[..], &normalizes_sig_vec, &pubkey_raw).unwrap();
+        // let rec_id = RecoveryId::from_i32(0 as i32).unwrap();
+        println!("rec_id:{}", &rec_id.to_i32());
 
         let mut data_arr = [0; 65];
         data_arr[0..64].copy_from_slice(&sign_compact_vec[0..64]);
         data_arr[64] = rec_id.to_i32() as u8;
         let sig = Signature(data_arr);
-//
-        Ok(self.with_signature(sig, chain_id))
+
+        let signed= self.with_signature(sig, chain_id);
+
+        let mut tx_hash = hex::encode(signed.1.hash);
+        if !tx_hash.starts_with("0x"){
+            tx_hash.insert_str(0,"0x");
+        }
+
+        let tx_sign_result = EthTxOutput {
+            signature: hex::encode(signed.0),
+            tx_hash,
+        };
+
+        Ok(tx_sign_result)
     }
 
     pub fn rlp_encode_tx(&self, chain_id: Option<u64>) -> Vec<u8> {
@@ -202,6 +220,8 @@ impl Transaction {
             v: self.add_chain_replay_protection(sig.v() as u64, chain_id),
             hash: H256::zero(),
         };
+
+        println!("rlp:{}", &hex::encode(&unverified.rlp_bytes()));
         (unverified.rlp_bytes(), unverified.compute_hash())
     }
 
@@ -275,38 +295,24 @@ impl Transaction {
         println!("r:{}", r);
         println!("s:{}", s);
 
-        let mut s_big = BigInt::from_str_radix(&s,16).unwrap();
-        let half_curve_order = BigInt::from_str_radix("7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D576E7357A4501DDFE92F46681B20A0",16).unwrap();
-        let curve_n = BigInt::from_str_radix("7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D576E7357A4501DDFE92F46681B20A0",16).unwrap();
-        if s_big.gt(&half_curve_order) {
-            s_big = curve_n.sub(s_big);
-        }
-        let mut sLow = s_big.to_hex();
-        // while sLow.len() <64 {
-        //     sLow.insert_str(0,"0");
-        // }
-        println!("sLow:{}", &s_big);
-        let rec_sig = r.to_owned() + &sLow;
+        let sign_compact = hex::decode(&sign_response[2..130]).unwrap();
+        let mut signnture_obj = SecpSignature::from_compact(sign_compact.as_slice()).unwrap();
+        signnture_obj.normalize_s();
+        let normalizes_sig_vec = signnture_obj.serialize_compact();
 
-
-        //calc v
-//        let pub_key_raw = hex::decode(&pubkey_raw).unwrap();
-        let sign_compact = hex::decode(&rec_sig).unwrap();
         let data_hash = tiny_keccak::keccak256(&data);
         println!("data_hash:{}", &hex::encode(&data_hash));
         println!("sign_compact:{}", &hex::encode(&sign_compact));
         println!("pubkey_raw:{}", &hex::encode(&pubkey_raw));
         let hash = sha256_hash(&data);
         println!("hash:{}", &hex::encode(&hash));
-        let rec_id = utility::retrieve_recid(&data_hash, &sign_compact, &pubkey_raw).unwrap();
+        let rec_id = utility::retrieve_recid(&data_hash, &normalizes_sig_vec, &pubkey_raw).unwrap();
         let rec_id = rec_id.to_i32();
         println!("rec_id:{}", &rec_id);
         let v = rec_id + 27;
 
-        let mut signature = "".to_string();
-        signature.push_str(r);
-        signature.push_str(&sLow);
-        signature.push_str(&format!("{:02X}", &v));
+        let mut signature = hex::encode(&normalizes_sig_vec.as_ref());
+        signature.push_str(&format!("{:02x}", &v));
         println!("signature:{}", &signature);
 
         let output = EthPersonalSignOutput{
@@ -365,6 +371,7 @@ impl UnverifiedTransaction {
     fn compute_hash(mut self) -> UnverifiedTransaction {
         let hash = keccak(&*self.rlp_bytes());
         self.hash = hash;
+        println!("hash:{}", &hex::encode(&hash));
         self
     }
 
@@ -452,7 +459,7 @@ mod tests {
         let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
         let fee = "0.0032 ether".to_string();
 
-        tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee);
+        let tx_result = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee).unwrap();
         // let signedtx = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee);
         // let nonesense = 0;
 
@@ -478,6 +485,22 @@ mod tests {
             value: U256::from(512 as usize),
             data: Vec::new(),
         };
+
+        let path = "m/44'/60'/0'/0/0".to_string();
+        let payment = "0.01 ETH".to_string();
+        let receiver = "0xE6F4142dfFA574D1d9f18770BF73814df07931F3".to_string();
+        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
+        let fee = "0.0032 ether".to_string();
+
+        let tx_result = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee).unwrap();
+        assert_eq!(
+            tx_result.signature,
+            "f867088504a817c8088302e248943535353535353535353535353535353535353535820200805ba03aa62abb45b77418caf139dda0179aea802c99967b3d690b87d586a87bc805afa02b5ce94f40dc865ca63403e0e5e723e1523884f001573677cd8cec11c7ca332f".to_string()
+        );
+        assert_eq!(
+            tx_result.tx_hash,
+            "0x09fa41c4d6b92482506c8c56f65b217cc3398821caec7695683110997426db01".to_string()
+        );
     }
 
     #[test]
@@ -492,6 +515,10 @@ mod tests {
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string()
         };
         let output = Transaction::sign_persional_message(input);
+        assert_eq!(
+            output.signature,
+            "d928f76ad80d63003c189b095078d94ae068dc2f18a5cafd97b3a630d7bc47465bd6f1e74de2e88c05b271e1c5a8b93564d9d8842c207482b20634d68f2d54e51b".to_string()
+        );
     }
 
     #[test]

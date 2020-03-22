@@ -13,7 +13,7 @@ pub struct EthAddress {}
 impl EthAddress {
     pub fn address_from_pubkey(pubkey: Vec<u8>) -> Result<String> {
         //length check
-        if pubkey.len() != 65 {
+        if pubkey.len() != 65 {//todo check origin is 64
 //            return Err(Error::PubKeyError);
             return Err(format_err!("PubKeyError"));
         }

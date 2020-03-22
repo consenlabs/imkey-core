@@ -15,35 +15,38 @@ pub fn sign_eth_transaction(param: &SignParam) -> Result<Vec<u8>> {
     let input: EthTxInput =
         EthTxInput::decode(&param.input.as_ref().expect("tx_iput").value.clone())
             .expect("EthTxInput");
-    //
-    // let eth_tx = Transaction {
-    //     nonce: U256::from_dec_str(&input.nonce).map_err(|_err| Error::DataError)?,
-    //     gas_price: U256::from_dec_str(&input.gas_price).map_err(|_err| Error::DataError)?,
-    //     gas_limit: U256::from_dec_str(&input.gas_limit).map_err(|_err| Error::DataError)?,
-    //     to: Action::Call(Address::from_str(&input.to).map_err(|_err| Error::DataError)?),
-    //     value: U256::from_dec_str(&input.value).map_err(|_err| Error::DataError)?,
-    //     data: input.data,
-    // };
-    //
-    // let signed = eth_tx.sign(
-    //     Some(input.chain_id),
-    //     &input.path,
-    //     &input.payment,
-    //     &input.receiver,
-    //     &input.sender,
-    //     &input.fee,
-    // )?;
+    let mut data = "".to_string();
+
+
+    if input.data.starts_with("0x"){
+        data = hex::encode(&data[2..]);
+    }
+
+    let eth_tx = Transaction {
+        nonce: U256::from_dec_str(&input.nonce).unwrap(),
+        gas_price: U256::from_dec_str(&input.gas_price).unwrap(),
+        gas_limit: U256::from_dec_str(&input.gas_limit).unwrap(),
+        to: Action::Call(Address::from_str(&input.to).unwrap()),
+        value: U256::from_dec_str(&input.value).unwrap(),
+        data: Vec::from(data),
+    };
+
+    let chain_id = input.chain_id.parse::<u64>().unwrap();
+    let tx_out = eth_tx.sign(
+        Some(chain_id),
+        &input.path,
+        &input.payment,
+        &input.receiver,
+        &input.sender,
+        &input.fee,
+    )?;
+    encode_message(tx_out)
+
     // let tx_sign_result = EthTxOutput {
-    //     signature: hex::encode(signed.0),
-    //     tx_hash: signed.1.hash.to_string(),
+    //     signature: "".to_string(),
+    //     tx_hash: "".to_string(),
     // };
     // encode_message(tx_sign_result)
-
-    let tx_sign_result = EthTxOutput {
-        signature: "".to_string(),
-        tx_hash: "".to_string(),
-    };
-    encode_message(tx_sign_result)
 }
 
 pub fn sign_eth_message(param: &SignParam) -> Result<Vec<u8>> {

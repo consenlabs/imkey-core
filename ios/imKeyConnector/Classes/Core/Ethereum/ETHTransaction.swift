@@ -155,7 +155,7 @@ public final class ETHTransaction: NSObject {
     Log.d("r:\(r)")
     Log.d("s:\(s)")
     
-    let rBig = BTCBigNumber.init(string: r, base: 16)
+    let rBiBTCBigNumberg = .init(string: r, base: 16)
     let sBig = BTCBigNumber.init(string: s, base: 16)
     let rPoint = UnsafeMutablePointer<BIGNUM>.allocate(capacity: 1)
     let sPoint = UnsafeMutablePointer<BIGNUM>.allocate(capacity: 1)
