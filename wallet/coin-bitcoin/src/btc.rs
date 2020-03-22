@@ -110,7 +110,7 @@ pub fn get_parent_path(path: &str) -> &str{
     &path[..end_flg]
 }
 
-pub fn display_Address(network: Network, path: &str) -> Result<String>{
+pub fn display_address(network: Network, path: &str) -> Result<String>{
     //path check
     check_path_validity(path)?;
     let address_str =  get_address(network, path)?;
@@ -120,7 +120,7 @@ pub fn display_Address(network: Network, path: &str) -> Result<String>{
     Ok(address_str)
 }
 
-pub fn display_SegWit_Address(network: Network, path: &str) -> Result<String>{
+pub fn display_segwit_address(network: Network, path: &str) -> Result<String>{
     //path check
     check_path_validity(path)?;
     let address_str =  get_segwit_address(network, path)?;
