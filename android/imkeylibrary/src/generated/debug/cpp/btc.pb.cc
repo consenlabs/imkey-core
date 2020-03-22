@@ -30,6 +30,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* BtcTxOutput_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   BtcTxOutput_reflection_ = NULL;
+const ::google::protobuf::Descriptor* BtcAddressResponse_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  BtcAddressResponse_reflection_ = NULL;
 
 }  // namespace
 
@@ -62,7 +65,7 @@ void protobuf_AssignDesc_btc_2eproto() {
       sizeof(Utxo),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Utxo, _internal_metadata_));
   BtcTxInput_descriptor_ = file->message_type(1);
-  static const int BtcTxInput_offsets_[14] = {
+  static const int BtcTxInput_offsets_[15] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BtcTxInput, to_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BtcTxInput, amount_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BtcTxInput, unspents_),
@@ -77,6 +80,7 @@ void protobuf_AssignDesc_btc_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BtcTxInput, fee_dis_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BtcTxInput, extra_data_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BtcTxInput, path_prefix_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BtcTxInput, property_id_),
   };
   BtcTxInput_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -89,9 +93,10 @@ void protobuf_AssignDesc_btc_2eproto() {
       sizeof(BtcTxInput),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BtcTxInput, _internal_metadata_));
   BtcTxOutput_descriptor_ = file->message_type(2);
-  static const int BtcTxOutput_offsets_[2] = {
+  static const int BtcTxOutput_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BtcTxOutput, signature_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BtcTxOutput, txhash_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BtcTxOutput, wtx_id_),
   };
   BtcTxOutput_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -103,6 +108,20 @@ void protobuf_AssignDesc_btc_2eproto() {
       -1,
       sizeof(BtcTxOutput),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BtcTxOutput, _internal_metadata_));
+  BtcAddressResponse_descriptor_ = file->message_type(3);
+  static const int BtcAddressResponse_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BtcAddressResponse, address_),
+  };
+  BtcAddressResponse_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      BtcAddressResponse_descriptor_,
+      BtcAddressResponse::internal_default_instance(),
+      BtcAddressResponse_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(BtcAddressResponse),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BtcAddressResponse, _internal_metadata_));
 }
 
 namespace {
@@ -122,6 +141,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
       BtcTxInput_descriptor_, BtcTxInput::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       BtcTxOutput_descriptor_, BtcTxOutput::internal_default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      BtcAddressResponse_descriptor_, BtcAddressResponse::internal_default_instance());
 }
 
 }  // namespace
@@ -133,6 +154,8 @@ void protobuf_ShutdownFile_btc_2eproto() {
   delete BtcTxInput_reflection_;
   BtcTxOutput_default_instance_.Shutdown();
   delete BtcTxOutput_reflection_;
+  BtcAddressResponse_default_instance_.Shutdown();
+  delete BtcAddressResponse_reflection_;
 }
 
 void protobuf_InitDefaults_btc_2eproto_impl() {
@@ -144,9 +167,12 @@ void protobuf_InitDefaults_btc_2eproto_impl() {
   BtcTxInput_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
   BtcTxOutput_default_instance_.DefaultConstruct();
+  ::google::protobuf::internal::GetEmptyString();
+  BtcAddressResponse_default_instance_.DefaultConstruct();
   Utxo_default_instance_.get_mutable()->InitAsDefaultInstance();
   BtcTxInput_default_instance_.get_mutable()->InitAsDefaultInstance();
   BtcTxOutput_default_instance_.get_mutable()->InitAsDefaultInstance();
+  BtcAddressResponse_default_instance_.get_mutable()->InitAsDefaultInstance();
 }
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_btc_2eproto_once_);
@@ -162,16 +188,18 @@ void protobuf_AddDesc_btc_2eproto_impl() {
     "\n\tbtc.proto\022\006btcapi\"\202\001\n\004Utxo\022\016\n\006txHash\030\001"
     " \001(\t\022\014\n\004vout\030\002 \001(\005\022\016\n\006amount\030\003 \001(\003\022\017\n\007ad"
     "dress\030\004 \001(\t\022\024\n\014scriptPubKey\030\005 \001(\t\022\023\n\013der"
-    "ivedPath\030\006 \001(\t\022\020\n\010sequence\030\007 \001(\003\"\222\002\n\nBtc"
+    "ivedPath\030\006 \001(\t\022\020\n\010sequence\030\007 \001(\003\"\247\002\n\nBtc"
     "TxInput\022\n\n\002to\030\001 \001(\t\022\016\n\006amount\030\002 \001(\003\022\036\n\010u"
     "nspents\030\003 \003(\0132\014.btcapi.Utxo\022\013\n\003fee\030\004 \001(\003"
     "\022\032\n\022changeAddressIndex\030\005 \001(\r\022\025\n\rchangeAd"
     "dress\030\006 \001(\t\022\017\n\007network\030\007 \001(\t\022\016\n\006segWit\030\010"
     " \001(\t\022\017\n\007payment\030\t \001(\t\022\016\n\006to_dis\030\n \001(\t\022\014\n"
     "\004from\030\013 \001(\t\022\017\n\007fee_dis\030\014 \001(\t\022\022\n\nextra_da"
-    "ta\030\r \001(\014\022\023\n\013path_prefix\030\016 \001(\t\"0\n\013BtcTxOu"
-    "tput\022\021\n\tsignature\030\001 \001(\t\022\016\n\006txHash\030\002 \001(\tb"
-    "\006proto3", 487);
+    "ta\030\r \001(\014\022\023\n\013path_prefix\030\016 \001(\t\022\023\n\013propert"
+    "y_id\030\017 \001(\005\"@\n\013BtcTxOutput\022\021\n\tsignature\030\001"
+    " \001(\t\022\016\n\006txHash\030\002 \001(\t\022\016\n\006wtx_id\030\003 \001(\t\"%\n\022"
+    "BtcAddressResponse\022\017\n\007address\030\001 \001(\tb\006pro"
+    "to3", 563);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "btc.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_btc_2eproto);
@@ -975,6 +1003,7 @@ const int BtcTxInput::kFromFieldNumber;
 const int BtcTxInput::kFeeDisFieldNumber;
 const int BtcTxInput::kExtraDataFieldNumber;
 const int BtcTxInput::kPathPrefixFieldNumber;
+const int BtcTxInput::kPropertyIdFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 BtcTxInput::BtcTxInput()
@@ -1006,8 +1035,8 @@ void BtcTxInput::SharedCtor() {
   fee_dis_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   extra_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   path_prefix_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&amount_, 0, reinterpret_cast<char*>(&changeaddressindex_) -
-    reinterpret_cast<char*>(&amount_) + sizeof(changeaddressindex_));
+  ::memset(&amount_, 0, reinterpret_cast<char*>(&property_id_) -
+    reinterpret_cast<char*>(&amount_) + sizeof(property_id_));
   _cached_size_ = 0;
 }
 
@@ -1083,6 +1112,7 @@ void BtcTxInput::Clear() {
   fee_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   extra_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   path_prefix_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  property_id_ = 0;
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -1323,6 +1353,21 @@ bool BtcTxInput::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(120)) goto parse_property_id;
+        break;
+      }
+
+      // optional int32 property_id = 15;
+      case 15: {
+        if (tag == 120) {
+         parse_property_id:
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &property_id_)));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1468,6 +1513,11 @@ void BtcTxInput::SerializeWithCachedSizes(
       14, this->path_prefix(), output);
   }
 
+  // optional int32 property_id = 15;
+  if (this->property_id() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(15, this->property_id(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:btcapi.BtcTxInput)
 }
 
@@ -1603,6 +1653,11 @@ void BtcTxInput::SerializeWithCachedSizes(
         14, this->path_prefix(), target);
   }
 
+  // optional int32 property_id = 15;
+  if (this->property_id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(15, this->property_id(), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:btcapi.BtcTxInput)
   return target;
 }
@@ -1702,6 +1757,13 @@ size_t BtcTxInput::ByteSizeLong() const {
         this->path_prefix());
   }
 
+  // optional int32 property_id = 15;
+  if (this->property_id() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->property_id());
+  }
+
   // repeated .btcapi.Utxo unspents = 3;
   {
     unsigned int count = this->unspents_size();
@@ -1796,6 +1858,9 @@ void BtcTxInput::UnsafeMergeFrom(const BtcTxInput& from) {
 
     path_prefix_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_prefix_);
   }
+  if (from.property_id() != 0) {
+    set_property_id(from.property_id());
+  }
 }
 
 void BtcTxInput::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1836,6 +1901,7 @@ void BtcTxInput::InternalSwap(BtcTxInput* other) {
   fee_dis_.Swap(&other->fee_dis_);
   extra_data_.Swap(&other->extra_data_);
   path_prefix_.Swap(&other->path_prefix_);
+  std::swap(property_id_, other->property_id_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -2363,6 +2429,20 @@ void BtcTxInput::set_allocated_path_prefix(::std::string* path_prefix) {
   // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxInput.path_prefix)
 }
 
+// optional int32 property_id = 15;
+void BtcTxInput::clear_property_id() {
+  property_id_ = 0;
+}
+::google::protobuf::int32 BtcTxInput::property_id() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxInput.property_id)
+  return property_id_;
+}
+void BtcTxInput::set_property_id(::google::protobuf::int32 value) {
+  
+  property_id_ = value;
+  // @@protoc_insertion_point(field_set:btcapi.BtcTxInput.property_id)
+}
+
 inline const BtcTxInput* BtcTxInput::internal_default_instance() {
   return &BtcTxInput_default_instance_.get();
 }
@@ -2373,6 +2453,7 @@ inline const BtcTxInput* BtcTxInput::internal_default_instance() {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BtcTxOutput::kSignatureFieldNumber;
 const int BtcTxOutput::kTxHashFieldNumber;
+const int BtcTxOutput::kWtxIdFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 BtcTxOutput::BtcTxOutput()
@@ -2396,6 +2477,7 @@ BtcTxOutput::BtcTxOutput(const BtcTxOutput& from)
 void BtcTxOutput::SharedCtor() {
   signature_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   txhash_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  wtx_id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _cached_size_ = 0;
 }
 
@@ -2407,6 +2489,7 @@ BtcTxOutput::~BtcTxOutput() {
 void BtcTxOutput::SharedDtor() {
   signature_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   txhash_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  wtx_id_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void BtcTxOutput::SetCachedSize(int size) const {
@@ -2438,6 +2521,7 @@ void BtcTxOutput::Clear() {
 // @@protoc_insertion_point(message_clear_start:btcapi.BtcTxOutput)
   signature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   txhash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  wtx_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool BtcTxOutput::MergePartialFromCodedStream(
@@ -2476,6 +2560,23 @@ bool BtcTxOutput::MergePartialFromCodedStream(
             this->txhash().data(), this->txhash().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
             "btcapi.BtcTxOutput.txHash"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_wtx_id;
+        break;
+      }
+
+      // optional string wtx_id = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_wtx_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_wtx_id()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->wtx_id().data(), this->wtx_id().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "btcapi.BtcTxOutput.wtx_id"));
         } else {
           goto handle_unusual;
         }
@@ -2527,6 +2628,16 @@ void BtcTxOutput::SerializeWithCachedSizes(
       2, this->txhash(), output);
   }
 
+  // optional string wtx_id = 3;
+  if (this->wtx_id().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->wtx_id().data(), this->wtx_id().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "btcapi.BtcTxOutput.wtx_id");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->wtx_id(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:btcapi.BtcTxOutput)
 }
 
@@ -2556,6 +2667,17 @@ void BtcTxOutput::SerializeWithCachedSizes(
         2, this->txhash(), target);
   }
 
+  // optional string wtx_id = 3;
+  if (this->wtx_id().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->wtx_id().data(), this->wtx_id().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "btcapi.BtcTxOutput.wtx_id");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->wtx_id(), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:btcapi.BtcTxOutput)
   return target;
 }
@@ -2576,6 +2698,13 @@ size_t BtcTxOutput::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->txhash());
+  }
+
+  // optional string wtx_id = 3;
+  if (this->wtx_id().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->wtx_id());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -2619,6 +2748,10 @@ void BtcTxOutput::UnsafeMergeFrom(const BtcTxOutput& from) {
 
     txhash_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.txhash_);
   }
+  if (from.wtx_id().size() > 0) {
+
+    wtx_id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.wtx_id_);
+  }
 }
 
 void BtcTxOutput::CopyFrom(const ::google::protobuf::Message& from) {
@@ -2647,6 +2780,7 @@ void BtcTxOutput::Swap(BtcTxOutput* other) {
 void BtcTxOutput::InternalSwap(BtcTxOutput* other) {
   signature_.Swap(&other->signature_);
   txhash_.Swap(&other->txhash_);
+  wtx_id_.Swap(&other->wtx_id_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -2750,8 +2884,341 @@ void BtcTxOutput::set_allocated_txhash(::std::string* txhash) {
   // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxOutput.txHash)
 }
 
+// optional string wtx_id = 3;
+void BtcTxOutput::clear_wtx_id() {
+  wtx_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& BtcTxOutput::wtx_id() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxOutput.wtx_id)
+  return wtx_id_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void BtcTxOutput::set_wtx_id(const ::std::string& value) {
+  
+  wtx_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:btcapi.BtcTxOutput.wtx_id)
+}
+void BtcTxOutput::set_wtx_id(const char* value) {
+  
+  wtx_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxOutput.wtx_id)
+}
+void BtcTxOutput::set_wtx_id(const char* value, size_t size) {
+  
+  wtx_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxOutput.wtx_id)
+}
+::std::string* BtcTxOutput::mutable_wtx_id() {
+  
+  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxOutput.wtx_id)
+  return wtx_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* BtcTxOutput::release_wtx_id() {
+  // @@protoc_insertion_point(field_release:btcapi.BtcTxOutput.wtx_id)
+  
+  return wtx_id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void BtcTxOutput::set_allocated_wtx_id(::std::string* wtx_id) {
+  if (wtx_id != NULL) {
+    
+  } else {
+    
+  }
+  wtx_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), wtx_id);
+  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxOutput.wtx_id)
+}
+
 inline const BtcTxOutput* BtcTxOutput::internal_default_instance() {
   return &BtcTxOutput_default_instance_.get();
+}
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BtcAddressResponse::kAddressFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BtcAddressResponse::BtcAddressResponse()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_btc_2eproto();
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:btcapi.BtcAddressResponse)
+}
+
+void BtcAddressResponse::InitAsDefaultInstance() {
+}
+
+BtcAddressResponse::BtcAddressResponse(const BtcAddressResponse& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  UnsafeMergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:btcapi.BtcAddressResponse)
+}
+
+void BtcAddressResponse::SharedCtor() {
+  address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _cached_size_ = 0;
+}
+
+BtcAddressResponse::~BtcAddressResponse() {
+  // @@protoc_insertion_point(destructor:btcapi.BtcAddressResponse)
+  SharedDtor();
+}
+
+void BtcAddressResponse::SharedDtor() {
+  address_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void BtcAddressResponse::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* BtcAddressResponse::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BtcAddressResponse_descriptor_;
+}
+
+const BtcAddressResponse& BtcAddressResponse::default_instance() {
+  protobuf_InitDefaults_btc_2eproto();
+  return *internal_default_instance();
+}
+
+::google::protobuf::internal::ExplicitlyConstructed<BtcAddressResponse> BtcAddressResponse_default_instance_;
+
+BtcAddressResponse* BtcAddressResponse::New(::google::protobuf::Arena* arena) const {
+  BtcAddressResponse* n = new BtcAddressResponse;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void BtcAddressResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:btcapi.BtcAddressResponse)
+  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool BtcAddressResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:btcapi.BtcAddressResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string address = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_address()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->address().data(), this->address().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "btcapi.BtcAddressResponse.address"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:btcapi.BtcAddressResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:btcapi.BtcAddressResponse)
+  return false;
+#undef DO_
+}
+
+void BtcAddressResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:btcapi.BtcAddressResponse)
+  // optional string address = 1;
+  if (this->address().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->address().data(), this->address().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "btcapi.BtcAddressResponse.address");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->address(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:btcapi.BtcAddressResponse)
+}
+
+::google::protobuf::uint8* BtcAddressResponse::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:btcapi.BtcAddressResponse)
+  // optional string address = 1;
+  if (this->address().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->address().data(), this->address().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "btcapi.BtcAddressResponse.address");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->address(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:btcapi.BtcAddressResponse)
+  return target;
+}
+
+size_t BtcAddressResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:btcapi.BtcAddressResponse)
+  size_t total_size = 0;
+
+  // optional string address = 1;
+  if (this->address().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->address());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BtcAddressResponse::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:btcapi.BtcAddressResponse)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const BtcAddressResponse* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const BtcAddressResponse>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:btcapi.BtcAddressResponse)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:btcapi.BtcAddressResponse)
+    UnsafeMergeFrom(*source);
+  }
+}
+
+void BtcAddressResponse::MergeFrom(const BtcAddressResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:btcapi.BtcAddressResponse)
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void BtcAddressResponse::UnsafeMergeFrom(const BtcAddressResponse& from) {
+  GOOGLE_DCHECK(&from != this);
+  if (from.address().size() > 0) {
+
+    address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
+  }
+}
+
+void BtcAddressResponse::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:btcapi.BtcAddressResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BtcAddressResponse::CopyFrom(const BtcAddressResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:btcapi.BtcAddressResponse)
+  if (&from == this) return;
+  Clear();
+  UnsafeMergeFrom(from);
+}
+
+bool BtcAddressResponse::IsInitialized() const {
+
+  return true;
+}
+
+void BtcAddressResponse::Swap(BtcAddressResponse* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void BtcAddressResponse::InternalSwap(BtcAddressResponse* other) {
+  address_.Swap(&other->address_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata BtcAddressResponse::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = BtcAddressResponse_descriptor_;
+  metadata.reflection = BtcAddressResponse_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// BtcAddressResponse
+
+// optional string address = 1;
+void BtcAddressResponse::clear_address() {
+  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& BtcAddressResponse::address() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcAddressResponse.address)
+  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void BtcAddressResponse::set_address(const ::std::string& value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:btcapi.BtcAddressResponse.address)
+}
+void BtcAddressResponse::set_address(const char* value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:btcapi.BtcAddressResponse.address)
+}
+void BtcAddressResponse::set_address(const char* value, size_t size) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcAddressResponse.address)
+}
+::std::string* BtcAddressResponse::mutable_address() {
+  
+  // @@protoc_insertion_point(field_mutable:btcapi.BtcAddressResponse.address)
+  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* BtcAddressResponse::release_address() {
+  // @@protoc_insertion_point(field_release:btcapi.BtcAddressResponse.address)
+  
+  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void BtcAddressResponse::set_allocated_address(::std::string* address) {
+  if (address != NULL) {
+    
+  } else {
+    
+  }
+  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
+  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcAddressResponse.address)
+}
+
+inline const BtcAddressResponse* BtcAddressResponse::internal_default_instance() {
+  return &BtcAddressResponse_default_instance_.get();
 }
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 

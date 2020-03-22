@@ -1453,12 +1453,24 @@ class AddressParam : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::std::string* release_path();
   void set_allocated_path(::std::string* path);
 
+  // optional string network = 3;
+  void clear_network();
+  static const int kNetworkFieldNumber = 3;
+  const ::std::string& network() const;
+  void set_network(const ::std::string& value);
+  void set_network(const char* value);
+  void set_network(const char* value, size_t size);
+  ::std::string* mutable_network();
+  ::std::string* release_network();
+  void set_allocated_network(::std::string* network);
+
   // @@protoc_insertion_point(class_scope:api.AddressParam)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr chaintype_;
   ::google::protobuf::internal::ArenaStringPtr path_;
+  ::google::protobuf::internal::ArenaStringPtr network_;
   mutable int _cached_size_;
   friend void  protobuf_InitDefaults_api_2eproto_impl();
   friend void  protobuf_AddDesc_api_2eproto_impl();
@@ -4818,6 +4830,50 @@ inline void AddressParam::set_allocated_path(::std::string* path) {
   }
   path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
   // @@protoc_insertion_point(field_set_allocated:api.AddressParam.path)
+}
+
+// optional string network = 3;
+inline void AddressParam::clear_network() {
+  network_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& AddressParam::network() const {
+  // @@protoc_insertion_point(field_get:api.AddressParam.network)
+  return network_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddressParam::set_network(const ::std::string& value) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.AddressParam.network)
+}
+inline void AddressParam::set_network(const char* value) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.AddressParam.network)
+}
+inline void AddressParam::set_network(const char* value, size_t size) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.AddressParam.network)
+}
+inline ::std::string* AddressParam::mutable_network() {
+  
+  // @@protoc_insertion_point(field_mutable:api.AddressParam.network)
+  return network_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* AddressParam::release_network() {
+  // @@protoc_insertion_point(field_release:api.AddressParam.network)
+  
+  return network_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddressParam::set_allocated_network(::std::string* network) {
+  if (network != NULL) {
+    
+  } else {
+    
+  }
+  network_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), network);
+  // @@protoc_insertion_point(field_set_allocated:api.AddressParam.network)
 }
 
 inline const AddressParam* AddressParam::internal_default_instance() {

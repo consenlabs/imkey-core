@@ -247,6 +247,139 @@ public class ImKeyOmniTransactionTest {
         Iterator<String> keys = testcases.keys();
         try {
             while (keys.hasNext()) {
+
+                btcapi.Btc.BtcTxInput.Builder builder = btcapi.Btc.BtcTxInput.newBuilder();
+
+                String key = keys.next();
+                JSONObject testcase = testcases.getJSONObject(key);
+                JSONArray utxoArray = testcase.getJSONArray("utxo");
+
+                for (int i = 0; i < utxoArray.length(); i++) {
+
+                    JSONObject utxoObj = utxoArray.getJSONObject(i);
+
+                    btcapi.Btc.Utxo utxo = btcapi.Btc.Utxo.newBuilder()
+                            .setTxHash(utxoObj.getString("txHash"))
+                            .setVout(utxoObj.getInt("vout"))
+                            .setAmount(utxoObj.getLong("amount"))
+                            .setAddress(utxoObj.getString("address"))
+                            .setScriptPubKey(utxoObj.getString("scriptPubKey"))
+                            .setDerivedPath(utxoObj.getString("derivedPath"))
+                            .build();
+                    builder.addUnspents(utxo);
+
+                }
+
+
+                builder
+                        .setTo(testcase.getString("to"))
+                        .setAmount(testcase.getLong("amount"))
+                        .setFee(testcase.getLong("fee"))
+                        //.setExtraData(extraData)
+                        .setPayment(testcase.getString("payment"))
+                        .setToDis(testcase.getString("toDis"))
+                        .setFrom(testcase.getString("from"))
+                        .setFeeDis(testcase.getString("feeDis"))
+                        .setNetwork(Constants.MAINNET)
+                        .setPathPrefix(Path.BTC_SEGWIT_PATH_PREFIX)
+                        .setPropertyId(testcase.getInt("propertyId"))
+                        .build();
+
+
+                Any any = Any.newBuilder()
+                        .setValue(builder.build().toByteString())
+                        .build();
+
+
+                api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
+                        .setChainType("OMINI_SEGWIT")
+                        .setInput(any)
+                        .build();
+
+                Any any2 = Any.newBuilder()
+                        .setValue(signParam.toByteString())
+                        .build();
+
+                api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                        .setMethod("sign_tx")
+                        .setParam(any2)
+                        .build();
+
+                Boolean retry = true;
+                int tryCount = 0;
+                while(retry) {
+                    tryCount ++;
+                    try {
+
+                        LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                        // clear_err
+                        RustApi.INSTANCE.clear_err();
+
+                        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+                        String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+                        //
+                        String error = RustApi.INSTANCE.get_last_err_message();
+                        if(!"".equals(error) && null != error) {
+                            api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                            Boolean isSuccess = errorResponse.getIsSuccess();
+                            if(!isSuccess) {
+                                LogUtil.d("异常： " + errorResponse.getError());
+                                failedCaseName.add(key);
+                                failCount++;
+                                retry = false;
+                                continue;
+                            }
+                        }
+
+                        btcapi.Btc.BtcTxOutput response = btcapi.Btc.BtcTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
+                        String signature = response.getSignature();
+                        String tx_hash = response.getTxHash();
+                        String wtx_id = response.getWtxId();
+                        LogUtil.d("signature：" + signature);
+                        LogUtil.d("tx_hash：" + tx_hash);
+                        LogUtil.d("wtx_id：" + wtx_id);
+                        LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+
+                        if(tx_hash.equals(testcase.getString("txHash")) && wtx_id.equals(testcase.getString("wtxID"))) {
+                            LogUtil.e("×××××××××××××××××××××××××××××××××××成功×××××××××××××××××××××××××××××××××××××××××××××××");
+                            successCount ++;
+                        } else {
+                            failedCaseName.add(key);
+                            failCount++;
+                        }
+                        retry = false;
+                    } catch (ImkeyException e) {
+                        if(!Messages.IMKEY_BLUETOOTH_CHANNEL_ERROR.equals(e.getMessage()) || tryCount >= 3) {
+                            retry = false;
+                            failedCaseName.add(key + ": " + e.getMessage());
+                            failCount++;
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new ImkeyException(e);
+        }
+
+        result.put("failCount", failCount);
+        result.put("successCount", successCount);
+        result.put("failedCaseName", failedCaseName);
+
+        return result;
+
+    }
+
+    /*public static Map<String, Object> testUsdtSegwitTxSign(Context context) {
+        int failCount = 0;
+        int successCount = 0;
+        ArrayList<String> failedCaseName = new ArrayList<>();
+
+        JSONObject testcases = ResourcesManager.getFromRaw(context, "usdtsegwittransactiontest");
+        Iterator<String> keys = testcases.keys();
+        try {
+            while (keys.hasNext()) {
                 ArrayList<ImKeyBitcoinTransaction.UTXO> utxo = new ArrayList<>();
 
                 String key = keys.next();
@@ -313,7 +446,7 @@ public class ImKeyOmniTransactionTest {
 
         return result;
 
-    }
+    }*/
 
     public static TransactionSignedResult testUxdtTxSign() {
 
@@ -436,6 +569,92 @@ public class ImKeyOmniTransactionTest {
     }*/
 
     public static TransactionSignedResult testUsdtSegwitTxSign() {
+
+        TransactionSignedResult signedResult = null;
+
+        try {
+
+            btcapi.Btc.Utxo utxo0 = btcapi.Btc.Utxo.newBuilder()
+                    .setTxHash("9baf6fd0e560f9f199f4879c23cb73b9c4affb54a1cfdbacb85687efa89f4c78")
+                    .setVout(1)
+                    .setAmount(21863396)
+                    .setAddress("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB")
+                    .setScriptPubKey("a9142d2b1ef5ee4cf6c3ebc8cf66a602783798f7875987")
+                    .setDerivedPath("0/0")
+                    .setSequence(4294967295l)
+                    .build();
+
+            btcapi.Btc.BtcTxInput btcTxInput = btcapi.Btc.BtcTxInput.newBuilder()
+                    .setTo("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3")
+                    .setChangeAddressIndex(0)
+                    .setAmount(10000000000L)
+                    .setFee(4000)
+                    .addUnspents(utxo0)
+                    .setPayment("100 USDT")
+                    .setToDis("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3")
+                    .setFrom("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB")
+                    .setFeeDis("0.0004 BTC")
+                    .setNetwork("TESTNET")
+                    .setPathPrefix(Path.BITCOIN_SEGWIT_TESTNET_PATH)
+                    .setPropertyId(31)
+                    .build();
+
+            Any any = Any.newBuilder()
+                    .setValue(btcTxInput.toByteString())
+                    .build();
+
+
+            api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
+                    .setChainType("OMINI_SEGWIT")
+                    .setInput(any)
+                    .build();
+
+            Any any2 = Any.newBuilder()
+                    .setValue(signParam.toByteString())
+                    .build();
+
+            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                    .setMethod("sign_tx")
+                    .setParam(any2)
+                    .build();
+            String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+            // clear_err
+            RustApi.INSTANCE.clear_err();
+
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+            String error = RustApi.INSTANCE.get_last_err_message();
+            if(!"".equals(error) && null != error) {
+                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Boolean isSuccess = errorResponse.getIsSuccess();
+                if(!isSuccess) {
+                    LogUtil.d("异常： " + errorResponse.getError());
+
+                }
+            } else {
+                btcapi.Btc.BtcTxOutput response = btcapi.Btc.BtcTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
+                String signature = response.getSignature();
+                String tx_hash = response.getTxHash();
+                String wtx_id = response.getWtxId();
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                LogUtil.d("signature：" + signature);
+                LogUtil.d("tx_hash：" + tx_hash);
+                LogUtil.d("wtx_id：" + wtx_id);
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+
+                signedResult = new TransactionSignedResult(signature, tx_hash, wtx_id);
+            }
+        } catch (Exception e) {
+            LogUtil.d("异常：" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return signedResult;
+    }
+
+
+    /*public static TransactionSignedResult testUsdtSegwitTxSign() {
         ArrayList<ImKeyOmniTransaction.UTXO> utxo = new ArrayList<>();
 
         utxo.add(new ImKeyOmniTransaction.UTXO(
@@ -450,6 +669,5 @@ public class ImKeyOmniTransactionTest {
         TransactionSignedResult result = transaction.signSegWitTransaction(Constants.TESTNET, Path.BITCOIN_SEGWIT_TESTNET_PATH);
 
         return result;
-    }
-
+    }*/
 }

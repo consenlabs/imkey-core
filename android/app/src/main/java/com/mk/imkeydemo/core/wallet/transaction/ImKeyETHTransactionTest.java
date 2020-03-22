@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.google.protobuf.Any;
 import com.mk.imkeydemo.utils.ResourcesManager;
 import com.mk.imkeylibrary.common.Messages;
 import com.mk.imkeylibrary.core.wallet.Eth;
@@ -18,6 +19,10 @@ import com.mk.imkeylibrary.core.wallet.transaction.ImKeyBitcoinTransaction;
 import com.mk.imkeylibrary.core.wallet.transaction.ImKeyEthereumTransaction;
 import com.mk.imkeylibrary.core.wallet.transaction.TransactionSignedResult;
 import com.mk.imkeylibrary.exception.ImkeyException;
+import com.mk.imkeylibrary.keycore.RustApi;
+import com.mk.imkeylibrary.utils.ByteUtil;
+import com.mk.imkeylibrary.utils.LogUtil;
+import com.mk.imkeylibrary.utils.NumericUtil;
 
 public class ImKeyETHTransactionTest {
 
@@ -108,9 +113,71 @@ public class ImKeyETHTransactionTest {
     }
 
     public static String testEthMsgSign() {
+
+
+
+        String signature = null;
+
+        try {
+
+            String data = "Hello imKey";
+            String sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b";
+
+            ethapi.Eth.EthPersonalSignInput ethPersonalSignInput = ethapi.Eth.EthPersonalSignInput.newBuilder()
+                    .setPath(Path.ETH_LEDGER)
+                    .setMessage(data)
+                    .setSender(sender)
+                    .build();
+
+            Any any = Any.newBuilder()
+                    .setValue(ethPersonalSignInput.toByteString())
+                    .build();
+
+            api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
+                    .setChainType("ETH")
+                    .setInput(any)
+                    .build();
+
+            Any any2 = Any.newBuilder()
+                    .setValue(signParam.toByteString())
+                    .build();
+
+            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                    .setMethod("sign_msg")
+                    .setParam(any2)
+                    .build();
+            String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+            // clear_err
+            RustApi.INSTANCE.clear_err();
+
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+            String error = RustApi.INSTANCE.get_last_err_message();
+            if(!"".equals(error) && null != error) {
+                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Boolean isSuccess = errorResponse.getIsSuccess();
+                if(!isSuccess) {
+                    LogUtil.d("异常： " + errorResponse.getError());
+                }
+            } else {
+                ethapi.Eth.EthPersonalSignOutput response = ethapi.Eth.EthPersonalSignOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
+                signature = response.getSignature();
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                LogUtil.d("signature：" + signature);
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+            }
+        } catch (Exception e) {
+            LogUtil.d("异常：" + e.getMessage());
+            e.printStackTrace();
+        }
+        return signature;
+    }
+
+    /*public static String testEthMsgSign() {
         String data = "Hello imKey";
         String sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b";
         return new Eth().signPersonalMessage(Path.ETH_LEDGER, data, sender);
-    }
+    }*/
 
 }
