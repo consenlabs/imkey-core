@@ -5,15 +5,68 @@ import org.bitcoinj.core.ECKey;
 
 import java.io.ByteArrayOutputStream;
 
+import com.google.protobuf.Any;
 import com.mk.imkeylibrary.core.Apdu;
 import com.mk.imkeylibrary.core.foundation.crypto.EccUtil;
 import com.mk.imkeylibrary.device.Applet;
+import com.mk.imkeylibrary.keycore.RustApi;
 import com.mk.imkeylibrary.utils.Bech32;
+import com.mk.imkeylibrary.utils.ByteUtil;
+import com.mk.imkeylibrary.utils.LogUtil;
 import com.mk.imkeylibrary.utils.NumericUtil;
 
 public class Cosmos extends Wallet {
 
     public String getAddress(String path) {
+        String address = null;
+
+        try {
+
+            api.Api.AddressParam addressParam = api.Api.AddressParam.newBuilder()
+                    .setChainType("COSMOS")
+                    .setPath(path)
+                    .build();
+
+            Any any2 = Any.newBuilder()
+                    .setValue(addressParam.toByteString())
+                    .build();
+
+            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                    .setMethod("get_address")
+                    .setParam(any2)
+                    .build();
+            String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+            // clear_err
+            RustApi.INSTANCE.clear_err();
+
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+            String error = RustApi.INSTANCE.get_last_err_message();
+            if(!"".equals(error) && null != error) {
+                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Boolean isSuccess = errorResponse.getIsSuccess();
+                if(!isSuccess) {
+                    LogUtil.d("异常： " + errorResponse.getError());
+
+                }
+            } else {
+                cosmosapi.Cosmos.CosmosAddressResponse response = cosmosapi.Cosmos.CosmosAddressResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+                address = response.getAddress();
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                LogUtil.d("address：" + address);
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+            }
+
+        } catch (Exception e) {
+            LogUtil.d("异常：" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return address;
+
+/*
+
         // path校验
         Path.checkPath(path);
 
@@ -22,10 +75,58 @@ public class Cosmos extends Wallet {
 
         ECKey ecKey = EccUtil.getCompressECKey(NumericUtil.hexToBytes(xpub));
         byte[] pubKeyHash = ecKey.getPubKeyHash();
-        return Bech32.encode("cosmos", convertBits(pubKeyHash, 0, pubKeyHash.length, 8, 5, true));
+        return Bech32.encode("cosmos", convertBits(pubKeyHash, 0, pubKeyHash.length, 8, 5, true));*/
     }
 
     public String displayAddress(String path) {
+
+        String address = null;
+
+        try {
+
+            api.Api.AddressParam addressParam = api.Api.AddressParam.newBuilder()
+                    .setChainType("COSMOS")
+                    .setPath(path)
+                    .build();
+
+            Any any2 = Any.newBuilder()
+                    .setValue(addressParam.toByteString())
+                    .build();
+
+            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                    .setMethod("register_coin")
+                    .setParam(any2)
+                    .build();
+            String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+            // clear_err
+            RustApi.INSTANCE.clear_err();
+
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+            String error = RustApi.INSTANCE.get_last_err_message();
+            if(!"".equals(error) && null != error) {
+                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Boolean isSuccess = errorResponse.getIsSuccess();
+                if(!isSuccess) {
+                    LogUtil.d("异常： " + errorResponse.getError());
+
+                }
+            } else {
+                cosmosapi.Cosmos.CosmosAddressResponse response = cosmosapi.Cosmos.CosmosAddressResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+                address = response.getAddress();
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                LogUtil.d("address：" + address);
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+            }
+
+        } catch (Exception e) {
+            LogUtil.d("异常：" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return address;
+        /*
         // path校验
         Path.checkPath(path);
 
@@ -33,7 +134,7 @@ public class Cosmos extends Wallet {
         String apduCoinReg = Apdu.cosmosCoinReg(mainAddr.getBytes());
         String res = sendApdu(apduCoinReg);
         Apdu.checkResponse(res);
-        return mainAddr;
+        return mainAddr;*/
     }
 
     private static byte[] convertBits(final byte[] in, final int inStart, final int inLen, final int fromBits,

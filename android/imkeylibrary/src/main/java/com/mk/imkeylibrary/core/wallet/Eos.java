@@ -6,17 +6,71 @@ import org.spongycastle.crypto.digests.RIPEMD160Digest;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
+import com.google.protobuf.Any;
 import com.mk.imkeylibrary.core.Apdu;
 import com.mk.imkeylibrary.core.foundation.crypto.Hash;
 import com.mk.imkeylibrary.core.wallet.transaction.EOSSign;
 import com.mk.imkeylibrary.device.Applet;
+import com.mk.imkeylibrary.keycore.RustApi;
 import com.mk.imkeylibrary.utils.ByteUtil;
+import com.mk.imkeylibrary.utils.LogUtil;
 import com.mk.imkeylibrary.utils.NumericUtil;
 
 public class Eos extends Wallet {
 
     public String getPubKey(String path) {
-        // path校验
+
+
+        String eosPK = null;
+
+        try {
+
+            api.Api.AddressParam addressParam = api.Api.AddressParam.newBuilder()
+                    .setChainType("EOS")
+                    .setPath(path)
+                    .build();
+
+            Any any2 = Any.newBuilder()
+                    .setValue(addressParam.toByteString())
+                    .build();
+
+            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                    .setMethod("get_address")
+                    .setParam(any2)
+                    .build();
+            String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+            // clear_err
+            RustApi.INSTANCE.clear_err();
+
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+            String error = RustApi.INSTANCE.get_last_err_message();
+            if(!"".equals(error) && null != error) {
+                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Boolean isSuccess = errorResponse.getIsSuccess();
+                if(!isSuccess) {
+                    LogUtil.d("异常： " + errorResponse.getError());
+
+                }
+            } else {
+                eosapi.Eos.EosPubkeyResponse response = eosapi.Eos.EosPubkeyResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+                eosPK = response.getPubkey();
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                LogUtil.d("eosPK：" + eosPK);
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+
+            }
+
+        } catch (Exception e) {
+            LogUtil.d("异常：" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return eosPK;
+
+
+        /*// path校验
         Path.checkPath(path);
 
         selectApplet();
@@ -31,10 +85,59 @@ public class Eos extends Wallet {
 
         pubKeyData = ByteUtil.concat(pubKeyData, checksumBytes);
         String eosPK = "EOS" + Base58.encode(pubKeyData);
-        return eosPK;
+        return eosPK;*/
     }
 
     public String displayPubKey(String path) {
+
+        String eosPK = null;
+
+        try {
+
+            api.Api.AddressParam addressParam = api.Api.AddressParam.newBuilder()
+                    .setChainType("EOS")
+                    .setPath(path)
+                    .build();
+
+            Any any2 = Any.newBuilder()
+                    .setValue(addressParam.toByteString())
+                    .build();
+
+            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                    .setMethod("register_coin")
+                    .setParam(any2)
+                    .build();
+            String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+            // clear_err
+            RustApi.INSTANCE.clear_err();
+
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+            String error = RustApi.INSTANCE.get_last_err_message();
+            if(!"".equals(error) && null != error) {
+                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Boolean isSuccess = errorResponse.getIsSuccess();
+                if(!isSuccess) {
+                    LogUtil.d("异常： " + errorResponse.getError());
+
+                }
+            } else {
+                eosapi.Eos.EosPubkeyResponse response = eosapi.Eos.EosPubkeyResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+                eosPK = response.getPubkey();
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                LogUtil.d("eosPK：" + eosPK);
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+
+            }
+
+        } catch (Exception e) {
+            LogUtil.d("异常：" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return eosPK;
+        /*
         // path校验
         Path.checkPath(path);
 
@@ -44,7 +147,7 @@ public class Eos extends Wallet {
         String res = sendApdu(apduCoinReg);
         Apdu.checkResponse(res);
 
-        return eosPK;
+        return eosPK;*/
     }
 
     @Override

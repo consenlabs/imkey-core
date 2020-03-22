@@ -37,6 +37,9 @@ void protobuf_InitDefaults_eth_2eproto();
 void protobuf_AssignDesc_eth_2eproto();
 void protobuf_ShutdownFile_eth_2eproto();
 
+class EthAddressResponse;
+class EthPersonalSignInput;
+class EthPersonalSignOutput;
 class EthTxInput;
 class EthTxOutput;
 
@@ -160,22 +163,27 @@ class EthTxInput : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::std::string* release_value();
   void set_allocated_value(::std::string* value);
 
-  // optional bytes data = 6;
+  // optional string data = 6;
   void clear_data();
   static const int kDataFieldNumber = 6;
   const ::std::string& data() const;
   void set_data(const ::std::string& value);
   void set_data(const char* value);
-  void set_data(const void* value, size_t size);
+  void set_data(const char* value, size_t size);
   ::std::string* mutable_data();
   ::std::string* release_data();
   void set_allocated_data(::std::string* data);
 
-  // optional uint64 chain_id = 7;
+  // optional string chain_id = 7;
   void clear_chain_id();
   static const int kChainIdFieldNumber = 7;
-  ::google::protobuf::uint64 chain_id() const;
-  void set_chain_id(::google::protobuf::uint64 value);
+  const ::std::string& chain_id() const;
+  void set_chain_id(const ::std::string& value);
+  void set_chain_id(const char* value);
+  void set_chain_id(const char* value, size_t size);
+  ::std::string* mutable_chain_id();
+  ::std::string* release_chain_id();
+  void set_allocated_chain_id(::std::string* chain_id);
 
   // optional string path = 8;
   void clear_path();
@@ -232,17 +240,6 @@ class EthTxInput : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::std::string* release_fee();
   void set_allocated_fee(::std::string* fee);
 
-  // optional string rawData = 13;
-  void clear_rawdata();
-  static const int kRawDataFieldNumber = 13;
-  const ::std::string& rawdata() const;
-  void set_rawdata(const ::std::string& value);
-  void set_rawdata(const char* value);
-  void set_rawdata(const char* value, size_t size);
-  ::std::string* mutable_rawdata();
-  ::std::string* release_rawdata();
-  void set_allocated_rawdata(::std::string* rawdata);
-
   // @@protoc_insertion_point(class_scope:ethapi.EthTxInput)
  private:
 
@@ -253,13 +250,12 @@ class EthTxInput : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::google::protobuf::internal::ArenaStringPtr to_;
   ::google::protobuf::internal::ArenaStringPtr value_;
   ::google::protobuf::internal::ArenaStringPtr data_;
+  ::google::protobuf::internal::ArenaStringPtr chain_id_;
   ::google::protobuf::internal::ArenaStringPtr path_;
   ::google::protobuf::internal::ArenaStringPtr payment_;
   ::google::protobuf::internal::ArenaStringPtr receiver_;
   ::google::protobuf::internal::ArenaStringPtr sender_;
   ::google::protobuf::internal::ArenaStringPtr fee_;
-  ::google::protobuf::internal::ArenaStringPtr rawdata_;
-  ::google::protobuf::uint64 chain_id_;
   mutable int _cached_size_;
   friend void  protobuf_InitDefaults_eth_2eproto_impl();
   friend void  protobuf_AddDesc_eth_2eproto_impl();
@@ -372,6 +368,303 @@ class EthTxOutput : public ::google::protobuf::Message /* @@protoc_insertion_poi
   void InitAsDefaultInstance();
 };
 extern ::google::protobuf::internal::ExplicitlyConstructed<EthTxOutput> EthTxOutput_default_instance_;
+
+// -------------------------------------------------------------------
+
+class EthAddressResponse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ethapi.EthAddressResponse) */ {
+ public:
+  EthAddressResponse();
+  virtual ~EthAddressResponse();
+
+  EthAddressResponse(const EthAddressResponse& from);
+
+  inline EthAddressResponse& operator=(const EthAddressResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const EthAddressResponse& default_instance();
+
+  static const EthAddressResponse* internal_default_instance();
+
+  void Swap(EthAddressResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  inline EthAddressResponse* New() const { return New(NULL); }
+
+  EthAddressResponse* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const EthAddressResponse& from);
+  void MergeFrom(const EthAddressResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(EthAddressResponse* other);
+  void UnsafeMergeFrom(const EthAddressResponse& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string address = 1;
+  void clear_address();
+  static const int kAddressFieldNumber = 1;
+  const ::std::string& address() const;
+  void set_address(const ::std::string& value);
+  void set_address(const char* value);
+  void set_address(const char* value, size_t size);
+  ::std::string* mutable_address();
+  ::std::string* release_address();
+  void set_allocated_address(::std::string* address);
+
+  // @@protoc_insertion_point(class_scope:ethapi.EthAddressResponse)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr address_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_eth_2eproto_impl();
+  friend void  protobuf_AddDesc_eth_2eproto_impl();
+  friend void protobuf_AssignDesc_eth_2eproto();
+  friend void protobuf_ShutdownFile_eth_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<EthAddressResponse> EthAddressResponse_default_instance_;
+
+// -------------------------------------------------------------------
+
+class EthPersonalSignInput : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ethapi.EthPersonalSignInput) */ {
+ public:
+  EthPersonalSignInput();
+  virtual ~EthPersonalSignInput();
+
+  EthPersonalSignInput(const EthPersonalSignInput& from);
+
+  inline EthPersonalSignInput& operator=(const EthPersonalSignInput& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const EthPersonalSignInput& default_instance();
+
+  static const EthPersonalSignInput* internal_default_instance();
+
+  void Swap(EthPersonalSignInput* other);
+
+  // implements Message ----------------------------------------------
+
+  inline EthPersonalSignInput* New() const { return New(NULL); }
+
+  EthPersonalSignInput* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const EthPersonalSignInput& from);
+  void MergeFrom(const EthPersonalSignInput& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(EthPersonalSignInput* other);
+  void UnsafeMergeFrom(const EthPersonalSignInput& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string path = 1;
+  void clear_path();
+  static const int kPathFieldNumber = 1;
+  const ::std::string& path() const;
+  void set_path(const ::std::string& value);
+  void set_path(const char* value);
+  void set_path(const char* value, size_t size);
+  ::std::string* mutable_path();
+  ::std::string* release_path();
+  void set_allocated_path(::std::string* path);
+
+  // optional string message = 2;
+  void clear_message();
+  static const int kMessageFieldNumber = 2;
+  const ::std::string& message() const;
+  void set_message(const ::std::string& value);
+  void set_message(const char* value);
+  void set_message(const char* value, size_t size);
+  ::std::string* mutable_message();
+  ::std::string* release_message();
+  void set_allocated_message(::std::string* message);
+
+  // optional string sender = 3;
+  void clear_sender();
+  static const int kSenderFieldNumber = 3;
+  const ::std::string& sender() const;
+  void set_sender(const ::std::string& value);
+  void set_sender(const char* value);
+  void set_sender(const char* value, size_t size);
+  ::std::string* mutable_sender();
+  ::std::string* release_sender();
+  void set_allocated_sender(::std::string* sender);
+
+  // @@protoc_insertion_point(class_scope:ethapi.EthPersonalSignInput)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr path_;
+  ::google::protobuf::internal::ArenaStringPtr message_;
+  ::google::protobuf::internal::ArenaStringPtr sender_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_eth_2eproto_impl();
+  friend void  protobuf_AddDesc_eth_2eproto_impl();
+  friend void protobuf_AssignDesc_eth_2eproto();
+  friend void protobuf_ShutdownFile_eth_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<EthPersonalSignInput> EthPersonalSignInput_default_instance_;
+
+// -------------------------------------------------------------------
+
+class EthPersonalSignOutput : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ethapi.EthPersonalSignOutput) */ {
+ public:
+  EthPersonalSignOutput();
+  virtual ~EthPersonalSignOutput();
+
+  EthPersonalSignOutput(const EthPersonalSignOutput& from);
+
+  inline EthPersonalSignOutput& operator=(const EthPersonalSignOutput& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const EthPersonalSignOutput& default_instance();
+
+  static const EthPersonalSignOutput* internal_default_instance();
+
+  void Swap(EthPersonalSignOutput* other);
+
+  // implements Message ----------------------------------------------
+
+  inline EthPersonalSignOutput* New() const { return New(NULL); }
+
+  EthPersonalSignOutput* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const EthPersonalSignOutput& from);
+  void MergeFrom(const EthPersonalSignOutput& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(EthPersonalSignOutput* other);
+  void UnsafeMergeFrom(const EthPersonalSignOutput& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string signature = 1;
+  void clear_signature();
+  static const int kSignatureFieldNumber = 1;
+  const ::std::string& signature() const;
+  void set_signature(const ::std::string& value);
+  void set_signature(const char* value);
+  void set_signature(const char* value, size_t size);
+  ::std::string* mutable_signature();
+  ::std::string* release_signature();
+  void set_allocated_signature(::std::string* signature);
+
+  // @@protoc_insertion_point(class_scope:ethapi.EthPersonalSignOutput)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr signature_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_eth_2eproto_impl();
+  friend void  protobuf_AddDesc_eth_2eproto_impl();
+  friend void protobuf_AssignDesc_eth_2eproto();
+  friend void protobuf_ShutdownFile_eth_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<EthPersonalSignOutput> EthPersonalSignOutput_default_instance_;
 
 // ===================================================================
 
@@ -601,7 +894,7 @@ inline void EthTxInput::set_allocated_value(::std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.value)
 }
 
-// optional bytes data = 6;
+// optional string data = 6;
 inline void EthTxInput::clear_data() {
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -619,7 +912,7 @@ inline void EthTxInput::set_data(const char* value) {
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:ethapi.EthTxInput.data)
 }
-inline void EthTxInput::set_data(const void* value, size_t size) {
+inline void EthTxInput::set_data(const char* value, size_t size) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
@@ -645,18 +938,48 @@ inline void EthTxInput::set_allocated_data(::std::string* data) {
   // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.data)
 }
 
-// optional uint64 chain_id = 7;
+// optional string chain_id = 7;
 inline void EthTxInput::clear_chain_id() {
-  chain_id_ = GOOGLE_ULONGLONG(0);
+  chain_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::google::protobuf::uint64 EthTxInput::chain_id() const {
+inline const ::std::string& EthTxInput::chain_id() const {
   // @@protoc_insertion_point(field_get:ethapi.EthTxInput.chain_id)
-  return chain_id_;
+  return chain_id_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void EthTxInput::set_chain_id(::google::protobuf::uint64 value) {
+inline void EthTxInput::set_chain_id(const ::std::string& value) {
   
-  chain_id_ = value;
+  chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:ethapi.EthTxInput.chain_id)
+}
+inline void EthTxInput::set_chain_id(const char* value) {
+  
+  chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ethapi.EthTxInput.chain_id)
+}
+inline void EthTxInput::set_chain_id(const char* value, size_t size) {
+  
+  chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxInput.chain_id)
+}
+inline ::std::string* EthTxInput::mutable_chain_id() {
+  
+  // @@protoc_insertion_point(field_mutable:ethapi.EthTxInput.chain_id)
+  return chain_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EthTxInput::release_chain_id() {
+  // @@protoc_insertion_point(field_release:ethapi.EthTxInput.chain_id)
+  
+  return chain_id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthTxInput::set_allocated_chain_id(::std::string* chain_id) {
+  if (chain_id != NULL) {
+    
+  } else {
+    
+  }
+  chain_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chain_id);
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.chain_id)
 }
 
 // optional string path = 8;
@@ -879,50 +1202,6 @@ inline void EthTxInput::set_allocated_fee(::std::string* fee) {
   // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.fee)
 }
 
-// optional string rawData = 13;
-inline void EthTxInput::clear_rawdata() {
-  rawdata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& EthTxInput::rawdata() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxInput.rawData)
-  return rawdata_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void EthTxInput::set_rawdata(const ::std::string& value) {
-  
-  rawdata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxInput.rawData)
-}
-inline void EthTxInput::set_rawdata(const char* value) {
-  
-  rawdata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxInput.rawData)
-}
-inline void EthTxInput::set_rawdata(const char* value, size_t size) {
-  
-  rawdata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxInput.rawData)
-}
-inline ::std::string* EthTxInput::mutable_rawdata() {
-  
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxInput.rawData)
-  return rawdata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* EthTxInput::release_rawdata() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxInput.rawData)
-  
-  return rawdata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void EthTxInput::set_allocated_rawdata(::std::string* rawdata) {
-  if (rawdata != NULL) {
-    
-  } else {
-    
-  }
-  rawdata_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), rawdata);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.rawData)
-}
-
 inline const EthTxInput* EthTxInput::internal_default_instance() {
   return &EthTxInput_default_instance_.get();
 }
@@ -1021,7 +1300,254 @@ inline void EthTxOutput::set_allocated_txhash(::std::string* txhash) {
 inline const EthTxOutput* EthTxOutput::internal_default_instance() {
   return &EthTxOutput_default_instance_.get();
 }
+// -------------------------------------------------------------------
+
+// EthAddressResponse
+
+// optional string address = 1;
+inline void EthAddressResponse::clear_address() {
+  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EthAddressResponse::address() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthAddressResponse.address)
+  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthAddressResponse::set_address(const ::std::string& value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ethapi.EthAddressResponse.address)
+}
+inline void EthAddressResponse::set_address(const char* value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ethapi.EthAddressResponse.address)
+}
+inline void EthAddressResponse::set_address(const char* value, size_t size) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthAddressResponse.address)
+}
+inline ::std::string* EthAddressResponse::mutable_address() {
+  
+  // @@protoc_insertion_point(field_mutable:ethapi.EthAddressResponse.address)
+  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EthAddressResponse::release_address() {
+  // @@protoc_insertion_point(field_release:ethapi.EthAddressResponse.address)
+  
+  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthAddressResponse::set_allocated_address(::std::string* address) {
+  if (address != NULL) {
+    
+  } else {
+    
+  }
+  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthAddressResponse.address)
+}
+
+inline const EthAddressResponse* EthAddressResponse::internal_default_instance() {
+  return &EthAddressResponse_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// EthPersonalSignInput
+
+// optional string path = 1;
+inline void EthPersonalSignInput::clear_path() {
+  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EthPersonalSignInput::path() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthPersonalSignInput.path)
+  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthPersonalSignInput::set_path(const ::std::string& value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ethapi.EthPersonalSignInput.path)
+}
+inline void EthPersonalSignInput::set_path(const char* value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ethapi.EthPersonalSignInput.path)
+}
+inline void EthPersonalSignInput::set_path(const char* value, size_t size) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthPersonalSignInput.path)
+}
+inline ::std::string* EthPersonalSignInput::mutable_path() {
+  
+  // @@protoc_insertion_point(field_mutable:ethapi.EthPersonalSignInput.path)
+  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EthPersonalSignInput::release_path() {
+  // @@protoc_insertion_point(field_release:ethapi.EthPersonalSignInput.path)
+  
+  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthPersonalSignInput::set_allocated_path(::std::string* path) {
+  if (path != NULL) {
+    
+  } else {
+    
+  }
+  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthPersonalSignInput.path)
+}
+
+// optional string message = 2;
+inline void EthPersonalSignInput::clear_message() {
+  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EthPersonalSignInput::message() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthPersonalSignInput.message)
+  return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthPersonalSignInput::set_message(const ::std::string& value) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ethapi.EthPersonalSignInput.message)
+}
+inline void EthPersonalSignInput::set_message(const char* value) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ethapi.EthPersonalSignInput.message)
+}
+inline void EthPersonalSignInput::set_message(const char* value, size_t size) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthPersonalSignInput.message)
+}
+inline ::std::string* EthPersonalSignInput::mutable_message() {
+  
+  // @@protoc_insertion_point(field_mutable:ethapi.EthPersonalSignInput.message)
+  return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EthPersonalSignInput::release_message() {
+  // @@protoc_insertion_point(field_release:ethapi.EthPersonalSignInput.message)
+  
+  return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthPersonalSignInput::set_allocated_message(::std::string* message) {
+  if (message != NULL) {
+    
+  } else {
+    
+  }
+  message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthPersonalSignInput.message)
+}
+
+// optional string sender = 3;
+inline void EthPersonalSignInput::clear_sender() {
+  sender_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EthPersonalSignInput::sender() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthPersonalSignInput.sender)
+  return sender_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthPersonalSignInput::set_sender(const ::std::string& value) {
+  
+  sender_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ethapi.EthPersonalSignInput.sender)
+}
+inline void EthPersonalSignInput::set_sender(const char* value) {
+  
+  sender_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ethapi.EthPersonalSignInput.sender)
+}
+inline void EthPersonalSignInput::set_sender(const char* value, size_t size) {
+  
+  sender_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthPersonalSignInput.sender)
+}
+inline ::std::string* EthPersonalSignInput::mutable_sender() {
+  
+  // @@protoc_insertion_point(field_mutable:ethapi.EthPersonalSignInput.sender)
+  return sender_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EthPersonalSignInput::release_sender() {
+  // @@protoc_insertion_point(field_release:ethapi.EthPersonalSignInput.sender)
+  
+  return sender_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthPersonalSignInput::set_allocated_sender(::std::string* sender) {
+  if (sender != NULL) {
+    
+  } else {
+    
+  }
+  sender_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sender);
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthPersonalSignInput.sender)
+}
+
+inline const EthPersonalSignInput* EthPersonalSignInput::internal_default_instance() {
+  return &EthPersonalSignInput_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// EthPersonalSignOutput
+
+// optional string signature = 1;
+inline void EthPersonalSignOutput::clear_signature() {
+  signature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EthPersonalSignOutput::signature() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthPersonalSignOutput.signature)
+  return signature_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthPersonalSignOutput::set_signature(const ::std::string& value) {
+  
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ethapi.EthPersonalSignOutput.signature)
+}
+inline void EthPersonalSignOutput::set_signature(const char* value) {
+  
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ethapi.EthPersonalSignOutput.signature)
+}
+inline void EthPersonalSignOutput::set_signature(const char* value, size_t size) {
+  
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthPersonalSignOutput.signature)
+}
+inline ::std::string* EthPersonalSignOutput::mutable_signature() {
+  
+  // @@protoc_insertion_point(field_mutable:ethapi.EthPersonalSignOutput.signature)
+  return signature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EthPersonalSignOutput::release_signature() {
+  // @@protoc_insertion_point(field_release:ethapi.EthPersonalSignOutput.signature)
+  
+  return signature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthPersonalSignOutput::set_allocated_signature(::std::string* signature) {
+  if (signature != NULL) {
+    
+  } else {
+    
+  }
+  signature_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), signature);
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthPersonalSignOutput.signature)
+}
+
+inline const EthPersonalSignOutput* EthPersonalSignOutput::internal_default_instance() {
+  return &EthPersonalSignOutput_default_instance_.get();
+}
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

@@ -36,6 +36,12 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* EosPubkeyResponse_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   EosPubkeyResponse_reflection_ = NULL;
+const ::google::protobuf::Descriptor* EosMessageInput_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  EosMessageInput_reflection_ = NULL;
+const ::google::protobuf::Descriptor* EosMessageOutput_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  EosMessageOutput_reflection_ = NULL;
 
 }  // namespace
 
@@ -49,7 +55,7 @@ void protobuf_AssignDesc_eos_2eproto() {
   GOOGLE_CHECK(file != NULL);
   EosSignData_descriptor_ = file->message_type(0);
   static const int EosSignData_offsets_[6] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EosSignData, tx_hash_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EosSignData, tx_data_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EosSignData, pub_keys_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EosSignData, chain_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EosSignData, to_),
@@ -124,6 +130,37 @@ void protobuf_AssignDesc_eos_2eproto() {
       -1,
       sizeof(EosPubkeyResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EosPubkeyResponse, _internal_metadata_));
+  EosMessageInput_descriptor_ = file->message_type(5);
+  static const int EosMessageInput_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EosMessageInput, path_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EosMessageInput, data_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EosMessageInput, is_hex_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EosMessageInput, pubkey_),
+  };
+  EosMessageInput_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      EosMessageInput_descriptor_,
+      EosMessageInput::internal_default_instance(),
+      EosMessageInput_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(EosMessageInput),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EosMessageInput, _internal_metadata_));
+  EosMessageOutput_descriptor_ = file->message_type(6);
+  static const int EosMessageOutput_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EosMessageOutput, signature_),
+  };
+  EosMessageOutput_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      EosMessageOutput_descriptor_,
+      EosMessageOutput::internal_default_instance(),
+      EosMessageOutput_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(EosMessageOutput),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EosMessageOutput, _internal_metadata_));
 }
 
 namespace {
@@ -147,6 +184,10 @@ void protobuf_RegisterTypes(const ::std::string&) {
       EosPubkey_descriptor_, EosPubkey::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       EosPubkeyResponse_descriptor_, EosPubkeyResponse::internal_default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      EosMessageInput_descriptor_, EosMessageInput::internal_default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      EosMessageOutput_descriptor_, EosMessageOutput::internal_default_instance());
 }
 
 }  // namespace
@@ -162,6 +203,10 @@ void protobuf_ShutdownFile_eos_2eproto() {
   delete EosPubkey_reflection_;
   EosPubkeyResponse_default_instance_.Shutdown();
   delete EosPubkeyResponse_reflection_;
+  EosMessageInput_default_instance_.Shutdown();
+  delete EosMessageInput_reflection_;
+  EosMessageOutput_default_instance_.Shutdown();
+  delete EosMessageOutput_reflection_;
 }
 
 void protobuf_InitDefaults_eos_2eproto_impl() {
@@ -177,11 +222,17 @@ void protobuf_InitDefaults_eos_2eproto_impl() {
   EosPubkey_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
   EosPubkeyResponse_default_instance_.DefaultConstruct();
+  ::google::protobuf::internal::GetEmptyString();
+  EosMessageInput_default_instance_.DefaultConstruct();
+  ::google::protobuf::internal::GetEmptyString();
+  EosMessageOutput_default_instance_.DefaultConstruct();
   EosSignData_default_instance_.get_mutable()->InitAsDefaultInstance();
   EosTxInput_default_instance_.get_mutable()->InitAsDefaultInstance();
   EosTxOutput_default_instance_.get_mutable()->InitAsDefaultInstance();
   EosPubkey_default_instance_.get_mutable()->InitAsDefaultInstance();
   EosPubkeyResponse_default_instance_.get_mutable()->InitAsDefaultInstance();
+  EosMessageInput_default_instance_.get_mutable()->InitAsDefaultInstance();
+  EosMessageOutput_default_instance_.get_mutable()->InitAsDefaultInstance();
 }
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_eos_2eproto_once_);
@@ -195,13 +246,16 @@ void protobuf_AddDesc_eos_2eproto_impl() {
   protobuf_InitDefaults_eos_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\teos.proto\022\006eosapi\"m\n\013EosSignData\022\017\n\007tx"
-    "_hash\030\001 \001(\t\022\020\n\010pub_keys\030\002 \003(\t\022\020\n\010chain_i"
+    "_data\030\001 \001(\t\022\020\n\010pub_keys\030\002 \003(\t\022\020\n\010chain_i"
     "d\030\003 \001(\t\022\n\n\002to\030\004 \001(\t\022\014\n\004from\030\005 \001(\t\022\017\n\007pay"
     "ment\030\006 \001(\t\"C\n\nEosTxInput\022\014\n\004path\030\001 \001(\t\022\'"
     "\n\nsign_datas\030\002 \003(\0132\023.eosapi.EosSignData\""
     "*\n\013EosTxOutput\022\014\n\004hash\030\001 \001(\t\022\r\n\005signs\030\002 "
     "\003(\t\"\031\n\tEosPubkey\022\014\n\004path\030\001 \001(\t\"#\n\021EosPub"
-    "keyResponse\022\016\n\006pubkey\030\001 \001(\tb\006proto3", 315);
+    "keyResponse\022\016\n\006pubkey\030\001 \001(\t\"M\n\017EosMessag"
+    "eInput\022\014\n\004path\030\001 \001(\t\022\014\n\004data\030\002 \001(\t\022\016\n\006is"
+    "_hex\030\003 \001(\010\022\016\n\006pubkey\030\004 \001(\t\"%\n\020EosMessage"
+    "Output\022\021\n\tsignature\030\001 \001(\tb\006proto3", 433);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "eos.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_eos_2eproto);
@@ -232,7 +286,7 @@ static void MergeFromFail(int line) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int EosSignData::kTxHashFieldNumber;
+const int EosSignData::kTxDataFieldNumber;
 const int EosSignData::kPubKeysFieldNumber;
 const int EosSignData::kChainIdFieldNumber;
 const int EosSignData::kToFieldNumber;
@@ -259,7 +313,7 @@ EosSignData::EosSignData(const EosSignData& from)
 }
 
 void EosSignData::SharedCtor() {
-  tx_hash_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  tx_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   chain_id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   to_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   from_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -273,7 +327,7 @@ EosSignData::~EosSignData() {
 }
 
 void EosSignData::SharedDtor() {
-  tx_hash_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  tx_data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   chain_id_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   to_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   from_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -307,7 +361,7 @@ EosSignData* EosSignData::New(::google::protobuf::Arena* arena) const {
 
 void EosSignData::Clear() {
 // @@protoc_insertion_point(message_clear_start:eosapi.EosSignData)
-  tx_hash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  tx_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   chain_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   to_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   from_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -325,15 +379,15 @@ bool EosSignData::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string tx_hash = 1;
+      // optional string tx_data = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_tx_hash()));
+                input, this->mutable_tx_data()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->tx_hash().data(), this->tx_hash().length(),
+            this->tx_data().data(), this->tx_data().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "eosapi.EosSignData.tx_hash"));
+            "eosapi.EosSignData.tx_data"));
         } else {
           goto handle_unusual;
         }
@@ -452,14 +506,14 @@ failure:
 void EosSignData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:eosapi.EosSignData)
-  // optional string tx_hash = 1;
-  if (this->tx_hash().size() > 0) {
+  // optional string tx_data = 1;
+  if (this->tx_data().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->tx_hash().data(), this->tx_hash().length(),
+      this->tx_data().data(), this->tx_data().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "eosapi.EosSignData.tx_hash");
+      "eosapi.EosSignData.tx_data");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->tx_hash(), output);
+      1, this->tx_data(), output);
   }
 
   // repeated string pub_keys = 2;
@@ -519,15 +573,15 @@ void EosSignData::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:eosapi.EosSignData)
-  // optional string tx_hash = 1;
-  if (this->tx_hash().size() > 0) {
+  // optional string tx_data = 1;
+  if (this->tx_data().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->tx_hash().data(), this->tx_hash().length(),
+      this->tx_data().data(), this->tx_data().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "eosapi.EosSignData.tx_hash");
+      "eosapi.EosSignData.tx_data");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->tx_hash(), target);
+        1, this->tx_data(), target);
   }
 
   // repeated string pub_keys = 2;
@@ -592,11 +646,11 @@ size_t EosSignData::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:eosapi.EosSignData)
   size_t total_size = 0;
 
-  // optional string tx_hash = 1;
-  if (this->tx_hash().size() > 0) {
+  // optional string tx_data = 1;
+  if (this->tx_data().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->tx_hash());
+        this->tx_data());
   }
 
   // optional string chain_id = 3;
@@ -669,9 +723,9 @@ void EosSignData::MergeFrom(const EosSignData& from) {
 void EosSignData::UnsafeMergeFrom(const EosSignData& from) {
   GOOGLE_DCHECK(&from != this);
   pub_keys_.UnsafeMergeFrom(from.pub_keys_);
-  if (from.tx_hash().size() > 0) {
+  if (from.tx_data().size() > 0) {
 
-    tx_hash_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.tx_hash_);
+    tx_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.tx_data_);
   }
   if (from.chain_id().size() > 0) {
 
@@ -715,7 +769,7 @@ void EosSignData::Swap(EosSignData* other) {
   InternalSwap(other);
 }
 void EosSignData::InternalSwap(EosSignData* other) {
-  tx_hash_.Swap(&other->tx_hash_);
+  tx_data_.Swap(&other->tx_data_);
   pub_keys_.UnsafeArenaSwap(&other->pub_keys_);
   chain_id_.Swap(&other->chain_id_);
   to_.Swap(&other->to_);
@@ -736,48 +790,48 @@ void EosSignData::InternalSwap(EosSignData* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // EosSignData
 
-// optional string tx_hash = 1;
-void EosSignData::clear_tx_hash() {
-  tx_hash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string tx_data = 1;
+void EosSignData::clear_tx_data() {
+  tx_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& EosSignData::tx_hash() const {
-  // @@protoc_insertion_point(field_get:eosapi.EosSignData.tx_hash)
-  return tx_hash_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+const ::std::string& EosSignData::tx_data() const {
+  // @@protoc_insertion_point(field_get:eosapi.EosSignData.tx_data)
+  return tx_data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EosSignData::set_tx_hash(const ::std::string& value) {
+void EosSignData::set_tx_data(const ::std::string& value) {
   
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:eosapi.EosSignData.tx_hash)
+  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:eosapi.EosSignData.tx_data)
 }
-void EosSignData::set_tx_hash(const char* value) {
+void EosSignData::set_tx_data(const char* value) {
   
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:eosapi.EosSignData.tx_hash)
+  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:eosapi.EosSignData.tx_data)
 }
-void EosSignData::set_tx_hash(const char* value, size_t size) {
+void EosSignData::set_tx_data(const char* value, size_t size) {
   
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:eosapi.EosSignData.tx_hash)
+  // @@protoc_insertion_point(field_set_pointer:eosapi.EosSignData.tx_data)
 }
-::std::string* EosSignData::mutable_tx_hash() {
+::std::string* EosSignData::mutable_tx_data() {
   
-  // @@protoc_insertion_point(field_mutable:eosapi.EosSignData.tx_hash)
-  return tx_hash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:eosapi.EosSignData.tx_data)
+  return tx_data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* EosSignData::release_tx_hash() {
-  // @@protoc_insertion_point(field_release:eosapi.EosSignData.tx_hash)
+::std::string* EosSignData::release_tx_data() {
+  // @@protoc_insertion_point(field_release:eosapi.EosSignData.tx_data)
   
-  return tx_hash_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return tx_data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EosSignData::set_allocated_tx_hash(::std::string* tx_hash) {
-  if (tx_hash != NULL) {
+void EosSignData::set_allocated_tx_data(::std::string* tx_data) {
+  if (tx_data != NULL) {
     
   } else {
     
   }
-  tx_hash_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tx_hash);
-  // @@protoc_insertion_point(field_set_allocated:eosapi.EosSignData.tx_hash)
+  tx_data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tx_data);
+  // @@protoc_insertion_point(field_set_allocated:eosapi.EosSignData.tx_data)
 }
 
 // repeated string pub_keys = 2;
@@ -2350,6 +2404,831 @@ void EosPubkeyResponse::set_allocated_pubkey(::std::string* pubkey) {
 
 inline const EosPubkeyResponse* EosPubkeyResponse::internal_default_instance() {
   return &EosPubkeyResponse_default_instance_.get();
+}
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int EosMessageInput::kPathFieldNumber;
+const int EosMessageInput::kDataFieldNumber;
+const int EosMessageInput::kIsHexFieldNumber;
+const int EosMessageInput::kPubkeyFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+EosMessageInput::EosMessageInput()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_eos_2eproto();
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:eosapi.EosMessageInput)
+}
+
+void EosMessageInput::InitAsDefaultInstance() {
+}
+
+EosMessageInput::EosMessageInput(const EosMessageInput& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  UnsafeMergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:eosapi.EosMessageInput)
+}
+
+void EosMessageInput::SharedCtor() {
+  path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  pubkey_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  is_hex_ = false;
+  _cached_size_ = 0;
+}
+
+EosMessageInput::~EosMessageInput() {
+  // @@protoc_insertion_point(destructor:eosapi.EosMessageInput)
+  SharedDtor();
+}
+
+void EosMessageInput::SharedDtor() {
+  path_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  pubkey_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void EosMessageInput::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* EosMessageInput::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return EosMessageInput_descriptor_;
+}
+
+const EosMessageInput& EosMessageInput::default_instance() {
+  protobuf_InitDefaults_eos_2eproto();
+  return *internal_default_instance();
+}
+
+::google::protobuf::internal::ExplicitlyConstructed<EosMessageInput> EosMessageInput_default_instance_;
+
+EosMessageInput* EosMessageInput::New(::google::protobuf::Arena* arena) const {
+  EosMessageInput* n = new EosMessageInput;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void EosMessageInput::Clear() {
+// @@protoc_insertion_point(message_clear_start:eosapi.EosMessageInput)
+  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  is_hex_ = false;
+  pubkey_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool EosMessageInput::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:eosapi.EosMessageInput)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string path = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_path()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->path().data(), this->path().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "eosapi.EosMessageInput.path"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_data;
+        break;
+      }
+
+      // optional string data = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_data:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_data()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->data().data(), this->data().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "eosapi.EosMessageInput.data"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_is_hex;
+        break;
+      }
+
+      // optional bool is_hex = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_is_hex:
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &is_hex_)));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_pubkey;
+        break;
+      }
+
+      // optional string pubkey = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_pubkey:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_pubkey()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->pubkey().data(), this->pubkey().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "eosapi.EosMessageInput.pubkey"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:eosapi.EosMessageInput)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:eosapi.EosMessageInput)
+  return false;
+#undef DO_
+}
+
+void EosMessageInput::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:eosapi.EosMessageInput)
+  // optional string path = 1;
+  if (this->path().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->path().data(), this->path().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "eosapi.EosMessageInput.path");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->path(), output);
+  }
+
+  // optional string data = 2;
+  if (this->data().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->data().data(), this->data().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "eosapi.EosMessageInput.data");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->data(), output);
+  }
+
+  // optional bool is_hex = 3;
+  if (this->is_hex() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->is_hex(), output);
+  }
+
+  // optional string pubkey = 4;
+  if (this->pubkey().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->pubkey().data(), this->pubkey().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "eosapi.EosMessageInput.pubkey");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->pubkey(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:eosapi.EosMessageInput)
+}
+
+::google::protobuf::uint8* EosMessageInput::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:eosapi.EosMessageInput)
+  // optional string path = 1;
+  if (this->path().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->path().data(), this->path().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "eosapi.EosMessageInput.path");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->path(), target);
+  }
+
+  // optional string data = 2;
+  if (this->data().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->data().data(), this->data().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "eosapi.EosMessageInput.data");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->data(), target);
+  }
+
+  // optional bool is_hex = 3;
+  if (this->is_hex() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->is_hex(), target);
+  }
+
+  // optional string pubkey = 4;
+  if (this->pubkey().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->pubkey().data(), this->pubkey().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "eosapi.EosMessageInput.pubkey");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->pubkey(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:eosapi.EosMessageInput)
+  return target;
+}
+
+size_t EosMessageInput::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:eosapi.EosMessageInput)
+  size_t total_size = 0;
+
+  // optional string path = 1;
+  if (this->path().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->path());
+  }
+
+  // optional string data = 2;
+  if (this->data().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->data());
+  }
+
+  // optional bool is_hex = 3;
+  if (this->is_hex() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // optional string pubkey = 4;
+  if (this->pubkey().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->pubkey());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void EosMessageInput::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:eosapi.EosMessageInput)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const EosMessageInput* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const EosMessageInput>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:eosapi.EosMessageInput)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:eosapi.EosMessageInput)
+    UnsafeMergeFrom(*source);
+  }
+}
+
+void EosMessageInput::MergeFrom(const EosMessageInput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:eosapi.EosMessageInput)
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void EosMessageInput::UnsafeMergeFrom(const EosMessageInput& from) {
+  GOOGLE_DCHECK(&from != this);
+  if (from.path().size() > 0) {
+
+    path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_);
+  }
+  if (from.data().size() > 0) {
+
+    data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.data_);
+  }
+  if (from.is_hex() != 0) {
+    set_is_hex(from.is_hex());
+  }
+  if (from.pubkey().size() > 0) {
+
+    pubkey_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.pubkey_);
+  }
+}
+
+void EosMessageInput::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:eosapi.EosMessageInput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void EosMessageInput::CopyFrom(const EosMessageInput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:eosapi.EosMessageInput)
+  if (&from == this) return;
+  Clear();
+  UnsafeMergeFrom(from);
+}
+
+bool EosMessageInput::IsInitialized() const {
+
+  return true;
+}
+
+void EosMessageInput::Swap(EosMessageInput* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void EosMessageInput::InternalSwap(EosMessageInput* other) {
+  path_.Swap(&other->path_);
+  data_.Swap(&other->data_);
+  std::swap(is_hex_, other->is_hex_);
+  pubkey_.Swap(&other->pubkey_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata EosMessageInput::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = EosMessageInput_descriptor_;
+  metadata.reflection = EosMessageInput_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// EosMessageInput
+
+// optional string path = 1;
+void EosMessageInput::clear_path() {
+  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& EosMessageInput::path() const {
+  // @@protoc_insertion_point(field_get:eosapi.EosMessageInput.path)
+  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EosMessageInput::set_path(const ::std::string& value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:eosapi.EosMessageInput.path)
+}
+void EosMessageInput::set_path(const char* value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:eosapi.EosMessageInput.path)
+}
+void EosMessageInput::set_path(const char* value, size_t size) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:eosapi.EosMessageInput.path)
+}
+::std::string* EosMessageInput::mutable_path() {
+  
+  // @@protoc_insertion_point(field_mutable:eosapi.EosMessageInput.path)
+  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* EosMessageInput::release_path() {
+  // @@protoc_insertion_point(field_release:eosapi.EosMessageInput.path)
+  
+  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EosMessageInput::set_allocated_path(::std::string* path) {
+  if (path != NULL) {
+    
+  } else {
+    
+  }
+  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
+  // @@protoc_insertion_point(field_set_allocated:eosapi.EosMessageInput.path)
+}
+
+// optional string data = 2;
+void EosMessageInput::clear_data() {
+  data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& EosMessageInput::data() const {
+  // @@protoc_insertion_point(field_get:eosapi.EosMessageInput.data)
+  return data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EosMessageInput::set_data(const ::std::string& value) {
+  
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:eosapi.EosMessageInput.data)
+}
+void EosMessageInput::set_data(const char* value) {
+  
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:eosapi.EosMessageInput.data)
+}
+void EosMessageInput::set_data(const char* value, size_t size) {
+  
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:eosapi.EosMessageInput.data)
+}
+::std::string* EosMessageInput::mutable_data() {
+  
+  // @@protoc_insertion_point(field_mutable:eosapi.EosMessageInput.data)
+  return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* EosMessageInput::release_data() {
+  // @@protoc_insertion_point(field_release:eosapi.EosMessageInput.data)
+  
+  return data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EosMessageInput::set_allocated_data(::std::string* data) {
+  if (data != NULL) {
+    
+  } else {
+    
+  }
+  data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), data);
+  // @@protoc_insertion_point(field_set_allocated:eosapi.EosMessageInput.data)
+}
+
+// optional bool is_hex = 3;
+void EosMessageInput::clear_is_hex() {
+  is_hex_ = false;
+}
+bool EosMessageInput::is_hex() const {
+  // @@protoc_insertion_point(field_get:eosapi.EosMessageInput.is_hex)
+  return is_hex_;
+}
+void EosMessageInput::set_is_hex(bool value) {
+  
+  is_hex_ = value;
+  // @@protoc_insertion_point(field_set:eosapi.EosMessageInput.is_hex)
+}
+
+// optional string pubkey = 4;
+void EosMessageInput::clear_pubkey() {
+  pubkey_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& EosMessageInput::pubkey() const {
+  // @@protoc_insertion_point(field_get:eosapi.EosMessageInput.pubkey)
+  return pubkey_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EosMessageInput::set_pubkey(const ::std::string& value) {
+  
+  pubkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:eosapi.EosMessageInput.pubkey)
+}
+void EosMessageInput::set_pubkey(const char* value) {
+  
+  pubkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:eosapi.EosMessageInput.pubkey)
+}
+void EosMessageInput::set_pubkey(const char* value, size_t size) {
+  
+  pubkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:eosapi.EosMessageInput.pubkey)
+}
+::std::string* EosMessageInput::mutable_pubkey() {
+  
+  // @@protoc_insertion_point(field_mutable:eosapi.EosMessageInput.pubkey)
+  return pubkey_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* EosMessageInput::release_pubkey() {
+  // @@protoc_insertion_point(field_release:eosapi.EosMessageInput.pubkey)
+  
+  return pubkey_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EosMessageInput::set_allocated_pubkey(::std::string* pubkey) {
+  if (pubkey != NULL) {
+    
+  } else {
+    
+  }
+  pubkey_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), pubkey);
+  // @@protoc_insertion_point(field_set_allocated:eosapi.EosMessageInput.pubkey)
+}
+
+inline const EosMessageInput* EosMessageInput::internal_default_instance() {
+  return &EosMessageInput_default_instance_.get();
+}
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int EosMessageOutput::kSignatureFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+EosMessageOutput::EosMessageOutput()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_eos_2eproto();
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:eosapi.EosMessageOutput)
+}
+
+void EosMessageOutput::InitAsDefaultInstance() {
+}
+
+EosMessageOutput::EosMessageOutput(const EosMessageOutput& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  UnsafeMergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:eosapi.EosMessageOutput)
+}
+
+void EosMessageOutput::SharedCtor() {
+  signature_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _cached_size_ = 0;
+}
+
+EosMessageOutput::~EosMessageOutput() {
+  // @@protoc_insertion_point(destructor:eosapi.EosMessageOutput)
+  SharedDtor();
+}
+
+void EosMessageOutput::SharedDtor() {
+  signature_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void EosMessageOutput::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* EosMessageOutput::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return EosMessageOutput_descriptor_;
+}
+
+const EosMessageOutput& EosMessageOutput::default_instance() {
+  protobuf_InitDefaults_eos_2eproto();
+  return *internal_default_instance();
+}
+
+::google::protobuf::internal::ExplicitlyConstructed<EosMessageOutput> EosMessageOutput_default_instance_;
+
+EosMessageOutput* EosMessageOutput::New(::google::protobuf::Arena* arena) const {
+  EosMessageOutput* n = new EosMessageOutput;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void EosMessageOutput::Clear() {
+// @@protoc_insertion_point(message_clear_start:eosapi.EosMessageOutput)
+  signature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool EosMessageOutput::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:eosapi.EosMessageOutput)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string signature = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_signature()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->signature().data(), this->signature().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "eosapi.EosMessageOutput.signature"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:eosapi.EosMessageOutput)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:eosapi.EosMessageOutput)
+  return false;
+#undef DO_
+}
+
+void EosMessageOutput::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:eosapi.EosMessageOutput)
+  // optional string signature = 1;
+  if (this->signature().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->signature().data(), this->signature().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "eosapi.EosMessageOutput.signature");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->signature(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:eosapi.EosMessageOutput)
+}
+
+::google::protobuf::uint8* EosMessageOutput::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:eosapi.EosMessageOutput)
+  // optional string signature = 1;
+  if (this->signature().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->signature().data(), this->signature().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "eosapi.EosMessageOutput.signature");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->signature(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:eosapi.EosMessageOutput)
+  return target;
+}
+
+size_t EosMessageOutput::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:eosapi.EosMessageOutput)
+  size_t total_size = 0;
+
+  // optional string signature = 1;
+  if (this->signature().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->signature());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void EosMessageOutput::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:eosapi.EosMessageOutput)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const EosMessageOutput* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const EosMessageOutput>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:eosapi.EosMessageOutput)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:eosapi.EosMessageOutput)
+    UnsafeMergeFrom(*source);
+  }
+}
+
+void EosMessageOutput::MergeFrom(const EosMessageOutput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:eosapi.EosMessageOutput)
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void EosMessageOutput::UnsafeMergeFrom(const EosMessageOutput& from) {
+  GOOGLE_DCHECK(&from != this);
+  if (from.signature().size() > 0) {
+
+    signature_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.signature_);
+  }
+}
+
+void EosMessageOutput::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:eosapi.EosMessageOutput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void EosMessageOutput::CopyFrom(const EosMessageOutput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:eosapi.EosMessageOutput)
+  if (&from == this) return;
+  Clear();
+  UnsafeMergeFrom(from);
+}
+
+bool EosMessageOutput::IsInitialized() const {
+
+  return true;
+}
+
+void EosMessageOutput::Swap(EosMessageOutput* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void EosMessageOutput::InternalSwap(EosMessageOutput* other) {
+  signature_.Swap(&other->signature_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata EosMessageOutput::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = EosMessageOutput_descriptor_;
+  metadata.reflection = EosMessageOutput_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// EosMessageOutput
+
+// optional string signature = 1;
+void EosMessageOutput::clear_signature() {
+  signature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& EosMessageOutput::signature() const {
+  // @@protoc_insertion_point(field_get:eosapi.EosMessageOutput.signature)
+  return signature_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EosMessageOutput::set_signature(const ::std::string& value) {
+  
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:eosapi.EosMessageOutput.signature)
+}
+void EosMessageOutput::set_signature(const char* value) {
+  
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:eosapi.EosMessageOutput.signature)
+}
+void EosMessageOutput::set_signature(const char* value, size_t size) {
+  
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:eosapi.EosMessageOutput.signature)
+}
+::std::string* EosMessageOutput::mutable_signature() {
+  
+  // @@protoc_insertion_point(field_mutable:eosapi.EosMessageOutput.signature)
+  return signature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* EosMessageOutput::release_signature() {
+  // @@protoc_insertion_point(field_release:eosapi.EosMessageOutput.signature)
+  
+  return signature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EosMessageOutput::set_allocated_signature(::std::string* signature) {
+  if (signature != NULL) {
+    
+  } else {
+    
+  }
+  signature_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), signature);
+  // @@protoc_insertion_point(field_set_allocated:eosapi.EosMessageOutput.signature)
+}
+
+inline const EosMessageOutput* EosMessageOutput::internal_default_instance() {
+  return &EosMessageOutput_default_instance_.get();
 }
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 

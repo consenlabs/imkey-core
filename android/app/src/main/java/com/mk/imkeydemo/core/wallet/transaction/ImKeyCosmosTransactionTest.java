@@ -12,15 +12,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.google.protobuf.Any;
 import com.mk.imkeydemo.utils.ResourcesManager;
 import com.mk.imkeylibrary.common.Messages;
 import com.mk.imkeylibrary.core.wallet.Path;
 import com.mk.imkeylibrary.core.wallet.transaction.ImKeyBitcoinTransaction;
 import com.mk.imkeylibrary.core.wallet.transaction.TransactionSignedResult;
+import com.mk.imkeylibrary.core.wallet.transaction.TxMultiSignResult;
 import com.mk.imkeylibrary.core.wallet.transaction.cosmos.Coin;
 import com.mk.imkeylibrary.core.wallet.transaction.cosmos.ImKeyCosmosTransaction;
 import com.mk.imkeylibrary.core.wallet.transaction.cosmos.StdFee;
 import com.mk.imkeylibrary.exception.ImkeyException;
+import com.mk.imkeylibrary.keycore.RustApi;
+import com.mk.imkeylibrary.utils.ByteUtil;
+import com.mk.imkeylibrary.utils.LogUtil;
+import com.mk.imkeylibrary.utils.NumericUtil;
 
 public class ImKeyCosmosTransactionTest {
 
@@ -160,6 +166,111 @@ public class ImKeyCosmosTransactionTest {
     }
 
     public static TransactionSignedResult testCosmosTxSign() {
+
+
+        List<TxMultiSignResult> signResults = new ArrayList<TxMultiSignResult>();
+
+        try {
+
+            /*Coin coin = new Coin("", 0);
+            StdFee stdFee = new StdFee(Collections.singletonList(coin), 21906);
+            HashMap<String, Object> arbMsg = new HashMap<>();
+
+            arbMsg = new HashMap<>();
+            arbMsg.put("delegator_address", "cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f");
+            arbMsg.put("validator_address", "cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp");
+            Map<String, Object> amount = new HashMap<>();
+            amount.put("denom", "atom");
+            amount.put("amount", "10");
+
+            arbMsg.put("amount", Collections.singletonList(amount));
+            Map<String, Object> msgMap = new HashMap<>();
+            msgMap.put("type", "cosmos-sdk/MsgDelegate");
+            msgMap.put("value", arbMsg);
+            ImKeyCosmosTransaction transaction = new ImKeyCosmosTransaction(1, "tendermint_test", stdFee, null, Collections.singletonList(msgMap), 0);
+
+            String to = "cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt";
+            String from = "cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992";
+            String payment = "0.001 ATOM";
+            String fee = "0.00075 atom";
+            TransactionSignedResult txSignResult = transaction.signTransaction("0", , null,to,from,fee);
+            return txSignResult;*/
+
+
+            /*cosmosapi.Cosmos.CosmosTxInput cosmosTxInput = cosmosapi.Cosmos.CosmosTxInput.newBuilder()
+                    .setSignData()
+                    .setPath(Path.COSMOS_LEDGER)
+                    .setToDis(to)
+                    .setFromDis(from)
+                    .setFeeDis(fee)
+
+
+            eosapi.Eos.EosSignData data0 = eosapi.Eos.EosSignData.newBuilder()
+                    .setTxData("c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00")
+                    .addPubKeys("EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF")
+                    .setChainId("aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906")
+                    .setTo("bbbb5555bbbb")
+                    .setFrom("liujianmin12")
+                    .setPayment("undelegatebw 0.0100 EOS")
+                    .build();
+
+            eosapi.Eos.EosTxInput eosTxInput = eosapi.Eos.EosTxInput.newBuilder()
+                    .setPath(Path.EOS_LEDGER)
+                    .addSignDatas(data0)
+                    .build();
+
+            Any any = Any.newBuilder()
+                    .setValue(eosTxInput.toByteString())
+                    .build();
+
+
+            api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
+                    .setChainType("EOS")
+                    .setInput(any)
+                    .build();
+
+            Any any2 = Any.newBuilder()
+                    .setValue(signParam.toByteString())
+                    .build();
+
+            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                    .setMethod("sign_tx")
+                    .setParam(any2)
+                    .build();
+            String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+            // clear_err
+            RustApi.INSTANCE.clear_err();
+
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+            String error = RustApi.INSTANCE.get_last_err_message();
+            if(!"".equals(error) && null != error) {
+                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Boolean isSuccess = errorResponse.getIsSuccess();
+                if(!isSuccess) {
+                    LogUtil.d("异常： " + errorResponse.getError());
+
+                }
+            } else {
+                eosapi.Eos.EosTxOutput response = eosapi.Eos.EosTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
+                String hash = response.getHash();
+                List signs = response.getSignsList();
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                LogUtil.d("hash：" + hash);
+                LogUtil.d("signs：" + signs.get(0));
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+
+                TxMultiSignResult signedResult = new TxMultiSignResult(hash, signs);
+                signResults.add(signedResult);
+            }*/
+        } catch (Exception e) {
+            LogUtil.d("异常：" + e.getMessage());
+            e.printStackTrace();
+        }
+        //return signResults;
+
+
         Coin coin = new Coin("", 0);
         StdFee stdFee = new StdFee(Collections.singletonList(coin), 21906);
         HashMap<String, Object> arbMsg = new HashMap<>();
@@ -184,6 +295,32 @@ public class ImKeyCosmosTransactionTest {
         TransactionSignedResult txSignResult = transaction.signTransaction("0", Path.COSMOS_LEDGER, null,to,from,fee);
         return txSignResult;
     }
+
+    /*public static TransactionSignedResult testCosmosTxSign() {
+        Coin coin = new Coin("", 0);
+        StdFee stdFee = new StdFee(Collections.singletonList(coin), 21906);
+        HashMap<String, Object> arbMsg = new HashMap<>();
+
+        arbMsg = new HashMap<>();
+        arbMsg.put("delegator_address", "cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f");
+        arbMsg.put("validator_address", "cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp");
+        Map<String, Object> amount = new HashMap<>();
+        amount.put("denom", "atom");
+        amount.put("amount", "10");
+
+        arbMsg.put("amount", Collections.singletonList(amount));
+        Map<String, Object> msgMap = new HashMap<>();
+        msgMap.put("type", "cosmos-sdk/MsgDelegate");
+        msgMap.put("value", arbMsg);
+        ImKeyCosmosTransaction transaction = new ImKeyCosmosTransaction(1, "tendermint_test", stdFee, null, Collections.singletonList(msgMap), 0);
+
+        String to = "cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt";
+        String from = "cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992";
+        String payment = "0.001 ATOM";
+        String fee = "0.00075 atom";
+        TransactionSignedResult txSignResult = transaction.signTransaction("0", Path.COSMOS_LEDGER, null,to,from,fee);
+        return txSignResult;
+    }*/
 
 
 }

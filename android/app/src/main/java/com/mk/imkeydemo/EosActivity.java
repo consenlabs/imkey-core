@@ -110,6 +110,7 @@ public class EosActivity extends AppCompatActivity {
             @Override
             public void run() {
             try {
+                new Eos().getPubKey(Path.EOS_LEDGER);
                 String pubKey = new Eos().displayPubKey(Path.EOS_LEDGER);
                 showResult(pubKey);
             } catch (Exception e) {
