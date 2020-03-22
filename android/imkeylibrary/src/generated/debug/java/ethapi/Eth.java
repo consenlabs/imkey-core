@@ -69,14 +69,24 @@ public final class Eth {
         getValueBytes();
 
     /**
-     * <code>optional bytes data = 6;</code>
+     * <code>optional string data = 6;</code>
      */
-    com.google.protobuf.ByteString getData();
+    java.lang.String getData();
+    /**
+     * <code>optional string data = 6;</code>
+     */
+    com.google.protobuf.ByteString
+        getDataBytes();
 
     /**
-     * <code>optional uint64 chain_id = 7;</code>
+     * <code>optional string chain_id = 7;</code>
      */
-    long getChainId();
+    java.lang.String getChainId();
+    /**
+     * <code>optional string chain_id = 7;</code>
+     */
+    com.google.protobuf.ByteString
+        getChainIdBytes();
 
     /**
      * <code>optional string path = 8;</code>
@@ -127,22 +137,8 @@ public final class Eth {
      */
     com.google.protobuf.ByteString
         getFeeBytes();
-
-    /**
-     * <code>optional string rawData = 13;</code>
-     */
-    java.lang.String getRawData();
-    /**
-     * <code>optional string rawData = 13;</code>
-     */
-    com.google.protobuf.ByteString
-        getRawDataBytes();
   }
   /**
-   * <pre>
-   * FUNCTION: sign_tx(SignParam{input: EthTxInput}): EthTxOutput
-   * </pre>
-   *
    * Protobuf type {@code ethapi.EthTxInput}
    */
   public  static final class EthTxInput extends
@@ -159,14 +155,13 @@ public final class Eth {
       gasLimit_ = "";
       to_ = "";
       value_ = "";
-      data_ = com.google.protobuf.ByteString.EMPTY;
-      chainId_ = 0L;
+      data_ = "";
+      chainId_ = "";
       path_ = "";
       payment_ = "";
       receiver_ = "";
       sender_ = "";
       fee_ = "";
-      rawData_ = "";
     }
 
     @java.lang.Override
@@ -225,13 +220,15 @@ public final class Eth {
               break;
             }
             case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              data_ = input.readBytes();
+              data_ = s;
               break;
             }
-            case 56: {
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              chainId_ = input.readUInt64();
+              chainId_ = s;
               break;
             }
             case 66: {
@@ -262,12 +259,6 @@ public final class Eth {
               java.lang.String s = input.readStringRequireUtf8();
 
               fee_ = s;
-              break;
-            }
-            case 106: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              rawData_ = s;
               break;
             }
           }
@@ -464,21 +455,71 @@ public final class Eth {
     }
 
     public static final int DATA_FIELD_NUMBER = 6;
-    private com.google.protobuf.ByteString data_;
+    private volatile java.lang.Object data_;
     /**
-     * <code>optional bytes data = 6;</code>
+     * <code>optional string data = 6;</code>
      */
-    public com.google.protobuf.ByteString getData() {
-      return data_;
+    public java.lang.String getData() {
+      java.lang.Object ref = data_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        data_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string data = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getDataBytes() {
+      java.lang.Object ref = data_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        data_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int CHAIN_ID_FIELD_NUMBER = 7;
-    private long chainId_;
+    private volatile java.lang.Object chainId_;
     /**
-     * <code>optional uint64 chain_id = 7;</code>
+     * <code>optional string chain_id = 7;</code>
      */
-    public long getChainId() {
-      return chainId_;
+    public java.lang.String getChainId() {
+      java.lang.Object ref = chainId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        chainId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string chain_id = 7;</code>
+     */
+    public com.google.protobuf.ByteString
+        getChainIdBytes() {
+      java.lang.Object ref = chainId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        chainId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int PATH_FIELD_NUMBER = 8;
@@ -651,40 +692,6 @@ public final class Eth {
       }
     }
 
-    public static final int RAWDATA_FIELD_NUMBER = 13;
-    private volatile java.lang.Object rawData_;
-    /**
-     * <code>optional string rawData = 13;</code>
-     */
-    public java.lang.String getRawData() {
-      java.lang.Object ref = rawData_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        rawData_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string rawData = 13;</code>
-     */
-    public com.google.protobuf.ByteString
-        getRawDataBytes() {
-      java.lang.Object ref = rawData_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        rawData_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -712,11 +719,11 @@ public final class Eth {
       if (!getValueBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, value_);
       }
-      if (!data_.isEmpty()) {
-        output.writeBytes(6, data_);
+      if (!getDataBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, data_);
       }
-      if (chainId_ != 0L) {
-        output.writeUInt64(7, chainId_);
+      if (!getChainIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, chainId_);
       }
       if (!getPathBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 8, path_);
@@ -732,9 +739,6 @@ public final class Eth {
       }
       if (!getFeeBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 12, fee_);
-      }
-      if (!getRawDataBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 13, rawData_);
       }
     }
 
@@ -758,13 +762,11 @@ public final class Eth {
       if (!getValueBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, value_);
       }
-      if (!data_.isEmpty()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(6, data_);
+      if (!getDataBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, data_);
       }
-      if (chainId_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(7, chainId_);
+      if (!getChainIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, chainId_);
       }
       if (!getPathBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, path_);
@@ -780,9 +782,6 @@ public final class Eth {
       }
       if (!getFeeBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, fee_);
-      }
-      if (!getRawDataBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, rawData_);
       }
       memoizedSize = size;
       return size;
@@ -812,8 +811,8 @@ public final class Eth {
           .equals(other.getValue());
       result = result && getData()
           .equals(other.getData());
-      result = result && (getChainId()
-          == other.getChainId());
+      result = result && getChainId()
+          .equals(other.getChainId());
       result = result && getPath()
           .equals(other.getPath());
       result = result && getPayment()
@@ -824,8 +823,6 @@ public final class Eth {
           .equals(other.getSender());
       result = result && getFee()
           .equals(other.getFee());
-      result = result && getRawData()
-          .equals(other.getRawData());
       return result;
     }
 
@@ -849,8 +846,7 @@ public final class Eth {
       hash = (37 * hash) + DATA_FIELD_NUMBER;
       hash = (53 * hash) + getData().hashCode();
       hash = (37 * hash) + CHAIN_ID_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getChainId());
+      hash = (53 * hash) + getChainId().hashCode();
       hash = (37 * hash) + PATH_FIELD_NUMBER;
       hash = (53 * hash) + getPath().hashCode();
       hash = (37 * hash) + PAYMENT_FIELD_NUMBER;
@@ -861,8 +857,6 @@ public final class Eth {
       hash = (53 * hash) + getSender().hashCode();
       hash = (37 * hash) + FEE_FIELD_NUMBER;
       hash = (53 * hash) + getFee().hashCode();
-      hash = (37 * hash) + RAWDATA_FIELD_NUMBER;
-      hash = (53 * hash) + getRawData().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -946,10 +940,6 @@ public final class Eth {
       return builder;
     }
     /**
-     * <pre>
-     * FUNCTION: sign_tx(SignParam{input: EthTxInput}): EthTxOutput
-     * </pre>
-     *
      * Protobuf type {@code ethapi.EthTxInput}
      */
     public static final class Builder extends
@@ -995,9 +985,9 @@ public final class Eth {
 
         value_ = "";
 
-        data_ = com.google.protobuf.ByteString.EMPTY;
+        data_ = "";
 
-        chainId_ = 0L;
+        chainId_ = "";
 
         path_ = "";
 
@@ -1008,8 +998,6 @@ public final class Eth {
         sender_ = "";
 
         fee_ = "";
-
-        rawData_ = "";
 
         return this;
       }
@@ -1045,7 +1033,6 @@ public final class Eth {
         result.receiver_ = receiver_;
         result.sender_ = sender_;
         result.fee_ = fee_;
-        result.rawData_ = rawData_;
         onBuilt();
         return result;
       }
@@ -1107,11 +1094,13 @@ public final class Eth {
           value_ = other.value_;
           onChanged();
         }
-        if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
-          setData(other.getData());
+        if (!other.getData().isEmpty()) {
+          data_ = other.data_;
+          onChanged();
         }
-        if (other.getChainId() != 0L) {
-          setChainId(other.getChainId());
+        if (!other.getChainId().isEmpty()) {
+          chainId_ = other.chainId_;
+          onChanged();
         }
         if (!other.getPath().isEmpty()) {
           path_ = other.path_;
@@ -1131,10 +1120,6 @@ public final class Eth {
         }
         if (!other.getFee().isEmpty()) {
           fee_ = other.fee_;
-          onChanged();
-        }
-        if (!other.getRawData().isEmpty()) {
-          rawData_ = other.rawData_;
           onChanged();
         }
         onChanged();
@@ -1508,17 +1493,43 @@ public final class Eth {
         return this;
       }
 
-      private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
+      private java.lang.Object data_ = "";
       /**
-       * <code>optional bytes data = 6;</code>
+       * <code>optional string data = 6;</code>
        */
-      public com.google.protobuf.ByteString getData() {
-        return data_;
+      public java.lang.String getData() {
+        java.lang.Object ref = data_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          data_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>optional bytes data = 6;</code>
+       * <code>optional string data = 6;</code>
        */
-      public Builder setData(com.google.protobuf.ByteString value) {
+      public com.google.protobuf.ByteString
+          getDataBytes() {
+        java.lang.Object ref = data_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          data_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string data = 6;</code>
+       */
+      public Builder setData(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -1528,7 +1539,7 @@ public final class Eth {
         return this;
       }
       /**
-       * <code>optional bytes data = 6;</code>
+       * <code>optional string data = 6;</code>
        */
       public Builder clearData() {
         
@@ -1536,29 +1547,86 @@ public final class Eth {
         onChanged();
         return this;
       }
-
-      private long chainId_ ;
       /**
-       * <code>optional uint64 chain_id = 7;</code>
+       * <code>optional string data = 6;</code>
        */
-      public long getChainId() {
-        return chainId_;
+      public Builder setDataBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        data_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object chainId_ = "";
+      /**
+       * <code>optional string chain_id = 7;</code>
+       */
+      public java.lang.String getChainId() {
+        java.lang.Object ref = chainId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          chainId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>optional uint64 chain_id = 7;</code>
+       * <code>optional string chain_id = 7;</code>
        */
-      public Builder setChainId(long value) {
-        
+      public com.google.protobuf.ByteString
+          getChainIdBytes() {
+        java.lang.Object ref = chainId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          chainId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string chain_id = 7;</code>
+       */
+      public Builder setChainId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         chainId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional uint64 chain_id = 7;</code>
+       * <code>optional string chain_id = 7;</code>
        */
       public Builder clearChainId() {
         
-        chainId_ = 0L;
+        chainId_ = getDefaultInstance().getChainId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string chain_id = 7;</code>
+       */
+      public Builder setChainIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        chainId_ = value;
         onChanged();
         return this;
       }
@@ -1904,75 +1972,6 @@ public final class Eth {
   checkByteStringIsUtf8(value);
         
         fee_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object rawData_ = "";
-      /**
-       * <code>optional string rawData = 13;</code>
-       */
-      public java.lang.String getRawData() {
-        java.lang.Object ref = rawData_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          rawData_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string rawData = 13;</code>
-       */
-      public com.google.protobuf.ByteString
-          getRawDataBytes() {
-        java.lang.Object ref = rawData_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          rawData_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string rawData = 13;</code>
-       */
-      public Builder setRawData(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        rawData_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string rawData = 13;</code>
-       */
-      public Builder clearRawData() {
-        
-        rawData_ = getDefaultInstance().getRawData();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string rawData = 13;</code>
-       */
-      public Builder setRawDataBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        rawData_ = value;
         onChanged();
         return this;
       }
@@ -2665,6 +2664,1789 @@ public final class Eth {
 
   }
 
+  public interface EthAddressResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ethapi.EthAddressResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string address = 1;</code>
+     */
+    java.lang.String getAddress();
+    /**
+     * <code>optional string address = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getAddressBytes();
+  }
+  /**
+   * Protobuf type {@code ethapi.EthAddressResponse}
+   */
+  public  static final class EthAddressResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ethapi.EthAddressResponse)
+      EthAddressResponseOrBuilder {
+    // Use EthAddressResponse.newBuilder() to construct.
+    private EthAddressResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private EthAddressResponse() {
+      address_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private EthAddressResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              address_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ethapi.Eth.internal_static_ethapi_EthAddressResponse_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ethapi.Eth.internal_static_ethapi_EthAddressResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ethapi.Eth.EthAddressResponse.class, ethapi.Eth.EthAddressResponse.Builder.class);
+    }
+
+    public static final int ADDRESS_FIELD_NUMBER = 1;
+    private volatile java.lang.Object address_;
+    /**
+     * <code>optional string address = 1;</code>
+     */
+    public java.lang.String getAddress() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        address_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string address = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getAddressBytes() {
+      java.lang.Object ref = address_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        address_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getAddressBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, address_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getAddressBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, address_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ethapi.Eth.EthAddressResponse)) {
+        return super.equals(obj);
+      }
+      ethapi.Eth.EthAddressResponse other = (ethapi.Eth.EthAddressResponse) obj;
+
+      boolean result = true;
+      result = result && getAddress()
+          .equals(other.getAddress());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
+      hash = (53 * hash) + getAddress().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ethapi.Eth.EthAddressResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethapi.Eth.EthAddressResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethapi.Eth.EthAddressResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethapi.Eth.EthAddressResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethapi.Eth.EthAddressResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethapi.Eth.EthAddressResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethapi.Eth.EthAddressResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ethapi.Eth.EthAddressResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethapi.Eth.EthAddressResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethapi.Eth.EthAddressResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ethapi.Eth.EthAddressResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code ethapi.EthAddressResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ethapi.EthAddressResponse)
+        ethapi.Eth.EthAddressResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ethapi.Eth.internal_static_ethapi_EthAddressResponse_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ethapi.Eth.internal_static_ethapi_EthAddressResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ethapi.Eth.EthAddressResponse.class, ethapi.Eth.EthAddressResponse.Builder.class);
+      }
+
+      // Construct using ethapi.Eth.EthAddressResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        address_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ethapi.Eth.internal_static_ethapi_EthAddressResponse_descriptor;
+      }
+
+      public ethapi.Eth.EthAddressResponse getDefaultInstanceForType() {
+        return ethapi.Eth.EthAddressResponse.getDefaultInstance();
+      }
+
+      public ethapi.Eth.EthAddressResponse build() {
+        ethapi.Eth.EthAddressResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public ethapi.Eth.EthAddressResponse buildPartial() {
+        ethapi.Eth.EthAddressResponse result = new ethapi.Eth.EthAddressResponse(this);
+        result.address_ = address_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ethapi.Eth.EthAddressResponse) {
+          return mergeFrom((ethapi.Eth.EthAddressResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ethapi.Eth.EthAddressResponse other) {
+        if (other == ethapi.Eth.EthAddressResponse.getDefaultInstance()) return this;
+        if (!other.getAddress().isEmpty()) {
+          address_ = other.address_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ethapi.Eth.EthAddressResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ethapi.Eth.EthAddressResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object address_ = "";
+      /**
+       * <code>optional string address = 1;</code>
+       */
+      public java.lang.String getAddress() {
+        java.lang.Object ref = address_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          address_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string address = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getAddressBytes() {
+        java.lang.Object ref = address_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          address_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string address = 1;</code>
+       */
+      public Builder setAddress(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        address_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string address = 1;</code>
+       */
+      public Builder clearAddress() {
+        
+        address_ = getDefaultInstance().getAddress();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string address = 1;</code>
+       */
+      public Builder setAddressBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        address_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ethapi.EthAddressResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ethapi.EthAddressResponse)
+    private static final ethapi.Eth.EthAddressResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ethapi.Eth.EthAddressResponse();
+    }
+
+    public static ethapi.Eth.EthAddressResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<EthAddressResponse>
+        PARSER = new com.google.protobuf.AbstractParser<EthAddressResponse>() {
+      public EthAddressResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new EthAddressResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<EthAddressResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EthAddressResponse> getParserForType() {
+      return PARSER;
+    }
+
+    public ethapi.Eth.EthAddressResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface EthPersonalSignInputOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ethapi.EthPersonalSignInput)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string path = 1;</code>
+     */
+    java.lang.String getPath();
+    /**
+     * <code>optional string path = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getPathBytes();
+
+    /**
+     * <code>optional string message = 2;</code>
+     */
+    java.lang.String getMessage();
+    /**
+     * <code>optional string message = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getMessageBytes();
+
+    /**
+     * <code>optional string sender = 3;</code>
+     */
+    java.lang.String getSender();
+    /**
+     * <code>optional string sender = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getSenderBytes();
+  }
+  /**
+   * Protobuf type {@code ethapi.EthPersonalSignInput}
+   */
+  public  static final class EthPersonalSignInput extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ethapi.EthPersonalSignInput)
+      EthPersonalSignInputOrBuilder {
+    // Use EthPersonalSignInput.newBuilder() to construct.
+    private EthPersonalSignInput(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private EthPersonalSignInput() {
+      path_ = "";
+      message_ = "";
+      sender_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private EthPersonalSignInput(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              path_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              message_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              sender_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ethapi.Eth.internal_static_ethapi_EthPersonalSignInput_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ethapi.Eth.internal_static_ethapi_EthPersonalSignInput_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ethapi.Eth.EthPersonalSignInput.class, ethapi.Eth.EthPersonalSignInput.Builder.class);
+    }
+
+    public static final int PATH_FIELD_NUMBER = 1;
+    private volatile java.lang.Object path_;
+    /**
+     * <code>optional string path = 1;</code>
+     */
+    public java.lang.String getPath() {
+      java.lang.Object ref = path_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        path_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string path = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPathBytes() {
+      java.lang.Object ref = path_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        path_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MESSAGE_FIELD_NUMBER = 2;
+    private volatile java.lang.Object message_;
+    /**
+     * <code>optional string message = 2;</code>
+     */
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        message_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string message = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMessageBytes() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        message_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SENDER_FIELD_NUMBER = 3;
+    private volatile java.lang.Object sender_;
+    /**
+     * <code>optional string sender = 3;</code>
+     */
+    public java.lang.String getSender() {
+      java.lang.Object ref = sender_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sender_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string sender = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSenderBytes() {
+      java.lang.Object ref = sender_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sender_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getPathBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, path_);
+      }
+      if (!getMessageBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
+      }
+      if (!getSenderBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, sender_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getPathBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, path_);
+      }
+      if (!getMessageBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
+      }
+      if (!getSenderBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, sender_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ethapi.Eth.EthPersonalSignInput)) {
+        return super.equals(obj);
+      }
+      ethapi.Eth.EthPersonalSignInput other = (ethapi.Eth.EthPersonalSignInput) obj;
+
+      boolean result = true;
+      result = result && getPath()
+          .equals(other.getPath());
+      result = result && getMessage()
+          .equals(other.getMessage());
+      result = result && getSender()
+          .equals(other.getSender());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + PATH_FIELD_NUMBER;
+      hash = (53 * hash) + getPath().hashCode();
+      hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getMessage().hashCode();
+      hash = (37 * hash) + SENDER_FIELD_NUMBER;
+      hash = (53 * hash) + getSender().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ethapi.Eth.EthPersonalSignInput parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethapi.Eth.EthPersonalSignInput parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethapi.Eth.EthPersonalSignInput parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethapi.Eth.EthPersonalSignInput parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethapi.Eth.EthPersonalSignInput parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethapi.Eth.EthPersonalSignInput parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethapi.Eth.EthPersonalSignInput parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ethapi.Eth.EthPersonalSignInput parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethapi.Eth.EthPersonalSignInput parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethapi.Eth.EthPersonalSignInput parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ethapi.Eth.EthPersonalSignInput prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code ethapi.EthPersonalSignInput}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ethapi.EthPersonalSignInput)
+        ethapi.Eth.EthPersonalSignInputOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ethapi.Eth.internal_static_ethapi_EthPersonalSignInput_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ethapi.Eth.internal_static_ethapi_EthPersonalSignInput_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ethapi.Eth.EthPersonalSignInput.class, ethapi.Eth.EthPersonalSignInput.Builder.class);
+      }
+
+      // Construct using ethapi.Eth.EthPersonalSignInput.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        path_ = "";
+
+        message_ = "";
+
+        sender_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ethapi.Eth.internal_static_ethapi_EthPersonalSignInput_descriptor;
+      }
+
+      public ethapi.Eth.EthPersonalSignInput getDefaultInstanceForType() {
+        return ethapi.Eth.EthPersonalSignInput.getDefaultInstance();
+      }
+
+      public ethapi.Eth.EthPersonalSignInput build() {
+        ethapi.Eth.EthPersonalSignInput result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public ethapi.Eth.EthPersonalSignInput buildPartial() {
+        ethapi.Eth.EthPersonalSignInput result = new ethapi.Eth.EthPersonalSignInput(this);
+        result.path_ = path_;
+        result.message_ = message_;
+        result.sender_ = sender_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ethapi.Eth.EthPersonalSignInput) {
+          return mergeFrom((ethapi.Eth.EthPersonalSignInput)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ethapi.Eth.EthPersonalSignInput other) {
+        if (other == ethapi.Eth.EthPersonalSignInput.getDefaultInstance()) return this;
+        if (!other.getPath().isEmpty()) {
+          path_ = other.path_;
+          onChanged();
+        }
+        if (!other.getMessage().isEmpty()) {
+          message_ = other.message_;
+          onChanged();
+        }
+        if (!other.getSender().isEmpty()) {
+          sender_ = other.sender_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ethapi.Eth.EthPersonalSignInput parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ethapi.Eth.EthPersonalSignInput) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object path_ = "";
+      /**
+       * <code>optional string path = 1;</code>
+       */
+      public java.lang.String getPath() {
+        java.lang.Object ref = path_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          path_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string path = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPathBytes() {
+        java.lang.Object ref = path_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          path_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string path = 1;</code>
+       */
+      public Builder setPath(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        path_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string path = 1;</code>
+       */
+      public Builder clearPath() {
+        
+        path_ = getDefaultInstance().getPath();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string path = 1;</code>
+       */
+      public Builder setPathBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        path_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object message_ = "";
+      /**
+       * <code>optional string message = 2;</code>
+       */
+      public java.lang.String getMessage() {
+        java.lang.Object ref = message_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          message_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string message = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMessageBytes() {
+        java.lang.Object ref = message_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          message_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string message = 2;</code>
+       */
+      public Builder setMessage(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        message_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string message = 2;</code>
+       */
+      public Builder clearMessage() {
+        
+        message_ = getDefaultInstance().getMessage();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string message = 2;</code>
+       */
+      public Builder setMessageBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        message_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object sender_ = "";
+      /**
+       * <code>optional string sender = 3;</code>
+       */
+      public java.lang.String getSender() {
+        java.lang.Object ref = sender_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          sender_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string sender = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSenderBytes() {
+        java.lang.Object ref = sender_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sender_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string sender = 3;</code>
+       */
+      public Builder setSender(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        sender_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string sender = 3;</code>
+       */
+      public Builder clearSender() {
+        
+        sender_ = getDefaultInstance().getSender();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string sender = 3;</code>
+       */
+      public Builder setSenderBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        sender_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ethapi.EthPersonalSignInput)
+    }
+
+    // @@protoc_insertion_point(class_scope:ethapi.EthPersonalSignInput)
+    private static final ethapi.Eth.EthPersonalSignInput DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ethapi.Eth.EthPersonalSignInput();
+    }
+
+    public static ethapi.Eth.EthPersonalSignInput getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<EthPersonalSignInput>
+        PARSER = new com.google.protobuf.AbstractParser<EthPersonalSignInput>() {
+      public EthPersonalSignInput parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new EthPersonalSignInput(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<EthPersonalSignInput> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EthPersonalSignInput> getParserForType() {
+      return PARSER;
+    }
+
+    public ethapi.Eth.EthPersonalSignInput getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface EthPersonalSignOutputOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ethapi.EthPersonalSignOutput)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string signature = 1;</code>
+     */
+    java.lang.String getSignature();
+    /**
+     * <code>optional string signature = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getSignatureBytes();
+  }
+  /**
+   * Protobuf type {@code ethapi.EthPersonalSignOutput}
+   */
+  public  static final class EthPersonalSignOutput extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ethapi.EthPersonalSignOutput)
+      EthPersonalSignOutputOrBuilder {
+    // Use EthPersonalSignOutput.newBuilder() to construct.
+    private EthPersonalSignOutput(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private EthPersonalSignOutput() {
+      signature_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private EthPersonalSignOutput(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              signature_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ethapi.Eth.internal_static_ethapi_EthPersonalSignOutput_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ethapi.Eth.internal_static_ethapi_EthPersonalSignOutput_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ethapi.Eth.EthPersonalSignOutput.class, ethapi.Eth.EthPersonalSignOutput.Builder.class);
+    }
+
+    public static final int SIGNATURE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object signature_;
+    /**
+     * <code>optional string signature = 1;</code>
+     */
+    public java.lang.String getSignature() {
+      java.lang.Object ref = signature_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signature_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string signature = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSignatureBytes() {
+      java.lang.Object ref = signature_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signature_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getSignatureBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signature_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getSignatureBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signature_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ethapi.Eth.EthPersonalSignOutput)) {
+        return super.equals(obj);
+      }
+      ethapi.Eth.EthPersonalSignOutput other = (ethapi.Eth.EthPersonalSignOutput) obj;
+
+      boolean result = true;
+      result = result && getSignature()
+          .equals(other.getSignature());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + SIGNATURE_FIELD_NUMBER;
+      hash = (53 * hash) + getSignature().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ethapi.Eth.EthPersonalSignOutput parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethapi.Eth.EthPersonalSignOutput parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethapi.Eth.EthPersonalSignOutput parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ethapi.Eth.EthPersonalSignOutput parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ethapi.Eth.EthPersonalSignOutput parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethapi.Eth.EthPersonalSignOutput parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethapi.Eth.EthPersonalSignOutput parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ethapi.Eth.EthPersonalSignOutput parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ethapi.Eth.EthPersonalSignOutput parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ethapi.Eth.EthPersonalSignOutput parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ethapi.Eth.EthPersonalSignOutput prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code ethapi.EthPersonalSignOutput}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ethapi.EthPersonalSignOutput)
+        ethapi.Eth.EthPersonalSignOutputOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ethapi.Eth.internal_static_ethapi_EthPersonalSignOutput_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ethapi.Eth.internal_static_ethapi_EthPersonalSignOutput_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ethapi.Eth.EthPersonalSignOutput.class, ethapi.Eth.EthPersonalSignOutput.Builder.class);
+      }
+
+      // Construct using ethapi.Eth.EthPersonalSignOutput.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        signature_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ethapi.Eth.internal_static_ethapi_EthPersonalSignOutput_descriptor;
+      }
+
+      public ethapi.Eth.EthPersonalSignOutput getDefaultInstanceForType() {
+        return ethapi.Eth.EthPersonalSignOutput.getDefaultInstance();
+      }
+
+      public ethapi.Eth.EthPersonalSignOutput build() {
+        ethapi.Eth.EthPersonalSignOutput result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public ethapi.Eth.EthPersonalSignOutput buildPartial() {
+        ethapi.Eth.EthPersonalSignOutput result = new ethapi.Eth.EthPersonalSignOutput(this);
+        result.signature_ = signature_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ethapi.Eth.EthPersonalSignOutput) {
+          return mergeFrom((ethapi.Eth.EthPersonalSignOutput)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ethapi.Eth.EthPersonalSignOutput other) {
+        if (other == ethapi.Eth.EthPersonalSignOutput.getDefaultInstance()) return this;
+        if (!other.getSignature().isEmpty()) {
+          signature_ = other.signature_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ethapi.Eth.EthPersonalSignOutput parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ethapi.Eth.EthPersonalSignOutput) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object signature_ = "";
+      /**
+       * <code>optional string signature = 1;</code>
+       */
+      public java.lang.String getSignature() {
+        java.lang.Object ref = signature_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signature_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string signature = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSignatureBytes() {
+        java.lang.Object ref = signature_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signature_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string signature = 1;</code>
+       */
+      public Builder setSignature(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        signature_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string signature = 1;</code>
+       */
+      public Builder clearSignature() {
+        
+        signature_ = getDefaultInstance().getSignature();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string signature = 1;</code>
+       */
+      public Builder setSignatureBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        signature_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ethapi.EthPersonalSignOutput)
+    }
+
+    // @@protoc_insertion_point(class_scope:ethapi.EthPersonalSignOutput)
+    private static final ethapi.Eth.EthPersonalSignOutput DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ethapi.Eth.EthPersonalSignOutput();
+    }
+
+    public static ethapi.Eth.EthPersonalSignOutput getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<EthPersonalSignOutput>
+        PARSER = new com.google.protobuf.AbstractParser<EthPersonalSignOutput>() {
+      public EthPersonalSignOutput parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new EthPersonalSignOutput(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<EthPersonalSignOutput> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EthPersonalSignOutput> getParserForType() {
+      return PARSER;
+    }
+
+    public ethapi.Eth.EthPersonalSignOutput getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ethapi_EthTxInput_descriptor;
   private static final 
@@ -2675,6 +4457,21 @@ public final class Eth {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ethapi_EthTxOutput_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ethapi_EthAddressResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ethapi_EthAddressResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ethapi_EthPersonalSignInput_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ethapi_EthPersonalSignInput_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ethapi_EthPersonalSignOutput_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ethapi_EthPersonalSignOutput_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2684,14 +4481,17 @@ public final class Eth {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\teth.proto\022\006ethapi\"\333\001\n\nEthTxInput\022\r\n\005no" +
+      "\n\teth.proto\022\006ethapi\"\312\001\n\nEthTxInput\022\r\n\005no" +
       "nce\030\001 \001(\t\022\021\n\tgas_price\030\002 \001(\t\022\021\n\tgas_limi" +
       "t\030\003 \001(\t\022\n\n\002to\030\004 \001(\t\022\r\n\005value\030\005 \001(\t\022\014\n\004da" +
-      "ta\030\006 \001(\014\022\020\n\010chain_id\030\007 \001(\004\022\014\n\004path\030\010 \001(\t" +
+      "ta\030\006 \001(\t\022\020\n\010chain_id\030\007 \001(\t\022\014\n\004path\030\010 \001(\t" +
       "\022\017\n\007payment\030\t \001(\t\022\020\n\010receiver\030\n \001(\t\022\016\n\006s" +
-      "ender\030\013 \001(\t\022\013\n\003fee\030\014 \001(\t\022\017\n\007rawData\030\r \001(" +
-      "\t\"0\n\013EthTxOutput\022\021\n\tsignature\030\001 \001(\t\022\016\n\006t" +
-      "xHash\030\002 \001(\tb\006proto3"
+      "ender\030\013 \001(\t\022\013\n\003fee\030\014 \001(\t\"0\n\013EthTxOutput\022" +
+      "\021\n\tsignature\030\001 \001(\t\022\016\n\006txHash\030\002 \001(\t\"%\n\022Et" +
+      "hAddressResponse\022\017\n\007address\030\001 \001(\t\"E\n\024Eth" +
+      "PersonalSignInput\022\014\n\004path\030\001 \001(\t\022\017\n\007messa" +
+      "ge\030\002 \001(\t\022\016\n\006sender\030\003 \001(\t\"*\n\025EthPersonalS",
+      "ignOutput\022\021\n\tsignature\030\001 \001(\tb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2710,13 +4510,31 @@ public final class Eth {
     internal_static_ethapi_EthTxInput_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ethapi_EthTxInput_descriptor,
-        new java.lang.String[] { "Nonce", "GasPrice", "GasLimit", "To", "Value", "Data", "ChainId", "Path", "Payment", "Receiver", "Sender", "Fee", "RawData", });
+        new java.lang.String[] { "Nonce", "GasPrice", "GasLimit", "To", "Value", "Data", "ChainId", "Path", "Payment", "Receiver", "Sender", "Fee", });
     internal_static_ethapi_EthTxOutput_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_ethapi_EthTxOutput_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ethapi_EthTxOutput_descriptor,
         new java.lang.String[] { "Signature", "TxHash", });
+    internal_static_ethapi_EthAddressResponse_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_ethapi_EthAddressResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ethapi_EthAddressResponse_descriptor,
+        new java.lang.String[] { "Address", });
+    internal_static_ethapi_EthPersonalSignInput_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_ethapi_EthPersonalSignInput_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ethapi_EthPersonalSignInput_descriptor,
+        new java.lang.String[] { "Path", "Message", "Sender", });
+    internal_static_ethapi_EthPersonalSignOutput_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_ethapi_EthPersonalSignOutput_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ethapi_EthPersonalSignOutput_descriptor,
+        new java.lang.String[] { "Signature", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

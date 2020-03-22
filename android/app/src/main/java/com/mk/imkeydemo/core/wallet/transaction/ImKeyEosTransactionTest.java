@@ -12,14 +12,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.google.protobuf.Any;
+import com.google.protobuf.ByteString;
 import com.mk.imkeydemo.utils.ResourcesManager;
+import com.mk.imkeylibrary.common.Constants;
 import com.mk.imkeylibrary.common.Messages;
 import com.mk.imkeylibrary.core.wallet.Eos;
 import com.mk.imkeylibrary.core.wallet.Path;
 import com.mk.imkeylibrary.core.wallet.transaction.ImKeyBitcoinTransaction;
 import com.mk.imkeylibrary.core.wallet.transaction.ImKeyEOSTransaction;
+import com.mk.imkeylibrary.core.wallet.transaction.TransactionSignedResult;
 import com.mk.imkeylibrary.core.wallet.transaction.TxMultiSignResult;
 import com.mk.imkeylibrary.exception.ImkeyException;
+import com.mk.imkeylibrary.keycore.RustApi;
+import com.mk.imkeylibrary.utils.ByteUtil;
+import com.mk.imkeylibrary.utils.LogUtil;
+import com.mk.imkeylibrary.utils.NumericUtil;
 
 public class ImKeyEosTransactionTest {
 
@@ -27,6 +35,129 @@ public class ImKeyEosTransactionTest {
     public static Map<String, Object> result = new HashMap<String, Object>();
 
     public static Map<String, Object> testEosTxSign(Context context) {
+        int failCount = 0;
+        int successCount = 0;
+        ArrayList<String> failedCaseName = new ArrayList<>();
+
+        JSONObject testcases = ResourcesManager.getFromRaw(context, "eostransactiontest");
+        Iterator<String> keys = testcases.keys();
+        try {
+
+
+            while (keys.hasNext()) {
+
+                String key = keys.next();
+                JSONObject testcase = testcases.getJSONObject(key);
+
+                eosapi.Eos.EosSignData.Builder data = eosapi.Eos.EosSignData.newBuilder();
+
+                JSONArray publicKeys = testcase.getJSONArray("publicKeys");
+                for (int i = 0; i < publicKeys.length(); i++) {
+                    JSONObject publicKeyOjb = publicKeys.getJSONObject(i);
+                    data.addPubKeys(publicKeyOjb.getString("publicKey"));
+                }
+
+                JSONObject pre = testcase.getJSONObject("preview");
+                String paymentDis = pre.getString("payment");
+                String receiverDis = pre.getString("receiver");
+                String senderDis = pre.getString("sender");
+
+                data
+                        .setTxData(testcase.getString("txHex"))
+                        .setChainId(testcase.getString("chainId"))
+                        .setTo(receiverDis)
+                        .setFrom(senderDis)
+                        .setPayment(paymentDis)
+                        .build();
+
+                eosapi.Eos.EosTxInput eosTxInput = eosapi.Eos.EosTxInput.newBuilder()
+                        .setPath(Path.EOS_LEDGER)
+                        .addSignDatas(data)
+                        .build();
+
+                Any any = Any.newBuilder()
+                        .setValue(eosTxInput.toByteString())
+                        .build();
+
+
+                api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
+                        .setChainType("EOS")
+                        .setInput(any)
+                        .build();
+
+                Any any2 = Any.newBuilder()
+                        .setValue(signParam.toByteString())
+                        .build();
+
+                api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                        .setMethod("sign_tx")
+                        .setParam(any2)
+                        .build();
+
+                Boolean retry = true;
+                int tryCount = 0;
+                while(retry) {
+                    tryCount ++;
+                    try {
+
+                        LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                        // clear_err
+                        RustApi.INSTANCE.clear_err();
+
+                        String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+                        String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+                        //
+                        String error = RustApi.INSTANCE.get_last_err_message();
+                        if(!"".equals(error) && null != error) {
+                            api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                            Boolean isSuccess = errorResponse.getIsSuccess();
+                            if(!isSuccess) {
+                                LogUtil.d("异常： " + errorResponse.getError());
+                                failedCaseName.add(key);
+                                failCount++;
+                                retry = false;
+                                continue;
+                            }
+                        }
+
+                        eosapi.Eos.EosTxOutput response = eosapi.Eos.EosTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
+                        String hash = response.getHash();
+                        LogUtil.d("hash：" + hash);
+                        LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+
+                        if(hash.equals(testcase.getString("txHash"))) {
+                            LogUtil.e("×××××××××××××××××××××××××××××××××××成功×××××××××××××××××××××××××××××××××××××××××××××××");
+                            successCount ++;
+                        } else {
+                            failedCaseName.add(key);
+                            failCount++;
+                        }
+                        retry = false;
+                    } catch (ImkeyException e) {
+                        if(!Messages.IMKEY_BLUETOOTH_CHANNEL_ERROR.equals(e.getMessage()) || tryCount >= 3) {
+                            retry = false;
+                            failedCaseName.add(key + ": " + e.getMessage());
+                            failCount++;
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            throw new ImkeyException(e);
+        }
+
+        result.put("failCount", failCount);
+        result.put("successCount", successCount);
+        result.put("failedCaseName", failedCaseName);
+
+        return result;
+    }
+
+
+    /*public static Map<String, Object> testEosTxSign(Context context) {
         int failCount = 0;
         int successCount = 0;
         ArrayList<String> failedCaseName = new ArrayList<>();
@@ -93,8 +224,81 @@ public class ImKeyEosTransactionTest {
 
         return result;
     }
+*/
 
     public static List<TxMultiSignResult> testEosTxSign() {
+
+        List<TxMultiSignResult> signResults = new ArrayList<TxMultiSignResult>();
+
+        try {
+
+            eosapi.Eos.EosSignData data0 = eosapi.Eos.EosSignData.newBuilder()
+                    .setTxData("c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00")
+                    .addPubKeys("EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF")
+                    .setChainId("aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906")
+                    .setTo("bbbb5555bbbb")
+                    .setFrom("liujianmin12")
+                    .setPayment("undelegatebw 0.0100 EOS")
+                    .build();
+
+            eosapi.Eos.EosTxInput eosTxInput = eosapi.Eos.EosTxInput.newBuilder()
+                    .setPath(Path.EOS_LEDGER)
+                    .addSignDatas(data0)
+                    .build();
+
+            Any any = Any.newBuilder()
+                    .setValue(eosTxInput.toByteString())
+                    .build();
+
+
+            api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
+                    .setChainType("EOS")
+                    .setInput(any)
+                    .build();
+
+            Any any2 = Any.newBuilder()
+                    .setValue(signParam.toByteString())
+                    .build();
+
+            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                    .setMethod("sign_tx")
+                    .setParam(any2)
+                    .build();
+            String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+            // clear_err
+            RustApi.INSTANCE.clear_err();
+
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+            String error = RustApi.INSTANCE.get_last_err_message();
+            if(!"".equals(error) && null != error) {
+                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Boolean isSuccess = errorResponse.getIsSuccess();
+                if(!isSuccess) {
+                    LogUtil.d("异常： " + errorResponse.getError());
+
+                }
+            } else {
+                eosapi.Eos.EosTxOutput response = eosapi.Eos.EosTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
+                String hash = response.getHash();
+                List signs = response.getSignsList();
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                LogUtil.d("hash：" + hash);
+                LogUtil.d("signs：" + signs.get(0));
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+
+                TxMultiSignResult signedResult = new TxMultiSignResult(hash, signs);
+                signResults.add(signedResult);
+            }
+        } catch (Exception e) {
+            LogUtil.d("异常：" + e.getMessage());
+            e.printStackTrace();
+        }
+        return signResults;
+    }
+
+    /*public static List<TxMultiSignResult> testEosTxSign() {
         List<ImKeyEOSTransaction.ToSignObj> toSignObjs = new ArrayList<>();
         ImKeyEOSTransaction.ToSignObj toSignObj = new ImKeyEOSTransaction.ToSignObj();
         toSignObj.setPublicKeys(Collections.singletonList("EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF"));
@@ -107,10 +311,69 @@ public class ImKeyEosTransactionTest {
         String payment = "undelegatebw 0.0100 EOS";
         List<TxMultiSignResult> signResults = eosTransaction.signTransactions(chainIdEos, to, from, payment, Path.EOS_LEDGER);
         return signResults;
-    }
+    }*/
 
     public static String testEosMsgSign() {
-        String PUBLIC_KEY = "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF";
+
+        String signature = null;
+
+        try {
+
+            String publiKey = "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF";
+            eosapi.Eos.EosMessageInput eosMessageInput = eosapi.Eos.EosMessageInput.newBuilder()
+                    .setPath(Path.EOS_LEDGER)
+                    .setData("imKey2019")
+                    .setIsHex(false)
+                    .setPubkey(publiKey)
+                    .build();
+
+            Any any = Any.newBuilder()
+                    .setValue(eosMessageInput.toByteString())
+                    .build();
+
+            api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
+                    .setChainType("EOS")
+                    .setInput(any)
+                    .build();
+
+            Any any2 = Any.newBuilder()
+                    .setValue(signParam.toByteString())
+                    .build();
+
+            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                    .setMethod("sign_msg")
+                    .setParam(any2)
+                    .build();
+            String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+            // clear_err
+            RustApi.INSTANCE.clear_err();
+
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+            String error = RustApi.INSTANCE.get_last_err_message();
+            if(!"".equals(error) && null != error) {
+                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Boolean isSuccess = errorResponse.getIsSuccess();
+                if(!isSuccess) {
+                    LogUtil.d("异常： " + errorResponse.getError());
+
+                }
+            } else {
+                eosapi.Eos.EosMessageOutput response = eosapi.Eos.EosMessageOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
+                signature = response.getSignature();
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                LogUtil.d("signature：" + signature);
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+            }
+        } catch (Exception e) {
+            LogUtil.d("异常：" + e.getMessage());
+            e.printStackTrace();
+        }
+        return signature;
+
+        /*String PUBLIC_KEY = "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF";
         return new Eos().eosEcSign("imKey2019", false, PUBLIC_KEY,Path.EOS_LEDGER);
+        */
     }
 }

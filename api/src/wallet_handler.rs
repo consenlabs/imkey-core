@@ -1,7 +1,7 @@
 use crate::api::{AddressParam, DeviceParam, SignParam};
 use crate::btc_signer::{sign_btc_transaction, sign_segwit_transaction};
 use crate::usdt_signer::{sign_usdt_transaction, sign_usdt_segwit_transaction};
-use crate::btc_address::{get_btc_xpub, get_btc_address, get_segwit_address};
+use crate::btc_address::{get_btc_xpub, get_btc_address, get_segwit_address, display_btc_address, display_segwit_address};
 use crate::cosmos_address::{display_cosmos_address, get_cosmos_address};
 use crate::cosmos_signer::sign_cosmos_transaction;
 use crate::device_manager::{device_activate, device_app_delete, device_app_download, device_app_update, device_bind_acquire, device_bind_check, device_display_bind_code, device_query, device_secure_check, get_seid, get_sn, get_ram_size, get_firmware_version, get_battery_power, get_life_time, get_ble_name, set_ble_name, get_ble_version, get_sdk_info};
@@ -66,6 +66,8 @@ pub fn register_coin(data: &[u8]) -> Result<Vec<u8>> {
     let param: AddressParam = AddressParam::decode(data).expect("AddressParam");
 
     match param.chain_type.as_str() {
+        "BTC" => display_btc_address(&param),
+        "BTC_SEGWIT" => display_segwit_address(&param),
         "ETH" => display_eth_address(&param),
         "EOS" => display_eos_pubkey(&param),
         "COSMOS" => display_cosmos_address(&param),

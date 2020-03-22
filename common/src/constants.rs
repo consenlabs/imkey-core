@@ -1,6 +1,6 @@
 //pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
-pub const URL: &str = "https://imkey.online:1000/imkey/";
-//   pub const URL: &str = "http://localhost:8080/imkey/";
+//pub const URL: &str = "https://imkey.online:1000/imkey/";
+   pub const URL: &str = "http://localhost:8080/imkey/";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
 pub const TSM_ACTION_APP_DOWNLOAD: &str = "/appDownload";
@@ -78,3 +78,4 @@ pub const APDU_RSP_WALLET_NOT_CREATED: &str = "F000";
 pub const APDU_RSP_IN_MENU_PAGE: &str = "F080";
 pub const APDU_RSP_PIN_NOT_VERIFIED: &str = "F081";
 pub const APDU_BLUETOOTH_CHANNEL_ERROR: &str = "6F01";
+pub const APDU_RSP_SWITCH_BL_STATUS_SUCCESS: &str = "905A";

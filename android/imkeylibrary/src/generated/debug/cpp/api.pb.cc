@@ -296,9 +296,10 @@ void protobuf_AssignDesc_api_2eproto() {
       sizeof(AddressResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddressResponse, _internal_metadata_));
   AddressParam_descriptor_ = file->message_type(10);
-  static const int AddressParam_offsets_[2] = {
+  static const int AddressParam_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddressParam, chaintype_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddressParam, path_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddressParam, network_),
   };
   AddressParam_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -819,41 +820,41 @@ void protobuf_AddDesc_api_2eproto_impl() {
     "\n\017extendedXpubKey\030\004 \001(\t\":\n\020AccountsRespo"
     "nse\022&\n\010accounts\030\001 \003(\0132\024.api.AccountRespo"
     "nse\"\"\n\017AddressResponse\022\017\n\007address\030\001 \001(\t\""
-    "/\n\014AddressParam\022\021\n\tchainType\030\001 \001(\t\022\014\n\004pa"
-    "th\030\002 \001(\t\"S\n\032KeystoreCommonExportResult\022\n"
-    "\n\002id\030\001 \001(\t\022\032\n\004type\030\002 \001(\0162\014.api.KeyType\022\r"
-    "\n\005value\030\003 \001(\t\"\211\001\n\032PrivateKeyStoreImportP"
-    "aram\022\022\n\nprivateKey\030\001 \001(\t\022\020\n\010password\030\002 \001"
-    "(\t\022\021\n\tchainType\030\003 \001(\t\022\017\n\007network\030\004 \001(\t\022\016"
-    "\n\006segWit\030\005 \001(\t\022\021\n\toverwrite\030\n \001(\010\"^\n\032Pri"
-    "vateKeyStoreExportParam\022\n\n\002id\030\001 \001(\t\022\020\n\010p"
-    "assword\030\002 \001(\t\022\021\n\tchainType\030\003 \001(\t\022\017\n\007netw"
-    "ork\030\004 \001(\t\".\n\016WalletKeyParam\022\n\n\002id\030\001 \001(\t\022"
-    "\020\n\010password\030\002 \001(\t\"F\n\031KeystoreCommonExist"
-    "sParam\022\032\n\004type\030\001 \001(\0162\014.api.KeyType\022\r\n\005va"
-    "lue\030\002 \001(\t\":\n\032KeystoreCommonExistsResult\022"
-    "\020\n\010isExists\030\001 \001(\010\022\n\n\002id\030\002 \001(\t\")\n\033Keystor"
-    "eCommonAccountsParam\022\n\n\002id\030\001 \001(\t\"r\n\tSign"
-    "Param\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\022\021\n\tc"
-    "hainType\030\003 \001(\t\022\017\n\007address\030\004 \001(\t\022#\n\005input"
-    "\030\005 \001(\0132\024.google.protobuf.Any\"J\n\024External"
-    "AddressParam\022\n\n\002id\030\001 \001(\t\022\021\n\tchainType\030\002 "
-    "\001(\t\022\023\n\013externalIdx\030\003 \001(\r\"K\n\025ExternalAddr"
-    "essResult\022\017\n\007address\030\001 \001(\t\022\023\n\013derivedPat"
-    "h\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\"\262\001\n\024ExternalAddres"
-    "sExtra\022\017\n\007encXpub\030\001 \001(\t\022B\n\017externalAddre"
-    "ss\030\002 \001(\0132).api.ExternalAddressExtra.Exte"
-    "rnalAddress\032E\n\017ExternalAddress\022\017\n\007addres"
-    "s\030\001 \001(\t\022\023\n\013derivedPath\030\002 \001(\t\022\014\n\004type\030\003 \001"
-    "(\t\":\n\027BtcForkDeriveExtraParam\022\017\n\007network"
-    "\030\001 \001(\t\022\016\n\006segWit\030\002 \001(\t\"a\n\035HdStoreExtende"
-    "dPublicKeyParam\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030"
-    "\002 \001(\t\022\021\n\tchainType\030\003 \001(\t\022\017\n\007address\030\004 \001("
-    "\t\"=\n HdStoreExtendedPublicKeyResponse\022\031\n"
-    "\021extendedPublicKey\030\001 \001(\t\"B\n\013DeviceParam\022"
-    "\016\n\006action\030\001 \001(\t\022#\n\005param\030\002 \001(\0132\024.google."
-    "protobuf.Any*(\n\007KeyType\022\014\n\010MNEMONIC\020\000\022\017\n"
-    "\013PRIVATE_KEY\020\001b\006proto3", 2342);
+    "@\n\014AddressParam\022\021\n\tchainType\030\001 \001(\t\022\014\n\004pa"
+    "th\030\002 \001(\t\022\017\n\007network\030\003 \001(\t\"S\n\032KeystoreCom"
+    "monExportResult\022\n\n\002id\030\001 \001(\t\022\032\n\004type\030\002 \001("
+    "\0162\014.api.KeyType\022\r\n\005value\030\003 \001(\t\"\211\001\n\032Priva"
+    "teKeyStoreImportParam\022\022\n\nprivateKey\030\001 \001("
+    "\t\022\020\n\010password\030\002 \001(\t\022\021\n\tchainType\030\003 \001(\t\022\017"
+    "\n\007network\030\004 \001(\t\022\016\n\006segWit\030\005 \001(\t\022\021\n\toverw"
+    "rite\030\n \001(\010\"^\n\032PrivateKeyStoreExportParam"
+    "\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\022\021\n\tchainT"
+    "ype\030\003 \001(\t\022\017\n\007network\030\004 \001(\t\".\n\016WalletKeyP"
+    "aram\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"F\n\031Ke"
+    "ystoreCommonExistsParam\022\032\n\004type\030\001 \001(\0162\014."
+    "api.KeyType\022\r\n\005value\030\002 \001(\t\":\n\032KeystoreCo"
+    "mmonExistsResult\022\020\n\010isExists\030\001 \001(\010\022\n\n\002id"
+    "\030\002 \001(\t\")\n\033KeystoreCommonAccountsParam\022\n\n"
+    "\002id\030\001 \001(\t\"r\n\tSignParam\022\n\n\002id\030\001 \001(\t\022\020\n\010pa"
+    "ssword\030\002 \001(\t\022\021\n\tchainType\030\003 \001(\t\022\017\n\007addre"
+    "ss\030\004 \001(\t\022#\n\005input\030\005 \001(\0132\024.google.protobu"
+    "f.Any\"J\n\024ExternalAddressParam\022\n\n\002id\030\001 \001("
+    "\t\022\021\n\tchainType\030\002 \001(\t\022\023\n\013externalIdx\030\003 \001("
+    "\r\"K\n\025ExternalAddressResult\022\017\n\007address\030\001 "
+    "\001(\t\022\023\n\013derivedPath\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\"\262"
+    "\001\n\024ExternalAddressExtra\022\017\n\007encXpub\030\001 \001(\t"
+    "\022B\n\017externalAddress\030\002 \001(\0132).api.External"
+    "AddressExtra.ExternalAddress\032E\n\017External"
+    "Address\022\017\n\007address\030\001 \001(\t\022\023\n\013derivedPath\030"
+    "\002 \001(\t\022\014\n\004type\030\003 \001(\t\":\n\027BtcForkDeriveExtr"
+    "aParam\022\017\n\007network\030\001 \001(\t\022\016\n\006segWit\030\002 \001(\t\""
+    "a\n\035HdStoreExtendedPublicKeyParam\022\n\n\002id\030\001"
+    " \001(\t\022\020\n\010password\030\002 \001(\t\022\021\n\tchainType\030\003 \001("
+    "\t\022\017\n\007address\030\004 \001(\t\"=\n HdStoreExtendedPub"
+    "licKeyResponse\022\031\n\021extendedPublicKey\030\001 \001("
+    "\t\"B\n\013DeviceParam\022\016\n\006action\030\001 \001(\t\022#\n\005para"
+    "m\030\002 \001(\0132\024.google.protobuf.Any*(\n\007KeyType"
+    "\022\014\n\010MNEMONIC\020\000\022\017\n\013PRIVATE_KEY\020\001b\006proto3", 2359);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "api.proto", &protobuf_RegisterTypes);
   ::google::protobuf::protobuf_AddDesc_google_2fprotobuf_2fany_2eproto();
@@ -6211,6 +6212,7 @@ inline const AddressResponse* AddressResponse::internal_default_instance() {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int AddressParam::kChainTypeFieldNumber;
 const int AddressParam::kPathFieldNumber;
+const int AddressParam::kNetworkFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 AddressParam::AddressParam()
@@ -6234,6 +6236,7 @@ AddressParam::AddressParam(const AddressParam& from)
 void AddressParam::SharedCtor() {
   chaintype_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  network_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _cached_size_ = 0;
 }
 
@@ -6245,6 +6248,7 @@ AddressParam::~AddressParam() {
 void AddressParam::SharedDtor() {
   chaintype_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   path_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  network_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void AddressParam::SetCachedSize(int size) const {
@@ -6276,6 +6280,7 @@ void AddressParam::Clear() {
 // @@protoc_insertion_point(message_clear_start:api.AddressParam)
   chaintype_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  network_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool AddressParam::MergePartialFromCodedStream(
@@ -6314,6 +6319,23 @@ bool AddressParam::MergePartialFromCodedStream(
             this->path().data(), this->path().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
             "api.AddressParam.path"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_network;
+        break;
+      }
+
+      // optional string network = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_network:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_network()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->network().data(), this->network().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "api.AddressParam.network"));
         } else {
           goto handle_unusual;
         }
@@ -6365,6 +6387,16 @@ void AddressParam::SerializeWithCachedSizes(
       2, this->path(), output);
   }
 
+  // optional string network = 3;
+  if (this->network().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->network().data(), this->network().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "api.AddressParam.network");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->network(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:api.AddressParam)
 }
 
@@ -6394,6 +6426,17 @@ void AddressParam::SerializeWithCachedSizes(
         2, this->path(), target);
   }
 
+  // optional string network = 3;
+  if (this->network().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->network().data(), this->network().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "api.AddressParam.network");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->network(), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:api.AddressParam)
   return target;
 }
@@ -6414,6 +6457,13 @@ size_t AddressParam::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->path());
+  }
+
+  // optional string network = 3;
+  if (this->network().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->network());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -6457,6 +6507,10 @@ void AddressParam::UnsafeMergeFrom(const AddressParam& from) {
 
     path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_);
   }
+  if (from.network().size() > 0) {
+
+    network_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.network_);
+  }
 }
 
 void AddressParam::CopyFrom(const ::google::protobuf::Message& from) {
@@ -6485,6 +6539,7 @@ void AddressParam::Swap(AddressParam* other) {
 void AddressParam::InternalSwap(AddressParam* other) {
   chaintype_.Swap(&other->chaintype_);
   path_.Swap(&other->path_);
+  network_.Swap(&other->network_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -6586,6 +6641,50 @@ void AddressParam::set_allocated_path(::std::string* path) {
   }
   path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
   // @@protoc_insertion_point(field_set_allocated:api.AddressParam.path)
+}
+
+// optional string network = 3;
+void AddressParam::clear_network() {
+  network_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& AddressParam::network() const {
+  // @@protoc_insertion_point(field_get:api.AddressParam.network)
+  return network_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void AddressParam::set_network(const ::std::string& value) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.AddressParam.network)
+}
+void AddressParam::set_network(const char* value) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.AddressParam.network)
+}
+void AddressParam::set_network(const char* value, size_t size) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.AddressParam.network)
+}
+::std::string* AddressParam::mutable_network() {
+  
+  // @@protoc_insertion_point(field_mutable:api.AddressParam.network)
+  return network_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* AddressParam::release_network() {
+  // @@protoc_insertion_point(field_release:api.AddressParam.network)
+  
+  return network_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void AddressParam::set_allocated_network(::std::string* network) {
+  if (network != NULL) {
+    
+  } else {
+    
+  }
+  network_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), network);
+  // @@protoc_insertion_point(field_set_allocated:api.AddressParam.network)
 }
 
 inline const AddressParam* AddressParam::internal_default_instance() {

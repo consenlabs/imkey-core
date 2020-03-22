@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import com.google.protobuf.Any;
 import com.mk.imkeylibrary.bluetooth.Ble;
 import com.mk.imkeylibrary.common.Constants;
 import com.mk.imkeylibrary.common.Messages;
@@ -17,22 +18,121 @@ import com.mk.imkeylibrary.core.foundation.crypto.Hash;
 import com.mk.imkeylibrary.core.wallet.transaction.SignatureData;
 import com.mk.imkeylibrary.device.Applet;
 import com.mk.imkeylibrary.exception.ImkeyException;
+import com.mk.imkeylibrary.keycore.RustApi;
 import com.mk.imkeylibrary.utils.ByteUtil;
+import com.mk.imkeylibrary.utils.LogUtil;
 import com.mk.imkeylibrary.utils.NumericUtil;
 
 
 public class Eth extends Wallet {
 
     public String getAddress(String path) {
-        // path校验
+
+        String address = null;
+
+        try {
+
+            api.Api.AddressParam addressParam = api.Api.AddressParam.newBuilder()
+                    .setChainType("ETH")
+                    .setPath(path)
+                    .build();
+
+            Any any2 = Any.newBuilder()
+                    .setValue(addressParam.toByteString())
+                    .build();
+
+            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                    .setMethod("get_address")
+                    .setParam(any2)
+                    .build();
+            String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+            // clear_err
+            RustApi.INSTANCE.clear_err();
+
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+            String error = RustApi.INSTANCE.get_last_err_message();
+            if(!"".equals(error) && null != error) {
+                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Boolean isSuccess = errorResponse.getIsSuccess();
+                if(!isSuccess) {
+                    LogUtil.d("异常： " + errorResponse.getError());
+
+                }
+            } else {
+                ethapi.Eth.EthAddressResponse response = ethapi.Eth.EthAddressResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+                address = response.getAddress();
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                LogUtil.d("address：" + address);
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+
+            }
+
+        } catch (Exception e) {
+            LogUtil.d("异常：" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return address;
+
+        /*// path校验
         Path.checkPath(path);
 
         selectApplet();
         String xpub = getEthXpubHex(path, true);
-        return publicKeyToAddress(NumericUtil.hexToBytes(xpub.substring(2, 130)));
+        return publicKeyToAddress(NumericUtil.hexToBytes(xpub.substring(2, 130)));*/
     }
 
     public String displayAddress(String path) {
+
+        String address = null;
+
+        try {
+
+            api.Api.AddressParam addressParam = api.Api.AddressParam.newBuilder()
+                    .setChainType("ETH")
+                    .setPath(path)
+                    .build();
+
+            Any any2 = Any.newBuilder()
+                    .setValue(addressParam.toByteString())
+                    .build();
+
+            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
+                    .setMethod("register_coin")
+                    .setParam(any2)
+                    .build();
+            String hex = NumericUtil.bytesToHex(action.toByteArray());
+
+            // clear_err
+            RustApi.INSTANCE.clear_err();
+
+            String result = RustApi.INSTANCE.call_tcx_api(hex);
+
+            String error = RustApi.INSTANCE.get_last_err_message();
+            if(!"".equals(error) && null != error) {
+                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Boolean isSuccess = errorResponse.getIsSuccess();
+                if(!isSuccess) {
+                    LogUtil.d("异常： " + errorResponse.getError());
+
+                }
+            } else {
+                ethapi.Eth.EthAddressResponse response = ethapi.Eth.EthAddressResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+                address = response.getAddress();
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+                LogUtil.d("address：" + address);
+                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
+
+            }
+
+        } catch (Exception e) {
+            LogUtil.d("异常：" + e.getMessage());
+            e.printStackTrace();
+        }
+        return address;
+        /*
         // path校验
         Path.checkPath(path);
 
@@ -40,7 +140,7 @@ public class Eth extends Wallet {
         String apduCoinReg = Apdu.ethCoinReg(Wallet.checkedEthAddress(mainAddr).getBytes());
         String res = sendApdu(apduCoinReg);
         Apdu.checkResponse(res);
-        return mainAddr;
+        return mainAddr;*/
     }
 
     public String signPersonalMessage(String path, String message, String sender) {

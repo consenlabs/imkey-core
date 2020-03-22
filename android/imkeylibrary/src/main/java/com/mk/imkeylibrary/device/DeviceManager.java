@@ -918,10 +918,23 @@ public class DeviceManager {
         String hex = NumericUtil.bytesToHex(action.toByteArray());
         String status = null;
         try {
+            // clear_err
+            RustApi.INSTANCE.clear_err();
             String result = RustApi.INSTANCE.call_tcx_api(hex);
-            Device.BindCheckResponse response = Device.BindCheckResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
-            status = response.getBindStatus();
-            LogUtil.d("绑定状态：" + status);
+            String error = RustApi.INSTANCE.get_last_err_message();
+
+            if(!"".equals(error) && null != error) {
+                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Boolean isSuccess = errorResponse.getIsSuccess();
+                if(!isSuccess) {
+                    LogUtil.d("异常： " + errorResponse.getError());
+                }
+            } else {
+                Device.BindCheckResponse response = Device.BindCheckResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+                status = response.getBindStatus();
+                LogUtil.d("绑定状态：" + status);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

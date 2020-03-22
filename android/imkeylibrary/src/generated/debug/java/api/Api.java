@@ -9564,6 +9564,16 @@ public final class Api {
      */
     com.google.protobuf.ByteString
         getPathBytes();
+
+    /**
+     * <code>optional string network = 3;</code>
+     */
+    java.lang.String getNetwork();
+    /**
+     * <code>optional string network = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getNetworkBytes();
   }
   /**
    * Protobuf type {@code api.AddressParam}
@@ -9579,6 +9589,7 @@ public final class Api {
     private AddressParam() {
       chainType_ = "";
       path_ = "";
+      network_ = "";
     }
 
     @java.lang.Override
@@ -9616,6 +9627,12 @@ public final class Api {
               java.lang.String s = input.readStringRequireUtf8();
 
               path_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              network_ = s;
               break;
             }
           }
@@ -9709,6 +9726,40 @@ public final class Api {
       }
     }
 
+    public static final int NETWORK_FIELD_NUMBER = 3;
+    private volatile java.lang.Object network_;
+    /**
+     * <code>optional string network = 3;</code>
+     */
+    public java.lang.String getNetwork() {
+      java.lang.Object ref = network_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        network_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string network = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNetworkBytes() {
+      java.lang.Object ref = network_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        network_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -9727,6 +9778,9 @@ public final class Api {
       if (!getPathBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, path_);
       }
+      if (!getNetworkBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, network_);
+      }
     }
 
     public int getSerializedSize() {
@@ -9739,6 +9793,9 @@ public final class Api {
       }
       if (!getPathBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, path_);
+      }
+      if (!getNetworkBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, network_);
       }
       memoizedSize = size;
       return size;
@@ -9760,6 +9817,8 @@ public final class Api {
           .equals(other.getChainType());
       result = result && getPath()
           .equals(other.getPath());
+      result = result && getNetwork()
+          .equals(other.getNetwork());
       return result;
     }
 
@@ -9774,6 +9833,8 @@ public final class Api {
       hash = (53 * hash) + getChainType().hashCode();
       hash = (37 * hash) + PATH_FIELD_NUMBER;
       hash = (53 * hash) + getPath().hashCode();
+      hash = (37 * hash) + NETWORK_FIELD_NUMBER;
+      hash = (53 * hash) + getNetwork().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -9896,6 +9957,8 @@ public final class Api {
 
         path_ = "";
 
+        network_ = "";
+
         return this;
       }
 
@@ -9920,6 +9983,7 @@ public final class Api {
         api.Api.AddressParam result = new api.Api.AddressParam(this);
         result.chainType_ = chainType_;
         result.path_ = path_;
+        result.network_ = network_;
         onBuilt();
         return result;
       }
@@ -9967,6 +10031,10 @@ public final class Api {
         }
         if (!other.getPath().isEmpty()) {
           path_ = other.path_;
+          onChanged();
+        }
+        if (!other.getNetwork().isEmpty()) {
+          network_ = other.network_;
           onChanged();
         }
         onChanged();
@@ -10129,6 +10197,75 @@ public final class Api {
   checkByteStringIsUtf8(value);
         
         path_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object network_ = "";
+      /**
+       * <code>optional string network = 3;</code>
+       */
+      public java.lang.String getNetwork() {
+        java.lang.Object ref = network_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          network_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string network = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNetworkBytes() {
+        java.lang.Object ref = network_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          network_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string network = 3;</code>
+       */
+      public Builder setNetwork(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        network_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string network = 3;</code>
+       */
+      public Builder clearNetwork() {
+        
+        network_ = getDefaultInstance().getNetwork();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string network = 3;</code>
+       */
+      public Builder setNetworkBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        network_ = value;
         onChanged();
         return this;
       }
@@ -22316,41 +22453,41 @@ public final class Api {
       "\n\017extendedXpubKey\030\004 \001(\t\":\n\020AccountsRespo" +
       "nse\022&\n\010accounts\030\001 \003(\0132\024.api.AccountRespo" +
       "nse\"\"\n\017AddressResponse\022\017\n\007address\030\001 \001(\t\"" +
-      "/\n\014AddressParam\022\021\n\tchainType\030\001 \001(\t\022\014\n\004pa" +
-      "th\030\002 \001(\t\"S\n\032KeystoreCommonExportResult\022\n" +
-      "\n\002id\030\001 \001(\t\022\032\n\004type\030\002 \001(\0162\014.api.KeyType\022\r" +
-      "\n\005value\030\003 \001(\t\"\211\001\n\032PrivateKeyStoreImportP" +
-      "aram\022\022\n\nprivateKey\030\001 \001(\t\022\020\n\010password\030\002 \001" +
-      "(\t\022\021\n\tchainType\030\003 \001(\t\022\017\n\007network\030\004 \001(\t\022\016",
-      "\n\006segWit\030\005 \001(\t\022\021\n\toverwrite\030\n \001(\010\"^\n\032Pri" +
-      "vateKeyStoreExportParam\022\n\n\002id\030\001 \001(\t\022\020\n\010p" +
-      "assword\030\002 \001(\t\022\021\n\tchainType\030\003 \001(\t\022\017\n\007netw" +
-      "ork\030\004 \001(\t\".\n\016WalletKeyParam\022\n\n\002id\030\001 \001(\t\022" +
-      "\020\n\010password\030\002 \001(\t\"F\n\031KeystoreCommonExist" +
-      "sParam\022\032\n\004type\030\001 \001(\0162\014.api.KeyType\022\r\n\005va" +
-      "lue\030\002 \001(\t\":\n\032KeystoreCommonExistsResult\022" +
-      "\020\n\010isExists\030\001 \001(\010\022\n\n\002id\030\002 \001(\t\")\n\033Keystor" +
-      "eCommonAccountsParam\022\n\n\002id\030\001 \001(\t\"r\n\tSign" +
-      "Param\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\022\021\n\tc",
-      "hainType\030\003 \001(\t\022\017\n\007address\030\004 \001(\t\022#\n\005input" +
-      "\030\005 \001(\0132\024.google.protobuf.Any\"J\n\024External" +
-      "AddressParam\022\n\n\002id\030\001 \001(\t\022\021\n\tchainType\030\002 " +
-      "\001(\t\022\023\n\013externalIdx\030\003 \001(\r\"K\n\025ExternalAddr" +
-      "essResult\022\017\n\007address\030\001 \001(\t\022\023\n\013derivedPat" +
-      "h\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\"\262\001\n\024ExternalAddres" +
-      "sExtra\022\017\n\007encXpub\030\001 \001(\t\022B\n\017externalAddre" +
-      "ss\030\002 \001(\0132).api.ExternalAddressExtra.Exte" +
-      "rnalAddress\032E\n\017ExternalAddress\022\017\n\007addres" +
-      "s\030\001 \001(\t\022\023\n\013derivedPath\030\002 \001(\t\022\014\n\004type\030\003 \001",
-      "(\t\":\n\027BtcForkDeriveExtraParam\022\017\n\007network" +
-      "\030\001 \001(\t\022\016\n\006segWit\030\002 \001(\t\"a\n\035HdStoreExtende" +
-      "dPublicKeyParam\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030" +
-      "\002 \001(\t\022\021\n\tchainType\030\003 \001(\t\022\017\n\007address\030\004 \001(" +
-      "\t\"=\n HdStoreExtendedPublicKeyResponse\022\031\n" +
-      "\021extendedPublicKey\030\001 \001(\t\"B\n\013DeviceParam\022" +
-      "\016\n\006action\030\001 \001(\t\022#\n\005param\030\002 \001(\0132\024.google." +
-      "protobuf.Any*(\n\007KeyType\022\014\n\010MNEMONIC\020\000\022\017\n" +
-      "\013PRIVATE_KEY\020\001b\006proto3"
+      "@\n\014AddressParam\022\021\n\tchainType\030\001 \001(\t\022\014\n\004pa" +
+      "th\030\002 \001(\t\022\017\n\007network\030\003 \001(\t\"S\n\032KeystoreCom" +
+      "monExportResult\022\n\n\002id\030\001 \001(\t\022\032\n\004type\030\002 \001(" +
+      "\0162\014.api.KeyType\022\r\n\005value\030\003 \001(\t\"\211\001\n\032Priva" +
+      "teKeyStoreImportParam\022\022\n\nprivateKey\030\001 \001(" +
+      "\t\022\020\n\010password\030\002 \001(\t\022\021\n\tchainType\030\003 \001(\t\022\017",
+      "\n\007network\030\004 \001(\t\022\016\n\006segWit\030\005 \001(\t\022\021\n\toverw" +
+      "rite\030\n \001(\010\"^\n\032PrivateKeyStoreExportParam" +
+      "\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\022\021\n\tchainT" +
+      "ype\030\003 \001(\t\022\017\n\007network\030\004 \001(\t\".\n\016WalletKeyP" +
+      "aram\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"F\n\031Ke" +
+      "ystoreCommonExistsParam\022\032\n\004type\030\001 \001(\0162\014." +
+      "api.KeyType\022\r\n\005value\030\002 \001(\t\":\n\032KeystoreCo" +
+      "mmonExistsResult\022\020\n\010isExists\030\001 \001(\010\022\n\n\002id" +
+      "\030\002 \001(\t\")\n\033KeystoreCommonAccountsParam\022\n\n" +
+      "\002id\030\001 \001(\t\"r\n\tSignParam\022\n\n\002id\030\001 \001(\t\022\020\n\010pa",
+      "ssword\030\002 \001(\t\022\021\n\tchainType\030\003 \001(\t\022\017\n\007addre" +
+      "ss\030\004 \001(\t\022#\n\005input\030\005 \001(\0132\024.google.protobu" +
+      "f.Any\"J\n\024ExternalAddressParam\022\n\n\002id\030\001 \001(" +
+      "\t\022\021\n\tchainType\030\002 \001(\t\022\023\n\013externalIdx\030\003 \001(" +
+      "\r\"K\n\025ExternalAddressResult\022\017\n\007address\030\001 " +
+      "\001(\t\022\023\n\013derivedPath\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\"\262" +
+      "\001\n\024ExternalAddressExtra\022\017\n\007encXpub\030\001 \001(\t" +
+      "\022B\n\017externalAddress\030\002 \001(\0132).api.External" +
+      "AddressExtra.ExternalAddress\032E\n\017External" +
+      "Address\022\017\n\007address\030\001 \001(\t\022\023\n\013derivedPath\030",
+      "\002 \001(\t\022\014\n\004type\030\003 \001(\t\":\n\027BtcForkDeriveExtr" +
+      "aParam\022\017\n\007network\030\001 \001(\t\022\016\n\006segWit\030\002 \001(\t\"" +
+      "a\n\035HdStoreExtendedPublicKeyParam\022\n\n\002id\030\001" +
+      " \001(\t\022\020\n\010password\030\002 \001(\t\022\021\n\tchainType\030\003 \001(" +
+      "\t\022\017\n\007address\030\004 \001(\t\"=\n HdStoreExtendedPub" +
+      "licKeyResponse\022\031\n\021extendedPublicKey\030\001 \001(" +
+      "\t\"B\n\013DeviceParam\022\016\n\006action\030\001 \001(\t\022#\n\005para" +
+      "m\030\002 \001(\0132\024.google.protobuf.Any*(\n\007KeyType" +
+      "\022\014\n\010MNEMONIC\020\000\022\017\n\013PRIVATE_KEY\020\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -22436,7 +22573,7 @@ public final class Api {
     internal_static_api_AddressParam_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_api_AddressParam_descriptor,
-        new java.lang.String[] { "ChainType", "Path", });
+        new java.lang.String[] { "ChainType", "Path", "Network", });
     internal_static_api_KeystoreCommonExportResult_descriptor =
       getDescriptor().getMessageTypes().get(11);
     internal_static_api_KeystoreCommonExportResult_fieldAccessorTable = new
