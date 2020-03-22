@@ -22,6 +22,7 @@ pub struct cos_upgrade_request {
     pub sn: String,
     pub deviceCert: String,
     pub seCosVersion: String,
+    pub isBLStatus: bool,
     pub stepKey: String,
     pub statusWord: Option<String>,
     pub commandID: String,
@@ -55,11 +56,12 @@ impl cos_upgrade_request {
         let mut seid = String::new();
         let mut sn = String::new();
         let mut se_cos_version = String::new();
-
+        let mut is_bl_status = true;
         //read seid and sn number
         if device_cert.starts_with("bf21") || device_cert.starts_with("BF21") {
             seid = get_se_id()?;
             sn = get_sn()?;
+            is_bl_status = false;
             //read se cos version
             se_cos_version = get_firmware_version()?;
             se_cos_version = format!("{}.{}.{}",
@@ -84,6 +86,7 @@ impl cos_upgrade_request {
             sn: sn,
             deviceCert: device_cert.clone(),
             seCosVersion: se_cos_version,
+            isBLStatus: is_bl_status,
             stepKey: if is_jump { "03".to_string() } else {
                 "01".to_string()
             },
