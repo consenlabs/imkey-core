@@ -19,7 +19,6 @@ use device::device_binding::KEY_MANAGER;
 use num_bigint::BigInt;
 use num_traits::Num;
 use std::ops::Sub;
-use bitcoin_hashes::hex::ToHex;
 
 lazy_static! {
     pub static ref SECP256K1: secp256k1::Secp256k1<secp256k1::All> = secp256k1::Secp256k1::new();
@@ -164,7 +163,7 @@ impl Transaction {
         println!("rec_id:{}", &rec_id.to_i32());
 
         let mut data_arr = [0; 65];
-        data_arr[0..64].copy_from_slice(&sign_compact_vec[0..64]);
+        data_arr[0..64].copy_from_slice(&normalizes_sig_vec[0..64]);
         data_arr[64] = rec_id.to_i32() as u8;
         let sig = Signature(data_arr);
 
@@ -506,6 +505,128 @@ mod tests {
         assert_eq!(
             tx_result.tx_hash,
             "0x09fa41c4d6b92482506c8c56f65b217cc3398821caec7695683110997426db01".to_string()
+        );
+    }
+
+    #[test]
+    fn test_data_is_null(){
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        println!("check_result:{}",&check_result);
+
+        let tx = Transaction {
+            nonce: U256::from_dec_str("13").unwrap(),
+            gas_price: U256::from_dec_str("150000").unwrap(),
+            gas_limit: U256::from_dec_str("21000000000").unwrap(),
+            to: Action::Call(
+                Address::from_str("7c47ef93268a311f4cad0c750724299e9b72c268").unwrap(),
+            ),
+            value: U256::from_dec_str("10000000000000000").unwrap(),
+            data: Vec::new(),
+        };
+        let path = "m/44'/60'/0'/0/0".to_string();
+        let payment = "0.01 ETH".to_string();
+        let receiver = "0x7c47ef93268a311f4cad0c750724299e9b72c268".to_string();
+        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
+        let fee = "0.0032 ether".to_string();
+
+        let tx_result = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee).unwrap();
+        // assert_eq!(
+        //     tx_result.signature,
+        //     "f867088504a817c8088302e248943535353535353535353535353535353535353535820200805ba03aa62abb45b77418caf139dda0179aea802c99967b3d690b87d586a87bc805afa02b5ce94f40dc865ca63403e0e5e723e1523884f001573677cd8cec11c7ca332f".to_string()
+        // );
+        assert_eq!(
+            tx_result.tx_hash,
+            "0x9cb10bab794454c5c2606b5475a35f6429f5ff54c3e088d0c5d330f56155b0be".to_string()
+        );
+    }
+
+    #[test]
+    fn test_data_is_long(){
+        // let path = "/Users/joe/work/sdk_gen_key".to_string();
+        // let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        // println!("check_result:{}",&check_result);
+
+
+
+        let mut data = "0x60056013565b6101918061001d6000396000f35b3360008190555056006001600060e060020a6000350480630a874df61461003a57806341c0e1b514610058578063a02b161e14610066578063dbbdf0831461007757005b610045600435610149565b80600160a060020a031660005260206000f35b610060610161565b60006000f35b6100716004356100d4565b60006000f35b61008560043560243561008b565b60006000f35b600054600160a060020a031632600160a060020a031614156100ac576100b1565b6100d0565b8060018360005260205260406000208190555081600060005260206000a15b5050565b600054600160a060020a031633600160a060020a031614158015610118575033600160a060020a0316600182600052602052604060002054600160a060020a031614155b61012157610126565b610146565b600060018260005260205260406000208190555080600060005260206000a15b50565b60006001826000526020526040600020549050919050565b600054600160a060020a031633600160a060020a0316146101815761018f565b600054600160a060020a0316ff5b56".to_string();
+        let mut data_vec = Vec::new();
+        if data.starts_with("0x"){
+            // data = hex::encode(&data[2..]);
+            data_vec = hex::decode(&data[2..]).unwrap();
+        }else{
+            data_vec = hex::decode(&data).unwrap();
+        }
+
+        let tx = Transaction {
+            nonce: U256::from_dec_str("13").unwrap(),
+            gas_price: U256::from_dec_str("150000").unwrap(),
+            gas_limit: U256::from_dec_str("21000000000").unwrap(),
+            to: Action::Call(
+                Address::from_str("7c47ef93268a311f4cad0c750724299e9b72c268").unwrap(),
+            ),
+            value: U256::from_dec_str("10000000000000000").unwrap(),
+            data: Vec::from(data_vec.as_slice()),
+        };
+        let path = "m/44'/60'/0'/0/0".to_string();
+        let payment = "0.01 ETH".to_string();
+        let receiver = "0x7c47ef93268a311f4cad0c750724299e9b72c268".to_string();
+        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
+        let fee = "0.0032 ether".to_string();
+
+        let tx_result = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee).unwrap();
+        // assert_eq!(
+        //     tx_result.signature,
+        //     "f867088504a817c8088302e248943535353535353535353535353535353535353535820200805ba03aa62abb45b77418caf139dda0179aea802c99967b3d690b87d586a87bc805afa02b5ce94f40dc865ca63403e0e5e723e1523884f001573677cd8cec11c7ca332f".to_string()
+        // );
+        assert_eq!(
+            tx_result.tx_hash,
+            "0xff0c83a7c9208ea28712900cabc8cd5fe624b9c6bdc208517b6725c706422e08".to_string()
+        );
+    }
+
+    #[test]
+    fn test_zero_bytes(){
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        println!("check_result:{}",&check_result);
+
+
+
+        let mut data = "0x000000000000000000000000000000000000000000000000000000000".to_string();
+        let mut data_vec = Vec::new();
+        if data.starts_with("0x"){
+            // data = hex::encode(&data[2..]);
+            data_vec = hex::decode(&data[2..]).unwrap();
+        }else{
+            data_vec = hex::decode(&data).unwrap();
+        }
+        // println!("data:{}",&data[2..]);
+
+        let tx = Transaction {
+            nonce: U256::from_dec_str("13").unwrap(),
+            gas_price: U256::from_dec_str("150000").unwrap(),
+            gas_limit: U256::from_dec_str("21000000000").unwrap(),
+            to: Action::Call(
+                Address::from_str("7c47ef93268a311f4cad0c750724299e9b72c268").unwrap(),
+            ),
+            value: U256::from_dec_str("10000000000000000").unwrap(),
+            data: Vec::from(data_vec.as_slice()),
+        };
+        let path = "m/44'/60'/0'/0/0".to_string();
+        let payment = "0.01 ETH".to_string();
+        let receiver = "0x7c47ef93268a311f4cad0c750724299e9b72c268".to_string();
+        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
+        let fee = "0.0032 ether".to_string();
+
+        let tx_result = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee).unwrap();
+        // assert_eq!(
+        //     tx_result.signature,
+        //     "f867088504a817c8088302e248943535353535353535353535353535353535353535820200805ba03aa62abb45b77418caf139dda0179aea802c99967b3d690b87d586a87bc805afa02b5ce94f40dc865ca63403e0e5e723e1523884f001573677cd8cec11c7ca332f".to_string()
+        // );
+        assert_eq!(
+            tx_result.tx_hash,
+            "0x5481b9f73cb42eb2be84c4a3995ec1ea2fafc93597f564fe46b40d82026c4224".to_string()
         );
     }
 

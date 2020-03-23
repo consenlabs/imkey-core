@@ -18,9 +18,12 @@ pub fn sign_eth_transaction(param: &SignParam) -> Result<Vec<u8>> {
 
     println!("param ..");
 
-    let mut data = input.data;
-    if data.starts_with("0x"){
-        data = hex::encode(&data[2..]);
+    let mut data_vec = Vec::new();
+    if input.data.starts_with("0x"){
+        // data = hex::encode(&data[2..]);
+        data_vec = hex::decode(&input.data[2..]).unwrap();
+    }else{
+        data_vec = hex::decode(&input.data).unwrap();
     }
 
     let mut to = input.to;
@@ -34,7 +37,7 @@ pub fn sign_eth_transaction(param: &SignParam) -> Result<Vec<u8>> {
         gas_limit: U256::from_dec_str(&input.gas_limit).unwrap(),
         to: Action::Call(Address::from_str(&to).unwrap()),
         value: U256::from_dec_str(&input.value).unwrap(),
-        data: Vec::from(data),
+        data: Vec::from(data_vec.as_slice()),
     };
 
     println!("trans create ..");
