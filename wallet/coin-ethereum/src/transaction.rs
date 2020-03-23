@@ -1,7 +1,7 @@
 use crate::address::EthAddress;
 use crate::types::{Action, Signature};
 use bitcoin::hashes::{sha256d, Hash};
-use common::apdu::EthApdu;
+use common::apdu::{EthApdu, ApduCheck};
 use common::path::check_path_validity;
 use common::utility::{hex_to_bytes, sha256_hash, secp256k1_sign_hash, secp256k1_sign};
 use ethereum_types::{Address, H256, U256};
@@ -102,6 +102,7 @@ impl Transaction {
         //select applet
         let select_apdu = EthApdu::select_applet();
         let select_result = send_apdu(select_apdu);
+        ApduCheck::checke_response(&select_result)?;
 
         //prepare apdu
         let msg_prepare = EthApdu::prepare_sign(apdu_pack);
@@ -112,6 +113,7 @@ impl Transaction {
         //get public
         let msg_pubkey = EthApdu::get_pubkey(path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey);
+        ApduCheck::checke_response(&res_msg_pubkey)?;
 
 //        let pubkey_raw =
 //            hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError)?;//TODO
@@ -131,6 +133,7 @@ impl Transaction {
         //sign
         let msg_sign = EthApdu::sign_digest(path);
         let res_msg_sign = send_apdu(msg_sign);
+        ApduCheck::checke_response(&res_msg_sign)?;
 
         //handle sign result
         //let sign_res = String::from("mock for signature"); //@@XM TODO: replace with real result
@@ -233,7 +236,7 @@ impl Transaction {
         }
     }
 
-    pub fn sign_persional_message(input:EthPersonalSignInput) -> EthPersonalSignOutput{
+    pub fn sign_persional_message(input:EthPersonalSignInput) -> Result2<EthPersonalSignOutput>{
 //        let select_apdu = EthApdu::select_applet();
 //        let select_result = send_apdu(select_apdu);
 //        let message_vec = hex::decode(input.message).expect();
@@ -267,6 +270,7 @@ impl Transaction {
 
         let select_apdu = EthApdu::select_applet();
         let select_result = send_apdu(select_apdu);
+        ApduCheck::checke_response(&select_result)?;
 
         let msg_pubkey = EthApdu::get_pubkey(&input.path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey);
@@ -284,11 +288,13 @@ impl Transaction {
         let prepare_apdus = EthApdu::prepare_personal_sign(apdu_pack);
         for apdu in prepare_apdus {
             println!("prepare apdu:{}", &apdu);
-            send_apdu(apdu);//todo check response
+            let res = send_apdu(apdu);
+            ApduCheck::checke_response(&res)?;
         }
 
         let sign_apdu = EthApdu::personal_sign(&input.path);
         let sign_response = send_apdu(sign_apdu);
+        ApduCheck::checke_response(&sign_response)?;
 
         let r = &sign_response[2..66];
         let s = &sign_response[66..130];
@@ -318,7 +324,7 @@ impl Transaction {
         let output = EthPersonalSignOutput{
             signature
         };
-        output
+        Ok(output)
     }
 }
 
@@ -514,7 +520,7 @@ mod tests {
             message: "Hello imKey".to_string(),
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string()
         };
-        let output = Transaction::sign_persional_message(input);
+        let output = Transaction::sign_persional_message(input).unwrap();
         assert_eq!(
             output.signature,
             "d928f76ad80d63003c189b095078d94ae068dc2f18a5cafd97b3a630d7bc47465bd6f1e74de2e88c05b271e1c5a8b93564d9d8842c207482b20634d68f2d54e51b".to_string()

@@ -168,6 +168,48 @@ public class API{
     return ouput
   }
   
+  public class func ethSignMessage(input:Ethapi_EthPersonalSignInput) -> Ethapi_EthPersonalSignOutput{
+    var signParam = Api_SignParam()
+    signParam.chainType = "ETH"
+    signParam.input = Google_Protobuf_Any()
+    signParam.input.value = try! input.serializedData()
+
+    var action = Api_TcxAction()
+    action.method = "sign_msg"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! signParam.serializedData()
+
+    let paramHex = try! action.serializedData().key_toHexString()
+    
+    Log.d("eth param ready..")
+    let res = call_tcx_api(paramHex)
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let ouput = try! Ethapi_EthPersonalSignOutput(serializedData: dataRes)
+    return ouput
+  }
+  
+  public class func eosSignMessage(input:Eosapi_EosMessageInput) -> Eosapi_EosMessageOutput{
+    var signParam = Api_SignParam()
+    signParam.chainType = "EOS"
+    signParam.input = Google_Protobuf_Any()
+    signParam.input.value = try! input.serializedData()
+
+    var action = Api_TcxAction()
+    action.method = "sign_msg"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! signParam.serializedData()
+
+    let paramHex = try! action.serializedData().key_toHexString()
+    
+    Log.d("eth param ready..")
+    let res = call_tcx_api(paramHex)
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let ouput = try! Eosapi_EosMessageOutput(serializedData: dataRes)
+    return ouput
+  }
+  
   public class func eosSignTx(eosInput:Eosapi_EosTxInput) -> Eosapi_EosTxOutput{
     var signParam = Api_SignParam()
     signParam.chainType = "EOS"
