@@ -6,6 +6,7 @@ use super::se_query::{se_query_request, service_response};
 use super::se_secure_check::se_secure_check_request;
 use crate::app_delete::app_delete_request;
 use crate::app_download::app_download_request;
+use super::cos_upgrade::cos_upgrade_request;
 use app_update::app_update_request;
 use common::constants;
 use common::applet;
@@ -125,5 +126,10 @@ pub fn app_delete(app_name: &str) -> Result<()> {
     let device_cert: String = get_cert();
     let instance_aid: String = applet::get_instid_by_appname(app_name).expect("imkey_app_name_not_exist").to_string();
     app_delete_request::build_request_data(seid, instance_aid, device_cert).app_delete()
+}
+
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+pub fn cos_upgrade() -> Result<()> {
+    cos_upgrade_request::cos_upgrade(None)
 }
 
