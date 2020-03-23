@@ -62,7 +62,7 @@ pub fn sign_eth_message(param: &SignParam) -> Result<Vec<u8>> {
     let input: EthPersonalSignInput =
         EthPersonalSignInput::decode(&param.input.as_ref().expect("tx_iput").value.clone())
             .expect("EosMessageInput");
-    let signed = Transaction::sign_persional_message(input);//todo check
+    let signed = Transaction::sign_persional_message(input).unwrap();//todo check
     encode_message(signed)
 }
 

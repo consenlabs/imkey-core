@@ -74,12 +74,19 @@ class ETHViewController: UIViewController {
   @IBAction func signMsgBtnClick(_ sender: Any) {
     txtResult.text = ""
     do {
-      let path = "m/44'/60'/0'/0/0"
-      let data = "Hello imToken"
-      let sender = "0xAfbaf132E587D67125A224B947133cB942E6E312"
-      let sign = try Wallet.ethSignPersonalMessage(handle: handle, path: path, data: data, sender:sender)
-      txtResult.text = "eth sign personal message： \n \(sign)"
-      Log.d(sign)
+//      let path = "m/44'/60'/0'/0/0"
+//      let data = "Hello imToken"
+//      let sender = "0xAfbaf132E587D67125A224B947133cB942E6E312"
+//      let sign = try Wallet.ethSignPersonalMessage(handle: handle, path: path, data: data, sender:sender)
+      
+      var input = Ethapi_EthPersonalSignInput()
+      input.path = "m/44'/60'/0'/0/0"
+      input.message = "Hello imKey"
+      input.sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b"
+      
+      let output = API.ethSignMessage(input: input)
+      txtResult.text = "eth sign personal message： \n \(output)"
+//      Log.d(sign)
     } catch let e as ImkeyError {
       Log.d("!!!error:\(e.message)")
       toastMsg(message: e.message)

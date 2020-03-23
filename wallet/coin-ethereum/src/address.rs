@@ -2,7 +2,7 @@ use hex;
 use keccak_hash::keccak;
 use regex::Regex;
 use crate::Result;
-use common::apdu::EthApdu;
+use common::apdu::{EthApdu, ApduCheck};
 use mq::message::send_apdu;
 use common::utility::hex_to_bytes;
 use common::path::check_path_validity;
@@ -53,17 +53,19 @@ impl EthAddress {
 
         let select_apdu = EthApdu::select_applet();
         let select_response = send_apdu(select_apdu);
+        ApduCheck::checke_response(&select_response)?;
 
         //get public
         let msg_pubkey = EthApdu::get_pubkey(&path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey);
+        ApduCheck::checke_response(&res_msg_pubkey)?;
 
 //        let pubkey_raw =
 //            hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError)?;//TODO
 //         let pubkey_raw =
 //             hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError).expect("hex_to_bytes_error");
         let pubkey_raw =
-            hex_to_bytes(&res_msg_pubkey[..130]).expect("hex_to_bytes_error");//todo handle error
+            hex_to_bytes(&res_msg_pubkey[..130]).unwrap();//todo handle error
 
         println!("pubkey_raw:{}", &hex::encode(&pubkey_raw));
 
@@ -75,7 +77,7 @@ impl EthAddress {
         let address = EthAddress::get_address(path).unwrap();
         let reg_apdu = EthApdu::register_address(address.as_bytes());
         let res_reg = send_apdu(reg_apdu);
-        //todo: check response
+        ApduCheck::checke_response(&res_reg)?;
         Ok(address)
     }
 }
