@@ -70,7 +70,8 @@ impl EthAddress {
         println!("pubkey_raw:{}", &hex::encode(&pubkey_raw));
 
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;
-        Ok(address_main)
+        let address_checksum = EthAddress::address_checksummed(&address_main);
+        Ok(address_checksum)
     }
 
     pub fn display_address(path: &str) -> Result<String> {
@@ -126,7 +127,7 @@ mod test {
         println!("address:{}",&address);
         assert_eq!(
             &address,
-            "6031564e7b2f5cc33737807b2e58daff870b590b"
+            "0x6031564e7b2F5cc33737807b2E58DaFF870B590b"
         );
     }
 
@@ -136,7 +137,7 @@ mod test {
         println!("address:{}", &address);
         assert_eq!(
             &address,
-            "6031564e7b2f5cc33737807b2e58daff870b590b"
+            "0x6031564e7b2F5cc33737807b2E58DaFF870B590b"
         );
     }
 }
