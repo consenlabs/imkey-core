@@ -43,7 +43,7 @@ pub fn hid_send(hid_device: &HidDevice, apdu: &String) -> String {
 
 
 #[no_mangle]
-fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<(Vec<u8>), Error> {
+fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<Vec<u8>, Error> {
     let protocol_err = Error::Protocol(&"Unexpected wire response from imkey Device");
     let first_send_cmd: [u8; 8] = [0x00, 0x00, 0x00, 0x00, 0x01, 0x86, 0x00, 0x00];
     let mut send_first_data_string = String::new();
@@ -71,7 +71,7 @@ fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<(Vec<u
 }
 
 #[no_mangle]
-fn read_device_response(device: &hidapi::HidDevice) -> Result<(Vec<u8>), Error> {
+fn read_device_response(device: &hidapi::HidDevice) -> Result<Vec<u8>, Error> {
     let protocol_err = Error::Protocol(&"Unexpected wire response from imkey Device");
     let mut buf = vec![0; 64];
 
