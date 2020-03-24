@@ -9,7 +9,7 @@ use crate::Result;
 
 
 pub fn hex_to_bytes(value: &str) -> Result<Vec<u8>> {
-    let mut ret_data = vec![];
+    let ret_data;
     if value.to_lowercase().starts_with("0x") {
         ret_data = hex::decode(&value[2..value.len()])?
     } else {

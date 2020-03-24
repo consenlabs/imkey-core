@@ -12,7 +12,7 @@ use mq::hid_api;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::message::DEVICE;
 
-
+#[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CosUpgradeRequest {
     pub seid: String,
@@ -26,6 +26,7 @@ pub struct CosUpgradeRequest {
     pub cardRetDataList: Option<Vec<String>>,
 }
 
+#[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ServiceResponse {
     pub _ReturnCode: String,
@@ -33,6 +34,7 @@ pub struct ServiceResponse {
     pub _ReturnData: CosUpgradeResponse,
 }
 
+#[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CosUpgradeResponse {
     pub seid: Option<String>,
@@ -50,8 +52,8 @@ impl CosUpgradeRequest {
 //        ApduCheck::checke_response(&device_cert)?; //TODO 在所有manager里的接口中增加check方法
 
         let mut is_jump = false;
-        let mut seid = String::new();
-        let mut sn = String::new();
+        let seid;
+        let sn;
         let mut se_cos_version = String::new();
         let mut is_bl_status = true;
         //read seid and sn number
@@ -167,12 +169,12 @@ impl CosUpgradeRequest {
 
 #[cfg(test)]
 mod tests {
-    use crate::cos_upgrade::cos_upgrade_request;
+    use crate::cos_upgrade::CosUpgradeRequest;
     use std::collections::HashMap;
 
     #[test]
     fn cos_upgrade_test() {
-        let upgrade_result = cos_upgrade_request::cos_upgrade(None);
+        let upgrade_result = CosUpgradeRequest::cos_upgrade(None);
         println!("test result -->{}", upgrade_result.is_ok());
     }
 }
