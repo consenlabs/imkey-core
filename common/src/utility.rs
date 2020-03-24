@@ -5,7 +5,6 @@ use num_traits::{Num, FromPrimitive, Zero};
 use num_integer::Integer;
 use secp256k1::recovery::{RecoverableSignature, RecoveryId};
 //use secp256k1::{self, Message as SecpMessage};
-use crate::error::CommonError;
 use crate::Result;
 
 

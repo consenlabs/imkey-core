@@ -1,13 +1,12 @@
 use crate::transaction::Utxo;
-//use secp256k1::{Secp256k1, Message, Signature, SecretKey};
 use bitcoin::util::bip32::{ExtendedPubKey, ChainCode, ChildNumber};
-use bitcoin::{Address, PublicKey, Network, TxOut, Transaction, TxIn, OutPoint, Script, SigHashType};
+use bitcoin::{Address, PublicKey, Network};
 use bitcoin::secp256k1::Secp256k1 as BitcoinSecp256k1;
 use std::str::FromStr;
 use crate::error::BtcError;
 use mq::message::send_apdu;
 use common::apdu::{BtcApdu, ApduCheck};
-use secp256k1::{Secp256k1, Message, Signature, PublicKey as PublicKey2, SecretKey, Error};
+use secp256k1::{Secp256k1, Message, Signature, PublicKey as PublicKey2};
 use common::utility::{sha256_hash};
 use bitcoin::util::base58;
 use crate::Result;
@@ -61,12 +60,12 @@ pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8],
             "segwit" => Ok(Address::p2shwpkh(
                 &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
                 network).to_string()),
-            _ => return Err(BtcError::IMKEY_ADDRESS_MISMATCH_WITH_PATH.into()),//TODO 返回错误信息不对
+            _ => return Err(BtcError::ImkeyAddressMismatchWithPath.into()),//TODO 返回错误信息不对
         };
         let se_gen_address_str = se_gen_address?;
         let utxo_address = utxo.address.to_string();
         if !se_gen_address_str.eq(&utxo_address) {
-            return Err(BtcError::IMKEY_ADDRESS_MISMATCH_WITH_PATH.into());
+            return Err(BtcError::ImkeyAddressMismatchWithPath.into());
         }
         utxo_pub_key_vec.push(extend_public_key.public_key.to_string());
     }
@@ -124,18 +123,18 @@ pub fn get_address_version(network: Network, address: &str) -> Result<u8>{
     match network {
         Network::Bitcoin => {
             if !address.starts_with('1') && !address.starts_with('3') {
-                return Err(BtcError::ADDRESS_TYPE_MISMATCH.into());
+                return Err(BtcError::AddressTypeMismatch.into());
             }
         },
         Network::Testnet => {
             if !address.starts_with('m') &&
                 !address.starts_with('n') &&
                 !address.starts_with('2') {
-                return Err(BtcError::ADDRESS_TYPE_MISMATCH.into());
+                return Err(BtcError::AddressTypeMismatch.into());
             }
         },
         _ => {
-            return Err(BtcError::IMKEY_SDK_ILLEGAL_ARGUMENT.into());
+            return Err(BtcError::ImkeySdkIllegalArgument.into());
         },
     }
     //get address version

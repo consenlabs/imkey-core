@@ -1,27 +1,17 @@
 use base64::{decode, encode};
 use ring::digest;
-use std::convert::TryInto;
 use std::fs::{File, OpenOptions};
-use std::io::{Error, ErrorKind, Read, Write};
+use std::io::{ErrorKind, Read, Write};
 use std::path::Path;
-
 extern crate aes_soft as aes;
 extern crate block_modes;
 extern crate hex_literal;
-
 use aes_soft::Aes128;
 use block_modes::block_padding::Pkcs7;
 use block_modes::{BlockMode, Cbc};
-
-use self::aes::Aes256;
 use hex::FromHex;
 use secp256k1::Secp256k1;
-use secp256k1::key::{SecretKey, PublicKey};
-use rand::{RngCore, thread_rng};
-use std::str::FromStr;
-
-use lazy_static;
-use std::sync::Mutex;
+use rand::thread_rng;
 use crate::Result;
 use crate::error::BindError;
 
@@ -102,7 +92,7 @@ impl KeyManager {
             }
             Err(e) => match e.kind() {
                 ErrorKind::NotFound => Ok(return_data),
-                _ => Err(BindError::IMKEY_KEYFILE_IO_ERROR.into()),
+                _ => Err(BindError::ImkeyKeyfileIoError.into()),
             },
         }
     }
@@ -141,7 +131,7 @@ impl KeyManager {
         self.check_sum = decrypted_data[178..].to_vec();
 
         //校验checksum，检验成功则返回true，否则返回false
-        let mut data = &decrypted_data[..178];
+        let data = &decrypted_data[..178];
         let data_hash = digest::digest(&digest::SHA256, data);
         let data_hash_byte = data_hash.as_ref();
         for (index, val) in self.check_sum.iter().enumerate() {

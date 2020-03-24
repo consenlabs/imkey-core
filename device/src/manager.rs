@@ -1,19 +1,14 @@
-use super::app_delete;
-use super::app_download;
 use super::app_update;
 use super::se_activate;
-use super::se_query::{se_query_request, service_response};
-use super::se_secure_check::se_secure_check_request;
-use crate::app_delete::app_delete_request;
-use crate::app_download::app_download_request;
-use super::cos_upgrade::cos_upgrade_request;
-use app_update::app_update_request;
+use super::se_query::{SeQueryRequest, ServiceResponse};
+use super::se_secure_check::SeSecureCheckRequest;
+use crate::app_delete::AppDeleteRequest;
+use crate::app_download::AppDownloadRequest;
+use app_update::AppUpdateRequest;
 use common::constants;
 use common::applet;
 use mq::message::send_apdu;
-use se_activate::se_activate_request;
-use hex::decode;
-use futures::future::err;
+use se_activate::SeActivateRequest;
 use common::apdu::Apdu;
 use crate::Result;
 
@@ -30,7 +25,7 @@ pub fn get_sn() -> Result<String> {
     let hex_decode = hex::decode(String::from(&res[0..res.len()-4]));
     match hex_decode {
         Ok(sn) => Ok(String::from_utf8(sn).unwrap()),
-        Err(error) => Err(format_err!("get_sn_number_error")),//TODO
+        Err(error) => Err(error.into()),
     }
 }
 
@@ -86,21 +81,21 @@ pub fn check_device() -> Result<()> {
     let seid: String = get_se_id().ok().unwrap();
     let sn: String = get_sn().ok().unwrap();
     let device_cert: String = get_cert();
-    se_secure_check_request::build_request_data(seid, sn, device_cert).se_secure_check()
+    SeSecureCheckRequest::build_request_data(seid, sn, device_cert).se_secure_check()
 }
 
 pub fn active_device() -> Result<()>{
     let seid: String = get_se_id().ok().unwrap();
     let sn: String = get_sn().ok().unwrap();
     let device_cert: String = get_cert();
-    se_activate_request::build_request_data(seid, sn, device_cert).se_activate()
+    SeActivateRequest::build_request_data(seid, sn, device_cert).se_activate()
 }
 
-pub fn check_update() -> Result<service_response>  {
+pub fn check_update() -> Result<ServiceResponse>  {
     let seid: String = get_se_id().ok().unwrap();
     let sn: String = get_sn().ok().unwrap();
     let sdk_version = Some(constants::VERSION.to_string());
-    se_query_request::build_request_data(seid, sn, sdk_version).se_query()
+    SeQueryRequest::build_request_data(seid, sn, sdk_version).se_query()
 }
 
 pub fn app_download(app_name: &str) -> Result<()> {
@@ -108,7 +103,7 @@ pub fn app_download(app_name: &str) -> Result<()> {
     let device_cert: String = get_cert();
     let sdk_version = Some(constants::VERSION.to_string());
     let instance_aid: String = applet::get_instid_by_appname(app_name).expect("imkey_app_name_not_exist").to_string();
-    app_download_request::build_request_data(seid, instance_aid, device_cert, sdk_version)
+    AppDownloadRequest::build_request_data(seid, instance_aid, device_cert, sdk_version)
         .app_download()
 }
 
@@ -117,7 +112,7 @@ pub fn app_update(app_name: &str) -> Result<()> {
     let device_cert: String = get_cert();
     let sdk_version = Some(constants::VERSION.to_string());
     let instance_aid: String = applet::get_instid_by_appname(app_name).expect("imkey_app_name_not_exist").to_string();
-    app_update_request::build_request_data(seid, instance_aid, device_cert, sdk_version)
+    AppUpdateRequest::build_request_data(seid, instance_aid, device_cert, sdk_version)
         .app_update()
 }
 
@@ -125,7 +120,7 @@ pub fn app_delete(app_name: &str) -> Result<()> {
     let seid: String = get_se_id().ok().unwrap();
     let device_cert: String = get_cert();
     let instance_aid: String = applet::get_instid_by_appname(app_name).expect("imkey_app_name_not_exist").to_string();
-    app_delete_request::build_request_data(seid, instance_aid, device_cert).app_delete()
+    AppDeleteRequest::build_request_data(seid, instance_aid, device_cert).app_delete()
 }
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]

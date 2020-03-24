@@ -6,7 +6,7 @@ use crate::Result;
 use crate::error::ImkeyError;
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct se_activate_request {
+pub struct SeActivateRequest {
     pub seid: String,
     pub sn: String,
     pub deviceCert: String,
@@ -17,25 +17,25 @@ pub struct se_activate_request {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct service_response {
+pub struct ServiceResponse {
     pub _ReturnCode: String,
     pub _ReturnMsg: String,
-    pub _ReturnData: se_activate_response,
+    pub _ReturnData: SeActivateResponse,
 }
 #[derive(Serialize, Deserialize, Debug)]
-pub struct se_activate_response {
+pub struct SeActivateResponse {
     pub seid: Option<String>,
     pub nextStepKey: Option<String>,
     pub apduList: Option<Vec<String>>,
 }
 
-impl se_activate_request {
+impl SeActivateRequest {
     pub fn build_request_data(
         seid: String,
         sn: String,
         device_cert: String,
-    ) -> se_activate_request {
-        se_activate_request {
+    ) -> SeActivateRequest {
+        SeActivateRequest {
             seid: seid,
             sn: sn,
             deviceCert: device_cert,
@@ -50,8 +50,8 @@ impl se_activate_request {
         loop {
             println!("请求报文：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
-            let mut response_data = https::post(constants::TSM_ACTION_SE_ACTIVATE, req_data)?;
-            let return_bean: service_response = serde_json::from_str(response_data.as_str())?;
+            let response_data = https::post(constants::TSM_ACTION_SE_ACTIVATE, req_data)?;
+            let return_bean: ServiceResponse = serde_json::from_str(response_data.as_str())?;
             println!("反馈报文：{:#?}", return_bean);
             if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //判断步骤key是否已经结束
@@ -79,10 +79,10 @@ impl se_activate_request {
                 }
             } else {
                 let ret_code_check_result: Result<()> = match return_bean._ReturnCode.as_str() {
-                    constants::TSM_RETURNCODE_DEVICE_ACTIVE_FAIL => Err(ImkeyError::IMKEY_TSM_DEVICE_ACTIVE_FAIL.into()),
-                    constants::TSM_RETURNCODE_SEID_ILLEGAL => Err(ImkeyError::IMKEY_TSM_DEVICE_ILLEGAL.into()),
-                    constants::TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::IMKEY_TSM_DEVICE_STOP_USING.into()),
-                    _ => Err(ImkeyError::IMKEY_TSM_SERVER_ERROR.into()),
+                    constants::TSM_RETURNCODE_DEVICE_ACTIVE_FAIL => Err(ImkeyError::ImkeyTsmDeviceActiveFail.into()),
+                    constants::TSM_RETURNCODE_SEID_ILLEGAL => Err(ImkeyError::ImkeyTsmDeviceIllegal.into()),
+                    constants::TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::ImkeyTsmDeviceStopUsing.into()),
+                    _ => Err(ImkeyError::ImkeyTsmServerError.into()),
                 };
                 return ret_code_check_result;
             }

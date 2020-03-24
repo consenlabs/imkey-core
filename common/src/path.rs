@@ -7,12 +7,12 @@ pub fn check_path_validity(path: &str) -> Result<()> {
     let strings: Vec<&str> = path.split("/").collect();
     let depth = strings.len();
     if depth < 2 || depth > 10 || path.len() > 100{
-        return Err(CommonError::IMKEY_PATH_ILLEGAL.into());
+        return Err(CommonError::ImkeyPathIllegal.into());
     }
     //regx check
     let re = Regex::new(r"^m/[0-9'/]+$").unwrap();
     if !re.is_match(path) {
-        return Err(CommonError::IMKEY_PATH_ILLEGAL.into());
+        return Err(CommonError::ImkeyPathIllegal.into());
     }
     Ok(())
 }

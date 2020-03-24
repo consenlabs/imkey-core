@@ -4,12 +4,9 @@ use serde::{Deserialize, Serialize};
 use mq::message::{send_apdu};
 use crate::manager::{get_se_id, get_sn, get_firmware_version, get_cert};
 use common::utility::hex_to_bytes;
-use crate::app_download::app_download_request;
-use std::sync::Mutex;
-use lazy_static;
+use crate::app_download::AppDownloadRequest;
 use crate::Result;
 use crate::error::ImkeyError;
-use common::apdu::ApduCheck;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::hid_api;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
@@ -17,7 +14,7 @@ use mq::message::DEVICE;
 
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct cos_upgrade_request {
+pub struct CosUpgradeRequest {
     pub seid: String,
     pub sn: String,
     pub deviceCert: String,
@@ -30,14 +27,14 @@ pub struct cos_upgrade_request {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct service_response {
+pub struct ServiceResponse {
     pub _ReturnCode: String,
     pub _ReturnMsg: String,
-    pub _ReturnData: cos_upgrade_response,
+    pub _ReturnData: CosUpgradeResponse,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct cos_upgrade_response {
+pub struct CosUpgradeResponse {
     pub seid: Option<String>,
     pub CosVersion: Option<String>,
     pub InstanceAidList: Option<Vec<String>>,
@@ -45,7 +42,7 @@ pub struct cos_upgrade_response {
     pub apduList: Option<Vec<String>>,
 }
 
-impl cos_upgrade_request {
+impl CosUpgradeRequest {
     #[cfg(any(target_os = "macos", target_os = "windows"))]
     pub fn cos_upgrade(sdk_version: Option<String>) -> Result<()> {
         //read se device cert
@@ -81,7 +78,7 @@ impl cos_upgrade_request {
             return Err(ImkeyError::BCOS0003.into());
         }
 
-        let mut request_data = cos_upgrade_request {
+        let mut request_data = CosUpgradeRequest {
             seid: seid.clone(),
             sn: sn,
             deviceCert: device_cert.clone(),
@@ -98,8 +95,8 @@ impl cos_upgrade_request {
         loop {
             println!("请求报文：{:#?}", request_data);
             let req_data = serde_json::to_vec_pretty(&request_data).unwrap();
-            let mut response_data = https::post(TSM_ACTION_COS_UPGRADE, req_data)?;
-            let return_bean: service_response = serde_json::from_str(response_data.as_str())?;
+            let response_data = https::post(TSM_ACTION_COS_UPGRADE, req_data)?;
+            let return_bean: ServiceResponse = serde_json::from_str(response_data.as_str())?;
             println!("反馈报文：{:#?}", return_bean);
             if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
                 //判断步骤key是否已经结束
@@ -136,8 +133,8 @@ impl cos_upgrade_request {
                 if "06".eq(next_step_key.as_str()) {//applet download
                     match &return_bean._ReturnData.InstanceAidList {
                         Some(aid_list) =>{
-                            for temp_instance_aid in return_bean._ReturnData.InstanceAidList.unwrap().iter() {
-                                app_download_request::build_request_data(seid.clone(),
+                            for temp_instance_aid in aid_list.iter() {
+                                AppDownloadRequest::build_request_data(seid.clone(),
                                                                          temp_instance_aid.clone(),
                                                                          device_cert.clone(),
                                                                          sdk_version.clone()).app_download()?;
@@ -150,16 +147,16 @@ impl cos_upgrade_request {
                 request_data.stepKey = next_step_key;
             } else {
                  return match return_bean._ReturnCode.as_str() {
-                    constants::TSM_RETURNCODE_COS_INFO_NO_CONF => Err(ImkeyError::IMKEY_TSM_COS_INFO_NO_CONF.into()),
-                    constants::TSM_RETURNCODE_COS_UPGRADE_FAIL => Err(ImkeyError::IMKEY_TSM_COS_UPGRADE_FAIL.into()),
-                    constants::TSM_RETURNCODE_UPLOAD_COS_VERSION_IS_NULL => Err(ImkeyError::IMKEY_TSM_UPLOAD_COS_VERSION_IS_NULL.into()),
-                    constants::TSM_RETURNCODE_SWITCH_BL_STATUS_FAIL => Err(ImkeyError::IMKEY_TSM_SWITCH_BL_STATUS_FAIL.into()),
-                    constants::TSM_RETURNCODE_WRITE_WALLET_ADDRESS_FAIL => Err(ImkeyError::IMKEY_TSM_WRITE_WALLET_ADDRESS_FAIL.into()),
+                    constants::TSM_RETURNCODE_COS_INFO_NO_CONF => Err(ImkeyError::ImkeyTsmCosInfoNoConf.into()),
+                    constants::TSM_RETURNCODE_COS_UPGRADE_FAIL => Err(ImkeyError::ImkeyTsmCosUpgradeFail.into()),
+                    constants::TSM_RETURNCODE_UPLOAD_COS_VERSION_IS_NULL => Err(ImkeyError::ImkeyTsmUploadCosVersionIsNull.into()),
+                    constants::TSM_RETURNCODE_SWITCH_BL_STATUS_FAIL => Err(ImkeyError::ImkeyTsmSwitchBlStatusFail.into()),
+                    constants::TSM_RETURNCODE_WRITE_WALLET_ADDRESS_FAIL => Err(ImkeyError::ImkeyTsmWriteWalletAddressFail.into()),
                     constants::TSM_RETURNCODE_DEVICE_CHECK_FAIL => Err(ImkeyError::BSE0009.into()),
                      constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => Err(ImkeyError::BSE0010.into()),
                      constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::BSE0017.into()),
                      constants::TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::BSE0007.into()),
-                    _ => Err(ImkeyError::IMKEY_TSM_SERVER_ERROR.into()),
+                    _ => Err(ImkeyError::ImkeyTsmServerError.into()),
                 };
 
 

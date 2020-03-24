@@ -185,12 +185,13 @@ loop {
 #[cfg(test)]
 mod test{
     use crate::hid_api;
+    use crate::message::send_apdu;
 
     #[test]
     fn hid_test(){
-        let hid_device = hid_api::hid_connect();
-        hid_api::hid_send(&hid_device, &"00a4040000".to_string());
-        let hid_device = hid_api::hid_connect();
-        hid_api::hid_send(&hid_device, &"00a4040000".to_string());
+//        let hid_device = hid_api::hid_connect();
+//        hid_api::hid_send(&hid_device, &"00A4040005695F62746300".to_string());
+        send_apdu("00A4040005695F62746300".to_string());
+
     }
 }

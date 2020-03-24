@@ -2,12 +2,11 @@ use common::constants;
 use common::https;
 use mq::message;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 use crate::Result;
 use crate::error::ImkeyError;
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct app_delete_request {
+pub struct AppDeleteRequest {
     pub seid: String,
     pub instanceAid: String,
     pub deviceCert: String,
@@ -18,26 +17,26 @@ pub struct app_delete_request {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct service_response {
+pub struct ServiceResponse {
     pub _ReturnCode: String,
     pub _ReturnMsg: String,
-    pub _ReturnData: app_delete_response,
+    pub _ReturnData: AppDeleteResponse,
 }
 #[derive(Serialize, Deserialize, Debug)]
-pub struct app_delete_response {
+pub struct AppDeleteResponse {
     pub seid: Option<String>,
     pub instanceAid: Option<String>,
     pub nextStepKey: Option<String>,
     pub apduList: Option<Vec<String>>,
 }
 
-impl app_delete_request {
+impl AppDeleteRequest {
     pub fn build_request_data(
         seid: String,
         instance_aid: String,
         device_cert: String,
-    ) -> app_delete_request {
-        app_delete_request {
+    ) -> AppDeleteRequest {
+        AppDeleteRequest {
             seid: seid,
             instanceAid: instance_aid,
             deviceCert: device_cert,
@@ -52,8 +51,8 @@ impl app_delete_request {
         loop {
             println!("请求报文：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
-            let mut response_data = https::post(constants::TSM_ACTION_APP_DELETE, req_data)?;
-            let return_bean: service_response = serde_json::from_str(response_data.as_str())?;
+            let response_data = https::post(constants::TSM_ACTION_APP_DELETE, req_data)?;
+            let return_bean: ServiceResponse = serde_json::from_str(response_data.as_str())?;
             println!("反馈报文：{:#?}", return_bean);
             if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //判断步骤key是否已经结束
@@ -79,13 +78,13 @@ impl app_delete_request {
                 }
             } else {
                 let ret_code_check_result: Result<()> = match return_bean._ReturnCode.as_str() {
-                    constants::TSM_RETURNCODE_APP_DELETE_FAIL => Err(ImkeyError::IMKEY_TSM_APP_DELETE_FAIL.into()),
-                    constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::IMKEY_TSM_DEVICE_ILLEGAL.into()),
-                    constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => Err(ImkeyError::IMKEY_TSM_OCE_CERT_CHECK_FAIL.into()),
-                    constants::TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::IMKEY_TSM_DEVICE_STOP_USING.into()),
-                    constants::TSM_RETURNCODE_RECEIPT_CHECK_FAIL => Err(ImkeyError::IMKEY_TSM_RECEIPT_CHECK_FAIL.into()),
-                    constants::TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::IMKEY_TSM_DEVICE_NOT_ACTIVATED.into()),
-                    _ => Err(ImkeyError::IMKEY_TSM_SERVER_ERROR.into()),
+                    constants::TSM_RETURNCODE_APP_DELETE_FAIL => Err(ImkeyError::ImkeyTsmAppDeleteFail.into()),
+                    constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::ImkeyTsmDeviceIllegal.into()),
+                    constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => Err(ImkeyError::ImkeyTsmOceCertCheckFail.into()),
+                    constants::TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::ImkeyTsmDeviceStopUsing.into()),
+                    constants::TSM_RETURNCODE_RECEIPT_CHECK_FAIL => Err(ImkeyError::ImkeyTsmReceiptCheckFail.into()),
+                    constants::TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::ImkeyTsmDeviceNotActivated.into()),
+                    _ => Err(ImkeyError::ImkeyTsmServerError.into()),
                 };
                 return ret_code_check_result;
             }
