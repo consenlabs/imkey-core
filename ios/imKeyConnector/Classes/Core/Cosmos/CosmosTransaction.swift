@@ -89,8 +89,8 @@ public final class CosmosTransaction {
     let toDisBytes: [UInt8] = Array(toDis.utf8)
     let feeDisBytes: [UInt8] = Array(feeDis.utf8)
     
-    let jsonHash = signMessageWithSlashRemoved.sha256()
-    Log.d("json hash:\(jsonHash)")
+    let json_hash = signMessageWithSlashRemoved.sha256()
+    Log.d("json hash:\(json_hash)")
     let signPack = "0120" + signMessageWithSlashRemoved.sha256()
       + "07" + String(format:"%02x", paymentDisBytes.count) + paymentDisBytes.toHexString()
       + "08" + String(format:"%02x", toDisBytes.count) + toDisBytes.toHexString()
@@ -121,15 +121,15 @@ public final class CosmosTransaction {
     let s = res.key_substring(from: 66).key_substring(to: 64)
     
     let sBig = BTCBigNumber.init(string: s, base: 16)
-    guard var sLow = SigUtil.getLowS(s:sBig!).hexString else{
+    guard var s_low = SigUtil.getLowS(s:sBig!).hexString else{
       throw SDKError.unwrapError
     }
     
-    while sLow.count<64 {
-      sLow = "0" + sLow
+    while s_low.count<64 {
+      s_low = "0" + s_low
     }
     
-    let signature = r + sLow.uppercased()
+    let signature = r + s_low.uppercased()
     
     let sigData = Data(ByteUtil.hexString2Uint8Array(data: signature)!)
     let base64Sig = sigData.base64EncodedString()

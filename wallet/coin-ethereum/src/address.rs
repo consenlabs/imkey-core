@@ -49,7 +49,7 @@ impl EthAddress {
     }
 
     pub fn get_address(path: &str) -> Result<String> {
-        check_path_validity(path);
+        check_path_validity(path).unwrap();
 
         let select_apdu = EthApdu::select_applet();
         let select_response = send_apdu(select_apdu);
