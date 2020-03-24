@@ -5,6 +5,9 @@ use hidapi::{HidApi, HidDevice};
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 use std::sync::Mutex;
+use std::thread;
+use std::time::Duration;
+use crate::Result;
 
 lazy_static! {
     pub static ref APDU: Mutex<String> = Mutex::new("".to_string());
@@ -142,19 +145,31 @@ pub fn set_apdu(apdu: *const c_char) {
     *_apdu = str_buf;
 }
 
-fn get_apdu_return_r() -> String {
+fn get_apdu_return_r() -> Result<String> {
     //debug!("get_apdu_return_r");
+
+    let timeout = 10;//second
+    let loop_max = timeout * 1000/500;
+    let mut loop_count = 0;
     loop {
         let mut apdu_return = APDU_RETURN.lock().unwrap();
         if *apdu_return != "" {
-            //debug!("get_apdu_return_r not null {}", apdu_return.clone());
+            println!("get_apdu_return_r not null {}", apdu_return.clone());
             let temp = apdu_return.clone();
             *apdu_return = String::from("");
-            return String::from(temp.to_owned());
+            return Ok(String::from(temp.to_owned()));
         } else {
-            //debug!("get_apdu_return_r is null {}", apdu_return.clone());
+            println!("get_apdu_return_r is null {}", apdu_return.clone());
         }
-        // thread::sleep(Duration::from_millis(1000));
+        drop(apdu_return);
+
+        loop_count = loop_count + 1;
+        println!("loop time:{}",&loop_count);
+        thread::sleep(Duration::from_millis(500));
+        if loop_count >= loop_max {
+            println!("timeout panic!");
+            return Err(format_err!("imkey_send_apdu_timeout"));
+        }
     }
 }
 
@@ -181,7 +196,7 @@ pub fn send_apdu(apdu: String) -> String {
 #[cfg(any(target_os = "android", target_os = "ios"))]
 pub fn send_apdu(apdu: String) -> String {
     set_apdu_r(apdu);
-    get_apdu_return_r()
+    get_apdu_return_r().unwrap()
 }
 
 #[test]

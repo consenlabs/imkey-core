@@ -1,18 +1,12 @@
 use common::apdu::{CosmosApdu, ApduCheck};
-use common::constants;
 use common::path;
 use common::utility;
 use hex;
 use mq::message;
-use std::str::FromStr;
-//use hex::FromHex;
 use bech32::bech32::Bech32;
-use bech32::AddressError;
 use bitcoin::bech32::convert_bits;
 use bitcoin_hashes::hex::{FromHex, ToHex};
 use bitcoin_hashes::{hash160, Hash};
-use ring::digest;
-use secp256k1::{Message, PublicKey as PublicKey2, Secp256k1, SecretKey, Signature};
 use crate::Result;
 use device::device_binding::KEY_MANAGER;
 
@@ -21,7 +15,7 @@ pub struct CosmosAddress {}
 
 impl CosmosAddress {
     pub fn get_pub_key(path: &str) -> Result<String> {
-        path::check_path_validity(path);
+        path::check_path_validity(path).unwrap();
 
         let select_apdu = CosmosApdu::select_applet();
         let select_response = message::send_apdu(select_apdu);
@@ -34,7 +28,7 @@ impl CosmosAddress {
 
         let sign_source_val = &res_msg_pubkey[..194];
         let sign_result = &res_msg_pubkey[194..res_msg_pubkey.len() - 4];
-        let pub_key = &sign_source_val[..130];
+        // let pub_key = &sign_source_val[..130];
 
         //use se public key verify sign
         // let se_pub_key = "04E03248A0012603C6B20786C2A86EB6B9DC1767BC56674EBE471ED5FDF287A063985885E0523E100319E0643810F0EAF66A0D4102AEAE49FD7BC7AC232247A3DC";
@@ -75,7 +69,7 @@ impl CosmosAddress {
         let address = match b32.to_string() {
             Ok(s) => s,
 //            Err(e) => return Err(error::Error::AddressError),
-            Err(e) => return Err(format_err!("AddressError")),
+            Err(_e) => return Err(format_err!("AddressError")),
         };
         Ok(address)
     }
