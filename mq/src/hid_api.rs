@@ -132,7 +132,6 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
                 data.extend_from_slice(&headerdata[0..5]);
                 data.push(flg as u8);
                 data.extend_from_slice(&msg[datalenflage..msg_size]);
-                datalenflage += msg_size - datalenflage;
                 break;
             } else {
                 if !(datalenflage == 0) {
