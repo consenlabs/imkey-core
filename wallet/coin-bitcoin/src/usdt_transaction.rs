@@ -11,7 +11,7 @@ use bitcoin_hashes::hex::ToHex;
 use mq::message::send_apdu;
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::Hash;
-use crate::transaction::{BtcTransaction, Utxo};
+use crate::transaction::BtcTransaction;
 use common::utility::{hex_to_bytes, bigint_to_byte_vec, secp256k1_sign};
 use crate::common::{address_verify, get_xpub_data, secp256k1_sign_verify, get_address_version, TxSignResult};
 use bitcoin::util::psbt::serialize::Serialize;
@@ -129,7 +129,7 @@ impl BtcTransaction {
         ApduCheck::checke_response(&apdu_response)?;
         let mut lock_script_ver : Vec<Script> = vec![];
         let count = (self.unspents.len() - 1 )/ EACH_ROUND_NUMBER + 1;
-        for i in (0..count) {
+        for i in 0..count {
             for (x, temp_utxo) in self.unspents.iter().enumerate() {
                 let mut input_data_vec = vec![];
                 input_data_vec.push(x as u8);
@@ -324,11 +324,8 @@ impl BtcTransaction {
 
             //amount
             let mut utxo_amount = num_bigint::BigInt::from(unspent.amount).to_signed_bytes_le();
-            if(utxo_amount.len() < 8){
-                let temp_number = 8 - utxo_amount.len();
-                for _i in (0..temp_number) {
-                    utxo_amount.push(0x00);
-                }
+            while utxo_amount.len() < 8 {
+                utxo_amount.push(0x00);
             }
             data.extend(utxo_amount.iter());
 
@@ -345,7 +342,7 @@ impl BtcTransaction {
             address_data.extend_from_slice(sign_path.as_bytes());
 
             data.extend(address_data.iter());
-            if(index == self.unspents.len() - 1){
+            if index == self.unspents.len() - 1 {
                 sign_apdu_vec.push(BtcApdu::btc_segwit_sign(true, 0x01, data));
             }else{
                 sign_apdu_vec.push(BtcApdu::btc_segwit_sign(false, 0x01, data));
@@ -412,21 +409,15 @@ impl BtcTransaction {
 
     pub fn build_omni_output(&self, property_id : i32, amount : i64, ) -> TxOut {
         let mut property_id_bytes = num_bigint::BigInt::from(property_id).to_signed_bytes_le();
-        if(property_id_bytes.len() < 4){
-            let temp_number = 4 - property_id_bytes.len();
-            for _i in (0..temp_number) {
-                property_id_bytes.push(0x00);
-            }
+        while property_id_bytes.len() < 4 {
+            property_id_bytes.push(0x00);
         }
         property_id_bytes.reverse();
         let mut omni_data = hex::decode("6f6d6e6900000000").unwrap();
         omni_data.extend(property_id_bytes.iter());
         let mut amount_bytes = num_bigint::BigInt::from(amount).to_signed_bytes_le();
-        if(amount_bytes.len() < 8){
-            let temp_number = 8 - amount_bytes.len();
-            for _i in (0..temp_number) {
-                amount_bytes.push(0x00);
-            }
+        while amount_bytes.len() < 8 {
+            amount_bytes.push(0x00);
         }
         amount_bytes.reverse();
         omni_data.extend(amount_bytes.iter());

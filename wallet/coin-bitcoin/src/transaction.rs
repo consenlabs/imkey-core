@@ -104,7 +104,7 @@ impl BtcTransaction {
         }
 
         //add the op_return
-        if (!extra_data.is_empty()) {
+        if !extra_data.is_empty() {
             if extra_data.len() > MAX_OPRETURN_SIZE {
                 return Err(BtcError::ImkeySdkIllegalArgument.into());
             }
@@ -155,7 +155,7 @@ impl BtcTransaction {
 
         let mut lock_script_ver : Vec<Script> = vec![];
         let count = (self.unspents.len() - 1 )/ EACH_ROUND_NUMBER + 1;
-        for i in (0..count) {
+        for i in 0..count {
             for (x, temp_utxo) in self.unspents.iter().enumerate() {
                 let mut input_data_vec = vec![];
                 input_data_vec.push(x as u8);
@@ -279,7 +279,7 @@ impl BtcTransaction {
             });
         }
         //add the op_return
-        if (!extra_data.is_empty()) {
+        if !extra_data.is_empty() {
             if extra_data.len() > MAX_OPRETURN_SIZE {
                 return Err(BtcError::ImkeySdkIllegalArgument.into());
             }
@@ -363,11 +363,8 @@ impl BtcTransaction {
 
             //amount
             let mut utxo_amount = num_bigint::BigInt::from(unspent.amount).to_signed_bytes_le();
-            if(utxo_amount.len() < 8){
-                let temp_number = 8 - utxo_amount.len();
-                for _i in (0..temp_number) {
-                    utxo_amount.push(0x00);
-                }
+            while utxo_amount.len() < 8 {
+                utxo_amount.push(0x00);
             }
             data.extend(utxo_amount.iter());
 
@@ -382,7 +379,7 @@ impl BtcTransaction {
             address_data.extend_from_slice(sign_path.as_bytes());
 
             data.extend(address_data.iter());
-            if(index == self.unspents.len() - 1){
+            if index == self.unspents.len() - 1 {
                 sign_apdu_vec.push(BtcApdu::btc_segwit_sign(true, 0x01, data));
             }else{
                 sign_apdu_vec.push(BtcApdu::btc_segwit_sign(false, 0x01, data));

@@ -78,7 +78,7 @@ impl DeviceManage {
 
             //解析SE公钥证书，获取SE公钥
             let se_cert_str = manager::get_cert();
-            let mut index = 0;
+            let index;
             if se_cert_str.contains("7F4947B041") {
                 index = se_cert_str.find("7F4947B041").expect("parsing_se_cert_error");
             }else if se_cert_str.contains("7F4946B041") {
@@ -109,7 +109,7 @@ impl DeviceManage {
             //保存密钥到本地文件
             if key_flag {
                 let ciphertext = key_manager_obj.encrypt_data()?;
-                KeyManager::save_keys_to_local_file(&ciphertext, file_path, &seid);
+                KeyManager::save_keys_to_local_file(&ciphertext, file_path, &seid)?;
             }
         }
         if status.eq("00") {
@@ -239,10 +239,10 @@ mod test{
     #[test]
     fn device_bind_test(){
 
-           // let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-           // let bind_code = "E4APZZRT".to_string();
-      let path = "/Users/joe/work/sdk_gen_key".to_string();
-      let bind_code = "YDSGQPKX".to_string();
+            let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+            let bind_code = "E4APZZRT".to_string();
+//      let path = "/Users/joe/work/sdk_gen_key".to_string();
+//      let bind_code = "YDSGQPKX".to_string();
         // let mut device_manage = DeviceManage::new();
         // let check_result = device_manage.bind_check(&path).unwrap();
         let check_result = DeviceManage::bind_check(&path).unwrap();
