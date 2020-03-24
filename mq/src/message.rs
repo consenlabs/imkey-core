@@ -1,7 +1,7 @@
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use super::hid_api;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
-use hidapi::{HidApi, HidDevice};
+use hidapi::HidDevice;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 use std::sync::Mutex;
@@ -23,7 +23,7 @@ lazy_static! {
 }
 
 #[no_mangle]
-pub extern "C" fn default_callback(apdu: *const c_char) -> *const c_char {
+pub extern "C" fn default_callback(_apdu: *const c_char) -> *const c_char {
     CString::new("need set callback!".to_owned())
         .unwrap()
         .into_raw()
@@ -34,7 +34,7 @@ pub extern "C" fn rust_hello(
     to: *const c_char,
     callback: extern "C" fn(apdu: *const c_char) -> *const c_char,
 ) -> *mut c_char {
-    let cb = callback;
+    let _cb = callback;
     let c_str = unsafe { CStr::from_ptr(to) };
     let recipient = match c_str.to_str() {
         Err(_) => "there",
@@ -72,54 +72,12 @@ pub extern "C" fn get_se_id(
     )
 }
 
-// #[no_mangle]
-// pub extern "C" fn get_se_id(callback: extern "C" fn(apdu:*const c_char)->*const c_char) -> *const c_char {
-//     let functions = vec![callback];
-//     functions[0](CString::new("00A4040000".to_owned())
-//         .unwrap()
-//         .into_raw());
-//     callback(CString::new("80CB800005DFFF028101".to_owned())
-//         .unwrap()
-//         .into_raw())
-// }
-
-//#[no_mangle]
-//#[cfg(target_os = "ios")]
-//pub extern "C" fn get_seid() -> *const c_char {
-//    get_seid_internal()
-//}
-
-fn get_seid_internal() -> *const c_char {
-    //debug!("get_seid_internal...");
-    // set_apdu_r(String::from("00A4040000"));
-    // get_apdu_return_r();
-    // set_apdu_r(String::from("80CB800005DFFF028101"));
-    // CString::new(get_apdu_return_r()).unwrap().into_raw()
-    send_apdu(String::from("00A4040000"));
-    let res = send_apdu(String::from("80CB800005DFFF028101"));
-    CString::new(res).unwrap().into_raw()
-}
-
-// static mut VAR: i32 = 5;
-// static mut STR:String = "22".to_string();
-
 pub fn get_apdu() -> *const c_char {
-    // loop{
-    //     let mut apdu = APDU.lock().unwrap();
-    //     if *apdu != ""{
-    //         let temp = apdu.clone();
-    //         *apdu = String::from("");
-    //         return CString::new(temp.to_owned()).unwrap().into_raw();
-    //     }
-    // }
-    // //debug!("set_apdu_r...{}",apdu);
-
     let apdu = APDU.lock().unwrap();
     return CString::new(apdu.to_owned()).unwrap().into_raw();
 }
 
 fn set_apdu_r(apdu: String) {
-    //debug!("set_apdu_r...{}", apdu);
     println!("set_apdu_r...");
     loop {
         let mut _apdu = APDU.lock().unwrap();
@@ -129,10 +87,8 @@ fn set_apdu_r(apdu: String) {
             *_apdu = String::from(apdu.clone());
             break;
         } else {
-            //debug!("not null...{}", _apdu);
             println!("not null...{}", _apdu);
         }
-        // thread::sleep(Duration::from_millis(1000));
     }
 }
 

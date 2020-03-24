@@ -2,7 +2,6 @@ use hex::FromHex;
 use std::thread::sleep;
 use std::time::Duration;
 use std::sync::Mutex;
-use crate::message::DEVICE;
 use hidapi::{HidApi, HidDevice};
 
 lazy_static! {
@@ -10,7 +9,6 @@ lazy_static! {
 }
 
 const RETRY_SEC: u64 = 1;
-const RETRY_SEC1: u64 = 30;
 const DEV_VID: u16 = 0x096e;
 const DEV_PID: u16 = 0x0891;
 
@@ -44,22 +42,27 @@ pub fn hid_send(hid_device: &HidDevice, apdu: &String) -> String {
 #[no_mangle]
 fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<(Vec<u8>), Error> {
     let protocol_err = Error::Protocol(&"Unexpected wire response from imkey Device");
-    let firstSendcmd: [u8; 8] = [0x00, 0x00, 0x00, 0x00, 0x01, 0x86, 0x00, 0x00];
+    let first_send_cmd: [u8; 8] = [0x00, 0x00, 0x00, 0x00, 0x01, 0x86, 0x00, 0x00];
     let mut send_first_data_string = String::new();
-    for u in &firstSendcmd[..firstSendcmd.len()] {
+    for u in &first_send_cmd[..first_send_cmd.len()] {
         send_first_data_string.push_str((format!("{:02X}", u)).as_ref());
     }
-    //    println!("{}", "send first cmd-->".to_owned()+ &send_first_data_string);
-    let res = device.write(&firstSendcmd);
+
+    let res = device.write(&first_send_cmd);
+    if res.is_err() {
+        return Err(protocol_err);
+    }
 
     let mut buf = vec![0; 64];
     let first_chunk = device.read_timeout(&mut buf, 300_000);
+    if first_chunk.is_err() {
+        return Err(protocol_err);
+    }
 
     let mut receive_first_data_string = String::new();
     for u in &buf[..buf.len()] {
         receive_first_data_string.push_str((format!("{:02X}", u)).as_ref());
     }
-    //    println!("{}", "receive first res-->".to_owned()+&receive_first_data_string);
 
     Ok(buf[..64].to_vec())
 }
@@ -70,7 +73,7 @@ fn read_device_response(device: &hidapi::HidDevice) -> Result<(Vec<u8>), Error> 
     let mut buf = vec![0; 64];
 
     let first_res = device.read_timeout(&mut buf, 300_000);
-    if (first_res.is_err()) {
+    if first_res.is_err() {
         return Err(protocol_err);
     }
     let msg_size = (buf[5] as u8 & 0xFF) + (buf[6] as u8 & 0xFF);
@@ -79,7 +82,7 @@ fn read_device_response(device: &hidapi::HidDevice) -> Result<(Vec<u8>), Error> 
     while data.len() < (msg_size as usize) {
         //        println!("{}", data.len() as usize);
         let res = device.read_timeout(&mut buf, 10_000);
-        if (res.is_err()) {
+        if res.is_err() {
             return Err(protocol_err);
         }
 
@@ -118,14 +121,14 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
     headerdata.push((msg_size & 0xFF00) as u8);
     headerdata.push((msg_size & 0x00FF) as u8);
     let mut data = Vec::new();
-    if ((msg_size + 8) < 65) {
+    if (msg_size + 8) < 65 {
         data.extend_from_slice(&headerdata[0..8]);
         data.extend_from_slice(&msg[0..msg_size]);
     } else {
         let mut datalenflage = 0;
         let mut flg = 0;
-        while (true) {
-            if (msg_size - datalenflage < 65 - 8) {
+        loop {
+            if msg_size - datalenflage < 65 - 8 {
                 data.extend_from_slice(&headerdata[0..5]);
                 data.push(flg as u8);
                 data.extend_from_slice(&msg[datalenflage..msg_size]);
@@ -137,11 +140,11 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
                     data.push(flg as u8);
                     flg = 1 + flg;
                     data.extend_from_slice(&msg[datalenflage..datalenflage + 65 - 6]);
-                    datalenflage += (65 - 6);
+                    datalenflage += 65 - 6;
                 } else {
                     data.extend_from_slice(&headerdata[0..8]);
                     data.extend_from_slice(&msg[datalenflage..65 - 8]);
-                    datalenflage += (65 - 8);
+                    datalenflage += 65 - 8;
                 }
             }
         }
@@ -151,10 +154,10 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
         data.push(0);
     }
 
-    let mut total_written = 0;
+    let total_written = 0;
     for chunk in data.chunks(65) {
         let res = device.write(&chunk);
-        if (res.is_err()) {
+        if res.is_err() {
             return Err(protocol_err);
         }
     }
