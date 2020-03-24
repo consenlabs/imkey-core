@@ -31,7 +31,10 @@ pub enum Error {
 #[no_mangle]
 pub fn hid_send(hid_device: &HidDevice, apdu: &String) -> String {
     println!("-->{}", apdu);
-    send_device_message(hid_device, Vec::from_hex(apdu.as_str()).unwrap().as_slice());
+    match send_device_message(hid_device, Vec::from_hex(apdu.as_str()).unwrap().as_slice()) {
+        Ok(_res) => (),
+        Err(_err) => panic!("send_device_message_error"),
+    };
     let return_data = read_device_response(hid_device).ok().unwrap();
     let apdu_response = hex::encode_upper(return_data);
     println!("<--{}", apdu_response.clone());

@@ -26,17 +26,9 @@ lazy_static! {
     pub static ref KEY_MANAGER: Mutex<KeyManager> = Mutex::new(KeyManager::new());
 }
 
-pub struct DeviceManage {
-    key_manager: KeyManager,
-}
+pub struct DeviceManage {}
 
 impl DeviceManage {
-    pub fn new() -> DeviceManage {
-        DeviceManage {
-            key_manager: KeyManager::new(),
-        }
-    }
-
     pub fn bind_check(file_path: &String) -> Result<String> {
         //获取seid
         let seid = manager::get_se_id()?;
