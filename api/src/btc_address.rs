@@ -1,5 +1,5 @@
 use crate::api::AddressParam;
-use bitcoin::{Address, PublicKey, Network};
+use bitcoin::Network;
 use crate::wallet_handler::encode_message;
 use coin_bitcoin::btc;
 use crate::btcapi::BtcAddressResponse;

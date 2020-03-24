@@ -2,10 +2,6 @@ use crate::api::AddressParam;
 use common::eosapi::EosPubkeyResponse;
 use crate::wallet_handler::encode_message;
 use coin_eos::pubkey::EosPubkey;
-use common::utility::hex_to_bytes;
-use mq::message::send_apdu;
-use prost::Message;
-use std::str::FromStr;
 use crate::error_handling::Result;
 
 pub fn display_eos_pubkey(data: &AddressParam) -> Result<Vec<u8>> {

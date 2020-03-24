@@ -1,5 +1,4 @@
 use core::result;
-#[macro_use]
 use failure::{Backtrace, Error};
 use std::{cell::RefCell, mem, panic};
 use device::device_binding::DeviceManage;
@@ -46,14 +45,11 @@ pub unsafe fn landingpad<F: FnOnce() -> Result<T> + panic::UnwindSafe, T>(f: F) 
 
 pub unsafe fn error_test(){
     let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-    let bind_code = "E4APZZRT".to_string();
-
     landingpad(|| {
         // let mut device_manage = DeviceManage::new();
         // device_manage.bind_check(&path)
         DeviceManage::bind_check(&path)
     });
-
 }
 
 #[cfg(test)]

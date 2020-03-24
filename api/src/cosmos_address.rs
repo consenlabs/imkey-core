@@ -1,9 +1,5 @@
 use crate::api::AddressParam;
 use crate::wallet_handler::encode_message;
-use common::utility::hex_to_bytes;
-use mq::message::send_apdu;
-use prost::Message;
-use std::str::FromStr;
 use coin_cosmos::address::CosmosAddress;
 use common::cosmosapi::CosmosAddressResponse;
 use crate::error_handling::Result;

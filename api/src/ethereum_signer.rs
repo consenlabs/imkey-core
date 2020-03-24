@@ -1,15 +1,14 @@
 use crate::api::SignParam;
-use crate::ethapi::{EthTxInput, EthTxOutput};
+use crate::ethapi::EthTxInput;
 use crate::wallet_handler::encode_message;
 use coin_ethereum::transaction::Transaction;
 use coin_ethereum::types::Action;
-use common::sign_res::TxSignResult;
-use ethereum_types::{Address, H256, U256};
+use ethereum_types::{Address, U256};
 use hex;
 use prost::Message;
 use std::str::FromStr;
 use crate::error_handling::Result;
-use common::ethapi::{EthPersonalSignInput, EthPersonalSignOutput};
+use common::ethapi::EthPersonalSignInput;
 
 pub fn sign_eth_transaction(param: &SignParam) -> Result<Vec<u8>> {
     let input: EthTxInput =
@@ -18,13 +17,11 @@ pub fn sign_eth_transaction(param: &SignParam) -> Result<Vec<u8>> {
 
     println!("param ..");
 
-    let mut data_vec = Vec::new();
-    if input.data.starts_with("0x"){
-        // data = hex::encode(&data[2..]);
-        data_vec = hex::decode(&input.data[2..]).unwrap();
-    }else{
-        data_vec = hex::decode(&input.data).unwrap();
-    }
+    let data_vec = if input.data.starts_with("0x") {
+        hex::decode(&input.data[2..]).unwrap()
+    } else {
+        hex::decode(&input.data).unwrap()
+    };
 
     let mut to = input.to;
     if to.starts_with("0x"){
