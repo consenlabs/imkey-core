@@ -1,10 +1,6 @@
 use bitcoin::{Address, PublicKey, Network};
 use std::str::FromStr;
 use bitcoin::util::bip32::{ExtendedPubKey, ChainCode, ChildNumber, DerivationPath, Fingerprint};
-use hex::decode;
-use bitcoin::secp256k1::Secp256k1;
-use bitcoin::hashes::core::convert::TryFrom;
-use bitcoin::hashes::{hash160, Hash};
 use common::path::check_path_validity;
 use crate::common::get_xpub_data;
 use crate::Result;
@@ -52,7 +48,7 @@ pub fn get_xpub(network : Network, path : &str) -> Result<String>{
     //build extend public key obj
     let chain_code_obj = ChainCode::from(hex::decode(chain_code).unwrap().as_slice());
     let chain_number_vec: Vec<ChildNumber> = DerivationPath::from_str(path)?.into();
-    let mut extend_public_key = ExtendedPubKey {
+    let extend_public_key = ExtendedPubKey {
         network: network,
         depth: chain_number_vec.len() as u8,
         parent_fingerprint: fingerprint_obj,
@@ -114,7 +110,6 @@ pub fn display_address(network: Network, path: &str) -> Result<String>{
     //path check
     check_path_validity(path)?;
     let address_str =  get_address(network, path)?;
-    let btc_coin_reg = BtcApdu::btc_coin_reg(address_str.clone().into_bytes());
     let apdu_res = send_apdu(BtcApdu::btc_coin_reg(address_str.clone().into_bytes()));
     ApduCheck::checke_response(apdu_res.as_str())?;
     Ok(address_str)
@@ -124,7 +119,6 @@ pub fn display_segwit_address(network: Network, path: &str) -> Result<String>{
     //path check
     check_path_validity(path)?;
     let address_str =  get_segwit_address(network, path)?;
-    let btc_coin_reg = BtcApdu::btc_coin_reg(address_str.clone().into_bytes());
     let apdu_res = send_apdu(BtcApdu::btc_coin_reg(address_str.clone().into_bytes()));
     ApduCheck::checke_response(apdu_res.as_str())?;
     Ok(address_str)

@@ -1,6 +1,5 @@
-use crate::constants::{BTC_AID, ETH_AID, LC_MAX, COSMOS_AID, EOS_AID, APDU_RSP_SUCCESS};
+use crate::constants::{BTC_AID, ETH_AID, LC_MAX, COSMOS_AID, EOS_AID};
 use hex;
-use regex::internal::Input;
 use rustc_serialize::hex::ToHex;
 use crate::Result;
 use crate::error::ApduError;
@@ -441,21 +440,21 @@ impl ApduCheck{
         let response_data: &str = &response_data[response_data.len() - 4..];
         match response_data {
             "9000" => Ok(()),
-            "6940" => Err(ApduError::IMKEY_USER_NOT_CONFIRMED.into()),
-            "6985" => Err(ApduError::IMKEY_CONDITIONS_NOT_SATISFIED.into()),
-            "6A82" => Err(ApduError::IMKEY_APPLET_NOT_EXIST.into()),
-            "6A86" => Err(ApduError::IMKEY_COMMAND_FORMAT_ERROR.into()),
-            "6E00" => Err(ApduError::IMKEY_COMMAND_FORMAT_ERROR.into()),
-            "6A80" => Err(ApduError::IMKEY_COMMAND_DATA_ERROR.into()),
-            "6700" => Err(ApduError::IMKEY_APDU_WRONG_LENGTH.into()),
-            "6942" => Err(ApduError::IMKEY_SIGNATURE_VERIFY_FAIL.into()),
-            "6D00" => Err(ApduError::IMKEY_APPLET_FUNCTION_NOT_SUPPORTED.into()),
-            "6941" => Err(ApduError::IMKEY_EXCEEDED_MAX_UTXO_NUMBER.into()),
-            "F000" => Err(ApduError::IMKEY_WALLET_NOT_CREATED.into()),
-            "F080" => Err(ApduError::IMKEY_IN_MENU_PAGE.into()),
-            "F081" => Err(ApduError::IMKEY_PIN_NOT_VERIFIED.into()),
-            "6F01" => Err(ApduError::IMKEY_BLUETOOTH_CHANNEL_ERROR.into()),
-            _ => Err(format_err!("imkey_command_execute_fail_{}", response_data)),//Err(ApduError::IMKEY_COMMAND_EXECUTE_FAIL.into())
+            "6940" => Err(ApduError::ImkeyUserNotConfirmed.into()),
+            "6985" => Err(ApduError::ImkeyConditionsNotSatisfied.into()),
+            "6A82" => Err(ApduError::ImkeyAppletNotExist.into()),
+            "6A86" => Err(ApduError::ImkeyCommandFormatError.into()),
+            "6E00" => Err(ApduError::ImkeyCommandFormatError.into()),
+            "6A80" => Err(ApduError::ImkeyCommandDataError.into()),
+            "6700" => Err(ApduError::ImkeyApduWrongLength.into()),
+            "6942" => Err(ApduError::ImkeySignatureVerifyFail.into()),
+            "6D00" => Err(ApduError::ImkeyAppletFunctionNotSupported.into()),
+            "6941" => Err(ApduError::ImkeyExceededMaxUtxoNumber.into()),
+            "F000" => Err(ApduError::ImkeyWalletNotCreated.into()),
+            "F080" => Err(ApduError::ImkeyInMenuPage.into()),
+            "F081" => Err(ApduError::ImkeyPinNotVerified.into()),
+            "6F01" => Err(ApduError::ImkeyBluetoothChannelError.into()),
+            _ => Err(format_err!("imkey_command_execute_fail_{}", response_data)),//Err(ApduError::ImkeyCommandExecuteFail.into())
         }
 
     }

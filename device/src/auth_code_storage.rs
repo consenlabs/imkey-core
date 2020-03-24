@@ -5,7 +5,7 @@ use crate::Result;
 use crate::error::ImkeyError;
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct auth_code_storage_request {
+pub struct AuthCodeStorageRequest {
     pub seid: String,
     pub authCode: String,
     pub stepKey: String,
@@ -15,22 +15,22 @@ pub struct auth_code_storage_request {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct service_response {
+pub struct ServiceResponse {
     pub _ReturnCode: String,
     pub _ReturnMsg: String,
-    pub _ReturnData: auth_code_storage_response,
+    pub _ReturnData: AuthCodeStorageResponse,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct auth_code_storage_response {
+pub struct AuthCodeStorageResponse {
     pub seid: Option<String>,
     pub nextStepKey: Option<String>,
     pub apduList: Option<Vec<String>>,
 }
 
-impl auth_code_storage_request {
-    pub fn build_request_data(seid: String, auth_code: String) -> auth_code_storage_request {
-        auth_code_storage_request {
+impl AuthCodeStorageRequest {
+    pub fn build_request_data(seid: String, auth_code: String) -> AuthCodeStorageRequest {
+        AuthCodeStorageRequest {
             seid: seid,
             authCode: auth_code,
             stepKey: String::from("01"),
@@ -43,8 +43,8 @@ impl auth_code_storage_request {
     pub fn auth_code_storage(&mut self) -> Result<()> {
         println!("请求报文：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
-        let mut response_data = https::post(TSM_ACTION_AUTHCODE_STORAGE, req_data)?;
-        let return_bean: service_response = serde_json::from_str(response_data.as_str())?;
+        let response_data = https::post(TSM_ACTION_AUTHCODE_STORAGE, req_data)?;
+        let return_bean: ServiceResponse = serde_json::from_str(response_data.as_str())?;
         println!("反馈报文：{:#?}", return_bean);
         if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
             return Ok(());

@@ -1,12 +1,9 @@
 use crate::constants;
-use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
+use serde::Serialize;
 use futures::{future, Future, Stream};
-use http::StatusCode;
 use hyper::client::Client;
 use hyper::header::HeaderValue;
 use hyper::{Body, Error, Method, Request};
-use hyper_tls::HttpsConnector;
 use tokio_core::reactor::Core;
 use crate::Result;
 
@@ -36,7 +33,7 @@ pub fn post(action: &str, req_data: Vec<u8>) -> Result<String> {
     );
 
     let mut event_loop = Core::new()?;
-    let handle = event_loop.handle();
+//    let handle = event_loop.handle();
 
     let https = hyper_tls::HttpsConnector::new(4)?;
     let client = Client::builder().build::<_, hyper::Body>(https);

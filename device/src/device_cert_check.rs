@@ -1,14 +1,12 @@
 use common::constants::{TSM_ACTION_DEVICE_CERT_CHECK, TSM_RETURN_CODE_SUCCESS};
 use common::https;
-use mq::message;
-use mq::message::send_apdu;
 use serde::{Deserialize, Serialize};
 use crate::Result;
 use crate::error::ImkeyError;
 
 // SE安全检查请求bean
 #[derive(Debug, Serialize, Deserialize)]
-pub struct device_cert_check_request {
+pub struct DeviceCertCheckRequest {
     pub seid: String,
     pub sn: String,
     pub deviceCert: String,
@@ -20,26 +18,26 @@ pub struct device_cert_check_request {
 
 //SE安全检查接口
 #[derive(Serialize, Deserialize, Debug)]
-pub struct service_response {
+pub struct ServiceResponse {
     pub _ReturnCode: String,
     pub _ReturnMsg: String,
-    pub _ReturnData: device_cert_check_response,
+    pub _ReturnData: DeviceCertCheckResponse,
 }
 #[derive(Serialize, Deserialize, Debug)]
-pub struct device_cert_check_response {
+pub struct DeviceCertCheckResponse {
     pub seid: Option<String>,
     pub verifyResult: Option<bool>,
     pub nextStepKey: Option<String>,
     pub apduList: Option<Vec<String>>,
 }
 
-impl device_cert_check_request {
+impl DeviceCertCheckRequest {
     pub fn build_request_data(
         seid: String,
         sn: String,
         device_cert: String,
-    ) -> device_cert_check_request {
-        device_cert_check_request {
+    ) -> DeviceCertCheckRequest {
+        DeviceCertCheckRequest {
             seid: seid,
             sn: sn,
             deviceCert: device_cert,
@@ -50,13 +48,13 @@ impl device_cert_check_request {
         }
     }
 
-    pub fn device_cert_check(&mut self) -> Result<service_response> {
+    pub fn device_cert_check(&mut self) -> Result<ServiceResponse> {
         println!("请求报文：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
-        let mut response_data = https::post(TSM_ACTION_DEVICE_CERT_CHECK, req_data)?;
-        let return_bean: service_response = serde_json::from_str(response_data.as_str())?;
+        let response_data = https::post(TSM_ACTION_DEVICE_CERT_CHECK, req_data)?;
+        let return_bean: ServiceResponse = serde_json::from_str(response_data.as_str())?;
         println!("返回报文：{:#?}", return_bean);
-        if return_bean._ReturnCode.is_empty(){
+        if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS{
             return Err(ImkeyError::BSE0009.into());
         }
         Ok(return_bean)

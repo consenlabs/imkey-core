@@ -4,24 +4,22 @@ use aes::Aes128;
 use block_modes::block_padding::Pkcs7;
 use block_modes::{BlockMode, Cbc};
 use common::apdu::{Apdu, DeviceBindingApdu, ApduCheck};
-use hex::FromHex;
 use mq::message::send_apdu;
 use rand::rngs::OsRng;
 use ring::digest;
-use rsa::{BigUint, PaddingScheme, PublicKey as RSAPublic, RSAPrivateKey, RSAPublicKey};
+use rsa::{BigUint, PaddingScheme, PublicKey as RSAPublic, RSAPublicKey};
 use secp256k1::ecdh::SharedSecret;
 use secp256k1::{PublicKey, SecretKey};
 use sha1::Sha1;
 use crate::manager;
-use crate::auth_code_storage::auth_code_storage_request;
-use crate::device_cert_check::device_cert_check_request;
-use common::constants::{IMK_AID, APDU_RSP_SUCCESS, TSM_RETURN_CODE_SUCCESS, TSM_RETURNCODE_DEVICE_CHECK_FAIL,
+use crate::auth_code_storage::AuthCodeStorageRequest;
+use crate::device_cert_check::DeviceCertCheckRequest;
+use common::constants::{IMK_AID, TSM_RETURN_CODE_SUCCESS, TSM_RETURNCODE_DEVICE_CHECK_FAIL,
                         TSM_RETURNCODE_DEV_INACTIVATED, TSM_RETURNCODE_DEVICE_ILLEGAL,
                         TSM_RETURNCODE_DEVICE_STOP_USING};
 use crate::error::{ImkeyError, BindError};
 use regex::Regex;
 use crate::Result;
-use futures::future::Err;
 use std::sync::Mutex;
 
 lazy_static! {
@@ -86,7 +84,7 @@ impl DeviceManage {
             }else if se_cert_str.contains("7F4946B041") {
                 index = se_cert_str.find("7F4946B041").expect("parsing_se_cert_error");
             }else {
-                return Err(ImkeyError::IMKEY_SE_CERT_INVALID.into());
+                return Err(ImkeyError::ImkeySeCertInvalid.into());
             }
 
             let temp_se_pub_key = &se_cert_str[index + 10..index + 130 + 10];
@@ -131,16 +129,16 @@ impl DeviceManage {
         //绑定码校验
         let bind_code_verify_regex = Regex::new(r"^[A-HJ-NP-Z2-9]{8}$").unwrap();
         if !bind_code_verify_regex.is_match(temp_binding_code.as_ref()) {
-            return Err(BindError::IMKEY_SDK_ILLEGAL_ARGUMENT.into());
+            return Err(BindError::ImkeySdkIllegalArgument.into());
         }
         //RSA加密绑定码
         let auth_code_ciphertext = auth_code_encrypt(&temp_binding_code)?;
 
         //保存绑定码
         let seid = manager::get_se_id()?;
-        auth_code_storage_request::build_request_data(seid, auth_code_ciphertext).auth_code_storage()?;
+        AuthCodeStorageRequest::build_request_data(seid, auth_code_ciphertext).auth_code_storage()?;
 
-        let mut key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock().unwrap();
         //选择IMK applet
         select_imk_applet()?;
         //计算HASH
@@ -214,22 +212,22 @@ pub fn display_bind_code() -> Result<()> {
 }
 
 pub fn device_cert_check(seid: String, sn: String, se_pub_key_cert: String) -> Result<()>{
-    let response_obj = device_cert_check_request::build_request_data(seid, sn, se_pub_key_cert)
+    let response_obj = DeviceCertCheckRequest::build_request_data(seid, sn, se_pub_key_cert)
                                 .device_cert_check()?;
     let ret_code_check_result: Result<()> = match response_obj._ReturnCode.as_str() {
         TSM_RETURN_CODE_SUCCESS => Ok(()),
-        TSM_RETURNCODE_DEVICE_CHECK_FAIL => Err(ImkeyError::IMKEY_TSM_DEVICE_AUTHENTICITY_CHECK_FAIL.into()),
-        TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::IMKEY_TSM_DEVICE_NOT_ACTIVATED.into()),
-        TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::IMKEY_TSM_DEVICE_ILLEGAL.into()),
-        TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::IMKEY_TSM_DEVICE_STOP_USING.into()),
-        _ => Err(ImkeyError::IMKEY_TSM_SERVER_ERROR.into()),
+        TSM_RETURNCODE_DEVICE_CHECK_FAIL => Err(ImkeyError::ImkeyTsmDeviceAuthenticityCheckFail.into()),
+        TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::ImkeyTsmDeviceNotActivated.into()),
+        TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::ImkeyTsmDeviceIllegal.into()),
+        TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::ImkeyTsmDeviceStopUsing.into()),
+        _ => Err(ImkeyError::ImkeyTsmServerError.into()),
     };
     ret_code_check_result?;
     let cert_check_result = response_obj._ReturnData.verifyResult.unwrap();
     if cert_check_result {
         return Ok(());
     }
-    Err(ImkeyError::IMKEY_SE_CERT_INVALID.into())
+    Err(ImkeyError::ImkeySeCertInvalid.into())
 
 }
 

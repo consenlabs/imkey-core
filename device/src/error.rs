@@ -1,7 +1,3 @@
-use serde::export::Formatter;
-use std::error;
-use std::fmt;
-use std::fmt::Display;
 
 #[derive(Fail, Debug, PartialOrd, PartialEq)]
 pub enum ImkeyError {
@@ -34,49 +30,49 @@ pub enum ImkeyError {
     #[fail(display = "imkey_tsm_cos_upgrade_fail")]
     BCOS0003,
     #[fail(display = "imkey_tsm_device_authenticity_check_fail")]
-    IMKEY_TSM_DEVICE_AUTHENTICITY_CHECK_FAIL,
+    ImkeyTsmDeviceAuthenticityCheckFail,
     #[fail(display = "imkey_tsm_device_not_activated")]
-    IMKEY_TSM_DEVICE_NOT_ACTIVATED,
+    ImkeyTsmDeviceNotActivated,
     #[fail(display = "imkey_tsm_device_illegal")]
-    IMKEY_TSM_DEVICE_ILLEGAL,
+    ImkeyTsmDeviceIllegal,
     #[fail(display = "imkey_tsm_device_stop_using")]
-    IMKEY_TSM_DEVICE_STOP_USING,
+    ImkeyTsmDeviceStopUsing,
     #[fail(display = "imkey_tsm_server_error")]
-    IMKEY_TSM_SERVER_ERROR,
+    ImkeyTsmServerError,
     #[fail(display = "imkey_se_cert_invalid")]
-    IMKEY_SE_CERT_INVALID,
+    ImkeySeCertInvalid,
     #[fail(display = "imkey_tsm_device_update_check_fail")]
-    IMKEY_TSM_DEVICE_UPDATE_CHECK_FAIL,
+    ImkeyTsmDeviceUpdateCheckFail,
     #[fail(display = "imkey_tsm_device_active_fail")]
-    IMKEY_TSM_DEVICE_ACTIVE_FAIL,
+    ImkeyTsmDeviceActiveFail,
     #[fail(display = "imkey_tsm_receipt_check_fail")]
-    IMKEY_TSM_RECEIPT_CHECK_FAIL,
+    ImkeyTsmReceiptCheckFail,
     #[fail(display = "imkey_tsm_app_download_fail")]
-    IMKEY_TSM_APP_DOWNLOAD_FAIL,
+    ImkeyTsmAppDownloadFail,
     #[fail(display = "imkey_tsm_app_update_fail")]
-    IMKEY_TSM_APP_UPDATE_FAIL,
+    ImkeyTsmAppUpdateFail,
     #[fail(display = "imkey_tsm_app_delete_fail")]
-    IMKEY_TSM_APP_DELETE_FAIL,
+    ImkeyTsmAppDeleteFail,
     #[fail(display = "imkey_tsm_oce_cert_check_fail")]
-    IMKEY_TSM_OCE_CERT_CHECK_FAIL,
+    ImkeyTsmOceCertCheckFail,
     #[fail(display = "imkey_tsm_cos_info_no_conf")]
-    IMKEY_TSM_COS_INFO_NO_CONF,
+    ImkeyTsmCosInfoNoConf,
     #[fail(display = "imkey_tsm_cos_upgrade_fail")]
-    IMKEY_TSM_COS_UPGRADE_FAIL,
+    ImkeyTsmCosUpgradeFail,
     #[fail(display = "imkey_tsm_upload_cos_version_is_null")]
-    IMKEY_TSM_UPLOAD_COS_VERSION_IS_NULL,
+    ImkeyTsmUploadCosVersionIsNull,
     #[fail(display = "imkey_tsm_switch_bl_status_fail")]
-    IMKEY_TSM_SWITCH_BL_STATUS_FAIL,
+    ImkeyTsmSwitchBlStatusFail,
     #[fail(display = "imkey_tsm_write_wallet_address_fail")]
-    IMKEY_TSM_WRITE_WALLET_ADDRESS_FAIL,
+    ImkeyTsmWriteWalletAddressFail,
 }
 
 #[derive(Fail, Debug, PartialOrd, PartialEq)]
 pub enum BindError {
     #[fail(display = "imkey_keyfile_io_error")]
-    IMKEY_KEYFILE_IO_ERROR,
+    ImkeyKeyfileIoError,
     #[fail(display = "imkey_sdk_illegal_argument")]
-    IMKEY_SDK_ILLEGAL_ARGUMENT,
+    ImkeySdkIllegalArgument,
     #[fail(display = "imkey_encrypt_authcode_fail")]
-    IMKEY_ENCRYPT_AUTHCODE_FAIL,
+    ImkeyEncryptAuthcodeFail,
 }

@@ -1,18 +1,14 @@
-use bitcoin::{Address, PublicKey, Network, TxOut, Transaction, TxIn, OutPoint, Script, SigHashType, BitcoinHash};
-use std::collections::HashMap;
+use bitcoin::{Address, Network, TxOut, Transaction, TxIn, OutPoint, Script, SigHashType, BitcoinHash};
 use crate::error::BtcError;
 use common::apdu::{BtcApdu, ApduCheck};
 use common::constants::{MAX_UTXO_NUMBER, EACH_ROUND_NUMBER, DUST_THRESHOLD, MAX_OPRETURN_SIZE};
-use bitcoin::util::bip32::{ExtendedPubKey, ChainCode, ChildNumber};
 use bitcoin::hashes::core::str::FromStr;
-use secp256k1::{Secp256k1, Message, Signature, PublicKey as PublicKey2, SecretKey};
+use secp256k1::{Signature};
 use bitcoin::hashes::hex::FromHex;
-use bitcoin::secp256k1::Secp256k1 as BitcoinSecp256k1;
 use bitcoin::blockdata::{opcodes, script::Builder};
-use bitcoin::consensus::{serialize, Encodable};
+use bitcoin::consensus::{serialize};
 use bitcoin_hashes::sha256d::Hash as Hash256;
 use bitcoin_hashes::hex::ToHex;
-use ring::digest;
 use mq::message::send_apdu;
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::Hash;
@@ -56,7 +52,7 @@ impl BtcTransaction {
         }
         //check uxto number
         if &self.unspents.len() > &MAX_UTXO_NUMBER {
-            return Err(BtcError::IMKEY_EXCEEDED_MAX_UTXO_NUMBER.into());
+            return Err(BtcError::ImkeyExceededMaxUtxoNumber.into());
         }
 
         //get xpub and sign data
@@ -75,7 +71,7 @@ impl BtcTransaction {
                             hex::decode(sign_result).unwrap().as_slice(),
                             hex::decode(sign_source_val).unwrap().as_slice());
         if sign_verify_result.is_err() || !sign_verify_result.ok().unwrap() {
-            return Err(BtcError::IMKEY_SIGNATURE_VERIFY_FAIL.into());
+            return Err(BtcError::ImkeySignatureVerifyFail.into());
         }
 
         //utxo address verify
@@ -86,9 +82,9 @@ impl BtcTransaction {
                                                     "btc")?;
 
         //calc utxo total amount
-        let mut total_amount = self.get_total_amount();
+        let total_amount = self.get_total_amount();
         if total_amount < self.amount {
-            return Err(BtcError::IMKEY_INSUFFICIENT_FUNDS.into());
+            return Err(BtcError::ImkeyInsufficientFunds.into());
         }
 
         //add send to output
@@ -110,7 +106,7 @@ impl BtcTransaction {
         //add the op_return
         if (!extra_data.is_empty()) {
             if extra_data.len() > MAX_OPRETURN_SIZE {
-                return Err(BtcError::IMKEY_SDK_ILLEGAL_ARGUMENT.into());
+                return Err(BtcError::ImkeySdkIllegalArgument.into());
             }
             txouts.push(self.build_op_return_output(&extra_data))
         }
@@ -233,7 +229,7 @@ impl BtcTransaction {
         }
         //check utxo number
         if &self.unspents.len() > &MAX_UTXO_NUMBER {
-            return Err(BtcError::IMKEY_EXCEEDED_MAX_UTXO_NUMBER.into());
+            return Err(BtcError::ImkeyExceededMaxUtxoNumber.into());
         }
 
         //get xpub and sign data
@@ -252,7 +248,7 @@ impl BtcTransaction {
                                                        hex::decode(sign_result).unwrap().as_slice(),
                                                        hex::decode(sign_source_val).unwrap().as_slice());
         if sign_verify_result.is_err() || !sign_verify_result.ok().unwrap() {
-            return Err(BtcError::IMKEY_SIGNATURE_VERIFY_FAIL.into());
+            return Err(BtcError::ImkeySignatureVerifyFail.into());
         }
         //utxo address verify
         let utxo_pub_key_vec = address_verify(&self.unspents,
@@ -264,7 +260,7 @@ impl BtcTransaction {
         //calc utxo total amount
         let total_amount = self.get_total_amount();
         if total_amount < self.amount {
-            return Err(BtcError::IMKEY_INSUFFICIENT_FUNDS.into());
+            return Err(BtcError::ImkeyInsufficientFunds.into());
         }
 
         //add send to output
@@ -285,7 +281,7 @@ impl BtcTransaction {
         //add the op_return
         if (!extra_data.is_empty()) {
             if extra_data.len() > MAX_OPRETURN_SIZE {
-                return Err(BtcError::IMKEY_SDK_ILLEGAL_ARGUMENT.into());
+                return Err(BtcError::ImkeySdkIllegalArgument.into());
             }
             txouts.push(self.build_op_return_output(extra_data));
         }
@@ -339,7 +335,7 @@ impl BtcTransaction {
         let mut sequence_vec : Vec<u8> = vec![];
         let mut sign_apdu_vec : Vec<String> = vec![];
         for (index, unspent) in self.unspents.iter().enumerate() {
-            let mut txin = TxIn {
+            let txin = TxIn {
                 previous_output: OutPoint {
                     txid: Hash256::from_hex(&unspent.txhash)?,
                     vout: unspent.vout as u32,
@@ -354,7 +350,7 @@ impl BtcTransaction {
 
             let mut data : Vec<u8> = vec![];
             //txhash and vout
-            let mut txhash_data = serialize(&txin.previous_output);
+            let txhash_data = serialize(&txin.previous_output);
             data.extend(txhash_data.iter());
 
             //lock script
@@ -369,7 +365,7 @@ impl BtcTransaction {
             let mut utxo_amount = num_bigint::BigInt::from(unspent.amount).to_signed_bytes_le();
             if(utxo_amount.len() < 8){
                 let temp_number = 8 - utxo_amount.len();
-                for i in (0..temp_number) {
+                for _i in (0..temp_number) {
                     utxo_amount.push(0x00);
                 }
             }
@@ -405,7 +401,6 @@ impl BtcTransaction {
         }
 
         //send sign apdu
-        let mut lock_script_ver : Vec<Script> = Vec::new();
         let mut witnesses: Vec<(Vec<u8>, Vec<u8>)> = vec![];
         for (index, wegwit_sign_apdu) in sign_apdu_vec.iter().enumerate() {
             //send sign apdu （//响应报文为签名结果，格式为L|R|S|V|，66字节，其中L为1个字节，R、S分别为32字节，V为1个字节（27或28））
@@ -507,10 +502,6 @@ impl BtcTransaction {
         Ok(Builder::new().push_slice(&signed_vec)
             .push_slice(Vec::from_hex(utxo_public_key)?.as_slice())
             .into_script())
-    }
-
-    pub fn get_se_pub_key(se_cert : &str) -> String{
-        return "".to_string();
     }
 
 }
