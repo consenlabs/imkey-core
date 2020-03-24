@@ -357,8 +357,8 @@ public class Wallet{
     let rPoint = UnsafeMutablePointer<BIGNUM>.allocate(capacity: 1)
     let sPoint = UnsafeMutablePointer<BIGNUM>.allocate(capacity: 1)
     rPoint.initialize(from: rBig!.bignum, count: 1)
-    let sLow = SigUtil.getLowS(s:sBig!)
-    sPoint.initialize(from: sLow.bignum, count: 1)
+    let s_low = SigUtil.getLowS(s:sBig!)
+    sPoint.initialize(from: s_low.bignum, count: 1)
     var ecSig: ECDSA_SIG = ECDSA_SIG(r:rPoint,s:sPoint)
     
     
@@ -369,7 +369,7 @@ public class Wallet{
     
     let vInt = btcKey!.imKey_ECDSA_SIG_recover(&ecSig, forHash: msgHash.key_dataFromHexString()!, pubKey: pkCompress)
     let v = vInt + 27
-    s = sLow.hexString
+    s = s_low.hexString
     
     return ["v": v, "r": r, "s": s]
   }

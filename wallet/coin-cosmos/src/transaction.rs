@@ -1,10 +1,7 @@
-use common::cosmosapi::{CosmosTxInput, CosmosTxOutput};
-use mq::message;
-use serde::{Serialize, Serializer,Deserialize};
-use std::collections::HashMap;
-use common::utility::{sha256_hash, hex_to_bytes, secp256k1_sign};
+use common::cosmosapi::{CosmosTxOutput};
+use serde::{Serialize,Deserialize};
+use common::utility::{sha256_hash, secp256k1_sign};
 use bitcoin_hashes::hex::ToHex;
-use bitcoin_hashes::Hash;
 use common::apdu::{CosmosApdu, ApduCheck};
 use mq::message::send_apdu;
 use common::constants;
@@ -86,15 +83,15 @@ pub struct StdTx{
 }
 
 impl CosmosTransaction {
-    pub fn sign(mut self) -> Result<CosmosTxOutput> {
+    pub fn sign(self) -> Result<CosmosTxOutput> {
         let json = serde_json::to_vec(&self.sign_data).unwrap();
         let json = String::from_utf8(json.to_owned()).unwrap();
         println!("{}", &json);//todo sort json
-        let jsonHash = sha256_hash(json.as_bytes()).to_hex();
-        println!("hash:{}", &jsonHash);
+        let json_hash = sha256_hash(json.as_bytes()).to_hex();
+        println!("hash:{}", &json_hash);
 
         let mut sign_pack = "0120".to_string();
-        sign_pack.push_str(&jsonHash);
+        sign_pack.push_str(&json_hash);
         if self.payment_dis == "" {//todo check null?
             sign_pack.push_str("070008000900");
         }else{
@@ -158,12 +155,12 @@ impl CosmosTransaction {
         if s_big.gt(&half_curve_order) {
             s_big = curve_n.sub(s_big);
         }
-        let mut sLow = s_big.to_hex();
-        while sLow.len() <64 {
-            sLow.insert_str(0,"0");
+        let mut s_low = s_big.to_hex();
+        while s_low.len() <64 {
+            s_low.insert_str(0, "0");
         }
 
-        let signature = r_hex + &sLow.to_uppercase();
+        let signature = r_hex + &s_low.to_uppercase();
         println!("signature:{}", &signature);
         let sign_bytes = hex::decode(signature).unwrap();
 
