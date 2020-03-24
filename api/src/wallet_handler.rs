@@ -12,6 +12,8 @@ use crate::ethereum_signer::{sign_eth_transaction, sign_eth_message};
 use bytes::BytesMut;
 use prost::Message;
 use crate::error_handling::Result;
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+use crate::device_manager::cos_upgrade;
 
 pub fn encode_message(msg: impl Message) -> Result<Vec<u8>> {
     println!("{:#?}", msg);
@@ -99,6 +101,8 @@ pub fn device_manage(data: &[u8]) -> Result<Vec<u8>> {
         "set_ble_name" => set_ble_name(&param),
         "get_ble_version" => get_ble_version(&param),
         "get_sdk_info" => get_sdk_info(&param),
+        #[cfg(any(target_os = "macos", target_os = "windows"))]
+        "cos_upgrade" => cos_upgrade(&param),
 //        _ => Err(Error::DeviceOpError),
         _ => Err(format_err!("device_open_error")),//TODO
     }
