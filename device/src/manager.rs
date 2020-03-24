@@ -4,6 +4,7 @@ use super::se_query::{SeQueryRequest, ServiceResponse};
 use super::se_secure_check::SeSecureCheckRequest;
 use crate::app_delete::AppDeleteRequest;
 use crate::app_download::AppDownloadRequest;
+use crate::cos_upgrade::CosUpgradeRequest;
 use app_update::AppUpdateRequest;
 use common::constants;
 use common::applet;
@@ -125,6 +126,6 @@ pub fn app_delete(app_name: &str) -> Result<()> {
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 pub fn cos_upgrade() -> Result<()> {
-    cos_upgrade_request::cos_upgrade(None)
+    CosUpgradeRequest::cos_upgrade(None)
 }
 
