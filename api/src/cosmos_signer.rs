@@ -1,13 +1,8 @@
 use crate::api::SignParam;
-//use crate::cosmosapi::{CosmosTxInput, CosmosTxOutput};
 use crate::wallet_handler::encode_message;
-use common::sign_res::TxSignResult;
-use hex;
 use prost::Message;
-use std::str::FromStr;
-use common::cosmosapi::{CosmosTxInput, CosmosTxOutput};
+use common::cosmosapi::{CosmosTxInput};
 use coin_cosmos::transaction::{StdFee, Coin, Msg, MsgValue, SignData, CosmosTransaction};
-use common::constants;
 use crate::error_handling::Result;
 
 pub fn sign_cosmos_transaction(param: &SignParam) -> Result<Vec<u8>> {
@@ -37,10 +32,10 @@ pub fn sign_cosmos_transaction(param: &SignParam) -> Result<Vec<u8>> {
     for item in &input_sign_data.msgs {
         let mut coins = Vec::new();
         let item_msg = item.value.as_ref().unwrap();
-        for itemCoin in &item_msg.amount {
+        for item_coin in &item_msg.amount {
             let coin = Coin{
-                amount: itemCoin.amount.clone(),
-                denom: itemCoin.denom.clone()
+                amount: item_coin.amount.clone(),
+                denom: item_coin.denom.clone()
             };
             coins.push(coin);
         }
@@ -66,14 +61,14 @@ pub fn sign_cosmos_transaction(param: &SignParam) -> Result<Vec<u8>> {
         sequence: input_sign_data.sequence
     };
 
-    let mut cosmosInput = CosmosTransaction {
-        sign_data: sign_data,
+    let cosmos_input = CosmosTransaction {
+        sign_data,
         path: input.path,
         payment_dis: input.payment_dis,
         to_dis: input.to_dis,
         fee_dis: input.fee_dis,
     };
-    let cosmosTxOutput = cosmosInput.sign()?;
+    let cosmos_tx_output = cosmos_input.sign()?;
 
-    encode_message(cosmosTxOutput)
+    encode_message(cosmos_tx_output)
 }

@@ -9,37 +9,20 @@ pub mod btc_signer;
 pub mod btcapi;
 pub mod cosmos_address;
 pub mod cosmos_signer;
-//pub mod cosmosapi;
 pub mod device_manager;
 pub mod deviceapi;
 pub mod eos_pubkey;
 pub mod eos_signer;
 pub mod error_handling;
 pub mod ethapi;
-pub mod ethereum;
 pub mod ethereum_address;
 pub mod ethereum_signer;
 pub mod usdt_signer;
 pub mod wallet_handler;
 #[macro_use]
 extern crate failure;
-
-#[macro_use]
-extern crate log;
-
-
-use crate::error_handling::{landingpad, Result, LAST_BACKTRACE, LAST_ERROR};
-
-//#[macro_use]
-//extern crate log;
-//extern crate android_logger;
-
+use crate::error_handling::{landingpad, LAST_BACKTRACE, LAST_ERROR};
 use mq::message;
-
-//use android_logger::{Config, FilterBuilder};
-//use log::Level;
-//use android_logger::{Config,FilterBuilder};
-use device::manager;
 
 #[no_mangle]
 /*
