@@ -77,6 +77,7 @@ pub fn get_apdu() -> *const c_char {
     return CString::new(apdu.to_owned()).unwrap().into_raw();
 }
 
+#[allow(dead_code)]
 fn set_apdu_r(apdu: String) {
     println!("set_apdu_r...");
     loop {
@@ -101,9 +102,8 @@ pub fn set_apdu(apdu: *const c_char) {
     *_apdu = str_buf;
 }
 
+#[allow(dead_code)]
 fn get_apdu_return_r() -> Result<String> {
-    //debug!("get_apdu_return_r");
-
     let timeout = 10;//second
     let loop_max = timeout * 1000/500;
     let mut loop_count = 0;
