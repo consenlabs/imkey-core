@@ -274,7 +274,7 @@ impl BtcApdu {
     pub fn btc_prepare(ins: u8, p1: u8, data: &Vec<u8>) -> Vec<String> {
         let mut apdu_vec = Vec::new();
         let apdu_number = (data.len() - 1) / LC_MAX as usize + 1;
-        for index in (0..apdu_number) {
+        for index in 0..apdu_number {
             if index == apdu_number - 1 {
                 let length = if data.len() % LC_MAX as usize == 0 {
                     LC_MAX

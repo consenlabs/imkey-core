@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 use crate::Result;
 use crate::error::ImkeyError;
 
+#[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SeQueryRequest {
     pub seid: String,
@@ -15,6 +16,7 @@ pub struct SeQueryRequest {
     pub cardRetDataList: Option<Vec<String>>,
 }
 
+#[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ServiceResponse {
     pub _ReturnCode: String,
@@ -22,6 +24,7 @@ pub struct ServiceResponse {
     pub _ReturnData: SeQueryResponse,
 }
 
+#[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SeQueryResponse {
     pub seid: Option<String>,
@@ -30,6 +33,8 @@ pub struct SeQueryResponse {
     pub sdkMode: Option<String>,
     pub availableAppBeanList: Option<Vec<AvailableAppBean>>,
 }
+
+#[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct AvailableAppBean {
     pub appLogo: Option<String>,
@@ -76,12 +81,12 @@ impl SeQueryRequest {
 
 #[cfg(test)]
 mod tests {
-    use crate::se_query::se_query_request;
+    use crate::se_query::SeQueryRequest;
 
     #[test]
     fn se_query_test() {
         let seid: String = "19060000000200860001010000000014".to_string();
         let sn: String = "imKey01191200001".to_string();
-        se_query_request::build_request_data(seid, sn, None).se_query();
+        SeQueryRequest::build_request_data(seid, sn, None).se_query();
     }
 }

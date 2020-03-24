@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 use crate::Result;
 use crate::error::ImkeyError;
 
+#[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AppDownloadRequest {
     pub seid: String,
@@ -17,12 +18,15 @@ pub struct AppDownloadRequest {
     pub cardRetDataList: Option<Vec<String>>,
 }
 
+#[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ServiceResponse {
     pub _ReturnCode: String,
     pub _ReturnMsg: String,
     pub _ReturnData: AppDownloadResponse,
 }
+
+#[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct AppDownloadResponse {
     pub seid: Option<String>,
@@ -98,13 +102,13 @@ impl AppDownloadRequest {
 
 #[cfg(test)]
 mod test{
-    use crate::app_download::app_download_request;
+    use crate::app_download::AppDownloadRequest;
 
     #[test]
     pub fn app_download_test(){
         let seid: String = "19060000000200860001010000000014".to_string();
         let instance_aid: String = "695F657468".to_string();
         let device_cert: String = "BF2181CA7F2181C6931019060000000200860001010000000014420200015F200401020304950200805F2504201810145F2404FFFFFFFF53007F4947B04104FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44F002DFFE5F374830460221008CB58D54BDED501236621B83B320081E6F9B6B5539AE5EC9D36B660EC445A5E8022100A203CA1F9ABEE69751EA402A2ACDFD6B4A87697D6CD721F60540959095EC9466".to_string();
-        app_download_request::build_request_data(seid, instance_aid, device_cert, None).app_download();
+        AppDownloadRequest::build_request_data(seid, instance_aid, device_cert, None).app_download();
     }
 }

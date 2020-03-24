@@ -75,4 +75,6 @@ pub enum BindError {
     ImkeySdkIllegalArgument,
     #[fail(display = "imkey_encrypt_authcode_fail")]
     ImkeyEncryptAuthcodeFail,
+    #[fail(display = "imkey_save_key_file_fail")]
+    ImkeySaveKeyFileFail,
 }
