@@ -154,15 +154,17 @@ impl KeyManager {
     /**
      保存密钥倒本地文件
     */
-    pub fn save_keys_to_local_file(keys: &String, path: &String, seid: &String) {
+    pub fn save_keys_to_local_file(keys: &String, path: &String, seid: &String) ->Result<()> {
 
         let mut file = OpenOptions::new()
             .read(true)
             .write(true)
             .create(true)
             .open(Path::new(format!("{}key{}{}", path, seid, ".txt").as_str())).expect("imkey_keyfile_opertion_error");
-        file.write_all(keys.as_bytes());
-        
+        match file.write_all(keys.as_bytes()) {
+            Ok(val) => Ok(val),
+            Err(_e) => Err(BindError::ImkeySaveKeyFileFail.into()),
+        }
     }
 }
 
