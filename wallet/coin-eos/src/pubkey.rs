@@ -1,10 +1,8 @@
 use bitcoin::util::base58;
-use bitcoin_hashes::hex::FromHex;
 use bitcoin_hashes::{ripemd160, Hash};
 use common::apdu::{EosApdu, ApduCheck};
 use common::{path, utility};
 use mq::message;
-use std::str::FromStr;
 use crate::Result;
 use device::device_binding::KEY_MANAGER;
 
@@ -13,7 +11,7 @@ pub struct EosPubkey {}
 
 impl EosPubkey {
     pub fn get_pubkey(path: &str) -> Result<String> {
-        path::check_path_validity(path);
+        path::check_path_validity(path).unwrap();
 
         let select_apdu = EosApdu::select_applet();
         let select_response = message::send_apdu(select_apdu);
@@ -26,7 +24,7 @@ impl EosPubkey {
 
         let sign_source_val = &res_msg_pubkey[..194];
         let sign_result = &res_msg_pubkey[194..res_msg_pubkey.len()-4];
-        let pub_key = &sign_source_val[..130];
+        // let pub_key = &sign_source_val[..130];
 
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
 

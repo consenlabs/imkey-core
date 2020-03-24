@@ -1,11 +1,10 @@
 use bitcoin_hashes::hex::ToHex;
-use bitcoin_hashes::{sha256, Hash, ripemd160};
+use bitcoin_hashes::{Hash, ripemd160};
 use bytes::BufMut;
 use common::apdu::{EosApdu, ApduCheck};
 use common::{path, utility};
 use mq::message;
-use std::io::Read;
-use common::utility::{sha256_hash, hex_to_bytes, secp256k1_sign, secp256k1_sign_hash, retrieve_recid};
+use common::utility::{sha256_hash, secp256k1_sign, secp256k1_sign_hash, retrieve_recid};
 use mq::message::send_apdu;
 use bitcoin::util::base58;
 use bitcoin::secp256k1::Signature;
@@ -20,7 +19,7 @@ pub struct EosTransaction {}
 
 impl EosTransaction {
     pub fn sign_tx(tx_input:EosTxInput) -> Result<EosTxOutput> {
-        path::check_path_validity(&tx_input.path);
+        path::check_path_validity(&tx_input.path).unwrap();
 
         let select_apdu = EosApdu::select_applet();
         let select_response = message::send_apdu(select_apdu);
@@ -81,7 +80,7 @@ impl EosTransaction {
                 //bind signature
                 let key_manager_obj = KEY_MANAGER.lock().unwrap();
                 // let private_key = hex_to_bytes("7CD950180EDFF1C4A21270AD293A274580D20C84DE06666467F6386FB7DDA352").unwrap();//ios
-                let mut bind_signature = secp256k1_sign_hash(&key_manager_obj.pri_key, &sign_data_hash)?;
+                let bind_signature = secp256k1_sign_hash(&key_manager_obj.pri_key, &sign_data_hash)?;
                 println!("bind_signature:{}", &hex::encode(&bind_signature));
 
                 //send prepare data
@@ -128,11 +127,11 @@ impl EosTransaction {
                         let mut signature_obj = Signature::from_compact(sign_result_vec.as_slice()).unwrap();
                         //generator der sign data
                         signature_obj.normalize_s();
-                        let mut signatrue_der = signature_obj.serialize_der().to_vec();
+                        let signature_der = signature_obj.serialize_der().to_vec();
                         println!("sign_result_vec:{}", &hex::encode(&sign_result_vec));
 
-                        let len_r = signatrue_der[3];
-                        let len_s = signatrue_der[5 + len_r as usize];
+                        let len_r = signature_der[3];
+                        let len_s = signature_der[5 + len_r as usize];
                         if len_r == 32 && len_s ==32 {
                             let r = &sign_result[2..66];
                             let s = &sign_result[66..130];
@@ -175,7 +174,7 @@ impl EosTransaction {
     }
 
     pub fn sign_message(input:EosMessageInput) -> Result<EosMessageOutput>{
-        let mut hash = Vec::new();
+        let hash;
         if input.is_hex {
             hash = hex::decode(input.data).unwrap();
         }else{
@@ -193,7 +192,7 @@ impl EosTransaction {
 
         // let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();//ios
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
-        let mut bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap_or_default();
+        let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap_or_default();
         println!("bind_signature:{}", &hex::encode(&bind_signature));
 
         let mut prepare_pack: Vec<u8>  = Vec::new();
@@ -233,11 +232,11 @@ impl EosTransaction {
                 let mut signature_obj = Signature::from_compact(sign_result_vec.as_slice()).unwrap();
                 //generator der sign data
                 signature_obj.normalize_s();
-                let mut signatrue_der = signature_obj.serialize_der().to_vec();
+                let signature_der = signature_obj.serialize_der().to_vec();
                 println!("sign_result_vec:{}", &hex::encode(&sign_result_vec));
 
-                let len_r = signatrue_der[3];
-                let len_s = signatrue_der[5 + len_r as usize];
+                let len_r = signature_der[3];
+                let len_s = signature_der[5 + len_r as usize];
                 if len_r == 32 && len_s ==32 {
                     let r = &sign_result[2..66];
                     let s = &sign_result[66..130];

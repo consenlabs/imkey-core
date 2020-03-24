@@ -1,24 +1,19 @@
 use crate::address::EthAddress;
 use crate::types::{Action, Signature};
-use bitcoin::hashes::{sha256d, Hash};
 use common::apdu::{EthApdu, ApduCheck};
 use common::path::check_path_validity;
-use common::utility::{hex_to_bytes, sha256_hash, secp256k1_sign_hash, secp256k1_sign};
-use ethereum_types::{Address, H256, U256};
+use common::utility::{hex_to_bytes, sha256_hash, secp256k1_sign};
+use ethereum_types::{H256, U256};
 use keccak_hash::keccak;
 use lazy_static::lazy_static;
 use mq::message::send_apdu;
 use rlp::{self, DecoderError, Encodable, Rlp, RlpStream};
-use secp256k1::key::{PublicKey, SecretKey};
 use secp256k1::recovery::{RecoverableSignature, RecoveryId};
-use secp256k1::{self, Message as SecpMessage, Secp256k1, Signature as SecpSignature};
+use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
 use common::ethapi::{EthPersonalSignInput, EthPersonalSignOutput, EthTxOutput};
 use common::utility;
 use crate::Result as Result2;
 use device::device_binding::KEY_MANAGER;
-use num_bigint::BigInt;
-use num_traits::Num;
-use std::ops::Sub;
 
 lazy_static! {
     pub static ref SECP256K1: secp256k1::Secp256k1<secp256k1::All> = secp256k1::Secp256k1::new();
@@ -47,7 +42,7 @@ impl Transaction {
     ) -> Result2<EthTxOutput> {
     // ) {
         //check path
-        check_path_validity(path);
+        check_path_validity(path).unwrap();
 
         //organize data
         let mut data_pack:Vec<u8> = Vec::new();
@@ -76,11 +71,11 @@ impl Transaction {
         println!("data_pack:{}", hex::encode(&data_pack));
 
         //hash data for verification sign
-        let hash_data = sha256d::Hash::from_slice(&data_pack);
+        // let hash_data = sha256d::Hash::from_slice(&data_pack);
 
         // let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
-        let mut bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap_or_default();
+        let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap_or_default();
         // let key_manager_obj = KEY_MANAGER.lock().unwrap();
         // let mut bind_signature = secp256k1_sign_hash(&key_manager_obj.pri_key, &data_pack).unwrap_or_default();
         println!("bind_signature:{}", &hex::encode(&bind_signature));
@@ -107,6 +102,7 @@ impl Transaction {
         let msg_prepare = EthApdu::prepare_sign(apdu_pack);
         for msg in msg_prepare {
             let res = send_apdu(msg);
+            ApduCheck::checke_response(&res)?;
         }
 
         //get public
@@ -257,7 +253,7 @@ impl Transaction {
 
         // let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
-        let mut bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_to_sign).unwrap_or_default();
+        let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_to_sign).unwrap_or_default();
         println!("bind_signature:{}", &hex::encode(&bind_signature));
 
         let mut apdu_pack: Vec<u8>  = Vec::new();
