@@ -227,3 +227,10 @@ pub fn get_sdk_info(param: &DeviceParam) -> Result<Vec<u8>> {
     };
     encode_message(response_msg)
 }
+
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+pub fn cos_upgrade(param: &DeviceParam) -> Result<Vec<u8>> {
+    manager::cos_upgrade()?;
+    let response_msg = EmptyResponse {};
+    encode_message(response_msg)
+}
