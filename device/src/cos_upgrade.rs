@@ -7,6 +7,8 @@ use common::utility::hex_to_bytes;
 use crate::app_download::AppDownloadRequest;
 use crate::Result;
 use crate::error::ImkeyError;
+use std::thread;
+use std::time::Duration;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::hid_api;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
@@ -120,10 +122,12 @@ impl CosUpgradeRequest {
                                     constants::APDU_RSP_SWITCH_BL_STATUS_SUCCESS.eq(&res[res.len() -4..])) &&
                                     ("03".eq(next_step_key.as_str()) ||
                                         "05".eq(next_step_key.as_str())) {
+                                    thread::sleep(Duration::from_millis(1000));
                                     let connect_ret = hid_api::hid_connect();
                                     let mut hid_device_obj = DEVICE.lock().unwrap();
                                     *hid_device_obj = connect_ret;
                                     std::mem::drop(hid_device_obj);
+
                                 }
                             }
                         }
