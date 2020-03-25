@@ -139,13 +139,13 @@ public class API{
     call_tcx_api(paramHex)
   }
   
-  public class func getAddress(){
-    return get_address()
-  }
-  
-  public class func signTransaction(){
-    return sign_transaction()
-  }
+//  public class func getAddress(){
+//    return get_address()
+//  }
+//  
+//  public class func signTransaction(){
+//    return sign_transaction()
+//  }
   
   public class func ethSignTx(ethInput:Ethapi_EthTxInput) -> Ethapi_EthTxOutput{
     var signParam = Api_SignParam()
