@@ -1,5 +1,5 @@
 use bitcoin::{Address, Network, TxOut, Transaction, TxIn, OutPoint, Script, SigHashType, BitcoinHash};
-use crate::error::BtcError;
+use common::error::CoinError;
 use common::apdu::{BtcApdu, ApduCheck};
 use common::constants::{MAX_UTXO_NUMBER, EACH_ROUND_NUMBER, DUST_THRESHOLD, MAX_OPRETURN_SIZE};
 use bitcoin::hashes::core::str::FromStr;
@@ -52,7 +52,7 @@ impl BtcTransaction {
         }
         //check uxto number
         if &self.unspents.len() > &MAX_UTXO_NUMBER {
-            return Err(BtcError::ImkeyExceededMaxUtxoNumber.into());
+            return Err(CoinError::ImkeyExceededMaxUtxoNumber.into());
         }
 
         //get xpub and sign data
@@ -71,7 +71,7 @@ impl BtcTransaction {
                             hex::decode(sign_result).unwrap().as_slice(),
                             hex::decode(sign_source_val).unwrap().as_slice());
         if sign_verify_result.is_err() || !sign_verify_result.ok().unwrap() {
-            return Err(BtcError::ImkeySignatureVerifyFail.into());
+            return Err(CoinError::ImkeySignatureVerifyFail.into());
         }
 
         //utxo address verify
@@ -84,7 +84,7 @@ impl BtcTransaction {
         //calc utxo total amount
         let total_amount = self.get_total_amount();
         if total_amount < self.amount {
-            return Err(BtcError::ImkeyInsufficientFunds.into());
+            return Err(CoinError::ImkeyInsufficientFunds.into());
         }
 
         //add send to output
@@ -106,7 +106,7 @@ impl BtcTransaction {
         //add the op_return
         if !extra_data.is_empty() {
             if extra_data.len() > MAX_OPRETURN_SIZE {
-                return Err(BtcError::ImkeySdkIllegalArgument.into());
+                return Err(CoinError::ImkeySdkIllegalArgument.into());
             }
             txouts.push(self.build_op_return_output(&extra_data))
         }
@@ -229,7 +229,7 @@ impl BtcTransaction {
         }
         //check utxo number
         if &self.unspents.len() > &MAX_UTXO_NUMBER {
-            return Err(BtcError::ImkeyExceededMaxUtxoNumber.into());
+            return Err(CoinError::ImkeyExceededMaxUtxoNumber.into());
         }
 
         //get xpub and sign data
@@ -248,7 +248,7 @@ impl BtcTransaction {
                                                        hex::decode(sign_result).unwrap().as_slice(),
                                                        hex::decode(sign_source_val).unwrap().as_slice());
         if sign_verify_result.is_err() || !sign_verify_result.ok().unwrap() {
-            return Err(BtcError::ImkeySignatureVerifyFail.into());
+            return Err(CoinError::ImkeySignatureVerifyFail.into());
         }
         //utxo address verify
         let utxo_pub_key_vec = address_verify(&self.unspents,
@@ -260,7 +260,7 @@ impl BtcTransaction {
         //calc utxo total amount
         let total_amount = self.get_total_amount();
         if total_amount < self.amount {
-            return Err(BtcError::ImkeyInsufficientFunds.into());
+            return Err(CoinError::ImkeyInsufficientFunds.into());
         }
 
         //add send to output
@@ -281,7 +281,7 @@ impl BtcTransaction {
         //add the op_return
         if !extra_data.is_empty() {
             if extra_data.len() > MAX_OPRETURN_SIZE {
-                return Err(BtcError::ImkeySdkIllegalArgument.into());
+                return Err(CoinError::ImkeySdkIllegalArgument.into());
             }
             txouts.push(self.build_op_return_output(extra_data));
         }

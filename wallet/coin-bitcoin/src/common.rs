@@ -3,7 +3,7 @@ use bitcoin::util::bip32::{ExtendedPubKey, ChainCode, ChildNumber};
 use bitcoin::{Address, PublicKey, Network};
 use bitcoin::secp256k1::Secp256k1 as BitcoinSecp256k1;
 use std::str::FromStr;
-use crate::error::BtcError;
+use common::error::CoinError;
 use mq::message::send_apdu;
 use common::apdu::{BtcApdu, ApduCheck};
 use secp256k1::{Secp256k1, Message, Signature, PublicKey as PublicKey2};
@@ -60,12 +60,12 @@ pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8],
             "segwit" => Ok(Address::p2shwpkh(
                 &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
                 network).to_string()),
-            _ => return Err(BtcError::ImkeyAddressMismatchWithPath.into()),//TODO 返回错误信息不对
+            _ => return Err(format_err!("gen_address_type_flg_error")),
         };
         let se_gen_address_str = se_gen_address?;
         let utxo_address = utxo.address.to_string();
         if !se_gen_address_str.eq(&utxo_address) {
-            return Err(BtcError::ImkeyAddressMismatchWithPath.into());
+            return Err(CoinError::ImkeyAddressMismatchWithPath.into());
         }
         utxo_pub_key_vec.push(extend_public_key.public_key.to_string());
     }
@@ -109,13 +109,13 @@ pub fn get_address_version(network: Network, address: &str) -> Result<u8>{
     //check address
 //    if network == Network::Bitcoin{
 //        if !address.starts_with('1') && !address.starts_with('3') {
-//            return Err(BtcError::AddressTypeMismatch);
+//            return Err(CoinError::AddressTypeMismatch);
 //        }
 //    }else if network == Network::Testnet {
 //        if !address.starts_with('m') &&
 //            !address.starts_with('n') &&
 //            !address.starts_with('2') {
-//            return Err(BtcError::AddressTypeMismatch);
+//            return Err(CoinError::AddressTypeMismatch);
 //        }
 //    }else {
 //        //TODO
@@ -123,18 +123,18 @@ pub fn get_address_version(network: Network, address: &str) -> Result<u8>{
     match network {
         Network::Bitcoin => {
             if !address.starts_with('1') && !address.starts_with('3') {
-                return Err(BtcError::AddressTypeMismatch.into());
+                return Err(CoinError::AddressTypeMismatch.into());
             }
         },
         Network::Testnet => {
             if !address.starts_with('m') &&
                 !address.starts_with('n') &&
                 !address.starts_with('2') {
-                return Err(BtcError::AddressTypeMismatch.into());
+                return Err(CoinError::AddressTypeMismatch.into());
             }
         },
         _ => {
-            return Err(BtcError::ImkeySdkIllegalArgument.into());
+            return Err(CoinError::ImkeySdkIllegalArgument.into());
         },
     }
     //get address version
