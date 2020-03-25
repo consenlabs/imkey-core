@@ -1,5 +1,5 @@
 use bitcoin::{Network, TxOut, Transaction, TxIn, OutPoint, Script, SigHashType, BitcoinHash};
-use crate::error::BtcError;
+use common::error::CoinError;
 use common::apdu::{BtcApdu, ApduCheck};
 use common::constants::{MAX_UTXO_NUMBER, EACH_ROUND_NUMBER, MIN_NONDUST_OUTPUT};
 use secp256k1::{Signature};
@@ -29,12 +29,12 @@ impl BtcTransaction {
         }
         //check uxto number
         if &self.unspents.len() > &MAX_UTXO_NUMBER {
-            return Err(BtcError::ImkeyExceededMaxUtxoNumber.into());
+            return Err(CoinError::ImkeyExceededMaxUtxoNumber.into());
         }
 
         //check change amount
         if self.amount - self.fee < MIN_NONDUST_OUTPUT {
-            return Err(BtcError::ImkeyAmountLessThanMinimum.into());
+            return Err(CoinError::ImkeyAmountLessThanMinimum.into());
         }
 
         //get xpub and sign data
@@ -52,7 +52,7 @@ impl BtcTransaction {
                                                        hex::decode(sign_result).unwrap().as_slice(),
                                                        hex::decode(sign_source_val).unwrap().as_slice());
         if sign_verify_result.is_err() || !sign_verify_result.ok().unwrap() {
-            return Err(BtcError::ImkeySignatureVerifyFail.into());
+            return Err(CoinError::ImkeySignatureVerifyFail.into());
         }
 
         //utxo address verify
@@ -202,12 +202,12 @@ impl BtcTransaction {
         }
         //check uxto number
         if &self.unspents.len() > &MAX_UTXO_NUMBER {
-            return Err(BtcError::ImkeyExceededMaxUtxoNumber.into());
+            return Err(CoinError::ImkeyExceededMaxUtxoNumber.into());
         }
         let change_amount = self.get_total_amount() - self.fee - MIN_NONDUST_OUTPUT;
         //check change amount
         if change_amount < MIN_NONDUST_OUTPUT {
-            return Err(BtcError::ImkeyAmountLessThanMinimum.into());
+            return Err(CoinError::ImkeyAmountLessThanMinimum.into());
         }
 
         //get xpub and sign data
@@ -226,7 +226,7 @@ impl BtcTransaction {
                                                        hex::decode(sign_result).unwrap().as_slice(),
                                                        hex::decode(sign_source_val).unwrap().as_slice());
         if sign_verify_result.is_err() || !sign_verify_result.ok().unwrap() {
-            return Err(BtcError::ImkeySignatureVerifyFail.into());
+            return Err(CoinError::ImkeySignatureVerifyFail.into());
         }
 
         //utxo address verify
