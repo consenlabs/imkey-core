@@ -5,16 +5,19 @@ use hidapi::HidDevice;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 use std::sync::Mutex;
+use std::sync::RwLock;
 use std::thread;
 use std::time::Duration;
 use crate::Result;
 
 lazy_static! {
-    pub static ref APDU: Mutex<String> = Mutex::new("".to_string());
-    pub static ref APDU_RETURN: Mutex<String> = Mutex::new("".to_string());
+    pub static ref APDU: RwLock<String> = RwLock::new("".to_string());
+    pub static ref APDU_RETURN: RwLock<String> = RwLock::new("".to_string());
     pub static ref STRING: Mutex<String> = Mutex::new("".to_string());
     // pub static ref CALLBACK: Mutex<extern "C" fn(*const u8) -> *const u8> =
     //     Mutex::new(default_callback);
+
+    pub static ref TEST:RwLock<String> = RwLock::new("".to_string());
 }
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
@@ -73,7 +76,7 @@ pub extern "C" fn get_se_id(
 }
 
 pub fn get_apdu() -> *const c_char {
-    let apdu = APDU.lock().unwrap();
+    let apdu = APDU.read().unwrap();
     return CString::new(apdu.to_owned()).unwrap().into_raw();
 }
 
@@ -81,7 +84,7 @@ pub fn get_apdu() -> *const c_char {
 fn set_apdu_r(apdu: String) {
     println!("set_apdu_r...");
     loop {
-        let mut _apdu = APDU.lock().unwrap();
+        let mut _apdu = APDU.write().unwrap();
         if *_apdu == "" {
             //debug!("is null set");
             println!("is null set");
@@ -90,16 +93,18 @@ fn set_apdu_r(apdu: String) {
         } else {
             println!("not null...{}", _apdu);
         }
+        drop(_apdu);
     }
 }
 
 pub fn set_apdu(apdu: *const c_char) {
-    let mut _apdu = APDU.lock().unwrap();
+    let mut _apdu = APDU.write().unwrap();
     let c_str: &CStr = unsafe { CStr::from_ptr(apdu) };
     let str_slice: &str = c_str.to_str().unwrap();
     let str_buf: String = str_slice.to_owned();
     //debug!("set_apdu...{}", str_buf);
     *_apdu = str_buf;
+    drop(_apdu);
 }
 
 #[allow(dead_code)]
@@ -108,7 +113,7 @@ fn get_apdu_return_r() -> Result<String> {
     let loop_max = timeout * 1000/500;
     let mut loop_count = 0;
     loop {
-        let mut apdu_return = APDU_RETURN.lock().unwrap();
+        let mut apdu_return = APDU_RETURN.write().unwrap();
         if *apdu_return != "" {
             println!("get_apdu_return_r not null {}", apdu_return.clone());
             let temp = apdu_return.clone();
@@ -130,18 +135,19 @@ fn get_apdu_return_r() -> Result<String> {
 }
 
 pub fn get_apdu_return() -> *const c_char {
-    let apdu = APDU_RETURN.lock().unwrap();
+    let apdu = APDU_RETURN.read().unwrap();
     //debug!("get_apdu_return...{}", apdu.clone());
     return CString::new(apdu.to_owned()).unwrap().into_raw();
 }
 
 pub fn set_apdu_return(apdu_return: *const c_char) {
-    let mut _apdu_return = APDU_RETURN.lock().unwrap();
+    let mut _apdu_return = APDU_RETURN.write().unwrap();
     let c_str: &CStr = unsafe { CStr::from_ptr(apdu_return) };
     let str_slice: &str = c_str.to_str().unwrap();
     let str_buf: String = str_slice.to_owned();
     //debug!("set_apdu_return...{}", str_buf);
     *_apdu_return = str_buf;
+    drop(_apdu_return);
 }
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
@@ -179,4 +185,20 @@ fn test_str() {
     let hello = "hello123456".to_string();
     let s: String = hello.chars().skip(hello.len() - 4).take(4).collect();
     println!("s:{}", s);
+}
+
+#[test]
+fn test_rwlock() {
+    let r1 = TEST.read().unwrap();
+    println!("test:{}",*r1);
+
+    let r2 = TEST.read().unwrap();
+    println!("test:{}",*r2);
+    drop(r1);
+    drop(r2);
+
+    let mut w = TEST.write().unwrap();
+    *w = "haha".to_string();
+    println!("test:{}",*w);
+    drop(w);
 }

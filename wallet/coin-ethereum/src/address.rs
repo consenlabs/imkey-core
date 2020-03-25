@@ -12,12 +12,6 @@ pub struct EthAddress {}
 
 impl EthAddress {
     pub fn address_from_pubkey(pubkey: Vec<u8>) -> Result<String> {
-        //length check
-        if pubkey.len() != 65 {//todo check origin is 64
-//            return Err(Error::PubKeyError);
-            return Err(format_err!("PubKeyError"));
-        }
-
         let pubkey_hash = keccak(pubkey[1..].as_ref());
         let addr_bytes = &pubkey_hash[12..];
         Ok(hex::encode(addr_bytes))
@@ -60,10 +54,6 @@ impl EthAddress {
         let res_msg_pubkey = send_apdu(msg_pubkey);
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
-//        let pubkey_raw =
-//            hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError)?;//TODO
-//         let pubkey_raw =
-//             hex_to_bytes(&res_msg_pubkey[2..130]).map_err(|_err| Error::PubKeyError).expect("hex_to_bytes_error");
         let pubkey_raw =
             hex_to_bytes(&res_msg_pubkey[..130]).unwrap();//todo handle error
 

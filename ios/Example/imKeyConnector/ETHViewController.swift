@@ -23,11 +23,11 @@ class ETHViewController: UIViewController {
   
   @IBAction func autoSignBtnClick(_ sender: Any) {
     txtResult.text = ""
-//    DispatchQueue.global().async {
+    DispatchQueue.global().async {
       let result = ETHTest.testETHSign(handle: self.handle)
       Log.d(result)
       self.appendResult(msg: result.description)
-//    }
+    }
   }
   
   
