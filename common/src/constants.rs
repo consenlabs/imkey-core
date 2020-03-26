@@ -1,5 +1,5 @@
-// pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
-pub const URL: &str = "https://imkey.online:1000/imkey/";
+pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
+//pub const URL: &str = "https://imkey.online:1000/imkey/";
 //    pub const URL: &str = "http://localhost:8080/imkey/";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
@@ -38,6 +38,13 @@ pub const MAX_OPRETURN_SIZE: usize = 80;
 // imkey device status
 pub const IMKEY_DEV_STATUS_INACTIVATED: &str = "inactivated";
 pub const IMKEY_DEV_STATUS_LATEST: &str = "latest";
+
+//device bind status
+pub const BIND_STATUS_UNBOUND: &str = "00";
+pub const BIND_STATUS_BOUND_THIS: &str = "55";
+pub const BIND_STATUS_BOUND_OTHER: &str = "AA";
+pub const BIND_RESULT_SUCCESS: &str = "5A";
+pub const BIND_RESULT_ERROR: &str = "A5";
 
 // tsm return code
 pub const TSM_RETURN_CODE_SUCCESS: &str = "000000";

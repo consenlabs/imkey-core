@@ -15,7 +15,7 @@ use crate::Result;
 /**
 utxo address verify
 */
-pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8], network : Network, flg : &str) -> Result<Vec<String>>{
+pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8], network : Network, trans_type_flg : TransTypeFlg) -> Result<Vec<String>>{
     let mut utxo_pub_key_vec: Vec<String> = vec![];
     for utxo in utxos {
         //get utxo public key
@@ -41,26 +41,13 @@ pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8],
             extend_public_key = extend_public_key.ckd_pub(&bitcoin_secp, test_chain_number)?;
         }
         //verify address
-//        let mut se_gen_address = String::new();
-//        if flg.eq("btc") {
-//            se_gen_address = Address::p2pkh(
-//                &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
-//                network,
-//            ).to_string();
-//        }else {
-//            se_gen_address = Address::p2shwpkh(
-//                &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
-//                network,
-//            ).to_string();
-//        }
-        let se_gen_address: Result<String> = match flg {
-            "btc" => Ok(Address::p2pkh(
+        let se_gen_address: Result<String> = match trans_type_flg {
+            TransTypeFlg::BTC => Ok(Address::p2pkh(
                 &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
                 network).to_string()),
-            "segwit" => Ok(Address::p2shwpkh(
+            TransTypeFlg::SEGWIT => Ok(Address::p2shwpkh(
                 &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
                 network).to_string()),
-            _ => return Err(format_err!("gen_address_type_flg_error")),
         };
         let se_gen_address_str = se_gen_address?;
         let utxo_address = utxo.address.to_string();
@@ -70,6 +57,14 @@ pub fn address_verify(utxos : &Vec<Utxo>, public_key : &str, chain_code : &[u8],
         utxo_pub_key_vec.push(extend_public_key.public_key.to_string());
     }
     Ok(utxo_pub_key_vec)
+}
+
+/**
+Transaction type identification
+*/
+pub enum TransTypeFlg{
+    BTC,
+    SEGWIT,
 }
 
 /**

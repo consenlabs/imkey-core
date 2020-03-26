@@ -14,16 +14,25 @@ use sha1::Sha1;
 use crate::manager;
 use crate::auth_code_storage::AuthCodeStorageRequest;
 use crate::device_cert_check::DeviceCertCheckRequest;
-use common::constants::{IMK_AID, TSM_RETURN_CODE_SUCCESS, TSM_RETURNCODE_DEVICE_CHECK_FAIL,
-                        TSM_RETURNCODE_DEV_INACTIVATED, TSM_RETURNCODE_DEVICE_ILLEGAL,
-                        TSM_RETURNCODE_DEVICE_STOP_USING};
+use common::constants::{IMK_AID, BIND_STATUS_UNBOUND, BIND_STATUS_BOUND_THIS, BIND_STATUS_BOUND_OTHER,
+                        BIND_RESULT_SUCCESS, BIND_RESULT_ERROR};
 use crate::error::{ImkeyError, BindError};
 use regex::Regex;
 use crate::Result;
 use std::sync::Mutex;
+use std::collections::HashMap;
 
 lazy_static! {
     pub static ref KEY_MANAGER: Mutex<KeyManager> = Mutex::new(KeyManager::new());
+    static ref BIND_STATUS_MAP: HashMap<&'static str, &'static str> = {
+        let mut bind_status_mapping = HashMap::new();
+        bind_status_mapping.insert(BIND_STATUS_UNBOUND, "unbound");
+        bind_status_mapping.insert(BIND_STATUS_BOUND_THIS, "bound_this");
+        bind_status_mapping.insert(BIND_STATUS_BOUND_OTHER, "bound_other");
+        bind_status_mapping.insert(BIND_RESULT_SUCCESS, "success");
+        bind_status_mapping.insert(BIND_RESULT_ERROR, "authcode_error");
+        bind_status_mapping
+    };
 }
 
 pub struct DeviceManage {}
@@ -62,27 +71,17 @@ impl DeviceManage {
         ApduCheck::checke_response(bind_check_apdu_resp_data.as_str())?;
 
         //获取状态值 //状态 0x00: 未绑定  0x55: 与传入appPK绑定  0xAA：与其他appPK绑定
-        let status: String = String::from(&bind_check_apdu_resp_data[..2]);
+        let status = String::from(&bind_check_apdu_resp_data[..2]);
         let se_pub_key_cert: String = String::from(&bind_check_apdu_resp_data[2..]);
-        if status.eq("00") || status.eq("AA") {
-            //验证SE证书
-            device_cert_check(seid.clone(), sn, se_pub_key_cert)?;
+        if status.eq(BIND_STATUS_UNBOUND) || status.eq(BIND_STATUS_BOUND_OTHER) {
+            //check se cert
+            DeviceCertCheckRequest::build_request_data(seid.clone(), sn, se_pub_key_cert.clone())
+                .device_cert_check()?;
 
-            //解析SE公钥证书，获取SE公钥
-            let se_cert_str = manager::get_cert();
-            let index;
-            if se_cert_str.contains("7F4947B041") {
-                index = se_cert_str.find("7F4947B041").expect("parsing_se_cert_error");
-            }else if se_cert_str.contains("7F4946B041") {
-                index = se_cert_str.find("7F4946B041").expect("parsing_se_cert_error");
-            }else {
-                return Err(ImkeyError::ImkeySeCertInvalid.into());
-            }
+            //get se public key
+            key_manager_obj.se_pub_key = hex::decode(get_se_pubkey(se_pub_key_cert)?)?;
 
-            let temp_se_pub_key = &se_cert_str[index + 10..index + 130 + 10];
-            key_manager_obj.se_pub_key = hex::decode(temp_se_pub_key)?;
-
-            //协商会话密钥
+            //calc the session key
             let pk2 = PublicKey::from_slice(key_manager_obj.se_pub_key.as_slice())?;
             let sk1 = SecretKey::from_slice(key_manager_obj.pri_key.as_slice())?;
             let expect_result: [u8; 64] = [0; 64];
@@ -95,7 +94,7 @@ impl DeviceManage {
             })?;
             let sha1_result = Sha1::from(&x_out[..]).digest().bytes();
 
-            //设置session key
+            //set the session key
             key_manager_obj.session_key = sha1_result[..16].to_vec();
 
             //保存密钥到本地文件
@@ -104,43 +103,35 @@ impl DeviceManage {
                 KeyManager::save_keys_to_local_file(&ciphertext, file_path, &seid)?;
             }
         }
-        if status.eq("00") {
-            return Ok("unbound".to_string());
-        }else if status.eq("55") {
-            return Ok("bound_this".to_string());
-        }else if status.eq("AA") {
-            return Ok("bound_other".to_string());
-        }else {
-            panic!("bind check status error");
-        }
+        Ok(BIND_STATUS_MAP.get(status.as_str()).unwrap().to_string())
     }
 
     pub fn bind_acquire(binding_code: &String) -> Result<String> {
         let temp_binding_code = binding_code.to_uppercase();
         let binding_code_bytes = temp_binding_code.as_bytes();
-        //绑定码校验
+        //check auth code
         let bind_code_verify_regex = Regex::new(r"^[A-HJ-NP-Z2-9]{8}$").unwrap();
         if !bind_code_verify_regex.is_match(temp_binding_code.as_ref()) {
             return Err(BindError::ImkeySdkIllegalArgument.into());
         }
-        //RSA加密绑定码
+        //encryption auth code
         let auth_code_ciphertext = auth_code_encrypt(&temp_binding_code)?;
 
-        //保存绑定码
+        //save auth Code cipher
         let seid = manager::get_se_id()?;
         AuthCodeStorageRequest::build_request_data(seid, auth_code_ciphertext).auth_code_storage()?;
 
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
-        //选择IMK applet
+        //select IMK applet
         select_imk_applet()?;
-        //计算HASH
+        //calc HASH
         let mut data: Vec<u8> = vec![];
         data.extend(binding_code_bytes);
         data.extend(&key_manager_obj.pub_key);
         data.extend(&key_manager_obj.se_pub_key);
         let data_hash = digest::digest(&digest::SHA256, data.as_slice());
 
-        //用sessionKey加密HASH值
+        //encryption hash value by session key
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
         let cipher = Aes128Cbc::new_var(
             &key_manager_obj.session_key,
@@ -148,16 +139,16 @@ impl DeviceManage {
         )?;
 
         let ciphertext = cipher.encrypt_vec(data_hash.as_ref());
-        //生成identityVerify指令数据
+        //gen identityVerify command
         let mut apdu_data = vec![];
         apdu_data.extend(&key_manager_obj.pub_key);
         apdu_data.extend(ciphertext);
         let identity_verify_apdu = DeviceBindingApdu::identity_verify(&apdu_data);
         std::mem::drop(key_manager_obj);
-        //发送指令到设备
-        let apdu_ret_result = send_apdu(identity_verify_apdu);
-        ApduCheck::checke_response(&apdu_ret_result)?;
-        Ok(apdu_ret_result.chars().take(2).collect())
+        //send command to device
+        let bind_result = send_apdu(identity_verify_apdu);
+        ApduCheck::checke_response(&bind_result)?;
+        Ok(BIND_STATUS_MAP.get(&bind_result[..bind_result.len() - 4]).unwrap().to_string())
     }
 }
 
@@ -198,29 +189,22 @@ fn auth_code_encrypt(auth_code: &String) -> Result<String> {
 
 pub fn display_bind_code() -> Result<()> {
     select_imk_applet()?;
-
     let gen_auth_code_ret_data = send_apdu(DeviceBindingApdu::generate_auth_code());
     ApduCheck::checke_response(&gen_auth_code_ret_data)
 }
 
-pub fn device_cert_check(seid: String, sn: String, se_pub_key_cert: String) -> Result<()>{
-    let response_obj = DeviceCertCheckRequest::build_request_data(seid, sn, se_pub_key_cert)
-                                .device_cert_check()?;
-    let ret_code_check_result: Result<()> = match response_obj._ReturnCode.as_str() {
-        TSM_RETURN_CODE_SUCCESS => Ok(()),
-        TSM_RETURNCODE_DEVICE_CHECK_FAIL => Err(ImkeyError::ImkeyTsmDeviceAuthenticityCheckFail.into()),
-        TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::ImkeyTsmDeviceNotActivated.into()),
-        TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::ImkeyTsmDeviceIllegal.into()),
-        TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::ImkeyTsmDeviceStopUsing.into()),
-        _ => Err(ImkeyError::ImkeyTsmServerError.into()),
-    };
-    ret_code_check_result?;
-    let cert_check_result = response_obj._ReturnData.verifyResult.unwrap();
-    if cert_check_result {
-        return Ok(());
+fn get_se_pubkey(se_pubkey_cert: String) -> Result<String>{
+//    let se_cert_str = manager::get_cert();
+    let index;
+    if se_pubkey_cert.contains("7F4947B041") {
+        index = se_pubkey_cert.find("7F4947B041").expect("parsing_se_cert_error");
+    }else if se_pubkey_cert.contains("7F4946B041") {
+        index = se_pubkey_cert.find("7F4946B041").expect("parsing_se_cert_error");
+    }else {
+        return Err(ImkeyError::ImkeySeCertInvalid.into());
     }
-    Err(ImkeyError::ImkeySeCertInvalid.into())
 
+    Ok(se_pubkey_cert[index + 10..index + 130 + 10].to_string())
 }
 
 #[cfg(test)]
