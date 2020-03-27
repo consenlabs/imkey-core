@@ -4,11 +4,11 @@ package api;
 import "google/protobuf/any.proto";
 
 // Action Wrapper
-// There is a `call_tcx_api` method in tcx which act as a endpoint like RPC. It accepts a `TcxAction` param which method field is
+// There is a `call_imkey_api` method in tcx which act as a endpoint like RPC. It accepts a `ImkeyAction` param which method field is
 // the real action and param field is the real param of that method.
-// When an error occurred, the `call_tcx_api` will return a `Response` which isSuccess field be false and error field is the reason
+// When an error occurred, the `call_imkey_api` will return a `Response` which isSuccess field be false and error field is the reason
 // which cause the error.
-message TcxAction {
+message ImkeyAction {
     string method = 1;
     google.protobuf.Any param = 2;
 }
@@ -18,6 +18,25 @@ message Response {
     bool isSuccess = 1;
     string error = 2;
 }
+
+
+
+
+
+
+
+
+
+// Action Wrapper
+// There is a `call_tcx_api` method in tcx which act as a endpoint like RPC. It accepts a `TcxAction` param which method field is
+// the real action and param field is the real param of that method.
+// When an error occurred, the `call_tcx_api` will return a `Response` which isSuccess field be false and error field is the reason
+// which cause the error.
+message TcxAction {
+    string method = 1;
+    google.protobuf.Any param = 2;
+}
+
 
 /// Initialization
 
