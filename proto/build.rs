@@ -23,7 +23,7 @@ fn main() {
     prost_build::compile_protos(&["src/cosmos.proto"], &["src/"]).unwrap();
 
     // device
-    env::set_var("OUT_DIR", "../api/src");
+    env::set_var("OUT_DIR", "../device/src");
     prost_build::compile_protos(&["src/device.proto"], &["src/"]).unwrap()
 }
 
@@ -57,7 +57,7 @@ mod tests {
         prost_build::compile_protos(&["src/cosmos.proto"], &["src/"]).unwrap();
 
         // device
-        env::set_var("OUT_DIR", "../api/src");
+        env::set_var("OUT_DIR", "../device/src");
         prost_build::compile_protos(&["src/device.proto"], &["src/"]).unwrap()
     }
 }
