@@ -12,6 +12,7 @@ use mq::message::send_apdu;
 use se_activate::SeActivateRequest;
 use common::apdu::Apdu;
 use crate::Result;
+use crate::device_binding::DeviceManage;
 
 pub fn get_se_id() -> Result<String> {
     send_apdu("00A4040000".to_string());
@@ -122,6 +123,19 @@ pub fn app_delete(app_name: &str) -> Result<()> {
     let device_cert: String = get_cert();
     let instance_aid: String = applet::get_instid_by_appname(app_name).expect("imkey_app_name_not_exist").to_string();
     AppDeleteRequest::build_request_data(seid, instance_aid, device_cert).app_delete()
+}
+
+
+pub fn bind_check(file_path: &str) -> Result<String> {
+    DeviceManage::bind_check(&file_path.to_string())
+}
+
+pub fn bind_display_code() -> Result<()> {
+    DeviceManage::display_bind_code()
+}
+
+pub fn bind_acquire(bind_code: &str) -> Result<String> {
+    DeviceManage::bind_acquire(&bind_code.to_string())
 }
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]

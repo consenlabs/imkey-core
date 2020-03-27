@@ -1,11 +1,9 @@
-use crate::api::DeviceParam;
-use crate::deviceapi::{AppDownloadReq, AppUpdateReq, AppDeleteReq,
+use device::deviceapi::{AppDownloadReq, AppUpdateReq, AppDeleteReq,
                        CheckUpdateRes, AvailableAppBean, BindCheckReq, BindCheckRes, BindAcquireReq,
                        BindAcquireRes, GetSeidRes, GetSnRes, GetRamSizeRes, GetFirmwareVersionRes,
                        GetBatteryPowerRes, GetLifeTimeRes, GetBleNameRes, SetBleNameReq,
-                       GetBleVersionRes, GetSdkInfoRes};
-use crate::deviceapi::EmptyResponse;
-use crate::wallet_handler::encode_message;
+                       GetBleVersionRes, GetSdkInfoRes, EmptyResponse};
+use crate::message_handler::encode_message;
 use common::constants;
 use common::applet;
 use prost::Message;

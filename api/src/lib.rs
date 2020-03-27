@@ -1,27 +1,24 @@
 use crate::api::{ImkeyAction, Response};
-use crate::wallet_handler::{device_manage, get_address, register_coin, sign_tx, encode_message, sign_msg};
 use prost::Message;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 pub mod api;
 pub mod btc_address;
 pub mod btc_signer;
-pub mod btcapi;
 pub mod cosmos_address;
 pub mod cosmos_signer;
 pub mod device_manager;
-pub mod deviceapi;
 pub mod eos_pubkey;
 pub mod eos_signer;
 pub mod error_handling;
-pub mod ethapi;
 pub mod ethereum_address;
 pub mod ethereum_signer;
 pub mod usdt_signer;
-pub mod wallet_handler;
+pub mod message_handler;
 #[macro_use]
 extern crate failure;
 use crate::error_handling::{landingpad, LAST_BACKTRACE, LAST_ERROR};
+use crate::message_handler::encode_message;
 use mq::message;
 
 #[no_mangle]
@@ -75,6 +72,34 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
         "get_sdk_info" => landingpad(|| device_manager::get_sdk_info()),
         #[cfg(any(target_os = "macos", target_os = "windows"))]
         "cos_update" => landingpad(|| device_manager::cos_update()),
+
+        // btc
+        "btc_tx_sign" => landingpad(|| btc_signer::sign_btc_transaction(&action.param.unwrap().value)),
+        "btc_segwit_tx_sign" => landingpad(|| btc_signer::sign_segwit_transaction(&action.param.unwrap().value)),
+        "btc_usdt_tx_sign" => landingpad(|| usdt_signer::sign_usdt_transaction(&action.param.unwrap().value)),
+        "btc_usdt_segwit_tx_sign" => landingpad(|| usdt_signer::sign_usdt_segwit_transaction(&action.param.unwrap().value)),
+        "btc_get_xpub" => landingpad(|| btc_address::get_btc_xpub(&action.param.unwrap().value)),
+        "btc_get_address" => landingpad(|| btc_address::get_btc_address(&action.param.unwrap().value)),
+        "btc_get_setwit_address" => landingpad(|| btc_address::get_segwit_address(&action.param.unwrap().value)),
+        "btc_register_address" => landingpad(|| btc_address::display_btc_address(&action.param.unwrap().value)),
+        "btc_register_segwit_address" => landingpad(|| btc_address::display_segwit_address(&action.param.unwrap().value)),
+
+        // eth
+        "eth_tx_sign" => landingpad(|| ethereum_signer::sign_eth_transaction(&action.param.unwrap().value)),
+        "eth_message_sign" => landingpad(|| ethereum_signer::sign_eth_message(&action.param.unwrap().value)),
+        "eth_get_address" => landingpad(|| ethereum_address::get_eth_address(&action.param.unwrap().value)),
+        "eth_register_address" => landingpad(|| ethereum_address::display_eth_address(&action.param.unwrap().value)),
+
+        // eos
+        "eos_tx_sign" => landingpad(|| eos_signer::sign_eos_transaction(&action.param.unwrap().value)),
+        "eos_message_sign" => landingpad(|| eos_signer::sign_eos_message(&action.param.unwrap().value)),
+        "eos_get_pubkey" => landingpad(|| eos_pubkey::get_eos_pubkey(&action.param.unwrap().value)),
+        "eos_register_pubkey" => landingpad(|| eos_pubkey::display_eos_pubkey(&action.param.unwrap().value)),
+
+        // cosmos
+        "cosmos_tx_sign" => landingpad(|| ethereum_signer::sign_eth_transaction(&action.param.unwrap().value)),
+        "cosmos_get_address" => landingpad(|| ethereum_signer::sign_eth_message(&action.param.unwrap().value)),
+        "cosmos_register_address" => landingpad(|| ethereum_address::get_eth_address(&action.param.unwrap().value)),
 
         _ => Vec::new(),
 

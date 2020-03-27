@@ -1,5 +1,6 @@
 use crate::address::EthAddress;
 use crate::types::{Action, Signature};
+use crate::ethapi::{EthMessageSignReq, EthMessageSignRes, EthTxRes};
 use common::apdu::{EthApdu, ApduCheck};
 use common::path::check_path_validity;
 use common::utility::{hex_to_bytes, secp256k1_sign};
@@ -10,7 +11,6 @@ use mq::message::send_apdu;
 use rlp::{self, DecoderError, Encodable, Rlp, RlpStream};
 use secp256k1::recovery::{RecoverableSignature, RecoveryId};
 use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
-use common::ethapi::{EthPersonalSignInput, EthPersonalSignOutput, EthTxOutput};
 use common::utility;
 use crate::Result as EthResult;
 use device::device_binding::KEY_MANAGER;
@@ -40,7 +40,7 @@ impl Transaction {
         receiver: &str,
         sender: &str,
         fee: &str,
-    ) -> EthResult<EthTxOutput> {
+    ) -> EthResult<EthTxRes> {
     // ) {
         //check path
         check_path_validity(path)?;
@@ -139,8 +139,8 @@ impl Transaction {
             tx_hash.insert_str(0,"0x");
         }
 
-        let tx_sign_result = EthTxOutput {
-            signature: hex::encode(signed.0),
+        let tx_sign_result = EthTxRes {
+            tx_data: hex::encode(signed.0),
             tx_hash,
         };
 
@@ -200,7 +200,7 @@ impl Transaction {
         }
     }
 
-    pub fn sign_persional_message(input:EthPersonalSignInput) -> EthResult<EthPersonalSignOutput>{
+    pub fn sign_persional_message(input:EthMessageSignReq) -> EthResult<EthMessageSignRes>{
         check_path_validity(&input.path).unwrap();
         let header = format!("Ethereum Signed Message:\n{}", &input.message.as_bytes().len());
         println!("header:{}", &header);
@@ -275,7 +275,7 @@ impl Transaction {
         signature.push_str(&format!("{:02x}", &v));
         println!("signature:{}", &signature);
 
-        Ok(EthPersonalSignOutput{
+        Ok(EthMessageSignRes{
             signature
         })
     }

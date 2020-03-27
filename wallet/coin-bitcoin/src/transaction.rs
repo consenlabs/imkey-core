@@ -36,10 +36,6 @@ pub struct BtcTransaction {
     pub amount: i64,
     pub unspents: Vec<Utxo>,
     pub fee: i64,
-    pub payment: String,
-    pub to_dis: Address,
-    pub from: Address,
-    pub fee_dis: String,
 }
 
 impl BtcTransaction {
@@ -598,10 +594,6 @@ mod tests {
             amount: 799988000,
             unspents: utxos,
             fee: 10000,
-            payment: "0.0001 BT".to_string(),
-            to_dis: Address::from_str("3CVD68V71no5jn2UZpLLq6hASpXu1jrByt").unwrap(),
-            from: Address::from_str("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy").unwrap(),
-            fee_dis: "0.00007945 BTC".to_string(),
 //            extra_data: extra_data,
         };
         let sign_result = transaction_req_data.sign_transaction(Network::Testnet, &"m/44'/1'/0'".to_string(), 53, &extra_data);
@@ -648,10 +640,6 @@ mod tests {
             amount: 88000,
             unspents: utxos,
             fee: 10000,
-            payment: "0.0001 BT".to_string(),
-            to_dis: Address::from_str("3CVD68V71no5jn2UZpLLq6hASpXu1jrByt").unwrap(),
-            from: Address::from_str("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy").unwrap(),
-            fee_dis: "0.00007945 BTC".to_string(),
 //            extra_data: extra_data,
         };
         let sign_result = transaction_req_data.sign_segwit_transaction(Network::Testnet, &"m/49'/1'/0'/".to_string(), 0, &extra_data);
@@ -712,10 +700,6 @@ mod tests {
             amount: 10000012345678,
             unspents: utxos,
             fee: 502130,
-            payment: "0.0001 BTC".to_string(),
-            to_dis: Address::from_str("3CVD68V71no5jn2UZpLLq6hASpXu1jrByt").unwrap(),
-            from: Address::from_str("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy").unwrap(),
-            fee_dis: "0.00007945 BTC".to_string(),
         };
         let sign_result = transaction_req_data.sign_transaction(Network::Bitcoin, &"m/44'/0'/0'/".to_string(), 53, &extra_data);
         match sign_result {
@@ -752,10 +736,6 @@ mod tests {
             amount: 112345678,
             unspents: utxos,
             fee: 502130,
-            payment: "0.0001 BTC".to_string(),
-            to_dis: Address::from_str("3CVD68V71no5jn2UZpLLq6hASpXu1jrByt").unwrap(),
-            from: Address::from_str("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy").unwrap(),
-            fee_dis: "0.00007945 BTC".to_string(),
 //            extra_data: extra_data,
         };
         let sign_result = transaction_req_data.sign_segwit_transaction(Network::Bitcoin, &"m/49'/0'/0'".to_string(), 53, &extra_data);

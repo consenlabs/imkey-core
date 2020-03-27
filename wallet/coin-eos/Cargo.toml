@@ -13,5 +13,7 @@ mq = {path = "../../mq"}
 bitcoin_hashes = "0.7.3"
 hex = "0.3.2"
 bitcoin = "0.21.0"
-bytes = "0.4.8"
 failure = "0.1.6"
+bytes = "0.4.8"
+prost = "0.5.0"
+prost-types = "0.5.0"

@@ -35,6 +35,9 @@ lazy_static = "1.4.0"
 regex = "1"
 failure = "0.1.6"
 log = {version = "0.4", features = ["std"]}
+prost = "0.5.0"
+prost-types = "0.5.0"
+bytes = "0.4.8"
 
 [target.'cfg(any(target_os = "macos", target_os = "windows"))'.dependencies]
 hidapi = "1.1.0"

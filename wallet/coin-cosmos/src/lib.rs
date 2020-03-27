@@ -1,5 +1,6 @@
 pub mod address;
 pub mod transaction;
+pub mod cosmosapi;
 
 #[macro_use]
 extern crate failure;

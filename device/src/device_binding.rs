@@ -150,6 +150,12 @@ impl DeviceManage {
         ApduCheck::checke_response(&bind_result)?;
         Ok(BIND_STATUS_MAP.get(&bind_result[..bind_result.len() - 4]).unwrap().to_string())
     }
+
+    pub fn display_bind_code() -> Result<()> {
+        select_imk_applet()?;
+        let gen_auth_code_ret_data = send_apdu(DeviceBindingApdu::generate_auth_code());
+        ApduCheck::checke_response(&gen_auth_code_ret_data)
+    }
 }
 
 fn select_imk_applet() ->Result<()> {
@@ -185,12 +191,6 @@ fn auth_code_encrypt(auth_code: &String) -> Result<String> {
     let enc_data =
         rsa_pub_key.encrypt(&mut rng, PaddingScheme::PKCS1v15, auth_code.as_bytes())?;
     Ok(hex::encode_upper(enc_data))
-}
-
-pub fn display_bind_code() -> Result<()> {
-    select_imk_applet()?;
-    let gen_auth_code_ret_data = send_apdu(DeviceBindingApdu::generate_auth_code());
-    ApduCheck::checke_response(&gen_auth_code_ret_data)
 }
 
 fn get_se_pubkey(se_pubkey_cert: String) -> Result<String>{
