@@ -25,25 +25,24 @@ public class Eos extends Wallet {
 
         try {
 
-            api.Api.AddressParam addressParam = api.Api.AddressParam.newBuilder()
-                    .setChainType("EOS")
+            eosapi.Eos.EosPubkeyReq req = eosapi.Eos.EosPubkeyReq.newBuilder()
                     .setPath(path)
                     .build();
 
-            Any any2 = Any.newBuilder()
-                    .setValue(addressParam.toByteString())
+            Any any = Any.newBuilder()
+                    .setValue(req.toByteString())
                     .build();
 
-            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                    .setMethod("get_address")
-                    .setParam(any2)
+            api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                    .setMethod("eos_get_pubkey")
+                    .setParam(any)
                     .build();
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
             RustApi.INSTANCE.clear_err();
 
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
 
             String error = RustApi.INSTANCE.get_last_err_message();
             if(!"".equals(error) && null != error) {
@@ -54,7 +53,7 @@ public class Eos extends Wallet {
 
                 }
             } else {
-                eosapi.Eos.EosPubkeyResponse response = eosapi.Eos.EosPubkeyResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+                eosapi.Eos.EosPubkeyRes response = eosapi.Eos.EosPubkeyRes.parseFrom(ByteUtil.hexStringToByteArray(result));
                 eosPK = response.getPubkey();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("eosPK：" + eosPK);
@@ -94,25 +93,25 @@ public class Eos extends Wallet {
 
         try {
 
-            api.Api.AddressParam addressParam = api.Api.AddressParam.newBuilder()
-                    .setChainType("EOS")
+            eosapi.Eos.EosPubkeyReq req = eosapi.Eos.EosPubkeyReq.newBuilder()
                     .setPath(path)
                     .build();
 
-            Any any2 = Any.newBuilder()
-                    .setValue(addressParam.toByteString())
+            Any any = Any.newBuilder()
+                    .setValue(req.toByteString())
                     .build();
 
-            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                    .setMethod("register_coin")
-                    .setParam(any2)
+            api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                    .setMethod("eos_register_pubkey")
+                    .setParam(any)
                     .build();
+
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
             RustApi.INSTANCE.clear_err();
 
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
 
             String error = RustApi.INSTANCE.get_last_err_message();
             if(!"".equals(error) && null != error) {
@@ -123,7 +122,7 @@ public class Eos extends Wallet {
 
                 }
             } else {
-                eosapi.Eos.EosPubkeyResponse response = eosapi.Eos.EosPubkeyResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+                eosapi.Eos.EosPubkeyRes response = eosapi.Eos.EosPubkeyRes.parseFrom(ByteUtil.hexStringToByteArray(result));
                 eosPK = response.getPubkey();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("eosPK：" + eosPK);

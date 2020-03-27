@@ -15,21 +15,12 @@ public class ActiveDeviceTest {
         //imkey_tsm_device_stop_using
         RustApi.INSTANCE.clear_err();
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("se_activate")
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("device_activate")
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
             error = RustApi.INSTANCE.get_last_err_message();
             api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
             response.getIsSuccess();
