@@ -423,7 +423,7 @@ mod tests {
 
         let tx_result = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee).unwrap();
         assert_eq!(
-            tx_result.signature,
+            tx_result.tx_data,
             "f867088504a817c8088302e248943535353535353535353535353535353535353535820200805ba03aa62abb45b77418caf139dda0179aea802c99967b3d690b87d586a87bc805afa02b5ce94f40dc865ca63403e0e5e723e1523884f001573677cd8cec11c7ca332f".to_string()
         );
         assert_eq!(
@@ -543,7 +543,7 @@ mod tests {
         let check_result = DeviceManage::bind_check(&path).unwrap();
         println!("check_result:{}",&check_result);
 
-        let input = EthPersonalSignInput{
+        let input = EthMessageSignReq{
             path: constants::ETH_PATH.to_string(),
             message: "Hello imKey".to_string(),
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string()
