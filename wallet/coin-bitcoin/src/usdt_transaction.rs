@@ -454,10 +454,6 @@ mod tests {
             amount: 10050000000,
             unspents: utxos,
             fee: 4000,
-            payment: "100 USDT".to_string(),
-            to_dis: Address::from_str("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3").unwrap(),
-            from: Address::from_str("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB").unwrap(),
-            fee_dis: "0.0004 BTC".to_string(),
         };
         let sign_result = transaction_req_data.sign_omni_transaction(Network::Testnet, &"m/44'/1'/0'".to_string(), 31);
         match sign_result {
@@ -492,10 +488,6 @@ mod tests {
             amount: 10000000000,
             unspents: utxos,
             fee: 4000,
-            payment: "100 USDT".to_string(),
-            to_dis: Address::from_str("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3").unwrap(),
-            from: Address::from_str("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB").unwrap(),
-            fee_dis: "0.0004 BTC".to_string(),
         };
         let sign_result = transaction_req_data.sign_omni_segwit_transaction(Network::Testnet, &"m/49'/1'/0'/".to_string(), 31);
         match sign_result {
@@ -600,10 +592,6 @@ mod tests {
             amount: 750000000,
             unspents: utxos,
             fee: 502130,
-            payment: "0.0001 USDT".to_string(),
-            to_dis: Address::from_str("3CVD68V71no5jn2UZpLLq6hASpXu1jrByt").unwrap(),
-            from: Address::from_str("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy").unwrap(),
-            fee_dis: "0.00007945 BTC".to_string(),
         };
         let sign_result = transaction_req_data.sign_omni_segwit_transaction(Network::Bitcoin, &"m/49'/0'/0'/".to_string(), 31);
         match sign_result {
@@ -637,10 +625,6 @@ mod tests {
             amount: 345678,
             unspents: utxos,
             fee: 502130,
-            payment: "0.0001 USDT".to_string(),
-            to_dis: Address::from_str("3CVD68V71no5jn2UZpLLq6hASpXu1jrByt").unwrap(),
-            from: Address::from_str("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy").unwrap(),
-            fee_dis: "0.00007945 BTC".to_string(),
         };
         let sign_result = transaction_req_data.sign_omni_segwit_transaction(Network::Bitcoin, &"m/49'/0'/0'/".to_string(), 31);
         match sign_result {

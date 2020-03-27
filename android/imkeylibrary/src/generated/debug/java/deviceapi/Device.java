@@ -379,8 +379,8 @@ public final class Device {
 
   }
 
-  public interface AppActionOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.AppAction)
+  public interface AppDownloadReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.AppDownloadReq)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -394,21 +394,17 @@ public final class Device {
         getAppNameBytes();
   }
   /**
-   * <pre>
-   *for app download, update, delete and so on
-   * </pre>
-   *
-   * Protobuf type {@code deviceapi.AppAction}
+   * Protobuf type {@code deviceapi.AppDownloadReq}
    */
-  public  static final class AppAction extends
+  public  static final class AppDownloadReq extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.AppAction)
-      AppActionOrBuilder {
-    // Use AppAction.newBuilder() to construct.
-    private AppAction(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:deviceapi.AppDownloadReq)
+      AppDownloadReqOrBuilder {
+    // Use AppDownloadReq.newBuilder() to construct.
+    private AppDownloadReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private AppAction() {
+    private AppDownloadReq() {
       appName_ = "";
     }
 
@@ -417,7 +413,7 @@ public final class Device {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private AppAction(
+    private AppDownloadReq(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -456,14 +452,14 @@ public final class Device {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_AppAction_descriptor;
+      return deviceapi.Device.internal_static_deviceapi_AppDownloadReq_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_AppAction_fieldAccessorTable
+      return deviceapi.Device.internal_static_deviceapi_AppDownloadReq_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              deviceapi.Device.AppAction.class, deviceapi.Device.AppAction.Builder.class);
+              deviceapi.Device.AppDownloadReq.class, deviceapi.Device.AppDownloadReq.Builder.class);
     }
 
     public static final int APP_NAME_FIELD_NUMBER = 1;
@@ -535,10 +531,10 @@ public final class Device {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof deviceapi.Device.AppAction)) {
+      if (!(obj instanceof deviceapi.Device.AppDownloadReq)) {
         return super.equals(obj);
       }
-      deviceapi.Device.AppAction other = (deviceapi.Device.AppAction) obj;
+      deviceapi.Device.AppDownloadReq other = (deviceapi.Device.AppDownloadReq) obj;
 
       boolean result = true;
       result = result && getAppName()
@@ -560,58 +556,58 @@ public final class Device {
       return hash;
     }
 
-    public static deviceapi.Device.AppAction parseFrom(
+    public static deviceapi.Device.AppDownloadReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static deviceapi.Device.AppAction parseFrom(
+    public static deviceapi.Device.AppDownloadReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static deviceapi.Device.AppAction parseFrom(byte[] data)
+    public static deviceapi.Device.AppDownloadReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static deviceapi.Device.AppAction parseFrom(
+    public static deviceapi.Device.AppDownloadReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static deviceapi.Device.AppAction parseFrom(java.io.InputStream input)
+    public static deviceapi.Device.AppDownloadReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.AppAction parseFrom(
+    public static deviceapi.Device.AppDownloadReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static deviceapi.Device.AppAction parseDelimitedFrom(java.io.InputStream input)
+    public static deviceapi.Device.AppDownloadReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.AppAction parseDelimitedFrom(
+    public static deviceapi.Device.AppDownloadReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static deviceapi.Device.AppAction parseFrom(
+    public static deviceapi.Device.AppDownloadReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.AppAction parseFrom(
+    public static deviceapi.Device.AppDownloadReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -623,7 +619,7 @@ public final class Device {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(deviceapi.Device.AppAction prototype) {
+    public static Builder newBuilder(deviceapi.Device.AppDownloadReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -638,29 +634,25 @@ public final class Device {
       return builder;
     }
     /**
-     * <pre>
-     *for app download, update, delete and so on
-     * </pre>
-     *
-     * Protobuf type {@code deviceapi.AppAction}
+     * Protobuf type {@code deviceapi.AppDownloadReq}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.AppAction)
-        deviceapi.Device.AppActionOrBuilder {
+        // @@protoc_insertion_point(builder_implements:deviceapi.AppDownloadReq)
+        deviceapi.Device.AppDownloadReqOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_AppAction_descriptor;
+        return deviceapi.Device.internal_static_deviceapi_AppDownloadReq_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_AppAction_fieldAccessorTable
+        return deviceapi.Device.internal_static_deviceapi_AppDownloadReq_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                deviceapi.Device.AppAction.class, deviceapi.Device.AppAction.Builder.class);
+                deviceapi.Device.AppDownloadReq.class, deviceapi.Device.AppDownloadReq.Builder.class);
       }
 
-      // Construct using deviceapi.Device.AppAction.newBuilder()
+      // Construct using deviceapi.Device.AppDownloadReq.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -684,23 +676,23 @@ public final class Device {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_AppAction_descriptor;
+        return deviceapi.Device.internal_static_deviceapi_AppDownloadReq_descriptor;
       }
 
-      public deviceapi.Device.AppAction getDefaultInstanceForType() {
-        return deviceapi.Device.AppAction.getDefaultInstance();
+      public deviceapi.Device.AppDownloadReq getDefaultInstanceForType() {
+        return deviceapi.Device.AppDownloadReq.getDefaultInstance();
       }
 
-      public deviceapi.Device.AppAction build() {
-        deviceapi.Device.AppAction result = buildPartial();
+      public deviceapi.Device.AppDownloadReq build() {
+        deviceapi.Device.AppDownloadReq result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public deviceapi.Device.AppAction buildPartial() {
-        deviceapi.Device.AppAction result = new deviceapi.Device.AppAction(this);
+      public deviceapi.Device.AppDownloadReq buildPartial() {
+        deviceapi.Device.AppDownloadReq result = new deviceapi.Device.AppDownloadReq(this);
         result.appName_ = appName_;
         onBuilt();
         return result;
@@ -733,16 +725,16 @@ public final class Device {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.AppAction) {
-          return mergeFrom((deviceapi.Device.AppAction)other);
+        if (other instanceof deviceapi.Device.AppDownloadReq) {
+          return mergeFrom((deviceapi.Device.AppDownloadReq)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(deviceapi.Device.AppAction other) {
-        if (other == deviceapi.Device.AppAction.getDefaultInstance()) return this;
+      public Builder mergeFrom(deviceapi.Device.AppDownloadReq other) {
+        if (other == deviceapi.Device.AppDownloadReq.getDefaultInstance()) return this;
         if (!other.getAppName().isEmpty()) {
           appName_ = other.appName_;
           onChanged();
@@ -759,11 +751,11 @@ public final class Device {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        deviceapi.Device.AppAction parsedMessage = null;
+        deviceapi.Device.AppDownloadReq parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.AppAction) e.getUnfinishedMessage();
+          parsedMessage = (deviceapi.Device.AppDownloadReq) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -852,97 +844,71 @@ public final class Device {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:deviceapi.AppAction)
+      // @@protoc_insertion_point(builder_scope:deviceapi.AppDownloadReq)
     }
 
-    // @@protoc_insertion_point(class_scope:deviceapi.AppAction)
-    private static final deviceapi.Device.AppAction DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:deviceapi.AppDownloadReq)
+    private static final deviceapi.Device.AppDownloadReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new deviceapi.Device.AppAction();
+      DEFAULT_INSTANCE = new deviceapi.Device.AppDownloadReq();
     }
 
-    public static deviceapi.Device.AppAction getDefaultInstance() {
+    public static deviceapi.Device.AppDownloadReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<AppAction>
-        PARSER = new com.google.protobuf.AbstractParser<AppAction>() {
-      public AppAction parsePartialFrom(
+    private static final com.google.protobuf.Parser<AppDownloadReq>
+        PARSER = new com.google.protobuf.AbstractParser<AppDownloadReq>() {
+      public AppDownloadReq parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new AppAction(input, extensionRegistry);
+          return new AppDownloadReq(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<AppAction> parser() {
+    public static com.google.protobuf.Parser<AppDownloadReq> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<AppAction> getParserForType() {
+    public com.google.protobuf.Parser<AppDownloadReq> getParserForType() {
       return PARSER;
     }
 
-    public deviceapi.Device.AppAction getDefaultInstanceForType() {
+    public deviceapi.Device.AppDownloadReq getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface DeviceCertOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.DeviceCert)
+  public interface AppUpdateReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.AppUpdateReq)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string se_id = 1;</code>
+     * <code>optional string app_name = 1;</code>
      */
-    java.lang.String getSeId();
+    java.lang.String getAppName();
     /**
-     * <code>optional string se_id = 1;</code>
+     * <code>optional string app_name = 1;</code>
      */
     com.google.protobuf.ByteString
-        getSeIdBytes();
-
-    /**
-     * <code>optional string sn = 2;</code>
-     */
-    java.lang.String getSn();
-    /**
-     * <code>optional string sn = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getSnBytes();
-
-    /**
-     * <code>optional string device_cert = 3;</code>
-     */
-    java.lang.String getDeviceCert();
-    /**
-     * <code>optional string device_cert = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getDeviceCertBytes();
+        getAppNameBytes();
   }
   /**
-   * <pre>
-   *for device cert related
-   * </pre>
-   *
-   * Protobuf type {@code deviceapi.DeviceCert}
+   * Protobuf type {@code deviceapi.AppUpdateReq}
    */
-  public  static final class DeviceCert extends
+  public  static final class AppUpdateReq extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.DeviceCert)
-      DeviceCertOrBuilder {
-    // Use DeviceCert.newBuilder() to construct.
-    private DeviceCert(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:deviceapi.AppUpdateReq)
+      AppUpdateReqOrBuilder {
+    // Use AppUpdateReq.newBuilder() to construct.
+    private AppUpdateReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private DeviceCert() {
-      seId_ = "";
-      sn_ = "";
-      deviceCert_ = "";
+    private AppUpdateReq() {
+      appName_ = "";
     }
 
     @java.lang.Override
@@ -950,7 +916,7 @@ public final class Device {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private DeviceCert(
+    private AppUpdateReq(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -973,19 +939,7 @@ public final class Device {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              seId_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              sn_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              deviceCert_ = s;
+              appName_ = s;
               break;
             }
           }
@@ -1001,112 +955,44 @@ public final class Device {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_DeviceCert_descriptor;
+      return deviceapi.Device.internal_static_deviceapi_AppUpdateReq_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_DeviceCert_fieldAccessorTable
+      return deviceapi.Device.internal_static_deviceapi_AppUpdateReq_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              deviceapi.Device.DeviceCert.class, deviceapi.Device.DeviceCert.Builder.class);
+              deviceapi.Device.AppUpdateReq.class, deviceapi.Device.AppUpdateReq.Builder.class);
     }
 
-    public static final int SE_ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object seId_;
+    public static final int APP_NAME_FIELD_NUMBER = 1;
+    private volatile java.lang.Object appName_;
     /**
-     * <code>optional string se_id = 1;</code>
+     * <code>optional string app_name = 1;</code>
      */
-    public java.lang.String getSeId() {
-      java.lang.Object ref = seId_;
+    public java.lang.String getAppName() {
+      java.lang.Object ref = appName_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        seId_ = s;
+        appName_ = s;
         return s;
       }
     }
     /**
-     * <code>optional string se_id = 1;</code>
+     * <code>optional string app_name = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getSeIdBytes() {
-      java.lang.Object ref = seId_;
+        getAppNameBytes() {
+      java.lang.Object ref = appName_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        seId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int SN_FIELD_NUMBER = 2;
-    private volatile java.lang.Object sn_;
-    /**
-     * <code>optional string sn = 2;</code>
-     */
-    public java.lang.String getSn() {
-      java.lang.Object ref = sn_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        sn_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string sn = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getSnBytes() {
-      java.lang.Object ref = sn_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        sn_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int DEVICE_CERT_FIELD_NUMBER = 3;
-    private volatile java.lang.Object deviceCert_;
-    /**
-     * <code>optional string device_cert = 3;</code>
-     */
-    public java.lang.String getDeviceCert() {
-      java.lang.Object ref = deviceCert_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        deviceCert_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string device_cert = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getDeviceCertBytes() {
-      java.lang.Object ref = deviceCert_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        deviceCert_ = b;
+        appName_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -1125,14 +1011,8 @@ public final class Device {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getSeIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, seId_);
-      }
-      if (!getSnBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, sn_);
-      }
-      if (!getDeviceCertBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, deviceCert_);
+      if (!getAppNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, appName_);
       }
     }
 
@@ -1141,14 +1021,8 @@ public final class Device {
       if (size != -1) return size;
 
       size = 0;
-      if (!getSeIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, seId_);
-      }
-      if (!getSnBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, sn_);
-      }
-      if (!getDeviceCertBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, deviceCert_);
+      if (!getAppNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, appName_);
       }
       memoizedSize = size;
       return size;
@@ -1160,18 +1034,14 @@ public final class Device {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof deviceapi.Device.DeviceCert)) {
+      if (!(obj instanceof deviceapi.Device.AppUpdateReq)) {
         return super.equals(obj);
       }
-      deviceapi.Device.DeviceCert other = (deviceapi.Device.DeviceCert) obj;
+      deviceapi.Device.AppUpdateReq other = (deviceapi.Device.AppUpdateReq) obj;
 
       boolean result = true;
-      result = result && getSeId()
-          .equals(other.getSeId());
-      result = result && getSn()
-          .equals(other.getSn());
-      result = result && getDeviceCert()
-          .equals(other.getDeviceCert());
+      result = result && getAppName()
+          .equals(other.getAppName());
       return result;
     }
 
@@ -1182,69 +1052,65 @@ public final class Device {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + SE_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getSeId().hashCode();
-      hash = (37 * hash) + SN_FIELD_NUMBER;
-      hash = (53 * hash) + getSn().hashCode();
-      hash = (37 * hash) + DEVICE_CERT_FIELD_NUMBER;
-      hash = (53 * hash) + getDeviceCert().hashCode();
+      hash = (37 * hash) + APP_NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getAppName().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static deviceapi.Device.DeviceCert parseFrom(
+    public static deviceapi.Device.AppUpdateReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static deviceapi.Device.DeviceCert parseFrom(
+    public static deviceapi.Device.AppUpdateReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static deviceapi.Device.DeviceCert parseFrom(byte[] data)
+    public static deviceapi.Device.AppUpdateReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static deviceapi.Device.DeviceCert parseFrom(
+    public static deviceapi.Device.AppUpdateReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static deviceapi.Device.DeviceCert parseFrom(java.io.InputStream input)
+    public static deviceapi.Device.AppUpdateReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.DeviceCert parseFrom(
+    public static deviceapi.Device.AppUpdateReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static deviceapi.Device.DeviceCert parseDelimitedFrom(java.io.InputStream input)
+    public static deviceapi.Device.AppUpdateReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.DeviceCert parseDelimitedFrom(
+    public static deviceapi.Device.AppUpdateReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static deviceapi.Device.DeviceCert parseFrom(
+    public static deviceapi.Device.AppUpdateReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.DeviceCert parseFrom(
+    public static deviceapi.Device.AppUpdateReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1256,7 +1122,7 @@ public final class Device {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(deviceapi.Device.DeviceCert prototype) {
+    public static Builder newBuilder(deviceapi.Device.AppUpdateReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -1271,29 +1137,25 @@ public final class Device {
       return builder;
     }
     /**
-     * <pre>
-     *for device cert related
-     * </pre>
-     *
-     * Protobuf type {@code deviceapi.DeviceCert}
+     * Protobuf type {@code deviceapi.AppUpdateReq}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.DeviceCert)
-        deviceapi.Device.DeviceCertOrBuilder {
+        // @@protoc_insertion_point(builder_implements:deviceapi.AppUpdateReq)
+        deviceapi.Device.AppUpdateReqOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_DeviceCert_descriptor;
+        return deviceapi.Device.internal_static_deviceapi_AppUpdateReq_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_DeviceCert_fieldAccessorTable
+        return deviceapi.Device.internal_static_deviceapi_AppUpdateReq_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                deviceapi.Device.DeviceCert.class, deviceapi.Device.DeviceCert.Builder.class);
+                deviceapi.Device.AppUpdateReq.class, deviceapi.Device.AppUpdateReq.Builder.class);
       }
 
-      // Construct using deviceapi.Device.DeviceCert.newBuilder()
+      // Construct using deviceapi.Device.AppUpdateReq.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1310,37 +1172,31 @@ public final class Device {
       }
       public Builder clear() {
         super.clear();
-        seId_ = "";
-
-        sn_ = "";
-
-        deviceCert_ = "";
+        appName_ = "";
 
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_DeviceCert_descriptor;
+        return deviceapi.Device.internal_static_deviceapi_AppUpdateReq_descriptor;
       }
 
-      public deviceapi.Device.DeviceCert getDefaultInstanceForType() {
-        return deviceapi.Device.DeviceCert.getDefaultInstance();
+      public deviceapi.Device.AppUpdateReq getDefaultInstanceForType() {
+        return deviceapi.Device.AppUpdateReq.getDefaultInstance();
       }
 
-      public deviceapi.Device.DeviceCert build() {
-        deviceapi.Device.DeviceCert result = buildPartial();
+      public deviceapi.Device.AppUpdateReq build() {
+        deviceapi.Device.AppUpdateReq result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public deviceapi.Device.DeviceCert buildPartial() {
-        deviceapi.Device.DeviceCert result = new deviceapi.Device.DeviceCert(this);
-        result.seId_ = seId_;
-        result.sn_ = sn_;
-        result.deviceCert_ = deviceCert_;
+      public deviceapi.Device.AppUpdateReq buildPartial() {
+        deviceapi.Device.AppUpdateReq result = new deviceapi.Device.AppUpdateReq(this);
+        result.appName_ = appName_;
         onBuilt();
         return result;
       }
@@ -1372,26 +1228,18 @@ public final class Device {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.DeviceCert) {
-          return mergeFrom((deviceapi.Device.DeviceCert)other);
+        if (other instanceof deviceapi.Device.AppUpdateReq) {
+          return mergeFrom((deviceapi.Device.AppUpdateReq)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(deviceapi.Device.DeviceCert other) {
-        if (other == deviceapi.Device.DeviceCert.getDefaultInstance()) return this;
-        if (!other.getSeId().isEmpty()) {
-          seId_ = other.seId_;
-          onChanged();
-        }
-        if (!other.getSn().isEmpty()) {
-          sn_ = other.sn_;
-          onChanged();
-        }
-        if (!other.getDeviceCert().isEmpty()) {
-          deviceCert_ = other.deviceCert_;
+      public Builder mergeFrom(deviceapi.Device.AppUpdateReq other) {
+        if (other == deviceapi.Device.AppUpdateReq.getDefaultInstance()) return this;
+        if (!other.getAppName().isEmpty()) {
+          appName_ = other.appName_;
           onChanged();
         }
         onChanged();
@@ -1406,11 +1254,11 @@ public final class Device {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        deviceapi.Device.DeviceCert parsedMessage = null;
+        deviceapi.Device.AppUpdateReq parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.DeviceCert) e.getUnfinishedMessage();
+          parsedMessage = (deviceapi.Device.AppUpdateReq) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1420,209 +1268,71 @@ public final class Device {
         return this;
       }
 
-      private java.lang.Object seId_ = "";
+      private java.lang.Object appName_ = "";
       /**
-       * <code>optional string se_id = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
-      public java.lang.String getSeId() {
-        java.lang.Object ref = seId_;
+      public java.lang.String getAppName() {
+        java.lang.Object ref = appName_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          seId_ = s;
+          appName_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string se_id = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getSeIdBytes() {
-        java.lang.Object ref = seId_;
+          getAppNameBytes() {
+        java.lang.Object ref = appName_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          seId_ = b;
+          appName_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string se_id = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
-      public Builder setSeId(
+      public Builder setAppName(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        seId_ = value;
+        appName_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string se_id = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
-      public Builder clearSeId() {
+      public Builder clearAppName() {
         
-        seId_ = getDefaultInstance().getSeId();
+        appName_ = getDefaultInstance().getAppName();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string se_id = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
-      public Builder setSeIdBytes(
+      public Builder setAppNameBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        seId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object sn_ = "";
-      /**
-       * <code>optional string sn = 2;</code>
-       */
-      public java.lang.String getSn() {
-        java.lang.Object ref = sn_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          sn_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string sn = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getSnBytes() {
-        java.lang.Object ref = sn_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          sn_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string sn = 2;</code>
-       */
-      public Builder setSn(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        sn_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string sn = 2;</code>
-       */
-      public Builder clearSn() {
-        
-        sn_ = getDefaultInstance().getSn();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string sn = 2;</code>
-       */
-      public Builder setSnBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        sn_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object deviceCert_ = "";
-      /**
-       * <code>optional string device_cert = 3;</code>
-       */
-      public java.lang.String getDeviceCert() {
-        java.lang.Object ref = deviceCert_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          deviceCert_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string device_cert = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getDeviceCertBytes() {
-        java.lang.Object ref = deviceCert_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          deviceCert_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string device_cert = 3;</code>
-       */
-      public Builder setDeviceCert(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        deviceCert_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string device_cert = 3;</code>
-       */
-      public Builder clearDeviceCert() {
-        
-        deviceCert_ = getDefaultInstance().getDeviceCert();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string device_cert = 3;</code>
-       */
-      public Builder setDeviceCertBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        deviceCert_ = value;
+        appName_ = value;
         onChanged();
         return this;
       }
@@ -1637,86 +1347,71 @@ public final class Device {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:deviceapi.DeviceCert)
+      // @@protoc_insertion_point(builder_scope:deviceapi.AppUpdateReq)
     }
 
-    // @@protoc_insertion_point(class_scope:deviceapi.DeviceCert)
-    private static final deviceapi.Device.DeviceCert DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:deviceapi.AppUpdateReq)
+    private static final deviceapi.Device.AppUpdateReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new deviceapi.Device.DeviceCert();
+      DEFAULT_INSTANCE = new deviceapi.Device.AppUpdateReq();
     }
 
-    public static deviceapi.Device.DeviceCert getDefaultInstance() {
+    public static deviceapi.Device.AppUpdateReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<DeviceCert>
-        PARSER = new com.google.protobuf.AbstractParser<DeviceCert>() {
-      public DeviceCert parsePartialFrom(
+    private static final com.google.protobuf.Parser<AppUpdateReq>
+        PARSER = new com.google.protobuf.AbstractParser<AppUpdateReq>() {
+      public AppUpdateReq parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new DeviceCert(input, extensionRegistry);
+          return new AppUpdateReq(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<DeviceCert> parser() {
+    public static com.google.protobuf.Parser<AppUpdateReq> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<DeviceCert> getParserForType() {
+    public com.google.protobuf.Parser<AppUpdateReq> getParserForType() {
       return PARSER;
     }
 
-    public deviceapi.Device.DeviceCert getDefaultInstanceForType() {
+    public deviceapi.Device.AppUpdateReq getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface AuthCodeOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.AuthCode)
+  public interface AppDeleteReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.AppDeleteReq)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string se_id = 1;</code>
+     * <code>optional string app_name = 1;</code>
      */
-    java.lang.String getSeId();
+    java.lang.String getAppName();
     /**
-     * <code>optional string se_id = 1;</code>
+     * <code>optional string app_name = 1;</code>
      */
     com.google.protobuf.ByteString
-        getSeIdBytes();
-
-    /**
-     * <code>optional string auth_code = 2;</code>
-     */
-    java.lang.String getAuthCode();
-    /**
-     * <code>optional string auth_code = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getAuthCodeBytes();
+        getAppNameBytes();
   }
   /**
-   * <pre>
-   *auth code related
-   * </pre>
-   *
-   * Protobuf type {@code deviceapi.AuthCode}
+   * Protobuf type {@code deviceapi.AppDeleteReq}
    */
-  public  static final class AuthCode extends
+  public  static final class AppDeleteReq extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.AuthCode)
-      AuthCodeOrBuilder {
-    // Use AuthCode.newBuilder() to construct.
-    private AuthCode(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:deviceapi.AppDeleteReq)
+      AppDeleteReqOrBuilder {
+    // Use AppDeleteReq.newBuilder() to construct.
+    private AppDeleteReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private AuthCode() {
-      seId_ = "";
-      authCode_ = "";
+    private AppDeleteReq() {
+      appName_ = "";
     }
 
     @java.lang.Override
@@ -1724,7 +1419,7 @@ public final class Device {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private AuthCode(
+    private AppDeleteReq(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1747,13 +1442,7 @@ public final class Device {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              seId_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              authCode_ = s;
+              appName_ = s;
               break;
             }
           }
@@ -1769,78 +1458,44 @@ public final class Device {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_AuthCode_descriptor;
+      return deviceapi.Device.internal_static_deviceapi_AppDeleteReq_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_AuthCode_fieldAccessorTable
+      return deviceapi.Device.internal_static_deviceapi_AppDeleteReq_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              deviceapi.Device.AuthCode.class, deviceapi.Device.AuthCode.Builder.class);
+              deviceapi.Device.AppDeleteReq.class, deviceapi.Device.AppDeleteReq.Builder.class);
     }
 
-    public static final int SE_ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object seId_;
+    public static final int APP_NAME_FIELD_NUMBER = 1;
+    private volatile java.lang.Object appName_;
     /**
-     * <code>optional string se_id = 1;</code>
+     * <code>optional string app_name = 1;</code>
      */
-    public java.lang.String getSeId() {
-      java.lang.Object ref = seId_;
+    public java.lang.String getAppName() {
+      java.lang.Object ref = appName_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        seId_ = s;
+        appName_ = s;
         return s;
       }
     }
     /**
-     * <code>optional string se_id = 1;</code>
+     * <code>optional string app_name = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getSeIdBytes() {
-      java.lang.Object ref = seId_;
+        getAppNameBytes() {
+      java.lang.Object ref = appName_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        seId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int AUTH_CODE_FIELD_NUMBER = 2;
-    private volatile java.lang.Object authCode_;
-    /**
-     * <code>optional string auth_code = 2;</code>
-     */
-    public java.lang.String getAuthCode() {
-      java.lang.Object ref = authCode_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        authCode_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string auth_code = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getAuthCodeBytes() {
-      java.lang.Object ref = authCode_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        authCode_ = b;
+        appName_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -1859,11 +1514,8 @@ public final class Device {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getSeIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, seId_);
-      }
-      if (!getAuthCodeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, authCode_);
+      if (!getAppNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, appName_);
       }
     }
 
@@ -1872,11 +1524,8 @@ public final class Device {
       if (size != -1) return size;
 
       size = 0;
-      if (!getSeIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, seId_);
-      }
-      if (!getAuthCodeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, authCode_);
+      if (!getAppNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, appName_);
       }
       memoizedSize = size;
       return size;
@@ -1888,16 +1537,14 @@ public final class Device {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof deviceapi.Device.AuthCode)) {
+      if (!(obj instanceof deviceapi.Device.AppDeleteReq)) {
         return super.equals(obj);
       }
-      deviceapi.Device.AuthCode other = (deviceapi.Device.AuthCode) obj;
+      deviceapi.Device.AppDeleteReq other = (deviceapi.Device.AppDeleteReq) obj;
 
       boolean result = true;
-      result = result && getSeId()
-          .equals(other.getSeId());
-      result = result && getAuthCode()
-          .equals(other.getAuthCode());
+      result = result && getAppName()
+          .equals(other.getAppName());
       return result;
     }
 
@@ -1908,67 +1555,65 @@ public final class Device {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + SE_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getSeId().hashCode();
-      hash = (37 * hash) + AUTH_CODE_FIELD_NUMBER;
-      hash = (53 * hash) + getAuthCode().hashCode();
+      hash = (37 * hash) + APP_NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getAppName().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static deviceapi.Device.AuthCode parseFrom(
+    public static deviceapi.Device.AppDeleteReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static deviceapi.Device.AuthCode parseFrom(
+    public static deviceapi.Device.AppDeleteReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static deviceapi.Device.AuthCode parseFrom(byte[] data)
+    public static deviceapi.Device.AppDeleteReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static deviceapi.Device.AuthCode parseFrom(
+    public static deviceapi.Device.AppDeleteReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static deviceapi.Device.AuthCode parseFrom(java.io.InputStream input)
+    public static deviceapi.Device.AppDeleteReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.AuthCode parseFrom(
+    public static deviceapi.Device.AppDeleteReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static deviceapi.Device.AuthCode parseDelimitedFrom(java.io.InputStream input)
+    public static deviceapi.Device.AppDeleteReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.AuthCode parseDelimitedFrom(
+    public static deviceapi.Device.AppDeleteReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static deviceapi.Device.AuthCode parseFrom(
+    public static deviceapi.Device.AppDeleteReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.AuthCode parseFrom(
+    public static deviceapi.Device.AppDeleteReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1980,7 +1625,7 @@ public final class Device {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(deviceapi.Device.AuthCode prototype) {
+    public static Builder newBuilder(deviceapi.Device.AppDeleteReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -1995,29 +1640,25 @@ public final class Device {
       return builder;
     }
     /**
-     * <pre>
-     *auth code related
-     * </pre>
-     *
-     * Protobuf type {@code deviceapi.AuthCode}
+     * Protobuf type {@code deviceapi.AppDeleteReq}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.AuthCode)
-        deviceapi.Device.AuthCodeOrBuilder {
+        // @@protoc_insertion_point(builder_implements:deviceapi.AppDeleteReq)
+        deviceapi.Device.AppDeleteReqOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_AuthCode_descriptor;
+        return deviceapi.Device.internal_static_deviceapi_AppDeleteReq_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_AuthCode_fieldAccessorTable
+        return deviceapi.Device.internal_static_deviceapi_AppDeleteReq_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                deviceapi.Device.AuthCode.class, deviceapi.Device.AuthCode.Builder.class);
+                deviceapi.Device.AppDeleteReq.class, deviceapi.Device.AppDeleteReq.Builder.class);
       }
 
-      // Construct using deviceapi.Device.AuthCode.newBuilder()
+      // Construct using deviceapi.Device.AppDeleteReq.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2034,34 +1675,31 @@ public final class Device {
       }
       public Builder clear() {
         super.clear();
-        seId_ = "";
-
-        authCode_ = "";
+        appName_ = "";
 
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_AuthCode_descriptor;
+        return deviceapi.Device.internal_static_deviceapi_AppDeleteReq_descriptor;
       }
 
-      public deviceapi.Device.AuthCode getDefaultInstanceForType() {
-        return deviceapi.Device.AuthCode.getDefaultInstance();
+      public deviceapi.Device.AppDeleteReq getDefaultInstanceForType() {
+        return deviceapi.Device.AppDeleteReq.getDefaultInstance();
       }
 
-      public deviceapi.Device.AuthCode build() {
-        deviceapi.Device.AuthCode result = buildPartial();
+      public deviceapi.Device.AppDeleteReq build() {
+        deviceapi.Device.AppDeleteReq result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public deviceapi.Device.AuthCode buildPartial() {
-        deviceapi.Device.AuthCode result = new deviceapi.Device.AuthCode(this);
-        result.seId_ = seId_;
-        result.authCode_ = authCode_;
+      public deviceapi.Device.AppDeleteReq buildPartial() {
+        deviceapi.Device.AppDeleteReq result = new deviceapi.Device.AppDeleteReq(this);
+        result.appName_ = appName_;
         onBuilt();
         return result;
       }
@@ -2093,22 +1731,18 @@ public final class Device {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.AuthCode) {
-          return mergeFrom((deviceapi.Device.AuthCode)other);
+        if (other instanceof deviceapi.Device.AppDeleteReq) {
+          return mergeFrom((deviceapi.Device.AppDeleteReq)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(deviceapi.Device.AuthCode other) {
-        if (other == deviceapi.Device.AuthCode.getDefaultInstance()) return this;
-        if (!other.getSeId().isEmpty()) {
-          seId_ = other.seId_;
-          onChanged();
-        }
-        if (!other.getAuthCode().isEmpty()) {
-          authCode_ = other.authCode_;
+      public Builder mergeFrom(deviceapi.Device.AppDeleteReq other) {
+        if (other == deviceapi.Device.AppDeleteReq.getDefaultInstance()) return this;
+        if (!other.getAppName().isEmpty()) {
+          appName_ = other.appName_;
           onChanged();
         }
         onChanged();
@@ -2123,11 +1757,11 @@ public final class Device {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        deviceapi.Device.AuthCode parsedMessage = null;
+        deviceapi.Device.AppDeleteReq parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.AuthCode) e.getUnfinishedMessage();
+          parsedMessage = (deviceapi.Device.AppDeleteReq) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2137,140 +1771,71 @@ public final class Device {
         return this;
       }
 
-      private java.lang.Object seId_ = "";
+      private java.lang.Object appName_ = "";
       /**
-       * <code>optional string se_id = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
-      public java.lang.String getSeId() {
-        java.lang.Object ref = seId_;
+      public java.lang.String getAppName() {
+        java.lang.Object ref = appName_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          seId_ = s;
+          appName_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string se_id = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getSeIdBytes() {
-        java.lang.Object ref = seId_;
+          getAppNameBytes() {
+        java.lang.Object ref = appName_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          seId_ = b;
+          appName_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string se_id = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
-      public Builder setSeId(
+      public Builder setAppName(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        seId_ = value;
+        appName_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string se_id = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
-      public Builder clearSeId() {
+      public Builder clearAppName() {
         
-        seId_ = getDefaultInstance().getSeId();
+        appName_ = getDefaultInstance().getAppName();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string se_id = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
-      public Builder setSeIdBytes(
+      public Builder setAppNameBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        seId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object authCode_ = "";
-      /**
-       * <code>optional string auth_code = 2;</code>
-       */
-      public java.lang.String getAuthCode() {
-        java.lang.Object ref = authCode_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          authCode_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string auth_code = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getAuthCodeBytes() {
-        java.lang.Object ref = authCode_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          authCode_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string auth_code = 2;</code>
-       */
-      public Builder setAuthCode(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        authCode_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string auth_code = 2;</code>
-       */
-      public Builder clearAuthCode() {
-        
-        authCode_ = getDefaultInstance().getAuthCode();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string auth_code = 2;</code>
-       */
-      public Builder setAuthCodeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        authCode_ = value;
+        appName_ = value;
         onChanged();
         return this;
       }
@@ -2285,9672 +1850,46 @@ public final class Device {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:deviceapi.AuthCode)
+      // @@protoc_insertion_point(builder_scope:deviceapi.AppDeleteReq)
     }
 
-    // @@protoc_insertion_point(class_scope:deviceapi.AuthCode)
-    private static final deviceapi.Device.AuthCode DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:deviceapi.AppDeleteReq)
+    private static final deviceapi.Device.AppDeleteReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new deviceapi.Device.AuthCode();
+      DEFAULT_INSTANCE = new deviceapi.Device.AppDeleteReq();
     }
 
-    public static deviceapi.Device.AuthCode getDefaultInstance() {
+    public static deviceapi.Device.AppDeleteReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<AuthCode>
-        PARSER = new com.google.protobuf.AbstractParser<AuthCode>() {
-      public AuthCode parsePartialFrom(
+    private static final com.google.protobuf.Parser<AppDeleteReq>
+        PARSER = new com.google.protobuf.AbstractParser<AppDeleteReq>() {
+      public AppDeleteReq parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new AuthCode(input, extensionRegistry);
+          return new AppDeleteReq(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<AuthCode> parser() {
+    public static com.google.protobuf.Parser<AppDeleteReq> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<AuthCode> getParserForType() {
+    public com.google.protobuf.Parser<AppDeleteReq> getParserForType() {
       return PARSER;
     }
 
-    public deviceapi.Device.AuthCode getDefaultInstanceForType() {
+    public deviceapi.Device.AppDeleteReq getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface AuthCodeResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.AuthCodeResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string se_id = 1;</code>
-     */
-    java.lang.String getSeId();
-    /**
-     * <code>optional string se_id = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getSeIdBytes();
-
-    /**
-     * <code>optional string next_stepkey = 2;</code>
-     */
-    java.lang.String getNextStepkey();
-    /**
-     * <code>optional string next_stepkey = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getNextStepkeyBytes();
-
-    /**
-     * <code>repeated string apdu_list = 3;</code>
-     */
-    java.util.List<java.lang.String>
-        getApduListList();
-    /**
-     * <code>repeated string apdu_list = 3;</code>
-     */
-    int getApduListCount();
-    /**
-     * <code>repeated string apdu_list = 3;</code>
-     */
-    java.lang.String getApduList(int index);
-    /**
-     * <code>repeated string apdu_list = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getApduListBytes(int index);
-  }
-  /**
-   * Protobuf type {@code deviceapi.AuthCodeResponse}
-   */
-  public  static final class AuthCodeResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.AuthCodeResponse)
-      AuthCodeResponseOrBuilder {
-    // Use AuthCodeResponse.newBuilder() to construct.
-    private AuthCodeResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private AuthCodeResponse() {
-      seId_ = "";
-      nextStepkey_ = "";
-      apduList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private AuthCodeResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              seId_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              nextStepkey_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-                apduList_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000004;
-              }
-              apduList_.add(s);
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-          apduList_ = apduList_.getUnmodifiableView();
-        }
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_AuthCodeResponse_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_AuthCodeResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.AuthCodeResponse.class, deviceapi.Device.AuthCodeResponse.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int SE_ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object seId_;
-    /**
-     * <code>optional string se_id = 1;</code>
-     */
-    public java.lang.String getSeId() {
-      java.lang.Object ref = seId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        seId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string se_id = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getSeIdBytes() {
-      java.lang.Object ref = seId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        seId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int NEXT_STEPKEY_FIELD_NUMBER = 2;
-    private volatile java.lang.Object nextStepkey_;
-    /**
-     * <code>optional string next_stepkey = 2;</code>
-     */
-    public java.lang.String getNextStepkey() {
-      java.lang.Object ref = nextStepkey_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        nextStepkey_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string next_stepkey = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNextStepkeyBytes() {
-      java.lang.Object ref = nextStepkey_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        nextStepkey_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int APDU_LIST_FIELD_NUMBER = 3;
-    private com.google.protobuf.LazyStringList apduList_;
-    /**
-     * <code>repeated string apdu_list = 3;</code>
-     */
-    public com.google.protobuf.ProtocolStringList
-        getApduListList() {
-      return apduList_;
-    }
-    /**
-     * <code>repeated string apdu_list = 3;</code>
-     */
-    public int getApduListCount() {
-      return apduList_.size();
-    }
-    /**
-     * <code>repeated string apdu_list = 3;</code>
-     */
-    public java.lang.String getApduList(int index) {
-      return apduList_.get(index);
-    }
-    /**
-     * <code>repeated string apdu_list = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getApduListBytes(int index) {
-      return apduList_.getByteString(index);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getSeIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, seId_);
-      }
-      if (!getNextStepkeyBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, nextStepkey_);
-      }
-      for (int i = 0; i < apduList_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, apduList_.getRaw(i));
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getSeIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, seId_);
-      }
-      if (!getNextStepkeyBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, nextStepkey_);
-      }
-      {
-        int dataSize = 0;
-        for (int i = 0; i < apduList_.size(); i++) {
-          dataSize += computeStringSizeNoTag(apduList_.getRaw(i));
-        }
-        size += dataSize;
-        size += 1 * getApduListList().size();
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.AuthCodeResponse)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.AuthCodeResponse other = (deviceapi.Device.AuthCodeResponse) obj;
-
-      boolean result = true;
-      result = result && getSeId()
-          .equals(other.getSeId());
-      result = result && getNextStepkey()
-          .equals(other.getNextStepkey());
-      result = result && getApduListList()
-          .equals(other.getApduListList());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + SE_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getSeId().hashCode();
-      hash = (37 * hash) + NEXT_STEPKEY_FIELD_NUMBER;
-      hash = (53 * hash) + getNextStepkey().hashCode();
-      if (getApduListCount() > 0) {
-        hash = (37 * hash) + APDU_LIST_FIELD_NUMBER;
-        hash = (53 * hash) + getApduListList().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.AuthCodeResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.AuthCodeResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.AuthCodeResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.AuthCodeResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.AuthCodeResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.AuthCodeResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.AuthCodeResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.AuthCodeResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.AuthCodeResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.AuthCodeResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.AuthCodeResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code deviceapi.AuthCodeResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.AuthCodeResponse)
-        deviceapi.Device.AuthCodeResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_AuthCodeResponse_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_AuthCodeResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.AuthCodeResponse.class, deviceapi.Device.AuthCodeResponse.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.AuthCodeResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        seId_ = "";
-
-        nextStepkey_ = "";
-
-        apduList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000004);
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_AuthCodeResponse_descriptor;
-      }
-
-      public deviceapi.Device.AuthCodeResponse getDefaultInstanceForType() {
-        return deviceapi.Device.AuthCodeResponse.getDefaultInstance();
-      }
-
-      public deviceapi.Device.AuthCodeResponse build() {
-        deviceapi.Device.AuthCodeResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.AuthCodeResponse buildPartial() {
-        deviceapi.Device.AuthCodeResponse result = new deviceapi.Device.AuthCodeResponse(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        result.seId_ = seId_;
-        result.nextStepkey_ = nextStepkey_;
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          apduList_ = apduList_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000004);
-        }
-        result.apduList_ = apduList_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.AuthCodeResponse) {
-          return mergeFrom((deviceapi.Device.AuthCodeResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.AuthCodeResponse other) {
-        if (other == deviceapi.Device.AuthCodeResponse.getDefaultInstance()) return this;
-        if (!other.getSeId().isEmpty()) {
-          seId_ = other.seId_;
-          onChanged();
-        }
-        if (!other.getNextStepkey().isEmpty()) {
-          nextStepkey_ = other.nextStepkey_;
-          onChanged();
-        }
-        if (!other.apduList_.isEmpty()) {
-          if (apduList_.isEmpty()) {
-            apduList_ = other.apduList_;
-            bitField0_ = (bitField0_ & ~0x00000004);
-          } else {
-            ensureApduListIsMutable();
-            apduList_.addAll(other.apduList_);
-          }
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.AuthCodeResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.AuthCodeResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object seId_ = "";
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public java.lang.String getSeId() {
-        java.lang.Object ref = seId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          seId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getSeIdBytes() {
-        java.lang.Object ref = seId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          seId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public Builder setSeId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        seId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public Builder clearSeId() {
-        
-        seId_ = getDefaultInstance().getSeId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public Builder setSeIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        seId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object nextStepkey_ = "";
-      /**
-       * <code>optional string next_stepkey = 2;</code>
-       */
-      public java.lang.String getNextStepkey() {
-        java.lang.Object ref = nextStepkey_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          nextStepkey_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string next_stepkey = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNextStepkeyBytes() {
-        java.lang.Object ref = nextStepkey_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          nextStepkey_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string next_stepkey = 2;</code>
-       */
-      public Builder setNextStepkey(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        nextStepkey_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string next_stepkey = 2;</code>
-       */
-      public Builder clearNextStepkey() {
-        
-        nextStepkey_ = getDefaultInstance().getNextStepkey();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string next_stepkey = 2;</code>
-       */
-      public Builder setNextStepkeyBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        nextStepkey_ = value;
-        onChanged();
-        return this;
-      }
-
-      private com.google.protobuf.LazyStringList apduList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      private void ensureApduListIsMutable() {
-        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
-          apduList_ = new com.google.protobuf.LazyStringArrayList(apduList_);
-          bitField0_ |= 0x00000004;
-         }
-      }
-      /**
-       * <code>repeated string apdu_list = 3;</code>
-       */
-      public com.google.protobuf.ProtocolStringList
-          getApduListList() {
-        return apduList_.getUnmodifiableView();
-      }
-      /**
-       * <code>repeated string apdu_list = 3;</code>
-       */
-      public int getApduListCount() {
-        return apduList_.size();
-      }
-      /**
-       * <code>repeated string apdu_list = 3;</code>
-       */
-      public java.lang.String getApduList(int index) {
-        return apduList_.get(index);
-      }
-      /**
-       * <code>repeated string apdu_list = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getApduListBytes(int index) {
-        return apduList_.getByteString(index);
-      }
-      /**
-       * <code>repeated string apdu_list = 3;</code>
-       */
-      public Builder setApduList(
-          int index, java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureApduListIsMutable();
-        apduList_.set(index, value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string apdu_list = 3;</code>
-       */
-      public Builder addApduList(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureApduListIsMutable();
-        apduList_.add(value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string apdu_list = 3;</code>
-       */
-      public Builder addAllApduList(
-          java.lang.Iterable<java.lang.String> values) {
-        ensureApduListIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, apduList_);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string apdu_list = 3;</code>
-       */
-      public Builder clearApduList() {
-        apduList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000004);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string apdu_list = 3;</code>
-       */
-      public Builder addApduListBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        ensureApduListIsMutable();
-        apduList_.add(value);
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.AuthCodeResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.AuthCodeResponse)
-    private static final deviceapi.Device.AuthCodeResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.AuthCodeResponse();
-    }
-
-    public static deviceapi.Device.AuthCodeResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<AuthCodeResponse>
-        PARSER = new com.google.protobuf.AbstractParser<AuthCodeResponse>() {
-      public AuthCodeResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new AuthCodeResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<AuthCodeResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<AuthCodeResponse> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.AuthCodeResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface AuthCodeServiceResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.AuthCodeServiceResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string return_code = 1;</code>
-     */
-    java.lang.String getReturnCode();
-    /**
-     * <code>optional string return_code = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getReturnCodeBytes();
-
-    /**
-     * <code>optional string return_msg = 2;</code>
-     */
-    java.lang.String getReturnMsg();
-    /**
-     * <code>optional string return_msg = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getReturnMsgBytes();
-
-    /**
-     * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-     */
-    boolean hasReturnData();
-    /**
-     * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-     */
-    deviceapi.Device.AuthCodeResponse getReturnData();
-    /**
-     * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-     */
-    deviceapi.Device.AuthCodeResponseOrBuilder getReturnDataOrBuilder();
-  }
-  /**
-   * Protobuf type {@code deviceapi.AuthCodeServiceResponse}
-   */
-  public  static final class AuthCodeServiceResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.AuthCodeServiceResponse)
-      AuthCodeServiceResponseOrBuilder {
-    // Use AuthCodeServiceResponse.newBuilder() to construct.
-    private AuthCodeServiceResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private AuthCodeServiceResponse() {
-      returnCode_ = "";
-      returnMsg_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private AuthCodeServiceResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              returnCode_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              returnMsg_ = s;
-              break;
-            }
-            case 26: {
-              deviceapi.Device.AuthCodeResponse.Builder subBuilder = null;
-              if (returnData_ != null) {
-                subBuilder = returnData_.toBuilder();
-              }
-              returnData_ = input.readMessage(deviceapi.Device.AuthCodeResponse.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(returnData_);
-                returnData_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_AuthCodeServiceResponse_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_AuthCodeServiceResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.AuthCodeServiceResponse.class, deviceapi.Device.AuthCodeServiceResponse.Builder.class);
-    }
-
-    public static final int RETURN_CODE_FIELD_NUMBER = 1;
-    private volatile java.lang.Object returnCode_;
-    /**
-     * <code>optional string return_code = 1;</code>
-     */
-    public java.lang.String getReturnCode() {
-      java.lang.Object ref = returnCode_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        returnCode_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string return_code = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getReturnCodeBytes() {
-      java.lang.Object ref = returnCode_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        returnCode_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int RETURN_MSG_FIELD_NUMBER = 2;
-    private volatile java.lang.Object returnMsg_;
-    /**
-     * <code>optional string return_msg = 2;</code>
-     */
-    public java.lang.String getReturnMsg() {
-      java.lang.Object ref = returnMsg_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        returnMsg_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string return_msg = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getReturnMsgBytes() {
-      java.lang.Object ref = returnMsg_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        returnMsg_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int RETURN_DATA_FIELD_NUMBER = 3;
-    private deviceapi.Device.AuthCodeResponse returnData_;
-    /**
-     * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-     */
-    public boolean hasReturnData() {
-      return returnData_ != null;
-    }
-    /**
-     * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-     */
-    public deviceapi.Device.AuthCodeResponse getReturnData() {
-      return returnData_ == null ? deviceapi.Device.AuthCodeResponse.getDefaultInstance() : returnData_;
-    }
-    /**
-     * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-     */
-    public deviceapi.Device.AuthCodeResponseOrBuilder getReturnDataOrBuilder() {
-      return getReturnData();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getReturnCodeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, returnCode_);
-      }
-      if (!getReturnMsgBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, returnMsg_);
-      }
-      if (returnData_ != null) {
-        output.writeMessage(3, getReturnData());
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getReturnCodeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, returnCode_);
-      }
-      if (!getReturnMsgBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, returnMsg_);
-      }
-      if (returnData_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getReturnData());
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.AuthCodeServiceResponse)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.AuthCodeServiceResponse other = (deviceapi.Device.AuthCodeServiceResponse) obj;
-
-      boolean result = true;
-      result = result && getReturnCode()
-          .equals(other.getReturnCode());
-      result = result && getReturnMsg()
-          .equals(other.getReturnMsg());
-      result = result && (hasReturnData() == other.hasReturnData());
-      if (hasReturnData()) {
-        result = result && getReturnData()
-            .equals(other.getReturnData());
-      }
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + RETURN_CODE_FIELD_NUMBER;
-      hash = (53 * hash) + getReturnCode().hashCode();
-      hash = (37 * hash) + RETURN_MSG_FIELD_NUMBER;
-      hash = (53 * hash) + getReturnMsg().hashCode();
-      if (hasReturnData()) {
-        hash = (37 * hash) + RETURN_DATA_FIELD_NUMBER;
-        hash = (53 * hash) + getReturnData().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.AuthCodeServiceResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.AuthCodeServiceResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.AuthCodeServiceResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.AuthCodeServiceResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.AuthCodeServiceResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.AuthCodeServiceResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.AuthCodeServiceResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.AuthCodeServiceResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.AuthCodeServiceResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.AuthCodeServiceResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.AuthCodeServiceResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code deviceapi.AuthCodeServiceResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.AuthCodeServiceResponse)
-        deviceapi.Device.AuthCodeServiceResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_AuthCodeServiceResponse_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_AuthCodeServiceResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.AuthCodeServiceResponse.class, deviceapi.Device.AuthCodeServiceResponse.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.AuthCodeServiceResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        returnCode_ = "";
-
-        returnMsg_ = "";
-
-        if (returnDataBuilder_ == null) {
-          returnData_ = null;
-        } else {
-          returnData_ = null;
-          returnDataBuilder_ = null;
-        }
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_AuthCodeServiceResponse_descriptor;
-      }
-
-      public deviceapi.Device.AuthCodeServiceResponse getDefaultInstanceForType() {
-        return deviceapi.Device.AuthCodeServiceResponse.getDefaultInstance();
-      }
-
-      public deviceapi.Device.AuthCodeServiceResponse build() {
-        deviceapi.Device.AuthCodeServiceResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.AuthCodeServiceResponse buildPartial() {
-        deviceapi.Device.AuthCodeServiceResponse result = new deviceapi.Device.AuthCodeServiceResponse(this);
-        result.returnCode_ = returnCode_;
-        result.returnMsg_ = returnMsg_;
-        if (returnDataBuilder_ == null) {
-          result.returnData_ = returnData_;
-        } else {
-          result.returnData_ = returnDataBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.AuthCodeServiceResponse) {
-          return mergeFrom((deviceapi.Device.AuthCodeServiceResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.AuthCodeServiceResponse other) {
-        if (other == deviceapi.Device.AuthCodeServiceResponse.getDefaultInstance()) return this;
-        if (!other.getReturnCode().isEmpty()) {
-          returnCode_ = other.returnCode_;
-          onChanged();
-        }
-        if (!other.getReturnMsg().isEmpty()) {
-          returnMsg_ = other.returnMsg_;
-          onChanged();
-        }
-        if (other.hasReturnData()) {
-          mergeReturnData(other.getReturnData());
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.AuthCodeServiceResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.AuthCodeServiceResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object returnCode_ = "";
-      /**
-       * <code>optional string return_code = 1;</code>
-       */
-      public java.lang.String getReturnCode() {
-        java.lang.Object ref = returnCode_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          returnCode_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string return_code = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getReturnCodeBytes() {
-        java.lang.Object ref = returnCode_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          returnCode_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string return_code = 1;</code>
-       */
-      public Builder setReturnCode(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        returnCode_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string return_code = 1;</code>
-       */
-      public Builder clearReturnCode() {
-        
-        returnCode_ = getDefaultInstance().getReturnCode();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string return_code = 1;</code>
-       */
-      public Builder setReturnCodeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        returnCode_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object returnMsg_ = "";
-      /**
-       * <code>optional string return_msg = 2;</code>
-       */
-      public java.lang.String getReturnMsg() {
-        java.lang.Object ref = returnMsg_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          returnMsg_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string return_msg = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getReturnMsgBytes() {
-        java.lang.Object ref = returnMsg_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          returnMsg_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string return_msg = 2;</code>
-       */
-      public Builder setReturnMsg(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        returnMsg_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string return_msg = 2;</code>
-       */
-      public Builder clearReturnMsg() {
-        
-        returnMsg_ = getDefaultInstance().getReturnMsg();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string return_msg = 2;</code>
-       */
-      public Builder setReturnMsgBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        returnMsg_ = value;
-        onChanged();
-        return this;
-      }
-
-      private deviceapi.Device.AuthCodeResponse returnData_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          deviceapi.Device.AuthCodeResponse, deviceapi.Device.AuthCodeResponse.Builder, deviceapi.Device.AuthCodeResponseOrBuilder> returnDataBuilder_;
-      /**
-       * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-       */
-      public boolean hasReturnData() {
-        return returnDataBuilder_ != null || returnData_ != null;
-      }
-      /**
-       * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-       */
-      public deviceapi.Device.AuthCodeResponse getReturnData() {
-        if (returnDataBuilder_ == null) {
-          return returnData_ == null ? deviceapi.Device.AuthCodeResponse.getDefaultInstance() : returnData_;
-        } else {
-          return returnDataBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-       */
-      public Builder setReturnData(deviceapi.Device.AuthCodeResponse value) {
-        if (returnDataBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          returnData_ = value;
-          onChanged();
-        } else {
-          returnDataBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-       */
-      public Builder setReturnData(
-          deviceapi.Device.AuthCodeResponse.Builder builderForValue) {
-        if (returnDataBuilder_ == null) {
-          returnData_ = builderForValue.build();
-          onChanged();
-        } else {
-          returnDataBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-       */
-      public Builder mergeReturnData(deviceapi.Device.AuthCodeResponse value) {
-        if (returnDataBuilder_ == null) {
-          if (returnData_ != null) {
-            returnData_ =
-              deviceapi.Device.AuthCodeResponse.newBuilder(returnData_).mergeFrom(value).buildPartial();
-          } else {
-            returnData_ = value;
-          }
-          onChanged();
-        } else {
-          returnDataBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-       */
-      public Builder clearReturnData() {
-        if (returnDataBuilder_ == null) {
-          returnData_ = null;
-          onChanged();
-        } else {
-          returnData_ = null;
-          returnDataBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-       */
-      public deviceapi.Device.AuthCodeResponse.Builder getReturnDataBuilder() {
-        
-        onChanged();
-        return getReturnDataFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-       */
-      public deviceapi.Device.AuthCodeResponseOrBuilder getReturnDataOrBuilder() {
-        if (returnDataBuilder_ != null) {
-          return returnDataBuilder_.getMessageOrBuilder();
-        } else {
-          return returnData_ == null ?
-              deviceapi.Device.AuthCodeResponse.getDefaultInstance() : returnData_;
-        }
-      }
-      /**
-       * <code>optional .deviceapi.AuthCodeResponse return_data = 3;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          deviceapi.Device.AuthCodeResponse, deviceapi.Device.AuthCodeResponse.Builder, deviceapi.Device.AuthCodeResponseOrBuilder> 
-          getReturnDataFieldBuilder() {
-        if (returnDataBuilder_ == null) {
-          returnDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              deviceapi.Device.AuthCodeResponse, deviceapi.Device.AuthCodeResponse.Builder, deviceapi.Device.AuthCodeResponseOrBuilder>(
-                  getReturnData(),
-                  getParentForChildren(),
-                  isClean());
-          returnData_ = null;
-        }
-        return returnDataBuilder_;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.AuthCodeServiceResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.AuthCodeServiceResponse)
-    private static final deviceapi.Device.AuthCodeServiceResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.AuthCodeServiceResponse();
-    }
-
-    public static deviceapi.Device.AuthCodeServiceResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<AuthCodeServiceResponse>
-        PARSER = new com.google.protobuf.AbstractParser<AuthCodeServiceResponse>() {
-      public AuthCodeServiceResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new AuthCodeServiceResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<AuthCodeServiceResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<AuthCodeServiceResponse> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.AuthCodeServiceResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface SeActionOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.SeAction)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string se_id = 1;</code>
-     */
-    java.lang.String getSeId();
-    /**
-     * <code>optional string se_id = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getSeIdBytes();
-
-    /**
-     * <code>optional string sn = 2;</code>
-     */
-    java.lang.String getSn();
-    /**
-     * <code>optional string sn = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getSnBytes();
-
-    /**
-     * <code>optional string device_cert = 3;</code>
-     */
-    java.lang.String getDeviceCert();
-    /**
-     * <code>optional string device_cert = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getDeviceCertBytes();
-
-    /**
-     * <code>optional string sdk_version = 4;</code>
-     */
-    java.lang.String getSdkVersion();
-    /**
-     * <code>optional string sdk_version = 4;</code>
-     */
-    com.google.protobuf.ByteString
-        getSdkVersionBytes();
-  }
-  /**
-   * <pre>
-   *se related
-   * </pre>
-   *
-   * Protobuf type {@code deviceapi.SeAction}
-   */
-  public  static final class SeAction extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.SeAction)
-      SeActionOrBuilder {
-    // Use SeAction.newBuilder() to construct.
-    private SeAction(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private SeAction() {
-      seId_ = "";
-      sn_ = "";
-      deviceCert_ = "";
-      sdkVersion_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private SeAction(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              seId_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              sn_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              deviceCert_ = s;
-              break;
-            }
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              sdkVersion_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_SeAction_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_SeAction_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.SeAction.class, deviceapi.Device.SeAction.Builder.class);
-    }
-
-    public static final int SE_ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object seId_;
-    /**
-     * <code>optional string se_id = 1;</code>
-     */
-    public java.lang.String getSeId() {
-      java.lang.Object ref = seId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        seId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string se_id = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getSeIdBytes() {
-      java.lang.Object ref = seId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        seId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int SN_FIELD_NUMBER = 2;
-    private volatile java.lang.Object sn_;
-    /**
-     * <code>optional string sn = 2;</code>
-     */
-    public java.lang.String getSn() {
-      java.lang.Object ref = sn_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        sn_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string sn = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getSnBytes() {
-      java.lang.Object ref = sn_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        sn_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int DEVICE_CERT_FIELD_NUMBER = 3;
-    private volatile java.lang.Object deviceCert_;
-    /**
-     * <code>optional string device_cert = 3;</code>
-     */
-    public java.lang.String getDeviceCert() {
-      java.lang.Object ref = deviceCert_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        deviceCert_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string device_cert = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getDeviceCertBytes() {
-      java.lang.Object ref = deviceCert_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        deviceCert_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int SDK_VERSION_FIELD_NUMBER = 4;
-    private volatile java.lang.Object sdkVersion_;
-    /**
-     * <code>optional string sdk_version = 4;</code>
-     */
-    public java.lang.String getSdkVersion() {
-      java.lang.Object ref = sdkVersion_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        sdkVersion_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string sdk_version = 4;</code>
-     */
-    public com.google.protobuf.ByteString
-        getSdkVersionBytes() {
-      java.lang.Object ref = sdkVersion_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        sdkVersion_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getSeIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, seId_);
-      }
-      if (!getSnBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, sn_);
-      }
-      if (!getDeviceCertBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, deviceCert_);
-      }
-      if (!getSdkVersionBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, sdkVersion_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getSeIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, seId_);
-      }
-      if (!getSnBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, sn_);
-      }
-      if (!getDeviceCertBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, deviceCert_);
-      }
-      if (!getSdkVersionBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, sdkVersion_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.SeAction)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.SeAction other = (deviceapi.Device.SeAction) obj;
-
-      boolean result = true;
-      result = result && getSeId()
-          .equals(other.getSeId());
-      result = result && getSn()
-          .equals(other.getSn());
-      result = result && getDeviceCert()
-          .equals(other.getDeviceCert());
-      result = result && getSdkVersion()
-          .equals(other.getSdkVersion());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + SE_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getSeId().hashCode();
-      hash = (37 * hash) + SN_FIELD_NUMBER;
-      hash = (53 * hash) + getSn().hashCode();
-      hash = (37 * hash) + DEVICE_CERT_FIELD_NUMBER;
-      hash = (53 * hash) + getDeviceCert().hashCode();
-      hash = (37 * hash) + SDK_VERSION_FIELD_NUMBER;
-      hash = (53 * hash) + getSdkVersion().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.SeAction parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.SeAction parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.SeAction parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.SeAction parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.SeAction parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.SeAction parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.SeAction parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.SeAction parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.SeAction parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.SeAction parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.SeAction prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     *se related
-     * </pre>
-     *
-     * Protobuf type {@code deviceapi.SeAction}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.SeAction)
-        deviceapi.Device.SeActionOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_SeAction_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_SeAction_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.SeAction.class, deviceapi.Device.SeAction.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.SeAction.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        seId_ = "";
-
-        sn_ = "";
-
-        deviceCert_ = "";
-
-        sdkVersion_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_SeAction_descriptor;
-      }
-
-      public deviceapi.Device.SeAction getDefaultInstanceForType() {
-        return deviceapi.Device.SeAction.getDefaultInstance();
-      }
-
-      public deviceapi.Device.SeAction build() {
-        deviceapi.Device.SeAction result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.SeAction buildPartial() {
-        deviceapi.Device.SeAction result = new deviceapi.Device.SeAction(this);
-        result.seId_ = seId_;
-        result.sn_ = sn_;
-        result.deviceCert_ = deviceCert_;
-        result.sdkVersion_ = sdkVersion_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.SeAction) {
-          return mergeFrom((deviceapi.Device.SeAction)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.SeAction other) {
-        if (other == deviceapi.Device.SeAction.getDefaultInstance()) return this;
-        if (!other.getSeId().isEmpty()) {
-          seId_ = other.seId_;
-          onChanged();
-        }
-        if (!other.getSn().isEmpty()) {
-          sn_ = other.sn_;
-          onChanged();
-        }
-        if (!other.getDeviceCert().isEmpty()) {
-          deviceCert_ = other.deviceCert_;
-          onChanged();
-        }
-        if (!other.getSdkVersion().isEmpty()) {
-          sdkVersion_ = other.sdkVersion_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.SeAction parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.SeAction) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object seId_ = "";
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public java.lang.String getSeId() {
-        java.lang.Object ref = seId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          seId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getSeIdBytes() {
-        java.lang.Object ref = seId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          seId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public Builder setSeId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        seId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public Builder clearSeId() {
-        
-        seId_ = getDefaultInstance().getSeId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public Builder setSeIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        seId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object sn_ = "";
-      /**
-       * <code>optional string sn = 2;</code>
-       */
-      public java.lang.String getSn() {
-        java.lang.Object ref = sn_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          sn_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string sn = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getSnBytes() {
-        java.lang.Object ref = sn_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          sn_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string sn = 2;</code>
-       */
-      public Builder setSn(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        sn_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string sn = 2;</code>
-       */
-      public Builder clearSn() {
-        
-        sn_ = getDefaultInstance().getSn();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string sn = 2;</code>
-       */
-      public Builder setSnBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        sn_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object deviceCert_ = "";
-      /**
-       * <code>optional string device_cert = 3;</code>
-       */
-      public java.lang.String getDeviceCert() {
-        java.lang.Object ref = deviceCert_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          deviceCert_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string device_cert = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getDeviceCertBytes() {
-        java.lang.Object ref = deviceCert_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          deviceCert_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string device_cert = 3;</code>
-       */
-      public Builder setDeviceCert(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        deviceCert_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string device_cert = 3;</code>
-       */
-      public Builder clearDeviceCert() {
-        
-        deviceCert_ = getDefaultInstance().getDeviceCert();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string device_cert = 3;</code>
-       */
-      public Builder setDeviceCertBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        deviceCert_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object sdkVersion_ = "";
-      /**
-       * <code>optional string sdk_version = 4;</code>
-       */
-      public java.lang.String getSdkVersion() {
-        java.lang.Object ref = sdkVersion_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          sdkVersion_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string sdk_version = 4;</code>
-       */
-      public com.google.protobuf.ByteString
-          getSdkVersionBytes() {
-        java.lang.Object ref = sdkVersion_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          sdkVersion_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string sdk_version = 4;</code>
-       */
-      public Builder setSdkVersion(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        sdkVersion_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string sdk_version = 4;</code>
-       */
-      public Builder clearSdkVersion() {
-        
-        sdkVersion_ = getDefaultInstance().getSdkVersion();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string sdk_version = 4;</code>
-       */
-      public Builder setSdkVersionBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        sdkVersion_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.SeAction)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.SeAction)
-    private static final deviceapi.Device.SeAction DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.SeAction();
-    }
-
-    public static deviceapi.Device.SeAction getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<SeAction>
-        PARSER = new com.google.protobuf.AbstractParser<SeAction>() {
-      public SeAction parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new SeAction(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<SeAction> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<SeAction> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.SeAction getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface SeQueryResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.SeQueryResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string se_id = 1;</code>
-     */
-    java.lang.String getSeId();
-    /**
-     * <code>optional string se_id = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getSeIdBytes();
-
-    /**
-     * <code>optional string next_stepkey = 2;</code>
-     */
-    java.lang.String getNextStepkey();
-    /**
-     * <code>optional string next_stepkey = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getNextStepkeyBytes();
-
-    /**
-     * <code>optional string sn = 3;</code>
-     */
-    java.lang.String getSn();
-    /**
-     * <code>optional string sn = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getSnBytes();
-
-    /**
-     * <code>optional string sdk_mode = 4;</code>
-     */
-    java.lang.String getSdkMode();
-    /**
-     * <code>optional string sdk_mode = 4;</code>
-     */
-    com.google.protobuf.ByteString
-        getSdkModeBytes();
-
-    /**
-     * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-     */
-    java.util.List<deviceapi.Device.AvailableAppBean> 
-        getAvailableAppBeanListList();
-    /**
-     * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-     */
-    deviceapi.Device.AvailableAppBean getAvailableAppBeanList(int index);
-    /**
-     * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-     */
-    int getAvailableAppBeanListCount();
-    /**
-     * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-     */
-    java.util.List<? extends deviceapi.Device.AvailableAppBeanOrBuilder> 
-        getAvailableAppBeanListOrBuilderList();
-    /**
-     * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-     */
-    deviceapi.Device.AvailableAppBeanOrBuilder getAvailableAppBeanListOrBuilder(
-        int index);
-  }
-  /**
-   * Protobuf type {@code deviceapi.SeQueryResponse}
-   */
-  public  static final class SeQueryResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.SeQueryResponse)
-      SeQueryResponseOrBuilder {
-    // Use SeQueryResponse.newBuilder() to construct.
-    private SeQueryResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private SeQueryResponse() {
-      seId_ = "";
-      nextStepkey_ = "";
-      sn_ = "";
-      sdkMode_ = "";
-      availableAppBeanList_ = java.util.Collections.emptyList();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private SeQueryResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              seId_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              nextStepkey_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              sn_ = s;
-              break;
-            }
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              sdkMode_ = s;
-              break;
-            }
-            case 42: {
-              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
-                availableAppBeanList_ = new java.util.ArrayList<deviceapi.Device.AvailableAppBean>();
-                mutable_bitField0_ |= 0x00000010;
-              }
-              availableAppBeanList_.add(
-                  input.readMessage(deviceapi.Device.AvailableAppBean.parser(), extensionRegistry));
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
-          availableAppBeanList_ = java.util.Collections.unmodifiableList(availableAppBeanList_);
-        }
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_SeQueryResponse_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_SeQueryResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.SeQueryResponse.class, deviceapi.Device.SeQueryResponse.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int SE_ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object seId_;
-    /**
-     * <code>optional string se_id = 1;</code>
-     */
-    public java.lang.String getSeId() {
-      java.lang.Object ref = seId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        seId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string se_id = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getSeIdBytes() {
-      java.lang.Object ref = seId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        seId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int NEXT_STEPKEY_FIELD_NUMBER = 2;
-    private volatile java.lang.Object nextStepkey_;
-    /**
-     * <code>optional string next_stepkey = 2;</code>
-     */
-    public java.lang.String getNextStepkey() {
-      java.lang.Object ref = nextStepkey_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        nextStepkey_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string next_stepkey = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNextStepkeyBytes() {
-      java.lang.Object ref = nextStepkey_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        nextStepkey_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int SN_FIELD_NUMBER = 3;
-    private volatile java.lang.Object sn_;
-    /**
-     * <code>optional string sn = 3;</code>
-     */
-    public java.lang.String getSn() {
-      java.lang.Object ref = sn_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        sn_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string sn = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getSnBytes() {
-      java.lang.Object ref = sn_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        sn_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int SDK_MODE_FIELD_NUMBER = 4;
-    private volatile java.lang.Object sdkMode_;
-    /**
-     * <code>optional string sdk_mode = 4;</code>
-     */
-    public java.lang.String getSdkMode() {
-      java.lang.Object ref = sdkMode_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        sdkMode_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string sdk_mode = 4;</code>
-     */
-    public com.google.protobuf.ByteString
-        getSdkModeBytes() {
-      java.lang.Object ref = sdkMode_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        sdkMode_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int AVAILABLE_APP_BEAN_LIST_FIELD_NUMBER = 5;
-    private java.util.List<deviceapi.Device.AvailableAppBean> availableAppBeanList_;
-    /**
-     * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-     */
-    public java.util.List<deviceapi.Device.AvailableAppBean> getAvailableAppBeanListList() {
-      return availableAppBeanList_;
-    }
-    /**
-     * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-     */
-    public java.util.List<? extends deviceapi.Device.AvailableAppBeanOrBuilder> 
-        getAvailableAppBeanListOrBuilderList() {
-      return availableAppBeanList_;
-    }
-    /**
-     * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-     */
-    public int getAvailableAppBeanListCount() {
-      return availableAppBeanList_.size();
-    }
-    /**
-     * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-     */
-    public deviceapi.Device.AvailableAppBean getAvailableAppBeanList(int index) {
-      return availableAppBeanList_.get(index);
-    }
-    /**
-     * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-     */
-    public deviceapi.Device.AvailableAppBeanOrBuilder getAvailableAppBeanListOrBuilder(
-        int index) {
-      return availableAppBeanList_.get(index);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getSeIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, seId_);
-      }
-      if (!getNextStepkeyBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, nextStepkey_);
-      }
-      if (!getSnBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, sn_);
-      }
-      if (!getSdkModeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, sdkMode_);
-      }
-      for (int i = 0; i < availableAppBeanList_.size(); i++) {
-        output.writeMessage(5, availableAppBeanList_.get(i));
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getSeIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, seId_);
-      }
-      if (!getNextStepkeyBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, nextStepkey_);
-      }
-      if (!getSnBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, sn_);
-      }
-      if (!getSdkModeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, sdkMode_);
-      }
-      for (int i = 0; i < availableAppBeanList_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, availableAppBeanList_.get(i));
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.SeQueryResponse)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.SeQueryResponse other = (deviceapi.Device.SeQueryResponse) obj;
-
-      boolean result = true;
-      result = result && getSeId()
-          .equals(other.getSeId());
-      result = result && getNextStepkey()
-          .equals(other.getNextStepkey());
-      result = result && getSn()
-          .equals(other.getSn());
-      result = result && getSdkMode()
-          .equals(other.getSdkMode());
-      result = result && getAvailableAppBeanListList()
-          .equals(other.getAvailableAppBeanListList());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + SE_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getSeId().hashCode();
-      hash = (37 * hash) + NEXT_STEPKEY_FIELD_NUMBER;
-      hash = (53 * hash) + getNextStepkey().hashCode();
-      hash = (37 * hash) + SN_FIELD_NUMBER;
-      hash = (53 * hash) + getSn().hashCode();
-      hash = (37 * hash) + SDK_MODE_FIELD_NUMBER;
-      hash = (53 * hash) + getSdkMode().hashCode();
-      if (getAvailableAppBeanListCount() > 0) {
-        hash = (37 * hash) + AVAILABLE_APP_BEAN_LIST_FIELD_NUMBER;
-        hash = (53 * hash) + getAvailableAppBeanListList().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.SeQueryResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.SeQueryResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.SeQueryResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.SeQueryResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.SeQueryResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.SeQueryResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.SeQueryResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.SeQueryResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.SeQueryResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.SeQueryResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.SeQueryResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code deviceapi.SeQueryResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.SeQueryResponse)
-        deviceapi.Device.SeQueryResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_SeQueryResponse_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_SeQueryResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.SeQueryResponse.class, deviceapi.Device.SeQueryResponse.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.SeQueryResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getAvailableAppBeanListFieldBuilder();
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        seId_ = "";
-
-        nextStepkey_ = "";
-
-        sn_ = "";
-
-        sdkMode_ = "";
-
-        if (availableAppBeanListBuilder_ == null) {
-          availableAppBeanList_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
-        } else {
-          availableAppBeanListBuilder_.clear();
-        }
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_SeQueryResponse_descriptor;
-      }
-
-      public deviceapi.Device.SeQueryResponse getDefaultInstanceForType() {
-        return deviceapi.Device.SeQueryResponse.getDefaultInstance();
-      }
-
-      public deviceapi.Device.SeQueryResponse build() {
-        deviceapi.Device.SeQueryResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.SeQueryResponse buildPartial() {
-        deviceapi.Device.SeQueryResponse result = new deviceapi.Device.SeQueryResponse(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        result.seId_ = seId_;
-        result.nextStepkey_ = nextStepkey_;
-        result.sn_ = sn_;
-        result.sdkMode_ = sdkMode_;
-        if (availableAppBeanListBuilder_ == null) {
-          if (((bitField0_ & 0x00000010) == 0x00000010)) {
-            availableAppBeanList_ = java.util.Collections.unmodifiableList(availableAppBeanList_);
-            bitField0_ = (bitField0_ & ~0x00000010);
-          }
-          result.availableAppBeanList_ = availableAppBeanList_;
-        } else {
-          result.availableAppBeanList_ = availableAppBeanListBuilder_.build();
-        }
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.SeQueryResponse) {
-          return mergeFrom((deviceapi.Device.SeQueryResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.SeQueryResponse other) {
-        if (other == deviceapi.Device.SeQueryResponse.getDefaultInstance()) return this;
-        if (!other.getSeId().isEmpty()) {
-          seId_ = other.seId_;
-          onChanged();
-        }
-        if (!other.getNextStepkey().isEmpty()) {
-          nextStepkey_ = other.nextStepkey_;
-          onChanged();
-        }
-        if (!other.getSn().isEmpty()) {
-          sn_ = other.sn_;
-          onChanged();
-        }
-        if (!other.getSdkMode().isEmpty()) {
-          sdkMode_ = other.sdkMode_;
-          onChanged();
-        }
-        if (availableAppBeanListBuilder_ == null) {
-          if (!other.availableAppBeanList_.isEmpty()) {
-            if (availableAppBeanList_.isEmpty()) {
-              availableAppBeanList_ = other.availableAppBeanList_;
-              bitField0_ = (bitField0_ & ~0x00000010);
-            } else {
-              ensureAvailableAppBeanListIsMutable();
-              availableAppBeanList_.addAll(other.availableAppBeanList_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.availableAppBeanList_.isEmpty()) {
-            if (availableAppBeanListBuilder_.isEmpty()) {
-              availableAppBeanListBuilder_.dispose();
-              availableAppBeanListBuilder_ = null;
-              availableAppBeanList_ = other.availableAppBeanList_;
-              bitField0_ = (bitField0_ & ~0x00000010);
-              availableAppBeanListBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getAvailableAppBeanListFieldBuilder() : null;
-            } else {
-              availableAppBeanListBuilder_.addAllMessages(other.availableAppBeanList_);
-            }
-          }
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.SeQueryResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.SeQueryResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object seId_ = "";
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public java.lang.String getSeId() {
-        java.lang.Object ref = seId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          seId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getSeIdBytes() {
-        java.lang.Object ref = seId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          seId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public Builder setSeId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        seId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public Builder clearSeId() {
-        
-        seId_ = getDefaultInstance().getSeId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string se_id = 1;</code>
-       */
-      public Builder setSeIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        seId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object nextStepkey_ = "";
-      /**
-       * <code>optional string next_stepkey = 2;</code>
-       */
-      public java.lang.String getNextStepkey() {
-        java.lang.Object ref = nextStepkey_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          nextStepkey_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string next_stepkey = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNextStepkeyBytes() {
-        java.lang.Object ref = nextStepkey_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          nextStepkey_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string next_stepkey = 2;</code>
-       */
-      public Builder setNextStepkey(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        nextStepkey_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string next_stepkey = 2;</code>
-       */
-      public Builder clearNextStepkey() {
-        
-        nextStepkey_ = getDefaultInstance().getNextStepkey();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string next_stepkey = 2;</code>
-       */
-      public Builder setNextStepkeyBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        nextStepkey_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object sn_ = "";
-      /**
-       * <code>optional string sn = 3;</code>
-       */
-      public java.lang.String getSn() {
-        java.lang.Object ref = sn_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          sn_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string sn = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getSnBytes() {
-        java.lang.Object ref = sn_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          sn_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string sn = 3;</code>
-       */
-      public Builder setSn(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        sn_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string sn = 3;</code>
-       */
-      public Builder clearSn() {
-        
-        sn_ = getDefaultInstance().getSn();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string sn = 3;</code>
-       */
-      public Builder setSnBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        sn_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object sdkMode_ = "";
-      /**
-       * <code>optional string sdk_mode = 4;</code>
-       */
-      public java.lang.String getSdkMode() {
-        java.lang.Object ref = sdkMode_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          sdkMode_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string sdk_mode = 4;</code>
-       */
-      public com.google.protobuf.ByteString
-          getSdkModeBytes() {
-        java.lang.Object ref = sdkMode_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          sdkMode_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string sdk_mode = 4;</code>
-       */
-      public Builder setSdkMode(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        sdkMode_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string sdk_mode = 4;</code>
-       */
-      public Builder clearSdkMode() {
-        
-        sdkMode_ = getDefaultInstance().getSdkMode();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string sdk_mode = 4;</code>
-       */
-      public Builder setSdkModeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        sdkMode_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.util.List<deviceapi.Device.AvailableAppBean> availableAppBeanList_ =
-        java.util.Collections.emptyList();
-      private void ensureAvailableAppBeanListIsMutable() {
-        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
-          availableAppBeanList_ = new java.util.ArrayList<deviceapi.Device.AvailableAppBean>(availableAppBeanList_);
-          bitField0_ |= 0x00000010;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          deviceapi.Device.AvailableAppBean, deviceapi.Device.AvailableAppBean.Builder, deviceapi.Device.AvailableAppBeanOrBuilder> availableAppBeanListBuilder_;
-
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public java.util.List<deviceapi.Device.AvailableAppBean> getAvailableAppBeanListList() {
-        if (availableAppBeanListBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(availableAppBeanList_);
-        } else {
-          return availableAppBeanListBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public int getAvailableAppBeanListCount() {
-        if (availableAppBeanListBuilder_ == null) {
-          return availableAppBeanList_.size();
-        } else {
-          return availableAppBeanListBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public deviceapi.Device.AvailableAppBean getAvailableAppBeanList(int index) {
-        if (availableAppBeanListBuilder_ == null) {
-          return availableAppBeanList_.get(index);
-        } else {
-          return availableAppBeanListBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public Builder setAvailableAppBeanList(
-          int index, deviceapi.Device.AvailableAppBean value) {
-        if (availableAppBeanListBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAvailableAppBeanListIsMutable();
-          availableAppBeanList_.set(index, value);
-          onChanged();
-        } else {
-          availableAppBeanListBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public Builder setAvailableAppBeanList(
-          int index, deviceapi.Device.AvailableAppBean.Builder builderForValue) {
-        if (availableAppBeanListBuilder_ == null) {
-          ensureAvailableAppBeanListIsMutable();
-          availableAppBeanList_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          availableAppBeanListBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public Builder addAvailableAppBeanList(deviceapi.Device.AvailableAppBean value) {
-        if (availableAppBeanListBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAvailableAppBeanListIsMutable();
-          availableAppBeanList_.add(value);
-          onChanged();
-        } else {
-          availableAppBeanListBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public Builder addAvailableAppBeanList(
-          int index, deviceapi.Device.AvailableAppBean value) {
-        if (availableAppBeanListBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAvailableAppBeanListIsMutable();
-          availableAppBeanList_.add(index, value);
-          onChanged();
-        } else {
-          availableAppBeanListBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public Builder addAvailableAppBeanList(
-          deviceapi.Device.AvailableAppBean.Builder builderForValue) {
-        if (availableAppBeanListBuilder_ == null) {
-          ensureAvailableAppBeanListIsMutable();
-          availableAppBeanList_.add(builderForValue.build());
-          onChanged();
-        } else {
-          availableAppBeanListBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public Builder addAvailableAppBeanList(
-          int index, deviceapi.Device.AvailableAppBean.Builder builderForValue) {
-        if (availableAppBeanListBuilder_ == null) {
-          ensureAvailableAppBeanListIsMutable();
-          availableAppBeanList_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          availableAppBeanListBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public Builder addAllAvailableAppBeanList(
-          java.lang.Iterable<? extends deviceapi.Device.AvailableAppBean> values) {
-        if (availableAppBeanListBuilder_ == null) {
-          ensureAvailableAppBeanListIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, availableAppBeanList_);
-          onChanged();
-        } else {
-          availableAppBeanListBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public Builder clearAvailableAppBeanList() {
-        if (availableAppBeanListBuilder_ == null) {
-          availableAppBeanList_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
-          onChanged();
-        } else {
-          availableAppBeanListBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public Builder removeAvailableAppBeanList(int index) {
-        if (availableAppBeanListBuilder_ == null) {
-          ensureAvailableAppBeanListIsMutable();
-          availableAppBeanList_.remove(index);
-          onChanged();
-        } else {
-          availableAppBeanListBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public deviceapi.Device.AvailableAppBean.Builder getAvailableAppBeanListBuilder(
-          int index) {
-        return getAvailableAppBeanListFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public deviceapi.Device.AvailableAppBeanOrBuilder getAvailableAppBeanListOrBuilder(
-          int index) {
-        if (availableAppBeanListBuilder_ == null) {
-          return availableAppBeanList_.get(index);  } else {
-          return availableAppBeanListBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public java.util.List<? extends deviceapi.Device.AvailableAppBeanOrBuilder> 
-           getAvailableAppBeanListOrBuilderList() {
-        if (availableAppBeanListBuilder_ != null) {
-          return availableAppBeanListBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(availableAppBeanList_);
-        }
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public deviceapi.Device.AvailableAppBean.Builder addAvailableAppBeanListBuilder() {
-        return getAvailableAppBeanListFieldBuilder().addBuilder(
-            deviceapi.Device.AvailableAppBean.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public deviceapi.Device.AvailableAppBean.Builder addAvailableAppBeanListBuilder(
-          int index) {
-        return getAvailableAppBeanListFieldBuilder().addBuilder(
-            index, deviceapi.Device.AvailableAppBean.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .deviceapi.AvailableAppBean available_app_bean_list = 5;</code>
-       */
-      public java.util.List<deviceapi.Device.AvailableAppBean.Builder> 
-           getAvailableAppBeanListBuilderList() {
-        return getAvailableAppBeanListFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          deviceapi.Device.AvailableAppBean, deviceapi.Device.AvailableAppBean.Builder, deviceapi.Device.AvailableAppBeanOrBuilder> 
-          getAvailableAppBeanListFieldBuilder() {
-        if (availableAppBeanListBuilder_ == null) {
-          availableAppBeanListBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              deviceapi.Device.AvailableAppBean, deviceapi.Device.AvailableAppBean.Builder, deviceapi.Device.AvailableAppBeanOrBuilder>(
-                  availableAppBeanList_,
-                  ((bitField0_ & 0x00000010) == 0x00000010),
-                  getParentForChildren(),
-                  isClean());
-          availableAppBeanList_ = null;
-        }
-        return availableAppBeanListBuilder_;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.SeQueryResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.SeQueryResponse)
-    private static final deviceapi.Device.SeQueryResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.SeQueryResponse();
-    }
-
-    public static deviceapi.Device.SeQueryResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<SeQueryResponse>
-        PARSER = new com.google.protobuf.AbstractParser<SeQueryResponse>() {
-      public SeQueryResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new SeQueryResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<SeQueryResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<SeQueryResponse> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.SeQueryResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface SeQueryServiceResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.SeQueryServiceResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string return_code = 1;</code>
-     */
-    java.lang.String getReturnCode();
-    /**
-     * <code>optional string return_code = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getReturnCodeBytes();
-
-    /**
-     * <code>optional string return_msg = 2;</code>
-     */
-    java.lang.String getReturnMsg();
-    /**
-     * <code>optional string return_msg = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getReturnMsgBytes();
-
-    /**
-     * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-     */
-    boolean hasReturnData();
-    /**
-     * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-     */
-    deviceapi.Device.SeQueryResponse getReturnData();
-    /**
-     * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-     */
-    deviceapi.Device.SeQueryResponseOrBuilder getReturnDataOrBuilder();
-  }
-  /**
-   * Protobuf type {@code deviceapi.SeQueryServiceResponse}
-   */
-  public  static final class SeQueryServiceResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.SeQueryServiceResponse)
-      SeQueryServiceResponseOrBuilder {
-    // Use SeQueryServiceResponse.newBuilder() to construct.
-    private SeQueryServiceResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private SeQueryServiceResponse() {
-      returnCode_ = "";
-      returnMsg_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private SeQueryServiceResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              returnCode_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              returnMsg_ = s;
-              break;
-            }
-            case 26: {
-              deviceapi.Device.SeQueryResponse.Builder subBuilder = null;
-              if (returnData_ != null) {
-                subBuilder = returnData_.toBuilder();
-              }
-              returnData_ = input.readMessage(deviceapi.Device.SeQueryResponse.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(returnData_);
-                returnData_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_SeQueryServiceResponse_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_SeQueryServiceResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.SeQueryServiceResponse.class, deviceapi.Device.SeQueryServiceResponse.Builder.class);
-    }
-
-    public static final int RETURN_CODE_FIELD_NUMBER = 1;
-    private volatile java.lang.Object returnCode_;
-    /**
-     * <code>optional string return_code = 1;</code>
-     */
-    public java.lang.String getReturnCode() {
-      java.lang.Object ref = returnCode_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        returnCode_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string return_code = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getReturnCodeBytes() {
-      java.lang.Object ref = returnCode_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        returnCode_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int RETURN_MSG_FIELD_NUMBER = 2;
-    private volatile java.lang.Object returnMsg_;
-    /**
-     * <code>optional string return_msg = 2;</code>
-     */
-    public java.lang.String getReturnMsg() {
-      java.lang.Object ref = returnMsg_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        returnMsg_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string return_msg = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getReturnMsgBytes() {
-      java.lang.Object ref = returnMsg_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        returnMsg_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int RETURN_DATA_FIELD_NUMBER = 3;
-    private deviceapi.Device.SeQueryResponse returnData_;
-    /**
-     * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-     */
-    public boolean hasReturnData() {
-      return returnData_ != null;
-    }
-    /**
-     * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-     */
-    public deviceapi.Device.SeQueryResponse getReturnData() {
-      return returnData_ == null ? deviceapi.Device.SeQueryResponse.getDefaultInstance() : returnData_;
-    }
-    /**
-     * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-     */
-    public deviceapi.Device.SeQueryResponseOrBuilder getReturnDataOrBuilder() {
-      return getReturnData();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getReturnCodeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, returnCode_);
-      }
-      if (!getReturnMsgBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, returnMsg_);
-      }
-      if (returnData_ != null) {
-        output.writeMessage(3, getReturnData());
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getReturnCodeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, returnCode_);
-      }
-      if (!getReturnMsgBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, returnMsg_);
-      }
-      if (returnData_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getReturnData());
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.SeQueryServiceResponse)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.SeQueryServiceResponse other = (deviceapi.Device.SeQueryServiceResponse) obj;
-
-      boolean result = true;
-      result = result && getReturnCode()
-          .equals(other.getReturnCode());
-      result = result && getReturnMsg()
-          .equals(other.getReturnMsg());
-      result = result && (hasReturnData() == other.hasReturnData());
-      if (hasReturnData()) {
-        result = result && getReturnData()
-            .equals(other.getReturnData());
-      }
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + RETURN_CODE_FIELD_NUMBER;
-      hash = (53 * hash) + getReturnCode().hashCode();
-      hash = (37 * hash) + RETURN_MSG_FIELD_NUMBER;
-      hash = (53 * hash) + getReturnMsg().hashCode();
-      if (hasReturnData()) {
-        hash = (37 * hash) + RETURN_DATA_FIELD_NUMBER;
-        hash = (53 * hash) + getReturnData().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.SeQueryServiceResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.SeQueryServiceResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.SeQueryServiceResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.SeQueryServiceResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.SeQueryServiceResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.SeQueryServiceResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.SeQueryServiceResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.SeQueryServiceResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.SeQueryServiceResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.SeQueryServiceResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.SeQueryServiceResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code deviceapi.SeQueryServiceResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.SeQueryServiceResponse)
-        deviceapi.Device.SeQueryServiceResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_SeQueryServiceResponse_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_SeQueryServiceResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.SeQueryServiceResponse.class, deviceapi.Device.SeQueryServiceResponse.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.SeQueryServiceResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        returnCode_ = "";
-
-        returnMsg_ = "";
-
-        if (returnDataBuilder_ == null) {
-          returnData_ = null;
-        } else {
-          returnData_ = null;
-          returnDataBuilder_ = null;
-        }
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_SeQueryServiceResponse_descriptor;
-      }
-
-      public deviceapi.Device.SeQueryServiceResponse getDefaultInstanceForType() {
-        return deviceapi.Device.SeQueryServiceResponse.getDefaultInstance();
-      }
-
-      public deviceapi.Device.SeQueryServiceResponse build() {
-        deviceapi.Device.SeQueryServiceResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.SeQueryServiceResponse buildPartial() {
-        deviceapi.Device.SeQueryServiceResponse result = new deviceapi.Device.SeQueryServiceResponse(this);
-        result.returnCode_ = returnCode_;
-        result.returnMsg_ = returnMsg_;
-        if (returnDataBuilder_ == null) {
-          result.returnData_ = returnData_;
-        } else {
-          result.returnData_ = returnDataBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.SeQueryServiceResponse) {
-          return mergeFrom((deviceapi.Device.SeQueryServiceResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.SeQueryServiceResponse other) {
-        if (other == deviceapi.Device.SeQueryServiceResponse.getDefaultInstance()) return this;
-        if (!other.getReturnCode().isEmpty()) {
-          returnCode_ = other.returnCode_;
-          onChanged();
-        }
-        if (!other.getReturnMsg().isEmpty()) {
-          returnMsg_ = other.returnMsg_;
-          onChanged();
-        }
-        if (other.hasReturnData()) {
-          mergeReturnData(other.getReturnData());
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.SeQueryServiceResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.SeQueryServiceResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object returnCode_ = "";
-      /**
-       * <code>optional string return_code = 1;</code>
-       */
-      public java.lang.String getReturnCode() {
-        java.lang.Object ref = returnCode_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          returnCode_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string return_code = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getReturnCodeBytes() {
-        java.lang.Object ref = returnCode_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          returnCode_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string return_code = 1;</code>
-       */
-      public Builder setReturnCode(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        returnCode_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string return_code = 1;</code>
-       */
-      public Builder clearReturnCode() {
-        
-        returnCode_ = getDefaultInstance().getReturnCode();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string return_code = 1;</code>
-       */
-      public Builder setReturnCodeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        returnCode_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object returnMsg_ = "";
-      /**
-       * <code>optional string return_msg = 2;</code>
-       */
-      public java.lang.String getReturnMsg() {
-        java.lang.Object ref = returnMsg_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          returnMsg_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string return_msg = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getReturnMsgBytes() {
-        java.lang.Object ref = returnMsg_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          returnMsg_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string return_msg = 2;</code>
-       */
-      public Builder setReturnMsg(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        returnMsg_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string return_msg = 2;</code>
-       */
-      public Builder clearReturnMsg() {
-        
-        returnMsg_ = getDefaultInstance().getReturnMsg();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string return_msg = 2;</code>
-       */
-      public Builder setReturnMsgBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        returnMsg_ = value;
-        onChanged();
-        return this;
-      }
-
-      private deviceapi.Device.SeQueryResponse returnData_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          deviceapi.Device.SeQueryResponse, deviceapi.Device.SeQueryResponse.Builder, deviceapi.Device.SeQueryResponseOrBuilder> returnDataBuilder_;
-      /**
-       * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-       */
-      public boolean hasReturnData() {
-        return returnDataBuilder_ != null || returnData_ != null;
-      }
-      /**
-       * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-       */
-      public deviceapi.Device.SeQueryResponse getReturnData() {
-        if (returnDataBuilder_ == null) {
-          return returnData_ == null ? deviceapi.Device.SeQueryResponse.getDefaultInstance() : returnData_;
-        } else {
-          return returnDataBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-       */
-      public Builder setReturnData(deviceapi.Device.SeQueryResponse value) {
-        if (returnDataBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          returnData_ = value;
-          onChanged();
-        } else {
-          returnDataBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-       */
-      public Builder setReturnData(
-          deviceapi.Device.SeQueryResponse.Builder builderForValue) {
-        if (returnDataBuilder_ == null) {
-          returnData_ = builderForValue.build();
-          onChanged();
-        } else {
-          returnDataBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-       */
-      public Builder mergeReturnData(deviceapi.Device.SeQueryResponse value) {
-        if (returnDataBuilder_ == null) {
-          if (returnData_ != null) {
-            returnData_ =
-              deviceapi.Device.SeQueryResponse.newBuilder(returnData_).mergeFrom(value).buildPartial();
-          } else {
-            returnData_ = value;
-          }
-          onChanged();
-        } else {
-          returnDataBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-       */
-      public Builder clearReturnData() {
-        if (returnDataBuilder_ == null) {
-          returnData_ = null;
-          onChanged();
-        } else {
-          returnData_ = null;
-          returnDataBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-       */
-      public deviceapi.Device.SeQueryResponse.Builder getReturnDataBuilder() {
-        
-        onChanged();
-        return getReturnDataFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-       */
-      public deviceapi.Device.SeQueryResponseOrBuilder getReturnDataOrBuilder() {
-        if (returnDataBuilder_ != null) {
-          return returnDataBuilder_.getMessageOrBuilder();
-        } else {
-          return returnData_ == null ?
-              deviceapi.Device.SeQueryResponse.getDefaultInstance() : returnData_;
-        }
-      }
-      /**
-       * <code>optional .deviceapi.SeQueryResponse return_data = 3;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          deviceapi.Device.SeQueryResponse, deviceapi.Device.SeQueryResponse.Builder, deviceapi.Device.SeQueryResponseOrBuilder> 
-          getReturnDataFieldBuilder() {
-        if (returnDataBuilder_ == null) {
-          returnDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              deviceapi.Device.SeQueryResponse, deviceapi.Device.SeQueryResponse.Builder, deviceapi.Device.SeQueryResponseOrBuilder>(
-                  getReturnData(),
-                  getParentForChildren(),
-                  isClean());
-          returnData_ = null;
-        }
-        return returnDataBuilder_;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.SeQueryServiceResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.SeQueryServiceResponse)
-    private static final deviceapi.Device.SeQueryServiceResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.SeQueryServiceResponse();
-    }
-
-    public static deviceapi.Device.SeQueryServiceResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<SeQueryServiceResponse>
-        PARSER = new com.google.protobuf.AbstractParser<SeQueryServiceResponse>() {
-      public SeQueryServiceResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new SeQueryServiceResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<SeQueryServiceResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<SeQueryServiceResponse> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.SeQueryServiceResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface BindCheckOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.BindCheck)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string file_path = 1;</code>
-     */
-    java.lang.String getFilePath();
-    /**
-     * <code>optional string file_path = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getFilePathBytes();
-  }
-  /**
-   * <pre>
-   *binding related
-   * </pre>
-   *
-   * Protobuf type {@code deviceapi.BindCheck}
-   */
-  public  static final class BindCheck extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.BindCheck)
-      BindCheckOrBuilder {
-    // Use BindCheck.newBuilder() to construct.
-    private BindCheck(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private BindCheck() {
-      filePath_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private BindCheck(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              filePath_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_BindCheck_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_BindCheck_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.BindCheck.class, deviceapi.Device.BindCheck.Builder.class);
-    }
-
-    public static final int FILE_PATH_FIELD_NUMBER = 1;
-    private volatile java.lang.Object filePath_;
-    /**
-     * <code>optional string file_path = 1;</code>
-     */
-    public java.lang.String getFilePath() {
-      java.lang.Object ref = filePath_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        filePath_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string file_path = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFilePathBytes() {
-      java.lang.Object ref = filePath_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        filePath_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getFilePathBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, filePath_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getFilePathBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, filePath_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.BindCheck)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.BindCheck other = (deviceapi.Device.BindCheck) obj;
-
-      boolean result = true;
-      result = result && getFilePath()
-          .equals(other.getFilePath());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + FILE_PATH_FIELD_NUMBER;
-      hash = (53 * hash) + getFilePath().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.BindCheck parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.BindCheck parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.BindCheck parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.BindCheck parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.BindCheck parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindCheck parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.BindCheck parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindCheck parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.BindCheck parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindCheck parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.BindCheck prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     *binding related
-     * </pre>
-     *
-     * Protobuf type {@code deviceapi.BindCheck}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.BindCheck)
-        deviceapi.Device.BindCheckOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_BindCheck_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_BindCheck_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.BindCheck.class, deviceapi.Device.BindCheck.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.BindCheck.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        filePath_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_BindCheck_descriptor;
-      }
-
-      public deviceapi.Device.BindCheck getDefaultInstanceForType() {
-        return deviceapi.Device.BindCheck.getDefaultInstance();
-      }
-
-      public deviceapi.Device.BindCheck build() {
-        deviceapi.Device.BindCheck result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.BindCheck buildPartial() {
-        deviceapi.Device.BindCheck result = new deviceapi.Device.BindCheck(this);
-        result.filePath_ = filePath_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.BindCheck) {
-          return mergeFrom((deviceapi.Device.BindCheck)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.BindCheck other) {
-        if (other == deviceapi.Device.BindCheck.getDefaultInstance()) return this;
-        if (!other.getFilePath().isEmpty()) {
-          filePath_ = other.filePath_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.BindCheck parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.BindCheck) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object filePath_ = "";
-      /**
-       * <code>optional string file_path = 1;</code>
-       */
-      public java.lang.String getFilePath() {
-        java.lang.Object ref = filePath_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          filePath_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string file_path = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getFilePathBytes() {
-        java.lang.Object ref = filePath_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          filePath_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string file_path = 1;</code>
-       */
-      public Builder setFilePath(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        filePath_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string file_path = 1;</code>
-       */
-      public Builder clearFilePath() {
-        
-        filePath_ = getDefaultInstance().getFilePath();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string file_path = 1;</code>
-       */
-      public Builder setFilePathBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        filePath_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.BindCheck)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.BindCheck)
-    private static final deviceapi.Device.BindCheck DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.BindCheck();
-    }
-
-    public static deviceapi.Device.BindCheck getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<BindCheck>
-        PARSER = new com.google.protobuf.AbstractParser<BindCheck>() {
-      public BindCheck parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new BindCheck(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<BindCheck> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<BindCheck> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.BindCheck getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface BindCheckResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.BindCheckResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string bind_status = 1;</code>
-     */
-    java.lang.String getBindStatus();
-    /**
-     * <code>optional string bind_status = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getBindStatusBytes();
-  }
-  /**
-   * <pre>
-   *binding related
-   * </pre>
-   *
-   * Protobuf type {@code deviceapi.BindCheckResponse}
-   */
-  public  static final class BindCheckResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.BindCheckResponse)
-      BindCheckResponseOrBuilder {
-    // Use BindCheckResponse.newBuilder() to construct.
-    private BindCheckResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private BindCheckResponse() {
-      bindStatus_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private BindCheckResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              bindStatus_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_BindCheckResponse_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_BindCheckResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.BindCheckResponse.class, deviceapi.Device.BindCheckResponse.Builder.class);
-    }
-
-    public static final int BIND_STATUS_FIELD_NUMBER = 1;
-    private volatile java.lang.Object bindStatus_;
-    /**
-     * <code>optional string bind_status = 1;</code>
-     */
-    public java.lang.String getBindStatus() {
-      java.lang.Object ref = bindStatus_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        bindStatus_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string bind_status = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getBindStatusBytes() {
-      java.lang.Object ref = bindStatus_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        bindStatus_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getBindStatusBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, bindStatus_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getBindStatusBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, bindStatus_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.BindCheckResponse)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.BindCheckResponse other = (deviceapi.Device.BindCheckResponse) obj;
-
-      boolean result = true;
-      result = result && getBindStatus()
-          .equals(other.getBindStatus());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + BIND_STATUS_FIELD_NUMBER;
-      hash = (53 * hash) + getBindStatus().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.BindCheckResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.BindCheckResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.BindCheckResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.BindCheckResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.BindCheckResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindCheckResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.BindCheckResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindCheckResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.BindCheckResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindCheckResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.BindCheckResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     *binding related
-     * </pre>
-     *
-     * Protobuf type {@code deviceapi.BindCheckResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.BindCheckResponse)
-        deviceapi.Device.BindCheckResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_BindCheckResponse_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_BindCheckResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.BindCheckResponse.class, deviceapi.Device.BindCheckResponse.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.BindCheckResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        bindStatus_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_BindCheckResponse_descriptor;
-      }
-
-      public deviceapi.Device.BindCheckResponse getDefaultInstanceForType() {
-        return deviceapi.Device.BindCheckResponse.getDefaultInstance();
-      }
-
-      public deviceapi.Device.BindCheckResponse build() {
-        deviceapi.Device.BindCheckResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.BindCheckResponse buildPartial() {
-        deviceapi.Device.BindCheckResponse result = new deviceapi.Device.BindCheckResponse(this);
-        result.bindStatus_ = bindStatus_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.BindCheckResponse) {
-          return mergeFrom((deviceapi.Device.BindCheckResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.BindCheckResponse other) {
-        if (other == deviceapi.Device.BindCheckResponse.getDefaultInstance()) return this;
-        if (!other.getBindStatus().isEmpty()) {
-          bindStatus_ = other.bindStatus_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.BindCheckResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.BindCheckResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object bindStatus_ = "";
-      /**
-       * <code>optional string bind_status = 1;</code>
-       */
-      public java.lang.String getBindStatus() {
-        java.lang.Object ref = bindStatus_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          bindStatus_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string bind_status = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getBindStatusBytes() {
-        java.lang.Object ref = bindStatus_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          bindStatus_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string bind_status = 1;</code>
-       */
-      public Builder setBindStatus(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        bindStatus_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string bind_status = 1;</code>
-       */
-      public Builder clearBindStatus() {
-        
-        bindStatus_ = getDefaultInstance().getBindStatus();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string bind_status = 1;</code>
-       */
-      public Builder setBindStatusBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        bindStatus_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.BindCheckResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.BindCheckResponse)
-    private static final deviceapi.Device.BindCheckResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.BindCheckResponse();
-    }
-
-    public static deviceapi.Device.BindCheckResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<BindCheckResponse>
-        PARSER = new com.google.protobuf.AbstractParser<BindCheckResponse>() {
-      public BindCheckResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new BindCheckResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<BindCheckResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<BindCheckResponse> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.BindCheckResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface BindAcquireOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.BindAcquire)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string bind_code = 1;</code>
-     */
-    java.lang.String getBindCode();
-    /**
-     * <code>optional string bind_code = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getBindCodeBytes();
-  }
-  /**
-   * Protobuf type {@code deviceapi.BindAcquire}
-   */
-  public  static final class BindAcquire extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.BindAcquire)
-      BindAcquireOrBuilder {
-    // Use BindAcquire.newBuilder() to construct.
-    private BindAcquire(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private BindAcquire() {
-      bindCode_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private BindAcquire(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              bindCode_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_BindAcquire_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_BindAcquire_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.BindAcquire.class, deviceapi.Device.BindAcquire.Builder.class);
-    }
-
-    public static final int BIND_CODE_FIELD_NUMBER = 1;
-    private volatile java.lang.Object bindCode_;
-    /**
-     * <code>optional string bind_code = 1;</code>
-     */
-    public java.lang.String getBindCode() {
-      java.lang.Object ref = bindCode_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        bindCode_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string bind_code = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getBindCodeBytes() {
-      java.lang.Object ref = bindCode_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        bindCode_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getBindCodeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, bindCode_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getBindCodeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, bindCode_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.BindAcquire)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.BindAcquire other = (deviceapi.Device.BindAcquire) obj;
-
-      boolean result = true;
-      result = result && getBindCode()
-          .equals(other.getBindCode());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + BIND_CODE_FIELD_NUMBER;
-      hash = (53 * hash) + getBindCode().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.BindAcquire parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.BindAcquire parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.BindAcquire parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.BindAcquire parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.BindAcquire parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindAcquire parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.BindAcquire parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindAcquire parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.BindAcquire parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindAcquire parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.BindAcquire prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code deviceapi.BindAcquire}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.BindAcquire)
-        deviceapi.Device.BindAcquireOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_BindAcquire_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_BindAcquire_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.BindAcquire.class, deviceapi.Device.BindAcquire.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.BindAcquire.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        bindCode_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_BindAcquire_descriptor;
-      }
-
-      public deviceapi.Device.BindAcquire getDefaultInstanceForType() {
-        return deviceapi.Device.BindAcquire.getDefaultInstance();
-      }
-
-      public deviceapi.Device.BindAcquire build() {
-        deviceapi.Device.BindAcquire result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.BindAcquire buildPartial() {
-        deviceapi.Device.BindAcquire result = new deviceapi.Device.BindAcquire(this);
-        result.bindCode_ = bindCode_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.BindAcquire) {
-          return mergeFrom((deviceapi.Device.BindAcquire)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.BindAcquire other) {
-        if (other == deviceapi.Device.BindAcquire.getDefaultInstance()) return this;
-        if (!other.getBindCode().isEmpty()) {
-          bindCode_ = other.bindCode_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.BindAcquire parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.BindAcquire) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object bindCode_ = "";
-      /**
-       * <code>optional string bind_code = 1;</code>
-       */
-      public java.lang.String getBindCode() {
-        java.lang.Object ref = bindCode_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          bindCode_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string bind_code = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getBindCodeBytes() {
-        java.lang.Object ref = bindCode_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          bindCode_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string bind_code = 1;</code>
-       */
-      public Builder setBindCode(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        bindCode_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string bind_code = 1;</code>
-       */
-      public Builder clearBindCode() {
-        
-        bindCode_ = getDefaultInstance().getBindCode();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string bind_code = 1;</code>
-       */
-      public Builder setBindCodeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        bindCode_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.BindAcquire)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.BindAcquire)
-    private static final deviceapi.Device.BindAcquire DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.BindAcquire();
-    }
-
-    public static deviceapi.Device.BindAcquire getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<BindAcquire>
-        PARSER = new com.google.protobuf.AbstractParser<BindAcquire>() {
-      public BindAcquire parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new BindAcquire(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<BindAcquire> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<BindAcquire> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.BindAcquire getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface BindAcquireResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.BindAcquireResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string bind_result = 1;</code>
-     */
-    java.lang.String getBindResult();
-    /**
-     * <code>optional string bind_result = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getBindResultBytes();
-  }
-  /**
-   * Protobuf type {@code deviceapi.BindAcquireResponse}
-   */
-  public  static final class BindAcquireResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.BindAcquireResponse)
-      BindAcquireResponseOrBuilder {
-    // Use BindAcquireResponse.newBuilder() to construct.
-    private BindAcquireResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private BindAcquireResponse() {
-      bindResult_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private BindAcquireResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              bindResult_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_BindAcquireResponse_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_BindAcquireResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.BindAcquireResponse.class, deviceapi.Device.BindAcquireResponse.Builder.class);
-    }
-
-    public static final int BIND_RESULT_FIELD_NUMBER = 1;
-    private volatile java.lang.Object bindResult_;
-    /**
-     * <code>optional string bind_result = 1;</code>
-     */
-    public java.lang.String getBindResult() {
-      java.lang.Object ref = bindResult_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        bindResult_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string bind_result = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getBindResultBytes() {
-      java.lang.Object ref = bindResult_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        bindResult_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getBindResultBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, bindResult_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getBindResultBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, bindResult_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.BindAcquireResponse)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.BindAcquireResponse other = (deviceapi.Device.BindAcquireResponse) obj;
-
-      boolean result = true;
-      result = result && getBindResult()
-          .equals(other.getBindResult());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + BIND_RESULT_FIELD_NUMBER;
-      hash = (53 * hash) + getBindResult().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.BindAcquireResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.BindAcquireResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.BindAcquireResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.BindAcquireResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.BindAcquireResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindAcquireResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.BindAcquireResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindAcquireResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.BindAcquireResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindAcquireResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.BindAcquireResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code deviceapi.BindAcquireResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.BindAcquireResponse)
-        deviceapi.Device.BindAcquireResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_BindAcquireResponse_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_BindAcquireResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.BindAcquireResponse.class, deviceapi.Device.BindAcquireResponse.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.BindAcquireResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        bindResult_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_BindAcquireResponse_descriptor;
-      }
-
-      public deviceapi.Device.BindAcquireResponse getDefaultInstanceForType() {
-        return deviceapi.Device.BindAcquireResponse.getDefaultInstance();
-      }
-
-      public deviceapi.Device.BindAcquireResponse build() {
-        deviceapi.Device.BindAcquireResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.BindAcquireResponse buildPartial() {
-        deviceapi.Device.BindAcquireResponse result = new deviceapi.Device.BindAcquireResponse(this);
-        result.bindResult_ = bindResult_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.BindAcquireResponse) {
-          return mergeFrom((deviceapi.Device.BindAcquireResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.BindAcquireResponse other) {
-        if (other == deviceapi.Device.BindAcquireResponse.getDefaultInstance()) return this;
-        if (!other.getBindResult().isEmpty()) {
-          bindResult_ = other.bindResult_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.BindAcquireResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.BindAcquireResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object bindResult_ = "";
-      /**
-       * <code>optional string bind_result = 1;</code>
-       */
-      public java.lang.String getBindResult() {
-        java.lang.Object ref = bindResult_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          bindResult_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string bind_result = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getBindResultBytes() {
-        java.lang.Object ref = bindResult_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          bindResult_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string bind_result = 1;</code>
-       */
-      public Builder setBindResult(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        bindResult_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string bind_result = 1;</code>
-       */
-      public Builder clearBindResult() {
-        
-        bindResult_ = getDefaultInstance().getBindResult();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string bind_result = 1;</code>
-       */
-      public Builder setBindResultBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        bindResult_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.BindAcquireResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.BindAcquireResponse)
-    private static final deviceapi.Device.BindAcquireResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.BindAcquireResponse();
-    }
-
-    public static deviceapi.Device.BindAcquireResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<BindAcquireResponse>
-        PARSER = new com.google.protobuf.AbstractParser<BindAcquireResponse>() {
-      public BindAcquireResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new BindAcquireResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<BindAcquireResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<BindAcquireResponse> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.BindAcquireResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface BindDisplayOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.BindDisplay)
-      com.google.protobuf.MessageOrBuilder {
-  }
-  /**
-   * Protobuf type {@code deviceapi.BindDisplay}
-   */
-  public  static final class BindDisplay extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.BindDisplay)
-      BindDisplayOrBuilder {
-    // Use BindDisplay.newBuilder() to construct.
-    private BindDisplay(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private BindDisplay() {
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private BindDisplay(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_BindDisplay_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_BindDisplay_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.BindDisplay.class, deviceapi.Device.BindDisplay.Builder.class);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.BindDisplay)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.BindDisplay other = (deviceapi.Device.BindDisplay) obj;
-
-      boolean result = true;
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.BindDisplay parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.BindDisplay parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.BindDisplay parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.BindDisplay parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.BindDisplay parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindDisplay parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.BindDisplay parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindDisplay parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.BindDisplay parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindDisplay parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.BindDisplay prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code deviceapi.BindDisplay}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.BindDisplay)
-        deviceapi.Device.BindDisplayOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_BindDisplay_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_BindDisplay_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.BindDisplay.class, deviceapi.Device.BindDisplay.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.BindDisplay.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_BindDisplay_descriptor;
-      }
-
-      public deviceapi.Device.BindDisplay getDefaultInstanceForType() {
-        return deviceapi.Device.BindDisplay.getDefaultInstance();
-      }
-
-      public deviceapi.Device.BindDisplay build() {
-        deviceapi.Device.BindDisplay result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.BindDisplay buildPartial() {
-        deviceapi.Device.BindDisplay result = new deviceapi.Device.BindDisplay(this);
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.BindDisplay) {
-          return mergeFrom((deviceapi.Device.BindDisplay)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.BindDisplay other) {
-        if (other == deviceapi.Device.BindDisplay.getDefaultInstance()) return this;
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.BindDisplay parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.BindDisplay) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.BindDisplay)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.BindDisplay)
-    private static final deviceapi.Device.BindDisplay DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.BindDisplay();
-    }
-
-    public static deviceapi.Device.BindDisplay getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<BindDisplay>
-        PARSER = new com.google.protobuf.AbstractParser<BindDisplay>() {
-      public BindDisplay parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new BindDisplay(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<BindDisplay> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<BindDisplay> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.BindDisplay getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface BindDisplayResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.BindDisplayResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string bind_display_result = 1;</code>
-     */
-    java.lang.String getBindDisplayResult();
-    /**
-     * <code>optional string bind_display_result = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getBindDisplayResultBytes();
-  }
-  /**
-   * Protobuf type {@code deviceapi.BindDisplayResponse}
-   */
-  public  static final class BindDisplayResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.BindDisplayResponse)
-      BindDisplayResponseOrBuilder {
-    // Use BindDisplayResponse.newBuilder() to construct.
-    private BindDisplayResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private BindDisplayResponse() {
-      bindDisplayResult_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private BindDisplayResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              bindDisplayResult_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_BindDisplayResponse_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_BindDisplayResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.BindDisplayResponse.class, deviceapi.Device.BindDisplayResponse.Builder.class);
-    }
-
-    public static final int BIND_DISPLAY_RESULT_FIELD_NUMBER = 1;
-    private volatile java.lang.Object bindDisplayResult_;
-    /**
-     * <code>optional string bind_display_result = 1;</code>
-     */
-    public java.lang.String getBindDisplayResult() {
-      java.lang.Object ref = bindDisplayResult_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        bindDisplayResult_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string bind_display_result = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getBindDisplayResultBytes() {
-      java.lang.Object ref = bindDisplayResult_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        bindDisplayResult_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getBindDisplayResultBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, bindDisplayResult_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getBindDisplayResultBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, bindDisplayResult_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.BindDisplayResponse)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.BindDisplayResponse other = (deviceapi.Device.BindDisplayResponse) obj;
-
-      boolean result = true;
-      result = result && getBindDisplayResult()
-          .equals(other.getBindDisplayResult());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + BIND_DISPLAY_RESULT_FIELD_NUMBER;
-      hash = (53 * hash) + getBindDisplayResult().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.BindDisplayResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.BindDisplayResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.BindDisplayResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.BindDisplayResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.BindDisplayResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindDisplayResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.BindDisplayResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindDisplayResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.BindDisplayResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.BindDisplayResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.BindDisplayResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code deviceapi.BindDisplayResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.BindDisplayResponse)
-        deviceapi.Device.BindDisplayResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_BindDisplayResponse_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_BindDisplayResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.BindDisplayResponse.class, deviceapi.Device.BindDisplayResponse.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.BindDisplayResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        bindDisplayResult_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_BindDisplayResponse_descriptor;
-      }
-
-      public deviceapi.Device.BindDisplayResponse getDefaultInstanceForType() {
-        return deviceapi.Device.BindDisplayResponse.getDefaultInstance();
-      }
-
-      public deviceapi.Device.BindDisplayResponse build() {
-        deviceapi.Device.BindDisplayResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.BindDisplayResponse buildPartial() {
-        deviceapi.Device.BindDisplayResponse result = new deviceapi.Device.BindDisplayResponse(this);
-        result.bindDisplayResult_ = bindDisplayResult_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.BindDisplayResponse) {
-          return mergeFrom((deviceapi.Device.BindDisplayResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.BindDisplayResponse other) {
-        if (other == deviceapi.Device.BindDisplayResponse.getDefaultInstance()) return this;
-        if (!other.getBindDisplayResult().isEmpty()) {
-          bindDisplayResult_ = other.bindDisplayResult_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.BindDisplayResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.BindDisplayResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object bindDisplayResult_ = "";
-      /**
-       * <code>optional string bind_display_result = 1;</code>
-       */
-      public java.lang.String getBindDisplayResult() {
-        java.lang.Object ref = bindDisplayResult_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          bindDisplayResult_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string bind_display_result = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getBindDisplayResultBytes() {
-        java.lang.Object ref = bindDisplayResult_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          bindDisplayResult_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string bind_display_result = 1;</code>
-       */
-      public Builder setBindDisplayResult(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        bindDisplayResult_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string bind_display_result = 1;</code>
-       */
-      public Builder clearBindDisplayResult() {
-        
-        bindDisplayResult_ = getDefaultInstance().getBindDisplayResult();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string bind_display_result = 1;</code>
-       */
-      public Builder setBindDisplayResultBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        bindDisplayResult_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.BindDisplayResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.BindDisplayResponse)
-    private static final deviceapi.Device.BindDisplayResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.BindDisplayResponse();
-    }
-
-    public static deviceapi.Device.BindDisplayResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<BindDisplayResponse>
-        PARSER = new com.google.protobuf.AbstractParser<BindDisplayResponse>() {
-      public BindDisplayResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new BindDisplayResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<BindDisplayResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<BindDisplayResponse> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.BindDisplayResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface DeviceNameOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.DeviceName)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string ble_name = 1;</code>
-     */
-    java.lang.String getBleName();
-    /**
-     * <code>optional string ble_name = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getBleNameBytes();
-  }
-  /**
-   * <pre>
-   *name related
-   * </pre>
-   *
-   * Protobuf type {@code deviceapi.DeviceName}
-   */
-  public  static final class DeviceName extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.DeviceName)
-      DeviceNameOrBuilder {
-    // Use DeviceName.newBuilder() to construct.
-    private DeviceName(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private DeviceName() {
-      bleName_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private DeviceName(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              bleName_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_DeviceName_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_DeviceName_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.DeviceName.class, deviceapi.Device.DeviceName.Builder.class);
-    }
-
-    public static final int BLE_NAME_FIELD_NUMBER = 1;
-    private volatile java.lang.Object bleName_;
-    /**
-     * <code>optional string ble_name = 1;</code>
-     */
-    public java.lang.String getBleName() {
-      java.lang.Object ref = bleName_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        bleName_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string ble_name = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getBleNameBytes() {
-      java.lang.Object ref = bleName_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        bleName_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getBleNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, bleName_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getBleNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, bleName_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.DeviceName)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.DeviceName other = (deviceapi.Device.DeviceName) obj;
-
-      boolean result = true;
-      result = result && getBleName()
-          .equals(other.getBleName());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + BLE_NAME_FIELD_NUMBER;
-      hash = (53 * hash) + getBleName().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.DeviceName parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.DeviceName parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.DeviceName parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.DeviceName parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.DeviceName parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.DeviceName parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.DeviceName parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.DeviceName parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.DeviceName parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.DeviceName parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.DeviceName prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     *name related
-     * </pre>
-     *
-     * Protobuf type {@code deviceapi.DeviceName}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.DeviceName)
-        deviceapi.Device.DeviceNameOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_DeviceName_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_DeviceName_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.DeviceName.class, deviceapi.Device.DeviceName.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.DeviceName.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        bleName_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_DeviceName_descriptor;
-      }
-
-      public deviceapi.Device.DeviceName getDefaultInstanceForType() {
-        return deviceapi.Device.DeviceName.getDefaultInstance();
-      }
-
-      public deviceapi.Device.DeviceName build() {
-        deviceapi.Device.DeviceName result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.DeviceName buildPartial() {
-        deviceapi.Device.DeviceName result = new deviceapi.Device.DeviceName(this);
-        result.bleName_ = bleName_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.DeviceName) {
-          return mergeFrom((deviceapi.Device.DeviceName)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.DeviceName other) {
-        if (other == deviceapi.Device.DeviceName.getDefaultInstance()) return this;
-        if (!other.getBleName().isEmpty()) {
-          bleName_ = other.bleName_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.DeviceName parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.DeviceName) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object bleName_ = "";
-      /**
-       * <code>optional string ble_name = 1;</code>
-       */
-      public java.lang.String getBleName() {
-        java.lang.Object ref = bleName_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          bleName_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string ble_name = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getBleNameBytes() {
-        java.lang.Object ref = bleName_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          bleName_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string ble_name = 1;</code>
-       */
-      public Builder setBleName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        bleName_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string ble_name = 1;</code>
-       */
-      public Builder clearBleName() {
-        
-        bleName_ = getDefaultInstance().getBleName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string ble_name = 1;</code>
-       */
-      public Builder setBleNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        bleName_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.DeviceName)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.DeviceName)
-    private static final deviceapi.Device.DeviceName DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.DeviceName();
-    }
-
-    public static deviceapi.Device.DeviceName getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<DeviceName>
-        PARSER = new com.google.protobuf.AbstractParser<DeviceName>() {
-      public DeviceName parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new DeviceName(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<DeviceName> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<DeviceName> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.DeviceName getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface GetSnResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.GetSnResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string sn = 1;</code>
-     */
-    java.lang.String getSn();
-    /**
-     * <code>optional string sn = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getSnBytes();
-  }
-  /**
-   * Protobuf type {@code deviceapi.GetSnResponse}
-   */
-  public  static final class GetSnResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.GetSnResponse)
-      GetSnResponseOrBuilder {
-    // Use GetSnResponse.newBuilder() to construct.
-    private GetSnResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private GetSnResponse() {
-      sn_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private GetSnResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              sn_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_GetSnResponse_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_GetSnResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.GetSnResponse.class, deviceapi.Device.GetSnResponse.Builder.class);
-    }
-
-    public static final int SN_FIELD_NUMBER = 1;
-    private volatile java.lang.Object sn_;
-    /**
-     * <code>optional string sn = 1;</code>
-     */
-    public java.lang.String getSn() {
-      java.lang.Object ref = sn_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        sn_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string sn = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getSnBytes() {
-      java.lang.Object ref = sn_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        sn_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getSnBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, sn_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getSnBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, sn_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.GetSnResponse)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.GetSnResponse other = (deviceapi.Device.GetSnResponse) obj;
-
-      boolean result = true;
-      result = result && getSn()
-          .equals(other.getSn());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + SN_FIELD_NUMBER;
-      hash = (53 * hash) + getSn().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.GetSnResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.GetSnResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.GetSnResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.GetSnResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.GetSnResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.GetSnResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.GetSnResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.GetSnResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.GetSnResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.GetSnResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.GetSnResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code deviceapi.GetSnResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.GetSnResponse)
-        deviceapi.Device.GetSnResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_GetSnResponse_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_GetSnResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.GetSnResponse.class, deviceapi.Device.GetSnResponse.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.GetSnResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        sn_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_GetSnResponse_descriptor;
-      }
-
-      public deviceapi.Device.GetSnResponse getDefaultInstanceForType() {
-        return deviceapi.Device.GetSnResponse.getDefaultInstance();
-      }
-
-      public deviceapi.Device.GetSnResponse build() {
-        deviceapi.Device.GetSnResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.GetSnResponse buildPartial() {
-        deviceapi.Device.GetSnResponse result = new deviceapi.Device.GetSnResponse(this);
-        result.sn_ = sn_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.GetSnResponse) {
-          return mergeFrom((deviceapi.Device.GetSnResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.GetSnResponse other) {
-        if (other == deviceapi.Device.GetSnResponse.getDefaultInstance()) return this;
-        if (!other.getSn().isEmpty()) {
-          sn_ = other.sn_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.GetSnResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.GetSnResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object sn_ = "";
-      /**
-       * <code>optional string sn = 1;</code>
-       */
-      public java.lang.String getSn() {
-        java.lang.Object ref = sn_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          sn_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string sn = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getSnBytes() {
-        java.lang.Object ref = sn_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          sn_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string sn = 1;</code>
-       */
-      public Builder setSn(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        sn_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string sn = 1;</code>
-       */
-      public Builder clearSn() {
-        
-        sn_ = getDefaultInstance().getSn();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string sn = 1;</code>
-       */
-      public Builder setSnBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        sn_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.GetSnResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.GetSnResponse)
-    private static final deviceapi.Device.GetSnResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.GetSnResponse();
-    }
-
-    public static deviceapi.Device.GetSnResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<GetSnResponse>
-        PARSER = new com.google.protobuf.AbstractParser<GetSnResponse>() {
-      public GetSnResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new GetSnResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<GetSnResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GetSnResponse> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.GetSnResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface ApduResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.ApduResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string result = 1;</code>
-     */
-    java.lang.String getResult();
-    /**
-     * <code>optional string result = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getResultBytes();
-  }
-  /**
-   * Protobuf type {@code deviceapi.ApduResponse}
-   */
-  public  static final class ApduResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.ApduResponse)
-      ApduResponseOrBuilder {
-    // Use ApduResponse.newBuilder() to construct.
-    private ApduResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private ApduResponse() {
-      result_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private ApduResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              result_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_ApduResponse_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_ApduResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.ApduResponse.class, deviceapi.Device.ApduResponse.Builder.class);
-    }
-
-    public static final int RESULT_FIELD_NUMBER = 1;
-    private volatile java.lang.Object result_;
-    /**
-     * <code>optional string result = 1;</code>
-     */
-    public java.lang.String getResult() {
-      java.lang.Object ref = result_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        result_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string result = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getResultBytes() {
-      java.lang.Object ref = result_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        result_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getResultBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, result_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getResultBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, result_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.ApduResponse)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.ApduResponse other = (deviceapi.Device.ApduResponse) obj;
-
-      boolean result = true;
-      result = result && getResult()
-          .equals(other.getResult());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + RESULT_FIELD_NUMBER;
-      hash = (53 * hash) + getResult().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.ApduResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.ApduResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.ApduResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.ApduResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.ApduResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.ApduResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.ApduResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.ApduResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.ApduResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.ApduResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.ApduResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code deviceapi.ApduResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.ApduResponse)
-        deviceapi.Device.ApduResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_ApduResponse_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_ApduResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.ApduResponse.class, deviceapi.Device.ApduResponse.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.ApduResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        result_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_ApduResponse_descriptor;
-      }
-
-      public deviceapi.Device.ApduResponse getDefaultInstanceForType() {
-        return deviceapi.Device.ApduResponse.getDefaultInstance();
-      }
-
-      public deviceapi.Device.ApduResponse build() {
-        deviceapi.Device.ApduResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.ApduResponse buildPartial() {
-        deviceapi.Device.ApduResponse result = new deviceapi.Device.ApduResponse(this);
-        result.result_ = result_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.ApduResponse) {
-          return mergeFrom((deviceapi.Device.ApduResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.ApduResponse other) {
-        if (other == deviceapi.Device.ApduResponse.getDefaultInstance()) return this;
-        if (!other.getResult().isEmpty()) {
-          result_ = other.result_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.ApduResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.ApduResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object result_ = "";
-      /**
-       * <code>optional string result = 1;</code>
-       */
-      public java.lang.String getResult() {
-        java.lang.Object ref = result_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          result_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string result = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getResultBytes() {
-        java.lang.Object ref = result_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          result_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string result = 1;</code>
-       */
-      public Builder setResult(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        result_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string result = 1;</code>
-       */
-      public Builder clearResult() {
-        
-        result_ = getDefaultInstance().getResult();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string result = 1;</code>
-       */
-      public Builder setResultBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        result_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.ApduResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.ApduResponse)
-    private static final deviceapi.Device.ApduResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.ApduResponse();
-    }
-
-    public static deviceapi.Device.ApduResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<ApduResponse>
-        PARSER = new com.google.protobuf.AbstractParser<ApduResponse>() {
-      public ApduResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new ApduResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<ApduResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ApduResponse> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.ApduResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface TestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.Test)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string tt = 1;</code>
-     */
-    java.lang.String getTt();
-    /**
-     * <code>optional string tt = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getTtBytes();
-  }
-  /**
-   * Protobuf type {@code deviceapi.Test}
-   */
-  public  static final class Test extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.Test)
-      TestOrBuilder {
-    // Use Test.newBuilder() to construct.
-    private Test(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private Test() {
-      tt_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private Test(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              tt_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_Test_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_Test_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              deviceapi.Device.Test.class, deviceapi.Device.Test.Builder.class);
-    }
-
-    public static final int TT_FIELD_NUMBER = 1;
-    private volatile java.lang.Object tt_;
-    /**
-     * <code>optional string tt = 1;</code>
-     */
-    public java.lang.String getTt() {
-      java.lang.Object ref = tt_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        tt_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string tt = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getTtBytes() {
-      java.lang.Object ref = tt_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        tt_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getTtBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, tt_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getTtBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, tt_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof deviceapi.Device.Test)) {
-        return super.equals(obj);
-      }
-      deviceapi.Device.Test other = (deviceapi.Device.Test) obj;
-
-      boolean result = true;
-      result = result && getTt()
-          .equals(other.getTt());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + TT_FIELD_NUMBER;
-      hash = (53 * hash) + getTt().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static deviceapi.Device.Test parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.Test parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.Test parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static deviceapi.Device.Test parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static deviceapi.Device.Test parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.Test parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.Test parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.Test parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static deviceapi.Device.Test parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static deviceapi.Device.Test parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(deviceapi.Device.Test prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code deviceapi.Test}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.Test)
-        deviceapi.Device.TestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_Test_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_Test_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                deviceapi.Device.Test.class, deviceapi.Device.Test.Builder.class);
-      }
-
-      // Construct using deviceapi.Device.Test.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        tt_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_Test_descriptor;
-      }
-
-      public deviceapi.Device.Test getDefaultInstanceForType() {
-        return deviceapi.Device.Test.getDefaultInstance();
-      }
-
-      public deviceapi.Device.Test build() {
-        deviceapi.Device.Test result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public deviceapi.Device.Test buildPartial() {
-        deviceapi.Device.Test result = new deviceapi.Device.Test(this);
-        result.tt_ = tt_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.Test) {
-          return mergeFrom((deviceapi.Device.Test)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(deviceapi.Device.Test other) {
-        if (other == deviceapi.Device.Test.getDefaultInstance()) return this;
-        if (!other.getTt().isEmpty()) {
-          tt_ = other.tt_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        deviceapi.Device.Test parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.Test) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object tt_ = "";
-      /**
-       * <code>optional string tt = 1;</code>
-       */
-      public java.lang.String getTt() {
-        java.lang.Object ref = tt_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          tt_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string tt = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getTtBytes() {
-        java.lang.Object ref = tt_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          tt_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string tt = 1;</code>
-       */
-      public Builder setTt(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        tt_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string tt = 1;</code>
-       */
-      public Builder clearTt() {
-        
-        tt_ = getDefaultInstance().getTt();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string tt = 1;</code>
-       */
-      public Builder setTtBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        tt_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:deviceapi.Test)
-    }
-
-    // @@protoc_insertion_point(class_scope:deviceapi.Test)
-    private static final deviceapi.Device.Test DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new deviceapi.Device.Test();
-    }
-
-    public static deviceapi.Device.Test getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<Test>
-        PARSER = new com.google.protobuf.AbstractParser<Test>() {
-      public Test parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Test(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<Test> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Test> getParserForType() {
-      return PARSER;
-    }
-
-    public deviceapi.Device.Test getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface CheckUpdateResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.CheckUpdateResponse)
+  public interface CheckUpdateResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.CheckUpdateRes)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -12022,17 +1961,17 @@ public final class Device {
    * check_update api
    * </pre>
    *
-   * Protobuf type {@code deviceapi.CheckUpdateResponse}
+   * Protobuf type {@code deviceapi.CheckUpdateRes}
    */
-  public  static final class CheckUpdateResponse extends
+  public  static final class CheckUpdateRes extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.CheckUpdateResponse)
-      CheckUpdateResponseOrBuilder {
-    // Use CheckUpdateResponse.newBuilder() to construct.
-    private CheckUpdateResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:deviceapi.CheckUpdateRes)
+      CheckUpdateResOrBuilder {
+    // Use CheckUpdateRes.newBuilder() to construct.
+    private CheckUpdateRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private CheckUpdateResponse() {
+    private CheckUpdateRes() {
       seId_ = "";
       sn_ = "";
       status_ = "";
@@ -12045,7 +1984,7 @@ public final class Device {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private CheckUpdateResponse(
+    private CheckUpdateRes(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -12114,14 +2053,14 @@ public final class Device {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_CheckUpdateResponse_descriptor;
+      return deviceapi.Device.internal_static_deviceapi_CheckUpdateRes_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_CheckUpdateResponse_fieldAccessorTable
+      return deviceapi.Device.internal_static_deviceapi_CheckUpdateRes_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              deviceapi.Device.CheckUpdateResponse.class, deviceapi.Device.CheckUpdateResponse.Builder.class);
+              deviceapi.Device.CheckUpdateRes.class, deviceapi.Device.CheckUpdateRes.Builder.class);
     }
 
     private int bitField0_;
@@ -12356,10 +2295,10 @@ public final class Device {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof deviceapi.Device.CheckUpdateResponse)) {
+      if (!(obj instanceof deviceapi.Device.CheckUpdateRes)) {
         return super.equals(obj);
       }
-      deviceapi.Device.CheckUpdateResponse other = (deviceapi.Device.CheckUpdateResponse) obj;
+      deviceapi.Device.CheckUpdateRes other = (deviceapi.Device.CheckUpdateRes) obj;
 
       boolean result = true;
       result = result && getSeId()
@@ -12399,58 +2338,58 @@ public final class Device {
       return hash;
     }
 
-    public static deviceapi.Device.CheckUpdateResponse parseFrom(
+    public static deviceapi.Device.CheckUpdateRes parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static deviceapi.Device.CheckUpdateResponse parseFrom(
+    public static deviceapi.Device.CheckUpdateRes parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static deviceapi.Device.CheckUpdateResponse parseFrom(byte[] data)
+    public static deviceapi.Device.CheckUpdateRes parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static deviceapi.Device.CheckUpdateResponse parseFrom(
+    public static deviceapi.Device.CheckUpdateRes parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static deviceapi.Device.CheckUpdateResponse parseFrom(java.io.InputStream input)
+    public static deviceapi.Device.CheckUpdateRes parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.CheckUpdateResponse parseFrom(
+    public static deviceapi.Device.CheckUpdateRes parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static deviceapi.Device.CheckUpdateResponse parseDelimitedFrom(java.io.InputStream input)
+    public static deviceapi.Device.CheckUpdateRes parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.CheckUpdateResponse parseDelimitedFrom(
+    public static deviceapi.Device.CheckUpdateRes parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static deviceapi.Device.CheckUpdateResponse parseFrom(
+    public static deviceapi.Device.CheckUpdateRes parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.CheckUpdateResponse parseFrom(
+    public static deviceapi.Device.CheckUpdateRes parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -12462,7 +2401,7 @@ public final class Device {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(deviceapi.Device.CheckUpdateResponse prototype) {
+    public static Builder newBuilder(deviceapi.Device.CheckUpdateRes prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -12481,25 +2420,25 @@ public final class Device {
      * check_update api
      * </pre>
      *
-     * Protobuf type {@code deviceapi.CheckUpdateResponse}
+     * Protobuf type {@code deviceapi.CheckUpdateRes}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.CheckUpdateResponse)
-        deviceapi.Device.CheckUpdateResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:deviceapi.CheckUpdateRes)
+        deviceapi.Device.CheckUpdateResOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_CheckUpdateResponse_descriptor;
+        return deviceapi.Device.internal_static_deviceapi_CheckUpdateRes_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_CheckUpdateResponse_fieldAccessorTable
+        return deviceapi.Device.internal_static_deviceapi_CheckUpdateRes_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                deviceapi.Device.CheckUpdateResponse.class, deviceapi.Device.CheckUpdateResponse.Builder.class);
+                deviceapi.Device.CheckUpdateRes.class, deviceapi.Device.CheckUpdateRes.Builder.class);
       }
 
-      // Construct using deviceapi.Device.CheckUpdateResponse.newBuilder()
+      // Construct using deviceapi.Device.CheckUpdateRes.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -12536,23 +2475,23 @@ public final class Device {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_CheckUpdateResponse_descriptor;
+        return deviceapi.Device.internal_static_deviceapi_CheckUpdateRes_descriptor;
       }
 
-      public deviceapi.Device.CheckUpdateResponse getDefaultInstanceForType() {
-        return deviceapi.Device.CheckUpdateResponse.getDefaultInstance();
+      public deviceapi.Device.CheckUpdateRes getDefaultInstanceForType() {
+        return deviceapi.Device.CheckUpdateRes.getDefaultInstance();
       }
 
-      public deviceapi.Device.CheckUpdateResponse build() {
-        deviceapi.Device.CheckUpdateResponse result = buildPartial();
+      public deviceapi.Device.CheckUpdateRes build() {
+        deviceapi.Device.CheckUpdateRes result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public deviceapi.Device.CheckUpdateResponse buildPartial() {
-        deviceapi.Device.CheckUpdateResponse result = new deviceapi.Device.CheckUpdateResponse(this);
+      public deviceapi.Device.CheckUpdateRes buildPartial() {
+        deviceapi.Device.CheckUpdateRes result = new deviceapi.Device.CheckUpdateRes(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         result.seId_ = seId_;
@@ -12600,16 +2539,16 @@ public final class Device {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.CheckUpdateResponse) {
-          return mergeFrom((deviceapi.Device.CheckUpdateResponse)other);
+        if (other instanceof deviceapi.Device.CheckUpdateRes) {
+          return mergeFrom((deviceapi.Device.CheckUpdateRes)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(deviceapi.Device.CheckUpdateResponse other) {
-        if (other == deviceapi.Device.CheckUpdateResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(deviceapi.Device.CheckUpdateRes other) {
+        if (other == deviceapi.Device.CheckUpdateRes.getDefaultInstance()) return this;
         if (!other.getSeId().isEmpty()) {
           seId_ = other.seId_;
           onChanged();
@@ -12664,11 +2603,11 @@ public final class Device {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        deviceapi.Device.CheckUpdateResponse parsedMessage = null;
+        deviceapi.Device.CheckUpdateRes parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.CheckUpdateResponse) e.getUnfinishedMessage();
+          parsedMessage = (deviceapi.Device.CheckUpdateRes) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -13205,39 +3144,39 @@ public final class Device {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:deviceapi.CheckUpdateResponse)
+      // @@protoc_insertion_point(builder_scope:deviceapi.CheckUpdateRes)
     }
 
-    // @@protoc_insertion_point(class_scope:deviceapi.CheckUpdateResponse)
-    private static final deviceapi.Device.CheckUpdateResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:deviceapi.CheckUpdateRes)
+    private static final deviceapi.Device.CheckUpdateRes DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new deviceapi.Device.CheckUpdateResponse();
+      DEFAULT_INSTANCE = new deviceapi.Device.CheckUpdateRes();
     }
 
-    public static deviceapi.Device.CheckUpdateResponse getDefaultInstance() {
+    public static deviceapi.Device.CheckUpdateRes getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<CheckUpdateResponse>
-        PARSER = new com.google.protobuf.AbstractParser<CheckUpdateResponse>() {
-      public CheckUpdateResponse parsePartialFrom(
+    private static final com.google.protobuf.Parser<CheckUpdateRes>
+        PARSER = new com.google.protobuf.AbstractParser<CheckUpdateRes>() {
+      public CheckUpdateRes parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new CheckUpdateResponse(input, extensionRegistry);
+          return new CheckUpdateRes(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<CheckUpdateResponse> parser() {
+    public static com.google.protobuf.Parser<CheckUpdateRes> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<CheckUpdateResponse> getParserForType() {
+    public com.google.protobuf.Parser<CheckUpdateRes> getParserForType() {
       return PARSER;
     }
 
-    public deviceapi.Device.CheckUpdateResponse getDefaultInstanceForType() {
+    public deviceapi.Device.CheckUpdateRes getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -14431,33 +4370,33 @@ public final class Device {
 
   }
 
-  public interface SdkInfoResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.SdkInfoResponse)
+  public interface BindCheckReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.BindCheckReq)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string sdk_version = 1;</code>
+     * <code>optional string file_path = 1;</code>
      */
-    java.lang.String getSdkVersion();
+    java.lang.String getFilePath();
     /**
-     * <code>optional string sdk_version = 1;</code>
+     * <code>optional string file_path = 1;</code>
      */
     com.google.protobuf.ByteString
-        getSdkVersionBytes();
+        getFilePathBytes();
   }
   /**
-   * Protobuf type {@code deviceapi.SdkInfoResponse}
+   * Protobuf type {@code deviceapi.BindCheckReq}
    */
-  public  static final class SdkInfoResponse extends
+  public  static final class BindCheckReq extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.SdkInfoResponse)
-      SdkInfoResponseOrBuilder {
-    // Use SdkInfoResponse.newBuilder() to construct.
-    private SdkInfoResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:deviceapi.BindCheckReq)
+      BindCheckReqOrBuilder {
+    // Use BindCheckReq.newBuilder() to construct.
+    private BindCheckReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private SdkInfoResponse() {
-      sdkVersion_ = "";
+    private BindCheckReq() {
+      filePath_ = "";
     }
 
     @java.lang.Override
@@ -14465,7 +4404,7 @@ public final class Device {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private SdkInfoResponse(
+    private BindCheckReq(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -14488,7 +4427,7 @@ public final class Device {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              sdkVersion_ = s;
+              filePath_ = s;
               break;
             }
           }
@@ -14504,44 +4443,44 @@ public final class Device {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_SdkInfoResponse_descriptor;
+      return deviceapi.Device.internal_static_deviceapi_BindCheckReq_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_SdkInfoResponse_fieldAccessorTable
+      return deviceapi.Device.internal_static_deviceapi_BindCheckReq_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              deviceapi.Device.SdkInfoResponse.class, deviceapi.Device.SdkInfoResponse.Builder.class);
+              deviceapi.Device.BindCheckReq.class, deviceapi.Device.BindCheckReq.Builder.class);
     }
 
-    public static final int SDK_VERSION_FIELD_NUMBER = 1;
-    private volatile java.lang.Object sdkVersion_;
+    public static final int FILE_PATH_FIELD_NUMBER = 1;
+    private volatile java.lang.Object filePath_;
     /**
-     * <code>optional string sdk_version = 1;</code>
+     * <code>optional string file_path = 1;</code>
      */
-    public java.lang.String getSdkVersion() {
-      java.lang.Object ref = sdkVersion_;
+    public java.lang.String getFilePath() {
+      java.lang.Object ref = filePath_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        sdkVersion_ = s;
+        filePath_ = s;
         return s;
       }
     }
     /**
-     * <code>optional string sdk_version = 1;</code>
+     * <code>optional string file_path = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getSdkVersionBytes() {
-      java.lang.Object ref = sdkVersion_;
+        getFilePathBytes() {
+      java.lang.Object ref = filePath_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        sdkVersion_ = b;
+        filePath_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -14560,8 +4499,8 @@ public final class Device {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getSdkVersionBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, sdkVersion_);
+      if (!getFilePathBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, filePath_);
       }
     }
 
@@ -14570,8 +4509,8 @@ public final class Device {
       if (size != -1) return size;
 
       size = 0;
-      if (!getSdkVersionBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, sdkVersion_);
+      if (!getFilePathBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, filePath_);
       }
       memoizedSize = size;
       return size;
@@ -14583,14 +4522,14 @@ public final class Device {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof deviceapi.Device.SdkInfoResponse)) {
+      if (!(obj instanceof deviceapi.Device.BindCheckReq)) {
         return super.equals(obj);
       }
-      deviceapi.Device.SdkInfoResponse other = (deviceapi.Device.SdkInfoResponse) obj;
+      deviceapi.Device.BindCheckReq other = (deviceapi.Device.BindCheckReq) obj;
 
       boolean result = true;
-      result = result && getSdkVersion()
-          .equals(other.getSdkVersion());
+      result = result && getFilePath()
+          .equals(other.getFilePath());
       return result;
     }
 
@@ -14601,65 +4540,65 @@ public final class Device {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + SDK_VERSION_FIELD_NUMBER;
-      hash = (53 * hash) + getSdkVersion().hashCode();
+      hash = (37 * hash) + FILE_PATH_FIELD_NUMBER;
+      hash = (53 * hash) + getFilePath().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static deviceapi.Device.SdkInfoResponse parseFrom(
+    public static deviceapi.Device.BindCheckReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static deviceapi.Device.SdkInfoResponse parseFrom(
+    public static deviceapi.Device.BindCheckReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static deviceapi.Device.SdkInfoResponse parseFrom(byte[] data)
+    public static deviceapi.Device.BindCheckReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static deviceapi.Device.SdkInfoResponse parseFrom(
+    public static deviceapi.Device.BindCheckReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static deviceapi.Device.SdkInfoResponse parseFrom(java.io.InputStream input)
+    public static deviceapi.Device.BindCheckReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.SdkInfoResponse parseFrom(
+    public static deviceapi.Device.BindCheckReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static deviceapi.Device.SdkInfoResponse parseDelimitedFrom(java.io.InputStream input)
+    public static deviceapi.Device.BindCheckReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.SdkInfoResponse parseDelimitedFrom(
+    public static deviceapi.Device.BindCheckReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static deviceapi.Device.SdkInfoResponse parseFrom(
+    public static deviceapi.Device.BindCheckReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.SdkInfoResponse parseFrom(
+    public static deviceapi.Device.BindCheckReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -14671,7 +4610,7 @@ public final class Device {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(deviceapi.Device.SdkInfoResponse prototype) {
+    public static Builder newBuilder(deviceapi.Device.BindCheckReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -14686,25 +4625,25 @@ public final class Device {
       return builder;
     }
     /**
-     * Protobuf type {@code deviceapi.SdkInfoResponse}
+     * Protobuf type {@code deviceapi.BindCheckReq}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.SdkInfoResponse)
-        deviceapi.Device.SdkInfoResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:deviceapi.BindCheckReq)
+        deviceapi.Device.BindCheckReqOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_SdkInfoResponse_descriptor;
+        return deviceapi.Device.internal_static_deviceapi_BindCheckReq_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_SdkInfoResponse_fieldAccessorTable
+        return deviceapi.Device.internal_static_deviceapi_BindCheckReq_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                deviceapi.Device.SdkInfoResponse.class, deviceapi.Device.SdkInfoResponse.Builder.class);
+                deviceapi.Device.BindCheckReq.class, deviceapi.Device.BindCheckReq.Builder.class);
       }
 
-      // Construct using deviceapi.Device.SdkInfoResponse.newBuilder()
+      // Construct using deviceapi.Device.BindCheckReq.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -14721,31 +4660,31 @@ public final class Device {
       }
       public Builder clear() {
         super.clear();
-        sdkVersion_ = "";
+        filePath_ = "";
 
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_SdkInfoResponse_descriptor;
+        return deviceapi.Device.internal_static_deviceapi_BindCheckReq_descriptor;
       }
 
-      public deviceapi.Device.SdkInfoResponse getDefaultInstanceForType() {
-        return deviceapi.Device.SdkInfoResponse.getDefaultInstance();
+      public deviceapi.Device.BindCheckReq getDefaultInstanceForType() {
+        return deviceapi.Device.BindCheckReq.getDefaultInstance();
       }
 
-      public deviceapi.Device.SdkInfoResponse build() {
-        deviceapi.Device.SdkInfoResponse result = buildPartial();
+      public deviceapi.Device.BindCheckReq build() {
+        deviceapi.Device.BindCheckReq result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public deviceapi.Device.SdkInfoResponse buildPartial() {
-        deviceapi.Device.SdkInfoResponse result = new deviceapi.Device.SdkInfoResponse(this);
-        result.sdkVersion_ = sdkVersion_;
+      public deviceapi.Device.BindCheckReq buildPartial() {
+        deviceapi.Device.BindCheckReq result = new deviceapi.Device.BindCheckReq(this);
+        result.filePath_ = filePath_;
         onBuilt();
         return result;
       }
@@ -14777,18 +4716,18 @@ public final class Device {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.SdkInfoResponse) {
-          return mergeFrom((deviceapi.Device.SdkInfoResponse)other);
+        if (other instanceof deviceapi.Device.BindCheckReq) {
+          return mergeFrom((deviceapi.Device.BindCheckReq)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(deviceapi.Device.SdkInfoResponse other) {
-        if (other == deviceapi.Device.SdkInfoResponse.getDefaultInstance()) return this;
-        if (!other.getSdkVersion().isEmpty()) {
-          sdkVersion_ = other.sdkVersion_;
+      public Builder mergeFrom(deviceapi.Device.BindCheckReq other) {
+        if (other == deviceapi.Device.BindCheckReq.getDefaultInstance()) return this;
+        if (!other.getFilePath().isEmpty()) {
+          filePath_ = other.filePath_;
           onChanged();
         }
         onChanged();
@@ -14803,11 +4742,11 @@ public final class Device {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        deviceapi.Device.SdkInfoResponse parsedMessage = null;
+        deviceapi.Device.BindCheckReq parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.SdkInfoResponse) e.getUnfinishedMessage();
+          parsedMessage = (deviceapi.Device.BindCheckReq) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -14817,71 +4756,71 @@ public final class Device {
         return this;
       }
 
-      private java.lang.Object sdkVersion_ = "";
+      private java.lang.Object filePath_ = "";
       /**
-       * <code>optional string sdk_version = 1;</code>
+       * <code>optional string file_path = 1;</code>
        */
-      public java.lang.String getSdkVersion() {
-        java.lang.Object ref = sdkVersion_;
+      public java.lang.String getFilePath() {
+        java.lang.Object ref = filePath_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          sdkVersion_ = s;
+          filePath_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string sdk_version = 1;</code>
+       * <code>optional string file_path = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getSdkVersionBytes() {
-        java.lang.Object ref = sdkVersion_;
+          getFilePathBytes() {
+        java.lang.Object ref = filePath_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          sdkVersion_ = b;
+          filePath_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string sdk_version = 1;</code>
+       * <code>optional string file_path = 1;</code>
        */
-      public Builder setSdkVersion(
+      public Builder setFilePath(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        sdkVersion_ = value;
+        filePath_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string sdk_version = 1;</code>
+       * <code>optional string file_path = 1;</code>
        */
-      public Builder clearSdkVersion() {
+      public Builder clearFilePath() {
         
-        sdkVersion_ = getDefaultInstance().getSdkVersion();
+        filePath_ = getDefaultInstance().getFilePath();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string sdk_version = 1;</code>
+       * <code>optional string file_path = 1;</code>
        */
-      public Builder setSdkVersionBytes(
+      public Builder setFilePathBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        sdkVersion_ = value;
+        filePath_ = value;
         onChanged();
         return this;
       }
@@ -14896,46 +4835,4573 @@ public final class Device {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:deviceapi.SdkInfoResponse)
+      // @@protoc_insertion_point(builder_scope:deviceapi.BindCheckReq)
     }
 
-    // @@protoc_insertion_point(class_scope:deviceapi.SdkInfoResponse)
-    private static final deviceapi.Device.SdkInfoResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:deviceapi.BindCheckReq)
+    private static final deviceapi.Device.BindCheckReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new deviceapi.Device.SdkInfoResponse();
+      DEFAULT_INSTANCE = new deviceapi.Device.BindCheckReq();
     }
 
-    public static deviceapi.Device.SdkInfoResponse getDefaultInstance() {
+    public static deviceapi.Device.BindCheckReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<SdkInfoResponse>
-        PARSER = new com.google.protobuf.AbstractParser<SdkInfoResponse>() {
-      public SdkInfoResponse parsePartialFrom(
+    private static final com.google.protobuf.Parser<BindCheckReq>
+        PARSER = new com.google.protobuf.AbstractParser<BindCheckReq>() {
+      public BindCheckReq parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new SdkInfoResponse(input, extensionRegistry);
+          return new BindCheckReq(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<SdkInfoResponse> parser() {
+    public static com.google.protobuf.Parser<BindCheckReq> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<SdkInfoResponse> getParserForType() {
+    public com.google.protobuf.Parser<BindCheckReq> getParserForType() {
       return PARSER;
     }
 
-    public deviceapi.Device.SdkInfoResponse getDefaultInstanceForType() {
+    public deviceapi.Device.BindCheckReq getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface BleActionOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:deviceapi.BleAction)
+  public interface BindCheckResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.BindCheckRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string bind_status = 1;</code>
+     */
+    java.lang.String getBindStatus();
+    /**
+     * <code>optional string bind_status = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getBindStatusBytes();
+  }
+  /**
+   * Protobuf type {@code deviceapi.BindCheckRes}
+   */
+  public  static final class BindCheckRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.BindCheckRes)
+      BindCheckResOrBuilder {
+    // Use BindCheckRes.newBuilder() to construct.
+    private BindCheckRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BindCheckRes() {
+      bindStatus_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private BindCheckRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              bindStatus_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_BindCheckRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_BindCheckRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.BindCheckRes.class, deviceapi.Device.BindCheckRes.Builder.class);
+    }
+
+    public static final int BIND_STATUS_FIELD_NUMBER = 1;
+    private volatile java.lang.Object bindStatus_;
+    /**
+     * <code>optional string bind_status = 1;</code>
+     */
+    public java.lang.String getBindStatus() {
+      java.lang.Object ref = bindStatus_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        bindStatus_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string bind_status = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getBindStatusBytes() {
+      java.lang.Object ref = bindStatus_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        bindStatus_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getBindStatusBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, bindStatus_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getBindStatusBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, bindStatus_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.BindCheckRes)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.BindCheckRes other = (deviceapi.Device.BindCheckRes) obj;
+
+      boolean result = true;
+      result = result && getBindStatus()
+          .equals(other.getBindStatus());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + BIND_STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + getBindStatus().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.BindCheckRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.BindCheckRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.BindCheckRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.BindCheckRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.BindCheckRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.BindCheckRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.BindCheckRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.BindCheckRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.BindCheckRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.BindCheckRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.BindCheckRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code deviceapi.BindCheckRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.BindCheckRes)
+        deviceapi.Device.BindCheckResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_BindCheckRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_BindCheckRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.BindCheckRes.class, deviceapi.Device.BindCheckRes.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.BindCheckRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        bindStatus_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_BindCheckRes_descriptor;
+      }
+
+      public deviceapi.Device.BindCheckRes getDefaultInstanceForType() {
+        return deviceapi.Device.BindCheckRes.getDefaultInstance();
+      }
+
+      public deviceapi.Device.BindCheckRes build() {
+        deviceapi.Device.BindCheckRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.BindCheckRes buildPartial() {
+        deviceapi.Device.BindCheckRes result = new deviceapi.Device.BindCheckRes(this);
+        result.bindStatus_ = bindStatus_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.BindCheckRes) {
+          return mergeFrom((deviceapi.Device.BindCheckRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.BindCheckRes other) {
+        if (other == deviceapi.Device.BindCheckRes.getDefaultInstance()) return this;
+        if (!other.getBindStatus().isEmpty()) {
+          bindStatus_ = other.bindStatus_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.BindCheckRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.BindCheckRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object bindStatus_ = "";
+      /**
+       * <code>optional string bind_status = 1;</code>
+       */
+      public java.lang.String getBindStatus() {
+        java.lang.Object ref = bindStatus_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          bindStatus_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string bind_status = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getBindStatusBytes() {
+        java.lang.Object ref = bindStatus_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          bindStatus_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string bind_status = 1;</code>
+       */
+      public Builder setBindStatus(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        bindStatus_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string bind_status = 1;</code>
+       */
+      public Builder clearBindStatus() {
+        
+        bindStatus_ = getDefaultInstance().getBindStatus();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string bind_status = 1;</code>
+       */
+      public Builder setBindStatusBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        bindStatus_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.BindCheckRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.BindCheckRes)
+    private static final deviceapi.Device.BindCheckRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.BindCheckRes();
+    }
+
+    public static deviceapi.Device.BindCheckRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BindCheckRes>
+        PARSER = new com.google.protobuf.AbstractParser<BindCheckRes>() {
+      public BindCheckRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new BindCheckRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BindCheckRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BindCheckRes> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.BindCheckRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BindAcquireReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.BindAcquireReq)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string bind_code = 1;</code>
+     */
+    java.lang.String getBindCode();
+    /**
+     * <code>optional string bind_code = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getBindCodeBytes();
+  }
+  /**
+   * Protobuf type {@code deviceapi.BindAcquireReq}
+   */
+  public  static final class BindAcquireReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.BindAcquireReq)
+      BindAcquireReqOrBuilder {
+    // Use BindAcquireReq.newBuilder() to construct.
+    private BindAcquireReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BindAcquireReq() {
+      bindCode_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private BindAcquireReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              bindCode_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_BindAcquireReq_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_BindAcquireReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.BindAcquireReq.class, deviceapi.Device.BindAcquireReq.Builder.class);
+    }
+
+    public static final int BIND_CODE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object bindCode_;
+    /**
+     * <code>optional string bind_code = 1;</code>
+     */
+    public java.lang.String getBindCode() {
+      java.lang.Object ref = bindCode_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        bindCode_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string bind_code = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getBindCodeBytes() {
+      java.lang.Object ref = bindCode_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        bindCode_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getBindCodeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, bindCode_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getBindCodeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, bindCode_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.BindAcquireReq)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.BindAcquireReq other = (deviceapi.Device.BindAcquireReq) obj;
+
+      boolean result = true;
+      result = result && getBindCode()
+          .equals(other.getBindCode());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + BIND_CODE_FIELD_NUMBER;
+      hash = (53 * hash) + getBindCode().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.BindAcquireReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.BindAcquireReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.BindAcquireReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.BindAcquireReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.BindAcquireReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.BindAcquireReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.BindAcquireReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.BindAcquireReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.BindAcquireReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.BindAcquireReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.BindAcquireReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code deviceapi.BindAcquireReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.BindAcquireReq)
+        deviceapi.Device.BindAcquireReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_BindAcquireReq_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_BindAcquireReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.BindAcquireReq.class, deviceapi.Device.BindAcquireReq.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.BindAcquireReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        bindCode_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_BindAcquireReq_descriptor;
+      }
+
+      public deviceapi.Device.BindAcquireReq getDefaultInstanceForType() {
+        return deviceapi.Device.BindAcquireReq.getDefaultInstance();
+      }
+
+      public deviceapi.Device.BindAcquireReq build() {
+        deviceapi.Device.BindAcquireReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.BindAcquireReq buildPartial() {
+        deviceapi.Device.BindAcquireReq result = new deviceapi.Device.BindAcquireReq(this);
+        result.bindCode_ = bindCode_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.BindAcquireReq) {
+          return mergeFrom((deviceapi.Device.BindAcquireReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.BindAcquireReq other) {
+        if (other == deviceapi.Device.BindAcquireReq.getDefaultInstance()) return this;
+        if (!other.getBindCode().isEmpty()) {
+          bindCode_ = other.bindCode_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.BindAcquireReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.BindAcquireReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object bindCode_ = "";
+      /**
+       * <code>optional string bind_code = 1;</code>
+       */
+      public java.lang.String getBindCode() {
+        java.lang.Object ref = bindCode_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          bindCode_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string bind_code = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getBindCodeBytes() {
+        java.lang.Object ref = bindCode_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          bindCode_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string bind_code = 1;</code>
+       */
+      public Builder setBindCode(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        bindCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string bind_code = 1;</code>
+       */
+      public Builder clearBindCode() {
+        
+        bindCode_ = getDefaultInstance().getBindCode();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string bind_code = 1;</code>
+       */
+      public Builder setBindCodeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        bindCode_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.BindAcquireReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.BindAcquireReq)
+    private static final deviceapi.Device.BindAcquireReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.BindAcquireReq();
+    }
+
+    public static deviceapi.Device.BindAcquireReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BindAcquireReq>
+        PARSER = new com.google.protobuf.AbstractParser<BindAcquireReq>() {
+      public BindAcquireReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new BindAcquireReq(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BindAcquireReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BindAcquireReq> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.BindAcquireReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BindAcquireResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.BindAcquireRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string bind_result = 1;</code>
+     */
+    java.lang.String getBindResult();
+    /**
+     * <code>optional string bind_result = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getBindResultBytes();
+  }
+  /**
+   * Protobuf type {@code deviceapi.BindAcquireRes}
+   */
+  public  static final class BindAcquireRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.BindAcquireRes)
+      BindAcquireResOrBuilder {
+    // Use BindAcquireRes.newBuilder() to construct.
+    private BindAcquireRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BindAcquireRes() {
+      bindResult_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private BindAcquireRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              bindResult_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_BindAcquireRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_BindAcquireRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.BindAcquireRes.class, deviceapi.Device.BindAcquireRes.Builder.class);
+    }
+
+    public static final int BIND_RESULT_FIELD_NUMBER = 1;
+    private volatile java.lang.Object bindResult_;
+    /**
+     * <code>optional string bind_result = 1;</code>
+     */
+    public java.lang.String getBindResult() {
+      java.lang.Object ref = bindResult_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        bindResult_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string bind_result = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getBindResultBytes() {
+      java.lang.Object ref = bindResult_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        bindResult_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getBindResultBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, bindResult_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getBindResultBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, bindResult_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.BindAcquireRes)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.BindAcquireRes other = (deviceapi.Device.BindAcquireRes) obj;
+
+      boolean result = true;
+      result = result && getBindResult()
+          .equals(other.getBindResult());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + BIND_RESULT_FIELD_NUMBER;
+      hash = (53 * hash) + getBindResult().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.BindAcquireRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.BindAcquireRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.BindAcquireRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.BindAcquireRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.BindAcquireRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.BindAcquireRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.BindAcquireRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.BindAcquireRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.BindAcquireRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.BindAcquireRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.BindAcquireRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code deviceapi.BindAcquireRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.BindAcquireRes)
+        deviceapi.Device.BindAcquireResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_BindAcquireRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_BindAcquireRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.BindAcquireRes.class, deviceapi.Device.BindAcquireRes.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.BindAcquireRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        bindResult_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_BindAcquireRes_descriptor;
+      }
+
+      public deviceapi.Device.BindAcquireRes getDefaultInstanceForType() {
+        return deviceapi.Device.BindAcquireRes.getDefaultInstance();
+      }
+
+      public deviceapi.Device.BindAcquireRes build() {
+        deviceapi.Device.BindAcquireRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.BindAcquireRes buildPartial() {
+        deviceapi.Device.BindAcquireRes result = new deviceapi.Device.BindAcquireRes(this);
+        result.bindResult_ = bindResult_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.BindAcquireRes) {
+          return mergeFrom((deviceapi.Device.BindAcquireRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.BindAcquireRes other) {
+        if (other == deviceapi.Device.BindAcquireRes.getDefaultInstance()) return this;
+        if (!other.getBindResult().isEmpty()) {
+          bindResult_ = other.bindResult_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.BindAcquireRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.BindAcquireRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object bindResult_ = "";
+      /**
+       * <code>optional string bind_result = 1;</code>
+       */
+      public java.lang.String getBindResult() {
+        java.lang.Object ref = bindResult_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          bindResult_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string bind_result = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getBindResultBytes() {
+        java.lang.Object ref = bindResult_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          bindResult_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string bind_result = 1;</code>
+       */
+      public Builder setBindResult(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        bindResult_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string bind_result = 1;</code>
+       */
+      public Builder clearBindResult() {
+        
+        bindResult_ = getDefaultInstance().getBindResult();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string bind_result = 1;</code>
+       */
+      public Builder setBindResultBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        bindResult_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.BindAcquireRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.BindAcquireRes)
+    private static final deviceapi.Device.BindAcquireRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.BindAcquireRes();
+    }
+
+    public static deviceapi.Device.BindAcquireRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BindAcquireRes>
+        PARSER = new com.google.protobuf.AbstractParser<BindAcquireRes>() {
+      public BindAcquireRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new BindAcquireRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BindAcquireRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BindAcquireRes> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.BindAcquireRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetSeidResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.GetSeidRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string seid = 1;</code>
+     */
+    java.lang.String getSeid();
+    /**
+     * <code>optional string seid = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getSeidBytes();
+  }
+  /**
+   * Protobuf type {@code deviceapi.GetSeidRes}
+   */
+  public  static final class GetSeidRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.GetSeidRes)
+      GetSeidResOrBuilder {
+    // Use GetSeidRes.newBuilder() to construct.
+    private GetSeidRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetSeidRes() {
+      seid_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private GetSeidRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              seid_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_GetSeidRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_GetSeidRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.GetSeidRes.class, deviceapi.Device.GetSeidRes.Builder.class);
+    }
+
+    public static final int SEID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object seid_;
+    /**
+     * <code>optional string seid = 1;</code>
+     */
+    public java.lang.String getSeid() {
+      java.lang.Object ref = seid_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        seid_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string seid = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSeidBytes() {
+      java.lang.Object ref = seid_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        seid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getSeidBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, seid_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getSeidBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, seid_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.GetSeidRes)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.GetSeidRes other = (deviceapi.Device.GetSeidRes) obj;
+
+      boolean result = true;
+      result = result && getSeid()
+          .equals(other.getSeid());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + SEID_FIELD_NUMBER;
+      hash = (53 * hash) + getSeid().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.GetSeidRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetSeidRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetSeidRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetSeidRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetSeidRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetSeidRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetSeidRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetSeidRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetSeidRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetSeidRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.GetSeidRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code deviceapi.GetSeidRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.GetSeidRes)
+        deviceapi.Device.GetSeidResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_GetSeidRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_GetSeidRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.GetSeidRes.class, deviceapi.Device.GetSeidRes.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.GetSeidRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        seid_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_GetSeidRes_descriptor;
+      }
+
+      public deviceapi.Device.GetSeidRes getDefaultInstanceForType() {
+        return deviceapi.Device.GetSeidRes.getDefaultInstance();
+      }
+
+      public deviceapi.Device.GetSeidRes build() {
+        deviceapi.Device.GetSeidRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.GetSeidRes buildPartial() {
+        deviceapi.Device.GetSeidRes result = new deviceapi.Device.GetSeidRes(this);
+        result.seid_ = seid_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.GetSeidRes) {
+          return mergeFrom((deviceapi.Device.GetSeidRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.GetSeidRes other) {
+        if (other == deviceapi.Device.GetSeidRes.getDefaultInstance()) return this;
+        if (!other.getSeid().isEmpty()) {
+          seid_ = other.seid_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.GetSeidRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.GetSeidRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object seid_ = "";
+      /**
+       * <code>optional string seid = 1;</code>
+       */
+      public java.lang.String getSeid() {
+        java.lang.Object ref = seid_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          seid_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string seid = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSeidBytes() {
+        java.lang.Object ref = seid_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          seid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string seid = 1;</code>
+       */
+      public Builder setSeid(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        seid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string seid = 1;</code>
+       */
+      public Builder clearSeid() {
+        
+        seid_ = getDefaultInstance().getSeid();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string seid = 1;</code>
+       */
+      public Builder setSeidBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        seid_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.GetSeidRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.GetSeidRes)
+    private static final deviceapi.Device.GetSeidRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.GetSeidRes();
+    }
+
+    public static deviceapi.Device.GetSeidRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetSeidRes>
+        PARSER = new com.google.protobuf.AbstractParser<GetSeidRes>() {
+      public GetSeidRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new GetSeidRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetSeidRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetSeidRes> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.GetSeidRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetSnResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.GetSnRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string sn = 1;</code>
+     */
+    java.lang.String getSn();
+    /**
+     * <code>optional string sn = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getSnBytes();
+  }
+  /**
+   * Protobuf type {@code deviceapi.GetSnRes}
+   */
+  public  static final class GetSnRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.GetSnRes)
+      GetSnResOrBuilder {
+    // Use GetSnRes.newBuilder() to construct.
+    private GetSnRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetSnRes() {
+      sn_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private GetSnRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              sn_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_GetSnRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_GetSnRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.GetSnRes.class, deviceapi.Device.GetSnRes.Builder.class);
+    }
+
+    public static final int SN_FIELD_NUMBER = 1;
+    private volatile java.lang.Object sn_;
+    /**
+     * <code>optional string sn = 1;</code>
+     */
+    public java.lang.String getSn() {
+      java.lang.Object ref = sn_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sn_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string sn = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSnBytes() {
+      java.lang.Object ref = sn_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sn_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getSnBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, sn_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getSnBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, sn_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.GetSnRes)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.GetSnRes other = (deviceapi.Device.GetSnRes) obj;
+
+      boolean result = true;
+      result = result && getSn()
+          .equals(other.getSn());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + SN_FIELD_NUMBER;
+      hash = (53 * hash) + getSn().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.GetSnRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetSnRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetSnRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetSnRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetSnRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetSnRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetSnRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetSnRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetSnRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetSnRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.GetSnRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code deviceapi.GetSnRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.GetSnRes)
+        deviceapi.Device.GetSnResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_GetSnRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_GetSnRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.GetSnRes.class, deviceapi.Device.GetSnRes.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.GetSnRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        sn_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_GetSnRes_descriptor;
+      }
+
+      public deviceapi.Device.GetSnRes getDefaultInstanceForType() {
+        return deviceapi.Device.GetSnRes.getDefaultInstance();
+      }
+
+      public deviceapi.Device.GetSnRes build() {
+        deviceapi.Device.GetSnRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.GetSnRes buildPartial() {
+        deviceapi.Device.GetSnRes result = new deviceapi.Device.GetSnRes(this);
+        result.sn_ = sn_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.GetSnRes) {
+          return mergeFrom((deviceapi.Device.GetSnRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.GetSnRes other) {
+        if (other == deviceapi.Device.GetSnRes.getDefaultInstance()) return this;
+        if (!other.getSn().isEmpty()) {
+          sn_ = other.sn_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.GetSnRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.GetSnRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object sn_ = "";
+      /**
+       * <code>optional string sn = 1;</code>
+       */
+      public java.lang.String getSn() {
+        java.lang.Object ref = sn_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          sn_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string sn = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSnBytes() {
+        java.lang.Object ref = sn_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sn_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string sn = 1;</code>
+       */
+      public Builder setSn(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        sn_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string sn = 1;</code>
+       */
+      public Builder clearSn() {
+        
+        sn_ = getDefaultInstance().getSn();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string sn = 1;</code>
+       */
+      public Builder setSnBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        sn_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.GetSnRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.GetSnRes)
+    private static final deviceapi.Device.GetSnRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.GetSnRes();
+    }
+
+    public static deviceapi.Device.GetSnRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetSnRes>
+        PARSER = new com.google.protobuf.AbstractParser<GetSnRes>() {
+      public GetSnRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new GetSnRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetSnRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetSnRes> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.GetSnRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetRamSizeResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.GetRamSizeRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string ram_size = 1;</code>
+     */
+    java.lang.String getRamSize();
+    /**
+     * <code>optional string ram_size = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getRamSizeBytes();
+  }
+  /**
+   * Protobuf type {@code deviceapi.GetRamSizeRes}
+   */
+  public  static final class GetRamSizeRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.GetRamSizeRes)
+      GetRamSizeResOrBuilder {
+    // Use GetRamSizeRes.newBuilder() to construct.
+    private GetRamSizeRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetRamSizeRes() {
+      ramSize_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private GetRamSizeRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              ramSize_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_GetRamSizeRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_GetRamSizeRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.GetRamSizeRes.class, deviceapi.Device.GetRamSizeRes.Builder.class);
+    }
+
+    public static final int RAM_SIZE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object ramSize_;
+    /**
+     * <code>optional string ram_size = 1;</code>
+     */
+    public java.lang.String getRamSize() {
+      java.lang.Object ref = ramSize_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ramSize_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string ram_size = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRamSizeBytes() {
+      java.lang.Object ref = ramSize_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ramSize_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getRamSizeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ramSize_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getRamSizeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ramSize_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.GetRamSizeRes)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.GetRamSizeRes other = (deviceapi.Device.GetRamSizeRes) obj;
+
+      boolean result = true;
+      result = result && getRamSize()
+          .equals(other.getRamSize());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + RAM_SIZE_FIELD_NUMBER;
+      hash = (53 * hash) + getRamSize().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.GetRamSizeRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetRamSizeRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetRamSizeRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetRamSizeRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetRamSizeRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetRamSizeRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetRamSizeRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetRamSizeRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetRamSizeRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetRamSizeRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.GetRamSizeRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code deviceapi.GetRamSizeRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.GetRamSizeRes)
+        deviceapi.Device.GetRamSizeResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_GetRamSizeRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_GetRamSizeRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.GetRamSizeRes.class, deviceapi.Device.GetRamSizeRes.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.GetRamSizeRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        ramSize_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_GetRamSizeRes_descriptor;
+      }
+
+      public deviceapi.Device.GetRamSizeRes getDefaultInstanceForType() {
+        return deviceapi.Device.GetRamSizeRes.getDefaultInstance();
+      }
+
+      public deviceapi.Device.GetRamSizeRes build() {
+        deviceapi.Device.GetRamSizeRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.GetRamSizeRes buildPartial() {
+        deviceapi.Device.GetRamSizeRes result = new deviceapi.Device.GetRamSizeRes(this);
+        result.ramSize_ = ramSize_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.GetRamSizeRes) {
+          return mergeFrom((deviceapi.Device.GetRamSizeRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.GetRamSizeRes other) {
+        if (other == deviceapi.Device.GetRamSizeRes.getDefaultInstance()) return this;
+        if (!other.getRamSize().isEmpty()) {
+          ramSize_ = other.ramSize_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.GetRamSizeRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.GetRamSizeRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object ramSize_ = "";
+      /**
+       * <code>optional string ram_size = 1;</code>
+       */
+      public java.lang.String getRamSize() {
+        java.lang.Object ref = ramSize_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ramSize_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string ram_size = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getRamSizeBytes() {
+        java.lang.Object ref = ramSize_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ramSize_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string ram_size = 1;</code>
+       */
+      public Builder setRamSize(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        ramSize_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string ram_size = 1;</code>
+       */
+      public Builder clearRamSize() {
+        
+        ramSize_ = getDefaultInstance().getRamSize();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string ram_size = 1;</code>
+       */
+      public Builder setRamSizeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        ramSize_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.GetRamSizeRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.GetRamSizeRes)
+    private static final deviceapi.Device.GetRamSizeRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.GetRamSizeRes();
+    }
+
+    public static deviceapi.Device.GetRamSizeRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetRamSizeRes>
+        PARSER = new com.google.protobuf.AbstractParser<GetRamSizeRes>() {
+      public GetRamSizeRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new GetRamSizeRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetRamSizeRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetRamSizeRes> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.GetRamSizeRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetFirmwareVersionResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.GetFirmwareVersionRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string firmware_version = 1;</code>
+     */
+    java.lang.String getFirmwareVersion();
+    /**
+     * <code>optional string firmware_version = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getFirmwareVersionBytes();
+  }
+  /**
+   * Protobuf type {@code deviceapi.GetFirmwareVersionRes}
+   */
+  public  static final class GetFirmwareVersionRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.GetFirmwareVersionRes)
+      GetFirmwareVersionResOrBuilder {
+    // Use GetFirmwareVersionRes.newBuilder() to construct.
+    private GetFirmwareVersionRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetFirmwareVersionRes() {
+      firmwareVersion_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private GetFirmwareVersionRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              firmwareVersion_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_GetFirmwareVersionRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_GetFirmwareVersionRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.GetFirmwareVersionRes.class, deviceapi.Device.GetFirmwareVersionRes.Builder.class);
+    }
+
+    public static final int FIRMWARE_VERSION_FIELD_NUMBER = 1;
+    private volatile java.lang.Object firmwareVersion_;
+    /**
+     * <code>optional string firmware_version = 1;</code>
+     */
+    public java.lang.String getFirmwareVersion() {
+      java.lang.Object ref = firmwareVersion_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        firmwareVersion_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string firmware_version = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFirmwareVersionBytes() {
+      java.lang.Object ref = firmwareVersion_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        firmwareVersion_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getFirmwareVersionBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, firmwareVersion_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getFirmwareVersionBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, firmwareVersion_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.GetFirmwareVersionRes)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.GetFirmwareVersionRes other = (deviceapi.Device.GetFirmwareVersionRes) obj;
+
+      boolean result = true;
+      result = result && getFirmwareVersion()
+          .equals(other.getFirmwareVersion());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + FIRMWARE_VERSION_FIELD_NUMBER;
+      hash = (53 * hash) + getFirmwareVersion().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.GetFirmwareVersionRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetFirmwareVersionRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetFirmwareVersionRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetFirmwareVersionRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetFirmwareVersionRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetFirmwareVersionRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetFirmwareVersionRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetFirmwareVersionRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetFirmwareVersionRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetFirmwareVersionRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.GetFirmwareVersionRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code deviceapi.GetFirmwareVersionRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.GetFirmwareVersionRes)
+        deviceapi.Device.GetFirmwareVersionResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_GetFirmwareVersionRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_GetFirmwareVersionRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.GetFirmwareVersionRes.class, deviceapi.Device.GetFirmwareVersionRes.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.GetFirmwareVersionRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        firmwareVersion_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_GetFirmwareVersionRes_descriptor;
+      }
+
+      public deviceapi.Device.GetFirmwareVersionRes getDefaultInstanceForType() {
+        return deviceapi.Device.GetFirmwareVersionRes.getDefaultInstance();
+      }
+
+      public deviceapi.Device.GetFirmwareVersionRes build() {
+        deviceapi.Device.GetFirmwareVersionRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.GetFirmwareVersionRes buildPartial() {
+        deviceapi.Device.GetFirmwareVersionRes result = new deviceapi.Device.GetFirmwareVersionRes(this);
+        result.firmwareVersion_ = firmwareVersion_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.GetFirmwareVersionRes) {
+          return mergeFrom((deviceapi.Device.GetFirmwareVersionRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.GetFirmwareVersionRes other) {
+        if (other == deviceapi.Device.GetFirmwareVersionRes.getDefaultInstance()) return this;
+        if (!other.getFirmwareVersion().isEmpty()) {
+          firmwareVersion_ = other.firmwareVersion_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.GetFirmwareVersionRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.GetFirmwareVersionRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object firmwareVersion_ = "";
+      /**
+       * <code>optional string firmware_version = 1;</code>
+       */
+      public java.lang.String getFirmwareVersion() {
+        java.lang.Object ref = firmwareVersion_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          firmwareVersion_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string firmware_version = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getFirmwareVersionBytes() {
+        java.lang.Object ref = firmwareVersion_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          firmwareVersion_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string firmware_version = 1;</code>
+       */
+      public Builder setFirmwareVersion(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        firmwareVersion_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string firmware_version = 1;</code>
+       */
+      public Builder clearFirmwareVersion() {
+        
+        firmwareVersion_ = getDefaultInstance().getFirmwareVersion();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string firmware_version = 1;</code>
+       */
+      public Builder setFirmwareVersionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        firmwareVersion_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.GetFirmwareVersionRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.GetFirmwareVersionRes)
+    private static final deviceapi.Device.GetFirmwareVersionRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.GetFirmwareVersionRes();
+    }
+
+    public static deviceapi.Device.GetFirmwareVersionRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetFirmwareVersionRes>
+        PARSER = new com.google.protobuf.AbstractParser<GetFirmwareVersionRes>() {
+      public GetFirmwareVersionRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new GetFirmwareVersionRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetFirmwareVersionRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetFirmwareVersionRes> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.GetFirmwareVersionRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetBatteryPowerResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.GetBatteryPowerRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string battery_power = 1;</code>
+     */
+    java.lang.String getBatteryPower();
+    /**
+     * <code>optional string battery_power = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getBatteryPowerBytes();
+  }
+  /**
+   * Protobuf type {@code deviceapi.GetBatteryPowerRes}
+   */
+  public  static final class GetBatteryPowerRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.GetBatteryPowerRes)
+      GetBatteryPowerResOrBuilder {
+    // Use GetBatteryPowerRes.newBuilder() to construct.
+    private GetBatteryPowerRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetBatteryPowerRes() {
+      batteryPower_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private GetBatteryPowerRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              batteryPower_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_GetBatteryPowerRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_GetBatteryPowerRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.GetBatteryPowerRes.class, deviceapi.Device.GetBatteryPowerRes.Builder.class);
+    }
+
+    public static final int BATTERY_POWER_FIELD_NUMBER = 1;
+    private volatile java.lang.Object batteryPower_;
+    /**
+     * <code>optional string battery_power = 1;</code>
+     */
+    public java.lang.String getBatteryPower() {
+      java.lang.Object ref = batteryPower_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        batteryPower_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string battery_power = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getBatteryPowerBytes() {
+      java.lang.Object ref = batteryPower_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        batteryPower_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getBatteryPowerBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, batteryPower_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getBatteryPowerBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, batteryPower_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.GetBatteryPowerRes)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.GetBatteryPowerRes other = (deviceapi.Device.GetBatteryPowerRes) obj;
+
+      boolean result = true;
+      result = result && getBatteryPower()
+          .equals(other.getBatteryPower());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + BATTERY_POWER_FIELD_NUMBER;
+      hash = (53 * hash) + getBatteryPower().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.GetBatteryPowerRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetBatteryPowerRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetBatteryPowerRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetBatteryPowerRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetBatteryPowerRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetBatteryPowerRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetBatteryPowerRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetBatteryPowerRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetBatteryPowerRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetBatteryPowerRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.GetBatteryPowerRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code deviceapi.GetBatteryPowerRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.GetBatteryPowerRes)
+        deviceapi.Device.GetBatteryPowerResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_GetBatteryPowerRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_GetBatteryPowerRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.GetBatteryPowerRes.class, deviceapi.Device.GetBatteryPowerRes.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.GetBatteryPowerRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        batteryPower_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_GetBatteryPowerRes_descriptor;
+      }
+
+      public deviceapi.Device.GetBatteryPowerRes getDefaultInstanceForType() {
+        return deviceapi.Device.GetBatteryPowerRes.getDefaultInstance();
+      }
+
+      public deviceapi.Device.GetBatteryPowerRes build() {
+        deviceapi.Device.GetBatteryPowerRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.GetBatteryPowerRes buildPartial() {
+        deviceapi.Device.GetBatteryPowerRes result = new deviceapi.Device.GetBatteryPowerRes(this);
+        result.batteryPower_ = batteryPower_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.GetBatteryPowerRes) {
+          return mergeFrom((deviceapi.Device.GetBatteryPowerRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.GetBatteryPowerRes other) {
+        if (other == deviceapi.Device.GetBatteryPowerRes.getDefaultInstance()) return this;
+        if (!other.getBatteryPower().isEmpty()) {
+          batteryPower_ = other.batteryPower_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.GetBatteryPowerRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.GetBatteryPowerRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object batteryPower_ = "";
+      /**
+       * <code>optional string battery_power = 1;</code>
+       */
+      public java.lang.String getBatteryPower() {
+        java.lang.Object ref = batteryPower_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          batteryPower_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string battery_power = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getBatteryPowerBytes() {
+        java.lang.Object ref = batteryPower_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          batteryPower_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string battery_power = 1;</code>
+       */
+      public Builder setBatteryPower(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        batteryPower_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string battery_power = 1;</code>
+       */
+      public Builder clearBatteryPower() {
+        
+        batteryPower_ = getDefaultInstance().getBatteryPower();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string battery_power = 1;</code>
+       */
+      public Builder setBatteryPowerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        batteryPower_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.GetBatteryPowerRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.GetBatteryPowerRes)
+    private static final deviceapi.Device.GetBatteryPowerRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.GetBatteryPowerRes();
+    }
+
+    public static deviceapi.Device.GetBatteryPowerRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetBatteryPowerRes>
+        PARSER = new com.google.protobuf.AbstractParser<GetBatteryPowerRes>() {
+      public GetBatteryPowerRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new GetBatteryPowerRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetBatteryPowerRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetBatteryPowerRes> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.GetBatteryPowerRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetLifeTimeResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.GetLifeTimeRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string life_time = 1;</code>
+     */
+    java.lang.String getLifeTime();
+    /**
+     * <code>optional string life_time = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getLifeTimeBytes();
+  }
+  /**
+   * Protobuf type {@code deviceapi.GetLifeTimeRes}
+   */
+  public  static final class GetLifeTimeRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.GetLifeTimeRes)
+      GetLifeTimeResOrBuilder {
+    // Use GetLifeTimeRes.newBuilder() to construct.
+    private GetLifeTimeRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetLifeTimeRes() {
+      lifeTime_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private GetLifeTimeRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              lifeTime_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_GetLifeTimeRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_GetLifeTimeRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.GetLifeTimeRes.class, deviceapi.Device.GetLifeTimeRes.Builder.class);
+    }
+
+    public static final int LIFE_TIME_FIELD_NUMBER = 1;
+    private volatile java.lang.Object lifeTime_;
+    /**
+     * <code>optional string life_time = 1;</code>
+     */
+    public java.lang.String getLifeTime() {
+      java.lang.Object ref = lifeTime_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        lifeTime_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string life_time = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLifeTimeBytes() {
+      java.lang.Object ref = lifeTime_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        lifeTime_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getLifeTimeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, lifeTime_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getLifeTimeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, lifeTime_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.GetLifeTimeRes)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.GetLifeTimeRes other = (deviceapi.Device.GetLifeTimeRes) obj;
+
+      boolean result = true;
+      result = result && getLifeTime()
+          .equals(other.getLifeTime());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + LIFE_TIME_FIELD_NUMBER;
+      hash = (53 * hash) + getLifeTime().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.GetLifeTimeRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetLifeTimeRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetLifeTimeRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetLifeTimeRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetLifeTimeRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetLifeTimeRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetLifeTimeRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetLifeTimeRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetLifeTimeRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetLifeTimeRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.GetLifeTimeRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code deviceapi.GetLifeTimeRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.GetLifeTimeRes)
+        deviceapi.Device.GetLifeTimeResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_GetLifeTimeRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_GetLifeTimeRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.GetLifeTimeRes.class, deviceapi.Device.GetLifeTimeRes.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.GetLifeTimeRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        lifeTime_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_GetLifeTimeRes_descriptor;
+      }
+
+      public deviceapi.Device.GetLifeTimeRes getDefaultInstanceForType() {
+        return deviceapi.Device.GetLifeTimeRes.getDefaultInstance();
+      }
+
+      public deviceapi.Device.GetLifeTimeRes build() {
+        deviceapi.Device.GetLifeTimeRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.GetLifeTimeRes buildPartial() {
+        deviceapi.Device.GetLifeTimeRes result = new deviceapi.Device.GetLifeTimeRes(this);
+        result.lifeTime_ = lifeTime_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.GetLifeTimeRes) {
+          return mergeFrom((deviceapi.Device.GetLifeTimeRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.GetLifeTimeRes other) {
+        if (other == deviceapi.Device.GetLifeTimeRes.getDefaultInstance()) return this;
+        if (!other.getLifeTime().isEmpty()) {
+          lifeTime_ = other.lifeTime_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.GetLifeTimeRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.GetLifeTimeRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object lifeTime_ = "";
+      /**
+       * <code>optional string life_time = 1;</code>
+       */
+      public java.lang.String getLifeTime() {
+        java.lang.Object ref = lifeTime_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          lifeTime_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string life_time = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getLifeTimeBytes() {
+        java.lang.Object ref = lifeTime_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          lifeTime_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string life_time = 1;</code>
+       */
+      public Builder setLifeTime(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        lifeTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string life_time = 1;</code>
+       */
+      public Builder clearLifeTime() {
+        
+        lifeTime_ = getDefaultInstance().getLifeTime();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string life_time = 1;</code>
+       */
+      public Builder setLifeTimeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        lifeTime_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.GetLifeTimeRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.GetLifeTimeRes)
+    private static final deviceapi.Device.GetLifeTimeRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.GetLifeTimeRes();
+    }
+
+    public static deviceapi.Device.GetLifeTimeRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetLifeTimeRes>
+        PARSER = new com.google.protobuf.AbstractParser<GetLifeTimeRes>() {
+      public GetLifeTimeRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new GetLifeTimeRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetLifeTimeRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetLifeTimeRes> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.GetLifeTimeRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetBleNameResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.GetBleNameRes)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -14949,17 +9415,17 @@ public final class Device {
         getBleNameBytes();
   }
   /**
-   * Protobuf type {@code deviceapi.BleAction}
+   * Protobuf type {@code deviceapi.GetBleNameRes}
    */
-  public  static final class BleAction extends
+  public  static final class GetBleNameRes extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:deviceapi.BleAction)
-      BleActionOrBuilder {
-    // Use BleAction.newBuilder() to construct.
-    private BleAction(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:deviceapi.GetBleNameRes)
+      GetBleNameResOrBuilder {
+    // Use GetBleNameRes.newBuilder() to construct.
+    private GetBleNameRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private BleAction() {
+    private GetBleNameRes() {
       bleName_ = "";
     }
 
@@ -14968,7 +9434,7 @@ public final class Device {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private BleAction(
+    private GetBleNameRes(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -15007,14 +9473,14 @@ public final class Device {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return deviceapi.Device.internal_static_deviceapi_BleAction_descriptor;
+      return deviceapi.Device.internal_static_deviceapi_GetBleNameRes_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return deviceapi.Device.internal_static_deviceapi_BleAction_fieldAccessorTable
+      return deviceapi.Device.internal_static_deviceapi_GetBleNameRes_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              deviceapi.Device.BleAction.class, deviceapi.Device.BleAction.Builder.class);
+              deviceapi.Device.GetBleNameRes.class, deviceapi.Device.GetBleNameRes.Builder.class);
     }
 
     public static final int BLE_NAME_FIELD_NUMBER = 1;
@@ -15086,10 +9552,10 @@ public final class Device {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof deviceapi.Device.BleAction)) {
+      if (!(obj instanceof deviceapi.Device.GetBleNameRes)) {
         return super.equals(obj);
       }
-      deviceapi.Device.BleAction other = (deviceapi.Device.BleAction) obj;
+      deviceapi.Device.GetBleNameRes other = (deviceapi.Device.GetBleNameRes) obj;
 
       boolean result = true;
       result = result && getBleName()
@@ -15111,58 +9577,58 @@ public final class Device {
       return hash;
     }
 
-    public static deviceapi.Device.BleAction parseFrom(
+    public static deviceapi.Device.GetBleNameRes parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static deviceapi.Device.BleAction parseFrom(
+    public static deviceapi.Device.GetBleNameRes parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static deviceapi.Device.BleAction parseFrom(byte[] data)
+    public static deviceapi.Device.GetBleNameRes parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static deviceapi.Device.BleAction parseFrom(
+    public static deviceapi.Device.GetBleNameRes parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static deviceapi.Device.BleAction parseFrom(java.io.InputStream input)
+    public static deviceapi.Device.GetBleNameRes parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.BleAction parseFrom(
+    public static deviceapi.Device.GetBleNameRes parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static deviceapi.Device.BleAction parseDelimitedFrom(java.io.InputStream input)
+    public static deviceapi.Device.GetBleNameRes parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.BleAction parseDelimitedFrom(
+    public static deviceapi.Device.GetBleNameRes parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static deviceapi.Device.BleAction parseFrom(
+    public static deviceapi.Device.GetBleNameRes parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static deviceapi.Device.BleAction parseFrom(
+    public static deviceapi.Device.GetBleNameRes parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -15174,7 +9640,7 @@ public final class Device {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(deviceapi.Device.BleAction prototype) {
+    public static Builder newBuilder(deviceapi.Device.GetBleNameRes prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -15189,25 +9655,25 @@ public final class Device {
       return builder;
     }
     /**
-     * Protobuf type {@code deviceapi.BleAction}
+     * Protobuf type {@code deviceapi.GetBleNameRes}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:deviceapi.BleAction)
-        deviceapi.Device.BleActionOrBuilder {
+        // @@protoc_insertion_point(builder_implements:deviceapi.GetBleNameRes)
+        deviceapi.Device.GetBleNameResOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return deviceapi.Device.internal_static_deviceapi_BleAction_descriptor;
+        return deviceapi.Device.internal_static_deviceapi_GetBleNameRes_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return deviceapi.Device.internal_static_deviceapi_BleAction_fieldAccessorTable
+        return deviceapi.Device.internal_static_deviceapi_GetBleNameRes_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                deviceapi.Device.BleAction.class, deviceapi.Device.BleAction.Builder.class);
+                deviceapi.Device.GetBleNameRes.class, deviceapi.Device.GetBleNameRes.Builder.class);
       }
 
-      // Construct using deviceapi.Device.BleAction.newBuilder()
+      // Construct using deviceapi.Device.GetBleNameRes.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -15231,23 +9697,23 @@ public final class Device {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return deviceapi.Device.internal_static_deviceapi_BleAction_descriptor;
+        return deviceapi.Device.internal_static_deviceapi_GetBleNameRes_descriptor;
       }
 
-      public deviceapi.Device.BleAction getDefaultInstanceForType() {
-        return deviceapi.Device.BleAction.getDefaultInstance();
+      public deviceapi.Device.GetBleNameRes getDefaultInstanceForType() {
+        return deviceapi.Device.GetBleNameRes.getDefaultInstance();
       }
 
-      public deviceapi.Device.BleAction build() {
-        deviceapi.Device.BleAction result = buildPartial();
+      public deviceapi.Device.GetBleNameRes build() {
+        deviceapi.Device.GetBleNameRes result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public deviceapi.Device.BleAction buildPartial() {
-        deviceapi.Device.BleAction result = new deviceapi.Device.BleAction(this);
+      public deviceapi.Device.GetBleNameRes buildPartial() {
+        deviceapi.Device.GetBleNameRes result = new deviceapi.Device.GetBleNameRes(this);
         result.bleName_ = bleName_;
         onBuilt();
         return result;
@@ -15280,16 +9746,16 @@ public final class Device {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof deviceapi.Device.BleAction) {
-          return mergeFrom((deviceapi.Device.BleAction)other);
+        if (other instanceof deviceapi.Device.GetBleNameRes) {
+          return mergeFrom((deviceapi.Device.GetBleNameRes)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(deviceapi.Device.BleAction other) {
-        if (other == deviceapi.Device.BleAction.getDefaultInstance()) return this;
+      public Builder mergeFrom(deviceapi.Device.GetBleNameRes other) {
+        if (other == deviceapi.Device.GetBleNameRes.getDefaultInstance()) return this;
         if (!other.getBleName().isEmpty()) {
           bleName_ = other.bleName_;
           onChanged();
@@ -15306,11 +9772,11 @@ public final class Device {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        deviceapi.Device.BleAction parsedMessage = null;
+        deviceapi.Device.GetBleNameRes parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (deviceapi.Device.BleAction) e.getUnfinishedMessage();
+          parsedMessage = (deviceapi.Device.GetBleNameRes) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -15399,39 +9865,1548 @@ public final class Device {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:deviceapi.BleAction)
+      // @@protoc_insertion_point(builder_scope:deviceapi.GetBleNameRes)
     }
 
-    // @@protoc_insertion_point(class_scope:deviceapi.BleAction)
-    private static final deviceapi.Device.BleAction DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:deviceapi.GetBleNameRes)
+    private static final deviceapi.Device.GetBleNameRes DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new deviceapi.Device.BleAction();
+      DEFAULT_INSTANCE = new deviceapi.Device.GetBleNameRes();
     }
 
-    public static deviceapi.Device.BleAction getDefaultInstance() {
+    public static deviceapi.Device.GetBleNameRes getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<BleAction>
-        PARSER = new com.google.protobuf.AbstractParser<BleAction>() {
-      public BleAction parsePartialFrom(
+    private static final com.google.protobuf.Parser<GetBleNameRes>
+        PARSER = new com.google.protobuf.AbstractParser<GetBleNameRes>() {
+      public GetBleNameRes parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new BleAction(input, extensionRegistry);
+          return new GetBleNameRes(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<BleAction> parser() {
+    public static com.google.protobuf.Parser<GetBleNameRes> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<BleAction> getParserForType() {
+    public com.google.protobuf.Parser<GetBleNameRes> getParserForType() {
       return PARSER;
     }
 
-    public deviceapi.Device.BleAction getDefaultInstanceForType() {
+    public deviceapi.Device.GetBleNameRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SetBleNameReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.SetBleNameReq)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string ble_name = 1;</code>
+     */
+    java.lang.String getBleName();
+    /**
+     * <code>optional string ble_name = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getBleNameBytes();
+  }
+  /**
+   * Protobuf type {@code deviceapi.SetBleNameReq}
+   */
+  public  static final class SetBleNameReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.SetBleNameReq)
+      SetBleNameReqOrBuilder {
+    // Use SetBleNameReq.newBuilder() to construct.
+    private SetBleNameReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SetBleNameReq() {
+      bleName_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private SetBleNameReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              bleName_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_SetBleNameReq_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_SetBleNameReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.SetBleNameReq.class, deviceapi.Device.SetBleNameReq.Builder.class);
+    }
+
+    public static final int BLE_NAME_FIELD_NUMBER = 1;
+    private volatile java.lang.Object bleName_;
+    /**
+     * <code>optional string ble_name = 1;</code>
+     */
+    public java.lang.String getBleName() {
+      java.lang.Object ref = bleName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        bleName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string ble_name = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getBleNameBytes() {
+      java.lang.Object ref = bleName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        bleName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getBleNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, bleName_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getBleNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, bleName_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.SetBleNameReq)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.SetBleNameReq other = (deviceapi.Device.SetBleNameReq) obj;
+
+      boolean result = true;
+      result = result && getBleName()
+          .equals(other.getBleName());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + BLE_NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getBleName().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.SetBleNameReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.SetBleNameReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.SetBleNameReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.SetBleNameReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.SetBleNameReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.SetBleNameReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.SetBleNameReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.SetBleNameReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.SetBleNameReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.SetBleNameReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.SetBleNameReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code deviceapi.SetBleNameReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.SetBleNameReq)
+        deviceapi.Device.SetBleNameReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_SetBleNameReq_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_SetBleNameReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.SetBleNameReq.class, deviceapi.Device.SetBleNameReq.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.SetBleNameReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        bleName_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_SetBleNameReq_descriptor;
+      }
+
+      public deviceapi.Device.SetBleNameReq getDefaultInstanceForType() {
+        return deviceapi.Device.SetBleNameReq.getDefaultInstance();
+      }
+
+      public deviceapi.Device.SetBleNameReq build() {
+        deviceapi.Device.SetBleNameReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.SetBleNameReq buildPartial() {
+        deviceapi.Device.SetBleNameReq result = new deviceapi.Device.SetBleNameReq(this);
+        result.bleName_ = bleName_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.SetBleNameReq) {
+          return mergeFrom((deviceapi.Device.SetBleNameReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.SetBleNameReq other) {
+        if (other == deviceapi.Device.SetBleNameReq.getDefaultInstance()) return this;
+        if (!other.getBleName().isEmpty()) {
+          bleName_ = other.bleName_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.SetBleNameReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.SetBleNameReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object bleName_ = "";
+      /**
+       * <code>optional string ble_name = 1;</code>
+       */
+      public java.lang.String getBleName() {
+        java.lang.Object ref = bleName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          bleName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string ble_name = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getBleNameBytes() {
+        java.lang.Object ref = bleName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          bleName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string ble_name = 1;</code>
+       */
+      public Builder setBleName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        bleName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string ble_name = 1;</code>
+       */
+      public Builder clearBleName() {
+        
+        bleName_ = getDefaultInstance().getBleName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string ble_name = 1;</code>
+       */
+      public Builder setBleNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        bleName_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.SetBleNameReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.SetBleNameReq)
+    private static final deviceapi.Device.SetBleNameReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.SetBleNameReq();
+    }
+
+    public static deviceapi.Device.SetBleNameReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SetBleNameReq>
+        PARSER = new com.google.protobuf.AbstractParser<SetBleNameReq>() {
+      public SetBleNameReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new SetBleNameReq(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SetBleNameReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SetBleNameReq> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.SetBleNameReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetBleVersionResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.GetBleVersionRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string ble_version = 1;</code>
+     */
+    java.lang.String getBleVersion();
+    /**
+     * <code>optional string ble_version = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getBleVersionBytes();
+  }
+  /**
+   * Protobuf type {@code deviceapi.GetBleVersionRes}
+   */
+  public  static final class GetBleVersionRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.GetBleVersionRes)
+      GetBleVersionResOrBuilder {
+    // Use GetBleVersionRes.newBuilder() to construct.
+    private GetBleVersionRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetBleVersionRes() {
+      bleVersion_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private GetBleVersionRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              bleVersion_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_GetBleVersionRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_GetBleVersionRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.GetBleVersionRes.class, deviceapi.Device.GetBleVersionRes.Builder.class);
+    }
+
+    public static final int BLE_VERSION_FIELD_NUMBER = 1;
+    private volatile java.lang.Object bleVersion_;
+    /**
+     * <code>optional string ble_version = 1;</code>
+     */
+    public java.lang.String getBleVersion() {
+      java.lang.Object ref = bleVersion_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        bleVersion_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string ble_version = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getBleVersionBytes() {
+      java.lang.Object ref = bleVersion_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        bleVersion_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getBleVersionBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, bleVersion_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getBleVersionBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, bleVersion_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.GetBleVersionRes)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.GetBleVersionRes other = (deviceapi.Device.GetBleVersionRes) obj;
+
+      boolean result = true;
+      result = result && getBleVersion()
+          .equals(other.getBleVersion());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + BLE_VERSION_FIELD_NUMBER;
+      hash = (53 * hash) + getBleVersion().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.GetBleVersionRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetBleVersionRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetBleVersionRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetBleVersionRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetBleVersionRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetBleVersionRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetBleVersionRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetBleVersionRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetBleVersionRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetBleVersionRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.GetBleVersionRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code deviceapi.GetBleVersionRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.GetBleVersionRes)
+        deviceapi.Device.GetBleVersionResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_GetBleVersionRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_GetBleVersionRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.GetBleVersionRes.class, deviceapi.Device.GetBleVersionRes.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.GetBleVersionRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        bleVersion_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_GetBleVersionRes_descriptor;
+      }
+
+      public deviceapi.Device.GetBleVersionRes getDefaultInstanceForType() {
+        return deviceapi.Device.GetBleVersionRes.getDefaultInstance();
+      }
+
+      public deviceapi.Device.GetBleVersionRes build() {
+        deviceapi.Device.GetBleVersionRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.GetBleVersionRes buildPartial() {
+        deviceapi.Device.GetBleVersionRes result = new deviceapi.Device.GetBleVersionRes(this);
+        result.bleVersion_ = bleVersion_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.GetBleVersionRes) {
+          return mergeFrom((deviceapi.Device.GetBleVersionRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.GetBleVersionRes other) {
+        if (other == deviceapi.Device.GetBleVersionRes.getDefaultInstance()) return this;
+        if (!other.getBleVersion().isEmpty()) {
+          bleVersion_ = other.bleVersion_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.GetBleVersionRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.GetBleVersionRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object bleVersion_ = "";
+      /**
+       * <code>optional string ble_version = 1;</code>
+       */
+      public java.lang.String getBleVersion() {
+        java.lang.Object ref = bleVersion_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          bleVersion_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string ble_version = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getBleVersionBytes() {
+        java.lang.Object ref = bleVersion_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          bleVersion_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string ble_version = 1;</code>
+       */
+      public Builder setBleVersion(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        bleVersion_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string ble_version = 1;</code>
+       */
+      public Builder clearBleVersion() {
+        
+        bleVersion_ = getDefaultInstance().getBleVersion();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string ble_version = 1;</code>
+       */
+      public Builder setBleVersionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        bleVersion_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.GetBleVersionRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.GetBleVersionRes)
+    private static final deviceapi.Device.GetBleVersionRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.GetBleVersionRes();
+    }
+
+    public static deviceapi.Device.GetBleVersionRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetBleVersionRes>
+        PARSER = new com.google.protobuf.AbstractParser<GetBleVersionRes>() {
+      public GetBleVersionRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new GetBleVersionRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetBleVersionRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetBleVersionRes> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.GetBleVersionRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetSdkInfoResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.GetSdkInfoRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string sdk_version = 1;</code>
+     */
+    java.lang.String getSdkVersion();
+    /**
+     * <code>optional string sdk_version = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getSdkVersionBytes();
+  }
+  /**
+   * Protobuf type {@code deviceapi.GetSdkInfoRes}
+   */
+  public  static final class GetSdkInfoRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.GetSdkInfoRes)
+      GetSdkInfoResOrBuilder {
+    // Use GetSdkInfoRes.newBuilder() to construct.
+    private GetSdkInfoRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetSdkInfoRes() {
+      sdkVersion_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private GetSdkInfoRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              sdkVersion_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_GetSdkInfoRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_GetSdkInfoRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.GetSdkInfoRes.class, deviceapi.Device.GetSdkInfoRes.Builder.class);
+    }
+
+    public static final int SDK_VERSION_FIELD_NUMBER = 1;
+    private volatile java.lang.Object sdkVersion_;
+    /**
+     * <code>optional string sdk_version = 1;</code>
+     */
+    public java.lang.String getSdkVersion() {
+      java.lang.Object ref = sdkVersion_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sdkVersion_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string sdk_version = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSdkVersionBytes() {
+      java.lang.Object ref = sdkVersion_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sdkVersion_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getSdkVersionBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, sdkVersion_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getSdkVersionBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, sdkVersion_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.GetSdkInfoRes)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.GetSdkInfoRes other = (deviceapi.Device.GetSdkInfoRes) obj;
+
+      boolean result = true;
+      result = result && getSdkVersion()
+          .equals(other.getSdkVersion());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + SDK_VERSION_FIELD_NUMBER;
+      hash = (53 * hash) + getSdkVersion().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.GetSdkInfoRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetSdkInfoRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetSdkInfoRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.GetSdkInfoRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.GetSdkInfoRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetSdkInfoRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetSdkInfoRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetSdkInfoRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.GetSdkInfoRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.GetSdkInfoRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.GetSdkInfoRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code deviceapi.GetSdkInfoRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.GetSdkInfoRes)
+        deviceapi.Device.GetSdkInfoResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_GetSdkInfoRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_GetSdkInfoRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.GetSdkInfoRes.class, deviceapi.Device.GetSdkInfoRes.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.GetSdkInfoRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        sdkVersion_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_GetSdkInfoRes_descriptor;
+      }
+
+      public deviceapi.Device.GetSdkInfoRes getDefaultInstanceForType() {
+        return deviceapi.Device.GetSdkInfoRes.getDefaultInstance();
+      }
+
+      public deviceapi.Device.GetSdkInfoRes build() {
+        deviceapi.Device.GetSdkInfoRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.GetSdkInfoRes buildPartial() {
+        deviceapi.Device.GetSdkInfoRes result = new deviceapi.Device.GetSdkInfoRes(this);
+        result.sdkVersion_ = sdkVersion_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.GetSdkInfoRes) {
+          return mergeFrom((deviceapi.Device.GetSdkInfoRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.GetSdkInfoRes other) {
+        if (other == deviceapi.Device.GetSdkInfoRes.getDefaultInstance()) return this;
+        if (!other.getSdkVersion().isEmpty()) {
+          sdkVersion_ = other.sdkVersion_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.GetSdkInfoRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.GetSdkInfoRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object sdkVersion_ = "";
+      /**
+       * <code>optional string sdk_version = 1;</code>
+       */
+      public java.lang.String getSdkVersion() {
+        java.lang.Object ref = sdkVersion_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          sdkVersion_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string sdk_version = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSdkVersionBytes() {
+        java.lang.Object ref = sdkVersion_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sdkVersion_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string sdk_version = 1;</code>
+       */
+      public Builder setSdkVersion(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        sdkVersion_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string sdk_version = 1;</code>
+       */
+      public Builder clearSdkVersion() {
+        
+        sdkVersion_ = getDefaultInstance().getSdkVersion();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string sdk_version = 1;</code>
+       */
+      public Builder setSdkVersionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        sdkVersion_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.GetSdkInfoRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.GetSdkInfoRes)
+    private static final deviceapi.Device.GetSdkInfoRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.GetSdkInfoRes();
+    }
+
+    public static deviceapi.Device.GetSdkInfoRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetSdkInfoRes>
+        PARSER = new com.google.protobuf.AbstractParser<GetSdkInfoRes>() {
+      public GetSdkInfoRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new GetSdkInfoRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetSdkInfoRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetSdkInfoRes> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.GetSdkInfoRes getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -15443,115 +11418,100 @@ public final class Device {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_deviceapi_EmptyResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_AppAction_descriptor;
+    internal_static_deviceapi_AppDownloadReq_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_AppAction_fieldAccessorTable;
+      internal_static_deviceapi_AppDownloadReq_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_DeviceCert_descriptor;
+    internal_static_deviceapi_AppUpdateReq_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_DeviceCert_fieldAccessorTable;
+      internal_static_deviceapi_AppUpdateReq_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_AuthCode_descriptor;
+    internal_static_deviceapi_AppDeleteReq_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_AuthCode_fieldAccessorTable;
+      internal_static_deviceapi_AppDeleteReq_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_AuthCodeResponse_descriptor;
+    internal_static_deviceapi_CheckUpdateRes_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_AuthCodeResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_AuthCodeServiceResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_AuthCodeServiceResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_SeAction_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_SeAction_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_SeQueryResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_SeQueryResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_SeQueryServiceResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_SeQueryServiceResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_BindCheck_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_BindCheck_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_BindCheckResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_BindCheckResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_BindAcquire_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_BindAcquire_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_BindAcquireResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_BindAcquireResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_BindDisplay_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_BindDisplay_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_BindDisplayResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_BindDisplayResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_DeviceName_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_DeviceName_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_GetSnResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_GetSnResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_ApduResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_ApduResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_Test_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_Test_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_CheckUpdateResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_CheckUpdateResponse_fieldAccessorTable;
+      internal_static_deviceapi_CheckUpdateRes_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_deviceapi_AvailableAppBean_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_deviceapi_AvailableAppBean_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_SdkInfoResponse_descriptor;
+    internal_static_deviceapi_BindCheckReq_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_SdkInfoResponse_fieldAccessorTable;
+      internal_static_deviceapi_BindCheckReq_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_deviceapi_BleAction_descriptor;
+    internal_static_deviceapi_BindCheckRes_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_deviceapi_BleAction_fieldAccessorTable;
+      internal_static_deviceapi_BindCheckRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_BindAcquireReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_BindAcquireReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_BindAcquireRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_BindAcquireRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_GetSeidRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_GetSeidRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_GetSnRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_GetSnRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_GetRamSizeRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_GetRamSizeRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_GetFirmwareVersionRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_GetFirmwareVersionRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_GetBatteryPowerRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_GetBatteryPowerRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_GetLifeTimeRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_GetLifeTimeRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_GetBleNameRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_GetBleNameRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_SetBleNameReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_SetBleNameReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_GetBleVersionRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_GetBleVersionRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_GetSdkInfoRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_GetSdkInfoRes_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -15562,41 +11522,29 @@ public final class Device {
   static {
     java.lang.String[] descriptorData = {
       "\n\014device.proto\022\tdeviceapi\"\017\n\rEmptyRespon" +
-      "se\"\035\n\tAppAction\022\020\n\010app_name\030\001 \001(\t\"<\n\nDev" +
-      "iceCert\022\r\n\005se_id\030\001 \001(\t\022\n\n\002sn\030\002 \001(\t\022\023\n\013de" +
-      "vice_cert\030\003 \001(\t\",\n\010AuthCode\022\r\n\005se_id\030\001 \001" +
-      "(\t\022\021\n\tauth_code\030\002 \001(\t\"J\n\020AuthCodeRespons" +
-      "e\022\r\n\005se_id\030\001 \001(\t\022\024\n\014next_stepkey\030\002 \001(\t\022\021" +
-      "\n\tapdu_list\030\003 \003(\t\"t\n\027AuthCodeServiceResp" +
-      "onse\022\023\n\013return_code\030\001 \001(\t\022\022\n\nreturn_msg\030" +
-      "\002 \001(\t\0220\n\013return_data\030\003 \001(\0132\033.deviceapi.A" +
-      "uthCodeResponse\"O\n\010SeAction\022\r\n\005se_id\030\001 \001",
-      "(\t\022\n\n\002sn\030\002 \001(\t\022\023\n\013device_cert\030\003 \001(\t\022\023\n\013s" +
-      "dk_version\030\004 \001(\t\"\222\001\n\017SeQueryResponse\022\r\n\005" +
-      "se_id\030\001 \001(\t\022\024\n\014next_stepkey\030\002 \001(\t\022\n\n\002sn\030" +
-      "\003 \001(\t\022\020\n\010sdk_mode\030\004 \001(\t\022<\n\027available_app" +
-      "_bean_list\030\005 \003(\0132\033.deviceapi.AvailableAp" +
-      "pBean\"r\n\026SeQueryServiceResponse\022\023\n\013retur" +
-      "n_code\030\001 \001(\t\022\022\n\nreturn_msg\030\002 \001(\t\022/\n\013retu" +
-      "rn_data\030\003 \001(\0132\032.deviceapi.SeQueryRespons" +
-      "e\"\036\n\tBindCheck\022\021\n\tfile_path\030\001 \001(\t\"(\n\021Bin" +
-      "dCheckResponse\022\023\n\013bind_status\030\001 \001(\t\" \n\013B",
-      "indAcquire\022\021\n\tbind_code\030\001 \001(\t\"*\n\023BindAcq" +
-      "uireResponse\022\023\n\013bind_result\030\001 \001(\t\"\r\n\013Bin" +
-      "dDisplay\"2\n\023BindDisplayResponse\022\033\n\023bind_" +
-      "display_result\030\001 \001(\t\"\036\n\nDeviceName\022\020\n\010bl" +
-      "e_name\030\001 \001(\t\"\033\n\rGetSnResponse\022\n\n\002sn\030\001 \001(" +
-      "\t\"\036\n\014ApduResponse\022\016\n\006result\030\001 \001(\t\"\022\n\004Tes" +
-      "t\022\n\n\002tt\030\001 \001(\t\"\213\001\n\023CheckUpdateResponse\022\r\n" +
-      "\005se_id\030\001 \001(\t\022\n\n\002sn\030\002 \001(\t\022\016\n\006status\030\003 \001(\t" +
-      "\022\020\n\010sdk_mode\030\004 \001(\t\0227\n\022available_app_list" +
-      "\030\005 \003(\0132\033.deviceapi.AvailableAppBean\"\225\001\n\020",
-      "AvailableAppBean\022\020\n\010app_name\030\001 \001(\t\022\020\n\010ap" +
-      "p_logo\030\002 \001(\t\022\031\n\021installed_version\030\003 \001(\t\022" +
-      "\024\n\014last_updated\030\004 \001(\t\022\026\n\016latest_version\030" +
-      "\005 \001(\t\022\024\n\014install_mode\030\006 \001(\t\"&\n\017SdkInfoRe" +
-      "sponse\022\023\n\013sdk_version\030\001 \001(\t\"\035\n\tBleAction" +
-      "\022\020\n\010ble_name\030\001 \001(\tb\006proto3"
+      "se\"\"\n\016AppDownloadReq\022\020\n\010app_name\030\001 \001(\t\" " +
+      "\n\014AppUpdateReq\022\020\n\010app_name\030\001 \001(\t\" \n\014AppD" +
+      "eleteReq\022\020\n\010app_name\030\001 \001(\t\"\206\001\n\016CheckUpda" +
+      "teRes\022\r\n\005se_id\030\001 \001(\t\022\n\n\002sn\030\002 \001(\t\022\016\n\006stat" +
+      "us\030\003 \001(\t\022\020\n\010sdk_mode\030\004 \001(\t\0227\n\022available_" +
+      "app_list\030\005 \003(\0132\033.deviceapi.AvailableAppB" +
+      "ean\"\225\001\n\020AvailableAppBean\022\020\n\010app_name\030\001 \001" +
+      "(\t\022\020\n\010app_logo\030\002 \001(\t\022\031\n\021installed_versio" +
+      "n\030\003 \001(\t\022\024\n\014last_updated\030\004 \001(\t\022\026\n\016latest_",
+      "version\030\005 \001(\t\022\024\n\014install_mode\030\006 \001(\t\"!\n\014B" +
+      "indCheckReq\022\021\n\tfile_path\030\001 \001(\t\"#\n\014BindCh" +
+      "eckRes\022\023\n\013bind_status\030\001 \001(\t\"#\n\016BindAcqui" +
+      "reReq\022\021\n\tbind_code\030\001 \001(\t\"%\n\016BindAcquireR" +
+      "es\022\023\n\013bind_result\030\001 \001(\t\"\032\n\nGetSeidRes\022\014\n" +
+      "\004seid\030\001 \001(\t\"\026\n\010GetSnRes\022\n\n\002sn\030\001 \001(\t\"!\n\rG" +
+      "etRamSizeRes\022\020\n\010ram_size\030\001 \001(\t\"1\n\025GetFir" +
+      "mwareVersionRes\022\030\n\020firmware_version\030\001 \001(" +
+      "\t\"+\n\022GetBatteryPowerRes\022\025\n\rbattery_power" +
+      "\030\001 \001(\t\"#\n\016GetLifeTimeRes\022\021\n\tlife_time\030\001 ",
+      "\001(\t\"!\n\rGetBleNameRes\022\020\n\010ble_name\030\001 \001(\t\"!" +
+      "\n\rSetBleNameReq\022\020\n\010ble_name\030\001 \001(\t\"\'\n\020Get" +
+      "BleVersionRes\022\023\n\013ble_version\030\001 \001(\t\"$\n\rGe" +
+      "tSdkInfoRes\022\023\n\013sdk_version\030\001 \001(\tb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -15616,138 +11564,120 @@ public final class Device {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_EmptyResponse_descriptor,
         new java.lang.String[] { });
-    internal_static_deviceapi_AppAction_descriptor =
+    internal_static_deviceapi_AppDownloadReq_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_deviceapi_AppAction_fieldAccessorTable = new
+    internal_static_deviceapi_AppDownloadReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_AppAction_descriptor,
+        internal_static_deviceapi_AppDownloadReq_descriptor,
         new java.lang.String[] { "AppName", });
-    internal_static_deviceapi_DeviceCert_descriptor =
+    internal_static_deviceapi_AppUpdateReq_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_deviceapi_DeviceCert_fieldAccessorTable = new
+    internal_static_deviceapi_AppUpdateReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_DeviceCert_descriptor,
-        new java.lang.String[] { "SeId", "Sn", "DeviceCert", });
-    internal_static_deviceapi_AuthCode_descriptor =
+        internal_static_deviceapi_AppUpdateReq_descriptor,
+        new java.lang.String[] { "AppName", });
+    internal_static_deviceapi_AppDeleteReq_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_deviceapi_AuthCode_fieldAccessorTable = new
+    internal_static_deviceapi_AppDeleteReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_AuthCode_descriptor,
-        new java.lang.String[] { "SeId", "AuthCode", });
-    internal_static_deviceapi_AuthCodeResponse_descriptor =
+        internal_static_deviceapi_AppDeleteReq_descriptor,
+        new java.lang.String[] { "AppName", });
+    internal_static_deviceapi_CheckUpdateRes_descriptor =
       getDescriptor().getMessageTypes().get(4);
-    internal_static_deviceapi_AuthCodeResponse_fieldAccessorTable = new
+    internal_static_deviceapi_CheckUpdateRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_AuthCodeResponse_descriptor,
-        new java.lang.String[] { "SeId", "NextStepkey", "ApduList", });
-    internal_static_deviceapi_AuthCodeServiceResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_deviceapi_AuthCodeServiceResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_AuthCodeServiceResponse_descriptor,
-        new java.lang.String[] { "ReturnCode", "ReturnMsg", "ReturnData", });
-    internal_static_deviceapi_SeAction_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_deviceapi_SeAction_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_SeAction_descriptor,
-        new java.lang.String[] { "SeId", "Sn", "DeviceCert", "SdkVersion", });
-    internal_static_deviceapi_SeQueryResponse_descriptor =
-      getDescriptor().getMessageTypes().get(7);
-    internal_static_deviceapi_SeQueryResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_SeQueryResponse_descriptor,
-        new java.lang.String[] { "SeId", "NextStepkey", "Sn", "SdkMode", "AvailableAppBeanList", });
-    internal_static_deviceapi_SeQueryServiceResponse_descriptor =
-      getDescriptor().getMessageTypes().get(8);
-    internal_static_deviceapi_SeQueryServiceResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_SeQueryServiceResponse_descriptor,
-        new java.lang.String[] { "ReturnCode", "ReturnMsg", "ReturnData", });
-    internal_static_deviceapi_BindCheck_descriptor =
-      getDescriptor().getMessageTypes().get(9);
-    internal_static_deviceapi_BindCheck_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_BindCheck_descriptor,
-        new java.lang.String[] { "FilePath", });
-    internal_static_deviceapi_BindCheckResponse_descriptor =
-      getDescriptor().getMessageTypes().get(10);
-    internal_static_deviceapi_BindCheckResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_BindCheckResponse_descriptor,
-        new java.lang.String[] { "BindStatus", });
-    internal_static_deviceapi_BindAcquire_descriptor =
-      getDescriptor().getMessageTypes().get(11);
-    internal_static_deviceapi_BindAcquire_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_BindAcquire_descriptor,
-        new java.lang.String[] { "BindCode", });
-    internal_static_deviceapi_BindAcquireResponse_descriptor =
-      getDescriptor().getMessageTypes().get(12);
-    internal_static_deviceapi_BindAcquireResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_BindAcquireResponse_descriptor,
-        new java.lang.String[] { "BindResult", });
-    internal_static_deviceapi_BindDisplay_descriptor =
-      getDescriptor().getMessageTypes().get(13);
-    internal_static_deviceapi_BindDisplay_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_BindDisplay_descriptor,
-        new java.lang.String[] { });
-    internal_static_deviceapi_BindDisplayResponse_descriptor =
-      getDescriptor().getMessageTypes().get(14);
-    internal_static_deviceapi_BindDisplayResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_BindDisplayResponse_descriptor,
-        new java.lang.String[] { "BindDisplayResult", });
-    internal_static_deviceapi_DeviceName_descriptor =
-      getDescriptor().getMessageTypes().get(15);
-    internal_static_deviceapi_DeviceName_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_DeviceName_descriptor,
-        new java.lang.String[] { "BleName", });
-    internal_static_deviceapi_GetSnResponse_descriptor =
-      getDescriptor().getMessageTypes().get(16);
-    internal_static_deviceapi_GetSnResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_GetSnResponse_descriptor,
-        new java.lang.String[] { "Sn", });
-    internal_static_deviceapi_ApduResponse_descriptor =
-      getDescriptor().getMessageTypes().get(17);
-    internal_static_deviceapi_ApduResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_ApduResponse_descriptor,
-        new java.lang.String[] { "Result", });
-    internal_static_deviceapi_Test_descriptor =
-      getDescriptor().getMessageTypes().get(18);
-    internal_static_deviceapi_Test_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_Test_descriptor,
-        new java.lang.String[] { "Tt", });
-    internal_static_deviceapi_CheckUpdateResponse_descriptor =
-      getDescriptor().getMessageTypes().get(19);
-    internal_static_deviceapi_CheckUpdateResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_CheckUpdateResponse_descriptor,
+        internal_static_deviceapi_CheckUpdateRes_descriptor,
         new java.lang.String[] { "SeId", "Sn", "Status", "SdkMode", "AvailableAppList", });
     internal_static_deviceapi_AvailableAppBean_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_deviceapi_AvailableAppBean_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_AvailableAppBean_descriptor,
         new java.lang.String[] { "AppName", "AppLogo", "InstalledVersion", "LastUpdated", "LatestVersion", "InstallMode", });
-    internal_static_deviceapi_SdkInfoResponse_descriptor =
-      getDescriptor().getMessageTypes().get(21);
-    internal_static_deviceapi_SdkInfoResponse_fieldAccessorTable = new
+    internal_static_deviceapi_BindCheckReq_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_deviceapi_BindCheckReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_SdkInfoResponse_descriptor,
-        new java.lang.String[] { "SdkVersion", });
-    internal_static_deviceapi_BleAction_descriptor =
-      getDescriptor().getMessageTypes().get(22);
-    internal_static_deviceapi_BleAction_fieldAccessorTable = new
+        internal_static_deviceapi_BindCheckReq_descriptor,
+        new java.lang.String[] { "FilePath", });
+    internal_static_deviceapi_BindCheckRes_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_deviceapi_BindCheckRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_deviceapi_BleAction_descriptor,
+        internal_static_deviceapi_BindCheckRes_descriptor,
+        new java.lang.String[] { "BindStatus", });
+    internal_static_deviceapi_BindAcquireReq_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_deviceapi_BindAcquireReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_BindAcquireReq_descriptor,
+        new java.lang.String[] { "BindCode", });
+    internal_static_deviceapi_BindAcquireRes_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_deviceapi_BindAcquireRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_BindAcquireRes_descriptor,
+        new java.lang.String[] { "BindResult", });
+    internal_static_deviceapi_GetSeidRes_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_deviceapi_GetSeidRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_GetSeidRes_descriptor,
+        new java.lang.String[] { "Seid", });
+    internal_static_deviceapi_GetSnRes_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_deviceapi_GetSnRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_GetSnRes_descriptor,
+        new java.lang.String[] { "Sn", });
+    internal_static_deviceapi_GetRamSizeRes_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_deviceapi_GetRamSizeRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_GetRamSizeRes_descriptor,
+        new java.lang.String[] { "RamSize", });
+    internal_static_deviceapi_GetFirmwareVersionRes_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_deviceapi_GetFirmwareVersionRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_GetFirmwareVersionRes_descriptor,
+        new java.lang.String[] { "FirmwareVersion", });
+    internal_static_deviceapi_GetBatteryPowerRes_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_deviceapi_GetBatteryPowerRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_GetBatteryPowerRes_descriptor,
+        new java.lang.String[] { "BatteryPower", });
+    internal_static_deviceapi_GetLifeTimeRes_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_deviceapi_GetLifeTimeRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_GetLifeTimeRes_descriptor,
+        new java.lang.String[] { "LifeTime", });
+    internal_static_deviceapi_GetBleNameRes_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_deviceapi_GetBleNameRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_GetBleNameRes_descriptor,
         new java.lang.String[] { "BleName", });
+    internal_static_deviceapi_SetBleNameReq_descriptor =
+      getDescriptor().getMessageTypes().get(17);
+    internal_static_deviceapi_SetBleNameReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_SetBleNameReq_descriptor,
+        new java.lang.String[] { "BleName", });
+    internal_static_deviceapi_GetBleVersionRes_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_deviceapi_GetBleVersionRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_GetBleVersionRes_descriptor,
+        new java.lang.String[] { "BleVersion", });
+    internal_static_deviceapi_GetSdkInfoRes_descriptor =
+      getDescriptor().getMessageTypes().get(19);
+    internal_static_deviceapi_GetSdkInfoRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_GetSdkInfoRes_descriptor,
+        new java.lang.String[] { "SdkVersion", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
