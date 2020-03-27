@@ -1,6 +1,7 @@
 use crate::cosmosapi::{CosmosTxRes};
 use serde::{Serialize,Deserialize};
 use common::utility::{sha256_hash, secp256k1_sign};
+use secp256k1::{self, Signature as SecpSignature};
 use bitcoin_hashes::hex::ToHex;
 use common::apdu::{CosmosApdu, ApduCheck};
 use mq::message::send_apdu;
@@ -108,12 +109,7 @@ impl CosmosTransaction {
         println!("sign_pack:{}", &sign_pack);
 
         let sign_pack_vec = hex::decode(sign_pack).expect("Decoding failed");
-//        let sign_pack_hash = sha256_hash(&sha256_hash(&sign_pack_vec.as_slice())).to_hex();
-//        println!("sign_pack_hash:{}", &sign_pack_hash);
 
-        //use local private key sign data
-       // let private_key = hex_to_bytes("15A3C9A55EAE204B1CC8F2DBA25AE9A4F35793D7226E9CDE8731D58D43D6C72C").unwrap();
-//         let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();//ios
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let mut prepare_data = secp256k1_sign(&key_manager_obj.pri_key, &sign_pack_vec.as_slice())?;
         std::mem::drop(key_manager_obj);
@@ -144,27 +140,12 @@ impl CosmosTransaction {
         println!("sign_result:{}", &sign_result);
         ApduCheck::checke_response(&sign_result)?;
 
-        let r_hex:String = sign_result.chars().skip(2).take(64).collect();
-        let s_hex:String = sign_result.chars().skip(66).take(64).collect();
-        println!("r_hex:{}", &r_hex);
-        println!("s_hex:{}", &s_hex);
+        let sign_compact = hex::decode(&sign_result[2..130]).unwrap();
+        let mut signnture_obj = SecpSignature::from_compact(sign_compact.as_slice()).unwrap();
+        signnture_obj.normalize_s();
+        let normalizes_sig_vec = signnture_obj.serialize_compact();
 
-        let mut s_big = BigInt::from_str_radix(&s_hex,16).unwrap();
-        let half_curve_order = BigInt::from_str_radix("7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D576E7357A4501DDFE92F46681B20A0",16).unwrap();
-        let curve_n = BigInt::from_str_radix("7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D576E7357A4501DDFE92F46681B20A0",16).unwrap();
-        if s_big.gt(&half_curve_order) {
-            s_big = curve_n.sub(s_big);
-        }
-        let mut s_low = s_big.to_hex();
-        while s_low.len() <64 {
-            s_low.insert_str(0, "0");
-        }
-
-        let signature = r_hex + &s_low.to_uppercase();
-        println!("signature:{}", &signature);
-        let sign_bytes = hex::decode(signature).unwrap();
-
-        let sign_base64 = base64::encode(&sign_bytes);
+        let sign_base64 = base64::encode(&normalizes_sig_vec.as_ref());
         println!("sign_base64:{}", &sign_base64);
 
 
@@ -173,13 +154,7 @@ impl CosmosTransaction {
         let pub_key = base64::encode(&pub_key);
         println!("pub_key:{}", &pub_key);
 
-//        account_number: self.sign_data.unwrap().account_number.to_string(),
-//        pubkey: Pubkey {
-//            ttype: "tendermint/PubKeySecp256k1".to_string(),
-//            value: "".to_string()
-//        },
-//        pubKey: "".to_string(),
-//        sequence: "".to_string()
+
         let std_signature = StdSignature{
             account_number: self.sign_data.account_number.to_string(),
             pub_key: Pubkey {
@@ -190,10 +165,6 @@ impl CosmosTransaction {
             signature:sign_base64,
         };
 
-//        let self_clone = self.clone();
-
-//        let feeCopy = self.sign_data.fee;
-//        let fee = self.sign_data.fee
         let std_tx = StdTx{
             fee: self.sign_data.fee,
             signatures: vec![std_signature],
@@ -204,7 +175,6 @@ impl CosmosTransaction {
         let json = serde_json::to_vec(&std_tx).unwrap();
         let json = String::from_utf8(json.to_owned()).unwrap();
         println!("{}", &json);//todo sort json
-
 
         let ouput = CosmosTxRes {
             tx_data: json.to_string(),
@@ -229,7 +199,7 @@ mod tests {
     fn test_ecsign() {
         let sign_pack = hex_to_bytes("0120D560F6EAB74C1D26DD5FAB27B9F700F4C371AC76A82E9A2E534269322D129E2F070008000900").unwrap();
         let private_key = hex_to_bytes("F85B222058BBEFFF888AAF7AD1D08B0C9C5FF719027F7DB69859B72A17B28749").unwrap();
-        let mut prepare_data = secp256k1_sign(&private_key, &sign_pack.as_slice()).unwrap_or_default();
+        let mut prepare_data = secp256k1_sign(&private_key, &sign_pack.as_slice()).unwrap();
         let prepare_data_hex = hex::encode(&prepare_data);
         assert_eq!(prepare_data_hex,
         "3045022100a773a750391978586598843f89921d33083f670049906dc68ad312867df2826d0220312d22dcc102d8ba2a86972c7c73f082c53b29ef0a04ac630def935ed996d9c2"
@@ -249,7 +219,7 @@ mod tests {
     #[test]
     fn test_sign() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        let check_result = DeviceManage::bind_check(&path).unwrap();
         println!("check_result:{}",&check_result);
 
         let stdfee = StdFee{
@@ -288,8 +258,8 @@ mod tests {
             to_dis: "cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt".to_string(),
             fee_dis: "0.00075 atom".to_string(),
         };
-        let cosmosTxOutput = input.sign();
-//        println!("cosmosTxOutput:{}", cosmosTxOutput);
+        let cosmosTxOutput = input.sign().unwrap();
+        //R3E1sN8ImA+SfRVpp4C0xNJNpQO7z5i4f2BsKdRxEPtlSousJyyAhgAY13A5VjZEIJARcX9KaWkfayfETEgALg==
     }
 
 

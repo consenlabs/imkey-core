@@ -73,10 +73,12 @@ impl DeviceManage {
         //获取状态值 //状态 0x00: 未绑定  0x55: 与传入appPK绑定  0xAA：与其他appPK绑定
         let status = String::from(&bind_check_apdu_resp_data[..2]);
         let se_pub_key_cert: String = String::from(&bind_check_apdu_resp_data[2..]);
+
         if status.eq(BIND_STATUS_UNBOUND) || status.eq(BIND_STATUS_BOUND_OTHER) {
             //check se cert
             DeviceCertCheckRequest::build_request_data(seid.clone(), sn, se_pub_key_cert.clone())
                 .device_cert_check()?;
+
 
             //get se public key
             key_manager_obj.se_pub_key = hex::decode(get_se_pubkey(se_pub_key_cert)?)?;
@@ -214,11 +216,11 @@ mod test{
 
     #[test]
     fn device_bind_test(){
-
-            let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-            let bind_code = "E4APZZRT".to_string();
-//      let path = "/Users/joe/work/sdk_gen_key".to_string();
-//      let bind_code = "YDSGQPKX".to_string();
+            //
+            // let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+            // let bind_code = "E4APZZRT".to_string();
+     let path = "/Users/joe/work/sdk_gen_key".to_string();
+     let bind_code = "YDSGQPKX".to_string();
         // let mut device_manage = DeviceManage::new();
         // let check_result = device_manage.bind_check(&path).unwrap();
         let check_result = DeviceManage::bind_check(&path).unwrap();

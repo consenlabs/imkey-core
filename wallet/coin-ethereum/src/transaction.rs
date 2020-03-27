@@ -48,7 +48,6 @@ impl Transaction {
         //organize data
         let mut data_pack:Vec<u8> = Vec::new();
         let encode_tx = self.rlp_encode_tx(chain_id);
-        println!("encode_tx:{}", &hex::encode(&encode_tx));
 
         //rlp encoded tx in TLV format
         data_pack.extend(
@@ -69,19 +68,15 @@ impl Transaction {
         //fee info in TLV format
         data_pack.extend([9, fee.as_bytes().len() as u8].iter());
         data_pack.extend(fee.as_bytes().iter());
-        println!("data_pack:{}", hex::encode(&data_pack));
 
-        // let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
-        let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap_or_default();
-        println!("bind_signature:{}", &hex::encode(&bind_signature));
+        let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap();
 
         let mut apdu_pack: Vec<u8>  = Vec::new();
         apdu_pack.push(0x00);
         apdu_pack.push(bind_signature.len() as u8);
         apdu_pack.extend(bind_signature.as_slice());
         apdu_pack.extend(data_pack.as_slice());
-        println!("apdu_pack:{}", &hex::encode(&apdu_pack));
 
         //select applet
         let select_apdu = EthApdu::select_applet();
@@ -101,7 +96,7 @@ impl Transaction {
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
         let pubkey_raw =
-            hex_to_bytes(&res_msg_pubkey[..130]).unwrap();//todo error
+            hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
 
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone()).unwrap();
         let address_checksummed = EthAddress::address_checksummed(&address_main);
@@ -125,7 +120,6 @@ impl Transaction {
         let msg_hash = self.hash(chain_id);
 
         let rec_id = utility::retrieve_recid(&msg_hash[..], &normalizes_sig_vec, &pubkey_raw).unwrap();
-        println!("rec_id:{}", &rec_id.to_i32());
 
         let mut data_arr = [0; 65];
         data_arr[0..64].copy_from_slice(&normalizes_sig_vec[0..64]);
@@ -188,7 +182,6 @@ impl Transaction {
             hash: H256::zero(),
         };
 
-        println!("rlp:{}", &hex::encode(&unverified.rlp_bytes()));
         (unverified.rlp_bytes(), unverified.compute_hash())
     }
 
@@ -203,31 +196,25 @@ impl Transaction {
     pub fn sign_persional_message(input:EthMessageSignReq) -> EthResult<EthMessageSignRes>{
         check_path_validity(&input.path).unwrap();
         let header = format!("Ethereum Signed Message:\n{}", &input.message.as_bytes().len());
-        println!("header:{}", &header);
 
         let mut data = Vec::new();
         data.extend(header.as_bytes());
         data.extend(input.message.as_bytes());
-        println!("data:{}", &hex::encode(&data));
 
         let mut data_to_sign: Vec<u8>  = Vec::new();
         data_to_sign.push(0x01);
         data_to_sign.push(((data.len() & 0xFF00) >> 8) as u8);
         data_to_sign.push((data.len() & 0x00FF) as u8);
         data_to_sign.extend(data.as_slice());
-        println!("data_to_sign:{}", &hex::encode(&data_to_sign));
 
-        // let private_key = hex_to_bytes("9A282B8AE7F27C23FC5423C0F8BCFCF0AFFBDFE9A0045658D041EE8619BAD195").unwrap();
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_to_sign)?;
-        println!("bind_signature:{}", &hex::encode(&bind_signature));
 
         let mut apdu_pack: Vec<u8>  = vec![];
         apdu_pack.push(0x00);
         apdu_pack.push(bind_signature.len() as u8);
         apdu_pack.extend(bind_signature.as_slice());
         apdu_pack.extend(data_to_sign.as_slice());
-        println!("apdu_pack:{}", &hex::encode(&apdu_pack));
 
         let select_apdu = EthApdu::select_applet();
         let select_result = send_apdu(select_apdu);
@@ -235,13 +222,10 @@ impl Transaction {
 
         let msg_pubkey = EthApdu::get_pubkey(&input.path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey);
-        println!("res_msg_pubkey:{}", &res_msg_pubkey);
         let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone()).unwrap();
         let address_checksummed = EthAddress::address_checksummed(&address_main);
-        println!("address_checksummed:{}", &address_checksummed);
 
-        //todo check address
         if &address_checksummed != &input.sender {
             return Err(CoinError::ImkeyAddressMismatchWithPath.into());
         }
@@ -263,17 +247,12 @@ impl Transaction {
         let normalizes_sig_vec = signnture_obj.serialize_compact();
 
         let data_hash = tiny_keccak::keccak256(&data);
-        println!("data_hash:{}", &hex::encode(&data_hash));
-        println!("sign_compact:{}", &hex::encode(&sign_compact));
-        println!("pubkey_raw:{}", &hex::encode(&pubkey_raw));
         let rec_id = utility::retrieve_recid(&data_hash, &normalizes_sig_vec, &pubkey_raw).unwrap();
         let rec_id = rec_id.to_i32();
-        println!("rec_id:{}", &rec_id);
         let v = rec_id + 27;
 
         let mut signature = hex::encode(&normalizes_sig_vec.as_ref());
         signature.push_str(&format!("{:02x}", &v));
-        println!("signature:{}", &signature);
 
         Ok(EthMessageSignRes{
             signature
@@ -391,7 +370,7 @@ mod tests {
     #[test]
     fn test_apdu_pack() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        let check_result = DeviceManage::bind_check(&path).unwrap();
         println!("check_result:{}",&check_result);
 
         let tx = Transaction {
@@ -422,7 +401,7 @@ mod tests {
     #[test]
     fn test_sign_trans(){
         let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        let check_result = DeviceManage::bind_check(&path).unwrap();
         println!("check_result:{}",&check_result);
 
         let tx = Transaction {
@@ -456,7 +435,7 @@ mod tests {
     #[test]
     fn test_data_is_null(){
         let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        let check_result = DeviceManage::bind_check(&path).unwrap();
         println!("check_result:{}",&check_result);
 
         let tx = Transaction {
@@ -485,7 +464,7 @@ mod tests {
     #[test]
     fn test_data_is_long(){
         let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        let check_result = DeviceManage::bind_check(&path).unwrap();
         println!("check_result:{}",&check_result);
 
         let mut data = "0x60056013565b6101918061001d6000396000f35b3360008190555056006001600060e060020a6000350480630a874df61461003a57806341c0e1b514610058578063a02b161e14610066578063dbbdf0831461007757005b610045600435610149565b80600160a060020a031660005260206000f35b610060610161565b60006000f35b6100716004356100d4565b60006000f35b61008560043560243561008b565b60006000f35b600054600160a060020a031632600160a060020a031614156100ac576100b1565b6100d0565b8060018360005260205260406000208190555081600060005260206000a15b5050565b600054600160a060020a031633600160a060020a031614158015610118575033600160a060020a0316600182600052602052604060002054600160a060020a031614155b61012157610126565b610146565b600060018260005260205260406000208190555080600060005260206000a15b50565b60006001826000526020526040600020549050919050565b600054600160a060020a031633600160a060020a0316146101815761018f565b600054600160a060020a0316ff5b56".to_string();
@@ -523,7 +502,7 @@ mod tests {
     #[test]
     fn test_zero_bytes(){
         let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        let check_result = DeviceManage::bind_check(&path).unwrap();
         println!("check_result:{}",&check_result);
 
         let mut data = "0x000000000000000000000000000000000000000000000000000000000".to_string();
@@ -561,7 +540,7 @@ mod tests {
     #[test]
     fn test_sign_personal_message(){
         let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        let check_result = DeviceManage::bind_check(&path).unwrap();
         println!("check_result:{}",&check_result);
 
         let input = EthPersonalSignInput{
