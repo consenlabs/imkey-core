@@ -1,88 +1,94 @@
-use crate::api::AddressParam;
+use coin_bitcoin::btcapi::{BtcXpubReq, BtcXpubRes, BtcAddressReq, BtcAddressRes};
 use bitcoin::Network;
-use crate::wallet_handler::encode_message;
+use crate::message_handler::encode_message;
 use coin_bitcoin::btc;
-use crate::btcapi::BtcAddressResponse;
 use crate::error_handling::Result;
+use prost::Message;
 
+pub fn get_btc_xpub(data: &[u8]) -> Result<Vec<u8>> {
 
-pub fn get_btc_xpub(data: &AddressParam) -> Result<Vec<u8>> {
+    let input: BtcXpubReq = BtcXpubReq::decode(data).expect("imkey_illegal_param");
 
-    let network = match data.network.as_ref() {
+    let network = match input.network.as_ref() {
         "MAINNET" => Network::Bitcoin,
         "TESTNET" => Network::Testnet,
         _ => Network::Testnet,
     };
 
-    let address = btc::get_xpub(network, data.path.as_ref())?;
+    let xpub = btc::get_xpub(network, input.path.as_ref())?;
 
-    let address_message = BtcAddressResponse {
-        address: address
+    let address_message = BtcXpubRes {
+        xpub
     };
     encode_message(address_message)
 }
 
 
-pub fn get_btc_address(data: &AddressParam) -> Result<Vec<u8>> {
+pub fn get_btc_address(data: &[u8]) -> Result<Vec<u8>> {
 
-    let network = match data.network.as_ref() {
+    let input: BtcAddressReq = BtcAddressReq::decode(data).expect("imkey_illegal_param");
+
+    let network = match input.network.as_ref() {
         "MAINNET" => Network::Bitcoin,
         "TESTNET" => Network::Testnet,
         _ => Network::Testnet,
     };
 
-    let address = btc::get_address(network, data.path.as_ref())?;
+    let address = btc::get_address(network, input.path.as_ref())?;
 
-    let address_message = BtcAddressResponse {
-        address: address
+    let address_message = BtcAddressRes {
+        address
     };
     encode_message(address_message)
 }
 
-pub fn get_segwit_address(data: &AddressParam) -> Result<Vec<u8>> {
+pub fn get_segwit_address(data: &[u8]) -> Result<Vec<u8>> {
 
-    let network = match data.network.as_ref() {
+    let input: BtcAddressReq = BtcAddressReq::decode(data).expect("imkey_illegal_param");
+
+    let network = match input.network.as_ref() {
         "MAINNET" => Network::Bitcoin,
         "TESTNET" => Network::Testnet,
         _ => Network::Testnet,
     };
 
-    let address = btc::get_segwit_address(network, data.path.as_ref())?;
+    let address = btc::get_segwit_address(network, input.path.as_ref())?;
 
-    let address_message = BtcAddressResponse {
-        address: address
+    let address_message = BtcAddressRes {
+        address
     };
     encode_message(address_message)
 }
 
-pub fn display_btc_address(data: &AddressParam) -> Result<Vec<u8>> {
+pub fn display_btc_address(data: &[u8]) -> Result<Vec<u8>> {
+    let input: BtcAddressReq = BtcAddressReq::decode(data).expect("imkey_illegal_param");
 
-    let network = match data.network.as_ref() {
+    let network = match input.network.as_ref() {
         "MAINNET" => Network::Bitcoin,
         "TESTNET" => Network::Testnet,
         _ => Network::Testnet,
     };
 
-    let address = btc::display_address(network, data.path.as_ref())?;
+    let address = btc::display_address(network, input.path.as_ref())?;
 
-    let address_message = BtcAddressResponse {
-        address: address
+    let address_message = BtcAddressRes {
+        address
     };
     encode_message(address_message)
 }
 
-pub fn display_segwit_address(data: &AddressParam) -> Result<Vec<u8>> {
-
-    let network = match data.network.as_ref() {
+pub fn display_segwit_address(data: &[u8]) -> Result<Vec<u8>> {
+    let input: BtcAddressReq = BtcAddressReq::decode(data).expect("imkey_illegal_param");
+    let network = match input.network.as_ref() {
         "MAINNET" => Network::Bitcoin,
         "TESTNET" => Network::Testnet,
         _ => Network::Testnet,
     };
 
-    let address = btc::display_segwit_address(network, data.path.as_ref())?;
+    let address = btc::display_segwit_address(network, input.path.as_ref())?;
 
-    let address_message = BtcAddressResponse {
-        address: address
+    let address_message = BtcAddressRes {
+        address
     };
     encode_message(address_message)
 }

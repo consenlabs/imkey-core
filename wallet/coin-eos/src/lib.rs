@@ -1,5 +1,6 @@
 pub mod pubkey;
 pub mod transaction;
+pub mod eosapi;
 #[macro_use]
 extern crate failure;
 use core::result;

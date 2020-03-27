@@ -9,7 +9,7 @@ use mq::message::send_apdu;
 use bitcoin::util::base58;
 use bitcoin::secp256k1::Signature;
 use hex::FromHex;
-use common::eosapi::{EosTxInput, EosTxOutput, EosMessageInput, EosMessageOutput};
+use crate::eosapi::{EosTxReq, EosTxRes, EosMessageSignReq, EosMessageSignRes};
 use crate::pubkey::EosPubkey;
 use crate::Result;
 use device::device_binding::KEY_MANAGER;
@@ -18,14 +18,14 @@ use device::device_binding::KEY_MANAGER;
 pub struct EosTransaction {}
 
 impl EosTransaction {
-    pub fn sign_tx(tx_input:EosTxInput) -> Result<EosTxOutput> {
+    pub fn sign_tx(tx_input:EosTxReq) -> Result<EosTxRes> {
         path::check_path_validity(&tx_input.path).unwrap();
 
         let select_apdu = EosApdu::select_applet();
         let select_response = message::send_apdu(select_apdu);
         ApduCheck::checke_response(&select_response)?;
 
-        let mut tx_output = EosTxOutput {
+        let mut tx_output = EosTxRes {
             hash: "".to_string(),
             signs: vec![],
         };
@@ -173,7 +173,7 @@ impl EosTransaction {
         Ok(tx_output)
     }
 
-    pub fn sign_message(input:EosMessageInput) -> Result<EosMessageOutput>{
+    pub fn sign_message(input:EosMessageSignReq) -> Result<EosMessageSignRes>{
         let hash;
         if input.is_hex {
             hash = hex::decode(input.data).unwrap();
@@ -274,8 +274,8 @@ impl EosTransaction {
             println!("signature:{}", &signature);
         }
 
-        Ok(EosMessageOutput{
-            signature: signature
+        Ok(EosMessageSignRes{
+            signature
         })
     }
 }

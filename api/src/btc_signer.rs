@@ -1,16 +1,13 @@
-use crate::api::SignParam;
-use crate::btcapi::{BtcTxInput, BtcTxOutput};
-use crate::wallet_handler::encode_message;
+use crate::message_handler::encode_message;
+use coin_bitcoin::btcapi::{BtcTxReq, BtcTxRes, BtcSegwitTxReq, BtcSegwitTxRes};
 use bitcoin::{Address, Network};
 use coin_bitcoin::transaction::{BtcTransaction, Utxo};
 use prost::Message;
 use std::str::FromStr;
 use crate::error_handling::Result;
 
-pub fn sign_btc_transaction(param: &SignParam) -> Result<Vec<u8>> {
-    let input: BtcTxInput =
-        BtcTxInput::decode(&param.input.as_ref().expect("tx_iput").value.clone())
-            .expect("BtcTxInput");
+pub fn sign_btc_transaction(data: &[u8]) -> Result<Vec<u8>> {
+    let input: BtcTxReq = BtcTxReq::decode(data).expect("BtcTxInput");
 
     let mut unspents = Vec::new();
     for utxo in input.unspents {
@@ -18,7 +15,7 @@ pub fn sign_btc_transaction(param: &SignParam) -> Result<Vec<u8>> {
             txhash: utxo.tx_hash,
             vout: utxo.vout,
             amount: utxo.amount,
-            address: Address::from_str(&utxo.address).unwrap(),//todo check
+            address: Address::from_str(&utxo.address).unwrap(),
             script_pubkey: utxo.script_pub_key,
             derive_path: utxo.derived_path,
             sequence: utxo.sequence,
@@ -27,15 +24,11 @@ pub fn sign_btc_transaction(param: &SignParam) -> Result<Vec<u8>> {
     }
 
     let btc_tx = BtcTransaction {
-        to: Address::from_str(&input.to).unwrap(),//todo check
+        to: Address::from_str(&input.to).unwrap(),
 //        change_idx: input.change_address_index as i32,
         amount: input.amount,
         unspents: unspents,
         fee: input.fee,
-        payment: input.payment,
-        to_dis: Address::from_str(&input.to_dis).unwrap(),//todo check
-        from: Address::from_str(&input.from).unwrap(),//todo check
-        fee_dis: input.fee_dis,
 //        extra_data: input.extra_data,
     };
 
@@ -45,19 +38,16 @@ pub fn sign_btc_transaction(param: &SignParam) -> Result<Vec<u8>> {
         Network::Bitcoin
     };
     let signed = btc_tx
-        .sign_transaction(network, &input.path_prefix, input.change_address_index as i32, &input.extra_data)?;//todo check
-    let tx_sign_result = BtcTxOutput {
-        signature: signed.signature,
+        .sign_transaction(network, &input.path_prefix, input.change_address_index as i32, &input.extra_data)?;
+    let tx_sign_result = BtcTxRes {
+        tx_data: signed.signature,
         tx_hash: signed.tx_hash,
-        wtx_id: signed.wtx_id,
     };
     encode_message(tx_sign_result)
 }
 
-pub fn sign_segwit_transaction(param: &SignParam) -> Result<Vec<u8>> {
-    let input: BtcTxInput =
-        BtcTxInput::decode(&param.input.as_ref().expect("tx_iput").value.clone())
-            .expect("BtcTxInput");
+pub fn sign_segwit_transaction(data: &[u8]) -> Result<Vec<u8>> {
+    let input: BtcSegwitTxReq = BtcSegwitTxReq::decode(data).expect("BtcTxInput");
 
     let mut unspents = Vec::new();
     for utxo in input.unspents {
@@ -65,7 +55,7 @@ pub fn sign_segwit_transaction(param: &SignParam) -> Result<Vec<u8>> {
             txhash: utxo.tx_hash,
             vout: utxo.vout,
             amount: utxo.amount,
-            address: Address::from_str(&utxo.address).unwrap(),//todo check
+            address: Address::from_str(&utxo.address).unwrap(),
             script_pubkey: utxo.script_pub_key,
             derive_path: utxo.derived_path,
             sequence: utxo.sequence,
@@ -74,16 +64,11 @@ pub fn sign_segwit_transaction(param: &SignParam) -> Result<Vec<u8>> {
     }
 
     let btc_tx = BtcTransaction {
-        to: Address::from_str(&input.to).unwrap(),//todo check
+        to: Address::from_str(&input.to).unwrap(),
 //        change_idx: input.change_address_index as i32,
         amount: input.amount,
         unspents: unspents,
         fee: input.fee,
-        payment: input.payment,
-        to_dis: Address::from_str(&input.to_dis).unwrap(),//todo check
-        from: Address::from_str(&input.from).unwrap(),//todo check
-        fee_dis: input.fee_dis,
-//        extra_data: input.extra_data,
     };
 
     let network = if input.network == "TESTNET".to_string() {
@@ -92,11 +77,11 @@ pub fn sign_segwit_transaction(param: &SignParam) -> Result<Vec<u8>> {
         Network::Bitcoin
     };
     let signed = btc_tx
-        .sign_segwit_transaction(network, &input.path_prefix, input.change_address_index as i32, &input.extra_data)?;//todo check
-    let tx_sign_result = BtcTxOutput {
-        signature: signed.signature,
+        .sign_segwit_transaction(network, &input.path_prefix, input.change_address_index as i32, &input.extra_data)?;
+    let tx_sign_result = BtcSegwitTxRes {
+        witness_tx_data: signed.signature,
+        wtx_hash: signed.wtx_id,
         tx_hash: signed.tx_hash,
-        wtx_id: signed.wtx_id,
     };
     encode_message(tx_sign_result)
 }

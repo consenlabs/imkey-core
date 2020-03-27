@@ -1,14 +1,11 @@
-use crate::api::SignParam;
-use crate::wallet_handler::encode_message;
+use coin_cosmos::cosmosapi::CosmosTxReq;
+use crate::message_handler::encode_message;
 use prost::Message;
-use common::cosmosapi::{CosmosTxInput};
 use coin_cosmos::transaction::{StdFee, Coin, Msg, MsgValue, SignData, CosmosTransaction};
 use crate::error_handling::Result;
 
-pub fn sign_cosmos_transaction(param: &SignParam) -> Result<Vec<u8>> {
-    let input: CosmosTxInput =
-        CosmosTxInput::decode(&param.input.as_ref().expect("tx_iput").value.clone())
-            .expect("CosmosTxInput");
+pub fn sign_cosmos_transaction(data: &[u8]) -> Result<Vec<u8>> {
+    let input: CosmosTxReq = CosmosTxReq::decode(data).expect("imkey_illegal_param");
 
     // fee
     let mut coins = Vec::new();

@@ -1,4 +1,4 @@
-use common::cosmosapi::{CosmosTxOutput};
+use crate::cosmosapi::{CosmosTxRes};
 use serde::{Serialize,Deserialize};
 use common::utility::{sha256_hash, secp256k1_sign};
 use bitcoin_hashes::hex::ToHex;
@@ -83,7 +83,7 @@ pub struct StdTx{
 }
 
 impl CosmosTransaction {
-    pub fn sign(self) -> Result<CosmosTxOutput> {
+    pub fn sign(self) -> Result<CosmosTxRes> {
         let json = serde_json::to_vec(&self.sign_data).unwrap();
         let json = String::from_utf8(json.to_owned()).unwrap();
         println!("{}", &json);//todo sort json
@@ -206,8 +206,8 @@ impl CosmosTransaction {
         println!("{}", &json);//todo sort json
 
 
-        let ouput = CosmosTxOutput {
-            signature: json.to_string(),
+        let ouput = CosmosTxRes {
+            tx_data: json.to_string(),
             tx_hash: "".to_string(),
         };
         Ok(ouput)

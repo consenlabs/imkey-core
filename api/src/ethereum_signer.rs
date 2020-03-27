@@ -1,6 +1,5 @@
-use crate::api::SignParam;
-use crate::ethapi::EthTxInput;
-use crate::wallet_handler::encode_message;
+use coin_ethereum::ethapi::{EthTxReq, EthMessageSignReq};
+use crate::message_handler::encode_message;
 use coin_ethereum::transaction::Transaction;
 use coin_ethereum::types::Action;
 use ethereum_types::{Address, U256};
@@ -8,15 +7,10 @@ use hex;
 use prost::Message;
 use std::str::FromStr;
 use crate::error_handling::Result;
-use common::ethapi::EthPersonalSignInput;
 
-pub fn sign_eth_transaction(param: &SignParam) -> Result<Vec<u8>> {
-    let input: EthTxInput =
-        EthTxInput::decode(&param.input.as_ref().expect("tx_iput").value.clone())
-            .expect("EthTxInput");
+pub fn sign_eth_transaction(data: &[u8]) -> Result<Vec<u8>> {
 
-    println!("param ..");
-
+    let input: EthTxReq = EthTxReq::decode(data).expect("imkey_illegal_param");
     let data_vec = if input.data.starts_with("0x") {
         hex::decode(&input.data[2..]).unwrap()
     } else {
@@ -50,19 +44,11 @@ pub fn sign_eth_transaction(param: &SignParam) -> Result<Vec<u8>> {
     )?;
     println!("signed..");
     encode_message(tx_out)
-
-    // let tx_sign_result = EthTxOutput {
-    //     signature: "".to_string(),
-    //     tx_hash: "".to_string(),
-    // };
-    // encode_message(tx_sign_result)
 }
 
-pub fn sign_eth_message(param: &SignParam) -> Result<Vec<u8>> {
-    let input: EthPersonalSignInput =
-        EthPersonalSignInput::decode(&param.input.as_ref().expect("tx_iput").value.clone())
-            .expect("EosMessageInput");
-    let signed = Transaction::sign_persional_message(input).unwrap();//todo check
+pub fn sign_eth_message(data: &[u8]) -> Result<Vec<u8>> {
+    let input: EthMessageSignReq = EthMessageSignReq::decode(data).expect("imkey_illegal_param");
+    let signed = Transaction::sign_persional_message(input).unwrap();
     encode_message(signed)
 }
 
