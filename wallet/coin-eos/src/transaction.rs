@@ -1,16 +1,15 @@
 use bitcoin_hashes::hex::ToHex;
-use bitcoin_hashes::{sha256, Hash, ripemd160};
+use bitcoin_hashes::{Hash, ripemd160};
 use bytes::BufMut;
 use common::apdu::{EosApdu, ApduCheck};
 use common::{path, utility};
 use mq::message;
-use std::io::Read;
-use common::utility::{sha256_hash, hex_to_bytes, secp256k1_sign, secp256k1_sign_hash, retrieve_recid};
+use common::utility::{sha256_hash, secp256k1_sign, secp256k1_sign_hash, retrieve_recid};
 use mq::message::send_apdu;
 use bitcoin::util::base58;
 use bitcoin::secp256k1::Signature;
 use hex::FromHex;
-use crate::eosapi::{EosTxReq, EosTxRes, EosMessageSignReq, EosMessageSignRes};
+use crate::eosapi::{EosTxReq, EosTxRes, EosMessageSignReq, EosMessageSignRes, EosSignResult};
 use crate::pubkey::EosPubkey;
 use crate::Result;
 use device::device_binding::KEY_MANAGER;
@@ -27,10 +26,10 @@ impl EosTransaction {
         let select_response = message::send_apdu(select_apdu);
         ApduCheck::checke_response(&select_response)?;
 
-        let mut trans_multi_signs:Vec<EosTxRes> = Vec::new();
+        let mut trans_multi_signs:Vec<EosSignResult> = Vec::new();
 
         for sign_data in &tx_input.sign_datas {
-            let mut sign_result = EosTxRes{
+            let mut sign_result = EosSignResult{
                 hash: "".to_string(),
                 signs: vec![]
             };
@@ -76,7 +75,7 @@ impl EosTransaction {
 
                 //bind signature
                 let key_manager_obj = KEY_MANAGER.lock().unwrap();
-                let mut bind_signature = secp256k1_sign_hash(&key_manager_obj.pri_key, &sign_data_hash)?;
+                let bind_signature = secp256k1_sign_hash(&key_manager_obj.pri_key, &sign_data_hash)?;
 
                 //send prepare data
                 let mut prepare_apdu_data: Vec<u8> = Vec::new();
@@ -116,7 +115,7 @@ impl EosTransaction {
                     let mut signature_obj = Signature::from_compact(sign_result_vec.as_slice()).unwrap();
                     //generator der sign data
                     signature_obj.normalize_s();
-                    let mut signatrue_der = signature_obj.serialize_der().to_vec();
+                    let signatrue_der = signature_obj.serialize_der().to_vec();
 
                     let len_r = signatrue_der[3];
                     let len_s = signatrue_der[5 + len_r as usize];
@@ -154,7 +153,7 @@ impl EosTransaction {
             }
         }
 
-        let mut tx_output = EosTxOutput {
+        let tx_output = EosTxRes {
             trans_multi_signs
         };
         Ok(tx_output)
@@ -177,7 +176,7 @@ impl EosTransaction {
         data_pack.extend(input.path.as_bytes());
 
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
-        let mut bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap();
+        let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap();
 
         let mut prepare_pack: Vec<u8>  = Vec::new();
         prepare_pack.push(0x00);
@@ -215,7 +214,7 @@ impl EosTransaction {
             let mut signature_obj = Signature::from_compact(sign_result_vec.as_slice()).unwrap();
             //generator der sign data
             signature_obj.normalize_s();
-            let mut signatrue_der = signature_obj.serialize_der().to_vec();
+            let signatrue_der = signature_obj.serialize_der().to_vec();
 
             let len_r = signatrue_der[3];
             let len_s = signatrue_der[5 + len_r as usize];
@@ -224,7 +223,7 @@ impl EosTransaction {
                 let s = &sign_result[66..130];
 
                 //calc v
-                let EosMessageOutputuncomprs_pubkey: String = prepare_response.chars().take(prepare_response.len() - 4).collect();
+                let uncomprs_pubkey: String = prepare_response.chars().take(prepare_response.len() - 4).collect();
                 let pub_key_raw = hex::decode(&uncomprs_pubkey).unwrap();
                 let sign_compact = hex::decode(&sign_result[2..130]).unwrap();
                 let rec_id = utility::retrieve_recid(&hash, &sign_compact, &pub_key_raw).unwrap();
@@ -259,7 +258,7 @@ impl EosTransaction {
 #[cfg(test)]
 mod tests {
     use common::constants;
-    use common::eosapi::{EosTxInput, EosSignData, EosMessageInput};
+    use crate::eosapi::{EosTxReq, EosSignData, EosMessageSignReq};
     use crate::transaction::EosTransaction;
     use device::device_binding::DeviceManage;
 

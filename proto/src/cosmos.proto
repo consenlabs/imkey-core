@@ -1,10 +1,6 @@
 syntax = "proto3";
 package cosmosapi;
 
-//import "google/protobuf/any.proto";
-
-// FUNCTION: sign_tx(SignParam{input: CosmosTxInput}): CosmosTxOutput
-
 message Coin {
     string amount = 1;
     string denom = 2;
@@ -35,7 +31,7 @@ message MsgValue{
     string validator_address = 3;
 }
 
-message CosmosTxInput {
+message CosmosTxReq {
     SignData signData=1;
     string path = 2;
     string payment_dis = 3;
@@ -44,11 +40,15 @@ message CosmosTxInput {
     string fee_dis = 6;
 }
 
-message CosmosTxOutput {
-    string signature = 1;
-    string txHash = 2;
+message CosmosTxRes {
+    string tx_data = 1;
+    string tx_hash = 2;
 }
 
-message CosmosAddressResponse {
+message CosmosAddressReq {
+    string path = 1;
+}
+
+message CosmosAddressRes {
     string address = 1;
 }
