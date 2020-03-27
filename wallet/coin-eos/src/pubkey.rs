@@ -87,7 +87,7 @@ mod tests {
     #[test]
     fn test_get_pubkey() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        let check_result = DeviceManage::bind_check(&path).unwrap();
         println!("check_result:{}",&check_result);
 
         let pubkey = EosPubkey::get_pubkey(constants::EOS_PATH);
