@@ -55,9 +55,7 @@ impl EthAddress {
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
         let pubkey_raw =
-            hex_to_bytes(&res_msg_pubkey[..130]).unwrap();//todo handle error
-
-        println!("pubkey_raw:{}", &hex::encode(&pubkey_raw));
+            hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
 
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;
         let address_checksum = EthAddress::address_checksummed(&address_main);

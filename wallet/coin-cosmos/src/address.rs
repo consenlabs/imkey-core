@@ -9,6 +9,7 @@ use bitcoin_hashes::hex::{FromHex, ToHex};
 use bitcoin_hashes::{hash160, Hash};
 use crate::Result;
 use device::device_binding::KEY_MANAGER;
+use common::error::CoinError;
 
 #[derive(Debug)]
 pub struct CosmosAddress {}
@@ -28,10 +29,7 @@ impl CosmosAddress {
 
         let sign_source_val = &res_msg_pubkey[..194];
         let sign_result = &res_msg_pubkey[194..res_msg_pubkey.len() - 4];
-        // let pub_key = &sign_source_val[..130];
 
-        //use se public key verify sign
-        // let se_pub_key = "04E03248A0012603C6B20786C2A86EB6B9DC1767BC56674EBE471ED5FDF287A063985885E0523E100319E0643810F0EAF66A0D4102AEAE49FD7BC7AC232247A3DC";
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
 
         let sign_verify_result = utility::secp256k1_sign_verify(
@@ -40,8 +38,7 @@ impl CosmosAddress {
             hex::decode(sign_source_val).unwrap().as_slice(),
         )?;
         if !sign_verify_result {
-//            return Err(error::Error::AddressError);
-            return Err(format_err!("imkey_signature_verify_fail"));
+            return Err(CoinError::ImkeySignatureVerifyFail.into());
         }
 
         let uncomprs_pubkey: String = res_msg_pubkey
@@ -93,7 +90,7 @@ mod tests {
     #[test]
     fn test_get_pub_key() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        let check_result = DeviceManage::bind_check(&path).unwrap();
         println!("check_result:{}",&check_result);
 
         let comprs_pubkey = CosmosAddress::get_pub_key(constants::COSMOS_PATH).unwrap();
@@ -103,7 +100,7 @@ mod tests {
     #[test]
     fn test_get_address() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+        let check_result = DeviceManage::bind_check(&path).unwrap();
         println!("check_result:{}",&check_result);
 
         let address = CosmosAddress::get_address(constants::COSMOS_PATH).unwrap();
@@ -118,9 +115,6 @@ mod tests {
 
     #[test]
     fn testBech32() {
-        //        let encoded = bech32::encode("bech32", vec![0x00, 0x01, 0x02].to_base32()).unwrap();
-        //        assert_eq!(encoded, "bech321qqqsyrhqy2a".to_string());
-
         let b32 = Bech32 {
             hrp: "bech32".to_string(),
             data: vec![0x00, 0x01, 0x02],
