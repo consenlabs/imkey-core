@@ -1,8 +1,10 @@
-use common::constants::{TSM_ACTION_DEVICE_CERT_CHECK, TSM_RETURN_CODE_SUCCESS};
 use common::https;
 use serde::{Deserialize, Serialize};
 use crate::Result;
 use crate::error::ImkeyError;
+use common::constants::{TSM_ACTION_DEVICE_CERT_CHECK, TSM_RETURN_CODE_SUCCESS,
+                        TSM_RETURNCODE_DEVICE_CHECK_FAIL, TSM_RETURNCODE_DEV_INACTIVATED,
+                        TSM_RETURNCODE_DEVICE_ILLEGAL, TSM_RETURNCODE_DEVICE_STOP_USING};
 
 // SE安全检查请求bean
 #[allow(non_snake_case)]
@@ -52,16 +54,26 @@ impl DeviceCertCheckRequest {
         }
     }
 
-    pub fn device_cert_check(&mut self) -> Result<ServiceResponse> {
+    pub fn device_cert_check(&mut self) -> Result<()> {
         println!("请求报文：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
         let response_data = https::post(TSM_ACTION_DEVICE_CERT_CHECK, req_data)?;
         let return_bean: ServiceResponse = serde_json::from_str(response_data.as_str())?;
         println!("返回报文：{:#?}", return_bean);
-        if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS{
-            return Err(ImkeyError::BSE0009.into());
+
+        match return_bean._ReturnCode.as_str() {
+            TSM_RETURN_CODE_SUCCESS => {
+                if return_bean._ReturnData.verifyResult.unwrap() {
+                    return Ok(());
+                }
+                return Err(ImkeyError::ImkeySeCertInvalid.into());
+            },
+            TSM_RETURNCODE_DEVICE_CHECK_FAIL => Err(ImkeyError::ImkeyTsmDeviceAuthenticityCheckFail.into()),
+            TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::ImkeyTsmDeviceNotActivated.into()),
+            TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::ImkeyTsmDeviceIllegal.into()),
+            TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::ImkeyTsmDeviceStopUsing.into()),
+            _ => Err(ImkeyError::ImkeyTsmServerError.into()),
         }
-        Ok(return_bean)
     }
 }
 
