@@ -5,9 +5,6 @@ import com.mk.imkeylibrary.bluetooth.Ble;
 import com.mk.imkeylibrary.utils.LogUtil;
 
 public class Api {
-    public static String getSeid(){
-        return RustApi.INSTANCE.get_seid();
-    }
 
     public static void startMessageDeamon(){
         new Thread(new Runnable() {
@@ -42,14 +39,4 @@ public class Api {
         }).start();
     }
 
-    /**
-     * for debug
-     */
-    public static void initRustLog(){
-        RustApi.INSTANCE.init();
-    }
-
-    public static void check_update(){
-        RustApi.INSTANCE.check_update();
-    }
 }

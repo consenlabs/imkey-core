@@ -18,30 +18,22 @@ public class AppDownloadTest {
         //imkey_illegal_prarm
         RustApi.INSTANCE.clear_err();
 
-        deviceapi.Device.AppAction appAction = deviceapi.Device.AppAction.newBuilder()
+        deviceapi.Device.AppDownloadReq req = deviceapi.Device.AppDownloadReq.newBuilder()
                 .setAppName(appName)
                 .build();
 
         Any any = Any.newBuilder()
-                .setValue(appAction.toByteString())
+                .setValue(req.toByteString())
                 .build();
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("app_download")
-                //.setParam(any)
-                .build();
 
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("app_download")
+                .setParam(any)
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
             error = RustApi.INSTANCE.get_last_err_message();
             api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
             response.getIsSuccess();
@@ -56,30 +48,23 @@ public class AppDownloadTest {
 
         RustApi.INSTANCE.clear_err();
 
-        appAction = deviceapi.Device.AppAction.newBuilder()
+        req = deviceapi.Device.AppDownloadReq.newBuilder()
                 .setAppName(appName2)
                 .build();
 
         any = Any.newBuilder()
-                .setValue(appAction.toByteString())
+                .setValue(req.toByteString())
                 .build();
 
-        deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("app_download")
+
+        action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("app_download")
                 .setParam(any)
                 .build();
 
-        any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
-                .build();
         hex = NumericUtil.bytesToHex(action.toByteArray());
         try {
-            RustApi.INSTANCE.call_tcx_api(hex);
+            RustApi.INSTANCE.call_imkey_api(hex);
             error = RustApi.INSTANCE.get_last_err_message();
             api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
             response.getIsSuccess();
@@ -95,30 +80,22 @@ public class AppDownloadTest {
         //设备未激活，需要改后台数据测试
         RustApi.INSTANCE.clear_err();
 
-        appAction = deviceapi.Device.AppAction.newBuilder()
+        req = deviceapi.Device.AppDownloadReq.newBuilder()
                 .setAppName(appName)
                 .build();
 
         any = Any.newBuilder()
-                .setValue(appAction.toByteString())
+                .setValue(req.toByteString())
                 .build();
 
-        deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("app_download")
+
+        action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("app_download")
                 .setParam(any)
-                .build();
-
-        any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
                 .build();
         hex = NumericUtil.bytesToHex(action.toByteArray());
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
             error = RustApi.INSTANCE.get_last_err_message();
             api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
             response.getIsSuccess();

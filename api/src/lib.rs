@@ -97,26 +97,11 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
         "eos_register_pubkey" => landingpad(|| eos_pubkey::display_eos_pubkey(&action.param.unwrap().value)),
 
         // cosmos
-        "cosmos_tx_sign" => landingpad(|| ethereum_signer::sign_eth_transaction(&action.param.unwrap().value)),
-        "cosmos_get_address" => landingpad(|| ethereum_signer::sign_eth_message(&action.param.unwrap().value)),
-        "cosmos_register_address" => landingpad(|| ethereum_address::get_eth_address(&action.param.unwrap().value)),
+        "cosmos_tx_sign" => landingpad(|| cosmos_signer::sign_cosmos_transaction(&action.param.unwrap().value)),
+        "cosmos_get_address" => landingpad(|| cosmos_address::get_cosmos_address(&action.param.unwrap().value)),
+        "cosmos_register_address" => landingpad(|| cosmos_address::display_cosmos_address(&action.param.unwrap().value)),
 
         _ => Vec::new(),
-
-        /*
-        "sign_tx" => landingpad(|| sign_tx(&action.param.unwrap().value)),
-        "sign_msg" => landingpad(|| sign_msg(&action.param.unwrap().value)),
-        "get_address" => landingpad(|| get_address(&action.param.unwrap().value)),
-        "device_manage" => landingpad(|| device_manage(&action.param.unwrap().value)),
-        "register_coin" => landingpad(|| register_coin(&action.param.unwrap().value)),
-        _ => Vec::new(), //@@XM TODO: change to error message*/
-                         /*
-                         "sign_tx" => landingpad(|| sign_tx(&action.param.unwrap().value)),
-
-                         "get_address" => landingpad(|| get_address(&action.param.unwrap().value)),
-
-                         _ => landingpad(|| Err(format_err!("unsupported_method"))),
-                         */
     };
 
     let ret_str = hex::encode(reply);

@@ -41,7 +41,7 @@ public class ImKeyBitcoinTransactionTest {
         try {
             while (keys.hasNext()) {
 
-                btcapi.Btc.BtcTxInput.Builder builder = btcapi.Btc.BtcTxInput.newBuilder();
+                btcapi.Btc.BtcTxReq.Builder builder = btcapi.Btc.BtcTxReq.newBuilder();
 
                 String key = keys.next();
                 JSONObject testcase = testcases.getJSONObject(key);
@@ -71,10 +71,6 @@ public class ImKeyBitcoinTransactionTest {
                         .setAmount(testcase.getLong("amount"))
                         .setFee(testcase.getLong("fee"))
                         //.setExtraData(extraData)
-                        .setPayment(testcase.getString("payment"))
-                        .setToDis(testcase.getString("toDis"))
-                        .setFrom(testcase.getString("from"))
-                        .setFeeDis(testcase.getString("feeDis"))
                         .setNetwork(Constants.MAINNET)
                         .setPathPrefix(Path.BTC_PATH_PREFIX)
                         .build();
@@ -84,19 +80,9 @@ public class ImKeyBitcoinTransactionTest {
                         .setValue(builder.build().toByteString())
                         .build();
 
-
-                api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
-                        .setChainType("BTC")
-                        .setInput(any)
-                        .build();
-
-                Any any2 = Any.newBuilder()
-                        .setValue(signParam.toByteString())
-                        .build();
-
-                api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                        .setMethod("sign_tx")
-                        .setParam(any2)
+                api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                        .setMethod("btc_tx_sign")
+                        .setParam(any)
                         .build();
 
                 Boolean retry = true;
@@ -111,7 +97,7 @@ public class ImKeyBitcoinTransactionTest {
 
                         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-                        String result = RustApi.INSTANCE.call_tcx_api(hex);
+                        String result = RustApi.INSTANCE.call_imkey_api(hex);
 
                         //
                         String error = RustApi.INSTANCE.get_last_err_message();
@@ -127,8 +113,8 @@ public class ImKeyBitcoinTransactionTest {
                             }
                         }
 
-                        btcapi.Btc.BtcTxOutput response = btcapi.Btc.BtcTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
-                        String signature = response.getSignature();
+                        btcapi.Btc.BtcTxRes response = btcapi.Btc.BtcTxRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                        String signature = response.getTxData();
                         String tx_hash = response.getTxHash();
                         LogUtil.d("signature：" + signature);
                         LogUtil.d("tx_hash：" + tx_hash);
@@ -252,7 +238,7 @@ public class ImKeyBitcoinTransactionTest {
         try {
             while (keys.hasNext()) {
 
-                btcapi.Btc.BtcTxInput.Builder builder = btcapi.Btc.BtcTxInput.newBuilder();
+                btcapi.Btc.BtcTxReq.Builder builder = btcapi.Btc.BtcTxReq.newBuilder();
 
                 String key = keys.next();
                 JSONObject testcase = testcases.getJSONObject(key);
@@ -279,10 +265,6 @@ public class ImKeyBitcoinTransactionTest {
                         .setAmount(testcase.getLong("amount"))
                         .setFee(testcase.getLong("fee"))
                         //.setExtraData(extraData)
-                        .setPayment(testcase.getString("payment"))
-                        .setToDis(testcase.getString("toDis"))
-                        .setFrom(testcase.getString("from"))
-                        .setFeeDis(testcase.getString("feeDis"))
                         .setNetwork(Constants.MAINNET)
                         .setPathPrefix(Path.BTC_SEGWIT_PATH_PREFIX)
                         .build();
@@ -292,20 +274,11 @@ public class ImKeyBitcoinTransactionTest {
                         .setValue(builder.build().toByteString())
                         .build();
 
-
-                api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
-                        .setChainType("BTC_SEGWIT")
-                        .setInput(any)
+                api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                        .setMethod("btc_segwit_tx_sign")
+                        .setParam(any)
                         .build();
 
-                Any any2 = Any.newBuilder()
-                        .setValue(signParam.toByteString())
-                        .build();
-
-                api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                        .setMethod("sign_tx")
-                        .setParam(any2)
-                        .build();
 
                 Boolean retry = true;
                 int tryCount = 0;
@@ -319,7 +292,7 @@ public class ImKeyBitcoinTransactionTest {
 
                         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-                        String result = RustApi.INSTANCE.call_tcx_api(hex);
+                        String result = RustApi.INSTANCE.call_imkey_api(hex);
 
                         //
                         String error = RustApi.INSTANCE.get_last_err_message();
@@ -335,10 +308,10 @@ public class ImKeyBitcoinTransactionTest {
                             }
                         }
 
-                        btcapi.Btc.BtcTxOutput response = btcapi.Btc.BtcTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
-                        String signature = response.getSignature();
+                        btcapi.Btc.BtcSegwitTxRes response = btcapi.Btc.BtcSegwitTxRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                        String signature = response.getWitnessTxData();
                         String tx_hash = response.getTxHash();
-                        String wtx_id = response.getWtxId();
+                        String wtx_id = response.getWtxHash();
                         LogUtil.d("signature：" + signature);
                         LogUtil.d("tx_hash：" + tx_hash);
                         LogUtil.d("wtx_id：" + wtx_id);
@@ -499,7 +472,7 @@ public class ImKeyBitcoinTransactionTest {
 
             ByteString extraData = ByteString.copyFrom(ByteUtil.hexStringToByteArray("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385"));
 
-            btcapi.Btc.BtcTxInput btcTxInput = btcapi.Btc.BtcTxInput.newBuilder()
+            btcapi.Btc.BtcTxReq btcTxReq = btcapi.Btc.BtcTxReq.newBuilder()
                     .setTo("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3")
                     .setChangeAddressIndex(53)
                     .setAmount(799988000)
@@ -509,39 +482,26 @@ public class ImKeyBitcoinTransactionTest {
                     .addUnspents(utxo2)
                     .addUnspents(utxo3)
                     .setExtraData(extraData)
-                    .setPayment("0.0001 BT")
-                    .setToDis("3CVD68V71no5jn2UZpLLq6hASpXu1jrByt")
-                    .setFrom("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy")
-                    .setFeeDis("0.00007945 BTC")
                     .setNetwork("TESTNET")
                     .setPathPrefix(Path.BITCOIN_TESTNET_PATH)
                     .build();
 
 
             Any any = Any.newBuilder()
-                    .setValue(btcTxInput.toByteString())
+                    .setValue(btcTxReq.toByteString())
                     .build();
 
-
-            api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
-                    .setChainType("BTC")
-                    .setInput(any)
+            api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                    .setMethod("btc_tx_sign")
+                    .setParam(any)
                     .build();
 
-            Any any2 = Any.newBuilder()
-                    .setValue(signParam.toByteString())
-                    .build();
-
-            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                    .setMethod("sign_tx")
-                    .setParam(any2)
-                    .build();
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
             RustApi.INSTANCE.clear_err();
 
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
 
             String error = RustApi.INSTANCE.get_last_err_message();
             if(!"".equals(error) && null != error) {
@@ -552,8 +512,8 @@ public class ImKeyBitcoinTransactionTest {
 
                 }
             } else {
-                btcapi.Btc.BtcTxOutput response = btcapi.Btc.BtcTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
-                String signature = response.getSignature();
+                btcapi.Btc.BtcTxRes response = btcapi.Btc.BtcTxRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                String signature = response.getTxData();
                 String tx_hash = response.getTxHash();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("signature：" + signature);
@@ -724,7 +684,7 @@ public class ImKeyBitcoinTransactionTest {
 
             ByteString extraData = ByteString.copyFrom(ByteUtil.hexStringToByteArray("1234"));
 
-            btcapi.Btc.BtcTxInput btcTxInput = btcapi.Btc.BtcTxInput.newBuilder()
+            btcapi.Btc.BtcTxReq btcTxReq = btcapi.Btc.BtcTxReq.newBuilder()
                     .setTo("2N9wBy6f1KTUF5h2UUeqRdKnBT6oSMh4Whp")
                     .setChangeAddressIndex(0)
                     .setAmount(88000)
@@ -732,38 +692,24 @@ public class ImKeyBitcoinTransactionTest {
                     .addUnspents(utxo0)
                     .addUnspents(utxo1)
                     .setExtraData(extraData)
-                    .setPayment("0.0001 BT")
-                    .setToDis("3CVD68V71no5jn2UZpLLq6hASpXu1jrByt")
-                    .setFrom("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy")
-                    .setFeeDis("0.00007945 BTC")
                     .setNetwork("TESTNET")
                     .setPathPrefix(Path.BITCOIN_SEGWIT_TESTNET_PATH)
                     .build();
 
             Any any = Any.newBuilder()
-                    .setValue(btcTxInput.toByteString())
+                    .setValue(btcTxReq.toByteString())
                     .build();
 
-
-            api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
-                    .setChainType("BTC_SEGWIT")
-                    .setInput(any)
-                    .build();
-
-            Any any2 = Any.newBuilder()
-                    .setValue(signParam.toByteString())
-                    .build();
-
-            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                    .setMethod("sign_tx")
-                    .setParam(any2)
+            api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                    .setMethod("btc_segwit_tx_sign")
+                    .setParam(any)
                     .build();
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
             RustApi.INSTANCE.clear_err();
 
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
 
             String error = RustApi.INSTANCE.get_last_err_message();
             if(!"".equals(error) && null != error) {
@@ -774,10 +720,10 @@ public class ImKeyBitcoinTransactionTest {
 
                 }
             } else {
-                btcapi.Btc.BtcTxOutput response = btcapi.Btc.BtcTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
-                String signature = response.getSignature();
+                btcapi.Btc.BtcSegwitTxRes response = btcapi.Btc.BtcSegwitTxRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                String signature = response.getWitnessTxData();
                 String tx_hash = response.getTxHash();
-                String wtx_id = response.getWtxId();
+                String wtx_id = response.getWtxHash();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("signature：" + signature);
                 LogUtil.d("tx_hash：" + tx_hash);

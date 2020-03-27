@@ -73,25 +73,16 @@ public class DeviceManager {
         seid = seid.substring(0, seid.length()-4);
         return seid;*/
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("get_seid")
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("get_seid")
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         String seid = null;
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
-            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
-            seid = response.getResult();
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
+            Device.GetSeidRes response = Device.GetSeidRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+            seid = response.getSeid();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,25 +103,16 @@ public class DeviceManager {
         return sn;*/
 
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("get_sn")
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("get_sn")
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         String sn = null;
         try {
-            String sn_result = RustApi.INSTANCE.call_tcx_api(hex);
-            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(sn_result));
-            sn = response.getResult();
+            String sn_result = RustApi.INSTANCE.call_imkey_api(hex);
+            Device.GetSnRes response = Device.GetSnRes.parseFrom(ByteUtil.hexStringToByteArray(sn_result));
+            sn = response.getSn();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -144,25 +126,16 @@ public class DeviceManager {
 
     public int getRamSize() {
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("get_ram_size")
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("get_ram_size")
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         String res = null;
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
-            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
-            res = response.getResult();
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
+            Device.GetRamSizeRes response = Device.GetRamSizeRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+            res = response.getRamSize();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -179,27 +152,17 @@ public class DeviceManager {
      */
     public String getFirmwareVersion() {
 
-
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("get_firmware_version")
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("get_firmware_version")
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         String res = null;
         String version = null;
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
-            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
-            res = response.getResult();
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
+            Device.GetFirmwareVersionRes response = Device.GetFirmwareVersionRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+            res = response.getFirmwareVersion();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -226,25 +189,16 @@ public class DeviceManager {
      */
     public String getBatteryPower() {
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("get_battery_power")
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("get_battery_power")
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         String res = null;
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
-            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
-            res = response.getResult();
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
+            Device.GetBatteryPowerRes response = Device.GetBatteryPowerRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+            res = response.getBatteryPower();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -268,25 +222,16 @@ public class DeviceManager {
      */
     public String getLifeTime() {
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("get_life_time")
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("get_life_time")
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         String res = null;
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
-            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
-            res = response.getResult();
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
+            Device.GetLifeTimeRes response = Device.GetLifeTimeRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+            res = response.getLifeTime();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -316,25 +261,16 @@ public class DeviceManager {
 
     public String getBleName() {
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("get_ble_name")
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("get_ble_name")
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         String res = null;
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
-            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
-            res = response.getResult();
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
+            Device.GetBleNameRes response = Device.GetBleNameRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+            res = response.getBleName();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -356,32 +292,24 @@ public class DeviceManager {
 //        String apdu = Apdu.setBleName(bleName);
 //        String result = Ble.getInstance().sendApdu(apdu);
 
-        deviceapi.Device.BleAction bleAction = deviceapi.Device.BleAction.newBuilder()
+        deviceapi.Device.SetBleNameReq req = deviceapi.Device.SetBleNameReq.newBuilder()
                 .setBleName(bleName)
                 .build();
 
         Any any = Any.newBuilder()
-                .setValue(bleAction.toByteString())
+                .setValue(req.toByteString())
                 .build();
 
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("set_ble_name")
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("set_ble_name")
                 .setParam(any)
                 .build();
 
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
-                .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
             //Device.SeQueryResponse response = Device.SeQueryResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
             //String s = response.toString();
             LogUtil.d(result);
@@ -401,25 +329,16 @@ public class DeviceManager {
      */
     public String getBleVersion() {
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("get_ble_version")
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("get_ble_version")
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         String res = null;
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
-            Device.ApduResponse response = Device.ApduResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
-            res = response.getResult();
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
+            Device.GetBleVersionRes response = Device.GetBleVersionRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+            res = response.getBleVersion();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -441,22 +360,13 @@ public class DeviceManager {
     public void checkDevice() {
 
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("se_secure_check")
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("device_secure_check")
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
             //Device.SeQueryResponse response = Device.SeQueryResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
             //String s = response.toString();
             LogUtil.d(result);
@@ -502,22 +412,13 @@ public class DeviceManager {
 
     public void activeDevice() {
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("se_activate")
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("device_activate")
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
             //Device.SeQueryResponse response = Device.SeQueryResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
             //String s = response.toString();
             LogUtil.d(result);
@@ -558,24 +459,15 @@ public class DeviceManager {
 
     public String checkUpdate() {
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("check_update")
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("check_update")
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        Device.CheckUpdateResponse response = null;
+        Device.CheckUpdateRes response = null;
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
-            response = Device.CheckUpdateResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
+            response = Device.CheckUpdateRes.parseFrom(ByteUtil.hexStringToByteArray(result));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -623,31 +515,24 @@ public class DeviceManager {
     public void download(String appletName) {
 
 
-        deviceapi.Device.AppAction appAction = deviceapi.Device.AppAction.newBuilder()
+        deviceapi.Device.AppDownloadReq req = deviceapi.Device.AppDownloadReq.newBuilder()
                 .setAppName(appletName)
                 .build();
 
         Any any = Any.newBuilder()
-                .setValue(appAction.toByteString())
+                .setValue(req.toByteString())
                 .build();
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("app_download")
+
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("app_download")
                 .setParam(any)
                 .build();
 
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
-                .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
             //Device.SeQueryResponse response = Device.SeQueryResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
             //String s = response.toString();
             LogUtil.d(result);
@@ -689,31 +574,23 @@ public class DeviceManager {
 
     public void update(String appletName) {
 
-        deviceapi.Device.AppAction appAction = deviceapi.Device.AppAction.newBuilder()
+        deviceapi.Device.AppUpdateReq req = deviceapi.Device.AppUpdateReq.newBuilder()
                 .setAppName(appletName)
                 .build();
 
         Any any = Any.newBuilder()
-                .setValue(appAction.toByteString())
+                .setValue(req.toByteString())
                 .build();
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("app_update")
+
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("app_update")
                 .setParam(any)
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
             //Device.SeQueryResponse response = Device.SeQueryResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
             //String s = response.toString();
             LogUtil.d(result);
@@ -755,32 +632,23 @@ public class DeviceManager {
 
     public void delete(String appletName) {
 
-        deviceapi.Device.AppAction appAction = deviceapi.Device.AppAction.newBuilder()
+        deviceapi.Device.AppDeleteReq req = deviceapi.Device.AppDeleteReq.newBuilder()
                 .setAppName(appletName)
                 .build();
 
         Any any = Any.newBuilder()
-                .setValue(appAction.toByteString())
+                .setValue(req.toByteString())
                 .build();
 
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("app_delete")
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("app_delete")
                 .setParam(any)
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
             //Device.SeQueryResponse response = Device.SeQueryResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
             //String s = response.toString();
             LogUtil.d(result);
@@ -893,34 +761,24 @@ public class DeviceManager {
         // file名称与seid关联，支持一个手机，绑定多个设备
         String  filePath = context.getFilesDir().getPath();
 
-        deviceapi.Device.BindCheck bindCheck = deviceapi.Device.BindCheck.newBuilder()
+        deviceapi.Device.BindCheckReq req = deviceapi.Device.BindCheckReq.newBuilder()
                 .setFilePath(filePath)
                 .build();
 
         Any any = Any.newBuilder()
-                .setValue(bindCheck.toByteString())
+                .setValue(req.toByteString())
                 .build();
 
-
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("bind_check")
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("bind_check")
                 .setParam(any)
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
         String status = null;
         try {
             // clear_err
             RustApi.INSTANCE.clear_err();
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
             String error = RustApi.INSTANCE.get_last_err_message();
 
             if(!"".equals(error) && null != error) {
@@ -930,7 +788,7 @@ public class DeviceManager {
                     LogUtil.d("异常： " + errorResponse.getError());
                 }
             } else {
-                Device.BindCheckResponse response = Device.BindCheckResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+                Device.BindCheckRes response = Device.BindCheckRes.parseFrom(ByteUtil.hexStringToByteArray(result));
                 status = response.getBindStatus();
                 LogUtil.d("绑定状态：" + status);
             }
@@ -1038,22 +896,15 @@ public class DeviceManager {
      */
     public void displayBindingCode() {
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("bind_display")
+
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("bind_display")
                 .build();
 
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
-                .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1067,33 +918,23 @@ public class DeviceManager {
 
     public String bindAcquire(String bindingCode) {
 
-        deviceapi.Device.BindAcquire bindCheck = deviceapi.Device.BindAcquire.newBuilder()
+        deviceapi.Device.BindAcquireReq req = deviceapi.Device.BindAcquireReq.newBuilder()
                 .setBindCode(bindingCode)
                 .build();
 
         Any any = Any.newBuilder()
-                .setValue(bindCheck.toByteString())
+                .setValue(req.toByteString())
                 .build();
 
-
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("bind_acquire")
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("bind_acquire")
                 .setParam(any)
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
         String status = null;
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
-            Device.BindAcquireResponse response = Device.BindAcquireResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
+            Device.BindAcquireRes response = Device.BindAcquireRes.parseFrom(ByteUtil.hexStringToByteArray(result));
             status = response.getBindResult();
             status = Constants.identityVerifyStatusMap.get(status);
             LogUtil.d("绑定状态：" + status);
@@ -1166,24 +1007,15 @@ public class DeviceManager {
 
     public SdkInfo getSdkInfo() {
 
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("get_sdk_info")
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("get_sdk_info")
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
         String res = null;
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
-            Device.SdkInfoResponse response = Device.SdkInfoResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
+            Device.GetSdkInfoRes response = Device.GetSdkInfoRes.parseFrom(ByteUtil.hexStringToByteArray(result));
             res = response.getSdkVersion();
         } catch (Exception e) {
             e.printStackTrace();
