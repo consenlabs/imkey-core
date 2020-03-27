@@ -160,12 +160,11 @@ impl EosTransaction {
     }
 
     pub fn sign_message(input:EosMessageSignReq) -> Result<EosMessageSignRes>{
-        let mut hash = Vec::new();
-        if input.is_hex {
-            hash = hex::decode(input.data).unwrap();
+        let hash = if input.is_hex {
+            hex::decode(input.data).unwrap()
         }else{
-            hash = sha256_hash(input.data.as_bytes());
-        }
+            sha256_hash(input.data.as_bytes())
+        };
 
         let mut data_pack: Vec<u8>  = Vec::new();
         data_pack.push(0x01);
@@ -277,7 +276,7 @@ mod tests {
             payment: "undelegatebw 0.0100 EOS".to_string()
         };
 
-        let mut eox_tx_input = EosTxInput{
+        let mut eox_tx_input = EosTxReq{
             path: constants::EOS_PATH.to_string(),
             sign_datas: vec![eos_sign_data]
         };
@@ -292,7 +291,7 @@ mod tests {
         let check_result = DeviceManage::bind_check(&path).unwrap();
         println!("check_result:{}",&check_result);
 
-        let input = EosMessageInput{
+        let input = EosMessageSignReq{
             path: constants::EOS_PATH.to_string(),
             data: "imKey2019".to_string(),
             is_hex: false,

@@ -185,7 +185,6 @@ impl CosmosTransaction {
 mod tests {
     use crate::transaction::{CosmosTransaction, SignData, StdFee, Coin, Msg, MsgValue};
     use common::constants;
-    use common::cosmosapi::CosmosTxInput;
     use common::utility::{secp256k1_sign, hex_to_bytes};
     use device::device_binding::DeviceManage;
 
@@ -258,6 +257,4 @@ mod tests {
         let cosmosTxOutput = input.sign().unwrap();
         //R3E1sN8ImA+SfRVpp4C0xNJNpQO7z5i4f2BsKdRxEPtlSousJyyAhgAY13A5VjZEIJARcX9KaWkfayfETEgALg==
     }
-
-
 }
