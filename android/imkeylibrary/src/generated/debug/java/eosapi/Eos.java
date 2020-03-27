@@ -14,6 +14,881 @@ public final class Eos {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  public interface EosTxReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:eosapi.EosTxReq)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string path = 1;</code>
+     */
+    java.lang.String getPath();
+    /**
+     * <code>optional string path = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getPathBytes();
+
+    /**
+     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     */
+    java.util.List<eosapi.Eos.EosSignData> 
+        getSignDatasList();
+    /**
+     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     */
+    eosapi.Eos.EosSignData getSignDatas(int index);
+    /**
+     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     */
+    int getSignDatasCount();
+    /**
+     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     */
+    java.util.List<? extends eosapi.Eos.EosSignDataOrBuilder> 
+        getSignDatasOrBuilderList();
+    /**
+     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     */
+    eosapi.Eos.EosSignDataOrBuilder getSignDatasOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code eosapi.EosTxReq}
+   */
+  public  static final class EosTxReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:eosapi.EosTxReq)
+      EosTxReqOrBuilder {
+    // Use EosTxReq.newBuilder() to construct.
+    private EosTxReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private EosTxReq() {
+      path_ = "";
+      signDatas_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private EosTxReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              path_ = s;
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                signDatas_ = new java.util.ArrayList<eosapi.Eos.EosSignData>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              signDatas_.add(
+                  input.readMessage(eosapi.Eos.EosSignData.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          signDatas_ = java.util.Collections.unmodifiableList(signDatas_);
+        }
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return eosapi.Eos.internal_static_eosapi_EosTxReq_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return eosapi.Eos.internal_static_eosapi_EosTxReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              eosapi.Eos.EosTxReq.class, eosapi.Eos.EosTxReq.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int PATH_FIELD_NUMBER = 1;
+    private volatile java.lang.Object path_;
+    /**
+     * <code>optional string path = 1;</code>
+     */
+    public java.lang.String getPath() {
+      java.lang.Object ref = path_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        path_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string path = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPathBytes() {
+      java.lang.Object ref = path_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        path_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SIGN_DATAS_FIELD_NUMBER = 2;
+    private java.util.List<eosapi.Eos.EosSignData> signDatas_;
+    /**
+     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     */
+    public java.util.List<eosapi.Eos.EosSignData> getSignDatasList() {
+      return signDatas_;
+    }
+    /**
+     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     */
+    public java.util.List<? extends eosapi.Eos.EosSignDataOrBuilder> 
+        getSignDatasOrBuilderList() {
+      return signDatas_;
+    }
+    /**
+     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     */
+    public int getSignDatasCount() {
+      return signDatas_.size();
+    }
+    /**
+     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     */
+    public eosapi.Eos.EosSignData getSignDatas(int index) {
+      return signDatas_.get(index);
+    }
+    /**
+     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     */
+    public eosapi.Eos.EosSignDataOrBuilder getSignDatasOrBuilder(
+        int index) {
+      return signDatas_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getPathBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, path_);
+      }
+      for (int i = 0; i < signDatas_.size(); i++) {
+        output.writeMessage(2, signDatas_.get(i));
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getPathBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, path_);
+      }
+      for (int i = 0; i < signDatas_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, signDatas_.get(i));
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof eosapi.Eos.EosTxReq)) {
+        return super.equals(obj);
+      }
+      eosapi.Eos.EosTxReq other = (eosapi.Eos.EosTxReq) obj;
+
+      boolean result = true;
+      result = result && getPath()
+          .equals(other.getPath());
+      result = result && getSignDatasList()
+          .equals(other.getSignDatasList());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + PATH_FIELD_NUMBER;
+      hash = (53 * hash) + getPath().hashCode();
+      if (getSignDatasCount() > 0) {
+        hash = (37 * hash) + SIGN_DATAS_FIELD_NUMBER;
+        hash = (53 * hash) + getSignDatasList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static eosapi.Eos.EosTxReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static eosapi.Eos.EosTxReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static eosapi.Eos.EosTxReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static eosapi.Eos.EosTxReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static eosapi.Eos.EosTxReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static eosapi.Eos.EosTxReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static eosapi.Eos.EosTxReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static eosapi.Eos.EosTxReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static eosapi.Eos.EosTxReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static eosapi.Eos.EosTxReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(eosapi.Eos.EosTxReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code eosapi.EosTxReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:eosapi.EosTxReq)
+        eosapi.Eos.EosTxReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return eosapi.Eos.internal_static_eosapi_EosTxReq_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return eosapi.Eos.internal_static_eosapi_EosTxReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                eosapi.Eos.EosTxReq.class, eosapi.Eos.EosTxReq.Builder.class);
+      }
+
+      // Construct using eosapi.Eos.EosTxReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getSignDatasFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        path_ = "";
+
+        if (signDatasBuilder_ == null) {
+          signDatas_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          signDatasBuilder_.clear();
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return eosapi.Eos.internal_static_eosapi_EosTxReq_descriptor;
+      }
+
+      public eosapi.Eos.EosTxReq getDefaultInstanceForType() {
+        return eosapi.Eos.EosTxReq.getDefaultInstance();
+      }
+
+      public eosapi.Eos.EosTxReq build() {
+        eosapi.Eos.EosTxReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public eosapi.Eos.EosTxReq buildPartial() {
+        eosapi.Eos.EosTxReq result = new eosapi.Eos.EosTxReq(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        result.path_ = path_;
+        if (signDatasBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            signDatas_ = java.util.Collections.unmodifiableList(signDatas_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.signDatas_ = signDatas_;
+        } else {
+          result.signDatas_ = signDatasBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof eosapi.Eos.EosTxReq) {
+          return mergeFrom((eosapi.Eos.EosTxReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(eosapi.Eos.EosTxReq other) {
+        if (other == eosapi.Eos.EosTxReq.getDefaultInstance()) return this;
+        if (!other.getPath().isEmpty()) {
+          path_ = other.path_;
+          onChanged();
+        }
+        if (signDatasBuilder_ == null) {
+          if (!other.signDatas_.isEmpty()) {
+            if (signDatas_.isEmpty()) {
+              signDatas_ = other.signDatas_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureSignDatasIsMutable();
+              signDatas_.addAll(other.signDatas_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.signDatas_.isEmpty()) {
+            if (signDatasBuilder_.isEmpty()) {
+              signDatasBuilder_.dispose();
+              signDatasBuilder_ = null;
+              signDatas_ = other.signDatas_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              signDatasBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSignDatasFieldBuilder() : null;
+            } else {
+              signDatasBuilder_.addAllMessages(other.signDatas_);
+            }
+          }
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        eosapi.Eos.EosTxReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (eosapi.Eos.EosTxReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object path_ = "";
+      /**
+       * <code>optional string path = 1;</code>
+       */
+      public java.lang.String getPath() {
+        java.lang.Object ref = path_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          path_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string path = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPathBytes() {
+        java.lang.Object ref = path_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          path_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string path = 1;</code>
+       */
+      public Builder setPath(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        path_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string path = 1;</code>
+       */
+      public Builder clearPath() {
+        
+        path_ = getDefaultInstance().getPath();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string path = 1;</code>
+       */
+      public Builder setPathBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        path_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<eosapi.Eos.EosSignData> signDatas_ =
+        java.util.Collections.emptyList();
+      private void ensureSignDatasIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          signDatas_ = new java.util.ArrayList<eosapi.Eos.EosSignData>(signDatas_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          eosapi.Eos.EosSignData, eosapi.Eos.EosSignData.Builder, eosapi.Eos.EosSignDataOrBuilder> signDatasBuilder_;
+
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public java.util.List<eosapi.Eos.EosSignData> getSignDatasList() {
+        if (signDatasBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(signDatas_);
+        } else {
+          return signDatasBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public int getSignDatasCount() {
+        if (signDatasBuilder_ == null) {
+          return signDatas_.size();
+        } else {
+          return signDatasBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public eosapi.Eos.EosSignData getSignDatas(int index) {
+        if (signDatasBuilder_ == null) {
+          return signDatas_.get(index);
+        } else {
+          return signDatasBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public Builder setSignDatas(
+          int index, eosapi.Eos.EosSignData value) {
+        if (signDatasBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSignDatasIsMutable();
+          signDatas_.set(index, value);
+          onChanged();
+        } else {
+          signDatasBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public Builder setSignDatas(
+          int index, eosapi.Eos.EosSignData.Builder builderForValue) {
+        if (signDatasBuilder_ == null) {
+          ensureSignDatasIsMutable();
+          signDatas_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          signDatasBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public Builder addSignDatas(eosapi.Eos.EosSignData value) {
+        if (signDatasBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSignDatasIsMutable();
+          signDatas_.add(value);
+          onChanged();
+        } else {
+          signDatasBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public Builder addSignDatas(
+          int index, eosapi.Eos.EosSignData value) {
+        if (signDatasBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSignDatasIsMutable();
+          signDatas_.add(index, value);
+          onChanged();
+        } else {
+          signDatasBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public Builder addSignDatas(
+          eosapi.Eos.EosSignData.Builder builderForValue) {
+        if (signDatasBuilder_ == null) {
+          ensureSignDatasIsMutable();
+          signDatas_.add(builderForValue.build());
+          onChanged();
+        } else {
+          signDatasBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public Builder addSignDatas(
+          int index, eosapi.Eos.EosSignData.Builder builderForValue) {
+        if (signDatasBuilder_ == null) {
+          ensureSignDatasIsMutable();
+          signDatas_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          signDatasBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public Builder addAllSignDatas(
+          java.lang.Iterable<? extends eosapi.Eos.EosSignData> values) {
+        if (signDatasBuilder_ == null) {
+          ensureSignDatasIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, signDatas_);
+          onChanged();
+        } else {
+          signDatasBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public Builder clearSignDatas() {
+        if (signDatasBuilder_ == null) {
+          signDatas_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          signDatasBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public Builder removeSignDatas(int index) {
+        if (signDatasBuilder_ == null) {
+          ensureSignDatasIsMutable();
+          signDatas_.remove(index);
+          onChanged();
+        } else {
+          signDatasBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public eosapi.Eos.EosSignData.Builder getSignDatasBuilder(
+          int index) {
+        return getSignDatasFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public eosapi.Eos.EosSignDataOrBuilder getSignDatasOrBuilder(
+          int index) {
+        if (signDatasBuilder_ == null) {
+          return signDatas_.get(index);  } else {
+          return signDatasBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public java.util.List<? extends eosapi.Eos.EosSignDataOrBuilder> 
+           getSignDatasOrBuilderList() {
+        if (signDatasBuilder_ != null) {
+          return signDatasBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(signDatas_);
+        }
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public eosapi.Eos.EosSignData.Builder addSignDatasBuilder() {
+        return getSignDatasFieldBuilder().addBuilder(
+            eosapi.Eos.EosSignData.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public eosapi.Eos.EosSignData.Builder addSignDatasBuilder(
+          int index) {
+        return getSignDatasFieldBuilder().addBuilder(
+            index, eosapi.Eos.EosSignData.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       */
+      public java.util.List<eosapi.Eos.EosSignData.Builder> 
+           getSignDatasBuilderList() {
+        return getSignDatasFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          eosapi.Eos.EosSignData, eosapi.Eos.EosSignData.Builder, eosapi.Eos.EosSignDataOrBuilder> 
+          getSignDatasFieldBuilder() {
+        if (signDatasBuilder_ == null) {
+          signDatasBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              eosapi.Eos.EosSignData, eosapi.Eos.EosSignData.Builder, eosapi.Eos.EosSignDataOrBuilder>(
+                  signDatas_,
+                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  getParentForChildren(),
+                  isClean());
+          signDatas_ = null;
+        }
+        return signDatasBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:eosapi.EosTxReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:eosapi.EosTxReq)
+    private static final eosapi.Eos.EosTxReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new eosapi.Eos.EosTxReq();
+    }
+
+    public static eosapi.Eos.EosTxReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<EosTxReq>
+        PARSER = new com.google.protobuf.AbstractParser<EosTxReq>() {
+      public EosTxReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new EosTxReq(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<EosTxReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EosTxReq> getParserForType() {
+      return PARSER;
+    }
+
+    public eosapi.Eos.EosTxReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface EosSignDataOrBuilder extends
       // @@protoc_insertion_point(interface_extends:eosapi.EosSignData)
       com.google.protobuf.MessageOrBuilder {
@@ -1259,58 +2134,47 @@ public final class Eos {
 
   }
 
-  public interface EosTxInputOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:eosapi.EosTxInput)
+  public interface EosTxResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:eosapi.EosTxRes)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string path = 1;</code>
+     * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
      */
-    java.lang.String getPath();
+    java.util.List<eosapi.Eos.EosSignResult> 
+        getTransMultiSignsList();
     /**
-     * <code>optional string path = 1;</code>
+     * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
      */
-    com.google.protobuf.ByteString
-        getPathBytes();
-
+    eosapi.Eos.EosSignResult getTransMultiSigns(int index);
     /**
-     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
      */
-    java.util.List<eosapi.Eos.EosSignData> 
-        getSignDatasList();
+    int getTransMultiSignsCount();
     /**
-     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
      */
-    eosapi.Eos.EosSignData getSignDatas(int index);
+    java.util.List<? extends eosapi.Eos.EosSignResultOrBuilder> 
+        getTransMultiSignsOrBuilderList();
     /**
-     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
      */
-    int getSignDatasCount();
-    /**
-     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
-     */
-    java.util.List<? extends eosapi.Eos.EosSignDataOrBuilder> 
-        getSignDatasOrBuilderList();
-    /**
-     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
-     */
-    eosapi.Eos.EosSignDataOrBuilder getSignDatasOrBuilder(
+    eosapi.Eos.EosSignResultOrBuilder getTransMultiSignsOrBuilder(
         int index);
   }
   /**
-   * Protobuf type {@code eosapi.EosTxInput}
+   * Protobuf type {@code eosapi.EosTxRes}
    */
-  public  static final class EosTxInput extends
+  public  static final class EosTxRes extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:eosapi.EosTxInput)
-      EosTxInputOrBuilder {
-    // Use EosTxInput.newBuilder() to construct.
-    private EosTxInput(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:eosapi.EosTxRes)
+      EosTxResOrBuilder {
+    // Use EosTxRes.newBuilder() to construct.
+    private EosTxRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private EosTxInput() {
-      path_ = "";
-      signDatas_ = java.util.Collections.emptyList();
+    private EosTxRes() {
+      transMultiSigns_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -1318,7 +2182,7 @@ public final class Eos {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private EosTxInput(
+    private EosTxRes(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1339,18 +2203,12 @@ public final class Eos {
               break;
             }
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              path_ = s;
-              break;
-            }
-            case 18: {
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-                signDatas_ = new java.util.ArrayList<eosapi.Eos.EosSignData>();
-                mutable_bitField0_ |= 0x00000002;
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                transMultiSigns_ = new java.util.ArrayList<eosapi.Eos.EosSignResult>();
+                mutable_bitField0_ |= 0x00000001;
               }
-              signDatas_.add(
-                  input.readMessage(eosapi.Eos.EosSignData.parser(), extensionRegistry));
+              transMultiSigns_.add(
+                  input.readMessage(eosapi.Eos.EosSignResult.parser(), extensionRegistry));
               break;
             }
           }
@@ -1361,92 +2219,57 @@ public final class Eos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-          signDatas_ = java.util.Collections.unmodifiableList(signDatas_);
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          transMultiSigns_ = java.util.Collections.unmodifiableList(transMultiSigns_);
         }
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return eosapi.Eos.internal_static_eosapi_EosTxInput_descriptor;
+      return eosapi.Eos.internal_static_eosapi_EosTxRes_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return eosapi.Eos.internal_static_eosapi_EosTxInput_fieldAccessorTable
+      return eosapi.Eos.internal_static_eosapi_EosTxRes_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              eosapi.Eos.EosTxInput.class, eosapi.Eos.EosTxInput.Builder.class);
+              eosapi.Eos.EosTxRes.class, eosapi.Eos.EosTxRes.Builder.class);
     }
 
-    private int bitField0_;
-    public static final int PATH_FIELD_NUMBER = 1;
-    private volatile java.lang.Object path_;
+    public static final int TRANS_MULTI_SIGNS_FIELD_NUMBER = 1;
+    private java.util.List<eosapi.Eos.EosSignResult> transMultiSigns_;
     /**
-     * <code>optional string path = 1;</code>
+     * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
      */
-    public java.lang.String getPath() {
-      java.lang.Object ref = path_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        path_ = s;
-        return s;
-      }
+    public java.util.List<eosapi.Eos.EosSignResult> getTransMultiSignsList() {
+      return transMultiSigns_;
     }
     /**
-     * <code>optional string path = 1;</code>
+     * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
      */
-    public com.google.protobuf.ByteString
-        getPathBytes() {
-      java.lang.Object ref = path_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        path_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int SIGN_DATAS_FIELD_NUMBER = 2;
-    private java.util.List<eosapi.Eos.EosSignData> signDatas_;
-    /**
-     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
-     */
-    public java.util.List<eosapi.Eos.EosSignData> getSignDatasList() {
-      return signDatas_;
+    public java.util.List<? extends eosapi.Eos.EosSignResultOrBuilder> 
+        getTransMultiSignsOrBuilderList() {
+      return transMultiSigns_;
     }
     /**
-     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
      */
-    public java.util.List<? extends eosapi.Eos.EosSignDataOrBuilder> 
-        getSignDatasOrBuilderList() {
-      return signDatas_;
+    public int getTransMultiSignsCount() {
+      return transMultiSigns_.size();
     }
     /**
-     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
      */
-    public int getSignDatasCount() {
-      return signDatas_.size();
+    public eosapi.Eos.EosSignResult getTransMultiSigns(int index) {
+      return transMultiSigns_.get(index);
     }
     /**
-     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+     * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
      */
-    public eosapi.Eos.EosSignData getSignDatas(int index) {
-      return signDatas_.get(index);
-    }
-    /**
-     * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
-     */
-    public eosapi.Eos.EosSignDataOrBuilder getSignDatasOrBuilder(
+    public eosapi.Eos.EosSignResultOrBuilder getTransMultiSignsOrBuilder(
         int index) {
-      return signDatas_.get(index);
+      return transMultiSigns_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1461,11 +2284,8 @@ public final class Eos {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getPathBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, path_);
-      }
-      for (int i = 0; i < signDatas_.size(); i++) {
-        output.writeMessage(2, signDatas_.get(i));
+      for (int i = 0; i < transMultiSigns_.size(); i++) {
+        output.writeMessage(1, transMultiSigns_.get(i));
       }
     }
 
@@ -1474,12 +2294,9 @@ public final class Eos {
       if (size != -1) return size;
 
       size = 0;
-      if (!getPathBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, path_);
-      }
-      for (int i = 0; i < signDatas_.size(); i++) {
+      for (int i = 0; i < transMultiSigns_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, signDatas_.get(i));
+          .computeMessageSize(1, transMultiSigns_.get(i));
       }
       memoizedSize = size;
       return size;
@@ -1491,16 +2308,14 @@ public final class Eos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof eosapi.Eos.EosTxInput)) {
+      if (!(obj instanceof eosapi.Eos.EosTxRes)) {
         return super.equals(obj);
       }
-      eosapi.Eos.EosTxInput other = (eosapi.Eos.EosTxInput) obj;
+      eosapi.Eos.EosTxRes other = (eosapi.Eos.EosTxRes) obj;
 
       boolean result = true;
-      result = result && getPath()
-          .equals(other.getPath());
-      result = result && getSignDatasList()
-          .equals(other.getSignDatasList());
+      result = result && getTransMultiSignsList()
+          .equals(other.getTransMultiSignsList());
       return result;
     }
 
@@ -1511,69 +2326,67 @@ public final class Eos {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + PATH_FIELD_NUMBER;
-      hash = (53 * hash) + getPath().hashCode();
-      if (getSignDatasCount() > 0) {
-        hash = (37 * hash) + SIGN_DATAS_FIELD_NUMBER;
-        hash = (53 * hash) + getSignDatasList().hashCode();
+      if (getTransMultiSignsCount() > 0) {
+        hash = (37 * hash) + TRANS_MULTI_SIGNS_FIELD_NUMBER;
+        hash = (53 * hash) + getTransMultiSignsList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static eosapi.Eos.EosTxInput parseFrom(
+    public static eosapi.Eos.EosTxRes parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static eosapi.Eos.EosTxInput parseFrom(
+    public static eosapi.Eos.EosTxRes parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static eosapi.Eos.EosTxInput parseFrom(byte[] data)
+    public static eosapi.Eos.EosTxRes parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static eosapi.Eos.EosTxInput parseFrom(
+    public static eosapi.Eos.EosTxRes parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static eosapi.Eos.EosTxInput parseFrom(java.io.InputStream input)
+    public static eosapi.Eos.EosTxRes parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosTxInput parseFrom(
+    public static eosapi.Eos.EosTxRes parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static eosapi.Eos.EosTxInput parseDelimitedFrom(java.io.InputStream input)
+    public static eosapi.Eos.EosTxRes parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosTxInput parseDelimitedFrom(
+    public static eosapi.Eos.EosTxRes parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static eosapi.Eos.EosTxInput parseFrom(
+    public static eosapi.Eos.EosTxRes parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosTxInput parseFrom(
+    public static eosapi.Eos.EosTxRes parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1585,7 +2398,7 @@ public final class Eos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(eosapi.Eos.EosTxInput prototype) {
+    public static Builder newBuilder(eosapi.Eos.EosTxRes prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -1600,25 +2413,25 @@ public final class Eos {
       return builder;
     }
     /**
-     * Protobuf type {@code eosapi.EosTxInput}
+     * Protobuf type {@code eosapi.EosTxRes}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:eosapi.EosTxInput)
-        eosapi.Eos.EosTxInputOrBuilder {
+        // @@protoc_insertion_point(builder_implements:eosapi.EosTxRes)
+        eosapi.Eos.EosTxResOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return eosapi.Eos.internal_static_eosapi_EosTxInput_descriptor;
+        return eosapi.Eos.internal_static_eosapi_EosTxRes_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return eosapi.Eos.internal_static_eosapi_EosTxInput_fieldAccessorTable
+        return eosapi.Eos.internal_static_eosapi_EosTxRes_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                eosapi.Eos.EosTxInput.class, eosapi.Eos.EosTxInput.Builder.class);
+                eosapi.Eos.EosTxRes.class, eosapi.Eos.EosTxRes.Builder.class);
       }
 
-      // Construct using eosapi.Eos.EosTxInput.newBuilder()
+      // Construct using eosapi.Eos.EosTxRes.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1631,54 +2444,49 @@ public final class Eos {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
-          getSignDatasFieldBuilder();
+          getTransMultiSignsFieldBuilder();
         }
       }
       public Builder clear() {
         super.clear();
-        path_ = "";
-
-        if (signDatasBuilder_ == null) {
-          signDatas_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
+        if (transMultiSignsBuilder_ == null) {
+          transMultiSigns_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
-          signDatasBuilder_.clear();
+          transMultiSignsBuilder_.clear();
         }
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return eosapi.Eos.internal_static_eosapi_EosTxInput_descriptor;
+        return eosapi.Eos.internal_static_eosapi_EosTxRes_descriptor;
       }
 
-      public eosapi.Eos.EosTxInput getDefaultInstanceForType() {
-        return eosapi.Eos.EosTxInput.getDefaultInstance();
+      public eosapi.Eos.EosTxRes getDefaultInstanceForType() {
+        return eosapi.Eos.EosTxRes.getDefaultInstance();
       }
 
-      public eosapi.Eos.EosTxInput build() {
-        eosapi.Eos.EosTxInput result = buildPartial();
+      public eosapi.Eos.EosTxRes build() {
+        eosapi.Eos.EosTxRes result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public eosapi.Eos.EosTxInput buildPartial() {
-        eosapi.Eos.EosTxInput result = new eosapi.Eos.EosTxInput(this);
+      public eosapi.Eos.EosTxRes buildPartial() {
+        eosapi.Eos.EosTxRes result = new eosapi.Eos.EosTxRes(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        result.path_ = path_;
-        if (signDatasBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
-            signDatas_ = java.util.Collections.unmodifiableList(signDatas_);
-            bitField0_ = (bitField0_ & ~0x00000002);
+        if (transMultiSignsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            transMultiSigns_ = java.util.Collections.unmodifiableList(transMultiSigns_);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
-          result.signDatas_ = signDatas_;
+          result.transMultiSigns_ = transMultiSigns_;
         } else {
-          result.signDatas_ = signDatasBuilder_.build();
+          result.transMultiSigns_ = transMultiSignsBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -1710,43 +2518,39 @@ public final class Eos {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof eosapi.Eos.EosTxInput) {
-          return mergeFrom((eosapi.Eos.EosTxInput)other);
+        if (other instanceof eosapi.Eos.EosTxRes) {
+          return mergeFrom((eosapi.Eos.EosTxRes)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(eosapi.Eos.EosTxInput other) {
-        if (other == eosapi.Eos.EosTxInput.getDefaultInstance()) return this;
-        if (!other.getPath().isEmpty()) {
-          path_ = other.path_;
-          onChanged();
-        }
-        if (signDatasBuilder_ == null) {
-          if (!other.signDatas_.isEmpty()) {
-            if (signDatas_.isEmpty()) {
-              signDatas_ = other.signDatas_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+      public Builder mergeFrom(eosapi.Eos.EosTxRes other) {
+        if (other == eosapi.Eos.EosTxRes.getDefaultInstance()) return this;
+        if (transMultiSignsBuilder_ == null) {
+          if (!other.transMultiSigns_.isEmpty()) {
+            if (transMultiSigns_.isEmpty()) {
+              transMultiSigns_ = other.transMultiSigns_;
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
-              ensureSignDatasIsMutable();
-              signDatas_.addAll(other.signDatas_);
+              ensureTransMultiSignsIsMutable();
+              transMultiSigns_.addAll(other.transMultiSigns_);
             }
             onChanged();
           }
         } else {
-          if (!other.signDatas_.isEmpty()) {
-            if (signDatasBuilder_.isEmpty()) {
-              signDatasBuilder_.dispose();
-              signDatasBuilder_ = null;
-              signDatas_ = other.signDatas_;
-              bitField0_ = (bitField0_ & ~0x00000002);
-              signDatasBuilder_ = 
+          if (!other.transMultiSigns_.isEmpty()) {
+            if (transMultiSignsBuilder_.isEmpty()) {
+              transMultiSignsBuilder_.dispose();
+              transMultiSignsBuilder_ = null;
+              transMultiSigns_ = other.transMultiSigns_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              transMultiSignsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getSignDatasFieldBuilder() : null;
+                   getTransMultiSignsFieldBuilder() : null;
             } else {
-              signDatasBuilder_.addAllMessages(other.signDatas_);
+              transMultiSignsBuilder_.addAllMessages(other.transMultiSigns_);
             }
           }
         }
@@ -1762,11 +2566,11 @@ public final class Eos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        eosapi.Eos.EosTxInput parsedMessage = null;
+        eosapi.Eos.EosTxRes parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (eosapi.Eos.EosTxInput) e.getUnfinishedMessage();
+          parsedMessage = (eosapi.Eos.EosTxRes) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1777,313 +2581,244 @@ public final class Eos {
       }
       private int bitField0_;
 
-      private java.lang.Object path_ = "";
-      /**
-       * <code>optional string path = 1;</code>
-       */
-      public java.lang.String getPath() {
-        java.lang.Object ref = path_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          path_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string path = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPathBytes() {
-        java.lang.Object ref = path_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          path_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string path = 1;</code>
-       */
-      public Builder setPath(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        path_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string path = 1;</code>
-       */
-      public Builder clearPath() {
-        
-        path_ = getDefaultInstance().getPath();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string path = 1;</code>
-       */
-      public Builder setPathBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        path_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.util.List<eosapi.Eos.EosSignData> signDatas_ =
+      private java.util.List<eosapi.Eos.EosSignResult> transMultiSigns_ =
         java.util.Collections.emptyList();
-      private void ensureSignDatasIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-          signDatas_ = new java.util.ArrayList<eosapi.Eos.EosSignData>(signDatas_);
-          bitField0_ |= 0x00000002;
+      private void ensureTransMultiSignsIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          transMultiSigns_ = new java.util.ArrayList<eosapi.Eos.EosSignResult>(transMultiSigns_);
+          bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          eosapi.Eos.EosSignData, eosapi.Eos.EosSignData.Builder, eosapi.Eos.EosSignDataOrBuilder> signDatasBuilder_;
+          eosapi.Eos.EosSignResult, eosapi.Eos.EosSignResult.Builder, eosapi.Eos.EosSignResultOrBuilder> transMultiSignsBuilder_;
 
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public java.util.List<eosapi.Eos.EosSignData> getSignDatasList() {
-        if (signDatasBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(signDatas_);
+      public java.util.List<eosapi.Eos.EosSignResult> getTransMultiSignsList() {
+        if (transMultiSignsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(transMultiSigns_);
         } else {
-          return signDatasBuilder_.getMessageList();
+          return transMultiSignsBuilder_.getMessageList();
         }
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public int getSignDatasCount() {
-        if (signDatasBuilder_ == null) {
-          return signDatas_.size();
+      public int getTransMultiSignsCount() {
+        if (transMultiSignsBuilder_ == null) {
+          return transMultiSigns_.size();
         } else {
-          return signDatasBuilder_.getCount();
+          return transMultiSignsBuilder_.getCount();
         }
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public eosapi.Eos.EosSignData getSignDatas(int index) {
-        if (signDatasBuilder_ == null) {
-          return signDatas_.get(index);
+      public eosapi.Eos.EosSignResult getTransMultiSigns(int index) {
+        if (transMultiSignsBuilder_ == null) {
+          return transMultiSigns_.get(index);
         } else {
-          return signDatasBuilder_.getMessage(index);
+          return transMultiSignsBuilder_.getMessage(index);
         }
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public Builder setSignDatas(
-          int index, eosapi.Eos.EosSignData value) {
-        if (signDatasBuilder_ == null) {
+      public Builder setTransMultiSigns(
+          int index, eosapi.Eos.EosSignResult value) {
+        if (transMultiSignsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureSignDatasIsMutable();
-          signDatas_.set(index, value);
+          ensureTransMultiSignsIsMutable();
+          transMultiSigns_.set(index, value);
           onChanged();
         } else {
-          signDatasBuilder_.setMessage(index, value);
+          transMultiSignsBuilder_.setMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public Builder setSignDatas(
-          int index, eosapi.Eos.EosSignData.Builder builderForValue) {
-        if (signDatasBuilder_ == null) {
-          ensureSignDatasIsMutable();
-          signDatas_.set(index, builderForValue.build());
+      public Builder setTransMultiSigns(
+          int index, eosapi.Eos.EosSignResult.Builder builderForValue) {
+        if (transMultiSignsBuilder_ == null) {
+          ensureTransMultiSignsIsMutable();
+          transMultiSigns_.set(index, builderForValue.build());
           onChanged();
         } else {
-          signDatasBuilder_.setMessage(index, builderForValue.build());
+          transMultiSignsBuilder_.setMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public Builder addSignDatas(eosapi.Eos.EosSignData value) {
-        if (signDatasBuilder_ == null) {
+      public Builder addTransMultiSigns(eosapi.Eos.EosSignResult value) {
+        if (transMultiSignsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureSignDatasIsMutable();
-          signDatas_.add(value);
+          ensureTransMultiSignsIsMutable();
+          transMultiSigns_.add(value);
           onChanged();
         } else {
-          signDatasBuilder_.addMessage(value);
+          transMultiSignsBuilder_.addMessage(value);
         }
         return this;
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public Builder addSignDatas(
-          int index, eosapi.Eos.EosSignData value) {
-        if (signDatasBuilder_ == null) {
+      public Builder addTransMultiSigns(
+          int index, eosapi.Eos.EosSignResult value) {
+        if (transMultiSignsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureSignDatasIsMutable();
-          signDatas_.add(index, value);
+          ensureTransMultiSignsIsMutable();
+          transMultiSigns_.add(index, value);
           onChanged();
         } else {
-          signDatasBuilder_.addMessage(index, value);
+          transMultiSignsBuilder_.addMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public Builder addSignDatas(
-          eosapi.Eos.EosSignData.Builder builderForValue) {
-        if (signDatasBuilder_ == null) {
-          ensureSignDatasIsMutable();
-          signDatas_.add(builderForValue.build());
+      public Builder addTransMultiSigns(
+          eosapi.Eos.EosSignResult.Builder builderForValue) {
+        if (transMultiSignsBuilder_ == null) {
+          ensureTransMultiSignsIsMutable();
+          transMultiSigns_.add(builderForValue.build());
           onChanged();
         } else {
-          signDatasBuilder_.addMessage(builderForValue.build());
+          transMultiSignsBuilder_.addMessage(builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public Builder addSignDatas(
-          int index, eosapi.Eos.EosSignData.Builder builderForValue) {
-        if (signDatasBuilder_ == null) {
-          ensureSignDatasIsMutable();
-          signDatas_.add(index, builderForValue.build());
+      public Builder addTransMultiSigns(
+          int index, eosapi.Eos.EosSignResult.Builder builderForValue) {
+        if (transMultiSignsBuilder_ == null) {
+          ensureTransMultiSignsIsMutable();
+          transMultiSigns_.add(index, builderForValue.build());
           onChanged();
         } else {
-          signDatasBuilder_.addMessage(index, builderForValue.build());
+          transMultiSignsBuilder_.addMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public Builder addAllSignDatas(
-          java.lang.Iterable<? extends eosapi.Eos.EosSignData> values) {
-        if (signDatasBuilder_ == null) {
-          ensureSignDatasIsMutable();
+      public Builder addAllTransMultiSigns(
+          java.lang.Iterable<? extends eosapi.Eos.EosSignResult> values) {
+        if (transMultiSignsBuilder_ == null) {
+          ensureTransMultiSignsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, signDatas_);
+              values, transMultiSigns_);
           onChanged();
         } else {
-          signDatasBuilder_.addAllMessages(values);
+          transMultiSignsBuilder_.addAllMessages(values);
         }
         return this;
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public Builder clearSignDatas() {
-        if (signDatasBuilder_ == null) {
-          signDatas_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
+      public Builder clearTransMultiSigns() {
+        if (transMultiSignsBuilder_ == null) {
+          transMultiSigns_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
-          signDatasBuilder_.clear();
+          transMultiSignsBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public Builder removeSignDatas(int index) {
-        if (signDatasBuilder_ == null) {
-          ensureSignDatasIsMutable();
-          signDatas_.remove(index);
+      public Builder removeTransMultiSigns(int index) {
+        if (transMultiSignsBuilder_ == null) {
+          ensureTransMultiSignsIsMutable();
+          transMultiSigns_.remove(index);
           onChanged();
         } else {
-          signDatasBuilder_.remove(index);
+          transMultiSignsBuilder_.remove(index);
         }
         return this;
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public eosapi.Eos.EosSignData.Builder getSignDatasBuilder(
+      public eosapi.Eos.EosSignResult.Builder getTransMultiSignsBuilder(
           int index) {
-        return getSignDatasFieldBuilder().getBuilder(index);
+        return getTransMultiSignsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public eosapi.Eos.EosSignDataOrBuilder getSignDatasOrBuilder(
+      public eosapi.Eos.EosSignResultOrBuilder getTransMultiSignsOrBuilder(
           int index) {
-        if (signDatasBuilder_ == null) {
-          return signDatas_.get(index);  } else {
-          return signDatasBuilder_.getMessageOrBuilder(index);
+        if (transMultiSignsBuilder_ == null) {
+          return transMultiSigns_.get(index);  } else {
+          return transMultiSignsBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public java.util.List<? extends eosapi.Eos.EosSignDataOrBuilder> 
-           getSignDatasOrBuilderList() {
-        if (signDatasBuilder_ != null) {
-          return signDatasBuilder_.getMessageOrBuilderList();
+      public java.util.List<? extends eosapi.Eos.EosSignResultOrBuilder> 
+           getTransMultiSignsOrBuilderList() {
+        if (transMultiSignsBuilder_ != null) {
+          return transMultiSignsBuilder_.getMessageOrBuilderList();
         } else {
-          return java.util.Collections.unmodifiableList(signDatas_);
+          return java.util.Collections.unmodifiableList(transMultiSigns_);
         }
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public eosapi.Eos.EosSignData.Builder addSignDatasBuilder() {
-        return getSignDatasFieldBuilder().addBuilder(
-            eosapi.Eos.EosSignData.getDefaultInstance());
+      public eosapi.Eos.EosSignResult.Builder addTransMultiSignsBuilder() {
+        return getTransMultiSignsFieldBuilder().addBuilder(
+            eosapi.Eos.EosSignResult.getDefaultInstance());
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public eosapi.Eos.EosSignData.Builder addSignDatasBuilder(
+      public eosapi.Eos.EosSignResult.Builder addTransMultiSignsBuilder(
           int index) {
-        return getSignDatasFieldBuilder().addBuilder(
-            index, eosapi.Eos.EosSignData.getDefaultInstance());
+        return getTransMultiSignsFieldBuilder().addBuilder(
+            index, eosapi.Eos.EosSignResult.getDefaultInstance());
       }
       /**
-       * <code>repeated .eosapi.EosSignData sign_datas = 2;</code>
+       * <code>repeated .eosapi.EosSignResult trans_multi_signs = 1;</code>
        */
-      public java.util.List<eosapi.Eos.EosSignData.Builder> 
-           getSignDatasBuilderList() {
-        return getSignDatasFieldBuilder().getBuilderList();
+      public java.util.List<eosapi.Eos.EosSignResult.Builder> 
+           getTransMultiSignsBuilderList() {
+        return getTransMultiSignsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          eosapi.Eos.EosSignData, eosapi.Eos.EosSignData.Builder, eosapi.Eos.EosSignDataOrBuilder> 
-          getSignDatasFieldBuilder() {
-        if (signDatasBuilder_ == null) {
-          signDatasBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              eosapi.Eos.EosSignData, eosapi.Eos.EosSignData.Builder, eosapi.Eos.EosSignDataOrBuilder>(
-                  signDatas_,
-                  ((bitField0_ & 0x00000002) == 0x00000002),
+          eosapi.Eos.EosSignResult, eosapi.Eos.EosSignResult.Builder, eosapi.Eos.EosSignResultOrBuilder> 
+          getTransMultiSignsFieldBuilder() {
+        if (transMultiSignsBuilder_ == null) {
+          transMultiSignsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              eosapi.Eos.EosSignResult, eosapi.Eos.EosSignResult.Builder, eosapi.Eos.EosSignResultOrBuilder>(
+                  transMultiSigns_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
                   getParentForChildren(),
                   isClean());
-          signDatas_ = null;
+          transMultiSigns_ = null;
         }
-        return signDatasBuilder_;
+        return transMultiSignsBuilder_;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2096,46 +2831,46 @@ public final class Eos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:eosapi.EosTxInput)
+      // @@protoc_insertion_point(builder_scope:eosapi.EosTxRes)
     }
 
-    // @@protoc_insertion_point(class_scope:eosapi.EosTxInput)
-    private static final eosapi.Eos.EosTxInput DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:eosapi.EosTxRes)
+    private static final eosapi.Eos.EosTxRes DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new eosapi.Eos.EosTxInput();
+      DEFAULT_INSTANCE = new eosapi.Eos.EosTxRes();
     }
 
-    public static eosapi.Eos.EosTxInput getDefaultInstance() {
+    public static eosapi.Eos.EosTxRes getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<EosTxInput>
-        PARSER = new com.google.protobuf.AbstractParser<EosTxInput>() {
-      public EosTxInput parsePartialFrom(
+    private static final com.google.protobuf.Parser<EosTxRes>
+        PARSER = new com.google.protobuf.AbstractParser<EosTxRes>() {
+      public EosTxRes parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new EosTxInput(input, extensionRegistry);
+          return new EosTxRes(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<EosTxInput> parser() {
+    public static com.google.protobuf.Parser<EosTxRes> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<EosTxInput> getParserForType() {
+    public com.google.protobuf.Parser<EosTxRes> getParserForType() {
       return PARSER;
     }
 
-    public eosapi.Eos.EosTxInput getDefaultInstanceForType() {
+    public eosapi.Eos.EosTxRes getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface EosTxOutputOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:eosapi.EosTxOutput)
+  public interface EosSignResultOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:eosapi.EosSignResult)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -2168,17 +2903,17 @@ public final class Eos {
         getSignsBytes(int index);
   }
   /**
-   * Protobuf type {@code eosapi.EosTxOutput}
+   * Protobuf type {@code eosapi.EosSignResult}
    */
-  public  static final class EosTxOutput extends
+  public  static final class EosSignResult extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:eosapi.EosTxOutput)
-      EosTxOutputOrBuilder {
-    // Use EosTxOutput.newBuilder() to construct.
-    private EosTxOutput(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:eosapi.EosSignResult)
+      EosSignResultOrBuilder {
+    // Use EosSignResult.newBuilder() to construct.
+    private EosSignResult(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private EosTxOutput() {
+    private EosSignResult() {
       hash_ = "";
       signs_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
@@ -2188,7 +2923,7 @@ public final class Eos {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private EosTxOutput(
+    private EosSignResult(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2239,14 +2974,14 @@ public final class Eos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return eosapi.Eos.internal_static_eosapi_EosTxOutput_descriptor;
+      return eosapi.Eos.internal_static_eosapi_EosSignResult_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return eosapi.Eos.internal_static_eosapi_EosTxOutput_fieldAccessorTable
+      return eosapi.Eos.internal_static_eosapi_EosSignResult_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              eosapi.Eos.EosTxOutput.class, eosapi.Eos.EosTxOutput.Builder.class);
+              eosapi.Eos.EosSignResult.class, eosapi.Eos.EosSignResult.Builder.class);
     }
 
     private int bitField0_;
@@ -2359,10 +3094,10 @@ public final class Eos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof eosapi.Eos.EosTxOutput)) {
+      if (!(obj instanceof eosapi.Eos.EosSignResult)) {
         return super.equals(obj);
       }
-      eosapi.Eos.EosTxOutput other = (eosapi.Eos.EosTxOutput) obj;
+      eosapi.Eos.EosSignResult other = (eosapi.Eos.EosSignResult) obj;
 
       boolean result = true;
       result = result && getHash()
@@ -2390,58 +3125,58 @@ public final class Eos {
       return hash;
     }
 
-    public static eosapi.Eos.EosTxOutput parseFrom(
+    public static eosapi.Eos.EosSignResult parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static eosapi.Eos.EosTxOutput parseFrom(
+    public static eosapi.Eos.EosSignResult parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static eosapi.Eos.EosTxOutput parseFrom(byte[] data)
+    public static eosapi.Eos.EosSignResult parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static eosapi.Eos.EosTxOutput parseFrom(
+    public static eosapi.Eos.EosSignResult parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static eosapi.Eos.EosTxOutput parseFrom(java.io.InputStream input)
+    public static eosapi.Eos.EosSignResult parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosTxOutput parseFrom(
+    public static eosapi.Eos.EosSignResult parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static eosapi.Eos.EosTxOutput parseDelimitedFrom(java.io.InputStream input)
+    public static eosapi.Eos.EosSignResult parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosTxOutput parseDelimitedFrom(
+    public static eosapi.Eos.EosSignResult parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static eosapi.Eos.EosTxOutput parseFrom(
+    public static eosapi.Eos.EosSignResult parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosTxOutput parseFrom(
+    public static eosapi.Eos.EosSignResult parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2453,7 +3188,7 @@ public final class Eos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(eosapi.Eos.EosTxOutput prototype) {
+    public static Builder newBuilder(eosapi.Eos.EosSignResult prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -2468,25 +3203,25 @@ public final class Eos {
       return builder;
     }
     /**
-     * Protobuf type {@code eosapi.EosTxOutput}
+     * Protobuf type {@code eosapi.EosSignResult}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:eosapi.EosTxOutput)
-        eosapi.Eos.EosTxOutputOrBuilder {
+        // @@protoc_insertion_point(builder_implements:eosapi.EosSignResult)
+        eosapi.Eos.EosSignResultOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return eosapi.Eos.internal_static_eosapi_EosTxOutput_descriptor;
+        return eosapi.Eos.internal_static_eosapi_EosSignResult_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return eosapi.Eos.internal_static_eosapi_EosTxOutput_fieldAccessorTable
+        return eosapi.Eos.internal_static_eosapi_EosSignResult_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                eosapi.Eos.EosTxOutput.class, eosapi.Eos.EosTxOutput.Builder.class);
+                eosapi.Eos.EosSignResult.class, eosapi.Eos.EosSignResult.Builder.class);
       }
 
-      // Construct using eosapi.Eos.EosTxOutput.newBuilder()
+      // Construct using eosapi.Eos.EosSignResult.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2512,23 +3247,23 @@ public final class Eos {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return eosapi.Eos.internal_static_eosapi_EosTxOutput_descriptor;
+        return eosapi.Eos.internal_static_eosapi_EosSignResult_descriptor;
       }
 
-      public eosapi.Eos.EosTxOutput getDefaultInstanceForType() {
-        return eosapi.Eos.EosTxOutput.getDefaultInstance();
+      public eosapi.Eos.EosSignResult getDefaultInstanceForType() {
+        return eosapi.Eos.EosSignResult.getDefaultInstance();
       }
 
-      public eosapi.Eos.EosTxOutput build() {
-        eosapi.Eos.EosTxOutput result = buildPartial();
+      public eosapi.Eos.EosSignResult build() {
+        eosapi.Eos.EosSignResult result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public eosapi.Eos.EosTxOutput buildPartial() {
-        eosapi.Eos.EosTxOutput result = new eosapi.Eos.EosTxOutput(this);
+      public eosapi.Eos.EosSignResult buildPartial() {
+        eosapi.Eos.EosSignResult result = new eosapi.Eos.EosSignResult(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         result.hash_ = hash_;
@@ -2569,16 +3304,16 @@ public final class Eos {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof eosapi.Eos.EosTxOutput) {
-          return mergeFrom((eosapi.Eos.EosTxOutput)other);
+        if (other instanceof eosapi.Eos.EosSignResult) {
+          return mergeFrom((eosapi.Eos.EosSignResult)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(eosapi.Eos.EosTxOutput other) {
-        if (other == eosapi.Eos.EosTxOutput.getDefaultInstance()) return this;
+      public Builder mergeFrom(eosapi.Eos.EosSignResult other) {
+        if (other == eosapi.Eos.EosSignResult.getDefaultInstance()) return this;
         if (!other.getHash().isEmpty()) {
           hash_ = other.hash_;
           onChanged();
@@ -2605,11 +3340,11 @@ public final class Eos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        eosapi.Eos.EosTxOutput parsedMessage = null;
+        eosapi.Eos.EosSignResult parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (eosapi.Eos.EosTxOutput) e.getUnfinishedMessage();
+          parsedMessage = (eosapi.Eos.EosSignResult) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2793,46 +3528,46 @@ public final class Eos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:eosapi.EosTxOutput)
+      // @@protoc_insertion_point(builder_scope:eosapi.EosSignResult)
     }
 
-    // @@protoc_insertion_point(class_scope:eosapi.EosTxOutput)
-    private static final eosapi.Eos.EosTxOutput DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:eosapi.EosSignResult)
+    private static final eosapi.Eos.EosSignResult DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new eosapi.Eos.EosTxOutput();
+      DEFAULT_INSTANCE = new eosapi.Eos.EosSignResult();
     }
 
-    public static eosapi.Eos.EosTxOutput getDefaultInstance() {
+    public static eosapi.Eos.EosSignResult getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<EosTxOutput>
-        PARSER = new com.google.protobuf.AbstractParser<EosTxOutput>() {
-      public EosTxOutput parsePartialFrom(
+    private static final com.google.protobuf.Parser<EosSignResult>
+        PARSER = new com.google.protobuf.AbstractParser<EosSignResult>() {
+      public EosSignResult parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new EosTxOutput(input, extensionRegistry);
+          return new EosSignResult(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<EosTxOutput> parser() {
+    public static com.google.protobuf.Parser<EosSignResult> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<EosTxOutput> getParserForType() {
+    public com.google.protobuf.Parser<EosSignResult> getParserForType() {
       return PARSER;
     }
 
-    public eosapi.Eos.EosTxOutput getDefaultInstanceForType() {
+    public eosapi.Eos.EosSignResult getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface EosPubkeyOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:eosapi.EosPubkey)
+  public interface EosPubkeyReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:eosapi.EosPubkeyReq)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -2846,17 +3581,17 @@ public final class Eos {
         getPathBytes();
   }
   /**
-   * Protobuf type {@code eosapi.EosPubkey}
+   * Protobuf type {@code eosapi.EosPubkeyReq}
    */
-  public  static final class EosPubkey extends
+  public  static final class EosPubkeyReq extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:eosapi.EosPubkey)
-      EosPubkeyOrBuilder {
-    // Use EosPubkey.newBuilder() to construct.
-    private EosPubkey(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:eosapi.EosPubkeyReq)
+      EosPubkeyReqOrBuilder {
+    // Use EosPubkeyReq.newBuilder() to construct.
+    private EosPubkeyReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private EosPubkey() {
+    private EosPubkeyReq() {
       path_ = "";
     }
 
@@ -2865,7 +3600,7 @@ public final class Eos {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private EosPubkey(
+    private EosPubkeyReq(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2904,14 +3639,14 @@ public final class Eos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return eosapi.Eos.internal_static_eosapi_EosPubkey_descriptor;
+      return eosapi.Eos.internal_static_eosapi_EosPubkeyReq_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return eosapi.Eos.internal_static_eosapi_EosPubkey_fieldAccessorTable
+      return eosapi.Eos.internal_static_eosapi_EosPubkeyReq_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              eosapi.Eos.EosPubkey.class, eosapi.Eos.EosPubkey.Builder.class);
+              eosapi.Eos.EosPubkeyReq.class, eosapi.Eos.EosPubkeyReq.Builder.class);
     }
 
     public static final int PATH_FIELD_NUMBER = 1;
@@ -2983,10 +3718,10 @@ public final class Eos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof eosapi.Eos.EosPubkey)) {
+      if (!(obj instanceof eosapi.Eos.EosPubkeyReq)) {
         return super.equals(obj);
       }
-      eosapi.Eos.EosPubkey other = (eosapi.Eos.EosPubkey) obj;
+      eosapi.Eos.EosPubkeyReq other = (eosapi.Eos.EosPubkeyReq) obj;
 
       boolean result = true;
       result = result && getPath()
@@ -3008,58 +3743,58 @@ public final class Eos {
       return hash;
     }
 
-    public static eosapi.Eos.EosPubkey parseFrom(
+    public static eosapi.Eos.EosPubkeyReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static eosapi.Eos.EosPubkey parseFrom(
+    public static eosapi.Eos.EosPubkeyReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static eosapi.Eos.EosPubkey parseFrom(byte[] data)
+    public static eosapi.Eos.EosPubkeyReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static eosapi.Eos.EosPubkey parseFrom(
+    public static eosapi.Eos.EosPubkeyReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static eosapi.Eos.EosPubkey parseFrom(java.io.InputStream input)
+    public static eosapi.Eos.EosPubkeyReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosPubkey parseFrom(
+    public static eosapi.Eos.EosPubkeyReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static eosapi.Eos.EosPubkey parseDelimitedFrom(java.io.InputStream input)
+    public static eosapi.Eos.EosPubkeyReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosPubkey parseDelimitedFrom(
+    public static eosapi.Eos.EosPubkeyReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static eosapi.Eos.EosPubkey parseFrom(
+    public static eosapi.Eos.EosPubkeyReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosPubkey parseFrom(
+    public static eosapi.Eos.EosPubkeyReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3071,7 +3806,7 @@ public final class Eos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(eosapi.Eos.EosPubkey prototype) {
+    public static Builder newBuilder(eosapi.Eos.EosPubkeyReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -3086,25 +3821,25 @@ public final class Eos {
       return builder;
     }
     /**
-     * Protobuf type {@code eosapi.EosPubkey}
+     * Protobuf type {@code eosapi.EosPubkeyReq}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:eosapi.EosPubkey)
-        eosapi.Eos.EosPubkeyOrBuilder {
+        // @@protoc_insertion_point(builder_implements:eosapi.EosPubkeyReq)
+        eosapi.Eos.EosPubkeyReqOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return eosapi.Eos.internal_static_eosapi_EosPubkey_descriptor;
+        return eosapi.Eos.internal_static_eosapi_EosPubkeyReq_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return eosapi.Eos.internal_static_eosapi_EosPubkey_fieldAccessorTable
+        return eosapi.Eos.internal_static_eosapi_EosPubkeyReq_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                eosapi.Eos.EosPubkey.class, eosapi.Eos.EosPubkey.Builder.class);
+                eosapi.Eos.EosPubkeyReq.class, eosapi.Eos.EosPubkeyReq.Builder.class);
       }
 
-      // Construct using eosapi.Eos.EosPubkey.newBuilder()
+      // Construct using eosapi.Eos.EosPubkeyReq.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -3128,23 +3863,23 @@ public final class Eos {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return eosapi.Eos.internal_static_eosapi_EosPubkey_descriptor;
+        return eosapi.Eos.internal_static_eosapi_EosPubkeyReq_descriptor;
       }
 
-      public eosapi.Eos.EosPubkey getDefaultInstanceForType() {
-        return eosapi.Eos.EosPubkey.getDefaultInstance();
+      public eosapi.Eos.EosPubkeyReq getDefaultInstanceForType() {
+        return eosapi.Eos.EosPubkeyReq.getDefaultInstance();
       }
 
-      public eosapi.Eos.EosPubkey build() {
-        eosapi.Eos.EosPubkey result = buildPartial();
+      public eosapi.Eos.EosPubkeyReq build() {
+        eosapi.Eos.EosPubkeyReq result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public eosapi.Eos.EosPubkey buildPartial() {
-        eosapi.Eos.EosPubkey result = new eosapi.Eos.EosPubkey(this);
+      public eosapi.Eos.EosPubkeyReq buildPartial() {
+        eosapi.Eos.EosPubkeyReq result = new eosapi.Eos.EosPubkeyReq(this);
         result.path_ = path_;
         onBuilt();
         return result;
@@ -3177,16 +3912,16 @@ public final class Eos {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof eosapi.Eos.EosPubkey) {
-          return mergeFrom((eosapi.Eos.EosPubkey)other);
+        if (other instanceof eosapi.Eos.EosPubkeyReq) {
+          return mergeFrom((eosapi.Eos.EosPubkeyReq)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(eosapi.Eos.EosPubkey other) {
-        if (other == eosapi.Eos.EosPubkey.getDefaultInstance()) return this;
+      public Builder mergeFrom(eosapi.Eos.EosPubkeyReq other) {
+        if (other == eosapi.Eos.EosPubkeyReq.getDefaultInstance()) return this;
         if (!other.getPath().isEmpty()) {
           path_ = other.path_;
           onChanged();
@@ -3203,11 +3938,11 @@ public final class Eos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        eosapi.Eos.EosPubkey parsedMessage = null;
+        eosapi.Eos.EosPubkeyReq parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (eosapi.Eos.EosPubkey) e.getUnfinishedMessage();
+          parsedMessage = (eosapi.Eos.EosPubkeyReq) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3296,46 +4031,46 @@ public final class Eos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:eosapi.EosPubkey)
+      // @@protoc_insertion_point(builder_scope:eosapi.EosPubkeyReq)
     }
 
-    // @@protoc_insertion_point(class_scope:eosapi.EosPubkey)
-    private static final eosapi.Eos.EosPubkey DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:eosapi.EosPubkeyReq)
+    private static final eosapi.Eos.EosPubkeyReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new eosapi.Eos.EosPubkey();
+      DEFAULT_INSTANCE = new eosapi.Eos.EosPubkeyReq();
     }
 
-    public static eosapi.Eos.EosPubkey getDefaultInstance() {
+    public static eosapi.Eos.EosPubkeyReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<EosPubkey>
-        PARSER = new com.google.protobuf.AbstractParser<EosPubkey>() {
-      public EosPubkey parsePartialFrom(
+    private static final com.google.protobuf.Parser<EosPubkeyReq>
+        PARSER = new com.google.protobuf.AbstractParser<EosPubkeyReq>() {
+      public EosPubkeyReq parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new EosPubkey(input, extensionRegistry);
+          return new EosPubkeyReq(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<EosPubkey> parser() {
+    public static com.google.protobuf.Parser<EosPubkeyReq> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<EosPubkey> getParserForType() {
+    public com.google.protobuf.Parser<EosPubkeyReq> getParserForType() {
       return PARSER;
     }
 
-    public eosapi.Eos.EosPubkey getDefaultInstanceForType() {
+    public eosapi.Eos.EosPubkeyReq getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface EosPubkeyResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:eosapi.EosPubkeyResponse)
+  public interface EosPubkeyResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:eosapi.EosPubkeyRes)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -3349,17 +4084,17 @@ public final class Eos {
         getPubkeyBytes();
   }
   /**
-   * Protobuf type {@code eosapi.EosPubkeyResponse}
+   * Protobuf type {@code eosapi.EosPubkeyRes}
    */
-  public  static final class EosPubkeyResponse extends
+  public  static final class EosPubkeyRes extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:eosapi.EosPubkeyResponse)
-      EosPubkeyResponseOrBuilder {
-    // Use EosPubkeyResponse.newBuilder() to construct.
-    private EosPubkeyResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:eosapi.EosPubkeyRes)
+      EosPubkeyResOrBuilder {
+    // Use EosPubkeyRes.newBuilder() to construct.
+    private EosPubkeyRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private EosPubkeyResponse() {
+    private EosPubkeyRes() {
       pubkey_ = "";
     }
 
@@ -3368,7 +4103,7 @@ public final class Eos {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private EosPubkeyResponse(
+    private EosPubkeyRes(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3407,14 +4142,14 @@ public final class Eos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return eosapi.Eos.internal_static_eosapi_EosPubkeyResponse_descriptor;
+      return eosapi.Eos.internal_static_eosapi_EosPubkeyRes_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return eosapi.Eos.internal_static_eosapi_EosPubkeyResponse_fieldAccessorTable
+      return eosapi.Eos.internal_static_eosapi_EosPubkeyRes_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              eosapi.Eos.EosPubkeyResponse.class, eosapi.Eos.EosPubkeyResponse.Builder.class);
+              eosapi.Eos.EosPubkeyRes.class, eosapi.Eos.EosPubkeyRes.Builder.class);
     }
 
     public static final int PUBKEY_FIELD_NUMBER = 1;
@@ -3486,10 +4221,10 @@ public final class Eos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof eosapi.Eos.EosPubkeyResponse)) {
+      if (!(obj instanceof eosapi.Eos.EosPubkeyRes)) {
         return super.equals(obj);
       }
-      eosapi.Eos.EosPubkeyResponse other = (eosapi.Eos.EosPubkeyResponse) obj;
+      eosapi.Eos.EosPubkeyRes other = (eosapi.Eos.EosPubkeyRes) obj;
 
       boolean result = true;
       result = result && getPubkey()
@@ -3511,58 +4246,58 @@ public final class Eos {
       return hash;
     }
 
-    public static eosapi.Eos.EosPubkeyResponse parseFrom(
+    public static eosapi.Eos.EosPubkeyRes parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static eosapi.Eos.EosPubkeyResponse parseFrom(
+    public static eosapi.Eos.EosPubkeyRes parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static eosapi.Eos.EosPubkeyResponse parseFrom(byte[] data)
+    public static eosapi.Eos.EosPubkeyRes parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static eosapi.Eos.EosPubkeyResponse parseFrom(
+    public static eosapi.Eos.EosPubkeyRes parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static eosapi.Eos.EosPubkeyResponse parseFrom(java.io.InputStream input)
+    public static eosapi.Eos.EosPubkeyRes parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosPubkeyResponse parseFrom(
+    public static eosapi.Eos.EosPubkeyRes parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static eosapi.Eos.EosPubkeyResponse parseDelimitedFrom(java.io.InputStream input)
+    public static eosapi.Eos.EosPubkeyRes parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosPubkeyResponse parseDelimitedFrom(
+    public static eosapi.Eos.EosPubkeyRes parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static eosapi.Eos.EosPubkeyResponse parseFrom(
+    public static eosapi.Eos.EosPubkeyRes parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosPubkeyResponse parseFrom(
+    public static eosapi.Eos.EosPubkeyRes parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3574,7 +4309,7 @@ public final class Eos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(eosapi.Eos.EosPubkeyResponse prototype) {
+    public static Builder newBuilder(eosapi.Eos.EosPubkeyRes prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -3589,25 +4324,25 @@ public final class Eos {
       return builder;
     }
     /**
-     * Protobuf type {@code eosapi.EosPubkeyResponse}
+     * Protobuf type {@code eosapi.EosPubkeyRes}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:eosapi.EosPubkeyResponse)
-        eosapi.Eos.EosPubkeyResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:eosapi.EosPubkeyRes)
+        eosapi.Eos.EosPubkeyResOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return eosapi.Eos.internal_static_eosapi_EosPubkeyResponse_descriptor;
+        return eosapi.Eos.internal_static_eosapi_EosPubkeyRes_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return eosapi.Eos.internal_static_eosapi_EosPubkeyResponse_fieldAccessorTable
+        return eosapi.Eos.internal_static_eosapi_EosPubkeyRes_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                eosapi.Eos.EosPubkeyResponse.class, eosapi.Eos.EosPubkeyResponse.Builder.class);
+                eosapi.Eos.EosPubkeyRes.class, eosapi.Eos.EosPubkeyRes.Builder.class);
       }
 
-      // Construct using eosapi.Eos.EosPubkeyResponse.newBuilder()
+      // Construct using eosapi.Eos.EosPubkeyRes.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -3631,23 +4366,23 @@ public final class Eos {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return eosapi.Eos.internal_static_eosapi_EosPubkeyResponse_descriptor;
+        return eosapi.Eos.internal_static_eosapi_EosPubkeyRes_descriptor;
       }
 
-      public eosapi.Eos.EosPubkeyResponse getDefaultInstanceForType() {
-        return eosapi.Eos.EosPubkeyResponse.getDefaultInstance();
+      public eosapi.Eos.EosPubkeyRes getDefaultInstanceForType() {
+        return eosapi.Eos.EosPubkeyRes.getDefaultInstance();
       }
 
-      public eosapi.Eos.EosPubkeyResponse build() {
-        eosapi.Eos.EosPubkeyResponse result = buildPartial();
+      public eosapi.Eos.EosPubkeyRes build() {
+        eosapi.Eos.EosPubkeyRes result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public eosapi.Eos.EosPubkeyResponse buildPartial() {
-        eosapi.Eos.EosPubkeyResponse result = new eosapi.Eos.EosPubkeyResponse(this);
+      public eosapi.Eos.EosPubkeyRes buildPartial() {
+        eosapi.Eos.EosPubkeyRes result = new eosapi.Eos.EosPubkeyRes(this);
         result.pubkey_ = pubkey_;
         onBuilt();
         return result;
@@ -3680,16 +4415,16 @@ public final class Eos {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof eosapi.Eos.EosPubkeyResponse) {
-          return mergeFrom((eosapi.Eos.EosPubkeyResponse)other);
+        if (other instanceof eosapi.Eos.EosPubkeyRes) {
+          return mergeFrom((eosapi.Eos.EosPubkeyRes)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(eosapi.Eos.EosPubkeyResponse other) {
-        if (other == eosapi.Eos.EosPubkeyResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(eosapi.Eos.EosPubkeyRes other) {
+        if (other == eosapi.Eos.EosPubkeyRes.getDefaultInstance()) return this;
         if (!other.getPubkey().isEmpty()) {
           pubkey_ = other.pubkey_;
           onChanged();
@@ -3706,11 +4441,11 @@ public final class Eos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        eosapi.Eos.EosPubkeyResponse parsedMessage = null;
+        eosapi.Eos.EosPubkeyRes parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (eosapi.Eos.EosPubkeyResponse) e.getUnfinishedMessage();
+          parsedMessage = (eosapi.Eos.EosPubkeyRes) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3799,46 +4534,46 @@ public final class Eos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:eosapi.EosPubkeyResponse)
+      // @@protoc_insertion_point(builder_scope:eosapi.EosPubkeyRes)
     }
 
-    // @@protoc_insertion_point(class_scope:eosapi.EosPubkeyResponse)
-    private static final eosapi.Eos.EosPubkeyResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:eosapi.EosPubkeyRes)
+    private static final eosapi.Eos.EosPubkeyRes DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new eosapi.Eos.EosPubkeyResponse();
+      DEFAULT_INSTANCE = new eosapi.Eos.EosPubkeyRes();
     }
 
-    public static eosapi.Eos.EosPubkeyResponse getDefaultInstance() {
+    public static eosapi.Eos.EosPubkeyRes getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<EosPubkeyResponse>
-        PARSER = new com.google.protobuf.AbstractParser<EosPubkeyResponse>() {
-      public EosPubkeyResponse parsePartialFrom(
+    private static final com.google.protobuf.Parser<EosPubkeyRes>
+        PARSER = new com.google.protobuf.AbstractParser<EosPubkeyRes>() {
+      public EosPubkeyRes parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new EosPubkeyResponse(input, extensionRegistry);
+          return new EosPubkeyRes(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<EosPubkeyResponse> parser() {
+    public static com.google.protobuf.Parser<EosPubkeyRes> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<EosPubkeyResponse> getParserForType() {
+    public com.google.protobuf.Parser<EosPubkeyRes> getParserForType() {
       return PARSER;
     }
 
-    public eosapi.Eos.EosPubkeyResponse getDefaultInstanceForType() {
+    public eosapi.Eos.EosPubkeyRes getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface EosMessageInputOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:eosapi.EosMessageInput)
+  public interface EosMessageSignReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:eosapi.EosMessageSignReq)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -3877,17 +4612,17 @@ public final class Eos {
         getPubkeyBytes();
   }
   /**
-   * Protobuf type {@code eosapi.EosMessageInput}
+   * Protobuf type {@code eosapi.EosMessageSignReq}
    */
-  public  static final class EosMessageInput extends
+  public  static final class EosMessageSignReq extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:eosapi.EosMessageInput)
-      EosMessageInputOrBuilder {
-    // Use EosMessageInput.newBuilder() to construct.
-    private EosMessageInput(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:eosapi.EosMessageSignReq)
+      EosMessageSignReqOrBuilder {
+    // Use EosMessageSignReq.newBuilder() to construct.
+    private EosMessageSignReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private EosMessageInput() {
+    private EosMessageSignReq() {
       path_ = "";
       data_ = "";
       isHex_ = false;
@@ -3899,7 +4634,7 @@ public final class Eos {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private EosMessageInput(
+    private EosMessageSignReq(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3955,14 +4690,14 @@ public final class Eos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return eosapi.Eos.internal_static_eosapi_EosMessageInput_descriptor;
+      return eosapi.Eos.internal_static_eosapi_EosMessageSignReq_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return eosapi.Eos.internal_static_eosapi_EosMessageInput_fieldAccessorTable
+      return eosapi.Eos.internal_static_eosapi_EosMessageSignReq_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              eosapi.Eos.EosMessageInput.class, eosapi.Eos.EosMessageInput.Builder.class);
+              eosapi.Eos.EosMessageSignReq.class, eosapi.Eos.EosMessageSignReq.Builder.class);
     }
 
     public static final int PATH_FIELD_NUMBER = 1;
@@ -4130,10 +4865,10 @@ public final class Eos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof eosapi.Eos.EosMessageInput)) {
+      if (!(obj instanceof eosapi.Eos.EosMessageSignReq)) {
         return super.equals(obj);
       }
-      eosapi.Eos.EosMessageInput other = (eosapi.Eos.EosMessageInput) obj;
+      eosapi.Eos.EosMessageSignReq other = (eosapi.Eos.EosMessageSignReq) obj;
 
       boolean result = true;
       result = result && getPath()
@@ -4168,58 +4903,58 @@ public final class Eos {
       return hash;
     }
 
-    public static eosapi.Eos.EosMessageInput parseFrom(
+    public static eosapi.Eos.EosMessageSignReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static eosapi.Eos.EosMessageInput parseFrom(
+    public static eosapi.Eos.EosMessageSignReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static eosapi.Eos.EosMessageInput parseFrom(byte[] data)
+    public static eosapi.Eos.EosMessageSignReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static eosapi.Eos.EosMessageInput parseFrom(
+    public static eosapi.Eos.EosMessageSignReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static eosapi.Eos.EosMessageInput parseFrom(java.io.InputStream input)
+    public static eosapi.Eos.EosMessageSignReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosMessageInput parseFrom(
+    public static eosapi.Eos.EosMessageSignReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static eosapi.Eos.EosMessageInput parseDelimitedFrom(java.io.InputStream input)
+    public static eosapi.Eos.EosMessageSignReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosMessageInput parseDelimitedFrom(
+    public static eosapi.Eos.EosMessageSignReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static eosapi.Eos.EosMessageInput parseFrom(
+    public static eosapi.Eos.EosMessageSignReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosMessageInput parseFrom(
+    public static eosapi.Eos.EosMessageSignReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4231,7 +4966,7 @@ public final class Eos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(eosapi.Eos.EosMessageInput prototype) {
+    public static Builder newBuilder(eosapi.Eos.EosMessageSignReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -4246,25 +4981,25 @@ public final class Eos {
       return builder;
     }
     /**
-     * Protobuf type {@code eosapi.EosMessageInput}
+     * Protobuf type {@code eosapi.EosMessageSignReq}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:eosapi.EosMessageInput)
-        eosapi.Eos.EosMessageInputOrBuilder {
+        // @@protoc_insertion_point(builder_implements:eosapi.EosMessageSignReq)
+        eosapi.Eos.EosMessageSignReqOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return eosapi.Eos.internal_static_eosapi_EosMessageInput_descriptor;
+        return eosapi.Eos.internal_static_eosapi_EosMessageSignReq_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return eosapi.Eos.internal_static_eosapi_EosMessageInput_fieldAccessorTable
+        return eosapi.Eos.internal_static_eosapi_EosMessageSignReq_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                eosapi.Eos.EosMessageInput.class, eosapi.Eos.EosMessageInput.Builder.class);
+                eosapi.Eos.EosMessageSignReq.class, eosapi.Eos.EosMessageSignReq.Builder.class);
       }
 
-      // Construct using eosapi.Eos.EosMessageInput.newBuilder()
+      // Construct using eosapi.Eos.EosMessageSignReq.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -4294,23 +5029,23 @@ public final class Eos {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return eosapi.Eos.internal_static_eosapi_EosMessageInput_descriptor;
+        return eosapi.Eos.internal_static_eosapi_EosMessageSignReq_descriptor;
       }
 
-      public eosapi.Eos.EosMessageInput getDefaultInstanceForType() {
-        return eosapi.Eos.EosMessageInput.getDefaultInstance();
+      public eosapi.Eos.EosMessageSignReq getDefaultInstanceForType() {
+        return eosapi.Eos.EosMessageSignReq.getDefaultInstance();
       }
 
-      public eosapi.Eos.EosMessageInput build() {
-        eosapi.Eos.EosMessageInput result = buildPartial();
+      public eosapi.Eos.EosMessageSignReq build() {
+        eosapi.Eos.EosMessageSignReq result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public eosapi.Eos.EosMessageInput buildPartial() {
-        eosapi.Eos.EosMessageInput result = new eosapi.Eos.EosMessageInput(this);
+      public eosapi.Eos.EosMessageSignReq buildPartial() {
+        eosapi.Eos.EosMessageSignReq result = new eosapi.Eos.EosMessageSignReq(this);
         result.path_ = path_;
         result.data_ = data_;
         result.isHex_ = isHex_;
@@ -4346,16 +5081,16 @@ public final class Eos {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof eosapi.Eos.EosMessageInput) {
-          return mergeFrom((eosapi.Eos.EosMessageInput)other);
+        if (other instanceof eosapi.Eos.EosMessageSignReq) {
+          return mergeFrom((eosapi.Eos.EosMessageSignReq)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(eosapi.Eos.EosMessageInput other) {
-        if (other == eosapi.Eos.EosMessageInput.getDefaultInstance()) return this;
+      public Builder mergeFrom(eosapi.Eos.EosMessageSignReq other) {
+        if (other == eosapi.Eos.EosMessageSignReq.getDefaultInstance()) return this;
         if (!other.getPath().isEmpty()) {
           path_ = other.path_;
           onChanged();
@@ -4383,11 +5118,11 @@ public final class Eos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        eosapi.Eos.EosMessageInput parsedMessage = null;
+        eosapi.Eos.EosMessageSignReq parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (eosapi.Eos.EosMessageInput) e.getUnfinishedMessage();
+          parsedMessage = (eosapi.Eos.EosMessageSignReq) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -4640,46 +5375,46 @@ public final class Eos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:eosapi.EosMessageInput)
+      // @@protoc_insertion_point(builder_scope:eosapi.EosMessageSignReq)
     }
 
-    // @@protoc_insertion_point(class_scope:eosapi.EosMessageInput)
-    private static final eosapi.Eos.EosMessageInput DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:eosapi.EosMessageSignReq)
+    private static final eosapi.Eos.EosMessageSignReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new eosapi.Eos.EosMessageInput();
+      DEFAULT_INSTANCE = new eosapi.Eos.EosMessageSignReq();
     }
 
-    public static eosapi.Eos.EosMessageInput getDefaultInstance() {
+    public static eosapi.Eos.EosMessageSignReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<EosMessageInput>
-        PARSER = new com.google.protobuf.AbstractParser<EosMessageInput>() {
-      public EosMessageInput parsePartialFrom(
+    private static final com.google.protobuf.Parser<EosMessageSignReq>
+        PARSER = new com.google.protobuf.AbstractParser<EosMessageSignReq>() {
+      public EosMessageSignReq parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new EosMessageInput(input, extensionRegistry);
+          return new EosMessageSignReq(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<EosMessageInput> parser() {
+    public static com.google.protobuf.Parser<EosMessageSignReq> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<EosMessageInput> getParserForType() {
+    public com.google.protobuf.Parser<EosMessageSignReq> getParserForType() {
       return PARSER;
     }
 
-    public eosapi.Eos.EosMessageInput getDefaultInstanceForType() {
+    public eosapi.Eos.EosMessageSignReq getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface EosMessageOutputOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:eosapi.EosMessageOutput)
+  public interface EosMessageSignResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:eosapi.EosMessageSignRes)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -4693,17 +5428,17 @@ public final class Eos {
         getSignatureBytes();
   }
   /**
-   * Protobuf type {@code eosapi.EosMessageOutput}
+   * Protobuf type {@code eosapi.EosMessageSignRes}
    */
-  public  static final class EosMessageOutput extends
+  public  static final class EosMessageSignRes extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:eosapi.EosMessageOutput)
-      EosMessageOutputOrBuilder {
-    // Use EosMessageOutput.newBuilder() to construct.
-    private EosMessageOutput(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:eosapi.EosMessageSignRes)
+      EosMessageSignResOrBuilder {
+    // Use EosMessageSignRes.newBuilder() to construct.
+    private EosMessageSignRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private EosMessageOutput() {
+    private EosMessageSignRes() {
       signature_ = "";
     }
 
@@ -4712,7 +5447,7 @@ public final class Eos {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private EosMessageOutput(
+    private EosMessageSignRes(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -4751,14 +5486,14 @@ public final class Eos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return eosapi.Eos.internal_static_eosapi_EosMessageOutput_descriptor;
+      return eosapi.Eos.internal_static_eosapi_EosMessageSignRes_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return eosapi.Eos.internal_static_eosapi_EosMessageOutput_fieldAccessorTable
+      return eosapi.Eos.internal_static_eosapi_EosMessageSignRes_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              eosapi.Eos.EosMessageOutput.class, eosapi.Eos.EosMessageOutput.Builder.class);
+              eosapi.Eos.EosMessageSignRes.class, eosapi.Eos.EosMessageSignRes.Builder.class);
     }
 
     public static final int SIGNATURE_FIELD_NUMBER = 1;
@@ -4830,10 +5565,10 @@ public final class Eos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof eosapi.Eos.EosMessageOutput)) {
+      if (!(obj instanceof eosapi.Eos.EosMessageSignRes)) {
         return super.equals(obj);
       }
-      eosapi.Eos.EosMessageOutput other = (eosapi.Eos.EosMessageOutput) obj;
+      eosapi.Eos.EosMessageSignRes other = (eosapi.Eos.EosMessageSignRes) obj;
 
       boolean result = true;
       result = result && getSignature()
@@ -4855,58 +5590,58 @@ public final class Eos {
       return hash;
     }
 
-    public static eosapi.Eos.EosMessageOutput parseFrom(
+    public static eosapi.Eos.EosMessageSignRes parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static eosapi.Eos.EosMessageOutput parseFrom(
+    public static eosapi.Eos.EosMessageSignRes parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static eosapi.Eos.EosMessageOutput parseFrom(byte[] data)
+    public static eosapi.Eos.EosMessageSignRes parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static eosapi.Eos.EosMessageOutput parseFrom(
+    public static eosapi.Eos.EosMessageSignRes parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static eosapi.Eos.EosMessageOutput parseFrom(java.io.InputStream input)
+    public static eosapi.Eos.EosMessageSignRes parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosMessageOutput parseFrom(
+    public static eosapi.Eos.EosMessageSignRes parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static eosapi.Eos.EosMessageOutput parseDelimitedFrom(java.io.InputStream input)
+    public static eosapi.Eos.EosMessageSignRes parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosMessageOutput parseDelimitedFrom(
+    public static eosapi.Eos.EosMessageSignRes parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static eosapi.Eos.EosMessageOutput parseFrom(
+    public static eosapi.Eos.EosMessageSignRes parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static eosapi.Eos.EosMessageOutput parseFrom(
+    public static eosapi.Eos.EosMessageSignRes parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4918,7 +5653,7 @@ public final class Eos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(eosapi.Eos.EosMessageOutput prototype) {
+    public static Builder newBuilder(eosapi.Eos.EosMessageSignRes prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -4933,25 +5668,25 @@ public final class Eos {
       return builder;
     }
     /**
-     * Protobuf type {@code eosapi.EosMessageOutput}
+     * Protobuf type {@code eosapi.EosMessageSignRes}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:eosapi.EosMessageOutput)
-        eosapi.Eos.EosMessageOutputOrBuilder {
+        // @@protoc_insertion_point(builder_implements:eosapi.EosMessageSignRes)
+        eosapi.Eos.EosMessageSignResOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return eosapi.Eos.internal_static_eosapi_EosMessageOutput_descriptor;
+        return eosapi.Eos.internal_static_eosapi_EosMessageSignRes_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return eosapi.Eos.internal_static_eosapi_EosMessageOutput_fieldAccessorTable
+        return eosapi.Eos.internal_static_eosapi_EosMessageSignRes_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                eosapi.Eos.EosMessageOutput.class, eosapi.Eos.EosMessageOutput.Builder.class);
+                eosapi.Eos.EosMessageSignRes.class, eosapi.Eos.EosMessageSignRes.Builder.class);
       }
 
-      // Construct using eosapi.Eos.EosMessageOutput.newBuilder()
+      // Construct using eosapi.Eos.EosMessageSignRes.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -4975,23 +5710,23 @@ public final class Eos {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return eosapi.Eos.internal_static_eosapi_EosMessageOutput_descriptor;
+        return eosapi.Eos.internal_static_eosapi_EosMessageSignRes_descriptor;
       }
 
-      public eosapi.Eos.EosMessageOutput getDefaultInstanceForType() {
-        return eosapi.Eos.EosMessageOutput.getDefaultInstance();
+      public eosapi.Eos.EosMessageSignRes getDefaultInstanceForType() {
+        return eosapi.Eos.EosMessageSignRes.getDefaultInstance();
       }
 
-      public eosapi.Eos.EosMessageOutput build() {
-        eosapi.Eos.EosMessageOutput result = buildPartial();
+      public eosapi.Eos.EosMessageSignRes build() {
+        eosapi.Eos.EosMessageSignRes result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public eosapi.Eos.EosMessageOutput buildPartial() {
-        eosapi.Eos.EosMessageOutput result = new eosapi.Eos.EosMessageOutput(this);
+      public eosapi.Eos.EosMessageSignRes buildPartial() {
+        eosapi.Eos.EosMessageSignRes result = new eosapi.Eos.EosMessageSignRes(this);
         result.signature_ = signature_;
         onBuilt();
         return result;
@@ -5024,16 +5759,16 @@ public final class Eos {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof eosapi.Eos.EosMessageOutput) {
-          return mergeFrom((eosapi.Eos.EosMessageOutput)other);
+        if (other instanceof eosapi.Eos.EosMessageSignRes) {
+          return mergeFrom((eosapi.Eos.EosMessageSignRes)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(eosapi.Eos.EosMessageOutput other) {
-        if (other == eosapi.Eos.EosMessageOutput.getDefaultInstance()) return this;
+      public Builder mergeFrom(eosapi.Eos.EosMessageSignRes other) {
+        if (other == eosapi.Eos.EosMessageSignRes.getDefaultInstance()) return this;
         if (!other.getSignature().isEmpty()) {
           signature_ = other.signature_;
           onChanged();
@@ -5050,11 +5785,11 @@ public final class Eos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        eosapi.Eos.EosMessageOutput parsedMessage = null;
+        eosapi.Eos.EosMessageSignRes parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (eosapi.Eos.EosMessageOutput) e.getUnfinishedMessage();
+          parsedMessage = (eosapi.Eos.EosMessageSignRes) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -5143,79 +5878,84 @@ public final class Eos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:eosapi.EosMessageOutput)
+      // @@protoc_insertion_point(builder_scope:eosapi.EosMessageSignRes)
     }
 
-    // @@protoc_insertion_point(class_scope:eosapi.EosMessageOutput)
-    private static final eosapi.Eos.EosMessageOutput DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:eosapi.EosMessageSignRes)
+    private static final eosapi.Eos.EosMessageSignRes DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new eosapi.Eos.EosMessageOutput();
+      DEFAULT_INSTANCE = new eosapi.Eos.EosMessageSignRes();
     }
 
-    public static eosapi.Eos.EosMessageOutput getDefaultInstance() {
+    public static eosapi.Eos.EosMessageSignRes getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<EosMessageOutput>
-        PARSER = new com.google.protobuf.AbstractParser<EosMessageOutput>() {
-      public EosMessageOutput parsePartialFrom(
+    private static final com.google.protobuf.Parser<EosMessageSignRes>
+        PARSER = new com.google.protobuf.AbstractParser<EosMessageSignRes>() {
+      public EosMessageSignRes parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new EosMessageOutput(input, extensionRegistry);
+          return new EosMessageSignRes(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<EosMessageOutput> parser() {
+    public static com.google.protobuf.Parser<EosMessageSignRes> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<EosMessageOutput> getParserForType() {
+    public com.google.protobuf.Parser<EosMessageSignRes> getParserForType() {
       return PARSER;
     }
 
-    public eosapi.Eos.EosMessageOutput getDefaultInstanceForType() {
+    public eosapi.Eos.EosMessageSignRes getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_eosapi_EosTxReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_eosapi_EosTxReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_eosapi_EosSignData_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_eosapi_EosSignData_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_eosapi_EosTxInput_descriptor;
+    internal_static_eosapi_EosTxRes_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_eosapi_EosTxInput_fieldAccessorTable;
+      internal_static_eosapi_EosTxRes_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_eosapi_EosTxOutput_descriptor;
+    internal_static_eosapi_EosSignResult_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_eosapi_EosTxOutput_fieldAccessorTable;
+      internal_static_eosapi_EosSignResult_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_eosapi_EosPubkey_descriptor;
+    internal_static_eosapi_EosPubkeyReq_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_eosapi_EosPubkey_fieldAccessorTable;
+      internal_static_eosapi_EosPubkeyReq_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_eosapi_EosPubkeyResponse_descriptor;
+    internal_static_eosapi_EosPubkeyRes_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_eosapi_EosPubkeyResponse_fieldAccessorTable;
+      internal_static_eosapi_EosPubkeyRes_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_eosapi_EosMessageInput_descriptor;
+    internal_static_eosapi_EosMessageSignReq_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_eosapi_EosMessageInput_fieldAccessorTable;
+      internal_static_eosapi_EosMessageSignReq_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_eosapi_EosMessageOutput_descriptor;
+    internal_static_eosapi_EosMessageSignRes_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_eosapi_EosMessageOutput_fieldAccessorTable;
+      internal_static_eosapi_EosMessageSignRes_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -5225,17 +5965,19 @@ public final class Eos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\teos.proto\022\006eosapi\"m\n\013EosSignData\022\017\n\007tx" +
-      "_data\030\001 \001(\t\022\020\n\010pub_keys\030\002 \003(\t\022\020\n\010chain_i" +
-      "d\030\003 \001(\t\022\n\n\002to\030\004 \001(\t\022\014\n\004from\030\005 \001(\t\022\017\n\007pay" +
-      "ment\030\006 \001(\t\"C\n\nEosTxInput\022\014\n\004path\030\001 \001(\t\022\'" +
-      "\n\nsign_datas\030\002 \003(\0132\023.eosapi.EosSignData\"" +
-      "*\n\013EosTxOutput\022\014\n\004hash\030\001 \001(\t\022\r\n\005signs\030\002 " +
-      "\003(\t\"\031\n\tEosPubkey\022\014\n\004path\030\001 \001(\t\"#\n\021EosPub" +
-      "keyResponse\022\016\n\006pubkey\030\001 \001(\t\"M\n\017EosMessag" +
-      "eInput\022\014\n\004path\030\001 \001(\t\022\014\n\004data\030\002 \001(\t\022\016\n\006is" +
-      "_hex\030\003 \001(\010\022\016\n\006pubkey\030\004 \001(\t\"%\n\020EosMessage",
-      "Output\022\021\n\tsignature\030\001 \001(\tb\006proto3"
+      "\n\teos.proto\022\006eosapi\"A\n\010EosTxReq\022\014\n\004path\030" +
+      "\001 \001(\t\022\'\n\nsign_datas\030\002 \003(\0132\023.eosapi.EosSi" +
+      "gnData\"m\n\013EosSignData\022\017\n\007tx_data\030\001 \001(\t\022\020" +
+      "\n\010pub_keys\030\002 \003(\t\022\020\n\010chain_id\030\003 \001(\t\022\n\n\002to" +
+      "\030\004 \001(\t\022\014\n\004from\030\005 \001(\t\022\017\n\007payment\030\006 \001(\t\"<\n" +
+      "\010EosTxRes\0220\n\021trans_multi_signs\030\001 \003(\0132\025.e" +
+      "osapi.EosSignResult\",\n\rEosSignResult\022\014\n\004" +
+      "hash\030\001 \001(\t\022\r\n\005signs\030\002 \003(\t\"\034\n\014EosPubkeyRe" +
+      "q\022\014\n\004path\030\001 \001(\t\"\036\n\014EosPubkeyRes\022\016\n\006pubke" +
+      "y\030\001 \001(\t\"O\n\021EosMessageSignReq\022\014\n\004path\030\001 \001",
+      "(\t\022\014\n\004data\030\002 \001(\t\022\016\n\006is_hex\030\003 \001(\010\022\016\n\006pubk" +
+      "ey\030\004 \001(\t\"&\n\021EosMessageSignRes\022\021\n\tsignatu" +
+      "re\030\001 \001(\tb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5249,47 +5991,53 @@ public final class Eos {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_eosapi_EosSignData_descriptor =
+    internal_static_eosapi_EosTxReq_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_eosapi_EosTxReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_eosapi_EosTxReq_descriptor,
+        new java.lang.String[] { "Path", "SignDatas", });
+    internal_static_eosapi_EosSignData_descriptor =
+      getDescriptor().getMessageTypes().get(1);
     internal_static_eosapi_EosSignData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_eosapi_EosSignData_descriptor,
         new java.lang.String[] { "TxData", "PubKeys", "ChainId", "To", "From", "Payment", });
-    internal_static_eosapi_EosTxInput_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_eosapi_EosTxInput_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_eosapi_EosTxInput_descriptor,
-        new java.lang.String[] { "Path", "SignDatas", });
-    internal_static_eosapi_EosTxOutput_descriptor =
+    internal_static_eosapi_EosTxRes_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_eosapi_EosTxOutput_fieldAccessorTable = new
+    internal_static_eosapi_EosTxRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_eosapi_EosTxOutput_descriptor,
-        new java.lang.String[] { "Hash", "Signs", });
-    internal_static_eosapi_EosPubkey_descriptor =
+        internal_static_eosapi_EosTxRes_descriptor,
+        new java.lang.String[] { "TransMultiSigns", });
+    internal_static_eosapi_EosSignResult_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_eosapi_EosPubkey_fieldAccessorTable = new
+    internal_static_eosapi_EosSignResult_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_eosapi_EosPubkey_descriptor,
-        new java.lang.String[] { "Path", });
-    internal_static_eosapi_EosPubkeyResponse_descriptor =
+        internal_static_eosapi_EosSignResult_descriptor,
+        new java.lang.String[] { "Hash", "Signs", });
+    internal_static_eosapi_EosPubkeyReq_descriptor =
       getDescriptor().getMessageTypes().get(4);
-    internal_static_eosapi_EosPubkeyResponse_fieldAccessorTable = new
+    internal_static_eosapi_EosPubkeyReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_eosapi_EosPubkeyResponse_descriptor,
-        new java.lang.String[] { "Pubkey", });
-    internal_static_eosapi_EosMessageInput_descriptor =
+        internal_static_eosapi_EosPubkeyReq_descriptor,
+        new java.lang.String[] { "Path", });
+    internal_static_eosapi_EosPubkeyRes_descriptor =
       getDescriptor().getMessageTypes().get(5);
-    internal_static_eosapi_EosMessageInput_fieldAccessorTable = new
+    internal_static_eosapi_EosPubkeyRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_eosapi_EosMessageInput_descriptor,
-        new java.lang.String[] { "Path", "Data", "IsHex", "Pubkey", });
-    internal_static_eosapi_EosMessageOutput_descriptor =
+        internal_static_eosapi_EosPubkeyRes_descriptor,
+        new java.lang.String[] { "Pubkey", });
+    internal_static_eosapi_EosMessageSignReq_descriptor =
       getDescriptor().getMessageTypes().get(6);
-    internal_static_eosapi_EosMessageOutput_fieldAccessorTable = new
+    internal_static_eosapi_EosMessageSignReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_eosapi_EosMessageOutput_descriptor,
+        internal_static_eosapi_EosMessageSignReq_descriptor,
+        new java.lang.String[] { "Path", "Data", "IsHex", "Pubkey", });
+    internal_static_eosapi_EosMessageSignRes_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_eosapi_EosMessageSignRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_eosapi_EosMessageSignRes_descriptor,
         new java.lang.String[] { "Signature", });
   }
 
