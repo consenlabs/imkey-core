@@ -110,7 +110,7 @@ pub fn set_apdu(apdu: *const c_char) {
 #[allow(dead_code)]
 fn get_apdu_return_r() -> Result<String> {
     let timeout = 10;//second
-    let loop_max = timeout * 1000/500;
+    let loop_max = timeout * 1000/100;
     let mut loop_count = 0;
     loop {
         let mut apdu_return = APDU_RETURN.write().unwrap();
@@ -126,7 +126,7 @@ fn get_apdu_return_r() -> Result<String> {
 
         loop_count = loop_count + 1;
         println!("loop time:{}",&loop_count);
-        thread::sleep(Duration::from_millis(500));
+        thread::sleep(Duration::from_millis(100));
         if loop_count >= loop_max {
             println!("timeout panic!");
             return Err(format_err!("imkey_send_apdu_timeout"));

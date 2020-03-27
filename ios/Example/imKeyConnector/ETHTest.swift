@@ -46,7 +46,7 @@ class ETHTest: FeatTest {
 //                           "preview":preview
 //              ],chainID:Int(v)!,path: BIP44.eth)
             
-            var ethInput = Ethapi_EthTxInput()
+            var ethInput = Ethapi_EthTxReq()
             ethInput.nonce = String(nonce)
             ethInput.gasPrice = String(gasPrice)
             ethInput.gasLimit = String(gasLimit)

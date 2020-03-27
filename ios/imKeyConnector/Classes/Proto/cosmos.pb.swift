@@ -135,7 +135,7 @@ public struct Cosmosapi_MsgValue {
   public init() {}
 }
 
-public struct Cosmosapi_CosmosTxInput {
+public struct Cosmosapi_CosmosTxReq {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -181,12 +181,12 @@ public struct Cosmosapi_CosmosTxInput {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct Cosmosapi_CosmosTxOutput {
+public struct Cosmosapi_CosmosTxRes {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var signature: String = String()
+  public var txData: String = String()
 
   public var txHash: String = String()
 
@@ -195,7 +195,19 @@ public struct Cosmosapi_CosmosTxOutput {
   public init() {}
 }
 
-public struct Cosmosapi_CosmosAddressResponse {
+public struct Cosmosapi_CosmosAddressReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var path: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Cosmosapi_CosmosAddressRes {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -492,8 +504,8 @@ extension Cosmosapi_MsgValue: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
   }
 }
 
-extension Cosmosapi_CosmosTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".CosmosTxInput"
+extension Cosmosapi_CosmosTxReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CosmosTxReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "signData"),
     2: .same(proto: "path"),
@@ -573,7 +585,7 @@ extension Cosmosapi_CosmosTxInput: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Cosmosapi_CosmosTxInput, rhs: Cosmosapi_CosmosTxInput) -> Bool {
+  public static func ==(lhs: Cosmosapi_CosmosTxReq, rhs: Cosmosapi_CosmosTxReq) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -593,17 +605,17 @@ extension Cosmosapi_CosmosTxInput: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 }
 
-extension Cosmosapi_CosmosTxOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".CosmosTxOutput"
+extension Cosmosapi_CosmosTxRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CosmosTxRes"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "signature"),
-    2: .same(proto: "txHash"),
+    1: .standard(proto: "tx_data"),
+    2: .standard(proto: "tx_hash"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.signature)
+      case 1: try decoder.decodeSingularStringField(value: &self.txData)
       case 2: try decoder.decodeSingularStringField(value: &self.txHash)
       default: break
       }
@@ -611,8 +623,8 @@ extension Cosmosapi_CosmosTxOutput: SwiftProtobuf.Message, SwiftProtobuf._Messag
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.signature.isEmpty {
-      try visitor.visitSingularStringField(value: self.signature, fieldNumber: 1)
+    if !self.txData.isEmpty {
+      try visitor.visitSingularStringField(value: self.txData, fieldNumber: 1)
     }
     if !self.txHash.isEmpty {
       try visitor.visitSingularStringField(value: self.txHash, fieldNumber: 2)
@@ -620,16 +632,45 @@ extension Cosmosapi_CosmosTxOutput: SwiftProtobuf.Message, SwiftProtobuf._Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Cosmosapi_CosmosTxOutput, rhs: Cosmosapi_CosmosTxOutput) -> Bool {
-    if lhs.signature != rhs.signature {return false}
+  public static func ==(lhs: Cosmosapi_CosmosTxRes, rhs: Cosmosapi_CosmosTxRes) -> Bool {
+    if lhs.txData != rhs.txData {return false}
     if lhs.txHash != rhs.txHash {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Cosmosapi_CosmosAddressResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".CosmosAddressResponse"
+extension Cosmosapi_CosmosAddressReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CosmosAddressReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "path"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.path)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.path.isEmpty {
+      try visitor.visitSingularStringField(value: self.path, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Cosmosapi_CosmosAddressReq, rhs: Cosmosapi_CosmosAddressReq) -> Bool {
+    if lhs.path != rhs.path {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Cosmosapi_CosmosAddressRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CosmosAddressRes"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "address"),
   ]
@@ -650,7 +691,7 @@ extension Cosmosapi_CosmosAddressResponse: SwiftProtobuf.Message, SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Cosmosapi_CosmosAddressResponse, rhs: Cosmosapi_CosmosAddressResponse) -> Bool {
+  public static func ==(lhs: Cosmosapi_CosmosAddressRes, rhs: Cosmosapi_CosmosAddressRes) -> Bool {
     if lhs.address != rhs.address {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

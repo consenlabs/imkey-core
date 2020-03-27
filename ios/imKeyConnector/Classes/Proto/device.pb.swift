@@ -29,8 +29,7 @@ public struct Deviceapi_EmptyResponse {
   public init() {}
 }
 
-///for app download, update, delete and so on
-public struct Deviceapi_AppAction {
+public struct Deviceapi_AppDownloadReq {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -42,270 +41,24 @@ public struct Deviceapi_AppAction {
   public init() {}
 }
 
-///for device cert related
-public struct Deviceapi_DeviceCert {
+public struct Deviceapi_AppUpdateReq {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var seID: String = String()
-
-  public var sn: String = String()
-
-  public var deviceCert: String = String()
+  public var appName: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
-///auth code related
-public struct Deviceapi_AuthCode {
+public struct Deviceapi_AppDeleteReq {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var seID: String = String()
-
-  public var authCode: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Deviceapi_AuthCodeResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var seID: String = String()
-
-  public var nextStepkey: String = String()
-
-  public var apduList: [String] = []
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Deviceapi_AuthCodeServiceResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var returnCode: String {
-    get {return _storage._returnCode}
-    set {_uniqueStorage()._returnCode = newValue}
-  }
-
-  public var returnMsg: String {
-    get {return _storage._returnMsg}
-    set {_uniqueStorage()._returnMsg = newValue}
-  }
-
-  public var returnData: Deviceapi_AuthCodeResponse {
-    get {return _storage._returnData ?? Deviceapi_AuthCodeResponse()}
-    set {_uniqueStorage()._returnData = newValue}
-  }
-  /// Returns true if `returnData` has been explicitly set.
-  public var hasReturnData: Bool {return _storage._returnData != nil}
-  /// Clears the value of `returnData`. Subsequent reads from it will return its default value.
-  public mutating func clearReturnData() {_uniqueStorage()._returnData = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-///se related
-public struct Deviceapi_SeAction {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var seID: String = String()
-
-  public var sn: String = String()
-
-  public var deviceCert: String = String()
-
-  public var sdkVersion: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Deviceapi_SeQueryResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var seID: String = String()
-
-  public var nextStepkey: String = String()
-
-  public var sn: String = String()
-
-  public var sdkMode: String = String()
-
-  public var availableAppBeanList: [Deviceapi_AvailableAppBean] = []
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Deviceapi_SeQueryServiceResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var returnCode: String {
-    get {return _storage._returnCode}
-    set {_uniqueStorage()._returnCode = newValue}
-  }
-
-  public var returnMsg: String {
-    get {return _storage._returnMsg}
-    set {_uniqueStorage()._returnMsg = newValue}
-  }
-
-  public var returnData: Deviceapi_SeQueryResponse {
-    get {return _storage._returnData ?? Deviceapi_SeQueryResponse()}
-    set {_uniqueStorage()._returnData = newValue}
-  }
-  /// Returns true if `returnData` has been explicitly set.
-  public var hasReturnData: Bool {return _storage._returnData != nil}
-  /// Clears the value of `returnData`. Subsequent reads from it will return its default value.
-  public mutating func clearReturnData() {_uniqueStorage()._returnData = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-///binding related
-public struct Deviceapi_BindCheck {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var filePath: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-///binding related
-public struct Deviceapi_BindCheckResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var bindStatus: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Deviceapi_BindAcquire {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var bindCode: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Deviceapi_BindAcquireResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var bindResult: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Deviceapi_BindDisplay {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Deviceapi_BindDisplayResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var bindDisplayResult: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-///name related
-public struct Deviceapi_DeviceName {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var bleName: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Deviceapi_GetSnResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var sn: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Deviceapi_ApduResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var result: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Deviceapi_Test {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var tt: String = String()
+  public var appName: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -313,7 +66,7 @@ public struct Deviceapi_Test {
 }
 
 /// check_update api
-public struct Deviceapi_CheckUpdateResponse {
+public struct Deviceapi_CheckUpdateRes {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -355,24 +108,168 @@ public struct Deviceapi_AvailableAppBean {
   public init() {}
 }
 
-public struct Deviceapi_SdkInfoResponse {
+public struct Deviceapi_BindCheckReq {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var sdkVersion: String = String()
+  public var filePath: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
-public struct Deviceapi_BleAction {
+public struct Deviceapi_BindCheckRes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var bindStatus: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Deviceapi_BindAcquireReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var bindCode: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Deviceapi_BindAcquireRes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var bindResult: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Deviceapi_GetSeidRes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var seid: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Deviceapi_GetSnRes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var sn: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Deviceapi_GetRamSizeRes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var ramSize: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Deviceapi_GetFirmwareVersionRes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var firmwareVersion: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Deviceapi_GetBatteryPowerRes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var batteryPower: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Deviceapi_GetLifeTimeRes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var lifeTime: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Deviceapi_GetBleNameRes {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   public var bleName: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Deviceapi_SetBleNameReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var bleName: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Deviceapi_GetBleVersionRes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var bleVersion: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Deviceapi_GetSdkInfoRes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var sdkVersion: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -402,8 +299,8 @@ extension Deviceapi_EmptyResponse: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 }
 
-extension Deviceapi_AppAction: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".AppAction"
+extension Deviceapi_AppDownloadReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AppDownloadReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "app_name"),
   ]
@@ -424,666 +321,73 @@ extension Deviceapi_AppAction: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Deviceapi_AppAction, rhs: Deviceapi_AppAction) -> Bool {
+  public static func ==(lhs: Deviceapi_AppDownloadReq, rhs: Deviceapi_AppDownloadReq) -> Bool {
     if lhs.appName != rhs.appName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Deviceapi_DeviceCert: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".DeviceCert"
+extension Deviceapi_AppUpdateReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AppUpdateReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "se_id"),
-    2: .same(proto: "sn"),
-    3: .standard(proto: "device_cert"),
+    1: .standard(proto: "app_name"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.seID)
-      case 2: try decoder.decodeSingularStringField(value: &self.sn)
-      case 3: try decoder.decodeSingularStringField(value: &self.deviceCert)
+      case 1: try decoder.decodeSingularStringField(value: &self.appName)
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.seID.isEmpty {
-      try visitor.visitSingularStringField(value: self.seID, fieldNumber: 1)
-    }
-    if !self.sn.isEmpty {
-      try visitor.visitSingularStringField(value: self.sn, fieldNumber: 2)
-    }
-    if !self.deviceCert.isEmpty {
-      try visitor.visitSingularStringField(value: self.deviceCert, fieldNumber: 3)
+    if !self.appName.isEmpty {
+      try visitor.visitSingularStringField(value: self.appName, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Deviceapi_DeviceCert, rhs: Deviceapi_DeviceCert) -> Bool {
-    if lhs.seID != rhs.seID {return false}
-    if lhs.sn != rhs.sn {return false}
-    if lhs.deviceCert != rhs.deviceCert {return false}
+  public static func ==(lhs: Deviceapi_AppUpdateReq, rhs: Deviceapi_AppUpdateReq) -> Bool {
+    if lhs.appName != rhs.appName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Deviceapi_AuthCode: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".AuthCode"
+extension Deviceapi_AppDeleteReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AppDeleteReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "se_id"),
-    2: .standard(proto: "auth_code"),
+    1: .standard(proto: "app_name"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.seID)
-      case 2: try decoder.decodeSingularStringField(value: &self.authCode)
+      case 1: try decoder.decodeSingularStringField(value: &self.appName)
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.seID.isEmpty {
-      try visitor.visitSingularStringField(value: self.seID, fieldNumber: 1)
-    }
-    if !self.authCode.isEmpty {
-      try visitor.visitSingularStringField(value: self.authCode, fieldNumber: 2)
+    if !self.appName.isEmpty {
+      try visitor.visitSingularStringField(value: self.appName, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Deviceapi_AuthCode, rhs: Deviceapi_AuthCode) -> Bool {
-    if lhs.seID != rhs.seID {return false}
-    if lhs.authCode != rhs.authCode {return false}
+  public static func ==(lhs: Deviceapi_AppDeleteReq, rhs: Deviceapi_AppDeleteReq) -> Bool {
+    if lhs.appName != rhs.appName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Deviceapi_AuthCodeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".AuthCodeResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "se_id"),
-    2: .standard(proto: "next_stepkey"),
-    3: .standard(proto: "apdu_list"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.seID)
-      case 2: try decoder.decodeSingularStringField(value: &self.nextStepkey)
-      case 3: try decoder.decodeRepeatedStringField(value: &self.apduList)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.seID.isEmpty {
-      try visitor.visitSingularStringField(value: self.seID, fieldNumber: 1)
-    }
-    if !self.nextStepkey.isEmpty {
-      try visitor.visitSingularStringField(value: self.nextStepkey, fieldNumber: 2)
-    }
-    if !self.apduList.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.apduList, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_AuthCodeResponse, rhs: Deviceapi_AuthCodeResponse) -> Bool {
-    if lhs.seID != rhs.seID {return false}
-    if lhs.nextStepkey != rhs.nextStepkey {return false}
-    if lhs.apduList != rhs.apduList {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_AuthCodeServiceResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".AuthCodeServiceResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "return_code"),
-    2: .standard(proto: "return_msg"),
-    3: .standard(proto: "return_data"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _returnCode: String = String()
-    var _returnMsg: String = String()
-    var _returnData: Deviceapi_AuthCodeResponse? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _returnCode = source._returnCode
-      _returnMsg = source._returnMsg
-      _returnData = source._returnData
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularStringField(value: &_storage._returnCode)
-        case 2: try decoder.decodeSingularStringField(value: &_storage._returnMsg)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._returnData)
-        default: break
-        }
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._returnCode.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._returnCode, fieldNumber: 1)
-      }
-      if !_storage._returnMsg.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._returnMsg, fieldNumber: 2)
-      }
-      if let v = _storage._returnData {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_AuthCodeServiceResponse, rhs: Deviceapi_AuthCodeServiceResponse) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._returnCode != rhs_storage._returnCode {return false}
-        if _storage._returnMsg != rhs_storage._returnMsg {return false}
-        if _storage._returnData != rhs_storage._returnData {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_SeAction: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".SeAction"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "se_id"),
-    2: .same(proto: "sn"),
-    3: .standard(proto: "device_cert"),
-    4: .standard(proto: "sdk_version"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.seID)
-      case 2: try decoder.decodeSingularStringField(value: &self.sn)
-      case 3: try decoder.decodeSingularStringField(value: &self.deviceCert)
-      case 4: try decoder.decodeSingularStringField(value: &self.sdkVersion)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.seID.isEmpty {
-      try visitor.visitSingularStringField(value: self.seID, fieldNumber: 1)
-    }
-    if !self.sn.isEmpty {
-      try visitor.visitSingularStringField(value: self.sn, fieldNumber: 2)
-    }
-    if !self.deviceCert.isEmpty {
-      try visitor.visitSingularStringField(value: self.deviceCert, fieldNumber: 3)
-    }
-    if !self.sdkVersion.isEmpty {
-      try visitor.visitSingularStringField(value: self.sdkVersion, fieldNumber: 4)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_SeAction, rhs: Deviceapi_SeAction) -> Bool {
-    if lhs.seID != rhs.seID {return false}
-    if lhs.sn != rhs.sn {return false}
-    if lhs.deviceCert != rhs.deviceCert {return false}
-    if lhs.sdkVersion != rhs.sdkVersion {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_SeQueryResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".SeQueryResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "se_id"),
-    2: .standard(proto: "next_stepkey"),
-    3: .same(proto: "sn"),
-    4: .standard(proto: "sdk_mode"),
-    5: .standard(proto: "available_app_bean_list"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.seID)
-      case 2: try decoder.decodeSingularStringField(value: &self.nextStepkey)
-      case 3: try decoder.decodeSingularStringField(value: &self.sn)
-      case 4: try decoder.decodeSingularStringField(value: &self.sdkMode)
-      case 5: try decoder.decodeRepeatedMessageField(value: &self.availableAppBeanList)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.seID.isEmpty {
-      try visitor.visitSingularStringField(value: self.seID, fieldNumber: 1)
-    }
-    if !self.nextStepkey.isEmpty {
-      try visitor.visitSingularStringField(value: self.nextStepkey, fieldNumber: 2)
-    }
-    if !self.sn.isEmpty {
-      try visitor.visitSingularStringField(value: self.sn, fieldNumber: 3)
-    }
-    if !self.sdkMode.isEmpty {
-      try visitor.visitSingularStringField(value: self.sdkMode, fieldNumber: 4)
-    }
-    if !self.availableAppBeanList.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.availableAppBeanList, fieldNumber: 5)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_SeQueryResponse, rhs: Deviceapi_SeQueryResponse) -> Bool {
-    if lhs.seID != rhs.seID {return false}
-    if lhs.nextStepkey != rhs.nextStepkey {return false}
-    if lhs.sn != rhs.sn {return false}
-    if lhs.sdkMode != rhs.sdkMode {return false}
-    if lhs.availableAppBeanList != rhs.availableAppBeanList {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_SeQueryServiceResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".SeQueryServiceResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "return_code"),
-    2: .standard(proto: "return_msg"),
-    3: .standard(proto: "return_data"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _returnCode: String = String()
-    var _returnMsg: String = String()
-    var _returnData: Deviceapi_SeQueryResponse? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _returnCode = source._returnCode
-      _returnMsg = source._returnMsg
-      _returnData = source._returnData
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularStringField(value: &_storage._returnCode)
-        case 2: try decoder.decodeSingularStringField(value: &_storage._returnMsg)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._returnData)
-        default: break
-        }
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._returnCode.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._returnCode, fieldNumber: 1)
-      }
-      if !_storage._returnMsg.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._returnMsg, fieldNumber: 2)
-      }
-      if let v = _storage._returnData {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_SeQueryServiceResponse, rhs: Deviceapi_SeQueryServiceResponse) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._returnCode != rhs_storage._returnCode {return false}
-        if _storage._returnMsg != rhs_storage._returnMsg {return false}
-        if _storage._returnData != rhs_storage._returnData {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_BindCheck: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".BindCheck"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "file_path"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.filePath)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.filePath.isEmpty {
-      try visitor.visitSingularStringField(value: self.filePath, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_BindCheck, rhs: Deviceapi_BindCheck) -> Bool {
-    if lhs.filePath != rhs.filePath {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_BindCheckResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".BindCheckResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "bind_status"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.bindStatus)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.bindStatus.isEmpty {
-      try visitor.visitSingularStringField(value: self.bindStatus, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_BindCheckResponse, rhs: Deviceapi_BindCheckResponse) -> Bool {
-    if lhs.bindStatus != rhs.bindStatus {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_BindAcquire: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".BindAcquire"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "bind_code"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.bindCode)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.bindCode.isEmpty {
-      try visitor.visitSingularStringField(value: self.bindCode, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_BindAcquire, rhs: Deviceapi_BindAcquire) -> Bool {
-    if lhs.bindCode != rhs.bindCode {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_BindAcquireResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".BindAcquireResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "bind_result"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.bindResult)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.bindResult.isEmpty {
-      try visitor.visitSingularStringField(value: self.bindResult, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_BindAcquireResponse, rhs: Deviceapi_BindAcquireResponse) -> Bool {
-    if lhs.bindResult != rhs.bindResult {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_BindDisplay: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".BindDisplay"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_BindDisplay, rhs: Deviceapi_BindDisplay) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_BindDisplayResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".BindDisplayResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "bind_display_result"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.bindDisplayResult)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.bindDisplayResult.isEmpty {
-      try visitor.visitSingularStringField(value: self.bindDisplayResult, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_BindDisplayResponse, rhs: Deviceapi_BindDisplayResponse) -> Bool {
-    if lhs.bindDisplayResult != rhs.bindDisplayResult {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_DeviceName: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".DeviceName"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "ble_name"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.bleName)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.bleName.isEmpty {
-      try visitor.visitSingularStringField(value: self.bleName, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_DeviceName, rhs: Deviceapi_DeviceName) -> Bool {
-    if lhs.bleName != rhs.bleName {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_GetSnResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".GetSnResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "sn"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.sn)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.sn.isEmpty {
-      try visitor.visitSingularStringField(value: self.sn, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_GetSnResponse, rhs: Deviceapi_GetSnResponse) -> Bool {
-    if lhs.sn != rhs.sn {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_ApduResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".ApduResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "result"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.result)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.result.isEmpty {
-      try visitor.visitSingularStringField(value: self.result, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_ApduResponse, rhs: Deviceapi_ApduResponse) -> Bool {
-    if lhs.result != rhs.result {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_Test: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".Test"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "tt"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.tt)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.tt.isEmpty {
-      try visitor.visitSingularStringField(value: self.tt, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_Test, rhs: Deviceapi_Test) -> Bool {
-    if lhs.tt != rhs.tt {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_CheckUpdateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".CheckUpdateResponse"
+extension Deviceapi_CheckUpdateRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CheckUpdateRes"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "se_id"),
     2: .same(proto: "sn"),
@@ -1124,7 +428,7 @@ extension Deviceapi_CheckUpdateResponse: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Deviceapi_CheckUpdateResponse, rhs: Deviceapi_CheckUpdateResponse) -> Bool {
+  public static func ==(lhs: Deviceapi_CheckUpdateRes, rhs: Deviceapi_CheckUpdateRes) -> Bool {
     if lhs.seID != rhs.seID {return false}
     if lhs.sn != rhs.sn {return false}
     if lhs.status != rhs.status {return false}
@@ -1194,37 +498,298 @@ extension Deviceapi_AvailableAppBean: SwiftProtobuf.Message, SwiftProtobuf._Mess
   }
 }
 
-extension Deviceapi_SdkInfoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".SdkInfoResponse"
+extension Deviceapi_BindCheckReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".BindCheckReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "sdk_version"),
+    1: .standard(proto: "file_path"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.sdkVersion)
+      case 1: try decoder.decodeSingularStringField(value: &self.filePath)
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.sdkVersion.isEmpty {
-      try visitor.visitSingularStringField(value: self.sdkVersion, fieldNumber: 1)
+    if !self.filePath.isEmpty {
+      try visitor.visitSingularStringField(value: self.filePath, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Deviceapi_SdkInfoResponse, rhs: Deviceapi_SdkInfoResponse) -> Bool {
-    if lhs.sdkVersion != rhs.sdkVersion {return false}
+  public static func ==(lhs: Deviceapi_BindCheckReq, rhs: Deviceapi_BindCheckReq) -> Bool {
+    if lhs.filePath != rhs.filePath {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Deviceapi_BleAction: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".BleAction"
+extension Deviceapi_BindCheckRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".BindCheckRes"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "bind_status"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.bindStatus)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.bindStatus.isEmpty {
+      try visitor.visitSingularStringField(value: self.bindStatus, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Deviceapi_BindCheckRes, rhs: Deviceapi_BindCheckRes) -> Bool {
+    if lhs.bindStatus != rhs.bindStatus {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_BindAcquireReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".BindAcquireReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "bind_code"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.bindCode)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.bindCode.isEmpty {
+      try visitor.visitSingularStringField(value: self.bindCode, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Deviceapi_BindAcquireReq, rhs: Deviceapi_BindAcquireReq) -> Bool {
+    if lhs.bindCode != rhs.bindCode {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_BindAcquireRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".BindAcquireRes"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "bind_result"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.bindResult)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.bindResult.isEmpty {
+      try visitor.visitSingularStringField(value: self.bindResult, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Deviceapi_BindAcquireRes, rhs: Deviceapi_BindAcquireRes) -> Bool {
+    if lhs.bindResult != rhs.bindResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_GetSeidRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetSeidRes"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "seid"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.seid)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.seid.isEmpty {
+      try visitor.visitSingularStringField(value: self.seid, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Deviceapi_GetSeidRes, rhs: Deviceapi_GetSeidRes) -> Bool {
+    if lhs.seid != rhs.seid {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_GetSnRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetSnRes"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "sn"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.sn)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.sn.isEmpty {
+      try visitor.visitSingularStringField(value: self.sn, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Deviceapi_GetSnRes, rhs: Deviceapi_GetSnRes) -> Bool {
+    if lhs.sn != rhs.sn {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_GetRamSizeRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetRamSizeRes"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "ram_size"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.ramSize)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.ramSize.isEmpty {
+      try visitor.visitSingularStringField(value: self.ramSize, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Deviceapi_GetRamSizeRes, rhs: Deviceapi_GetRamSizeRes) -> Bool {
+    if lhs.ramSize != rhs.ramSize {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_GetFirmwareVersionRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetFirmwareVersionRes"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "firmware_version"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.firmwareVersion)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.firmwareVersion.isEmpty {
+      try visitor.visitSingularStringField(value: self.firmwareVersion, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Deviceapi_GetFirmwareVersionRes, rhs: Deviceapi_GetFirmwareVersionRes) -> Bool {
+    if lhs.firmwareVersion != rhs.firmwareVersion {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_GetBatteryPowerRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetBatteryPowerRes"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "battery_power"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.batteryPower)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.batteryPower.isEmpty {
+      try visitor.visitSingularStringField(value: self.batteryPower, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Deviceapi_GetBatteryPowerRes, rhs: Deviceapi_GetBatteryPowerRes) -> Bool {
+    if lhs.batteryPower != rhs.batteryPower {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_GetLifeTimeRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetLifeTimeRes"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "life_time"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.lifeTime)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.lifeTime.isEmpty {
+      try visitor.visitSingularStringField(value: self.lifeTime, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Deviceapi_GetLifeTimeRes, rhs: Deviceapi_GetLifeTimeRes) -> Bool {
+    if lhs.lifeTime != rhs.lifeTime {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_GetBleNameRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetBleNameRes"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "ble_name"),
   ]
@@ -1245,8 +810,95 @@ extension Deviceapi_BleAction: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Deviceapi_BleAction, rhs: Deviceapi_BleAction) -> Bool {
+  public static func ==(lhs: Deviceapi_GetBleNameRes, rhs: Deviceapi_GetBleNameRes) -> Bool {
     if lhs.bleName != rhs.bleName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_SetBleNameReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SetBleNameReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "ble_name"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.bleName)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.bleName.isEmpty {
+      try visitor.visitSingularStringField(value: self.bleName, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Deviceapi_SetBleNameReq, rhs: Deviceapi_SetBleNameReq) -> Bool {
+    if lhs.bleName != rhs.bleName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_GetBleVersionRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetBleVersionRes"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "ble_version"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.bleVersion)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.bleVersion.isEmpty {
+      try visitor.visitSingularStringField(value: self.bleVersion, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Deviceapi_GetBleVersionRes, rhs: Deviceapi_GetBleVersionRes) -> Bool {
+    if lhs.bleVersion != rhs.bleVersion {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_GetSdkInfoRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetSdkInfoRes"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "sdk_version"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.sdkVersion)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.sdkVersion.isEmpty {
+      try visitor.visitSingularStringField(value: self.sdkVersion, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Deviceapi_GetSdkInfoRes, rhs: Deviceapi_GetSdkInfoRes) -> Bool {
+    if lhs.sdkVersion != rhs.sdkVersion {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

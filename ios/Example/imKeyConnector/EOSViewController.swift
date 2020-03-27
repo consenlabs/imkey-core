@@ -56,7 +56,7 @@ class EOSViewController: UIViewController {
       eosSignData.from = "liujianmin12"
       eosSignData.payment = "undelegatebw 0.0100 EOS"
 
-      var eosInput = Eosapi_EosTxInput()
+      var eosInput = Eosapi_EosTxReq()
       eosInput.path = BIP44.EOS_LEDGER
       eosInput.signDatas = [eosSignData]
       

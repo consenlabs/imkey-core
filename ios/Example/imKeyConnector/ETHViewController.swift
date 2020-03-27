@@ -53,7 +53,7 @@ class ETHViewController: UIViewController {
 //
 //    txtResult.text = "eth sign transaction： \n \(signRes)"
     
-    var ethInput = Ethapi_EthTxInput()
+    var ethInput = Ethapi_EthTxReq()
     ethInput.nonce = "8"
     ethInput.gasPrice = "20000000008"
     ethInput.gasLimit = "189000"
@@ -79,7 +79,7 @@ class ETHViewController: UIViewController {
 //      let sender = "0xAfbaf132E587D67125A224B947133cB942E6E312"
 //      let sign = try Wallet.ethSignPersonalMessage(handle: handle, path: path, data: data, sender:sender)
       
-      var input = Ethapi_EthPersonalSignInput()
+      var input = Ethapi_EthMessageSignReq()
       input.path = "m/44'/60'/0'/0/0"
       input.message = "Hello imKey"
       input.sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b"

@@ -51,7 +51,7 @@ class CosmosViewController: UIViewController {
     }
   }
   
-  func createCosmosInput() -> Cosmosapi_CosmosTxInput{
+  func createCosmosInput() -> Cosmosapi_CosmosTxReq{
     var feeCoin = Cosmosapi_Coin()
     feeCoin.amount = "0"
     feeCoin.denom = ""
@@ -84,7 +84,7 @@ class CosmosViewController: UIViewController {
     signData.sequence = "0"
     
     //cosmosInput
-    var cosmosInput = Cosmosapi_CosmosTxInput()
+    var cosmosInput = Cosmosapi_CosmosTxReq()
     cosmosInput.signData = signData
     cosmosInput.path = BIP44.cosmos
     cosmosInput.paymentDis = ""
