@@ -13,31 +13,21 @@ public class DeviceBindingTest {
         String error = null;
         String bindCode = "123456789";
 
-        deviceapi.Device.BindAcquire bindCheck = deviceapi.Device.BindAcquire.newBuilder()
+        deviceapi.Device.BindAcquireReq req = deviceapi.Device.BindAcquireReq.newBuilder()
                 .setBindCode(bindCode)
                 .build();
 
         Any any = Any.newBuilder()
-                .setValue(bindCheck.toByteString())
+                .setValue(req.toByteString())
                 .build();
 
-
-        api.Api.DeviceParam deviceParam = api.Api.DeviceParam.newBuilder()
-                .setAction("bind_acquire")
+        api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                .setMethod("bind_acquire")
                 .setParam(any)
-                .build();
-
-        Any any2 = Any.newBuilder()
-                .setValue(deviceParam.toByteString())
-                .build();
-
-        api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                .setMethod("device_manage")
-                .setParam(any2)
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
         try {
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
             error = RustApi.INSTANCE.get_last_err_message();
             api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
             response.getIsSuccess();

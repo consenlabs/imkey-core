@@ -70,28 +70,18 @@ public class ImKeyEosTransactionTest {
                         .setPayment(paymentDis)
                         .build();
 
-                eosapi.Eos.EosTxInput eosTxInput = eosapi.Eos.EosTxInput.newBuilder()
+                eosapi.Eos.EosTxReq eosTxReq = eosapi.Eos.EosTxReq.newBuilder()
                         .setPath(Path.EOS_LEDGER)
                         .addSignDatas(data)
                         .build();
 
                 Any any = Any.newBuilder()
-                        .setValue(eosTxInput.toByteString())
+                        .setValue(eosTxReq.toByteString())
                         .build();
 
-
-                api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
-                        .setChainType("EOS")
-                        .setInput(any)
-                        .build();
-
-                Any any2 = Any.newBuilder()
-                        .setValue(signParam.toByteString())
-                        .build();
-
-                api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                        .setMethod("sign_tx")
-                        .setParam(any2)
+                api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                        .setMethod("eos_tx_sign")
+                        .setParam(any)
                         .build();
 
                 Boolean retry = true;
@@ -106,7 +96,7 @@ public class ImKeyEosTransactionTest {
 
                         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-                        String result = RustApi.INSTANCE.call_tcx_api(hex);
+                        String result = RustApi.INSTANCE.call_imkey_api(hex);
 
                         //
                         String error = RustApi.INSTANCE.get_last_err_message();
@@ -122,9 +112,9 @@ public class ImKeyEosTransactionTest {
                             }
                         }
 
-                        eosapi.Eos.EosTxOutput response = eosapi.Eos.EosTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
-                        String hash = response.getHash();
-                        LogUtil.d("hash：" + hash);
+                        eosapi.Eos.EosTxRes response = eosapi.Eos.EosTxRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                        eosapi.Eos.EosSignResult signResult = response.getTransMultiSigns(0);
+                        String hash = signResult.getHash();
                         LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
 
                         if(hash.equals(testcase.getString("txHash"))) {
@@ -232,7 +222,7 @@ public class ImKeyEosTransactionTest {
 
         try {
 
-            eosapi.Eos.EosSignData data0 = eosapi.Eos.EosSignData.newBuilder()
+            eosapi.Eos.EosSignData data = eosapi.Eos.EosSignData.newBuilder()
                     .setTxData("c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00")
                     .addPubKeys("EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF")
                     .setChainId("aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906")
@@ -241,35 +231,25 @@ public class ImKeyEosTransactionTest {
                     .setPayment("undelegatebw 0.0100 EOS")
                     .build();
 
-            eosapi.Eos.EosTxInput eosTxInput = eosapi.Eos.EosTxInput.newBuilder()
+            eosapi.Eos.EosTxReq eosTxReq = eosapi.Eos.EosTxReq.newBuilder()
                     .setPath(Path.EOS_LEDGER)
-                    .addSignDatas(data0)
+                    .addSignDatas(data)
                     .build();
 
             Any any = Any.newBuilder()
-                    .setValue(eosTxInput.toByteString())
+                    .setValue(eosTxReq.toByteString())
                     .build();
 
-
-            api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
-                    .setChainType("EOS")
-                    .setInput(any)
-                    .build();
-
-            Any any2 = Any.newBuilder()
-                    .setValue(signParam.toByteString())
-                    .build();
-
-            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                    .setMethod("sign_tx")
-                    .setParam(any2)
+            api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                    .setMethod("eos_tx_sign")
+                    .setParam(any)
                     .build();
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
             RustApi.INSTANCE.clear_err();
 
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
 
             String error = RustApi.INSTANCE.get_last_err_message();
             if(!"".equals(error) && null != error) {
@@ -280,9 +260,10 @@ public class ImKeyEosTransactionTest {
 
                 }
             } else {
-                eosapi.Eos.EosTxOutput response = eosapi.Eos.EosTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
-                String hash = response.getHash();
-                List signs = response.getSignsList();
+                eosapi.Eos.EosTxRes response = eosapi.Eos.EosTxRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                eosapi.Eos.EosSignResult signResult = response.getTransMultiSigns(0);
+                String hash = signResult.getHash();
+                List signs = signResult.getSignsList();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("hash：" + hash);
                 LogUtil.d("signs：" + signs.get(0));
@@ -320,7 +301,8 @@ public class ImKeyEosTransactionTest {
         try {
 
             String publiKey = "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF";
-            eosapi.Eos.EosMessageInput eosMessageInput = eosapi.Eos.EosMessageInput.newBuilder()
+
+            eosapi.Eos.EosMessageSignReq eosMessageSignReq = eosapi.Eos.EosMessageSignReq.newBuilder()
                     .setPath(Path.EOS_LEDGER)
                     .setData("imKey2019")
                     .setIsHex(false)
@@ -328,28 +310,20 @@ public class ImKeyEosTransactionTest {
                     .build();
 
             Any any = Any.newBuilder()
-                    .setValue(eosMessageInput.toByteString())
+                    .setValue(eosMessageSignReq.toByteString())
                     .build();
 
-            api.Api.SignParam signParam = api.Api.SignParam.newBuilder()
-                    .setChainType("EOS")
-                    .setInput(any)
+            api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                    .setMethod("eos_message_sign")
+                    .setParam(any)
                     .build();
 
-            Any any2 = Any.newBuilder()
-                    .setValue(signParam.toByteString())
-                    .build();
-
-            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                    .setMethod("sign_msg")
-                    .setParam(any2)
-                    .build();
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
             RustApi.INSTANCE.clear_err();
 
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
 
             String error = RustApi.INSTANCE.get_last_err_message();
             if(!"".equals(error) && null != error) {
@@ -360,7 +334,7 @@ public class ImKeyEosTransactionTest {
 
                 }
             } else {
-                eosapi.Eos.EosMessageOutput response = eosapi.Eos.EosMessageOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
+                eosapi.Eos.EosMessageSignRes response = eosapi.Eos.EosMessageSignRes.parseFrom(ByteUtil.hexStringToByteArray(result));
                 signature = response.getSignature();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("signature：" + signature);

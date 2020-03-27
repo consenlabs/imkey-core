@@ -8,17 +8,12 @@ public interface RustApi extends Library{
 
     RustApi INSTANCE = (RustApi) Native.load("connector",RustApi.class);
 
-    String get_seid();
     String get_apdu();
     String set_apdu(String apdu);
     void set_apdu_return(String apdu_return);
     String get_apdu_return();
 
-    String get_se_id(Sender sender);
-    void init();
-
-    void check_update();
-    String call_tcx_api(String value);
+    String call_imkey_api(String value);
     void clear_err();
     String get_last_err_message();
 }

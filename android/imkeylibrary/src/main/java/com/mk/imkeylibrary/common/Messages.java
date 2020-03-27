@@ -22,7 +22,7 @@ public class Messages {
 
     public static final String IMKEY_PUBLICKEY_MISMATCH_WITH_PATH = "imkey_publickey_mismatch_with_path";
 
-    public static final String ImkeyAddressMismatchWithPath = "imkey_address_mismatch_with_path";
+    public static final String IMKEY_ADDRESS_MISMATCH_WITH_PATH = "imkey_address_mismatch_with_path";
 
     public static final String IMKEY_SDK_BLE_NOT_INITIALIZE = "imkey_sdk_ble_not_initialize";
 
@@ -67,7 +67,7 @@ public class Messages {
 
     public static final String IMKEY_SE_CERT_INVALID = "imkey_se_cert_invalid";
     public static final String IMKEY_NEGOTIATE_SESSIONKEY_ERROR = "imkey_negotiate_sessionkey_error";
-    public static final String ImkeyKeyfileIoError = "imkey_keyfile_io_error";
+    public static final String IMKEY_KEYFILE_IO_ERROR = "imkey_keyfile_io_error";
     public static final String IMKEY_KEYFILE_CREATE_ERROR = "imkey_keyfile_create_error";
     public static final String IMKEY_NOT_BIND_CHECK = "imkey_not_bind_check";
     public static final String IMKEY_SIGNATURE_VERIFY_FAIL = "imkey_signature_verify_fail";
