@@ -37,7 +37,7 @@ public class KeyFileManager {
             fis.read(buffer);
             keys = new String(buffer);
         } catch (IOException e) {
-            throw new ImkeyException(Messages.ImkeyKeyfileIoError);
+            throw new ImkeyException(Messages.IMKEY_KEYFILE_IO_ERROR);
         } finally {
             if(null!=fis) {
                 try {

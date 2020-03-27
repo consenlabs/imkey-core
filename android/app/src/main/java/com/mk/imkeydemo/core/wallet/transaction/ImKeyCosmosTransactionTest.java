@@ -242,7 +242,7 @@ public class ImKeyCosmosTransactionTest {
             // clear_err
             RustApi.INSTANCE.clear_err();
 
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
 
             String error = RustApi.INSTANCE.get_last_err_message();
             if(!"".equals(error) && null != error) {

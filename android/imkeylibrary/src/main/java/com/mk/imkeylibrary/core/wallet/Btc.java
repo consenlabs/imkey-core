@@ -29,26 +29,26 @@ public class Btc extends Wallet {
 
         try {
 
-            api.Api.AddressParam addressParam = api.Api.AddressParam.newBuilder()
-                    .setChainType("BTC_XPUB")
-                    .setPath(path)
+            btcapi.Btc.BtcXpubReq req = btcapi.Btc.BtcXpubReq.newBuilder()
                     .setNetwork("MAINNET")
+                    .setPath(path)
                     .build();
 
-            Any any2 = Any.newBuilder()
-                    .setValue(addressParam.toByteString())
+            Any any = Any.newBuilder()
+                    .setValue(req.toByteString())
                     .build();
 
-            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                    .setMethod("get_address")
-                    .setParam(any2)
+            api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                    .setMethod("btc_get_xpub")
+                    .setParam(any)
                     .build();
+
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
             RustApi.INSTANCE.clear_err();
 
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
 
             String error = RustApi.INSTANCE.get_last_err_message();
             if(!"".equals(error) && null != error) {
@@ -59,8 +59,8 @@ public class Btc extends Wallet {
 
                 }
             } else {
-                btcapi.Btc.BtcAddressResponse response = btcapi.Btc.BtcAddressResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
-                xpub = response.getAddress();
+                btcapi.Btc.BtcXpubRes response = btcapi.Btc.BtcXpubRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                xpub = response.getXpub();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("xpub：" + xpub);
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
@@ -100,26 +100,25 @@ public class Btc extends Wallet {
         try {
 
 
-            api.Api.AddressParam addressParam = api.Api.AddressParam.newBuilder()
-                    .setChainType("BTC")
-                    .setPath(path)
+            btcapi.Btc.BtcAddressReq req = btcapi.Btc.BtcAddressReq.newBuilder()
                     .setNetwork("MAINNET")
+                    .setPath(path)
                     .build();
 
-            Any any2 = Any.newBuilder()
-                    .setValue(addressParam.toByteString())
+            Any any = Any.newBuilder()
+                    .setValue(req.toByteString())
                     .build();
 
-            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                    .setMethod("get_address")
-                    .setParam(any2)
+            api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                    .setMethod("btc_get_address")
+                    .setParam(any)
                     .build();
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
             RustApi.INSTANCE.clear_err();
 
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
 
             String error = RustApi.INSTANCE.get_last_err_message();
             if(!"".equals(error) && null != error) {
@@ -130,7 +129,7 @@ public class Btc extends Wallet {
 
                 }
             } else {
-                btcapi.Btc.BtcAddressResponse response = btcapi.Btc.BtcAddressResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+                btcapi.Btc.BtcAddressRes response = btcapi.Btc.BtcAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
                 address = response.getAddress();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("address：" + address);
@@ -160,27 +159,25 @@ public class Btc extends Wallet {
 
         try {
 
-
-            api.Api.AddressParam addressParam = api.Api.AddressParam.newBuilder()
-                    .setChainType("BTC")
-                    .setPath(path)
+            btcapi.Btc.BtcAddressReq req = btcapi.Btc.BtcAddressReq.newBuilder()
                     .setNetwork("MAINNET")
+                    .setPath(path)
                     .build();
 
-            Any any2 = Any.newBuilder()
-                    .setValue(addressParam.toByteString())
+            Any any = Any.newBuilder()
+                    .setValue(req.toByteString())
                     .build();
 
-            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                    .setMethod("register_coin")
-                    .setParam(any2)
+            api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                    .setMethod("btc_register_address")
+                    .setParam(any)
                     .build();
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
             RustApi.INSTANCE.clear_err();
 
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
 
             String error = RustApi.INSTANCE.get_last_err_message();
             if(!"".equals(error) && null != error) {
@@ -191,7 +188,7 @@ public class Btc extends Wallet {
 
                 }
             } else {
-                btcapi.Btc.BtcAddressResponse response = btcapi.Btc.BtcAddressResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+                btcapi.Btc.BtcAddressRes response = btcapi.Btc.BtcAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
                 address = response.getAddress();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("address：" + address);
@@ -223,26 +220,26 @@ public class Btc extends Wallet {
 
         try {
 
-            api.Api.AddressParam addressParam = api.Api.AddressParam.newBuilder()
-                    .setChainType("BTC_SEGWIT")
-                    .setPath(path)
+            btcapi.Btc.BtcAddressReq req = btcapi.Btc.BtcAddressReq.newBuilder()
                     .setNetwork("MAINNET")
+                    .setPath(path)
                     .build();
 
-            Any any2 = Any.newBuilder()
-                    .setValue(addressParam.toByteString())
+            Any any = Any.newBuilder()
+                    .setValue(req.toByteString())
                     .build();
 
-            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                    .setMethod("get_address")
-                    .setParam(any2)
+            api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                    .setMethod("btc_get_setwit_address")
+                    .setParam(any)
                     .build();
+
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
             RustApi.INSTANCE.clear_err();
 
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
 
             String error = RustApi.INSTANCE.get_last_err_message();
             if(!"".equals(error) && null != error) {
@@ -253,7 +250,7 @@ public class Btc extends Wallet {
 
                 }
             } else {
-                btcapi.Btc.BtcAddressResponse response = btcapi.Btc.BtcAddressResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+                btcapi.Btc.BtcAddressRes response = btcapi.Btc.BtcAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
                 address = response.getAddress();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("address：" + address);
@@ -287,26 +284,26 @@ public class Btc extends Wallet {
 
         try {
 
-            api.Api.AddressParam addressParam = api.Api.AddressParam.newBuilder()
-                    .setChainType("BTC_SEGWIT")
-                    .setPath(path)
+            btcapi.Btc.BtcAddressReq req = btcapi.Btc.BtcAddressReq.newBuilder()
                     .setNetwork("MAINNET")
+                    .setPath(path)
                     .build();
 
-            Any any2 = Any.newBuilder()
-                    .setValue(addressParam.toByteString())
+            Any any = Any.newBuilder()
+                    .setValue(req.toByteString())
                     .build();
 
-            api.Api.TcxAction action = api.Api.TcxAction.newBuilder()
-                    .setMethod("register_coin")
-                    .setParam(any2)
+            api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                    .setMethod("btc_register_segwit_address")
+                    .setParam(any)
                     .build();
+
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
             RustApi.INSTANCE.clear_err();
 
-            String result = RustApi.INSTANCE.call_tcx_api(hex);
+            String result = RustApi.INSTANCE.call_imkey_api(hex);
 
             String error = RustApi.INSTANCE.get_last_err_message();
             if(!"".equals(error) && null != error) {
@@ -317,7 +314,7 @@ public class Btc extends Wallet {
 
                 }
             } else {
-                btcapi.Btc.BtcAddressResponse response = btcapi.Btc.BtcAddressResponse.parseFrom(ByteUtil.hexStringToByteArray(result));
+                btcapi.Btc.BtcAddressRes response = btcapi.Btc.BtcAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
                 address = response.getAddress();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("address：" + address);

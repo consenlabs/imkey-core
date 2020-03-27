@@ -19,11 +19,11 @@ public final class Btc {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string txHash = 1;</code>
+     * <code>optional string tx_hash = 1;</code>
      */
     java.lang.String getTxHash();
     /**
-     * <code>optional string txHash = 1;</code>
+     * <code>optional string tx_hash = 1;</code>
      */
     com.google.protobuf.ByteString
         getTxHashBytes();
@@ -49,21 +49,21 @@ public final class Btc {
         getAddressBytes();
 
     /**
-     * <code>optional string scriptPubKey = 5;</code>
+     * <code>optional string script_pubKey = 5;</code>
      */
     java.lang.String getScriptPubKey();
     /**
-     * <code>optional string scriptPubKey = 5;</code>
+     * <code>optional string script_pubKey = 5;</code>
      */
     com.google.protobuf.ByteString
         getScriptPubKeyBytes();
 
     /**
-     * <code>optional string derivedPath = 6;</code>
+     * <code>optional string derived_path = 6;</code>
      */
     java.lang.String getDerivedPath();
     /**
-     * <code>optional string derivedPath = 6;</code>
+     * <code>optional string derived_path = 6;</code>
      */
     com.google.protobuf.ByteString
         getDerivedPathBytes();
@@ -181,10 +181,10 @@ public final class Btc {
               btcapi.Btc.Utxo.class, btcapi.Btc.Utxo.Builder.class);
     }
 
-    public static final int TXHASH_FIELD_NUMBER = 1;
+    public static final int TX_HASH_FIELD_NUMBER = 1;
     private volatile java.lang.Object txHash_;
     /**
-     * <code>optional string txHash = 1;</code>
+     * <code>optional string tx_hash = 1;</code>
      */
     public java.lang.String getTxHash() {
       java.lang.Object ref = txHash_;
@@ -199,7 +199,7 @@ public final class Btc {
       }
     }
     /**
-     * <code>optional string txHash = 1;</code>
+     * <code>optional string tx_hash = 1;</code>
      */
     public com.google.protobuf.ByteString
         getTxHashBytes() {
@@ -267,10 +267,10 @@ public final class Btc {
       }
     }
 
-    public static final int SCRIPTPUBKEY_FIELD_NUMBER = 5;
+    public static final int SCRIPT_PUBKEY_FIELD_NUMBER = 5;
     private volatile java.lang.Object scriptPubKey_;
     /**
-     * <code>optional string scriptPubKey = 5;</code>
+     * <code>optional string script_pubKey = 5;</code>
      */
     public java.lang.String getScriptPubKey() {
       java.lang.Object ref = scriptPubKey_;
@@ -285,7 +285,7 @@ public final class Btc {
       }
     }
     /**
-     * <code>optional string scriptPubKey = 5;</code>
+     * <code>optional string script_pubKey = 5;</code>
      */
     public com.google.protobuf.ByteString
         getScriptPubKeyBytes() {
@@ -301,10 +301,10 @@ public final class Btc {
       }
     }
 
-    public static final int DERIVEDPATH_FIELD_NUMBER = 6;
+    public static final int DERIVED_PATH_FIELD_NUMBER = 6;
     private volatile java.lang.Object derivedPath_;
     /**
-     * <code>optional string derivedPath = 6;</code>
+     * <code>optional string derived_path = 6;</code>
      */
     public java.lang.String getDerivedPath() {
       java.lang.Object ref = derivedPath_;
@@ -319,7 +319,7 @@ public final class Btc {
       }
     }
     /**
-     * <code>optional string derivedPath = 6;</code>
+     * <code>optional string derived_path = 6;</code>
      */
     public com.google.protobuf.ByteString
         getDerivedPathBytes() {
@@ -448,7 +448,7 @@ public final class Btc {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + TXHASH_FIELD_NUMBER;
+      hash = (37 * hash) + TX_HASH_FIELD_NUMBER;
       hash = (53 * hash) + getTxHash().hashCode();
       hash = (37 * hash) + VOUT_FIELD_NUMBER;
       hash = (53 * hash) + getVout();
@@ -457,9 +457,9 @@ public final class Btc {
           getAmount());
       hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
       hash = (53 * hash) + getAddress().hashCode();
-      hash = (37 * hash) + SCRIPTPUBKEY_FIELD_NUMBER;
+      hash = (37 * hash) + SCRIPT_PUBKEY_FIELD_NUMBER;
       hash = (53 * hash) + getScriptPubKey().hashCode();
-      hash = (37 * hash) + DERIVEDPATH_FIELD_NUMBER;
+      hash = (37 * hash) + DERIVED_PATH_FIELD_NUMBER;
       hash = (53 * hash) + getDerivedPath().hashCode();
       hash = (37 * hash) + SEQUENCE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
@@ -719,7 +719,7 @@ public final class Btc {
 
       private java.lang.Object txHash_ = "";
       /**
-       * <code>optional string txHash = 1;</code>
+       * <code>optional string tx_hash = 1;</code>
        */
       public java.lang.String getTxHash() {
         java.lang.Object ref = txHash_;
@@ -734,7 +734,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>optional string txHash = 1;</code>
+       * <code>optional string tx_hash = 1;</code>
        */
       public com.google.protobuf.ByteString
           getTxHashBytes() {
@@ -750,7 +750,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>optional string txHash = 1;</code>
+       * <code>optional string tx_hash = 1;</code>
        */
       public Builder setTxHash(
           java.lang.String value) {
@@ -763,7 +763,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>optional string txHash = 1;</code>
+       * <code>optional string tx_hash = 1;</code>
        */
       public Builder clearTxHash() {
         
@@ -772,7 +772,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>optional string txHash = 1;</code>
+       * <code>optional string tx_hash = 1;</code>
        */
       public Builder setTxHashBytes(
           com.google.protobuf.ByteString value) {
@@ -909,7 +909,7 @@ public final class Btc {
 
       private java.lang.Object scriptPubKey_ = "";
       /**
-       * <code>optional string scriptPubKey = 5;</code>
+       * <code>optional string script_pubKey = 5;</code>
        */
       public java.lang.String getScriptPubKey() {
         java.lang.Object ref = scriptPubKey_;
@@ -924,7 +924,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>optional string scriptPubKey = 5;</code>
+       * <code>optional string script_pubKey = 5;</code>
        */
       public com.google.protobuf.ByteString
           getScriptPubKeyBytes() {
@@ -940,7 +940,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>optional string scriptPubKey = 5;</code>
+       * <code>optional string script_pubKey = 5;</code>
        */
       public Builder setScriptPubKey(
           java.lang.String value) {
@@ -953,7 +953,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>optional string scriptPubKey = 5;</code>
+       * <code>optional string script_pubKey = 5;</code>
        */
       public Builder clearScriptPubKey() {
         
@@ -962,7 +962,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>optional string scriptPubKey = 5;</code>
+       * <code>optional string script_pubKey = 5;</code>
        */
       public Builder setScriptPubKeyBytes(
           com.google.protobuf.ByteString value) {
@@ -978,7 +978,7 @@ public final class Btc {
 
       private java.lang.Object derivedPath_ = "";
       /**
-       * <code>optional string derivedPath = 6;</code>
+       * <code>optional string derived_path = 6;</code>
        */
       public java.lang.String getDerivedPath() {
         java.lang.Object ref = derivedPath_;
@@ -993,7 +993,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>optional string derivedPath = 6;</code>
+       * <code>optional string derived_path = 6;</code>
        */
       public com.google.protobuf.ByteString
           getDerivedPathBytes() {
@@ -1009,7 +1009,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>optional string derivedPath = 6;</code>
+       * <code>optional string derived_path = 6;</code>
        */
       public Builder setDerivedPath(
           java.lang.String value) {
@@ -1022,7 +1022,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>optional string derivedPath = 6;</code>
+       * <code>optional string derived_path = 6;</code>
        */
       public Builder clearDerivedPath() {
         
@@ -1031,7 +1031,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>optional string derivedPath = 6;</code>
+       * <code>optional string derived_path = 6;</code>
        */
       public Builder setDerivedPathBytes(
           com.google.protobuf.ByteString value) {
@@ -1119,8 +1119,8 @@ public final class Btc {
 
   }
 
-  public interface BtcTxInputOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:btcapi.BtcTxInput)
+  public interface BtcTxReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:btcapi.BtcTxReq)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1139,156 +1139,90 @@ public final class Btc {
     long getAmount();
 
     /**
-     * <code>repeated .btcapi.Utxo unspents = 3;</code>
+     * <code>optional int64 fee = 3;</code>
+     */
+    long getFee();
+
+    /**
+     * <code>optional uint32 change_address_index = 4;</code>
+     */
+    int getChangeAddressIndex();
+
+    /**
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
      */
     java.util.List<btcapi.Btc.Utxo> 
         getUnspentsList();
     /**
-     * <code>repeated .btcapi.Utxo unspents = 3;</code>
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
      */
     btcapi.Btc.Utxo getUnspents(int index);
     /**
-     * <code>repeated .btcapi.Utxo unspents = 3;</code>
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
      */
     int getUnspentsCount();
     /**
-     * <code>repeated .btcapi.Utxo unspents = 3;</code>
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
      */
     java.util.List<? extends btcapi.Btc.UtxoOrBuilder> 
         getUnspentsOrBuilderList();
     /**
-     * <code>repeated .btcapi.Utxo unspents = 3;</code>
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
      */
     btcapi.Btc.UtxoOrBuilder getUnspentsOrBuilder(
         int index);
 
     /**
-     * <code>optional int64 fee = 4;</code>
+     * <code>optional bytes extra_data = 6;</code>
      */
-    long getFee();
+    com.google.protobuf.ByteString getExtraData();
 
     /**
-     * <code>optional uint32 changeAddressIndex = 5;</code>
+     * <code>optional int32 property_id = 7;</code>
      */
-    int getChangeAddressIndex();
+    int getPropertyId();
 
     /**
-     * <code>optional string changeAddress = 6;</code>
-     */
-    java.lang.String getChangeAddress();
-    /**
-     * <code>optional string changeAddress = 6;</code>
-     */
-    com.google.protobuf.ByteString
-        getChangeAddressBytes();
-
-    /**
-     * <code>optional string network = 7;</code>
+     * <code>optional string network = 8;</code>
      */
     java.lang.String getNetwork();
     /**
-     * <code>optional string network = 7;</code>
+     * <code>optional string network = 8;</code>
      */
     com.google.protobuf.ByteString
         getNetworkBytes();
 
     /**
-     * <code>optional string segWit = 8;</code>
-     */
-    java.lang.String getSegWit();
-    /**
-     * <code>optional string segWit = 8;</code>
-     */
-    com.google.protobuf.ByteString
-        getSegWitBytes();
-
-    /**
-     * <code>optional string payment = 9;</code>
-     */
-    java.lang.String getPayment();
-    /**
-     * <code>optional string payment = 9;</code>
-     */
-    com.google.protobuf.ByteString
-        getPaymentBytes();
-
-    /**
-     * <code>optional string to_dis = 10;</code>
-     */
-    java.lang.String getToDis();
-    /**
-     * <code>optional string to_dis = 10;</code>
-     */
-    com.google.protobuf.ByteString
-        getToDisBytes();
-
-    /**
-     * <code>optional string from = 11;</code>
-     */
-    java.lang.String getFrom();
-    /**
-     * <code>optional string from = 11;</code>
-     */
-    com.google.protobuf.ByteString
-        getFromBytes();
-
-    /**
-     * <code>optional string fee_dis = 12;</code>
-     */
-    java.lang.String getFeeDis();
-    /**
-     * <code>optional string fee_dis = 12;</code>
-     */
-    com.google.protobuf.ByteString
-        getFeeDisBytes();
-
-    /**
-     * <code>optional bytes extra_data = 13;</code>
-     */
-    com.google.protobuf.ByteString getExtraData();
-
-    /**
-     * <code>optional string path_prefix = 14;</code>
+     * <code>optional string path_prefix = 9;</code>
      */
     java.lang.String getPathPrefix();
     /**
-     * <code>optional string path_prefix = 14;</code>
+     * <code>optional string path_prefix = 9;</code>
      */
     com.google.protobuf.ByteString
         getPathPrefixBytes();
-
-    /**
-     * <code>optional int32 property_id = 15;</code>
-     */
-    int getPropertyId();
   }
   /**
-   * Protobuf type {@code btcapi.BtcTxInput}
+   * Protobuf type {@code btcapi.BtcTxReq}
    */
-  public  static final class BtcTxInput extends
+  public  static final class BtcTxReq extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:btcapi.BtcTxInput)
-      BtcTxInputOrBuilder {
-    // Use BtcTxInput.newBuilder() to construct.
-    private BtcTxInput(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:btcapi.BtcTxReq)
+      BtcTxReqOrBuilder {
+    // Use BtcTxReq.newBuilder() to construct.
+    private BtcTxReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private BtcTxInput() {
+    private BtcTxReq() {
       to_ = "";
       amount_ = 0L;
-      unspents_ = java.util.Collections.emptyList();
       fee_ = 0L;
       changeAddressIndex_ = 0;
-      changeAddress_ = "";
-      network_ = "";
-      segWit_ = "";
-      payment_ = "";
-      toDis_ = "";
-      from_ = "";
-      feeDis_ = "";
+      unspents_ = java.util.Collections.emptyList();
       extraData_ = com.google.protobuf.ByteString.EMPTY;
-      pathPrefix_ = "";
       propertyId_ = 0;
+      network_ = "";
+      pathPrefix_ = "";
     }
 
     @java.lang.Override
@@ -1296,7 +1230,7 @@ public final class Btc {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private BtcTxInput(
+    private BtcTxReq(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1327,81 +1261,45 @@ public final class Btc {
               amount_ = input.readInt64();
               break;
             }
-            case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+            case 24: {
+
+              fee_ = input.readInt64();
+              break;
+            }
+            case 32: {
+
+              changeAddressIndex_ = input.readUInt32();
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
                 unspents_ = new java.util.ArrayList<btcapi.Btc.Utxo>();
-                mutable_bitField0_ |= 0x00000004;
+                mutable_bitField0_ |= 0x00000010;
               }
               unspents_.add(
                   input.readMessage(btcapi.Btc.Utxo.parser(), extensionRegistry));
               break;
             }
-            case 32: {
-
-              fee_ = input.readInt64();
-              break;
-            }
-            case 40: {
-
-              changeAddressIndex_ = input.readUInt32();
-              break;
-            }
             case 50: {
-              java.lang.String s = input.readStringRequireUtf8();
 
-              changeAddress_ = s;
+              extraData_ = input.readBytes();
               break;
             }
-            case 58: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 56: {
 
-              network_ = s;
+              propertyId_ = input.readInt32();
               break;
             }
             case 66: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              segWit_ = s;
+              network_ = s;
               break;
             }
             case 74: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              payment_ = s;
-              break;
-            }
-            case 82: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              toDis_ = s;
-              break;
-            }
-            case 90: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              from_ = s;
-              break;
-            }
-            case 98: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              feeDis_ = s;
-              break;
-            }
-            case 106: {
-
-              extraData_ = input.readBytes();
-              break;
-            }
-            case 114: {
-              java.lang.String s = input.readStringRequireUtf8();
-
               pathPrefix_ = s;
-              break;
-            }
-            case 120: {
-
-              propertyId_ = input.readInt32();
               break;
             }
           }
@@ -1412,7 +1310,7 @@ public final class Btc {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
           unspents_ = java.util.Collections.unmodifiableList(unspents_);
         }
         makeExtensionsImmutable();
@@ -1420,14 +1318,14 @@ public final class Btc {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return btcapi.Btc.internal_static_btcapi_BtcTxInput_descriptor;
+      return btcapi.Btc.internal_static_btcapi_BtcTxReq_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return btcapi.Btc.internal_static_btcapi_BtcTxInput_fieldAccessorTable
+      return btcapi.Btc.internal_static_btcapi_BtcTxReq_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              btcapi.Btc.BtcTxInput.class, btcapi.Btc.BtcTxInput.Builder.class);
+              btcapi.Btc.BtcTxReq.class, btcapi.Btc.BtcTxReq.Builder.class);
     }
 
     private int bitField0_;
@@ -1474,97 +1372,81 @@ public final class Btc {
       return amount_;
     }
 
-    public static final int UNSPENTS_FIELD_NUMBER = 3;
+    public static final int FEE_FIELD_NUMBER = 3;
+    private long fee_;
+    /**
+     * <code>optional int64 fee = 3;</code>
+     */
+    public long getFee() {
+      return fee_;
+    }
+
+    public static final int CHANGE_ADDRESS_INDEX_FIELD_NUMBER = 4;
+    private int changeAddressIndex_;
+    /**
+     * <code>optional uint32 change_address_index = 4;</code>
+     */
+    public int getChangeAddressIndex() {
+      return changeAddressIndex_;
+    }
+
+    public static final int UNSPENTS_FIELD_NUMBER = 5;
     private java.util.List<btcapi.Btc.Utxo> unspents_;
     /**
-     * <code>repeated .btcapi.Utxo unspents = 3;</code>
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
      */
     public java.util.List<btcapi.Btc.Utxo> getUnspentsList() {
       return unspents_;
     }
     /**
-     * <code>repeated .btcapi.Utxo unspents = 3;</code>
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
      */
     public java.util.List<? extends btcapi.Btc.UtxoOrBuilder> 
         getUnspentsOrBuilderList() {
       return unspents_;
     }
     /**
-     * <code>repeated .btcapi.Utxo unspents = 3;</code>
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
      */
     public int getUnspentsCount() {
       return unspents_.size();
     }
     /**
-     * <code>repeated .btcapi.Utxo unspents = 3;</code>
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
      */
     public btcapi.Btc.Utxo getUnspents(int index) {
       return unspents_.get(index);
     }
     /**
-     * <code>repeated .btcapi.Utxo unspents = 3;</code>
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
      */
     public btcapi.Btc.UtxoOrBuilder getUnspentsOrBuilder(
         int index) {
       return unspents_.get(index);
     }
 
-    public static final int FEE_FIELD_NUMBER = 4;
-    private long fee_;
+    public static final int EXTRA_DATA_FIELD_NUMBER = 6;
+    private com.google.protobuf.ByteString extraData_;
     /**
-     * <code>optional int64 fee = 4;</code>
+     * <code>optional bytes extra_data = 6;</code>
      */
-    public long getFee() {
-      return fee_;
+    public com.google.protobuf.ByteString getExtraData() {
+      return extraData_;
     }
 
-    public static final int CHANGEADDRESSINDEX_FIELD_NUMBER = 5;
-    private int changeAddressIndex_;
+    public static final int PROPERTY_ID_FIELD_NUMBER = 7;
+    private int propertyId_;
     /**
-     * <code>optional uint32 changeAddressIndex = 5;</code>
+     * <code>optional int32 property_id = 7;</code>
      */
-    public int getChangeAddressIndex() {
-      return changeAddressIndex_;
+    public int getPropertyId() {
+      return propertyId_;
     }
 
-    public static final int CHANGEADDRESS_FIELD_NUMBER = 6;
-    private volatile java.lang.Object changeAddress_;
-    /**
-     * <code>optional string changeAddress = 6;</code>
-     */
-    public java.lang.String getChangeAddress() {
-      java.lang.Object ref = changeAddress_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        changeAddress_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string changeAddress = 6;</code>
-     */
-    public com.google.protobuf.ByteString
-        getChangeAddressBytes() {
-      java.lang.Object ref = changeAddress_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        changeAddress_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int NETWORK_FIELD_NUMBER = 7;
+    public static final int NETWORK_FIELD_NUMBER = 8;
     private volatile java.lang.Object network_;
     /**
-     * <code>optional string network = 7;</code>
+     * <code>optional string network = 8;</code>
      */
     public java.lang.String getNetwork() {
       java.lang.Object ref = network_;
@@ -1579,7 +1461,7 @@ public final class Btc {
       }
     }
     /**
-     * <code>optional string network = 7;</code>
+     * <code>optional string network = 8;</code>
      */
     public com.google.protobuf.ByteString
         getNetworkBytes() {
@@ -1595,189 +1477,10 @@ public final class Btc {
       }
     }
 
-    public static final int SEGWIT_FIELD_NUMBER = 8;
-    private volatile java.lang.Object segWit_;
-    /**
-     * <code>optional string segWit = 8;</code>
-     */
-    public java.lang.String getSegWit() {
-      java.lang.Object ref = segWit_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        segWit_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string segWit = 8;</code>
-     */
-    public com.google.protobuf.ByteString
-        getSegWitBytes() {
-      java.lang.Object ref = segWit_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        segWit_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PAYMENT_FIELD_NUMBER = 9;
-    private volatile java.lang.Object payment_;
-    /**
-     * <code>optional string payment = 9;</code>
-     */
-    public java.lang.String getPayment() {
-      java.lang.Object ref = payment_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        payment_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string payment = 9;</code>
-     */
-    public com.google.protobuf.ByteString
-        getPaymentBytes() {
-      java.lang.Object ref = payment_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        payment_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TO_DIS_FIELD_NUMBER = 10;
-    private volatile java.lang.Object toDis_;
-    /**
-     * <code>optional string to_dis = 10;</code>
-     */
-    public java.lang.String getToDis() {
-      java.lang.Object ref = toDis_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        toDis_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string to_dis = 10;</code>
-     */
-    public com.google.protobuf.ByteString
-        getToDisBytes() {
-      java.lang.Object ref = toDis_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        toDis_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FROM_FIELD_NUMBER = 11;
-    private volatile java.lang.Object from_;
-    /**
-     * <code>optional string from = 11;</code>
-     */
-    public java.lang.String getFrom() {
-      java.lang.Object ref = from_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        from_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string from = 11;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFromBytes() {
-      java.lang.Object ref = from_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        from_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FEE_DIS_FIELD_NUMBER = 12;
-    private volatile java.lang.Object feeDis_;
-    /**
-     * <code>optional string fee_dis = 12;</code>
-     */
-    public java.lang.String getFeeDis() {
-      java.lang.Object ref = feeDis_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        feeDis_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string fee_dis = 12;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFeeDisBytes() {
-      java.lang.Object ref = feeDis_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        feeDis_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int EXTRA_DATA_FIELD_NUMBER = 13;
-    private com.google.protobuf.ByteString extraData_;
-    /**
-     * <code>optional bytes extra_data = 13;</code>
-     */
-    public com.google.protobuf.ByteString getExtraData() {
-      return extraData_;
-    }
-
-    public static final int PATH_PREFIX_FIELD_NUMBER = 14;
+    public static final int PATH_PREFIX_FIELD_NUMBER = 9;
     private volatile java.lang.Object pathPrefix_;
     /**
-     * <code>optional string path_prefix = 14;</code>
+     * <code>optional string path_prefix = 9;</code>
      */
     public java.lang.String getPathPrefix() {
       java.lang.Object ref = pathPrefix_;
@@ -1792,7 +1495,7 @@ public final class Btc {
       }
     }
     /**
-     * <code>optional string path_prefix = 14;</code>
+     * <code>optional string path_prefix = 9;</code>
      */
     public com.google.protobuf.ByteString
         getPathPrefixBytes() {
@@ -1806,15 +1509,6 @@ public final class Btc {
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
-    }
-
-    public static final int PROPERTY_ID_FIELD_NUMBER = 15;
-    private int propertyId_;
-    /**
-     * <code>optional int32 property_id = 15;</code>
-     */
-    public int getPropertyId() {
-      return propertyId_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1835,44 +1529,26 @@ public final class Btc {
       if (amount_ != 0L) {
         output.writeInt64(2, amount_);
       }
-      for (int i = 0; i < unspents_.size(); i++) {
-        output.writeMessage(3, unspents_.get(i));
-      }
       if (fee_ != 0L) {
-        output.writeInt64(4, fee_);
+        output.writeInt64(3, fee_);
       }
       if (changeAddressIndex_ != 0) {
-        output.writeUInt32(5, changeAddressIndex_);
+        output.writeUInt32(4, changeAddressIndex_);
       }
-      if (!getChangeAddressBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, changeAddress_);
-      }
-      if (!getNetworkBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, network_);
-      }
-      if (!getSegWitBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, segWit_);
-      }
-      if (!getPaymentBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, payment_);
-      }
-      if (!getToDisBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, toDis_);
-      }
-      if (!getFromBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, from_);
-      }
-      if (!getFeeDisBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, feeDis_);
+      for (int i = 0; i < unspents_.size(); i++) {
+        output.writeMessage(5, unspents_.get(i));
       }
       if (!extraData_.isEmpty()) {
-        output.writeBytes(13, extraData_);
-      }
-      if (!getPathPrefixBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 14, pathPrefix_);
+        output.writeBytes(6, extraData_);
       }
       if (propertyId_ != 0) {
-        output.writeInt32(15, propertyId_);
+        output.writeInt32(7, propertyId_);
+      }
+      if (!getNetworkBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, network_);
+      }
+      if (!getPathPrefixBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, pathPrefix_);
       }
     }
 
@@ -1888,49 +1564,31 @@ public final class Btc {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(2, amount_);
       }
-      for (int i = 0; i < unspents_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, unspents_.get(i));
-      }
       if (fee_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(4, fee_);
+          .computeInt64Size(3, fee_);
       }
       if (changeAddressIndex_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(5, changeAddressIndex_);
+          .computeUInt32Size(4, changeAddressIndex_);
       }
-      if (!getChangeAddressBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, changeAddress_);
-      }
-      if (!getNetworkBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, network_);
-      }
-      if (!getSegWitBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, segWit_);
-      }
-      if (!getPaymentBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, payment_);
-      }
-      if (!getToDisBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, toDis_);
-      }
-      if (!getFromBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, from_);
-      }
-      if (!getFeeDisBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, feeDis_);
+      for (int i = 0; i < unspents_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, unspents_.get(i));
       }
       if (!extraData_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(13, extraData_);
-      }
-      if (!getPathPrefixBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, pathPrefix_);
+          .computeBytesSize(6, extraData_);
       }
       if (propertyId_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(15, propertyId_);
+          .computeInt32Size(7, propertyId_);
+      }
+      if (!getNetworkBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, network_);
+      }
+      if (!getPathPrefixBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, pathPrefix_);
       }
       memoizedSize = size;
       return size;
@@ -1942,42 +1600,30 @@ public final class Btc {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof btcapi.Btc.BtcTxInput)) {
+      if (!(obj instanceof btcapi.Btc.BtcTxReq)) {
         return super.equals(obj);
       }
-      btcapi.Btc.BtcTxInput other = (btcapi.Btc.BtcTxInput) obj;
+      btcapi.Btc.BtcTxReq other = (btcapi.Btc.BtcTxReq) obj;
 
       boolean result = true;
       result = result && getTo()
           .equals(other.getTo());
       result = result && (getAmount()
           == other.getAmount());
-      result = result && getUnspentsList()
-          .equals(other.getUnspentsList());
       result = result && (getFee()
           == other.getFee());
       result = result && (getChangeAddressIndex()
           == other.getChangeAddressIndex());
-      result = result && getChangeAddress()
-          .equals(other.getChangeAddress());
-      result = result && getNetwork()
-          .equals(other.getNetwork());
-      result = result && getSegWit()
-          .equals(other.getSegWit());
-      result = result && getPayment()
-          .equals(other.getPayment());
-      result = result && getToDis()
-          .equals(other.getToDis());
-      result = result && getFrom()
-          .equals(other.getFrom());
-      result = result && getFeeDis()
-          .equals(other.getFeeDis());
+      result = result && getUnspentsList()
+          .equals(other.getUnspentsList());
       result = result && getExtraData()
           .equals(other.getExtraData());
-      result = result && getPathPrefix()
-          .equals(other.getPathPrefix());
       result = result && (getPropertyId()
           == other.getPropertyId());
+      result = result && getNetwork()
+          .equals(other.getNetwork());
+      result = result && getPathPrefix()
+          .equals(other.getPathPrefix());
       return result;
     }
 
@@ -1993,92 +1639,80 @@ public final class Btc {
       hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getAmount());
+      hash = (37 * hash) + FEE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getFee());
+      hash = (37 * hash) + CHANGE_ADDRESS_INDEX_FIELD_NUMBER;
+      hash = (53 * hash) + getChangeAddressIndex();
       if (getUnspentsCount() > 0) {
         hash = (37 * hash) + UNSPENTS_FIELD_NUMBER;
         hash = (53 * hash) + getUnspentsList().hashCode();
       }
-      hash = (37 * hash) + FEE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getFee());
-      hash = (37 * hash) + CHANGEADDRESSINDEX_FIELD_NUMBER;
-      hash = (53 * hash) + getChangeAddressIndex();
-      hash = (37 * hash) + CHANGEADDRESS_FIELD_NUMBER;
-      hash = (53 * hash) + getChangeAddress().hashCode();
-      hash = (37 * hash) + NETWORK_FIELD_NUMBER;
-      hash = (53 * hash) + getNetwork().hashCode();
-      hash = (37 * hash) + SEGWIT_FIELD_NUMBER;
-      hash = (53 * hash) + getSegWit().hashCode();
-      hash = (37 * hash) + PAYMENT_FIELD_NUMBER;
-      hash = (53 * hash) + getPayment().hashCode();
-      hash = (37 * hash) + TO_DIS_FIELD_NUMBER;
-      hash = (53 * hash) + getToDis().hashCode();
-      hash = (37 * hash) + FROM_FIELD_NUMBER;
-      hash = (53 * hash) + getFrom().hashCode();
-      hash = (37 * hash) + FEE_DIS_FIELD_NUMBER;
-      hash = (53 * hash) + getFeeDis().hashCode();
       hash = (37 * hash) + EXTRA_DATA_FIELD_NUMBER;
       hash = (53 * hash) + getExtraData().hashCode();
-      hash = (37 * hash) + PATH_PREFIX_FIELD_NUMBER;
-      hash = (53 * hash) + getPathPrefix().hashCode();
       hash = (37 * hash) + PROPERTY_ID_FIELD_NUMBER;
       hash = (53 * hash) + getPropertyId();
+      hash = (37 * hash) + NETWORK_FIELD_NUMBER;
+      hash = (53 * hash) + getNetwork().hashCode();
+      hash = (37 * hash) + PATH_PREFIX_FIELD_NUMBER;
+      hash = (53 * hash) + getPathPrefix().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static btcapi.Btc.BtcTxInput parseFrom(
+    public static btcapi.Btc.BtcTxReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static btcapi.Btc.BtcTxInput parseFrom(
+    public static btcapi.Btc.BtcTxReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static btcapi.Btc.BtcTxInput parseFrom(byte[] data)
+    public static btcapi.Btc.BtcTxReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static btcapi.Btc.BtcTxInput parseFrom(
+    public static btcapi.Btc.BtcTxReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static btcapi.Btc.BtcTxInput parseFrom(java.io.InputStream input)
+    public static btcapi.Btc.BtcTxReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static btcapi.Btc.BtcTxInput parseFrom(
+    public static btcapi.Btc.BtcTxReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static btcapi.Btc.BtcTxInput parseDelimitedFrom(java.io.InputStream input)
+    public static btcapi.Btc.BtcTxReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static btcapi.Btc.BtcTxInput parseDelimitedFrom(
+    public static btcapi.Btc.BtcTxReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static btcapi.Btc.BtcTxInput parseFrom(
+    public static btcapi.Btc.BtcTxReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static btcapi.Btc.BtcTxInput parseFrom(
+    public static btcapi.Btc.BtcTxReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2090,7 +1724,7 @@ public final class Btc {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(btcapi.Btc.BtcTxInput prototype) {
+    public static Builder newBuilder(btcapi.Btc.BtcTxReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -2105,25 +1739,25 @@ public final class Btc {
       return builder;
     }
     /**
-     * Protobuf type {@code btcapi.BtcTxInput}
+     * Protobuf type {@code btcapi.BtcTxReq}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:btcapi.BtcTxInput)
-        btcapi.Btc.BtcTxInputOrBuilder {
+        // @@protoc_insertion_point(builder_implements:btcapi.BtcTxReq)
+        btcapi.Btc.BtcTxReqOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return btcapi.Btc.internal_static_btcapi_BtcTxInput_descriptor;
+        return btcapi.Btc.internal_static_btcapi_BtcTxReq_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return btcapi.Btc.internal_static_btcapi_BtcTxInput_fieldAccessorTable
+        return btcapi.Btc.internal_static_btcapi_BtcTxReq_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                btcapi.Btc.BtcTxInput.class, btcapi.Btc.BtcTxInput.Builder.class);
+                btcapi.Btc.BtcTxReq.class, btcapi.Btc.BtcTxReq.Builder.class);
       }
 
-      // Construct using btcapi.Btc.BtcTxInput.newBuilder()
+      // Construct using btcapi.Btc.BtcTxReq.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2145,83 +1779,65 @@ public final class Btc {
 
         amount_ = 0L;
 
-        if (unspentsBuilder_ == null) {
-          unspents_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
-        } else {
-          unspentsBuilder_.clear();
-        }
         fee_ = 0L;
 
         changeAddressIndex_ = 0;
 
-        changeAddress_ = "";
+        if (unspentsBuilder_ == null) {
+          unspents_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+        } else {
+          unspentsBuilder_.clear();
+        }
+        extraData_ = com.google.protobuf.ByteString.EMPTY;
+
+        propertyId_ = 0;
 
         network_ = "";
 
-        segWit_ = "";
-
-        payment_ = "";
-
-        toDis_ = "";
-
-        from_ = "";
-
-        feeDis_ = "";
-
-        extraData_ = com.google.protobuf.ByteString.EMPTY;
-
         pathPrefix_ = "";
-
-        propertyId_ = 0;
 
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return btcapi.Btc.internal_static_btcapi_BtcTxInput_descriptor;
+        return btcapi.Btc.internal_static_btcapi_BtcTxReq_descriptor;
       }
 
-      public btcapi.Btc.BtcTxInput getDefaultInstanceForType() {
-        return btcapi.Btc.BtcTxInput.getDefaultInstance();
+      public btcapi.Btc.BtcTxReq getDefaultInstanceForType() {
+        return btcapi.Btc.BtcTxReq.getDefaultInstance();
       }
 
-      public btcapi.Btc.BtcTxInput build() {
-        btcapi.Btc.BtcTxInput result = buildPartial();
+      public btcapi.Btc.BtcTxReq build() {
+        btcapi.Btc.BtcTxReq result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public btcapi.Btc.BtcTxInput buildPartial() {
-        btcapi.Btc.BtcTxInput result = new btcapi.Btc.BtcTxInput(this);
+      public btcapi.Btc.BtcTxReq buildPartial() {
+        btcapi.Btc.BtcTxReq result = new btcapi.Btc.BtcTxReq(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         result.to_ = to_;
         result.amount_ = amount_;
+        result.fee_ = fee_;
+        result.changeAddressIndex_ = changeAddressIndex_;
         if (unspentsBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          if (((bitField0_ & 0x00000010) == 0x00000010)) {
             unspents_ = java.util.Collections.unmodifiableList(unspents_);
-            bitField0_ = (bitField0_ & ~0x00000004);
+            bitField0_ = (bitField0_ & ~0x00000010);
           }
           result.unspents_ = unspents_;
         } else {
           result.unspents_ = unspentsBuilder_.build();
         }
-        result.fee_ = fee_;
-        result.changeAddressIndex_ = changeAddressIndex_;
-        result.changeAddress_ = changeAddress_;
-        result.network_ = network_;
-        result.segWit_ = segWit_;
-        result.payment_ = payment_;
-        result.toDis_ = toDis_;
-        result.from_ = from_;
-        result.feeDis_ = feeDis_;
         result.extraData_ = extraData_;
-        result.pathPrefix_ = pathPrefix_;
         result.propertyId_ = propertyId_;
+        result.network_ = network_;
+        result.pathPrefix_ = pathPrefix_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2254,16 +1870,16 @@ public final class Btc {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof btcapi.Btc.BtcTxInput) {
-          return mergeFrom((btcapi.Btc.BtcTxInput)other);
+        if (other instanceof btcapi.Btc.BtcTxReq) {
+          return mergeFrom((btcapi.Btc.BtcTxReq)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(btcapi.Btc.BtcTxInput other) {
-        if (other == btcapi.Btc.BtcTxInput.getDefaultInstance()) return this;
+      public Builder mergeFrom(btcapi.Btc.BtcTxReq other) {
+        if (other == btcapi.Btc.BtcTxReq.getDefaultInstance()) return this;
         if (!other.getTo().isEmpty()) {
           to_ = other.to_;
           onChanged();
@@ -2271,11 +1887,17 @@ public final class Btc {
         if (other.getAmount() != 0L) {
           setAmount(other.getAmount());
         }
+        if (other.getFee() != 0L) {
+          setFee(other.getFee());
+        }
+        if (other.getChangeAddressIndex() != 0) {
+          setChangeAddressIndex(other.getChangeAddressIndex());
+        }
         if (unspentsBuilder_ == null) {
           if (!other.unspents_.isEmpty()) {
             if (unspents_.isEmpty()) {
               unspents_ = other.unspents_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000010);
             } else {
               ensureUnspentsIsMutable();
               unspents_.addAll(other.unspents_);
@@ -2288,7 +1910,7 @@ public final class Btc {
               unspentsBuilder_.dispose();
               unspentsBuilder_ = null;
               unspents_ = other.unspents_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000010);
               unspentsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getUnspentsFieldBuilder() : null;
@@ -2297,49 +1919,19 @@ public final class Btc {
             }
           }
         }
-        if (other.getFee() != 0L) {
-          setFee(other.getFee());
+        if (other.getExtraData() != com.google.protobuf.ByteString.EMPTY) {
+          setExtraData(other.getExtraData());
         }
-        if (other.getChangeAddressIndex() != 0) {
-          setChangeAddressIndex(other.getChangeAddressIndex());
-        }
-        if (!other.getChangeAddress().isEmpty()) {
-          changeAddress_ = other.changeAddress_;
-          onChanged();
+        if (other.getPropertyId() != 0) {
+          setPropertyId(other.getPropertyId());
         }
         if (!other.getNetwork().isEmpty()) {
           network_ = other.network_;
           onChanged();
         }
-        if (!other.getSegWit().isEmpty()) {
-          segWit_ = other.segWit_;
-          onChanged();
-        }
-        if (!other.getPayment().isEmpty()) {
-          payment_ = other.payment_;
-          onChanged();
-        }
-        if (!other.getToDis().isEmpty()) {
-          toDis_ = other.toDis_;
-          onChanged();
-        }
-        if (!other.getFrom().isEmpty()) {
-          from_ = other.from_;
-          onChanged();
-        }
-        if (!other.getFeeDis().isEmpty()) {
-          feeDis_ = other.feeDis_;
-          onChanged();
-        }
-        if (other.getExtraData() != com.google.protobuf.ByteString.EMPTY) {
-          setExtraData(other.getExtraData());
-        }
         if (!other.getPathPrefix().isEmpty()) {
           pathPrefix_ = other.pathPrefix_;
           onChanged();
-        }
-        if (other.getPropertyId() != 0) {
-          setPropertyId(other.getPropertyId());
         }
         onChanged();
         return this;
@@ -2353,11 +1945,11 @@ public final class Btc {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        btcapi.Btc.BtcTxInput parsedMessage = null;
+        btcapi.Btc.BtcTxReq parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (btcapi.Btc.BtcTxInput) e.getUnfinishedMessage();
+          parsedMessage = (btcapi.Btc.BtcTxReq) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2463,12 +2055,64 @@ public final class Btc {
         return this;
       }
 
+      private long fee_ ;
+      /**
+       * <code>optional int64 fee = 3;</code>
+       */
+      public long getFee() {
+        return fee_;
+      }
+      /**
+       * <code>optional int64 fee = 3;</code>
+       */
+      public Builder setFee(long value) {
+        
+        fee_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 fee = 3;</code>
+       */
+      public Builder clearFee() {
+        
+        fee_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private int changeAddressIndex_ ;
+      /**
+       * <code>optional uint32 change_address_index = 4;</code>
+       */
+      public int getChangeAddressIndex() {
+        return changeAddressIndex_;
+      }
+      /**
+       * <code>optional uint32 change_address_index = 4;</code>
+       */
+      public Builder setChangeAddressIndex(int value) {
+        
+        changeAddressIndex_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 change_address_index = 4;</code>
+       */
+      public Builder clearChangeAddressIndex() {
+        
+        changeAddressIndex_ = 0;
+        onChanged();
+        return this;
+      }
+
       private java.util.List<btcapi.Btc.Utxo> unspents_ =
         java.util.Collections.emptyList();
       private void ensureUnspentsIsMutable() {
-        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
           unspents_ = new java.util.ArrayList<btcapi.Btc.Utxo>(unspents_);
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000010;
          }
       }
 
@@ -2476,7 +2120,7 @@ public final class Btc {
           btcapi.Btc.Utxo, btcapi.Btc.Utxo.Builder, btcapi.Btc.UtxoOrBuilder> unspentsBuilder_;
 
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public java.util.List<btcapi.Btc.Utxo> getUnspentsList() {
         if (unspentsBuilder_ == null) {
@@ -2486,7 +2130,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public int getUnspentsCount() {
         if (unspentsBuilder_ == null) {
@@ -2496,7 +2140,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public btcapi.Btc.Utxo getUnspents(int index) {
         if (unspentsBuilder_ == null) {
@@ -2506,7 +2150,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public Builder setUnspents(
           int index, btcapi.Btc.Utxo value) {
@@ -2523,7 +2167,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public Builder setUnspents(
           int index, btcapi.Btc.Utxo.Builder builderForValue) {
@@ -2537,7 +2181,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public Builder addUnspents(btcapi.Btc.Utxo value) {
         if (unspentsBuilder_ == null) {
@@ -2553,7 +2197,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public Builder addUnspents(
           int index, btcapi.Btc.Utxo value) {
@@ -2570,7 +2214,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public Builder addUnspents(
           btcapi.Btc.Utxo.Builder builderForValue) {
@@ -2584,7 +2228,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public Builder addUnspents(
           int index, btcapi.Btc.Utxo.Builder builderForValue) {
@@ -2598,7 +2242,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public Builder addAllUnspents(
           java.lang.Iterable<? extends btcapi.Btc.Utxo> values) {
@@ -2613,12 +2257,12 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public Builder clearUnspents() {
         if (unspentsBuilder_ == null) {
           unspents_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000010);
           onChanged();
         } else {
           unspentsBuilder_.clear();
@@ -2626,7 +2270,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public Builder removeUnspents(int index) {
         if (unspentsBuilder_ == null) {
@@ -2639,14 +2283,14 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public btcapi.Btc.Utxo.Builder getUnspentsBuilder(
           int index) {
         return getUnspentsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public btcapi.Btc.UtxoOrBuilder getUnspentsOrBuilder(
           int index) {
@@ -2656,7 +2300,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public java.util.List<? extends btcapi.Btc.UtxoOrBuilder> 
            getUnspentsOrBuilderList() {
@@ -2667,14 +2311,14 @@ public final class Btc {
         }
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public btcapi.Btc.Utxo.Builder addUnspentsBuilder() {
         return getUnspentsFieldBuilder().addBuilder(
             btcapi.Btc.Utxo.getDefaultInstance());
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public btcapi.Btc.Utxo.Builder addUnspentsBuilder(
           int index) {
@@ -2682,7 +2326,7 @@ public final class Btc {
             index, btcapi.Btc.Utxo.getDefaultInstance());
       }
       /**
-       * <code>repeated .btcapi.Utxo unspents = 3;</code>
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
        */
       public java.util.List<btcapi.Btc.Utxo.Builder> 
            getUnspentsBuilderList() {
@@ -2695,7 +2339,7 @@ public final class Btc {
           unspentsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               btcapi.Btc.Utxo, btcapi.Btc.Utxo.Builder, btcapi.Btc.UtxoOrBuilder>(
                   unspents_,
-                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  ((bitField0_ & 0x00000010) == 0x00000010),
                   getParentForChildren(),
                   isClean());
           unspents_ = null;
@@ -2703,130 +2347,64 @@ public final class Btc {
         return unspentsBuilder_;
       }
 
-      private long fee_ ;
+      private com.google.protobuf.ByteString extraData_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>optional int64 fee = 4;</code>
+       * <code>optional bytes extra_data = 6;</code>
        */
-      public long getFee() {
-        return fee_;
+      public com.google.protobuf.ByteString getExtraData() {
+        return extraData_;
       }
       /**
-       * <code>optional int64 fee = 4;</code>
+       * <code>optional bytes extra_data = 6;</code>
        */
-      public Builder setFee(long value) {
-        
-        fee_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional int64 fee = 4;</code>
-       */
-      public Builder clearFee() {
-        
-        fee_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private int changeAddressIndex_ ;
-      /**
-       * <code>optional uint32 changeAddressIndex = 5;</code>
-       */
-      public int getChangeAddressIndex() {
-        return changeAddressIndex_;
-      }
-      /**
-       * <code>optional uint32 changeAddressIndex = 5;</code>
-       */
-      public Builder setChangeAddressIndex(int value) {
-        
-        changeAddressIndex_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional uint32 changeAddressIndex = 5;</code>
-       */
-      public Builder clearChangeAddressIndex() {
-        
-        changeAddressIndex_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object changeAddress_ = "";
-      /**
-       * <code>optional string changeAddress = 6;</code>
-       */
-      public java.lang.String getChangeAddress() {
-        java.lang.Object ref = changeAddress_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          changeAddress_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string changeAddress = 6;</code>
-       */
-      public com.google.protobuf.ByteString
-          getChangeAddressBytes() {
-        java.lang.Object ref = changeAddress_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          changeAddress_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string changeAddress = 6;</code>
-       */
-      public Builder setChangeAddress(
-          java.lang.String value) {
+      public Builder setExtraData(com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        changeAddress_ = value;
+        extraData_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string changeAddress = 6;</code>
+       * <code>optional bytes extra_data = 6;</code>
        */
-      public Builder clearChangeAddress() {
+      public Builder clearExtraData() {
         
-        changeAddress_ = getDefaultInstance().getChangeAddress();
+        extraData_ = getDefaultInstance().getExtraData();
+        onChanged();
+        return this;
+      }
+
+      private int propertyId_ ;
+      /**
+       * <code>optional int32 property_id = 7;</code>
+       */
+      public int getPropertyId() {
+        return propertyId_;
+      }
+      /**
+       * <code>optional int32 property_id = 7;</code>
+       */
+      public Builder setPropertyId(int value) {
+        
+        propertyId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string changeAddress = 6;</code>
+       * <code>optional int32 property_id = 7;</code>
        */
-      public Builder setChangeAddressBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
+      public Builder clearPropertyId() {
         
-        changeAddress_ = value;
+        propertyId_ = 0;
         onChanged();
         return this;
       }
 
       private java.lang.Object network_ = "";
       /**
-       * <code>optional string network = 7;</code>
+       * <code>optional string network = 8;</code>
        */
       public java.lang.String getNetwork() {
         java.lang.Object ref = network_;
@@ -2841,7 +2419,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>optional string network = 7;</code>
+       * <code>optional string network = 8;</code>
        */
       public com.google.protobuf.ByteString
           getNetworkBytes() {
@@ -2857,7 +2435,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>optional string network = 7;</code>
+       * <code>optional string network = 8;</code>
        */
       public Builder setNetwork(
           java.lang.String value) {
@@ -2870,7 +2448,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>optional string network = 7;</code>
+       * <code>optional string network = 8;</code>
        */
       public Builder clearNetwork() {
         
@@ -2879,7 +2457,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>optional string network = 7;</code>
+       * <code>optional string network = 8;</code>
        */
       public Builder setNetworkBytes(
           com.google.protobuf.ByteString value) {
@@ -2893,383 +2471,9 @@ public final class Btc {
         return this;
       }
 
-      private java.lang.Object segWit_ = "";
-      /**
-       * <code>optional string segWit = 8;</code>
-       */
-      public java.lang.String getSegWit() {
-        java.lang.Object ref = segWit_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          segWit_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string segWit = 8;</code>
-       */
-      public com.google.protobuf.ByteString
-          getSegWitBytes() {
-        java.lang.Object ref = segWit_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          segWit_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string segWit = 8;</code>
-       */
-      public Builder setSegWit(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        segWit_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string segWit = 8;</code>
-       */
-      public Builder clearSegWit() {
-        
-        segWit_ = getDefaultInstance().getSegWit();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string segWit = 8;</code>
-       */
-      public Builder setSegWitBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        segWit_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object payment_ = "";
-      /**
-       * <code>optional string payment = 9;</code>
-       */
-      public java.lang.String getPayment() {
-        java.lang.Object ref = payment_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          payment_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string payment = 9;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPaymentBytes() {
-        java.lang.Object ref = payment_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          payment_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string payment = 9;</code>
-       */
-      public Builder setPayment(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        payment_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string payment = 9;</code>
-       */
-      public Builder clearPayment() {
-        
-        payment_ = getDefaultInstance().getPayment();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string payment = 9;</code>
-       */
-      public Builder setPaymentBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        payment_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object toDis_ = "";
-      /**
-       * <code>optional string to_dis = 10;</code>
-       */
-      public java.lang.String getToDis() {
-        java.lang.Object ref = toDis_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          toDis_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string to_dis = 10;</code>
-       */
-      public com.google.protobuf.ByteString
-          getToDisBytes() {
-        java.lang.Object ref = toDis_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          toDis_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string to_dis = 10;</code>
-       */
-      public Builder setToDis(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        toDis_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string to_dis = 10;</code>
-       */
-      public Builder clearToDis() {
-        
-        toDis_ = getDefaultInstance().getToDis();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string to_dis = 10;</code>
-       */
-      public Builder setToDisBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        toDis_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object from_ = "";
-      /**
-       * <code>optional string from = 11;</code>
-       */
-      public java.lang.String getFrom() {
-        java.lang.Object ref = from_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          from_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string from = 11;</code>
-       */
-      public com.google.protobuf.ByteString
-          getFromBytes() {
-        java.lang.Object ref = from_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          from_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string from = 11;</code>
-       */
-      public Builder setFrom(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        from_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string from = 11;</code>
-       */
-      public Builder clearFrom() {
-        
-        from_ = getDefaultInstance().getFrom();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string from = 11;</code>
-       */
-      public Builder setFromBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        from_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object feeDis_ = "";
-      /**
-       * <code>optional string fee_dis = 12;</code>
-       */
-      public java.lang.String getFeeDis() {
-        java.lang.Object ref = feeDis_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          feeDis_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string fee_dis = 12;</code>
-       */
-      public com.google.protobuf.ByteString
-          getFeeDisBytes() {
-        java.lang.Object ref = feeDis_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          feeDis_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string fee_dis = 12;</code>
-       */
-      public Builder setFeeDis(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        feeDis_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string fee_dis = 12;</code>
-       */
-      public Builder clearFeeDis() {
-        
-        feeDis_ = getDefaultInstance().getFeeDis();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string fee_dis = 12;</code>
-       */
-      public Builder setFeeDisBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        feeDis_ = value;
-        onChanged();
-        return this;
-      }
-
-      private com.google.protobuf.ByteString extraData_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>optional bytes extra_data = 13;</code>
-       */
-      public com.google.protobuf.ByteString getExtraData() {
-        return extraData_;
-      }
-      /**
-       * <code>optional bytes extra_data = 13;</code>
-       */
-      public Builder setExtraData(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        extraData_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional bytes extra_data = 13;</code>
-       */
-      public Builder clearExtraData() {
-        
-        extraData_ = getDefaultInstance().getExtraData();
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object pathPrefix_ = "";
       /**
-       * <code>optional string path_prefix = 14;</code>
+       * <code>optional string path_prefix = 9;</code>
        */
       public java.lang.String getPathPrefix() {
         java.lang.Object ref = pathPrefix_;
@@ -3284,7 +2488,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>optional string path_prefix = 14;</code>
+       * <code>optional string path_prefix = 9;</code>
        */
       public com.google.protobuf.ByteString
           getPathPrefixBytes() {
@@ -3300,7 +2504,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>optional string path_prefix = 14;</code>
+       * <code>optional string path_prefix = 9;</code>
        */
       public Builder setPathPrefix(
           java.lang.String value) {
@@ -3313,7 +2517,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>optional string path_prefix = 14;</code>
+       * <code>optional string path_prefix = 9;</code>
        */
       public Builder clearPathPrefix() {
         
@@ -3322,7 +2526,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>optional string path_prefix = 14;</code>
+       * <code>optional string path_prefix = 9;</code>
        */
       public Builder setPathPrefixBytes(
           com.google.protobuf.ByteString value) {
@@ -3332,32 +2536,6 @@ public final class Btc {
   checkByteStringIsUtf8(value);
         
         pathPrefix_ = value;
-        onChanged();
-        return this;
-      }
-
-      private int propertyId_ ;
-      /**
-       * <code>optional int32 property_id = 15;</code>
-       */
-      public int getPropertyId() {
-        return propertyId_;
-      }
-      /**
-       * <code>optional int32 property_id = 15;</code>
-       */
-      public Builder setPropertyId(int value) {
-        
-        propertyId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional int32 property_id = 15;</code>
-       */
-      public Builder clearPropertyId() {
-        
-        propertyId_ = 0;
         onChanged();
         return this;
       }
@@ -3372,93 +2550,82 @@ public final class Btc {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:btcapi.BtcTxInput)
+      // @@protoc_insertion_point(builder_scope:btcapi.BtcTxReq)
     }
 
-    // @@protoc_insertion_point(class_scope:btcapi.BtcTxInput)
-    private static final btcapi.Btc.BtcTxInput DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:btcapi.BtcTxReq)
+    private static final btcapi.Btc.BtcTxReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new btcapi.Btc.BtcTxInput();
+      DEFAULT_INSTANCE = new btcapi.Btc.BtcTxReq();
     }
 
-    public static btcapi.Btc.BtcTxInput getDefaultInstance() {
+    public static btcapi.Btc.BtcTxReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<BtcTxInput>
-        PARSER = new com.google.protobuf.AbstractParser<BtcTxInput>() {
-      public BtcTxInput parsePartialFrom(
+    private static final com.google.protobuf.Parser<BtcTxReq>
+        PARSER = new com.google.protobuf.AbstractParser<BtcTxReq>() {
+      public BtcTxReq parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new BtcTxInput(input, extensionRegistry);
+          return new BtcTxReq(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<BtcTxInput> parser() {
+    public static com.google.protobuf.Parser<BtcTxReq> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<BtcTxInput> getParserForType() {
+    public com.google.protobuf.Parser<BtcTxReq> getParserForType() {
       return PARSER;
     }
 
-    public btcapi.Btc.BtcTxInput getDefaultInstanceForType() {
+    public btcapi.Btc.BtcTxReq getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface BtcTxOutputOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:btcapi.BtcTxOutput)
+  public interface BtcTxResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:btcapi.BtcTxRes)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string signature = 1;</code>
+     * <code>optional string tx_data = 1;</code>
      */
-    java.lang.String getSignature();
+    java.lang.String getTxData();
     /**
-     * <code>optional string signature = 1;</code>
+     * <code>optional string tx_data = 1;</code>
      */
     com.google.protobuf.ByteString
-        getSignatureBytes();
+        getTxDataBytes();
 
     /**
-     * <code>optional string txHash = 2;</code>
+     * <code>optional string tx_hash = 2;</code>
      */
     java.lang.String getTxHash();
     /**
-     * <code>optional string txHash = 2;</code>
+     * <code>optional string tx_hash = 2;</code>
      */
     com.google.protobuf.ByteString
         getTxHashBytes();
-
-    /**
-     * <code>optional string wtx_id = 3;</code>
-     */
-    java.lang.String getWtxId();
-    /**
-     * <code>optional string wtx_id = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getWtxIdBytes();
   }
   /**
-   * Protobuf type {@code btcapi.BtcTxOutput}
+   * Protobuf type {@code btcapi.BtcTxRes}
    */
-  public  static final class BtcTxOutput extends
+  public  static final class BtcTxRes extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:btcapi.BtcTxOutput)
-      BtcTxOutputOrBuilder {
-    // Use BtcTxOutput.newBuilder() to construct.
-    private BtcTxOutput(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:btcapi.BtcTxRes)
+      BtcTxResOrBuilder {
+    // Use BtcTxRes.newBuilder() to construct.
+    private BtcTxRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private BtcTxOutput() {
-      signature_ = "";
+    private BtcTxRes() {
+      txData_ = "";
       txHash_ = "";
-      wtxId_ = "";
     }
 
     @java.lang.Override
@@ -3466,7 +2633,7 @@ public final class Btc {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private BtcTxOutput(
+    private BtcTxRes(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3489,19 +2656,13 @@ public final class Btc {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              signature_ = s;
+              txData_ = s;
               break;
             }
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
               txHash_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              wtxId_ = s;
               break;
             }
           }
@@ -3517,54 +2678,54 @@ public final class Btc {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return btcapi.Btc.internal_static_btcapi_BtcTxOutput_descriptor;
+      return btcapi.Btc.internal_static_btcapi_BtcTxRes_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return btcapi.Btc.internal_static_btcapi_BtcTxOutput_fieldAccessorTable
+      return btcapi.Btc.internal_static_btcapi_BtcTxRes_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              btcapi.Btc.BtcTxOutput.class, btcapi.Btc.BtcTxOutput.Builder.class);
+              btcapi.Btc.BtcTxRes.class, btcapi.Btc.BtcTxRes.Builder.class);
     }
 
-    public static final int SIGNATURE_FIELD_NUMBER = 1;
-    private volatile java.lang.Object signature_;
+    public static final int TX_DATA_FIELD_NUMBER = 1;
+    private volatile java.lang.Object txData_;
     /**
-     * <code>optional string signature = 1;</code>
+     * <code>optional string tx_data = 1;</code>
      */
-    public java.lang.String getSignature() {
-      java.lang.Object ref = signature_;
+    public java.lang.String getTxData() {
+      java.lang.Object ref = txData_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        signature_ = s;
+        txData_ = s;
         return s;
       }
     }
     /**
-     * <code>optional string signature = 1;</code>
+     * <code>optional string tx_data = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getSignatureBytes() {
-      java.lang.Object ref = signature_;
+        getTxDataBytes() {
+      java.lang.Object ref = txData_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        signature_ = b;
+        txData_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int TXHASH_FIELD_NUMBER = 2;
+    public static final int TX_HASH_FIELD_NUMBER = 2;
     private volatile java.lang.Object txHash_;
     /**
-     * <code>optional string txHash = 2;</code>
+     * <code>optional string tx_hash = 2;</code>
      */
     public java.lang.String getTxHash() {
       java.lang.Object ref = txHash_;
@@ -3579,7 +2740,7 @@ public final class Btc {
       }
     }
     /**
-     * <code>optional string txHash = 2;</code>
+     * <code>optional string tx_hash = 2;</code>
      */
     public com.google.protobuf.ByteString
         getTxHashBytes() {
@@ -3589,40 +2750,6 @@ public final class Btc {
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         txHash_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int WTX_ID_FIELD_NUMBER = 3;
-    private volatile java.lang.Object wtxId_;
-    /**
-     * <code>optional string wtx_id = 3;</code>
-     */
-    public java.lang.String getWtxId() {
-      java.lang.Object ref = wtxId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        wtxId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string wtx_id = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getWtxIdBytes() {
-      java.lang.Object ref = wtxId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        wtxId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -3641,14 +2768,11 @@ public final class Btc {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getSignatureBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signature_);
+      if (!getTxDataBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, txData_);
       }
       if (!getTxHashBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, txHash_);
-      }
-      if (!getWtxIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, wtxId_);
       }
     }
 
@@ -3657,14 +2781,11 @@ public final class Btc {
       if (size != -1) return size;
 
       size = 0;
-      if (!getSignatureBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signature_);
+      if (!getTxDataBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, txData_);
       }
       if (!getTxHashBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, txHash_);
-      }
-      if (!getWtxIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, wtxId_);
       }
       memoizedSize = size;
       return size;
@@ -3676,18 +2797,16 @@ public final class Btc {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof btcapi.Btc.BtcTxOutput)) {
+      if (!(obj instanceof btcapi.Btc.BtcTxRes)) {
         return super.equals(obj);
       }
-      btcapi.Btc.BtcTxOutput other = (btcapi.Btc.BtcTxOutput) obj;
+      btcapi.Btc.BtcTxRes other = (btcapi.Btc.BtcTxRes) obj;
 
       boolean result = true;
-      result = result && getSignature()
-          .equals(other.getSignature());
+      result = result && getTxData()
+          .equals(other.getTxData());
       result = result && getTxHash()
           .equals(other.getTxHash());
-      result = result && getWtxId()
-          .equals(other.getWtxId());
       return result;
     }
 
@@ -3698,69 +2817,67 @@ public final class Btc {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + SIGNATURE_FIELD_NUMBER;
-      hash = (53 * hash) + getSignature().hashCode();
-      hash = (37 * hash) + TXHASH_FIELD_NUMBER;
+      hash = (37 * hash) + TX_DATA_FIELD_NUMBER;
+      hash = (53 * hash) + getTxData().hashCode();
+      hash = (37 * hash) + TX_HASH_FIELD_NUMBER;
       hash = (53 * hash) + getTxHash().hashCode();
-      hash = (37 * hash) + WTX_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getWtxId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static btcapi.Btc.BtcTxOutput parseFrom(
+    public static btcapi.Btc.BtcTxRes parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static btcapi.Btc.BtcTxOutput parseFrom(
+    public static btcapi.Btc.BtcTxRes parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static btcapi.Btc.BtcTxOutput parseFrom(byte[] data)
+    public static btcapi.Btc.BtcTxRes parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static btcapi.Btc.BtcTxOutput parseFrom(
+    public static btcapi.Btc.BtcTxRes parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static btcapi.Btc.BtcTxOutput parseFrom(java.io.InputStream input)
+    public static btcapi.Btc.BtcTxRes parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static btcapi.Btc.BtcTxOutput parseFrom(
+    public static btcapi.Btc.BtcTxRes parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static btcapi.Btc.BtcTxOutput parseDelimitedFrom(java.io.InputStream input)
+    public static btcapi.Btc.BtcTxRes parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static btcapi.Btc.BtcTxOutput parseDelimitedFrom(
+    public static btcapi.Btc.BtcTxRes parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static btcapi.Btc.BtcTxOutput parseFrom(
+    public static btcapi.Btc.BtcTxRes parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static btcapi.Btc.BtcTxOutput parseFrom(
+    public static btcapi.Btc.BtcTxRes parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3772,7 +2889,7 @@ public final class Btc {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(btcapi.Btc.BtcTxOutput prototype) {
+    public static Builder newBuilder(btcapi.Btc.BtcTxRes prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -3787,25 +2904,25 @@ public final class Btc {
       return builder;
     }
     /**
-     * Protobuf type {@code btcapi.BtcTxOutput}
+     * Protobuf type {@code btcapi.BtcTxRes}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:btcapi.BtcTxOutput)
-        btcapi.Btc.BtcTxOutputOrBuilder {
+        // @@protoc_insertion_point(builder_implements:btcapi.BtcTxRes)
+        btcapi.Btc.BtcTxResOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return btcapi.Btc.internal_static_btcapi_BtcTxOutput_descriptor;
+        return btcapi.Btc.internal_static_btcapi_BtcTxRes_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return btcapi.Btc.internal_static_btcapi_BtcTxOutput_fieldAccessorTable
+        return btcapi.Btc.internal_static_btcapi_BtcTxRes_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                btcapi.Btc.BtcTxOutput.class, btcapi.Btc.BtcTxOutput.Builder.class);
+                btcapi.Btc.BtcTxRes.class, btcapi.Btc.BtcTxRes.Builder.class);
       }
 
-      // Construct using btcapi.Btc.BtcTxOutput.newBuilder()
+      // Construct using btcapi.Btc.BtcTxRes.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -3822,37 +2939,34 @@ public final class Btc {
       }
       public Builder clear() {
         super.clear();
-        signature_ = "";
+        txData_ = "";
 
         txHash_ = "";
-
-        wtxId_ = "";
 
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return btcapi.Btc.internal_static_btcapi_BtcTxOutput_descriptor;
+        return btcapi.Btc.internal_static_btcapi_BtcTxRes_descriptor;
       }
 
-      public btcapi.Btc.BtcTxOutput getDefaultInstanceForType() {
-        return btcapi.Btc.BtcTxOutput.getDefaultInstance();
+      public btcapi.Btc.BtcTxRes getDefaultInstanceForType() {
+        return btcapi.Btc.BtcTxRes.getDefaultInstance();
       }
 
-      public btcapi.Btc.BtcTxOutput build() {
-        btcapi.Btc.BtcTxOutput result = buildPartial();
+      public btcapi.Btc.BtcTxRes build() {
+        btcapi.Btc.BtcTxRes result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public btcapi.Btc.BtcTxOutput buildPartial() {
-        btcapi.Btc.BtcTxOutput result = new btcapi.Btc.BtcTxOutput(this);
-        result.signature_ = signature_;
+      public btcapi.Btc.BtcTxRes buildPartial() {
+        btcapi.Btc.BtcTxRes result = new btcapi.Btc.BtcTxRes(this);
+        result.txData_ = txData_;
         result.txHash_ = txHash_;
-        result.wtxId_ = wtxId_;
         onBuilt();
         return result;
       }
@@ -3884,26 +2998,22 @@ public final class Btc {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof btcapi.Btc.BtcTxOutput) {
-          return mergeFrom((btcapi.Btc.BtcTxOutput)other);
+        if (other instanceof btcapi.Btc.BtcTxRes) {
+          return mergeFrom((btcapi.Btc.BtcTxRes)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(btcapi.Btc.BtcTxOutput other) {
-        if (other == btcapi.Btc.BtcTxOutput.getDefaultInstance()) return this;
-        if (!other.getSignature().isEmpty()) {
-          signature_ = other.signature_;
+      public Builder mergeFrom(btcapi.Btc.BtcTxRes other) {
+        if (other == btcapi.Btc.BtcTxRes.getDefaultInstance()) return this;
+        if (!other.getTxData().isEmpty()) {
+          txData_ = other.txData_;
           onChanged();
         }
         if (!other.getTxHash().isEmpty()) {
           txHash_ = other.txHash_;
-          onChanged();
-        }
-        if (!other.getWtxId().isEmpty()) {
-          wtxId_ = other.wtxId_;
           onChanged();
         }
         onChanged();
@@ -3918,11 +3028,11 @@ public final class Btc {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        btcapi.Btc.BtcTxOutput parsedMessage = null;
+        btcapi.Btc.BtcTxRes parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (btcapi.Btc.BtcTxOutput) e.getUnfinishedMessage();
+          parsedMessage = (btcapi.Btc.BtcTxRes) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3932,78 +3042,78 @@ public final class Btc {
         return this;
       }
 
-      private java.lang.Object signature_ = "";
+      private java.lang.Object txData_ = "";
       /**
-       * <code>optional string signature = 1;</code>
+       * <code>optional string tx_data = 1;</code>
        */
-      public java.lang.String getSignature() {
-        java.lang.Object ref = signature_;
+      public java.lang.String getTxData() {
+        java.lang.Object ref = txData_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          signature_ = s;
+          txData_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string signature = 1;</code>
+       * <code>optional string tx_data = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getSignatureBytes() {
-        java.lang.Object ref = signature_;
+          getTxDataBytes() {
+        java.lang.Object ref = txData_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          signature_ = b;
+          txData_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string signature = 1;</code>
+       * <code>optional string tx_data = 1;</code>
        */
-      public Builder setSignature(
+      public Builder setTxData(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        signature_ = value;
+        txData_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string signature = 1;</code>
+       * <code>optional string tx_data = 1;</code>
        */
-      public Builder clearSignature() {
+      public Builder clearTxData() {
         
-        signature_ = getDefaultInstance().getSignature();
+        txData_ = getDefaultInstance().getTxData();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string signature = 1;</code>
+       * <code>optional string tx_data = 1;</code>
        */
-      public Builder setSignatureBytes(
+      public Builder setTxDataBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        signature_ = value;
+        txData_ = value;
         onChanged();
         return this;
       }
 
       private java.lang.Object txHash_ = "";
       /**
-       * <code>optional string txHash = 2;</code>
+       * <code>optional string tx_hash = 2;</code>
        */
       public java.lang.String getTxHash() {
         java.lang.Object ref = txHash_;
@@ -4018,7 +3128,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>optional string txHash = 2;</code>
+       * <code>optional string tx_hash = 2;</code>
        */
       public com.google.protobuf.ByteString
           getTxHashBytes() {
@@ -4034,7 +3144,7 @@ public final class Btc {
         }
       }
       /**
-       * <code>optional string txHash = 2;</code>
+       * <code>optional string tx_hash = 2;</code>
        */
       public Builder setTxHash(
           java.lang.String value) {
@@ -4047,7 +3157,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>optional string txHash = 2;</code>
+       * <code>optional string tx_hash = 2;</code>
        */
       public Builder clearTxHash() {
         
@@ -4056,7 +3166,7 @@ public final class Btc {
         return this;
       }
       /**
-       * <code>optional string txHash = 2;</code>
+       * <code>optional string tx_hash = 2;</code>
        */
       public Builder setTxHashBytes(
           com.google.protobuf.ByteString value) {
@@ -4066,75 +3176,6 @@ public final class Btc {
   checkByteStringIsUtf8(value);
         
         txHash_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object wtxId_ = "";
-      /**
-       * <code>optional string wtx_id = 3;</code>
-       */
-      public java.lang.String getWtxId() {
-        java.lang.Object ref = wtxId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          wtxId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string wtx_id = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getWtxIdBytes() {
-        java.lang.Object ref = wtxId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          wtxId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string wtx_id = 3;</code>
-       */
-      public Builder setWtxId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        wtxId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string wtx_id = 3;</code>
-       */
-      public Builder clearWtxId() {
-        
-        wtxId_ = getDefaultInstance().getWtxId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string wtx_id = 3;</code>
-       */
-      public Builder setWtxIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        wtxId_ = value;
         onChanged();
         return this;
       }
@@ -4149,46 +3190,4075 @@ public final class Btc {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:btcapi.BtcTxOutput)
+      // @@protoc_insertion_point(builder_scope:btcapi.BtcTxRes)
     }
 
-    // @@protoc_insertion_point(class_scope:btcapi.BtcTxOutput)
-    private static final btcapi.Btc.BtcTxOutput DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:btcapi.BtcTxRes)
+    private static final btcapi.Btc.BtcTxRes DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new btcapi.Btc.BtcTxOutput();
+      DEFAULT_INSTANCE = new btcapi.Btc.BtcTxRes();
     }
 
-    public static btcapi.Btc.BtcTxOutput getDefaultInstance() {
+    public static btcapi.Btc.BtcTxRes getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<BtcTxOutput>
-        PARSER = new com.google.protobuf.AbstractParser<BtcTxOutput>() {
-      public BtcTxOutput parsePartialFrom(
+    private static final com.google.protobuf.Parser<BtcTxRes>
+        PARSER = new com.google.protobuf.AbstractParser<BtcTxRes>() {
+      public BtcTxRes parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new BtcTxOutput(input, extensionRegistry);
+          return new BtcTxRes(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<BtcTxOutput> parser() {
+    public static com.google.protobuf.Parser<BtcTxRes> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<BtcTxOutput> getParserForType() {
+    public com.google.protobuf.Parser<BtcTxRes> getParserForType() {
       return PARSER;
     }
 
-    public btcapi.Btc.BtcTxOutput getDefaultInstanceForType() {
+    public btcapi.Btc.BtcTxRes getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface BtcAddressResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:btcapi.BtcAddressResponse)
+  public interface BtcSegwitTxReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:btcapi.BtcSegwitTxReq)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string to = 1;</code>
+     */
+    java.lang.String getTo();
+    /**
+     * <code>optional string to = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getToBytes();
+
+    /**
+     * <code>optional int64 amount = 2;</code>
+     */
+    long getAmount();
+
+    /**
+     * <code>optional int64 fee = 3;</code>
+     */
+    long getFee();
+
+    /**
+     * <code>optional uint32 change_address_index = 4;</code>
+     */
+    int getChangeAddressIndex();
+
+    /**
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
+     */
+    java.util.List<btcapi.Btc.Utxo> 
+        getUnspentsList();
+    /**
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
+     */
+    btcapi.Btc.Utxo getUnspents(int index);
+    /**
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
+     */
+    int getUnspentsCount();
+    /**
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
+     */
+    java.util.List<? extends btcapi.Btc.UtxoOrBuilder> 
+        getUnspentsOrBuilderList();
+    /**
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
+     */
+    btcapi.Btc.UtxoOrBuilder getUnspentsOrBuilder(
+        int index);
+
+    /**
+     * <code>optional bytes extra_data = 6;</code>
+     */
+    com.google.protobuf.ByteString getExtraData();
+
+    /**
+     * <code>optional int32 property_id = 7;</code>
+     */
+    int getPropertyId();
+
+    /**
+     * <code>optional string network = 8;</code>
+     */
+    java.lang.String getNetwork();
+    /**
+     * <code>optional string network = 8;</code>
+     */
+    com.google.protobuf.ByteString
+        getNetworkBytes();
+
+    /**
+     * <code>optional string path_prefix = 9;</code>
+     */
+    java.lang.String getPathPrefix();
+    /**
+     * <code>optional string path_prefix = 9;</code>
+     */
+    com.google.protobuf.ByteString
+        getPathPrefixBytes();
+  }
+  /**
+   * Protobuf type {@code btcapi.BtcSegwitTxReq}
+   */
+  public  static final class BtcSegwitTxReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:btcapi.BtcSegwitTxReq)
+      BtcSegwitTxReqOrBuilder {
+    // Use BtcSegwitTxReq.newBuilder() to construct.
+    private BtcSegwitTxReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BtcSegwitTxReq() {
+      to_ = "";
+      amount_ = 0L;
+      fee_ = 0L;
+      changeAddressIndex_ = 0;
+      unspents_ = java.util.Collections.emptyList();
+      extraData_ = com.google.protobuf.ByteString.EMPTY;
+      propertyId_ = 0;
+      network_ = "";
+      pathPrefix_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private BtcSegwitTxReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              to_ = s;
+              break;
+            }
+            case 16: {
+
+              amount_ = input.readInt64();
+              break;
+            }
+            case 24: {
+
+              fee_ = input.readInt64();
+              break;
+            }
+            case 32: {
+
+              changeAddressIndex_ = input.readUInt32();
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+                unspents_ = new java.util.ArrayList<btcapi.Btc.Utxo>();
+                mutable_bitField0_ |= 0x00000010;
+              }
+              unspents_.add(
+                  input.readMessage(btcapi.Btc.Utxo.parser(), extensionRegistry));
+              break;
+            }
+            case 50: {
+
+              extraData_ = input.readBytes();
+              break;
+            }
+            case 56: {
+
+              propertyId_ = input.readInt32();
+              break;
+            }
+            case 66: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              network_ = s;
+              break;
+            }
+            case 74: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              pathPrefix_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+          unspents_ = java.util.Collections.unmodifiableList(unspents_);
+        }
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return btcapi.Btc.internal_static_btcapi_BtcSegwitTxReq_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return btcapi.Btc.internal_static_btcapi_BtcSegwitTxReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              btcapi.Btc.BtcSegwitTxReq.class, btcapi.Btc.BtcSegwitTxReq.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int TO_FIELD_NUMBER = 1;
+    private volatile java.lang.Object to_;
+    /**
+     * <code>optional string to = 1;</code>
+     */
+    public java.lang.String getTo() {
+      java.lang.Object ref = to_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        to_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string to = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getToBytes() {
+      java.lang.Object ref = to_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        to_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int AMOUNT_FIELD_NUMBER = 2;
+    private long amount_;
+    /**
+     * <code>optional int64 amount = 2;</code>
+     */
+    public long getAmount() {
+      return amount_;
+    }
+
+    public static final int FEE_FIELD_NUMBER = 3;
+    private long fee_;
+    /**
+     * <code>optional int64 fee = 3;</code>
+     */
+    public long getFee() {
+      return fee_;
+    }
+
+    public static final int CHANGE_ADDRESS_INDEX_FIELD_NUMBER = 4;
+    private int changeAddressIndex_;
+    /**
+     * <code>optional uint32 change_address_index = 4;</code>
+     */
+    public int getChangeAddressIndex() {
+      return changeAddressIndex_;
+    }
+
+    public static final int UNSPENTS_FIELD_NUMBER = 5;
+    private java.util.List<btcapi.Btc.Utxo> unspents_;
+    /**
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
+     */
+    public java.util.List<btcapi.Btc.Utxo> getUnspentsList() {
+      return unspents_;
+    }
+    /**
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
+     */
+    public java.util.List<? extends btcapi.Btc.UtxoOrBuilder> 
+        getUnspentsOrBuilderList() {
+      return unspents_;
+    }
+    /**
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
+     */
+    public int getUnspentsCount() {
+      return unspents_.size();
+    }
+    /**
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
+     */
+    public btcapi.Btc.Utxo getUnspents(int index) {
+      return unspents_.get(index);
+    }
+    /**
+     * <code>repeated .btcapi.Utxo unspents = 5;</code>
+     */
+    public btcapi.Btc.UtxoOrBuilder getUnspentsOrBuilder(
+        int index) {
+      return unspents_.get(index);
+    }
+
+    public static final int EXTRA_DATA_FIELD_NUMBER = 6;
+    private com.google.protobuf.ByteString extraData_;
+    /**
+     * <code>optional bytes extra_data = 6;</code>
+     */
+    public com.google.protobuf.ByteString getExtraData() {
+      return extraData_;
+    }
+
+    public static final int PROPERTY_ID_FIELD_NUMBER = 7;
+    private int propertyId_;
+    /**
+     * <code>optional int32 property_id = 7;</code>
+     */
+    public int getPropertyId() {
+      return propertyId_;
+    }
+
+    public static final int NETWORK_FIELD_NUMBER = 8;
+    private volatile java.lang.Object network_;
+    /**
+     * <code>optional string network = 8;</code>
+     */
+    public java.lang.String getNetwork() {
+      java.lang.Object ref = network_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        network_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string network = 8;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNetworkBytes() {
+      java.lang.Object ref = network_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        network_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PATH_PREFIX_FIELD_NUMBER = 9;
+    private volatile java.lang.Object pathPrefix_;
+    /**
+     * <code>optional string path_prefix = 9;</code>
+     */
+    public java.lang.String getPathPrefix() {
+      java.lang.Object ref = pathPrefix_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        pathPrefix_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string path_prefix = 9;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPathPrefixBytes() {
+      java.lang.Object ref = pathPrefix_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        pathPrefix_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getToBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, to_);
+      }
+      if (amount_ != 0L) {
+        output.writeInt64(2, amount_);
+      }
+      if (fee_ != 0L) {
+        output.writeInt64(3, fee_);
+      }
+      if (changeAddressIndex_ != 0) {
+        output.writeUInt32(4, changeAddressIndex_);
+      }
+      for (int i = 0; i < unspents_.size(); i++) {
+        output.writeMessage(5, unspents_.get(i));
+      }
+      if (!extraData_.isEmpty()) {
+        output.writeBytes(6, extraData_);
+      }
+      if (propertyId_ != 0) {
+        output.writeInt32(7, propertyId_);
+      }
+      if (!getNetworkBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, network_);
+      }
+      if (!getPathPrefixBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, pathPrefix_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getToBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, to_);
+      }
+      if (amount_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, amount_);
+      }
+      if (fee_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, fee_);
+      }
+      if (changeAddressIndex_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(4, changeAddressIndex_);
+      }
+      for (int i = 0; i < unspents_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, unspents_.get(i));
+      }
+      if (!extraData_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, extraData_);
+      }
+      if (propertyId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, propertyId_);
+      }
+      if (!getNetworkBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, network_);
+      }
+      if (!getPathPrefixBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, pathPrefix_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof btcapi.Btc.BtcSegwitTxReq)) {
+        return super.equals(obj);
+      }
+      btcapi.Btc.BtcSegwitTxReq other = (btcapi.Btc.BtcSegwitTxReq) obj;
+
+      boolean result = true;
+      result = result && getTo()
+          .equals(other.getTo());
+      result = result && (getAmount()
+          == other.getAmount());
+      result = result && (getFee()
+          == other.getFee());
+      result = result && (getChangeAddressIndex()
+          == other.getChangeAddressIndex());
+      result = result && getUnspentsList()
+          .equals(other.getUnspentsList());
+      result = result && getExtraData()
+          .equals(other.getExtraData());
+      result = result && (getPropertyId()
+          == other.getPropertyId());
+      result = result && getNetwork()
+          .equals(other.getNetwork());
+      result = result && getPathPrefix()
+          .equals(other.getPathPrefix());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + TO_FIELD_NUMBER;
+      hash = (53 * hash) + getTo().hashCode();
+      hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getAmount());
+      hash = (37 * hash) + FEE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getFee());
+      hash = (37 * hash) + CHANGE_ADDRESS_INDEX_FIELD_NUMBER;
+      hash = (53 * hash) + getChangeAddressIndex();
+      if (getUnspentsCount() > 0) {
+        hash = (37 * hash) + UNSPENTS_FIELD_NUMBER;
+        hash = (53 * hash) + getUnspentsList().hashCode();
+      }
+      hash = (37 * hash) + EXTRA_DATA_FIELD_NUMBER;
+      hash = (53 * hash) + getExtraData().hashCode();
+      hash = (37 * hash) + PROPERTY_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getPropertyId();
+      hash = (37 * hash) + NETWORK_FIELD_NUMBER;
+      hash = (53 * hash) + getNetwork().hashCode();
+      hash = (37 * hash) + PATH_PREFIX_FIELD_NUMBER;
+      hash = (53 * hash) + getPathPrefix().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static btcapi.Btc.BtcSegwitTxReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static btcapi.Btc.BtcSegwitTxReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcSegwitTxReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static btcapi.Btc.BtcSegwitTxReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcSegwitTxReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcSegwitTxReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcSegwitTxReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcSegwitTxReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcSegwitTxReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcSegwitTxReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(btcapi.Btc.BtcSegwitTxReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code btcapi.BtcSegwitTxReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:btcapi.BtcSegwitTxReq)
+        btcapi.Btc.BtcSegwitTxReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return btcapi.Btc.internal_static_btcapi_BtcSegwitTxReq_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return btcapi.Btc.internal_static_btcapi_BtcSegwitTxReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                btcapi.Btc.BtcSegwitTxReq.class, btcapi.Btc.BtcSegwitTxReq.Builder.class);
+      }
+
+      // Construct using btcapi.Btc.BtcSegwitTxReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getUnspentsFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        to_ = "";
+
+        amount_ = 0L;
+
+        fee_ = 0L;
+
+        changeAddressIndex_ = 0;
+
+        if (unspentsBuilder_ == null) {
+          unspents_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+        } else {
+          unspentsBuilder_.clear();
+        }
+        extraData_ = com.google.protobuf.ByteString.EMPTY;
+
+        propertyId_ = 0;
+
+        network_ = "";
+
+        pathPrefix_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return btcapi.Btc.internal_static_btcapi_BtcSegwitTxReq_descriptor;
+      }
+
+      public btcapi.Btc.BtcSegwitTxReq getDefaultInstanceForType() {
+        return btcapi.Btc.BtcSegwitTxReq.getDefaultInstance();
+      }
+
+      public btcapi.Btc.BtcSegwitTxReq build() {
+        btcapi.Btc.BtcSegwitTxReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public btcapi.Btc.BtcSegwitTxReq buildPartial() {
+        btcapi.Btc.BtcSegwitTxReq result = new btcapi.Btc.BtcSegwitTxReq(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        result.to_ = to_;
+        result.amount_ = amount_;
+        result.fee_ = fee_;
+        result.changeAddressIndex_ = changeAddressIndex_;
+        if (unspentsBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) == 0x00000010)) {
+            unspents_ = java.util.Collections.unmodifiableList(unspents_);
+            bitField0_ = (bitField0_ & ~0x00000010);
+          }
+          result.unspents_ = unspents_;
+        } else {
+          result.unspents_ = unspentsBuilder_.build();
+        }
+        result.extraData_ = extraData_;
+        result.propertyId_ = propertyId_;
+        result.network_ = network_;
+        result.pathPrefix_ = pathPrefix_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof btcapi.Btc.BtcSegwitTxReq) {
+          return mergeFrom((btcapi.Btc.BtcSegwitTxReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(btcapi.Btc.BtcSegwitTxReq other) {
+        if (other == btcapi.Btc.BtcSegwitTxReq.getDefaultInstance()) return this;
+        if (!other.getTo().isEmpty()) {
+          to_ = other.to_;
+          onChanged();
+        }
+        if (other.getAmount() != 0L) {
+          setAmount(other.getAmount());
+        }
+        if (other.getFee() != 0L) {
+          setFee(other.getFee());
+        }
+        if (other.getChangeAddressIndex() != 0) {
+          setChangeAddressIndex(other.getChangeAddressIndex());
+        }
+        if (unspentsBuilder_ == null) {
+          if (!other.unspents_.isEmpty()) {
+            if (unspents_.isEmpty()) {
+              unspents_ = other.unspents_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+            } else {
+              ensureUnspentsIsMutable();
+              unspents_.addAll(other.unspents_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.unspents_.isEmpty()) {
+            if (unspentsBuilder_.isEmpty()) {
+              unspentsBuilder_.dispose();
+              unspentsBuilder_ = null;
+              unspents_ = other.unspents_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+              unspentsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getUnspentsFieldBuilder() : null;
+            } else {
+              unspentsBuilder_.addAllMessages(other.unspents_);
+            }
+          }
+        }
+        if (other.getExtraData() != com.google.protobuf.ByteString.EMPTY) {
+          setExtraData(other.getExtraData());
+        }
+        if (other.getPropertyId() != 0) {
+          setPropertyId(other.getPropertyId());
+        }
+        if (!other.getNetwork().isEmpty()) {
+          network_ = other.network_;
+          onChanged();
+        }
+        if (!other.getPathPrefix().isEmpty()) {
+          pathPrefix_ = other.pathPrefix_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        btcapi.Btc.BtcSegwitTxReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (btcapi.Btc.BtcSegwitTxReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object to_ = "";
+      /**
+       * <code>optional string to = 1;</code>
+       */
+      public java.lang.String getTo() {
+        java.lang.Object ref = to_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          to_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string to = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getToBytes() {
+        java.lang.Object ref = to_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          to_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string to = 1;</code>
+       */
+      public Builder setTo(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        to_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string to = 1;</code>
+       */
+      public Builder clearTo() {
+        
+        to_ = getDefaultInstance().getTo();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string to = 1;</code>
+       */
+      public Builder setToBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        to_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long amount_ ;
+      /**
+       * <code>optional int64 amount = 2;</code>
+       */
+      public long getAmount() {
+        return amount_;
+      }
+      /**
+       * <code>optional int64 amount = 2;</code>
+       */
+      public Builder setAmount(long value) {
+        
+        amount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 amount = 2;</code>
+       */
+      public Builder clearAmount() {
+        
+        amount_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long fee_ ;
+      /**
+       * <code>optional int64 fee = 3;</code>
+       */
+      public long getFee() {
+        return fee_;
+      }
+      /**
+       * <code>optional int64 fee = 3;</code>
+       */
+      public Builder setFee(long value) {
+        
+        fee_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int64 fee = 3;</code>
+       */
+      public Builder clearFee() {
+        
+        fee_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private int changeAddressIndex_ ;
+      /**
+       * <code>optional uint32 change_address_index = 4;</code>
+       */
+      public int getChangeAddressIndex() {
+        return changeAddressIndex_;
+      }
+      /**
+       * <code>optional uint32 change_address_index = 4;</code>
+       */
+      public Builder setChangeAddressIndex(int value) {
+        
+        changeAddressIndex_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 change_address_index = 4;</code>
+       */
+      public Builder clearChangeAddressIndex() {
+        
+        changeAddressIndex_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<btcapi.Btc.Utxo> unspents_ =
+        java.util.Collections.emptyList();
+      private void ensureUnspentsIsMutable() {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+          unspents_ = new java.util.ArrayList<btcapi.Btc.Utxo>(unspents_);
+          bitField0_ |= 0x00000010;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          btcapi.Btc.Utxo, btcapi.Btc.Utxo.Builder, btcapi.Btc.UtxoOrBuilder> unspentsBuilder_;
+
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public java.util.List<btcapi.Btc.Utxo> getUnspentsList() {
+        if (unspentsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(unspents_);
+        } else {
+          return unspentsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public int getUnspentsCount() {
+        if (unspentsBuilder_ == null) {
+          return unspents_.size();
+        } else {
+          return unspentsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public btcapi.Btc.Utxo getUnspents(int index) {
+        if (unspentsBuilder_ == null) {
+          return unspents_.get(index);
+        } else {
+          return unspentsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public Builder setUnspents(
+          int index, btcapi.Btc.Utxo value) {
+        if (unspentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUnspentsIsMutable();
+          unspents_.set(index, value);
+          onChanged();
+        } else {
+          unspentsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public Builder setUnspents(
+          int index, btcapi.Btc.Utxo.Builder builderForValue) {
+        if (unspentsBuilder_ == null) {
+          ensureUnspentsIsMutable();
+          unspents_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          unspentsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public Builder addUnspents(btcapi.Btc.Utxo value) {
+        if (unspentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUnspentsIsMutable();
+          unspents_.add(value);
+          onChanged();
+        } else {
+          unspentsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public Builder addUnspents(
+          int index, btcapi.Btc.Utxo value) {
+        if (unspentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUnspentsIsMutable();
+          unspents_.add(index, value);
+          onChanged();
+        } else {
+          unspentsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public Builder addUnspents(
+          btcapi.Btc.Utxo.Builder builderForValue) {
+        if (unspentsBuilder_ == null) {
+          ensureUnspentsIsMutable();
+          unspents_.add(builderForValue.build());
+          onChanged();
+        } else {
+          unspentsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public Builder addUnspents(
+          int index, btcapi.Btc.Utxo.Builder builderForValue) {
+        if (unspentsBuilder_ == null) {
+          ensureUnspentsIsMutable();
+          unspents_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          unspentsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public Builder addAllUnspents(
+          java.lang.Iterable<? extends btcapi.Btc.Utxo> values) {
+        if (unspentsBuilder_ == null) {
+          ensureUnspentsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, unspents_);
+          onChanged();
+        } else {
+          unspentsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public Builder clearUnspents() {
+        if (unspentsBuilder_ == null) {
+          unspents_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+          onChanged();
+        } else {
+          unspentsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public Builder removeUnspents(int index) {
+        if (unspentsBuilder_ == null) {
+          ensureUnspentsIsMutable();
+          unspents_.remove(index);
+          onChanged();
+        } else {
+          unspentsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public btcapi.Btc.Utxo.Builder getUnspentsBuilder(
+          int index) {
+        return getUnspentsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public btcapi.Btc.UtxoOrBuilder getUnspentsOrBuilder(
+          int index) {
+        if (unspentsBuilder_ == null) {
+          return unspents_.get(index);  } else {
+          return unspentsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public java.util.List<? extends btcapi.Btc.UtxoOrBuilder> 
+           getUnspentsOrBuilderList() {
+        if (unspentsBuilder_ != null) {
+          return unspentsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(unspents_);
+        }
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public btcapi.Btc.Utxo.Builder addUnspentsBuilder() {
+        return getUnspentsFieldBuilder().addBuilder(
+            btcapi.Btc.Utxo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public btcapi.Btc.Utxo.Builder addUnspentsBuilder(
+          int index) {
+        return getUnspentsFieldBuilder().addBuilder(
+            index, btcapi.Btc.Utxo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .btcapi.Utxo unspents = 5;</code>
+       */
+      public java.util.List<btcapi.Btc.Utxo.Builder> 
+           getUnspentsBuilderList() {
+        return getUnspentsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          btcapi.Btc.Utxo, btcapi.Btc.Utxo.Builder, btcapi.Btc.UtxoOrBuilder> 
+          getUnspentsFieldBuilder() {
+        if (unspentsBuilder_ == null) {
+          unspentsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              btcapi.Btc.Utxo, btcapi.Btc.Utxo.Builder, btcapi.Btc.UtxoOrBuilder>(
+                  unspents_,
+                  ((bitField0_ & 0x00000010) == 0x00000010),
+                  getParentForChildren(),
+                  isClean());
+          unspents_ = null;
+        }
+        return unspentsBuilder_;
+      }
+
+      private com.google.protobuf.ByteString extraData_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>optional bytes extra_data = 6;</code>
+       */
+      public com.google.protobuf.ByteString getExtraData() {
+        return extraData_;
+      }
+      /**
+       * <code>optional bytes extra_data = 6;</code>
+       */
+      public Builder setExtraData(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        extraData_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bytes extra_data = 6;</code>
+       */
+      public Builder clearExtraData() {
+        
+        extraData_ = getDefaultInstance().getExtraData();
+        onChanged();
+        return this;
+      }
+
+      private int propertyId_ ;
+      /**
+       * <code>optional int32 property_id = 7;</code>
+       */
+      public int getPropertyId() {
+        return propertyId_;
+      }
+      /**
+       * <code>optional int32 property_id = 7;</code>
+       */
+      public Builder setPropertyId(int value) {
+        
+        propertyId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 property_id = 7;</code>
+       */
+      public Builder clearPropertyId() {
+        
+        propertyId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object network_ = "";
+      /**
+       * <code>optional string network = 8;</code>
+       */
+      public java.lang.String getNetwork() {
+        java.lang.Object ref = network_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          network_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string network = 8;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNetworkBytes() {
+        java.lang.Object ref = network_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          network_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string network = 8;</code>
+       */
+      public Builder setNetwork(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        network_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string network = 8;</code>
+       */
+      public Builder clearNetwork() {
+        
+        network_ = getDefaultInstance().getNetwork();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string network = 8;</code>
+       */
+      public Builder setNetworkBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        network_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object pathPrefix_ = "";
+      /**
+       * <code>optional string path_prefix = 9;</code>
+       */
+      public java.lang.String getPathPrefix() {
+        java.lang.Object ref = pathPrefix_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          pathPrefix_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string path_prefix = 9;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPathPrefixBytes() {
+        java.lang.Object ref = pathPrefix_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          pathPrefix_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string path_prefix = 9;</code>
+       */
+      public Builder setPathPrefix(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        pathPrefix_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string path_prefix = 9;</code>
+       */
+      public Builder clearPathPrefix() {
+        
+        pathPrefix_ = getDefaultInstance().getPathPrefix();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string path_prefix = 9;</code>
+       */
+      public Builder setPathPrefixBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        pathPrefix_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:btcapi.BtcSegwitTxReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:btcapi.BtcSegwitTxReq)
+    private static final btcapi.Btc.BtcSegwitTxReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new btcapi.Btc.BtcSegwitTxReq();
+    }
+
+    public static btcapi.Btc.BtcSegwitTxReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BtcSegwitTxReq>
+        PARSER = new com.google.protobuf.AbstractParser<BtcSegwitTxReq>() {
+      public BtcSegwitTxReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new BtcSegwitTxReq(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BtcSegwitTxReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BtcSegwitTxReq> getParserForType() {
+      return PARSER;
+    }
+
+    public btcapi.Btc.BtcSegwitTxReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BtcSegwitTxResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:btcapi.BtcSegwitTxRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string witness_tx_data = 1;</code>
+     */
+    java.lang.String getWitnessTxData();
+    /**
+     * <code>optional string witness_tx_data = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getWitnessTxDataBytes();
+
+    /**
+     * <code>optional string wtx_hash = 2;</code>
+     */
+    java.lang.String getWtxHash();
+    /**
+     * <code>optional string wtx_hash = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getWtxHashBytes();
+
+    /**
+     * <code>optional string tx_hash = 3;</code>
+     */
+    java.lang.String getTxHash();
+    /**
+     * <code>optional string tx_hash = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getTxHashBytes();
+  }
+  /**
+   * Protobuf type {@code btcapi.BtcSegwitTxRes}
+   */
+  public  static final class BtcSegwitTxRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:btcapi.BtcSegwitTxRes)
+      BtcSegwitTxResOrBuilder {
+    // Use BtcSegwitTxRes.newBuilder() to construct.
+    private BtcSegwitTxRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BtcSegwitTxRes() {
+      witnessTxData_ = "";
+      wtxHash_ = "";
+      txHash_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private BtcSegwitTxRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              witnessTxData_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              wtxHash_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              txHash_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return btcapi.Btc.internal_static_btcapi_BtcSegwitTxRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return btcapi.Btc.internal_static_btcapi_BtcSegwitTxRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              btcapi.Btc.BtcSegwitTxRes.class, btcapi.Btc.BtcSegwitTxRes.Builder.class);
+    }
+
+    public static final int WITNESS_TX_DATA_FIELD_NUMBER = 1;
+    private volatile java.lang.Object witnessTxData_;
+    /**
+     * <code>optional string witness_tx_data = 1;</code>
+     */
+    public java.lang.String getWitnessTxData() {
+      java.lang.Object ref = witnessTxData_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        witnessTxData_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string witness_tx_data = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getWitnessTxDataBytes() {
+      java.lang.Object ref = witnessTxData_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        witnessTxData_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int WTX_HASH_FIELD_NUMBER = 2;
+    private volatile java.lang.Object wtxHash_;
+    /**
+     * <code>optional string wtx_hash = 2;</code>
+     */
+    public java.lang.String getWtxHash() {
+      java.lang.Object ref = wtxHash_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        wtxHash_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string wtx_hash = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getWtxHashBytes() {
+      java.lang.Object ref = wtxHash_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        wtxHash_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TX_HASH_FIELD_NUMBER = 3;
+    private volatile java.lang.Object txHash_;
+    /**
+     * <code>optional string tx_hash = 3;</code>
+     */
+    public java.lang.String getTxHash() {
+      java.lang.Object ref = txHash_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        txHash_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string tx_hash = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getTxHashBytes() {
+      java.lang.Object ref = txHash_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        txHash_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getWitnessTxDataBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, witnessTxData_);
+      }
+      if (!getWtxHashBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, wtxHash_);
+      }
+      if (!getTxHashBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, txHash_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getWitnessTxDataBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, witnessTxData_);
+      }
+      if (!getWtxHashBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, wtxHash_);
+      }
+      if (!getTxHashBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, txHash_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof btcapi.Btc.BtcSegwitTxRes)) {
+        return super.equals(obj);
+      }
+      btcapi.Btc.BtcSegwitTxRes other = (btcapi.Btc.BtcSegwitTxRes) obj;
+
+      boolean result = true;
+      result = result && getWitnessTxData()
+          .equals(other.getWitnessTxData());
+      result = result && getWtxHash()
+          .equals(other.getWtxHash());
+      result = result && getTxHash()
+          .equals(other.getTxHash());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + WITNESS_TX_DATA_FIELD_NUMBER;
+      hash = (53 * hash) + getWitnessTxData().hashCode();
+      hash = (37 * hash) + WTX_HASH_FIELD_NUMBER;
+      hash = (53 * hash) + getWtxHash().hashCode();
+      hash = (37 * hash) + TX_HASH_FIELD_NUMBER;
+      hash = (53 * hash) + getTxHash().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static btcapi.Btc.BtcSegwitTxRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static btcapi.Btc.BtcSegwitTxRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcSegwitTxRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static btcapi.Btc.BtcSegwitTxRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcSegwitTxRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcSegwitTxRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcSegwitTxRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcSegwitTxRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcSegwitTxRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcSegwitTxRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(btcapi.Btc.BtcSegwitTxRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code btcapi.BtcSegwitTxRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:btcapi.BtcSegwitTxRes)
+        btcapi.Btc.BtcSegwitTxResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return btcapi.Btc.internal_static_btcapi_BtcSegwitTxRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return btcapi.Btc.internal_static_btcapi_BtcSegwitTxRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                btcapi.Btc.BtcSegwitTxRes.class, btcapi.Btc.BtcSegwitTxRes.Builder.class);
+      }
+
+      // Construct using btcapi.Btc.BtcSegwitTxRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        witnessTxData_ = "";
+
+        wtxHash_ = "";
+
+        txHash_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return btcapi.Btc.internal_static_btcapi_BtcSegwitTxRes_descriptor;
+      }
+
+      public btcapi.Btc.BtcSegwitTxRes getDefaultInstanceForType() {
+        return btcapi.Btc.BtcSegwitTxRes.getDefaultInstance();
+      }
+
+      public btcapi.Btc.BtcSegwitTxRes build() {
+        btcapi.Btc.BtcSegwitTxRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public btcapi.Btc.BtcSegwitTxRes buildPartial() {
+        btcapi.Btc.BtcSegwitTxRes result = new btcapi.Btc.BtcSegwitTxRes(this);
+        result.witnessTxData_ = witnessTxData_;
+        result.wtxHash_ = wtxHash_;
+        result.txHash_ = txHash_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof btcapi.Btc.BtcSegwitTxRes) {
+          return mergeFrom((btcapi.Btc.BtcSegwitTxRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(btcapi.Btc.BtcSegwitTxRes other) {
+        if (other == btcapi.Btc.BtcSegwitTxRes.getDefaultInstance()) return this;
+        if (!other.getWitnessTxData().isEmpty()) {
+          witnessTxData_ = other.witnessTxData_;
+          onChanged();
+        }
+        if (!other.getWtxHash().isEmpty()) {
+          wtxHash_ = other.wtxHash_;
+          onChanged();
+        }
+        if (!other.getTxHash().isEmpty()) {
+          txHash_ = other.txHash_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        btcapi.Btc.BtcSegwitTxRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (btcapi.Btc.BtcSegwitTxRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object witnessTxData_ = "";
+      /**
+       * <code>optional string witness_tx_data = 1;</code>
+       */
+      public java.lang.String getWitnessTxData() {
+        java.lang.Object ref = witnessTxData_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          witnessTxData_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string witness_tx_data = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getWitnessTxDataBytes() {
+        java.lang.Object ref = witnessTxData_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          witnessTxData_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string witness_tx_data = 1;</code>
+       */
+      public Builder setWitnessTxData(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        witnessTxData_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string witness_tx_data = 1;</code>
+       */
+      public Builder clearWitnessTxData() {
+        
+        witnessTxData_ = getDefaultInstance().getWitnessTxData();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string witness_tx_data = 1;</code>
+       */
+      public Builder setWitnessTxDataBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        witnessTxData_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object wtxHash_ = "";
+      /**
+       * <code>optional string wtx_hash = 2;</code>
+       */
+      public java.lang.String getWtxHash() {
+        java.lang.Object ref = wtxHash_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          wtxHash_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string wtx_hash = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getWtxHashBytes() {
+        java.lang.Object ref = wtxHash_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          wtxHash_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string wtx_hash = 2;</code>
+       */
+      public Builder setWtxHash(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        wtxHash_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string wtx_hash = 2;</code>
+       */
+      public Builder clearWtxHash() {
+        
+        wtxHash_ = getDefaultInstance().getWtxHash();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string wtx_hash = 2;</code>
+       */
+      public Builder setWtxHashBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        wtxHash_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object txHash_ = "";
+      /**
+       * <code>optional string tx_hash = 3;</code>
+       */
+      public java.lang.String getTxHash() {
+        java.lang.Object ref = txHash_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          txHash_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string tx_hash = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getTxHashBytes() {
+        java.lang.Object ref = txHash_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          txHash_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string tx_hash = 3;</code>
+       */
+      public Builder setTxHash(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        txHash_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string tx_hash = 3;</code>
+       */
+      public Builder clearTxHash() {
+        
+        txHash_ = getDefaultInstance().getTxHash();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string tx_hash = 3;</code>
+       */
+      public Builder setTxHashBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        txHash_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:btcapi.BtcSegwitTxRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:btcapi.BtcSegwitTxRes)
+    private static final btcapi.Btc.BtcSegwitTxRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new btcapi.Btc.BtcSegwitTxRes();
+    }
+
+    public static btcapi.Btc.BtcSegwitTxRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BtcSegwitTxRes>
+        PARSER = new com.google.protobuf.AbstractParser<BtcSegwitTxRes>() {
+      public BtcSegwitTxRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new BtcSegwitTxRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BtcSegwitTxRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BtcSegwitTxRes> getParserForType() {
+      return PARSER;
+    }
+
+    public btcapi.Btc.BtcSegwitTxRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BtcXpubReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:btcapi.BtcXpubReq)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string network = 1;</code>
+     */
+    java.lang.String getNetwork();
+    /**
+     * <code>optional string network = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getNetworkBytes();
+
+    /**
+     * <code>optional string path = 2;</code>
+     */
+    java.lang.String getPath();
+    /**
+     * <code>optional string path = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getPathBytes();
+  }
+  /**
+   * Protobuf type {@code btcapi.BtcXpubReq}
+   */
+  public  static final class BtcXpubReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:btcapi.BtcXpubReq)
+      BtcXpubReqOrBuilder {
+    // Use BtcXpubReq.newBuilder() to construct.
+    private BtcXpubReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BtcXpubReq() {
+      network_ = "";
+      path_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private BtcXpubReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              network_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              path_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return btcapi.Btc.internal_static_btcapi_BtcXpubReq_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return btcapi.Btc.internal_static_btcapi_BtcXpubReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              btcapi.Btc.BtcXpubReq.class, btcapi.Btc.BtcXpubReq.Builder.class);
+    }
+
+    public static final int NETWORK_FIELD_NUMBER = 1;
+    private volatile java.lang.Object network_;
+    /**
+     * <code>optional string network = 1;</code>
+     */
+    public java.lang.String getNetwork() {
+      java.lang.Object ref = network_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        network_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string network = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNetworkBytes() {
+      java.lang.Object ref = network_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        network_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PATH_FIELD_NUMBER = 2;
+    private volatile java.lang.Object path_;
+    /**
+     * <code>optional string path = 2;</code>
+     */
+    public java.lang.String getPath() {
+      java.lang.Object ref = path_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        path_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string path = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPathBytes() {
+      java.lang.Object ref = path_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        path_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getNetworkBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, network_);
+      }
+      if (!getPathBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, path_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getNetworkBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, network_);
+      }
+      if (!getPathBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, path_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof btcapi.Btc.BtcXpubReq)) {
+        return super.equals(obj);
+      }
+      btcapi.Btc.BtcXpubReq other = (btcapi.Btc.BtcXpubReq) obj;
+
+      boolean result = true;
+      result = result && getNetwork()
+          .equals(other.getNetwork());
+      result = result && getPath()
+          .equals(other.getPath());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + NETWORK_FIELD_NUMBER;
+      hash = (53 * hash) + getNetwork().hashCode();
+      hash = (37 * hash) + PATH_FIELD_NUMBER;
+      hash = (53 * hash) + getPath().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static btcapi.Btc.BtcXpubReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static btcapi.Btc.BtcXpubReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcXpubReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static btcapi.Btc.BtcXpubReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcXpubReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcXpubReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcXpubReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcXpubReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcXpubReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcXpubReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(btcapi.Btc.BtcXpubReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code btcapi.BtcXpubReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:btcapi.BtcXpubReq)
+        btcapi.Btc.BtcXpubReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return btcapi.Btc.internal_static_btcapi_BtcXpubReq_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return btcapi.Btc.internal_static_btcapi_BtcXpubReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                btcapi.Btc.BtcXpubReq.class, btcapi.Btc.BtcXpubReq.Builder.class);
+      }
+
+      // Construct using btcapi.Btc.BtcXpubReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        network_ = "";
+
+        path_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return btcapi.Btc.internal_static_btcapi_BtcXpubReq_descriptor;
+      }
+
+      public btcapi.Btc.BtcXpubReq getDefaultInstanceForType() {
+        return btcapi.Btc.BtcXpubReq.getDefaultInstance();
+      }
+
+      public btcapi.Btc.BtcXpubReq build() {
+        btcapi.Btc.BtcXpubReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public btcapi.Btc.BtcXpubReq buildPartial() {
+        btcapi.Btc.BtcXpubReq result = new btcapi.Btc.BtcXpubReq(this);
+        result.network_ = network_;
+        result.path_ = path_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof btcapi.Btc.BtcXpubReq) {
+          return mergeFrom((btcapi.Btc.BtcXpubReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(btcapi.Btc.BtcXpubReq other) {
+        if (other == btcapi.Btc.BtcXpubReq.getDefaultInstance()) return this;
+        if (!other.getNetwork().isEmpty()) {
+          network_ = other.network_;
+          onChanged();
+        }
+        if (!other.getPath().isEmpty()) {
+          path_ = other.path_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        btcapi.Btc.BtcXpubReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (btcapi.Btc.BtcXpubReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object network_ = "";
+      /**
+       * <code>optional string network = 1;</code>
+       */
+      public java.lang.String getNetwork() {
+        java.lang.Object ref = network_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          network_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string network = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNetworkBytes() {
+        java.lang.Object ref = network_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          network_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string network = 1;</code>
+       */
+      public Builder setNetwork(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        network_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string network = 1;</code>
+       */
+      public Builder clearNetwork() {
+        
+        network_ = getDefaultInstance().getNetwork();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string network = 1;</code>
+       */
+      public Builder setNetworkBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        network_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object path_ = "";
+      /**
+       * <code>optional string path = 2;</code>
+       */
+      public java.lang.String getPath() {
+        java.lang.Object ref = path_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          path_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string path = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPathBytes() {
+        java.lang.Object ref = path_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          path_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string path = 2;</code>
+       */
+      public Builder setPath(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        path_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string path = 2;</code>
+       */
+      public Builder clearPath() {
+        
+        path_ = getDefaultInstance().getPath();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string path = 2;</code>
+       */
+      public Builder setPathBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        path_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:btcapi.BtcXpubReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:btcapi.BtcXpubReq)
+    private static final btcapi.Btc.BtcXpubReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new btcapi.Btc.BtcXpubReq();
+    }
+
+    public static btcapi.Btc.BtcXpubReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BtcXpubReq>
+        PARSER = new com.google.protobuf.AbstractParser<BtcXpubReq>() {
+      public BtcXpubReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new BtcXpubReq(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BtcXpubReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BtcXpubReq> getParserForType() {
+      return PARSER;
+    }
+
+    public btcapi.Btc.BtcXpubReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BtcXpubResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:btcapi.BtcXpubRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string xpub = 1;</code>
+     */
+    java.lang.String getXpub();
+    /**
+     * <code>optional string xpub = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getXpubBytes();
+  }
+  /**
+   * Protobuf type {@code btcapi.BtcXpubRes}
+   */
+  public  static final class BtcXpubRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:btcapi.BtcXpubRes)
+      BtcXpubResOrBuilder {
+    // Use BtcXpubRes.newBuilder() to construct.
+    private BtcXpubRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BtcXpubRes() {
+      xpub_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private BtcXpubRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              xpub_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return btcapi.Btc.internal_static_btcapi_BtcXpubRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return btcapi.Btc.internal_static_btcapi_BtcXpubRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              btcapi.Btc.BtcXpubRes.class, btcapi.Btc.BtcXpubRes.Builder.class);
+    }
+
+    public static final int XPUB_FIELD_NUMBER = 1;
+    private volatile java.lang.Object xpub_;
+    /**
+     * <code>optional string xpub = 1;</code>
+     */
+    public java.lang.String getXpub() {
+      java.lang.Object ref = xpub_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        xpub_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string xpub = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getXpubBytes() {
+      java.lang.Object ref = xpub_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        xpub_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getXpubBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, xpub_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getXpubBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, xpub_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof btcapi.Btc.BtcXpubRes)) {
+        return super.equals(obj);
+      }
+      btcapi.Btc.BtcXpubRes other = (btcapi.Btc.BtcXpubRes) obj;
+
+      boolean result = true;
+      result = result && getXpub()
+          .equals(other.getXpub());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + XPUB_FIELD_NUMBER;
+      hash = (53 * hash) + getXpub().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static btcapi.Btc.BtcXpubRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static btcapi.Btc.BtcXpubRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcXpubRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static btcapi.Btc.BtcXpubRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcXpubRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcXpubRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcXpubRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcXpubRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcXpubRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcXpubRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(btcapi.Btc.BtcXpubRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code btcapi.BtcXpubRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:btcapi.BtcXpubRes)
+        btcapi.Btc.BtcXpubResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return btcapi.Btc.internal_static_btcapi_BtcXpubRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return btcapi.Btc.internal_static_btcapi_BtcXpubRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                btcapi.Btc.BtcXpubRes.class, btcapi.Btc.BtcXpubRes.Builder.class);
+      }
+
+      // Construct using btcapi.Btc.BtcXpubRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        xpub_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return btcapi.Btc.internal_static_btcapi_BtcXpubRes_descriptor;
+      }
+
+      public btcapi.Btc.BtcXpubRes getDefaultInstanceForType() {
+        return btcapi.Btc.BtcXpubRes.getDefaultInstance();
+      }
+
+      public btcapi.Btc.BtcXpubRes build() {
+        btcapi.Btc.BtcXpubRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public btcapi.Btc.BtcXpubRes buildPartial() {
+        btcapi.Btc.BtcXpubRes result = new btcapi.Btc.BtcXpubRes(this);
+        result.xpub_ = xpub_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof btcapi.Btc.BtcXpubRes) {
+          return mergeFrom((btcapi.Btc.BtcXpubRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(btcapi.Btc.BtcXpubRes other) {
+        if (other == btcapi.Btc.BtcXpubRes.getDefaultInstance()) return this;
+        if (!other.getXpub().isEmpty()) {
+          xpub_ = other.xpub_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        btcapi.Btc.BtcXpubRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (btcapi.Btc.BtcXpubRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object xpub_ = "";
+      /**
+       * <code>optional string xpub = 1;</code>
+       */
+      public java.lang.String getXpub() {
+        java.lang.Object ref = xpub_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          xpub_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string xpub = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getXpubBytes() {
+        java.lang.Object ref = xpub_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          xpub_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string xpub = 1;</code>
+       */
+      public Builder setXpub(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        xpub_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string xpub = 1;</code>
+       */
+      public Builder clearXpub() {
+        
+        xpub_ = getDefaultInstance().getXpub();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string xpub = 1;</code>
+       */
+      public Builder setXpubBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        xpub_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:btcapi.BtcXpubRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:btcapi.BtcXpubRes)
+    private static final btcapi.Btc.BtcXpubRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new btcapi.Btc.BtcXpubRes();
+    }
+
+    public static btcapi.Btc.BtcXpubRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BtcXpubRes>
+        PARSER = new com.google.protobuf.AbstractParser<BtcXpubRes>() {
+      public BtcXpubRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new BtcXpubRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BtcXpubRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BtcXpubRes> getParserForType() {
+      return PARSER;
+    }
+
+    public btcapi.Btc.BtcXpubRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BtcAddressReqOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:btcapi.BtcAddressReq)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string network = 1;</code>
+     */
+    java.lang.String getNetwork();
+    /**
+     * <code>optional string network = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getNetworkBytes();
+
+    /**
+     * <code>optional string path = 2;</code>
+     */
+    java.lang.String getPath();
+    /**
+     * <code>optional string path = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getPathBytes();
+  }
+  /**
+   * Protobuf type {@code btcapi.BtcAddressReq}
+   */
+  public  static final class BtcAddressReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:btcapi.BtcAddressReq)
+      BtcAddressReqOrBuilder {
+    // Use BtcAddressReq.newBuilder() to construct.
+    private BtcAddressReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BtcAddressReq() {
+      network_ = "";
+      path_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private BtcAddressReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              network_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              path_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return btcapi.Btc.internal_static_btcapi_BtcAddressReq_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return btcapi.Btc.internal_static_btcapi_BtcAddressReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              btcapi.Btc.BtcAddressReq.class, btcapi.Btc.BtcAddressReq.Builder.class);
+    }
+
+    public static final int NETWORK_FIELD_NUMBER = 1;
+    private volatile java.lang.Object network_;
+    /**
+     * <code>optional string network = 1;</code>
+     */
+    public java.lang.String getNetwork() {
+      java.lang.Object ref = network_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        network_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string network = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNetworkBytes() {
+      java.lang.Object ref = network_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        network_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PATH_FIELD_NUMBER = 2;
+    private volatile java.lang.Object path_;
+    /**
+     * <code>optional string path = 2;</code>
+     */
+    public java.lang.String getPath() {
+      java.lang.Object ref = path_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        path_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string path = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPathBytes() {
+      java.lang.Object ref = path_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        path_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getNetworkBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, network_);
+      }
+      if (!getPathBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, path_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getNetworkBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, network_);
+      }
+      if (!getPathBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, path_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof btcapi.Btc.BtcAddressReq)) {
+        return super.equals(obj);
+      }
+      btcapi.Btc.BtcAddressReq other = (btcapi.Btc.BtcAddressReq) obj;
+
+      boolean result = true;
+      result = result && getNetwork()
+          .equals(other.getNetwork());
+      result = result && getPath()
+          .equals(other.getPath());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + NETWORK_FIELD_NUMBER;
+      hash = (53 * hash) + getNetwork().hashCode();
+      hash = (37 * hash) + PATH_FIELD_NUMBER;
+      hash = (53 * hash) + getPath().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static btcapi.Btc.BtcAddressReq parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static btcapi.Btc.BtcAddressReq parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcAddressReq parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static btcapi.Btc.BtcAddressReq parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcAddressReq parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcAddressReq parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcAddressReq parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcAddressReq parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static btcapi.Btc.BtcAddressReq parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static btcapi.Btc.BtcAddressReq parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(btcapi.Btc.BtcAddressReq prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code btcapi.BtcAddressReq}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:btcapi.BtcAddressReq)
+        btcapi.Btc.BtcAddressReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return btcapi.Btc.internal_static_btcapi_BtcAddressReq_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return btcapi.Btc.internal_static_btcapi_BtcAddressReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                btcapi.Btc.BtcAddressReq.class, btcapi.Btc.BtcAddressReq.Builder.class);
+      }
+
+      // Construct using btcapi.Btc.BtcAddressReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        network_ = "";
+
+        path_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return btcapi.Btc.internal_static_btcapi_BtcAddressReq_descriptor;
+      }
+
+      public btcapi.Btc.BtcAddressReq getDefaultInstanceForType() {
+        return btcapi.Btc.BtcAddressReq.getDefaultInstance();
+      }
+
+      public btcapi.Btc.BtcAddressReq build() {
+        btcapi.Btc.BtcAddressReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public btcapi.Btc.BtcAddressReq buildPartial() {
+        btcapi.Btc.BtcAddressReq result = new btcapi.Btc.BtcAddressReq(this);
+        result.network_ = network_;
+        result.path_ = path_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof btcapi.Btc.BtcAddressReq) {
+          return mergeFrom((btcapi.Btc.BtcAddressReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(btcapi.Btc.BtcAddressReq other) {
+        if (other == btcapi.Btc.BtcAddressReq.getDefaultInstance()) return this;
+        if (!other.getNetwork().isEmpty()) {
+          network_ = other.network_;
+          onChanged();
+        }
+        if (!other.getPath().isEmpty()) {
+          path_ = other.path_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        btcapi.Btc.BtcAddressReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (btcapi.Btc.BtcAddressReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object network_ = "";
+      /**
+       * <code>optional string network = 1;</code>
+       */
+      public java.lang.String getNetwork() {
+        java.lang.Object ref = network_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          network_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string network = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNetworkBytes() {
+        java.lang.Object ref = network_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          network_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string network = 1;</code>
+       */
+      public Builder setNetwork(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        network_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string network = 1;</code>
+       */
+      public Builder clearNetwork() {
+        
+        network_ = getDefaultInstance().getNetwork();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string network = 1;</code>
+       */
+      public Builder setNetworkBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        network_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object path_ = "";
+      /**
+       * <code>optional string path = 2;</code>
+       */
+      public java.lang.String getPath() {
+        java.lang.Object ref = path_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          path_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string path = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPathBytes() {
+        java.lang.Object ref = path_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          path_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string path = 2;</code>
+       */
+      public Builder setPath(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        path_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string path = 2;</code>
+       */
+      public Builder clearPath() {
+        
+        path_ = getDefaultInstance().getPath();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string path = 2;</code>
+       */
+      public Builder setPathBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        path_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:btcapi.BtcAddressReq)
+    }
+
+    // @@protoc_insertion_point(class_scope:btcapi.BtcAddressReq)
+    private static final btcapi.Btc.BtcAddressReq DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new btcapi.Btc.BtcAddressReq();
+    }
+
+    public static btcapi.Btc.BtcAddressReq getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BtcAddressReq>
+        PARSER = new com.google.protobuf.AbstractParser<BtcAddressReq>() {
+      public BtcAddressReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new BtcAddressReq(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BtcAddressReq> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BtcAddressReq> getParserForType() {
+      return PARSER;
+    }
+
+    public btcapi.Btc.BtcAddressReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BtcAddressResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:btcapi.BtcAddressRes)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -4202,17 +7272,17 @@ public final class Btc {
         getAddressBytes();
   }
   /**
-   * Protobuf type {@code btcapi.BtcAddressResponse}
+   * Protobuf type {@code btcapi.BtcAddressRes}
    */
-  public  static final class BtcAddressResponse extends
+  public  static final class BtcAddressRes extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:btcapi.BtcAddressResponse)
-      BtcAddressResponseOrBuilder {
-    // Use BtcAddressResponse.newBuilder() to construct.
-    private BtcAddressResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:btcapi.BtcAddressRes)
+      BtcAddressResOrBuilder {
+    // Use BtcAddressRes.newBuilder() to construct.
+    private BtcAddressRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private BtcAddressResponse() {
+    private BtcAddressRes() {
       address_ = "";
     }
 
@@ -4221,7 +7291,7 @@ public final class Btc {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private BtcAddressResponse(
+    private BtcAddressRes(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -4260,14 +7330,14 @@ public final class Btc {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return btcapi.Btc.internal_static_btcapi_BtcAddressResponse_descriptor;
+      return btcapi.Btc.internal_static_btcapi_BtcAddressRes_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return btcapi.Btc.internal_static_btcapi_BtcAddressResponse_fieldAccessorTable
+      return btcapi.Btc.internal_static_btcapi_BtcAddressRes_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              btcapi.Btc.BtcAddressResponse.class, btcapi.Btc.BtcAddressResponse.Builder.class);
+              btcapi.Btc.BtcAddressRes.class, btcapi.Btc.BtcAddressRes.Builder.class);
     }
 
     public static final int ADDRESS_FIELD_NUMBER = 1;
@@ -4339,10 +7409,10 @@ public final class Btc {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof btcapi.Btc.BtcAddressResponse)) {
+      if (!(obj instanceof btcapi.Btc.BtcAddressRes)) {
         return super.equals(obj);
       }
-      btcapi.Btc.BtcAddressResponse other = (btcapi.Btc.BtcAddressResponse) obj;
+      btcapi.Btc.BtcAddressRes other = (btcapi.Btc.BtcAddressRes) obj;
 
       boolean result = true;
       result = result && getAddress()
@@ -4364,58 +7434,58 @@ public final class Btc {
       return hash;
     }
 
-    public static btcapi.Btc.BtcAddressResponse parseFrom(
+    public static btcapi.Btc.BtcAddressRes parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static btcapi.Btc.BtcAddressResponse parseFrom(
+    public static btcapi.Btc.BtcAddressRes parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static btcapi.Btc.BtcAddressResponse parseFrom(byte[] data)
+    public static btcapi.Btc.BtcAddressRes parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static btcapi.Btc.BtcAddressResponse parseFrom(
+    public static btcapi.Btc.BtcAddressRes parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static btcapi.Btc.BtcAddressResponse parseFrom(java.io.InputStream input)
+    public static btcapi.Btc.BtcAddressRes parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static btcapi.Btc.BtcAddressResponse parseFrom(
+    public static btcapi.Btc.BtcAddressRes parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static btcapi.Btc.BtcAddressResponse parseDelimitedFrom(java.io.InputStream input)
+    public static btcapi.Btc.BtcAddressRes parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static btcapi.Btc.BtcAddressResponse parseDelimitedFrom(
+    public static btcapi.Btc.BtcAddressRes parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static btcapi.Btc.BtcAddressResponse parseFrom(
+    public static btcapi.Btc.BtcAddressRes parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static btcapi.Btc.BtcAddressResponse parseFrom(
+    public static btcapi.Btc.BtcAddressRes parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4427,7 +7497,7 @@ public final class Btc {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(btcapi.Btc.BtcAddressResponse prototype) {
+    public static Builder newBuilder(btcapi.Btc.BtcAddressRes prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -4442,25 +7512,25 @@ public final class Btc {
       return builder;
     }
     /**
-     * Protobuf type {@code btcapi.BtcAddressResponse}
+     * Protobuf type {@code btcapi.BtcAddressRes}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:btcapi.BtcAddressResponse)
-        btcapi.Btc.BtcAddressResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:btcapi.BtcAddressRes)
+        btcapi.Btc.BtcAddressResOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return btcapi.Btc.internal_static_btcapi_BtcAddressResponse_descriptor;
+        return btcapi.Btc.internal_static_btcapi_BtcAddressRes_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return btcapi.Btc.internal_static_btcapi_BtcAddressResponse_fieldAccessorTable
+        return btcapi.Btc.internal_static_btcapi_BtcAddressRes_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                btcapi.Btc.BtcAddressResponse.class, btcapi.Btc.BtcAddressResponse.Builder.class);
+                btcapi.Btc.BtcAddressRes.class, btcapi.Btc.BtcAddressRes.Builder.class);
       }
 
-      // Construct using btcapi.Btc.BtcAddressResponse.newBuilder()
+      // Construct using btcapi.Btc.BtcAddressRes.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -4484,23 +7554,23 @@ public final class Btc {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return btcapi.Btc.internal_static_btcapi_BtcAddressResponse_descriptor;
+        return btcapi.Btc.internal_static_btcapi_BtcAddressRes_descriptor;
       }
 
-      public btcapi.Btc.BtcAddressResponse getDefaultInstanceForType() {
-        return btcapi.Btc.BtcAddressResponse.getDefaultInstance();
+      public btcapi.Btc.BtcAddressRes getDefaultInstanceForType() {
+        return btcapi.Btc.BtcAddressRes.getDefaultInstance();
       }
 
-      public btcapi.Btc.BtcAddressResponse build() {
-        btcapi.Btc.BtcAddressResponse result = buildPartial();
+      public btcapi.Btc.BtcAddressRes build() {
+        btcapi.Btc.BtcAddressRes result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public btcapi.Btc.BtcAddressResponse buildPartial() {
-        btcapi.Btc.BtcAddressResponse result = new btcapi.Btc.BtcAddressResponse(this);
+      public btcapi.Btc.BtcAddressRes buildPartial() {
+        btcapi.Btc.BtcAddressRes result = new btcapi.Btc.BtcAddressRes(this);
         result.address_ = address_;
         onBuilt();
         return result;
@@ -4533,16 +7603,16 @@ public final class Btc {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof btcapi.Btc.BtcAddressResponse) {
-          return mergeFrom((btcapi.Btc.BtcAddressResponse)other);
+        if (other instanceof btcapi.Btc.BtcAddressRes) {
+          return mergeFrom((btcapi.Btc.BtcAddressRes)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(btcapi.Btc.BtcAddressResponse other) {
-        if (other == btcapi.Btc.BtcAddressResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(btcapi.Btc.BtcAddressRes other) {
+        if (other == btcapi.Btc.BtcAddressRes.getDefaultInstance()) return this;
         if (!other.getAddress().isEmpty()) {
           address_ = other.address_;
           onChanged();
@@ -4559,11 +7629,11 @@ public final class Btc {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        btcapi.Btc.BtcAddressResponse parsedMessage = null;
+        btcapi.Btc.BtcAddressRes parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (btcapi.Btc.BtcAddressResponse) e.getUnfinishedMessage();
+          parsedMessage = (btcapi.Btc.BtcAddressRes) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -4652,39 +7722,39 @@ public final class Btc {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:btcapi.BtcAddressResponse)
+      // @@protoc_insertion_point(builder_scope:btcapi.BtcAddressRes)
     }
 
-    // @@protoc_insertion_point(class_scope:btcapi.BtcAddressResponse)
-    private static final btcapi.Btc.BtcAddressResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:btcapi.BtcAddressRes)
+    private static final btcapi.Btc.BtcAddressRes DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new btcapi.Btc.BtcAddressResponse();
+      DEFAULT_INSTANCE = new btcapi.Btc.BtcAddressRes();
     }
 
-    public static btcapi.Btc.BtcAddressResponse getDefaultInstance() {
+    public static btcapi.Btc.BtcAddressRes getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<BtcAddressResponse>
-        PARSER = new com.google.protobuf.AbstractParser<BtcAddressResponse>() {
-      public BtcAddressResponse parsePartialFrom(
+    private static final com.google.protobuf.Parser<BtcAddressRes>
+        PARSER = new com.google.protobuf.AbstractParser<BtcAddressRes>() {
+      public BtcAddressRes parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new BtcAddressResponse(input, extensionRegistry);
+          return new BtcAddressRes(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<BtcAddressResponse> parser() {
+    public static com.google.protobuf.Parser<BtcAddressRes> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<BtcAddressResponse> getParserForType() {
+    public com.google.protobuf.Parser<BtcAddressRes> getParserForType() {
       return PARSER;
     }
 
-    public btcapi.Btc.BtcAddressResponse getDefaultInstanceForType() {
+    public btcapi.Btc.BtcAddressRes getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4696,20 +7766,45 @@ public final class Btc {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_btcapi_Utxo_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_btcapi_BtcTxInput_descriptor;
+    internal_static_btcapi_BtcTxReq_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_btcapi_BtcTxInput_fieldAccessorTable;
+      internal_static_btcapi_BtcTxReq_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_btcapi_BtcTxOutput_descriptor;
+    internal_static_btcapi_BtcTxRes_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_btcapi_BtcTxOutput_fieldAccessorTable;
+      internal_static_btcapi_BtcTxRes_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_btcapi_BtcAddressResponse_descriptor;
+    internal_static_btcapi_BtcSegwitTxReq_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_btcapi_BtcAddressResponse_fieldAccessorTable;
+      internal_static_btcapi_BtcSegwitTxReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_btcapi_BtcSegwitTxRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_btcapi_BtcSegwitTxRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_btcapi_BtcXpubReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_btcapi_BtcXpubReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_btcapi_BtcXpubRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_btcapi_BtcXpubRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_btcapi_BtcAddressReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_btcapi_BtcAddressReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_btcapi_BtcAddressRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_btcapi_BtcAddressRes_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4719,21 +7814,27 @@ public final class Btc {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\tbtc.proto\022\006btcapi\"\202\001\n\004Utxo\022\016\n\006txHash\030\001" +
-      " \001(\t\022\014\n\004vout\030\002 \001(\005\022\016\n\006amount\030\003 \001(\003\022\017\n\007ad" +
-      "dress\030\004 \001(\t\022\024\n\014scriptPubKey\030\005 \001(\t\022\023\n\013der" +
-      "ivedPath\030\006 \001(\t\022\020\n\010sequence\030\007 \001(\003\"\247\002\n\nBtc" +
-      "TxInput\022\n\n\002to\030\001 \001(\t\022\016\n\006amount\030\002 \001(\003\022\036\n\010u" +
-      "nspents\030\003 \003(\0132\014.btcapi.Utxo\022\013\n\003fee\030\004 \001(\003" +
-      "\022\032\n\022changeAddressIndex\030\005 \001(\r\022\025\n\rchangeAd" +
-      "dress\030\006 \001(\t\022\017\n\007network\030\007 \001(\t\022\016\n\006segWit\030\010" +
-      " \001(\t\022\017\n\007payment\030\t \001(\t\022\016\n\006to_dis\030\n \001(\t\022\014\n" +
-      "\004from\030\013 \001(\t\022\017\n\007fee_dis\030\014 \001(\t\022\022\n\nextra_da",
-      "ta\030\r \001(\014\022\023\n\013path_prefix\030\016 \001(\t\022\023\n\013propert" +
-      "y_id\030\017 \001(\005\"@\n\013BtcTxOutput\022\021\n\tsignature\030\001" +
-      " \001(\t\022\016\n\006txHash\030\002 \001(\t\022\016\n\006wtx_id\030\003 \001(\t\"%\n\022" +
-      "BtcAddressResponse\022\017\n\007address\030\001 \001(\tb\006pro" +
-      "to3"
+      "\n\tbtc.proto\022\006btcapi\"\205\001\n\004Utxo\022\017\n\007tx_hash\030" +
+      "\001 \001(\t\022\014\n\004vout\030\002 \001(\005\022\016\n\006amount\030\003 \001(\003\022\017\n\007a" +
+      "ddress\030\004 \001(\t\022\025\n\rscript_pubKey\030\005 \001(\t\022\024\n\014d" +
+      "erived_path\030\006 \001(\t\022\020\n\010sequence\030\007 \001(\003\"\300\001\n\010" +
+      "BtcTxReq\022\n\n\002to\030\001 \001(\t\022\016\n\006amount\030\002 \001(\003\022\013\n\003" +
+      "fee\030\003 \001(\003\022\034\n\024change_address_index\030\004 \001(\r\022" +
+      "\036\n\010unspents\030\005 \003(\0132\014.btcapi.Utxo\022\022\n\nextra" +
+      "_data\030\006 \001(\014\022\023\n\013property_id\030\007 \001(\005\022\017\n\007netw" +
+      "ork\030\010 \001(\t\022\023\n\013path_prefix\030\t \001(\t\",\n\010BtcTxR" +
+      "es\022\017\n\007tx_data\030\001 \001(\t\022\017\n\007tx_hash\030\002 \001(\t\"\306\001\n",
+      "\016BtcSegwitTxReq\022\n\n\002to\030\001 \001(\t\022\016\n\006amount\030\002 " +
+      "\001(\003\022\013\n\003fee\030\003 \001(\003\022\034\n\024change_address_index" +
+      "\030\004 \001(\r\022\036\n\010unspents\030\005 \003(\0132\014.btcapi.Utxo\022\022" +
+      "\n\nextra_data\030\006 \001(\014\022\023\n\013property_id\030\007 \001(\005\022" +
+      "\017\n\007network\030\010 \001(\t\022\023\n\013path_prefix\030\t \001(\t\"L\n" +
+      "\016BtcSegwitTxRes\022\027\n\017witness_tx_data\030\001 \001(\t" +
+      "\022\020\n\010wtx_hash\030\002 \001(\t\022\017\n\007tx_hash\030\003 \001(\t\"+\n\nB" +
+      "tcXpubReq\022\017\n\007network\030\001 \001(\t\022\014\n\004path\030\002 \001(\t" +
+      "\"\032\n\nBtcXpubRes\022\014\n\004xpub\030\001 \001(\t\".\n\rBtcAddre" +
+      "ssReq\022\017\n\007network\030\001 \001(\t\022\014\n\004path\030\002 \001(\t\" \n\r",
+      "BtcAddressRes\022\017\n\007address\030\001 \001(\tb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4753,23 +7854,53 @@ public final class Btc {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_btcapi_Utxo_descriptor,
         new java.lang.String[] { "TxHash", "Vout", "Amount", "Address", "ScriptPubKey", "DerivedPath", "Sequence", });
-    internal_static_btcapi_BtcTxInput_descriptor =
+    internal_static_btcapi_BtcTxReq_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_btcapi_BtcTxInput_fieldAccessorTable = new
+    internal_static_btcapi_BtcTxReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_btcapi_BtcTxInput_descriptor,
-        new java.lang.String[] { "To", "Amount", "Unspents", "Fee", "ChangeAddressIndex", "ChangeAddress", "Network", "SegWit", "Payment", "ToDis", "From", "FeeDis", "ExtraData", "PathPrefix", "PropertyId", });
-    internal_static_btcapi_BtcTxOutput_descriptor =
+        internal_static_btcapi_BtcTxReq_descriptor,
+        new java.lang.String[] { "To", "Amount", "Fee", "ChangeAddressIndex", "Unspents", "ExtraData", "PropertyId", "Network", "PathPrefix", });
+    internal_static_btcapi_BtcTxRes_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_btcapi_BtcTxOutput_fieldAccessorTable = new
+    internal_static_btcapi_BtcTxRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_btcapi_BtcTxOutput_descriptor,
-        new java.lang.String[] { "Signature", "TxHash", "WtxId", });
-    internal_static_btcapi_BtcAddressResponse_descriptor =
+        internal_static_btcapi_BtcTxRes_descriptor,
+        new java.lang.String[] { "TxData", "TxHash", });
+    internal_static_btcapi_BtcSegwitTxReq_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_btcapi_BtcAddressResponse_fieldAccessorTable = new
+    internal_static_btcapi_BtcSegwitTxReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_btcapi_BtcAddressResponse_descriptor,
+        internal_static_btcapi_BtcSegwitTxReq_descriptor,
+        new java.lang.String[] { "To", "Amount", "Fee", "ChangeAddressIndex", "Unspents", "ExtraData", "PropertyId", "Network", "PathPrefix", });
+    internal_static_btcapi_BtcSegwitTxRes_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_btcapi_BtcSegwitTxRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_btcapi_BtcSegwitTxRes_descriptor,
+        new java.lang.String[] { "WitnessTxData", "WtxHash", "TxHash", });
+    internal_static_btcapi_BtcXpubReq_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_btcapi_BtcXpubReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_btcapi_BtcXpubReq_descriptor,
+        new java.lang.String[] { "Network", "Path", });
+    internal_static_btcapi_BtcXpubRes_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_btcapi_BtcXpubRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_btcapi_BtcXpubRes_descriptor,
+        new java.lang.String[] { "Xpub", });
+    internal_static_btcapi_BtcAddressReq_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_btcapi_BtcAddressReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_btcapi_BtcAddressReq_descriptor,
+        new java.lang.String[] { "Network", "Path", });
+    internal_static_btcapi_BtcAddressRes_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_btcapi_BtcAddressRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_btcapi_BtcAddressRes_descriptor,
         new java.lang.String[] { "Address", });
   }
 
