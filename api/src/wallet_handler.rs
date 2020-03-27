@@ -4,7 +4,7 @@ use crate::usdt_signer::{sign_usdt_transaction, sign_usdt_segwit_transaction};
 use crate::btc_address::{get_btc_xpub, get_btc_address, get_segwit_address, display_btc_address, display_segwit_address};
 use crate::cosmos_address::{display_cosmos_address, get_cosmos_address};
 use crate::cosmos_signer::sign_cosmos_transaction;
-use crate::device_manager::{device_activate, device_app_delete, device_app_download, device_app_update, device_bind_acquire, device_bind_check, device_display_bind_code, device_query, device_secure_check, get_seid, get_sn, get_ram_size, get_firmware_version, get_battery_power, get_life_time, get_ble_name, set_ble_name, get_ble_version, get_sdk_info};
+//use crate::device_manager::{device_activate, device_app_delete, device_app_download, device_app_update, device_bind_acquire, device_bind_check, device_display_bind_code, device_query, device_secure_check, get_seid, get_sn, get_ram_size, get_firmware_version, get_battery_power, get_life_time, get_ble_name, set_ble_name, get_ble_version, get_sdk_info};
 use crate::eos_pubkey::{display_eos_pubkey, get_eos_pubkey};
 use crate::eos_signer::{sign_eos_transaction, sign_eos_message};
 use crate::ethereum_address::{get_eth_address, display_eth_address};
@@ -82,7 +82,7 @@ pub fn device_manage(data: &[u8]) -> Result<Vec<u8>> {
     let param: DeviceParam = DeviceParam::decode(data).expect("AddressParam");
 
     match param.action.as_str() {
-        "app_download" => device_app_download(&param),
+        /*"app_download" => device_app_download(&param),
         "app_update" => device_app_update(&param),
         "app_delete" => device_app_delete(&param),
         "se_activate" => device_activate(&param),
@@ -102,7 +102,7 @@ pub fn device_manage(data: &[u8]) -> Result<Vec<u8>> {
         "get_ble_version" => get_ble_version(&param),
         "get_sdk_info" => get_sdk_info(&param),
         #[cfg(any(target_os = "macos", target_os = "windows"))]
-        "cos_upgrade" => cos_upgrade(&param),
+        "cos_upgrade" => cos_upgrade(&param),*/
 //        _ => Err(Error::DeviceOpError),
         _ => Err(format_err!("device_open_error")),//TODO
     }

@@ -1,4 +1,4 @@
-use crate::api::{TcxAction, Response};
+use crate::api::{ImkeyAction, Response};
 use crate::wallet_handler::{device_manage, get_address, register_coin, sign_tx, encode_message, sign_msg};
 use prost::Message;
 use std::ffi::{CStr, CString};
@@ -25,74 +25,6 @@ use crate::error_handling::{landingpad, LAST_BACKTRACE, LAST_ERROR};
 use mq::message;
 
 #[no_mangle]
-/*
-pub extern "C" fn rust_hello(
-    to: *const c_char,
-    callback: extern "C" fn(apdu: *const c_char) -> *const c_char,
-) -> *mut c_char {
-    let cb = callback;
-    let c_str = unsafe { CStr::from_ptr(to) };
-    let recipient = match c_str.to_str() {
-        Err(_) => "there",
-        Ok(string) => string,
-    };
-    callback(
-        CString::new("Hello bit 2223333 ".to_owned() + recipient)
-            .unwrap()
-            .into_raw(),
-    );
-    CString::new("Hello bit 2223333 ".to_owned() + recipient)
-        .unwrap()
-        .into_raw()
-}
-*/
-
-#[no_mangle]
-/*pub extern "C" fn rust_hello_free(s: *mut c_char) {
-    unsafe {
-        if s.is_null() {
-            return;
-        }
-        CString::from_raw(s)
-    };
-}*/
-
-#[no_mangle]
-/*pub extern "C" fn get_se_id(
-    callback: extern "C" fn(apdu: *const c_char) -> *const c_char,
-) -> *const c_char {
-    callback(CString::new("00A4040000".to_owned()).unwrap().into_raw());
-    callback(
-        CString::new("80CB800005DFFF028101".to_owned())
-            .unwrap()
-            .into_raw(),
-    )
-}*/
-
-// #[no_mangle]
-// pub extern "C" fn get_se_id(callback: extern "C" fn(apdu:*const c_char)->*const c_char) -> *const c_char {
-//     let functions = vec![callback];
-//     functions[0](CString::new("00A4040000".to_owned())
-//         .unwrap()
-//         .into_raw());
-//     callback(CString::new("80CB800005DFFF028101".to_owned())
-//         .unwrap()
-//         .into_raw())
-// }
-
-#[no_mangle]
-pub extern "C" fn get_seid() -> *const c_char {
-    get_seid_internal()
-}
-
-//should move out
-fn get_seid_internal() -> *const c_char {
-    message::send_apdu(String::from("00A4040000"));
-    let res = message::send_apdu(String::from("80CB800005DFFF028101"));
-    CString::new(res).unwrap().into_raw()
-}
-
-#[no_mangle]
 pub extern "C" fn get_apdu() -> *const c_char {
     message::get_apdu()
 }
@@ -112,36 +44,47 @@ pub extern "C" fn set_apdu_return(apdu_return: *const c_char) {
     message::set_apdu_return(apdu_return);
 }
 
-//#[no_mangle]
-//pub extern "C" fn init() {
-//    android_logger::init_once(
-//        Config::default()
-//            .with_min_level(Level::Trace)
-//            .with_tag("imkey")
-//            .with_filter(
-//                FilterBuilder::new()
-//                    .parse("debug,hello::crate=trace")
-//                    .build(),
-//            ),
-//    );
-//}
-
 /// dispatch protobuf rpc call
-/// //@@XM TODO: add in error handling
 #[no_mangle]
-pub unsafe extern "C" fn call_tcx_api(hex_str: *const c_char) -> *const c_char {
+pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char {
     let hex_c_str = CStr::from_ptr(hex_str);
     let hex_str = hex_c_str.to_str().expect("parse_arguments to_str");
 
     let data = hex::decode(hex_str).expect("imkey_illegal_prarm");
-    let action: TcxAction = TcxAction::decode(data).expect("decode tcx api");
+    let action: ImkeyAction = ImkeyAction::decode(data).expect("decode imkey api");
     let reply: Vec<u8> = match action.method.to_lowercase().as_str() {
+        // imkey manager
+        "app_download" => landingpad(|| device_manager::app_download(&action.param.unwrap().value)),
+        "app_update" => landingpad(|| device_manager::app_update(&action.param.unwrap().value)),
+        "app_delete" => landingpad(|| device_manager::app_delete(&action.param.unwrap().value)),
+        "device_activate" => landingpad(|| device_manager::se_activate()),
+        "check_update" => landingpad(|| device_manager::check_update()),
+        "device_secure_check" => landingpad(|| device_manager::se_secure_check()),
+        "bind_check" => landingpad(|| device_manager::bind_check(&action.param.unwrap().value)),
+        "bind_display_code" => landingpad(|| device_manager::bind_display_code()),
+        "bind_acquire" => landingpad(|| device_manager::bind_acquire(&action.param.unwrap().value)),
+        "get_seid" => landingpad(|| device_manager::get_seid()),
+        "get_sn" => landingpad(|| device_manager::get_sn()),
+        "get_ram_size" => landingpad(|| device_manager::get_ram_size()),
+        "get_firmware_version" => landingpad(|| device_manager::get_firmware_version()),
+        "get_battery_power" => landingpad(|| device_manager::get_battery_power()),
+        "get_life_time" => landingpad(|| device_manager::get_life_time()),
+        "get_ble_name" => landingpad(|| device_manager::get_ble_name()),
+        "set_ble_name" => landingpad(|| device_manager::set_ble_name(&action.param.unwrap().value)),
+        "get_ble_version" => landingpad(|| device_manager::get_ble_version()),
+        "get_sdk_info" => landingpad(|| device_manager::get_sdk_info()),
+        #[cfg(any(target_os = "macos", target_os = "windows"))]
+        "cos_update" => landingpad(|| device_manager::cos_update()),
+
+        _ => Vec::new(),
+
+        /*
         "sign_tx" => landingpad(|| sign_tx(&action.param.unwrap().value)),
         "sign_msg" => landingpad(|| sign_msg(&action.param.unwrap().value)),
         "get_address" => landingpad(|| get_address(&action.param.unwrap().value)),
         "device_manage" => landingpad(|| device_manage(&action.param.unwrap().value)),
         "register_coin" => landingpad(|| register_coin(&action.param.unwrap().value)),
-        _ => Vec::new(), //@@XM TODO: change to error message
+        _ => Vec::new(), //@@XM TODO: change to error message*/
                          /*
                          "sign_tx" => landingpad(|| sign_tx(&action.param.unwrap().value)),
 
