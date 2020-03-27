@@ -13,7 +13,7 @@ use bitcoin_hashes::hash160;
 use bitcoin_hashes::Hash;
 use crate::transaction::BtcTransaction;
 use common::utility::{hex_to_bytes, bigint_to_byte_vec, secp256k1_sign};
-use crate::common::{address_verify, get_xpub_data, secp256k1_sign_verify, get_address_version, TxSignResult};
+use crate::common::{address_verify, get_xpub_data, secp256k1_sign_verify, get_address_version, TxSignResult, TransTypeFlg};
 use bitcoin::util::psbt::serialize::Serialize;
 use device::device_binding::{KEY_MANAGER};
 use common::path::check_path_validity;
@@ -60,14 +60,11 @@ impl BtcTransaction {
                                                    pub_key,
                                                    hex::decode(chain_code).unwrap().as_slice(),
                                                    network,
-                                                   "btc")?;
-
-        //calc utxo total amount
-        let total_amount = self.get_total_amount();
+                                              TransTypeFlg::BTC)?;
 
         //add change output
         let mut txouts: Vec<TxOut> = Vec::new();
-        let change_amount = total_amount - MIN_NONDUST_OUTPUT - self.fee;
+        let change_amount = self.get_total_amount() - MIN_NONDUST_OUTPUT - self.fee;
         let receiver_address = &self.unspents.get(0).unwrap().address;
         let txout_send_output = TxOut {
             value: change_amount as u64,
@@ -125,10 +122,9 @@ impl BtcTransaction {
 
         //send output prepare command
         let omni_prepare_apdu_str = BtcApdu::omni_prepare_data(0x00, output_pareper_data);
-        let apdu_response = send_apdu(omni_prepare_apdu_str);
-        ApduCheck::checke_response(&apdu_response)?;
+        ApduCheck::checke_response(&send_apdu(omni_prepare_apdu_str))?;
         let mut lock_script_ver : Vec<Script> = vec![];
-        let count = (self.unspents.len() - 1 )/ EACH_ROUND_NUMBER + 1;
+        let count = (self.unspents.len() - 1 ) / EACH_ROUND_NUMBER + 1;
         for i in 0..count {
             for (x, temp_utxo) in self.unspents.iter().enumerate() {
                 let mut input_data_vec = vec![];
@@ -149,10 +145,9 @@ impl BtcTransaction {
                 input_data_vec.extend_from_slice(serialize(&temp_serialize_txin).as_slice());
                 let btc_perpare_apdu = BtcApdu::btc_perpare_input(0x80, &input_data_vec);
                 //发送签名数据到设备并获取返回数据
-                let apdu_response = send_apdu(btc_perpare_apdu);
-                ApduCheck::checke_response(&apdu_response)?;
+                ApduCheck::checke_response(&send_apdu(btc_perpare_apdu))?;
             }
-            for y in i * EACH_ROUND_NUMBER..(i+1)*EACH_ROUND_NUMBER {
+            for y in i * EACH_ROUND_NUMBER..(i+1) * EACH_ROUND_NUMBER {
                 if y >= utxo_pub_key_vec.len(){
                     break;
                 }
@@ -161,7 +156,7 @@ impl BtcTransaction {
                                                       format!("{}{}", path_str, self.unspents.get(y).unwrap().derive_path).as_str());
                 //发送签名指令到设备并获取签名结果
                 let btc_sign_apdu_return = send_apdu(btc_sign_apdu);
-                ApduCheck::checke_response(&apdu_response)?;
+                ApduCheck::checke_response(&btc_sign_apdu_return)?;
                 let sign_result_str = btc_sign_apdu_return[2..btc_sign_apdu_return.len() - 6].to_string();
 
                 lock_script_ver.push(self.build_lock_script(sign_result_str.as_str(),
@@ -189,7 +184,7 @@ impl BtcTransaction {
         Ok(TxSignResult {
             signature: tx_bytes.to_hex(),
             tx_hash: tx_to_sign.txid().to_hex(),
-            wtx_id: tx_to_sign.txid().to_hex(),
+            wtx_id: tx_to_sign.ntxid().to_hex(),
         })
     }
 
@@ -234,7 +229,7 @@ impl BtcTransaction {
                                                    pub_key,
                                                    hex::decode(chain_code).unwrap().as_slice(),
                                                    network,
-                                                   "segwit")?;
+                                              TransTypeFlg::SEGWIT)?;
 
         //5.add change output
         let mut txouts: Vec<TxOut> = vec![];
@@ -287,8 +282,7 @@ impl BtcTransaction {
 
         let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x34, 0x00, &output_pareper_data);
         for temp_str in btc_prepare_apdu_vec {
-            let apdu_response = send_apdu(temp_str);
-            ApduCheck::checke_response(&apdu_response)?;
+            ApduCheck::checke_response(&send_apdu(temp_str))?;
         }
 
         let mut txinputs: Vec<TxIn> = vec![];
@@ -355,9 +349,8 @@ impl BtcTransaction {
         let mut txhash_vout_prepare_apdu_vec = BtcApdu::btc_prepare(0x34, 0x40, &txhash_vout_vec);
         let mut sequence_prepare_apdu_vec = BtcApdu::btc_prepare(0x34, 0x80, &sequence_vec);
         txhash_vout_prepare_apdu_vec.append(&mut sequence_prepare_apdu_vec);
-        for apdu in txhash_vout_prepare_apdu_vec {
-            let apdu_response = send_apdu(apdu);
-            ApduCheck::checke_response(&apdu_response)?;
+        for prepare_apdu in txhash_vout_prepare_apdu_vec {
+            ApduCheck::checke_response(&send_apdu(prepare_apdu))?;
         }
 
         //send sign apdu
@@ -385,7 +378,6 @@ impl BtcTransaction {
             .map(|(i, txin)| {
                 let hash = hash160::Hash::hash(hex_to_bytes(utxo_pub_key_vec.get(i).unwrap()).unwrap().as_slice()).into_inner();
                 let hex = format!("160014{}", hex::encode(&hash));
-
                 Ok(TxIn {
                     script_sig: Script::from(hex::decode(hex).unwrap()),
                     witness: vec![witnesses[i].0.clone(), witnesses[i].1.clone()],
@@ -467,7 +459,14 @@ mod tests {
             from: Address::from_str("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB").unwrap(),
             fee_dis: "0.0004 BTC".to_string(),
         };
-        transaction_req_data.sign_omni_transaction(Network::Testnet, &"m/44'/1'/0'".to_string(), 31);
+        let sign_result = transaction_req_data.sign_omni_transaction(Network::Testnet, &"m/44'/1'/0'".to_string(), 31);
+        match sign_result {
+            Ok(val) => {
+                assert_eq!("36a25fa2005b5d4922d18f6f819bf068dca479d4103904ce225a9438a2c1f5a0", val.tx_hash);
+                assert_eq!("cae12904648aa67844484be85482fc5f65c99b9d45d56adc9c46db3fad7ba17b", val.wtx_id);
+            },
+            Err(e) => panic!("usdt sign error!"),
+        }
     }
 
     #[test]
@@ -498,7 +497,14 @@ mod tests {
             from: Address::from_str("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB").unwrap(),
             fee_dis: "0.0004 BTC".to_string(),
         };
-        transaction_req_data.sign_omni_segwit_transaction(Network::Testnet, &"m/49'/1'/0'/".to_string(), 31);
+        let sign_result = transaction_req_data.sign_omni_segwit_transaction(Network::Testnet, &"m/49'/1'/0'/".to_string(), 31);
+        match sign_result {
+            Ok(val) => {
+                assert_eq!("e664888c4a67cfed29786e5ada0c24cb25b91cafca4ae699fb7b90e7071e88bc", val.tx_hash);
+                assert_eq!("acde42849de610fcd79da9f9b782bc9dc08545af82be830ca6e28362865099ba", val.wtx_id);
+            },
+            Err(e) => panic!("usdt sign error!"),
+        }
     }
 
     #[test]
@@ -599,7 +605,14 @@ mod tests {
             from: Address::from_str("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy").unwrap(),
             fee_dis: "0.00007945 BTC".to_string(),
         };
-        transaction_req_data.sign_omni_segwit_transaction(Network::Bitcoin, &"m/49'/0'/0'/".to_string(), 31);
+        let sign_result = transaction_req_data.sign_omni_segwit_transaction(Network::Bitcoin, &"m/49'/0'/0'/".to_string(), 31);
+        match sign_result {
+            Ok(val) => {
+                assert_eq!("79ec1ab9008e3ce2809419d7b25c58de0f03a782e81f15d0e92042e16f141434", val.tx_hash);
+                assert_eq!("de169a96937270d8f82155cf48dd13705ae2ddf0d4a8dcc49d0a660b24b95323", val.wtx_id);
+            },
+            Err(e) => panic!("usdt sign error!"),
+        }
     }
 
     #[test]
@@ -629,7 +642,14 @@ mod tests {
             from: Address::from_str("3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy").unwrap(),
             fee_dis: "0.00007945 BTC".to_string(),
         };
-        transaction_req_data.sign_omni_segwit_transaction(Network::Bitcoin, &"m/49'/0'/0'/".to_string(), 31);
+        let sign_result = transaction_req_data.sign_omni_segwit_transaction(Network::Bitcoin, &"m/49'/0'/0'/".to_string(), 31);
+        match sign_result {
+            Ok(val) => {
+                assert_eq!("0f3365929829d1d519751ed65bc0751cae6fe4480bc7b2098efa8c634e8b11b5", val.tx_hash);
+                assert_eq!("8d96dd2aaea48ea0b5aea066c4390bef46f855a58714d8c40dd9701c52367d41", val.wtx_id);
+            },
+            Err(e) => panic!("usdt sign error!"),
+        }
     }
 
     #[test]
