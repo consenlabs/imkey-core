@@ -9,6 +9,7 @@ use common::constants;
 use crate::address::CosmosAddress;
 use crate::Result;
 use device::device_binding::KEY_MANAGER;
+use linked_hash_map::LinkedHashMap;
 
 #[derive(Debug)]
 pub struct CosmosTransaction {
@@ -50,11 +51,25 @@ pub struct Msg{
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct MsgValue{
+pub struct MsgValue {
     pub amount: Vec<Coin>,
-    pub delegator_address: String,
-    pub validator_address: String,
+    #[serde(flatten)]
+    pub extra: LinkedHashMap<String, String>,
 }
+
+// #[derive(Debug, Serialize, Deserialize)]
+// pub struct MsgDelegateValue {
+//     pub amount: Vec<Coin>,
+//     pub delegator_address: String,
+//     pub validator_address: String,
+// }
+//
+// #[derive(Debug, Serialize, Deserialize)]
+// pub struct MsgSendValue {
+//     pub amount: Vec<Coin>,
+//     pub from_address: String,
+//     pub to_address: String,
+// }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StdSignature{
@@ -187,9 +202,9 @@ mod tests {
     use common::constants;
     use common::utility::{secp256k1_sign, hex_to_bytes};
     use device::device_binding::DeviceManage;
-
-    #[test]
-    fn test_hex_bytes() {}
+    use crate::cosmosapi::MsgSendValue;
+    use std::collections::HashMap;
+    use linked_hash_map::LinkedHashMap;
 
     #[test]
     fn test_ecsign() {
@@ -213,7 +228,7 @@ mod tests {
     }
 
     #[test]
-    fn test_sign() {
+    fn test_sign_delegate() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
         let check_result = DeviceManage::bind_check(&path).unwrap();
         println!("check_result:{}",&check_result);
@@ -226,15 +241,18 @@ mod tests {
             gas: "21906".to_string()
         };
 
+        let mut addresses = LinkedHashMap::new();
+        addresses.insert("validator_address".to_string(),"cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp".to_string());
+        addresses.insert("delegator_address".to_string(),"cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f".to_string());
+
         let msg = Msg{
             ttype: "cosmos-sdk/MsgDelegate".to_string(),
-            value: MsgValue{
+            value: MsgValue {
                 amount: vec![Coin{
                     amount: "10".to_string(),
                     denom: "atom".to_string()
                 }],
-                delegator_address: "cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f".to_string(),
-                validator_address: "cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp".to_string(),
+                extra: addresses
             },
         };
 
@@ -255,6 +273,69 @@ mod tests {
             fee_dis: "0.00075 atom".to_string(),
         };
         let cosmosTxOutput = input.sign().unwrap();
-        //R3E1sN8ImA+SfRVpp4C0xNJNpQO7z5i4f2BsKdRxEPtlSousJyyAhgAY13A5VjZEIJARcX9KaWkfayfETEgALg==
+        let expect_result = r#"{"fee":{"amount":[{"amount":"0","denom":""}],"gas":"21906"},"signatures":[{"account_number":"1","pub_key":{"type":"tendermint/PubKeySecp256k1","value":"AjLB7yHXPBlTGwqk6GPPOXwrmCsvlY9gzbYpaYJMCW1l"},"sequence":"0","signature":"R3E1sN8ImA+SfRVpp4C0xNJNpQO7z5i4f2BsKdRxEPtlSousJyyAhgAY13A5VjZEIJARcX9KaWkfayfETEgALg=="}],"msg":[{"type":"cosmos-sdk/MsgDelegate","value":{"amount":[{"amount":"10","denom":"atom"}],"delegator_address":"cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f","validator_address":"cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"}}]}"#;
+        assert_eq!(&expect_result,&cosmosTxOutput.tx_data);
+    }
+
+    #[test]
+    fn test_sign_send() {
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let check_result = DeviceManage::bind_check(&path).unwrap();
+        println!("check_result:{}",&check_result);
+
+        let stdfee = StdFee{
+            amount: vec![Coin{
+                amount: "750".to_string(),
+                denom: "muon".to_string()
+            }],
+            gas: "30000".to_string()
+        };
+
+        let mut addresses = LinkedHashMap::new();
+        addresses.insert("from_address".to_string(),"cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992".to_string());
+        addresses.insert("to_address".to_string(),"cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt".to_string());
+
+        let msg = Msg{
+            ttype: "cosmos-sdk/MsgSend".to_string(),
+            value: MsgValue {
+                amount: vec![],
+                extra: addresses
+            },
+        };
+
+        let sign_data = SignData{
+            account_number: "1234567890".to_string(),
+            chain_id: "tendermint_test".to_string(),
+            fee: stdfee,
+            memo: Some("".to_string()),
+            msgs: vec![msg],
+            sequence: "1234567890".to_string()
+        };
+
+        let mut input = CosmosTransaction {
+            sign_data: sign_data,
+            path: constants::COSMOS_PATH.to_string(),
+            payment_dis: "".to_string(),
+            to_dis: "".to_string(),
+            fee_dis: "0.00075 atom".to_string(),
+        };
+        let cosmosTxOutput = input.sign().unwrap();
+        let expect_result = r#"{"fee":{"amount":[{"amount":"750","denom":"muon"}],"gas":"30000"},"signatures":[{"account_number":"1234567890","pub_key":{"type":"tendermint/PubKeySecp256k1","value":"AjLB7yHXPBlTGwqk6GPPOXwrmCsvlY9gzbYpaYJMCW1l"},"sequence":"1234567890","signature":"Tp8DYyOSghHF2S70I08fodPL0PWPmY6KNu9ZWN+mqoREdHs7UKIox3tZO2K7ytN4LVl9wBqaWstNOfp5Qa44tg=="}],"msg":[{"type":"cosmos-sdk/MsgSend","value":{"amount":[],"from_address":"cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992","to_address":"cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt"}}],"memo":""}"#;
+        assert_eq!(&expect_result,&cosmosTxOutput.tx_data);
+    }
+
+    #[test]
+    fn test_sort_vec() {
+        let mut vec = Vec::new();
+        vec.push("richard");
+        vec.push("charles");
+        vec.push("peter");
+        vec.push("from");
+        vec.push("to");
+        vec.push("delegate");
+        vec.push("valide");
+
+        vec.sort();
+        println!("{:?}", vec);
     }
 }
