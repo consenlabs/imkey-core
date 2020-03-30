@@ -28,3 +28,4 @@ failure = "0.1.6"
 bytes = "0.4.8"
 prost = "0.5.0"
 prost-types = "0.5.0"
+linked-hash-map = { version = "0.5", features = ["serde_impl"] }

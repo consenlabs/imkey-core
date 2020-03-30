@@ -1,11 +1,14 @@
-use coin_cosmos::cosmosapi::CosmosTxReq;
+use coin_cosmos::cosmosapi::{CosmosTxReq};
 use crate::message_handler::encode_message;
 use prost::Message;
-use coin_cosmos::transaction::{StdFee, Coin, Msg, MsgValue, SignData, CosmosTransaction};
+use coin_cosmos::transaction::{StdFee, Coin, Msg, SignData, CosmosTransaction, MsgValue};
 use crate::error_handling::Result;
+use linked_hash_map::LinkedHashMap;
+use itertools::Itertools;
 
 pub fn sign_cosmos_transaction(data: &[u8]) -> Result<Vec<u8>> {
-    let input: CosmosTxReq = CosmosTxReq::decode(data).expect("imkey_illegal_param");
+    // let input: CosmosTxReq = CosmosTxReq::decode(data).expect("imkey_illegal_param");
+    let input: CosmosTxReq = CosmosTxReq::decode(data).unwrap();
 
     // fee
     let mut coins = Vec::new();
@@ -37,12 +40,25 @@ pub fn sign_cosmos_transaction(data: &[u8]) -> Result<Vec<u8>> {
             coins.push(coin);
         }
 
+        let mut addresses = LinkedHashMap::new();
+
+        let mut keys = Vec::new();
+        for (key, value) in &item_msg.addresses {
+            addresses.insert(key.to_string(),value.to_string());
+            keys.push(key);
+        }
+        keys.sort();
+        for key in keys {
+            addresses.insert(key.to_string(),item_msg.addresses.get(key).unwrap().to_string());
+        }
+
         let msg = Msg{
             ttype: item.r#type.clone(),
-            value: MsgValue{
+            value: MsgValue {
                 amount: coins,
-                delegator_address: item.value.as_ref().unwrap().delegator_address.clone(),
-                validator_address: item.value.as_ref().unwrap().validator_address.clone(),
+                // delegator_address: item.value.as_ref().unwrap().delegator_address.clone(),
+                // validator_address: item.value.as_ref().unwrap().validator_address.clone(),
+                extra: addresses
             },
         };
         msgs.push(msg);
@@ -53,7 +69,7 @@ pub fn sign_cosmos_transaction(data: &[u8]) -> Result<Vec<u8>> {
         account_number: input_sign_data.account_number.clone(),
         chain_id: input_sign_data.chain_id,
         fee: stdfee,
-        memo: Some(input_sign_data.memo),
+        memo: input_sign_data.memo,
         msgs: msgs,
         sequence: input_sign_data.sequence
     };

@@ -20,8 +20,8 @@ pub struct SignData {
     pub chain_id: std::string::String,
     #[prost(message, optional, tag="3")]
     pub fee: ::std::option::Option<StdFee>,
-    #[prost(string, tag="4")]
-    pub memo: std::string::String,
+    #[prost(message, optional, tag="4")]
+    pub memo: ::std::option::Option<::std::string::String>,
     #[prost(message, repeated, tag="5")]
     pub msgs: ::std::vec::Vec<Msg>,
     #[prost(string, tag="6")]
@@ -38,10 +38,26 @@ pub struct Msg {
 pub struct MsgValue {
     #[prost(message, repeated, tag="1")]
     pub amount: ::std::vec::Vec<Coin>,
+    #[prost(map="string, string", tag="2")]
+    pub addresses: ::std::collections::HashMap<std::string::String, std::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgDelegateValue {
+    #[prost(message, repeated, tag="1")]
+    pub amount: ::std::vec::Vec<Coin>,
     #[prost(string, tag="2")]
     pub delegator_address: std::string::String,
     #[prost(string, tag="3")]
     pub validator_address: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgSendValue {
+    #[prost(message, repeated, tag="1")]
+    pub amount: ::std::vec::Vec<Coin>,
+    #[prost(string, tag="2")]
+    pub from_address: std::string::String,
+    #[prost(string, tag="3")]
+    pub to_address: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CosmosTxReq {
