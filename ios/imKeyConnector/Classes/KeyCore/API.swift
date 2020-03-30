@@ -178,8 +178,21 @@ public class API{
 
     let paramHex = try! action.serializedData().key_toHexString()
     
+    clear_err()
     Log.d("eth param ready..")
     let res = call_imkey_api(paramHex)
+    
+    //error
+    let error = get_last_err_message()
+    if error != nil{
+      let dataError = String(cString:error!).key_dataFromHexString()!
+      let response = try! Api_Response(serializedData: dataError)
+      if !response.isSuccess {
+        print(response.error)
+      }
+    }
+    
+    //success
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
     let ouput = try! Ethapi_EthMessageSignRes(serializedData: dataRes)

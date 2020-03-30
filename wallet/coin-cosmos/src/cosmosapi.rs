@@ -42,24 +42,6 @@ pub struct MsgValue {
     pub addresses: ::std::collections::HashMap<std::string::String, std::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgDelegateValue {
-    #[prost(message, repeated, tag="1")]
-    pub amount: ::std::vec::Vec<Coin>,
-    #[prost(string, tag="2")]
-    pub delegator_address: std::string::String,
-    #[prost(string, tag="3")]
-    pub validator_address: std::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgSendValue {
-    #[prost(message, repeated, tag="1")]
-    pub amount: ::std::vec::Vec<Coin>,
-    #[prost(string, tag="2")]
-    pub from_address: std::string::String,
-    #[prost(string, tag="3")]
-    pub to_address: std::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CosmosTxReq {
     #[prost(message, optional, tag="1")]
     pub sign_data: ::std::option::Option<SignData>,
