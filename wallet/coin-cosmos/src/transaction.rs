@@ -202,7 +202,6 @@ mod tests {
     use common::constants;
     use common::utility::{secp256k1_sign, hex_to_bytes};
     use device::device_binding::DeviceManage;
-    use crate::cosmosapi::MsgSendValue;
     use std::collections::HashMap;
     use linked_hash_map::LinkedHashMap;
 
@@ -242,8 +241,8 @@ mod tests {
         };
 
         let mut addresses = LinkedHashMap::new();
-        addresses.insert("validator_address".to_string(),"cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp".to_string());
         addresses.insert("delegator_address".to_string(),"cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f".to_string());
+        addresses.insert("validator_address".to_string(),"cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp".to_string());
 
         let msg = Msg{
             ttype: "cosmos-sdk/MsgDelegate".to_string(),
