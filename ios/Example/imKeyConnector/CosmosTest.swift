@@ -20,12 +20,56 @@ class CosmosTest:FeatTest{
         let sigs = dict["signatures"] as? [[String: Any]]{
         let raw = createCosmosRaw(dict: dict)
         print(raw)
+        
+        
         for i in 0...3{
           do {
-            let cosmosSigner = try CosmosTransaction(raw: raw)
-            let signResult = try cosmosSigner.sign(handle: handle, path: BIP44.cosmos, paymentDis: preview["payment"] as? String, toDis: preview["receiver"] as! String, feeDis: preview["fee"] as! String)
+            var feeCoin = Cosmosapi_Coin()
+            feeCoin.amount = "0"
+            feeCoin.denom = ""
+            
+            var fee = Cosmosapi_StdFee()
+            fee.gas = "21906"
+            fee.amount = [feeCoin]
+            
+            //msgs
+            var msgCoin = Cosmosapi_Coin()
+            msgCoin.amount = "10"
+            msgCoin.denom = "atom"
+            
+            var msgValue = Cosmosapi_MsgValue()
+            msgValue.amount = [msgCoin]
+            msgValue.addresses = ["delegator_address":"cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f",
+                                  "validator_address":"cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"]
+            
+            
+            var msg = Cosmosapi_Msg()
+            msg.type = "cosmos-sdk/MsgDelegate"
+            msg.value = msgValue
+            
+            //signData
+            var signData = Cosmosapi_SignData()
+            signData.accountNumber = dict["accountNumber"] as! String
+            signData.chainID = dict["chainId"] as! String
+            signData.fee = fee
+            signData.memo = dict["memo"] as! String
+            signData.msgs = [msg]
+            signData.sequence = dict["sequence"] as! String
+            
+            //cosmosInput
+            var cosmosInput = Cosmosapi_CosmosTxReq()
+            cosmosInput.signData = signData
+            cosmosInput.path = BIP44.cosmos
+            cosmosInput.paymentDis = preview["payment"] as! String
+            cosmosInput.toDis = preview["receiver"] as! String
+            cosmosInput.feeDis = preview["fee"] as! String
+            let comsosOutput = API.cosmosSignTx(cosmosInput: cosmosInput)
+
+            
+//            let cosmosSigner = try CosmosTransaction(raw: raw)
+//            let signResult = try cosmosSigner.sign(handle: handle, path: BIP44.cosmos, paymentDis: preview["payment"] as? String, toDis: preview["receiver"] as! String, feeDis: preview["fee"] as! String)
             let expSig = sigs[0]["signature"] as! String
-            let sigTx = signResult.cosmosSignedTx as!  [String: Any]
+            let sigTx = comsosOutput.txData as!  [String: Any]
             let resSigs = sigTx["signatures"] as! [[String: Any]]
             let resSig = resSigs[0]["signature"] as! String
             

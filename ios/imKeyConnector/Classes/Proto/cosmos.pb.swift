@@ -71,14 +71,10 @@ public struct Cosmosapi_SignData {
   /// Clears the value of `fee`. Subsequent reads from it will return its default value.
   public mutating func clearFee() {_uniqueStorage()._fee = nil}
 
-  public var memo: SwiftProtobuf.Google_Protobuf_StringValue {
-    get {return _storage._memo ?? SwiftProtobuf.Google_Protobuf_StringValue()}
+  public var memo: String {
+    get {return _storage._memo}
     set {_uniqueStorage()._memo = newValue}
   }
-  /// Returns true if `memo` has been explicitly set.
-  public var hasMemo: Bool {return _storage._memo != nil}
-  /// Clears the value of `memo`. Subsequent reads from it will return its default value.
-  public mutating func clearMemo() {_uniqueStorage()._memo = nil}
 
   public var msgs: [Cosmosapi_Msg] {
     get {return _storage._msgs}
@@ -342,7 +338,7 @@ extension Cosmosapi_SignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     var _accountNumber: String = String()
     var _chainID: String = String()
     var _fee: Cosmosapi_StdFee? = nil
-    var _memo: SwiftProtobuf.Google_Protobuf_StringValue? = nil
+    var _memo: String = String()
     var _msgs: [Cosmosapi_Msg] = []
     var _sequence: String = String()
 
@@ -375,7 +371,7 @@ extension Cosmosapi_SignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
         case 1: try decoder.decodeSingularStringField(value: &_storage._accountNumber)
         case 2: try decoder.decodeSingularStringField(value: &_storage._chainID)
         case 3: try decoder.decodeSingularMessageField(value: &_storage._fee)
-        case 4: try decoder.decodeSingularMessageField(value: &_storage._memo)
+        case 4: try decoder.decodeSingularStringField(value: &_storage._memo)
         case 5: try decoder.decodeRepeatedMessageField(value: &_storage._msgs)
         case 6: try decoder.decodeSingularStringField(value: &_storage._sequence)
         default: break
@@ -395,8 +391,8 @@ extension Cosmosapi_SignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
       if let v = _storage._fee {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
       }
-      if let v = _storage._memo {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      if !_storage._memo.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._memo, fieldNumber: 4)
       }
       if !_storage._msgs.isEmpty {
         try visitor.visitRepeatedMessageField(value: _storage._msgs, fieldNumber: 5)
