@@ -15,7 +15,7 @@
         "value": {
           "amount": [
             {
-              "amount": 1000000,
+              "amount": "1000000",
               "denom": "muon"
             }
           ],
@@ -40,11 +40,11 @@
           "type": "tendermint/PubKeySecp256k1",
           "value": "AjLB7yHXPBlTGwqk6GPPOXwrmCsvlY9gzbYpaYJMCW1l"
         },
-        "signature": "TfRmt5lSQJ43iykhhySVDOvi9Rn+n3d6Sbtld1fSIlQhDeEg3cRwOX4ndfjbXQjcOcI96MhCeggXHj7B1WFchw=="
+        "signature": "R3CcENwwA9k/rr8VeHagD1X86jNZx2qrrBCKn1G3Satnv+Gkrk/VUdo57unGZObFTq7Ts21dbMQ94sBe403NRw=="
       }
     ]
   },
-  
+
   "case-MsgTypeIsMsgDelegate": {
     "fee": {
       "amount": [
@@ -61,7 +61,7 @@
         "value": {
           "amount": [
             {
-              "amount": 10,
+              "amount": "10",
               "denom": "atom"
             }
           ],
@@ -86,11 +86,11 @@
           "type": "tendermint/PubKeySecp256k1",
           "value": "AjLB7yHXPBlTGwqk6GPPOXwrmCsvlY9gzbYpaYJMCW1l"
         },
-        "signature": "D7aXzjViK0ThWMUgLfyEMoYLTie9NV1FWjJUq5oAf9wB7Ma/kAGBTj8r7hc7PTq+0BcTjWOGHENi9sBrnG2LSA=="
+        "signature": "h4//cOYLTiDYbdw+1NVZufwppIAcEQ1xsWMYcCdcGtsu4xSnYStxyJgIa57445sHnXgWP84VvnQ5geoUZAKxlQ=="
       }
     ]
   },
-  
+
   "case-ReceiverAddrIsLong": {
     "fee": {
       "amount": [
@@ -107,7 +107,7 @@
         "value": {
           "amount": [
             {
-              "amount": 10,
+              "amount": "10",
               "denom": "atom"
             }
           ],
@@ -132,11 +132,11 @@
           "type": "tendermint/PubKeySecp256k1",
           "value": "AjLB7yHXPBlTGwqk6GPPOXwrmCsvlY9gzbYpaYJMCW1l"
         },
-        "signature": "D7aXzjViK0ThWMUgLfyEMoYLTie9NV1FWjJUq5oAf9wB7Ma/kAGBTj8r7hc7PTq+0BcTjWOGHENi9sBrnG2LSA=="
+        "signature": "h4//cOYLTiDYbdw+1NVZufwppIAcEQ1xsWMYcCdcGtsu4xSnYStxyJgIa57445sHnXgWP84VvnQ5geoUZAKxlQ=="
       }
     ]
   },
-  
+
   "case-MsgTypeIsDelegationReward": {
     "fee": {
       "amount": [
@@ -152,7 +152,7 @@
         "type": "cosmos-sdk/MsgWithdrawDelegationReward",
         "value": {
           "amount": [
-            
+
           ],
           "delegator_address": "cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f",
           "validator_address": "cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"
@@ -179,8 +179,8 @@
       }
     ]
   },
-  
-  
+
+
   "case-MultipleMsg": {
     "fee": {
       "amount": [
@@ -197,7 +197,7 @@
         "value": {
           "amount": [
             {
-              "amount": 10,
+              "amount": "10",
               "denom": "atom"
             }
           ],
@@ -210,7 +210,7 @@
         "value": {
           "amount": [
             {
-              "amount": 10,
+              "amount": "10",
               "denom": "atom"
             }
           ],
@@ -223,7 +223,7 @@
         "value": {
           "amount": [
             {
-              "amount": 10,
+              "amount": "10",
               "denom": "atom"
             }
           ],
@@ -248,7 +248,7 @@
           "type": "tendermint/PubKeySecp256k1",
           "value": "AjLB7yHXPBlTGwqk6GPPOXwrmCsvlY9gzbYpaYJMCW1l"
         },
-        "signature": "M/NInhocia1sTiIr5HzgksUeODSt1zWfRiibgyAvziIaSgrHmfO2PNcJxF7utUVSbF3/vGwI/k0wU3LMWk9ltg=="
+        "signature": "Ry6CM82catxyY4o+rE5oFJ8mZ8jkerJ938TeyjEvcCEYno0fEITjvxZHrbfY2MZUJ1Yv+ljgZ31CWGzEhwdJkw=="
       }
     ]
   },
