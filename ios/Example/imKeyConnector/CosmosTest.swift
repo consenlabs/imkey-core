@@ -22,30 +22,55 @@ class CosmosTest:FeatTest{
         print(raw)
         
         
-        for i in 0...3{
+        for i in 0...0{
           do {
-            var feeCoin = Cosmosapi_Coin()
-            feeCoin.amount = "0"
-            feeCoin.denom = ""
+            //fee
+            let sourceFee = dict["fee"] as! [String: Any]
+            let sourceFeeAmount = sourceFee["amount"] as![[String: Any]]
+            var feeAmount = [Cosmosapi_Coin]()
+            for item in sourceFeeAmount{
+                var msgCoin = Cosmosapi_Coin()
+                msgCoin.amount = item["amount"] as! String
+                msgCoin.denom = item["denom"] as! String
+              feeAmount.append(msgCoin)
+            }
             
             var fee = Cosmosapi_StdFee()
-            fee.gas = "21906"
-            fee.amount = [feeCoin]
+            fee.gas = sourceFee["gas"] as! String
+            fee.amount = feeAmount
             
             //msgs
-            var msgCoin = Cosmosapi_Coin()
-            msgCoin.amount = "10"
-            msgCoin.denom = "atom"
-            
-            var msgValue = Cosmosapi_MsgValue()
-            msgValue.amount = [msgCoin]
-            msgValue.addresses = ["delegator_address":"cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f",
-                                  "validator_address":"cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"]
-            
-            
-            var msg = Cosmosapi_Msg()
-            msg.type = "cosmos-sdk/MsgDelegate"
-            msg.value = msgValue
+            var msgs = [Cosmosapi_Msg]()
+            let sourceMsg = dict["msg"] as! [[String: Any]]
+            for item in sourceMsg{
+              let type = item["type"] as! String
+              let value = item["value"] as! [String: Any]
+              let amount = value["amount"] as![[String: Any]]
+              var msgAmount = [Cosmosapi_Coin]()
+              for item in amount{
+                var msgCoin = Cosmosapi_Coin()
+//                let num = item["amount"] as! NSNumber
+//                msgCoin.amount = num.stringValue
+                msgCoin.amount = item["amount"] as! String
+                msgCoin.denom = item["denom"] as! String
+                msgAmount.append(msgCoin)
+              }
+              
+              var msgValue = Cosmosapi_MsgValue()
+              msgValue.amount = msgAmount
+              if type == "cosmos-sdk/MsgSend" {
+                msgValue.addresses = ["from_address":value["from_address"] as! String,
+                "to_address":value["to_address"] as! String]
+              }else{
+                msgValue.addresses = ["delegator_address":value["delegator_address"] as! String,
+                                      "validator_address":value["validator_address"] as! String]
+              }
+              
+              var msg = Cosmosapi_Msg()
+              msg.type = type
+              msg.value = msgValue
+              msgs.append(msg)
+            }
             
             //signData
             var signData = Cosmosapi_SignData()
@@ -53,7 +78,7 @@ class CosmosTest:FeatTest{
             signData.chainID = dict["chainId"] as! String
             signData.fee = fee
             signData.memo = dict["memo"] as! String
-            signData.msgs = [msg]
+            signData.msgs = msgs
             signData.sequence = dict["sequence"] as! String
             
             //cosmosInput
@@ -68,10 +93,17 @@ class CosmosTest:FeatTest{
             
 //            let cosmosSigner = try CosmosTransaction(raw: raw)
 //            let signResult = try cosmosSigner.sign(handle: handle, path: BIP44.cosmos, paymentDis: preview["payment"] as? String, toDis: preview["receiver"] as! String, feeDis: preview["fee"] as! String)
+            
+            let data = comsosOutput.txData.data(using: .utf8)!
+            let jsonObject = try! JSONSerialization.jsonObject(with: data, options : .allowFragments) as? Dictionary<String,Any>
+            
             let expSig = sigs[0]["signature"] as! String
-            let sigTx = comsosOutput.txData as!  [String: Any]
+            let sigTx = jsonObject as!  [String: Any]
             let resSigs = sigTx["signatures"] as! [[String: Any]]
             let resSig = resSigs[0]["signature"] as! String
+            
+            print("expSig:" + expSig)
+            print("actual:" + resSig)
             
             if expSig == resSig{
               sucessCount += 1
