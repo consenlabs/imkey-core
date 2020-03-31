@@ -3,6 +3,7 @@ use std::thread::sleep;
 use std::time::Duration;
 use std::sync::Mutex;
 use hidapi::{HidApi, HidDevice};
+use crate::Result;
 
 lazy_static! {
     pub static ref HID_API: Mutex<HidApi> = Mutex::new(HidApi::new().unwrap());
@@ -12,55 +13,28 @@ const RETRY_SEC: u64 = 1;
 const DEV_VID: u16 = 0x096e;
 const DEV_PID: u16 = 0x0891;
 
-#[no_mangle]
-pub enum Error {
-    /// Ethereum wallet protocol error.
-    Protocol(&'static str),
-    /// Hidapi error.
-    Usb(hidapi::HidError),
-    /// Device with request key is not available.
-    KeyNotFound,
-    /// Signing has been cancelled by user.
-    UserCancel,
-    /// The Message Type given in the trezor RPC call is not something we recognize
-    BadMessageType,
-    /// Trying to read from a closed device at the given path
-    ClosedDevice(String),
-}
-
-#[no_mangle]
 pub fn hid_send(hid_device: &HidDevice, apdu: &String) -> String {
     println!("-->{}", apdu);
-    match send_device_message(hid_device, Vec::from_hex(apdu.as_str()).unwrap().as_slice()) {
+    match send_device_message(hid_device, Vec::from_hex(apdu.as_str()).unwrap().as_slice()) {//TODO
         Ok(_res) => (),
         Err(_err) => panic!("send_device_message_error"),
     };
-    let return_data = read_device_response(hid_device).ok().unwrap();
+    let return_data = read_device_response(hid_device).ok().unwrap();//TODO
     let apdu_response = hex::encode_upper(return_data);
     println!("<--{}", apdu_response.clone());
     return apdu_response;
 }
 
-
-#[no_mangle]
-fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<Vec<u8>, Error> {
-    let protocol_err = Error::Protocol(&"Unexpected wire response from imkey Device");
+#[allow(dead_code)]
+fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<Vec<u8>> {
     let first_send_cmd: [u8; 8] = [0x00, 0x00, 0x00, 0x00, 0x01, 0x86, 0x00, 0x00];
     let mut send_first_data_string = String::new();
     for u in &first_send_cmd[..first_send_cmd.len()] {
         send_first_data_string.push_str((format!("{:02X}", u)).as_ref());
     }
-
-    let res = device.write(&first_send_cmd);
-    if res.is_err() {
-        return Err(protocol_err);
-    }
-
+    let res = device.write(&first_send_cmd)?;
     let mut buf = vec![0; 64];
-    let first_chunk = device.read_timeout(&mut buf, 300_000);
-    if first_chunk.is_err() {
-        return Err(protocol_err);
-    }
+    device.read_timeout(&mut buf, 300_000)?;
 
     let mut receive_first_data_string = String::new();
     for u in &buf[..buf.len()] {
@@ -70,25 +44,15 @@ fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<Vec<u8
     Ok(buf[..64].to_vec())
 }
 
-#[no_mangle]
-fn read_device_response(device: &hidapi::HidDevice) -> Result<Vec<u8>, Error> {
-    let protocol_err = Error::Protocol(&"Unexpected wire response from imkey Device");
+fn read_device_response(device: &hidapi::HidDevice) -> Result<Vec<u8>> {
     let mut buf = vec![0; 64];
 
-    let first_res = device.read_timeout(&mut buf, 300_000);
-    if first_res.is_err() {
-        return Err(protocol_err);
-    }
+    device.read_timeout(&mut buf, 300_000)?;
     let msg_size = (buf[5] as u8 & 0xFF) + (buf[6] as u8 & 0xFF);
     let mut data = Vec::new();
     data.extend_from_slice(&buf[7..]);
     while data.len() < (msg_size as usize) {
-        //        println!("{}", data.len() as usize);
-        let res = device.read_timeout(&mut buf, 10_000);
-        if res.is_err() {
-            return Err(protocol_err);
-        }
-
+        device.read_timeout(&mut buf, 10_000)?;
         data.extend_from_slice(&buf[5..64]);
     }
     data.truncate(msg_size as usize);
@@ -98,19 +62,15 @@ fn read_device_response(device: &hidapi::HidDevice) -> Result<Vec<u8>, Error> {
     for u in &data[..data.len()] {
         receive_data_string.push_str((format!("{:02X}", u)).as_ref());
     }
-    //    println!("{}", "receive-->".to_owned()+&receive_data_string);
 
     Ok(data[..msg_size as usize].to_vec())
 }
 
-#[no_mangle]
-fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, Error> {
-    let protocol_err = Error::Protocol(&"Unexpected wire response from imkey Device");
+fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> {
     let mut send_data_string = String::new();
     for u in &msg[..msg.len()] {
         send_data_string.push_str((format!("{:02X}", u)).as_ref());
     }
-    //    println!("{}", "send-->".to_owned()+&send_data_string);
 
     let msg_size = msg.len();
     let mut headerdata = Vec::new();
@@ -158,15 +118,11 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize, 
 
     let total_written = 0;
     for chunk in data.chunks(65) {
-        let res = device.write(&chunk);
-        if res.is_err() {
-            return Err(protocol_err);
-        }
+        device.write(&chunk)?;
     }
     Ok(total_written)
 }
 
-#[no_mangle]
 pub fn hid_connect() -> HidDevice {
 
     let hid_api_obj = HID_API.lock().unwrap();
@@ -174,9 +130,7 @@ loop {
         match hid_api_obj.open(DEV_VID, DEV_PID) {
             Ok(dev) => {
                 println!("device connected!!!");
-                //first_write_read_device_response(&dev);
-//                let hid_device_obj = DEVICE.lock().unwrap();
-//                *hid_device_obj = dev.clone();
+//                first_write_read_device_response(&dev);
                 return dev;
             }
             Err(err) => {
