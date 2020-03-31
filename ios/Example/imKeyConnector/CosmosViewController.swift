@@ -80,7 +80,7 @@ class CosmosViewController: UIViewController {
     signData.accountNumber = "1"
     signData.chainID = "tendermint_test"
     signData.fee = fee
-//    signData.memo = ""
+    signData.memo = ""
     signData.msgs = [msg]
     signData.sequence = "0"
     

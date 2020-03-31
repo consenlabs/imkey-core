@@ -25,8 +25,7 @@ pub struct SignData{
     pub account_number: String,
     pub chain_id: String,
     pub fee: StdFee,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub memo: Option<String>,
+    pub memo: String,
     pub msgs: Vec<Msg>,
     pub sequence: String,
 }
@@ -89,10 +88,9 @@ pub struct Pubkey{
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StdTx{
     pub fee: StdFee,
+    pub memo: String,
     pub signatures: Vec<StdSignature>,
     pub msg: Vec<Msg>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub memo: Option<String>,
 }
 
 impl CosmosTransaction {
@@ -259,7 +257,7 @@ mod tests {
             account_number: "1".to_string(),
             chain_id: "tendermint_test".to_string(),
             fee: stdfee,
-            memo: None,
+            memo: "".to_string(),
             msgs: vec![msg],
             sequence: "0".to_string()
         };
@@ -306,7 +304,7 @@ mod tests {
             account_number: "1234567890".to_string(),
             chain_id: "tendermint_test".to_string(),
             fee: stdfee,
-            memo: Some("".to_string()),
+            memo: "".to_string(),
             msgs: vec![msg],
             sequence: "1234567890".to_string()
         };
