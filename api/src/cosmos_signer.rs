@@ -4,7 +4,6 @@ use prost::Message;
 use coin_cosmos::transaction::{StdFee, Coin, Msg, SignData, CosmosTransaction, MsgValue};
 use crate::error_handling::Result;
 use linked_hash_map::LinkedHashMap;
-use itertools::Itertools;
 
 pub fn sign_cosmos_transaction(data: &[u8]) -> Result<Vec<u8>> {
     // let input: CosmosTxReq = CosmosTxReq::decode(data).expect("imkey_illegal_param");

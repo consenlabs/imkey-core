@@ -28,7 +28,6 @@ prost-types = "0.5.0"
 hex = "0.3"
 failure = "0.1.6"
 linked-hash-map = { version = "0.5", features = ["serde_impl"] }
-itertools = "0.9"
 
 [lib]
 name="connector"
