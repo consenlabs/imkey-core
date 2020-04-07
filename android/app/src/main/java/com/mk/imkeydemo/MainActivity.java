@@ -128,8 +128,9 @@ public class MainActivity extends AppCompatActivity {
 //        LogUtil.installApplet();
 
 //        Api.initRustLog();
-        Api.startMessageDeamon();
+//        Api.startMessageDeamon();
 //        Api.check_update();
+        Api.setCallback();
         
     }
 

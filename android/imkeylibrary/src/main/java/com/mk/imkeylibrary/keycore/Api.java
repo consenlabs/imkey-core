@@ -3,6 +3,7 @@ package com.mk.imkeylibrary.keycore;
 import android.os.SystemClock;
 import com.mk.imkeylibrary.bluetooth.Ble;
 import com.mk.imkeylibrary.utils.LogUtil;
+import com.mk.imkeylibrary.utils.Sender;
 
 public class Api {
 
@@ -37,6 +38,16 @@ public class Api {
                 }
             }
         }).start();
+    }
+
+    public static void setCallback(){
+        RustApi.INSTANCE.set_callback(new Sender() {
+            @Override
+            public String sendApdu(String apdu, int timeout) {
+                LogUtil.d("set call back sucess");
+                return Ble.getInstance().sendApdu(apdu,timeout);
+            }
+        });
     }
 
 }
