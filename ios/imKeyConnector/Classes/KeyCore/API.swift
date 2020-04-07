@@ -50,6 +50,21 @@ public class API{
       }
     }
   
+  public class func setCallback(){
+    let swiftCallback : @convention(c) (UnsafePointer<Int8>?,Int32) -> UnsafePointer<Int8>? = {
+      (apdu,timeout) -> UnsafePointer<Int8>? in
+      print("callback miaomiao v v timeout\(timeout)")
+      let swiftApdu = String(cString:apdu!)
+      let resApdu = try! BLE.shared().sendApdu(handle: 0, apdu: swiftApdu,timeout: UInt32(timeout))
+      let count = resApdu.utf8CString.count
+      let result: UnsafeMutableBufferPointer<Int8> = UnsafeMutableBufferPointer<Int8>.allocate(capacity: count)
+      _ = result.initialize(from: resApdu.utf8CString)
+      let p = UnsafePointer(result.baseAddress!)
+      return p
+    }
+    set_callback(swiftCallback)
+  }
+  
   public class func getSEID() ->String{
     var action = Api_ImkeyAction()
     action.method = "get_seid"

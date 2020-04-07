@@ -70,7 +70,8 @@ class ViewController: UIViewController,BLEDelegate {
     
     //hello rust
 //    Log.test_ffi()
-    API.startMessageDeamon()
+    API.setCallback()
+//    API.startMessageDeamon()
   }
   
   override func didReceiveMemoryWarning() {

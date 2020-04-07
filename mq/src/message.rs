@@ -14,8 +14,8 @@ lazy_static! {
     pub static ref APDU: RwLock<String> = RwLock::new("".to_string());
     pub static ref APDU_RETURN: RwLock<String> = RwLock::new("".to_string());
     pub static ref STRING: Mutex<String> = Mutex::new("".to_string());
-    // pub static ref CALLBACK: Mutex<extern "C" fn(*const u8) -> *const u8> =
-    //     Mutex::new(default_callback);
+    // pub static ref CALLBACK: Mutex<extern "C" fn(*const u8) -> *const u8> = Mutex::new(default_callback);
+    pub static ref CALLBACK: Mutex<extern "C" fn(*const c_char, i32) -> *const c_char> = Mutex::new(default_callback);
 
     pub static ref TEST:RwLock<String> = RwLock::new("".to_string());
 }
@@ -26,10 +26,15 @@ lazy_static! {
 }
 
 #[no_mangle]
-pub extern "C" fn default_callback(_apdu: *const c_char) -> *const c_char {
+pub extern "C" fn default_callback(_apdu: *const c_char, timeout: i32) -> *const c_char {
     CString::new("need set callback!".to_owned())
         .unwrap()
         .into_raw()
+}
+
+pub fn set_callback(callback: extern "C" fn(apdu: *const c_char, timeout: i32) -> *const c_char) {
+    let mut _callback = CALLBACK.lock().unwrap();
+    *_callback = callback;
 }
 
 #[no_mangle]
@@ -157,8 +162,12 @@ pub fn send_apdu(apdu: String) -> String {
 
 #[cfg(any(target_os = "android", target_os = "ios"))]
 pub fn send_apdu(apdu: String) -> String {
-    set_apdu_r(apdu);
-    get_apdu_return_r().unwrap()
+    // set_apdu_r(apdu);
+    // get_apdu_return_r().unwrap()
+
+    let callback = CALLBACK.lock().unwrap();
+    let ptr = callback(CString::new(apdu).unwrap().into_raw(),20);
+    unsafe { CStr::from_ptr(ptr).to_string_lossy().into_owned() }
 }
 
 #[test]
@@ -201,4 +210,12 @@ fn test_rwlock() {
     *w = "haha".to_string();
     println!("test:{}",*w);
     drop(w);
+}
+
+#[test]
+fn test_callback() {
+    let callback = CALLBACK.lock().unwrap();
+    let ptr = callback(CString::new("00A4040000".to_owned()).unwrap().into_raw(),20);
+    let result = unsafe { CStr::from_ptr(ptr).to_string_lossy().into_owned() };
+    println!("callback result:{:#?}",result);
 }

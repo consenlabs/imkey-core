@@ -19,3 +19,5 @@ const char *get_last_err_message(void);
 void set_apdu(const char *apdu);
 
 void set_apdu_return(const char *apdu_return);
+
+void set_callback(const char *(*callback)(const char *apdu, int32_t timeout));
