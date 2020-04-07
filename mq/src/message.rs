@@ -26,7 +26,7 @@ lazy_static! {
 }
 
 #[no_mangle]
-pub extern "C" fn default_callback(_apdu: *const c_char, timeout: i32) -> *const c_char {
+pub extern "C" fn default_callback(_apdu: *const c_char, _timeout: i32) -> *const c_char {
     CString::new("need set callback!".to_owned())
         .unwrap()
         .into_raw()
