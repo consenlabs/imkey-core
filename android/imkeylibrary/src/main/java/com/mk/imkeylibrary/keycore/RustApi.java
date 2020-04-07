@@ -12,6 +12,7 @@ public interface RustApi extends Library{
     String set_apdu(String apdu);
     void set_apdu_return(String apdu_return);
     String get_apdu_return();
+    void set_callback(Sender sender);
 
     String call_imkey_api(String value);
     void clear_err();

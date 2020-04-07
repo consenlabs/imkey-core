@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
 //        Api.initRustLog();
         Api.startMessageDeamon();
 //        Api.check_update();
+        
     }
 
     //android 6.0 以上需要动态申请权限
