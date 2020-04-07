@@ -46,6 +46,14 @@ pub extern "C" fn set_callback(callback: extern "C" fn(apdu: *const c_char, time
     message::set_callback(callback);
 }
 
+#[no_mangle]
+pub unsafe extern "C" fn free_const_string(s: *const c_char) {
+    if s.is_null() {
+        return;
+    }
+    CStr::from_ptr(s);
+}
+
 /// dispatch protobuf rpc call
 #[no_mangle]
 pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char {
