@@ -21,6 +21,7 @@ import com.mk.imkeylibrary.common.Constants;
 import com.mk.imkeylibrary.common.Messages;
 import com.mk.imkeylibrary.core.Apdu;
 import com.mk.imkeylibrary.exception.ImkeyException;
+import com.mk.imkeylibrary.keycore.Api;
 import com.mk.imkeylibrary.utils.ByteUtil;
 import com.mk.imkeylibrary.utils.LogUtil;
 
@@ -122,6 +123,7 @@ public class Ble {
 
             @Override
             public void onFTBtConnected(FTBluetoothDevice ftBluetoothDevice) {
+                Api.setCallback();
                 connectedDevice = toDevice(ftBluetoothDevice);
                 keepConnect();
                 connectCallback.onConnected(connectedDevice);
