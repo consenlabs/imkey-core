@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 //        Api.initRustLog();
 //        Api.startMessageDeamon();
 //        Api.check_update();
-        Api.setCallback();
+        //Api.setCallback();
         
     }
 
