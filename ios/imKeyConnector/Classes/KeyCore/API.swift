@@ -55,7 +55,7 @@ public class API{
       (apdu,timeout) -> UnsafePointer<Int8>? in
       print("callback miaomiao v v timeout\(timeout)")
       let swiftApdu = String(cString:apdu!)
-      let resApdu = try! BLE.shared().sendApdu(handle: 0, apdu: swiftApdu,timeout: UInt32(timeout))
+      let resApdu = try! BLE.shared().sendApdu(handle: 0, apdu: swiftApdu,timeout: UInt32(timeout * 1000))
       let count = resApdu.utf8CString.count
       let result: UnsafeMutableBufferPointer<Int8> = UnsafeMutableBufferPointer<Int8>.allocate(capacity: count)
       _ = result.initialize(from: resApdu.utf8CString)
