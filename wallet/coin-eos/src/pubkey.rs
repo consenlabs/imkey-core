@@ -14,12 +14,12 @@ impl EosPubkey {
         path::check_path_validity(path).unwrap();
 
         let select_apdu = EosApdu::select_applet();
-        let select_response = message::send_apdu(select_apdu);
+        let select_response = message::send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_response)?;
 
         //get public key
         let msg_pubkey = EosApdu::get_pubkey(&path, true);
-        let res_msg_pubkey = message::send_apdu(msg_pubkey);
+        let res_msg_pubkey = message::send_apdu(msg_pubkey)?;
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
         let sign_source_val = &res_msg_pubkey[..194];
@@ -72,7 +72,7 @@ impl EosPubkey {
     pub fn display_pubkey(path: &str) -> Result<String> {
         let pubkey = EosPubkey::get_pubkey(path).unwrap();
         let reg_apdu = EosApdu::register_pubkey(pubkey.as_bytes());
-        let res_reg = message::send_apdu(reg_apdu);
+        let res_reg = message::send_apdu(reg_apdu)?;
         ApduCheck::checke_response(&res_reg)?;
         Ok(pubkey)
     }

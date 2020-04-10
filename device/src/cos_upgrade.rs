@@ -12,7 +12,7 @@ use std::time::Duration;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::hid_api;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
-use mq::message::DEVICE;
+use mq::hid_api::DEVICE;
 
 #[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
@@ -50,7 +50,7 @@ impl CosUpgradeRequest {
     #[cfg(any(target_os = "macos", target_os = "windows"))]
     pub fn cos_upgrade(sdk_version: Option<String>) -> Result<()> {
         //read se device cert
-        let mut device_cert = get_cert();
+        let mut device_cert = get_cert()?;
 //        ApduCheck::checke_response(&device_cert)?; //TODO 在所有manager里的接口中增加check方法
 
         let mut is_jump = false;
@@ -114,7 +114,7 @@ impl CosUpgradeRequest {
                     Some(apdu_list) => {
                         for (index_val, apdu_val) in apdu_list.iter().enumerate() {
                             //调用发送指令接口，并获取执行结果
-                            let res = send_apdu(apdu_val.to_string());
+                            let res = send_apdu(apdu_val.to_string())?;
                             apdu_res.push(res.clone());
                             if index_val == apdu_list.len() - 1 {
                                 request_data.statusWord = Some(String::from(&res[res.len() -4..]));
@@ -123,7 +123,7 @@ impl CosUpgradeRequest {
                                     ("03".eq(next_step_key.as_str()) ||
                                         "05".eq(next_step_key.as_str())) {
                                     thread::sleep(Duration::from_millis(1000));
-                                    let connect_ret = hid_api::hid_connect();
+                                    let connect_ret = hid_api::hid_connect()?;
                                     let mut hid_device_obj = DEVICE.lock().unwrap();
                                     *hid_device_obj = connect_ret;
                                     std::mem::drop(hid_device_obj);

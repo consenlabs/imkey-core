@@ -110,7 +110,7 @@ pub fn display_address(network: Network, path: &str) -> Result<String>{
     //path check
     check_path_validity(path)?;
     let address_str =  get_address(network, path)?;
-    let apdu_res = send_apdu(BtcApdu::btc_coin_reg(address_str.clone().into_bytes()));
+    let apdu_res = send_apdu(BtcApdu::btc_coin_reg(address_str.clone().into_bytes()))?;
     ApduCheck::checke_response(apdu_res.as_str())?;
     Ok(address_str)
 }
@@ -119,7 +119,7 @@ pub fn display_segwit_address(network: Network, path: &str) -> Result<String>{
     //path check
     check_path_validity(path)?;
     let address_str =  get_segwit_address(network, path)?;
-    let apdu_res = send_apdu(BtcApdu::btc_coin_reg(address_str.clone().into_bytes()));
+    let apdu_res = send_apdu(BtcApdu::btc_coin_reg(address_str.clone().into_bytes()))?;
     ApduCheck::checke_response(apdu_res.as_str())?;
     Ok(address_str)
 }

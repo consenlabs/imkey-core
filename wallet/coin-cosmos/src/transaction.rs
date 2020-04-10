@@ -132,21 +132,21 @@ impl CosmosTransaction {
         println!("prepare_data_hex:{}", &prepare_data_hex);
 
         let select_apdu = CosmosApdu::select_applet();
-        let select_response = send_apdu(select_apdu);
+        let select_response = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_response)?;
 
         let prepare_apdus = CosmosApdu::prepare_sign(prepare_data);
 
         for apdu in prepare_apdus {
             println!("prepare_apdu:{}", &apdu);
-            let response = send_apdu_timeout(apdu,constants::TIMEOUT_LONG);
+            let response = send_apdu_timeout(apdu,constants::TIMEOUT_LONG)?;
             ApduCheck::checke_response(&response)?;
         }
 
         let sign_apdu = CosmosApdu::sign_digest(constants::COSMOS_PATH);
         println!("sign_apdu:{}", &sign_apdu);
 
-        let sign_result = send_apdu(sign_apdu);
+        let sign_result = send_apdu(sign_apdu)?;
         println!("sign_result:{}", &sign_result);
         ApduCheck::checke_response(&sign_result)?;
 

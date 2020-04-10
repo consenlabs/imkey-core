@@ -69,7 +69,7 @@ impl AppDeleteRequest {
                     Some(apdu_list) => {
                         for (index_val, apdu_val) in apdu_list.iter().enumerate() {
                             //调用发送指令接口，并获取执行结果
-                            let res = message::send_apdu(apdu_val.to_string());
+                            let res = message::send_apdu(apdu_val.to_string())?;
                             apdu_res.push(res.clone());
                             if index_val == apdu_list.len() - 1 {
                                 self.statusWord = Some(String::from(&res[res.len() -4..]));
