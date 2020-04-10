@@ -46,12 +46,12 @@ impl EthAddress {
         check_path_validity(path).unwrap();
 
         let select_apdu = EthApdu::select_applet();
-        let select_response = send_apdu(select_apdu);
+        let select_response = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_response)?;
 
         //get public
         let msg_pubkey = EthApdu::get_pubkey(&path, false);
-        let res_msg_pubkey = send_apdu(msg_pubkey);
+        let res_msg_pubkey = send_apdu(msg_pubkey)?;
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
         let pubkey_raw =
@@ -65,7 +65,7 @@ impl EthAddress {
     pub fn display_address(path: &str) -> Result<String> {
         let address = EthAddress::get_address(path).unwrap();
         let reg_apdu = EthApdu::register_address(address.as_bytes());
-        let res_reg = send_apdu(reg_apdu);
+        let res_reg = send_apdu(reg_apdu)?;
         ApduCheck::checke_response(&res_reg)?;
         Ok(address)
     }

@@ -80,19 +80,19 @@ impl Transaction {
 
         //select applet
         let select_apdu = EthApdu::select_applet();
-        let select_result = send_apdu(select_apdu);
+        let select_result = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_result)?;
 
         //prepare apdu
         let msg_prepare = EthApdu::prepare_sign(apdu_pack);
         for msg in msg_prepare {
-            let res = send_apdu_timeout(msg,constants::TIMEOUT_LONG);
+            let res = send_apdu_timeout(msg,constants::TIMEOUT_LONG)?;
             ApduCheck::checke_response(&res)?;
         }
 
         //get public
         let msg_pubkey = EthApdu::get_pubkey(path, false);
-        let res_msg_pubkey = send_apdu(msg_pubkey);
+        let res_msg_pubkey = send_apdu(msg_pubkey)?;
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
         let pubkey_raw =
@@ -106,7 +106,7 @@ impl Transaction {
         }
         //sign
         let msg_sign = EthApdu::sign_digest(path);
-        let res_msg_sign = send_apdu(msg_sign);
+        let res_msg_sign = send_apdu(msg_sign)?;
         ApduCheck::checke_response(&res_msg_sign)?;
 
         let sign_compact = &res_msg_sign[2..130];
@@ -217,11 +217,11 @@ impl Transaction {
         apdu_pack.extend(data_to_sign.as_slice());
 
         let select_apdu = EthApdu::select_applet();
-        let select_result = send_apdu(select_apdu);
+        let select_result = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_result)?;
 
         let msg_pubkey = EthApdu::get_pubkey(&input.path, false);
-        let res_msg_pubkey = send_apdu(msg_pubkey);
+        let res_msg_pubkey = send_apdu(msg_pubkey)?;
         let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone()).unwrap();
         let address_checksummed = EthAddress::address_checksummed(&address_main);
@@ -233,12 +233,12 @@ impl Transaction {
         let prepare_apdus = EthApdu::prepare_personal_sign(apdu_pack);
         for apdu in prepare_apdus {
             println!("prepare apdu:{}", &apdu);
-            let res = send_apdu_timeout(apdu,constants::TIMEOUT_LONG);
+            let res = send_apdu_timeout(apdu,constants::TIMEOUT_LONG)?;
             ApduCheck::checke_response(&res)?;
         }
 
         let sign_apdu = EthApdu::personal_sign(&input.path);
-        let sign_response = send_apdu(sign_apdu);
+        let sign_response = send_apdu(sign_apdu)?;
         ApduCheck::checke_response(&sign_response)?;
 
         let sign_compact = hex::decode(&sign_response[2..130]).unwrap();

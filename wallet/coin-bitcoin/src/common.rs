@@ -71,9 +71,9 @@ pub enum TransTypeFlg{
 get xpub
 */
 pub fn get_xpub_data(path: &str, verify_flag: bool) -> Result<String>{
-    let select_response = send_apdu(BtcApdu::select_applet());
+    let select_response = send_apdu(BtcApdu::select_applet())?;
     ApduCheck::checke_response(&select_response)?;
-    let xpub_data = send_apdu(BtcApdu::get_xpub(path, verify_flag));
+    let xpub_data = send_apdu(BtcApdu::get_xpub(path, verify_flag))?;
     ApduCheck::checke_response(&xpub_data)?;
     Ok(xpub_data)
 }

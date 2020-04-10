@@ -67,7 +67,7 @@ impl DeviceManage {
             DeviceBindingApdu::bind_check(&key_manager_obj.pub_key);
         //发送bindcheck指令，并获取返回数据
         select_imk_applet()?;
-        let bind_check_apdu_resp_data = send_apdu(bind_check_apdu);
+        let bind_check_apdu_resp_data = send_apdu(bind_check_apdu)?;
         ApduCheck::checke_response(bind_check_apdu_resp_data.as_str())?;
 
         //获取状态值 //状态 0x00: 未绑定  0x55: 与传入appPK绑定  0xAA：与其他appPK绑定
@@ -148,20 +148,20 @@ impl DeviceManage {
         let identity_verify_apdu = DeviceBindingApdu::identity_verify(&apdu_data);
         std::mem::drop(key_manager_obj);
         //send command to device
-        let bind_result = send_apdu(identity_verify_apdu);
+        let bind_result = send_apdu(identity_verify_apdu)?;
         ApduCheck::checke_response(&bind_result)?;
         Ok(BIND_STATUS_MAP.get(&bind_result[..bind_result.len() - 4]).unwrap().to_string())
     }
 
     pub fn display_bind_code() -> Result<()> {
         select_imk_applet()?;
-        let gen_auth_code_ret_data = send_apdu(DeviceBindingApdu::generate_auth_code());
+        let gen_auth_code_ret_data = send_apdu(DeviceBindingApdu::generate_auth_code())?;
         ApduCheck::checke_response(&gen_auth_code_ret_data)
     }
 }
 
 fn select_imk_applet() ->Result<()> {
-    let apdu_response = send_apdu(Apdu::select_applet(IMK_AID));
+    let apdu_response = send_apdu(Apdu::select_applet(IMK_AID))?;
     ApduCheck::checke_response(apdu_response.as_str())
 }
 
@@ -213,23 +213,36 @@ fn get_se_pubkey(se_pubkey_cert: String) -> Result<String>{
 mod test{
     use crate::key_manager::KeyManager;
     use crate::device_binding::DeviceManage;
+    use crate::manager::bind_display_code;
 
     #[test]
     fn device_bind_test(){
-            //
-            // let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-            // let bind_code = "E4APZZRT".to_string();
-     let path = "/Users/joe/work/sdk_gen_key".to_string();
-     let bind_code = "YDSGQPKX".to_string();
+
+         let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+         let bind_code = "3KN379K4".to_string();
+//         let path = "/Users/joe/work/sdk_gen_key".to_string();
+//         let bind_code = "YDSGQPKX".to_string();
+
         // let mut device_manage = DeviceManage::new();
-        // let check_result = device_manage.bind_check(&path).unwrap();
         let check_result = DeviceManage::bind_check(&path).unwrap();
+        let mut bind_result = String::new();
         println!("result:{}",&check_result);
-        let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap();
-        println!("result:{}",&bind_result);
-//        let sn = String::from("imKey01191200001");
-//        println!("{:?}", hex::encode_upper(sn.as_bytes()));
-//        println!("{:?}", String::from_utf8(sn.as_bytes().to_vec()));
+        if check_result.as_str().eq("unbound") {
+//            bind_display_code();
+//            let mut bind_code_temp = String::new();
+//            println!("请输入绑定码:");
+//            let bl = std::io::stdin().read_line(&mut bind_code_temp).unwrap();
+            bind_result = DeviceManage::bind_acquire(&bind_code).unwrap();
+
+        }else if check_result.as_str().eq("bound_other"){
+            bind_result = DeviceManage::bind_acquire(&bind_code).unwrap();
+        }else {
+            ();
+        }
+        println!("{}", bind_result);
+
+//        println!("result:{}",&bind_result);
+
 
     }
 

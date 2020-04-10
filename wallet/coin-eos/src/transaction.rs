@@ -23,7 +23,7 @@ impl EosTransaction {
         path::check_path_validity(&tx_input.path).unwrap();
 
         let select_apdu = EosApdu::select_applet();
-        let select_response = message::send_apdu(select_apdu);
+        let select_response = message::send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_response)?;
 
         let mut trans_multi_signs:Vec<EosSignResult> = Vec::new();
@@ -87,7 +87,7 @@ impl EosTransaction {
                 let prepare_apdus = EosApdu::prepare_sign(prepare_apdu_data);
                 let mut prepare_result = "".to_string();
                 for prepare_apdu in prepare_apdus {
-                    prepare_result = send_apdu_timeout(prepare_apdu,constants::TIMEOUT_LONG);
+                    prepare_result = send_apdu_timeout(prepare_apdu,constants::TIMEOUT_LONG)?;
                     ApduCheck::checke_response(&prepare_result)?;
                 }
 
@@ -108,7 +108,7 @@ impl EosTransaction {
                 let mut nonce = 0;
                 loop {
                     let sign_apdu = EosApdu::sign_tx(nonce);
-                    let sign_result = send_apdu(sign_apdu);
+                    let sign_result = send_apdu(sign_apdu)?;
                     ApduCheck::checke_response(&sign_result)?;
 
                     let sign_result_vec = Vec::from_hex(&sign_result[2..sign_result.len() - 6]).unwrap();
@@ -184,14 +184,14 @@ impl EosTransaction {
         prepare_pack.extend(data_pack.iter());
 
         let select_apdu = EosApdu::select_applet();
-        let select_response = send_apdu(select_apdu);
+        let select_response = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_response)?;
 
         let prepare_apdus = EosApdu::prepare_message_sign(prepare_pack);
 
         let mut prepare_response = "".to_string();
         for apdu in prepare_apdus {
-            prepare_response = send_apdu_timeout(apdu,constants::TIMEOUT_LONG);
+            prepare_response = send_apdu_timeout(apdu,constants::TIMEOUT_LONG)?;
             ApduCheck::checke_response(&prepare_response)?;
         }
 
@@ -206,7 +206,7 @@ impl EosTransaction {
         let mut nonce = 0;
         loop {
             let sign_apdu = EosApdu::sign_message(nonce);
-            let sign_result = send_apdu(sign_apdu);
+            let sign_result = send_apdu(sign_apdu)?;
             ApduCheck::checke_response(&sign_result)?;
 
             let sign_result_vec = Vec::from_hex(&sign_result[2..sign_result.len() - 6]).unwrap();

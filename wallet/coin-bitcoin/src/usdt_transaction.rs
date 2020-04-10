@@ -122,7 +122,7 @@ impl BtcTransaction {
 
         //send output prepare command
         let omni_prepare_apdu_str = BtcApdu::omni_prepare_data(0x00, output_pareper_data);
-        ApduCheck::checke_response(&send_apdu_timeout(omni_prepare_apdu_str,TIMEOUT_LONG))?;
+        ApduCheck::checke_response(&send_apdu_timeout(omni_prepare_apdu_str,TIMEOUT_LONG)?)?;
         let mut lock_script_ver : Vec<Script> = vec![];
         let count = (self.unspents.len() - 1 ) / EACH_ROUND_NUMBER + 1;
         for i in 0..count {
@@ -145,7 +145,7 @@ impl BtcTransaction {
                 input_data_vec.extend_from_slice(serialize(&temp_serialize_txin).as_slice());
                 let btc_perpare_apdu = BtcApdu::btc_perpare_input(0x80, &input_data_vec);
                 //发送签名数据到设备并获取返回数据
-                ApduCheck::checke_response(&send_apdu(btc_perpare_apdu))?;
+                ApduCheck::checke_response(&send_apdu(btc_perpare_apdu)?)?;
             }
             for y in i * EACH_ROUND_NUMBER..(i+1) * EACH_ROUND_NUMBER {
                 if y >= utxo_pub_key_vec.len(){
@@ -155,7 +155,7 @@ impl BtcTransaction {
                                                       SigHashType::All.as_u32() as u8,
                                                       format!("{}{}", path_str, self.unspents.get(y).unwrap().derive_path).as_str());
                 //发送签名指令到设备并获取签名结果
-                let btc_sign_apdu_return = send_apdu(btc_sign_apdu);
+                let btc_sign_apdu_return = send_apdu(btc_sign_apdu)?;
                 ApduCheck::checke_response(&btc_sign_apdu_return)?;
                 let sign_result_str = btc_sign_apdu_return[2..btc_sign_apdu_return.len() - 6].to_string();
 
@@ -282,7 +282,7 @@ impl BtcTransaction {
 
         let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x34, 0x00, &output_pareper_data);
         for temp_str in btc_prepare_apdu_vec {
-            ApduCheck::checke_response(&send_apdu_timeout(temp_str,TIMEOUT_LONG))?;
+            ApduCheck::checke_response(&send_apdu_timeout(temp_str,TIMEOUT_LONG)?)?;
         }
 
         let mut txinputs: Vec<TxIn> = vec![];
@@ -350,14 +350,14 @@ impl BtcTransaction {
         let mut sequence_prepare_apdu_vec = BtcApdu::btc_prepare(0x34, 0x80, &sequence_vec);
         txhash_vout_prepare_apdu_vec.append(&mut sequence_prepare_apdu_vec);
         for prepare_apdu in txhash_vout_prepare_apdu_vec {
-            ApduCheck::checke_response(&send_apdu(prepare_apdu))?;
+            ApduCheck::checke_response(&send_apdu(prepare_apdu)?)?;
         }
 
         //send sign apdu
         let mut witnesses: Vec<(Vec<u8>, Vec<u8>)> = vec![];
         for (index, segwit_sign_apdu) in sign_apdu_vec.iter().enumerate() {
             //send sign apdu
-            let sign_apdu_return_data = send_apdu(segwit_sign_apdu.clone());
+            let sign_apdu_return_data = send_apdu(segwit_sign_apdu.clone())?;
             ApduCheck::checke_response(&sign_apdu_return_data)?;
             //build signature obj
             let sign_result_vec = Vec::from_hex(&sign_apdu_return_data[2..sign_apdu_return_data.len() - 6]).unwrap();
@@ -640,7 +640,7 @@ mod tests {
     fn device_binding_test(){
         //设备绑定
         let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-        let bind_code = "E4APZZRT".to_string();
+        let bind_code = "3KN379K4".to_string();
         // let mut device_manage = DeviceManage::new();
         let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
         if !"bound_this".eq(check_result.as_str()) { //如果未和本设备绑定则进行绑定操作

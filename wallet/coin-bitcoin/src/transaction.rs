@@ -143,8 +143,7 @@ impl BtcTransaction {
 
         let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x41, 0x00, &output_pareper_data);
         for temp_str in btc_prepare_apdu_vec {
-
-            ApduCheck::checke_response(&send_apdu_timeout(temp_str,TIMEOUT_LONG))?;
+            ApduCheck::checke_response(&send_apdu_timeout(temp_str,TIMEOUT_LONG)?)?;
         }
 
         let mut lock_script_ver : Vec<Script> = vec![];
@@ -169,7 +168,7 @@ impl BtcTransaction {
                 input_data_vec.extend_from_slice(serialize(&temp_serialize_txin).as_slice());
                 let btc_perpare_apdu = BtcApdu::btc_perpare_input(0x80, &input_data_vec);
                 //发送签名指令到设备并获取返回数据
-                ApduCheck::checke_response(&send_apdu(btc_perpare_apdu))?;
+                ApduCheck::checke_response(&send_apdu(btc_perpare_apdu)?)?;
             }
             for y in i * EACH_ROUND_NUMBER..(i+1) * EACH_ROUND_NUMBER {
                 if y >= utxo_pub_key_vec.len(){
@@ -179,7 +178,7 @@ impl BtcTransaction {
                                                       SigHashType::All.as_u32() as u8,
                                                       format!("{}{}", path_str, self.unspents.get(y).unwrap().derive_path).as_str());
                 //发送签名指令到设备并获取签名结果
-                let btc_sign_apdu_return = send_apdu(btc_sign_apdu);
+                let btc_sign_apdu_return = send_apdu(btc_sign_apdu)?;
                 ApduCheck::checke_response(&btc_sign_apdu_return)?;
                 let btc_sign_apdu_return = &btc_sign_apdu_return[..btc_sign_apdu_return.len() - 4].to_string();
                 let sign_result_str = btc_sign_apdu_return[2..btc_sign_apdu_return.len() - 2].to_string();
@@ -317,7 +316,7 @@ impl BtcTransaction {
         let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x31, 0x00, &output_pareper_data);
         //send output pareper command
         for temp_str in btc_prepare_apdu_vec {
-            ApduCheck::checke_response(&send_apdu_timeout(temp_str,TIMEOUT_LONG))?;
+            ApduCheck::checke_response(&send_apdu_timeout(temp_str,TIMEOUT_LONG)?)?;
         }
 
         let mut txinputs: Vec<TxIn> = vec![];
@@ -383,14 +382,14 @@ impl BtcTransaction {
         let mut sequence_prepare_apdu_vec = BtcApdu::btc_prepare(0x31, 0x80, &sequence_vec);
         txhash_vout_prepare_apdu_vec.append(&mut sequence_prepare_apdu_vec);
         for apdu in txhash_vout_prepare_apdu_vec {
-            ApduCheck::checke_response(&send_apdu(apdu))?;
+            ApduCheck::checke_response(&send_apdu(apdu)?)?;
         }
 
         //send sign apdu
         let mut witnesses: Vec<(Vec<u8>, Vec<u8>)> = vec![];
         for (index, wegwit_sign_apdu) in sign_apdu_vec.iter().enumerate() {
             //send sign apdu （//响应报文为签名结果，格式为L|R|S|V|，66字节，其中L为1个字节，R、S分别为32字节，V为1个字节（27或28））
-            let sign_apdu_return_data = send_apdu(wegwit_sign_apdu.clone());
+            let sign_apdu_return_data = send_apdu(wegwit_sign_apdu.clone())?;
             ApduCheck::checke_response(&sign_apdu_return_data)?;
             //build signature obj
             let sign_result_vec = Vec::from_hex(&sign_apdu_return_data[2..sign_apdu_return_data.len() - 6]).unwrap();
@@ -657,7 +656,7 @@ mod tests {
     fn device_binding_test(){
         // //设备绑定
          let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-         let bind_code = "E4APZZRT".to_string();
+         let bind_code = "3KN379K4".to_string();
 
 //        let path = "/Users/joe/work/sdk_gen_key".to_string();
 //        let bind_code = "YDSGQPKX".to_string();
@@ -747,23 +746,5 @@ mod tests {
             },
             Err(e) => panic!("btc sign error!"),
         }
-    }
-
-
-    #[test]
-    fn test_bind_check(){
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let bind_code = "YDSGQPKX".to_string();
-        // let mut device_manage = DeviceManage::new();
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
-        assert_eq!(check_result,"");
-    }
-
-    #[test]
-    fn test_bind_acquire(){
-        let bind_code = "YDSGQPKX".to_string();
-        // let mut device_manage = DeviceManage::new();
-        let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
-        assert_eq!(bind_result,"22");
     }
 }
