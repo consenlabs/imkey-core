@@ -13,13 +13,13 @@ const RETRY_SEC: u64 = 1;
 const DEV_VID: u16 = 0x096e;
 const DEV_PID: u16 = 0x0891;
 
-pub fn hid_send(hid_device: &HidDevice, apdu: &String) -> String {
+pub fn hid_send(hid_device: &HidDevice, apdu: &String, timeout: i32) -> String {
     println!("-->{}", apdu);
     match send_device_message(hid_device, Vec::from_hex(apdu.as_str()).unwrap().as_slice()) {//TODO
         Ok(_res) => (),
         Err(_err) => panic!("send_device_message_error"),
     };
-    let return_data = read_device_response(hid_device).ok().unwrap();//TODO
+    let return_data = read_device_response(hid_device, timeout).ok().unwrap();//TODO
     let apdu_response = hex::encode_upper(return_data);
     println!("<--{}", apdu_response.clone());
     return apdu_response;
@@ -44,7 +44,7 @@ fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<Vec<u8
     Ok(buf[..64].to_vec())
 }
 
-fn read_device_response(device: &hidapi::HidDevice) -> Result<Vec<u8>> {
+fn read_device_response(device: &hidapi::HidDevice, timeout: i32) -> Result<Vec<u8>> {
     let mut buf = vec![0; 64];
 
     device.read_timeout(&mut buf, 300_000)?;
@@ -52,7 +52,7 @@ fn read_device_response(device: &hidapi::HidDevice) -> Result<Vec<u8>> {
     let mut data = Vec::new();
     data.extend_from_slice(&buf[7..]);
     while data.len() < (msg_size as usize) {
-        device.read_timeout(&mut buf, 10_000)?;
+        device.read_timeout(&mut buf, timeout * 1000)?;
         data.extend_from_slice(&buf[5..64]);
     }
     data.truncate(msg_size as usize);

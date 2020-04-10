@@ -1,14 +1,14 @@
 use bitcoin::{Network, TxOut, Transaction, TxIn, OutPoint, Script, SigHashType, BitcoinHash};
 use common::error::CoinError;
 use common::apdu::{BtcApdu, ApduCheck};
-use common::constants::{MAX_UTXO_NUMBER, EACH_ROUND_NUMBER, MIN_NONDUST_OUTPUT};
+use common::constants::{MAX_UTXO_NUMBER, EACH_ROUND_NUMBER, MIN_NONDUST_OUTPUT, TIMEOUT_LONG};
 use secp256k1::{Signature};
 use bitcoin::hashes::hex::FromHex;
 use bitcoin::blockdata::{opcodes, script::Builder};
 use bitcoin::consensus::{serialize};
 use bitcoin_hashes::sha256d::Hash as Hash256;
 use bitcoin_hashes::hex::ToHex;
-use mq::message::send_apdu;
+use mq::message::{send_apdu, send_apdu_timeout};
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::Hash;
 use crate::transaction::BtcTransaction;
@@ -122,7 +122,7 @@ impl BtcTransaction {
 
         //send output prepare command
         let omni_prepare_apdu_str = BtcApdu::omni_prepare_data(0x00, output_pareper_data);
-        ApduCheck::checke_response(&send_apdu(omni_prepare_apdu_str))?;
+        ApduCheck::checke_response(&send_apdu_timeout(omni_prepare_apdu_str,TIMEOUT_LONG))?;
         let mut lock_script_ver : Vec<Script> = vec![];
         let count = (self.unspents.len() - 1 ) / EACH_ROUND_NUMBER + 1;
         for i in 0..count {
@@ -282,7 +282,7 @@ impl BtcTransaction {
 
         let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x34, 0x00, &output_pareper_data);
         for temp_str in btc_prepare_apdu_vec {
-            ApduCheck::checke_response(&send_apdu(temp_str))?;
+            ApduCheck::checke_response(&send_apdu_timeout(temp_str,TIMEOUT_LONG))?;
         }
 
         let mut txinputs: Vec<TxIn> = vec![];

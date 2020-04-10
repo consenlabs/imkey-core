@@ -7,11 +7,11 @@ use common::utility::{hex_to_bytes, secp256k1_sign};
 use ethereum_types::{H256, U256};
 use keccak_hash::keccak;
 use lazy_static::lazy_static;
-use mq::message::send_apdu;
+use mq::message::{send_apdu, send_apdu_timeout};
 use rlp::{self, DecoderError, Encodable, Rlp, RlpStream};
 use secp256k1::recovery::{RecoverableSignature, RecoveryId};
 use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
-use common::utility;
+use common::{utility, constants};
 use crate::Result as EthResult;
 use device::device_binding::KEY_MANAGER;
 use common::error::CoinError;
@@ -86,7 +86,7 @@ impl Transaction {
         //prepare apdu
         let msg_prepare = EthApdu::prepare_sign(apdu_pack);
         for msg in msg_prepare {
-            let res = send_apdu(msg);
+            let res = send_apdu_timeout(msg,constants::TIMEOUT_LONG);
             ApduCheck::checke_response(&res)?;
         }
 
@@ -233,7 +233,7 @@ impl Transaction {
         let prepare_apdus = EthApdu::prepare_personal_sign(apdu_pack);
         for apdu in prepare_apdus {
             println!("prepare apdu:{}", &apdu);
-            let res = send_apdu(apdu);
+            let res = send_apdu_timeout(apdu,constants::TIMEOUT_LONG);
             ApduCheck::checke_response(&res)?;
         }
 
