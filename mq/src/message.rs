@@ -157,16 +157,26 @@ pub fn set_apdu_return(apdu_return: *const c_char) {
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 pub fn send_apdu(apdu: String) -> String {
-    hid_api::hid_send(&DEVICE.lock().unwrap(), &apdu)
+    send_apdu_timeout(apdu,20)
+}
+
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+pub fn send_apdu_timeout(apdu: String, timeout: i32) -> String {
+    hid_api::hid_send(&DEVICE.lock().unwrap(), &apdu, timeout)
 }
 
 #[cfg(any(target_os = "android", target_os = "ios"))]
 pub fn send_apdu(apdu: String) -> String {
+    send_apdu_timeout(apdu,20)
+}
+
+#[cfg(any(target_os = "android", target_os = "ios"))]
+pub fn send_apdu_timeout(apdu: String, timeout: i32) -> String {
     // set_apdu_r(apdu);
     // get_apdu_return_r().unwrap()
 
     let callback = CALLBACK.lock().unwrap();
-    let ptr = callback(CString::new(apdu).unwrap().into_raw(),20);
+    let ptr = callback(CString::new(apdu).unwrap().into_raw(),timeout);
     unsafe { CStr::from_ptr(ptr).to_string_lossy().into_owned() }
 }
 

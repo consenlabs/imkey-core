@@ -4,7 +4,7 @@ use common::utility::{sha256_hash, secp256k1_sign};
 use secp256k1::{self, Signature as SecpSignature};
 use bitcoin_hashes::hex::ToHex;
 use common::apdu::{CosmosApdu, ApduCheck};
-use mq::message::send_apdu;
+use mq::message::{send_apdu, send_apdu_timeout};
 use common::constants;
 use crate::address::CosmosAddress;
 use crate::Result;
@@ -139,7 +139,7 @@ impl CosmosTransaction {
 
         for apdu in prepare_apdus {
             println!("prepare_apdu:{}", &apdu);
-            let response = send_apdu(apdu);
+            let response = send_apdu_timeout(apdu,constants::TIMEOUT_LONG);
             ApduCheck::checke_response(&response)?;
         }
 

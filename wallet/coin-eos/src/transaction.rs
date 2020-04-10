@@ -2,10 +2,10 @@ use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::{Hash, ripemd160};
 use bytes::BufMut;
 use common::apdu::{EosApdu, ApduCheck};
-use common::{path, utility};
+use common::{path, utility, constants};
 use mq::message;
 use common::utility::{sha256_hash, secp256k1_sign, secp256k1_sign_hash, retrieve_recid};
-use mq::message::send_apdu;
+use mq::message::{send_apdu, send_apdu_timeout};
 use bitcoin::util::base58;
 use bitcoin::secp256k1::Signature;
 use hex::FromHex;
@@ -87,7 +87,7 @@ impl EosTransaction {
                 let prepare_apdus = EosApdu::prepare_sign(prepare_apdu_data);
                 let mut prepare_result = "".to_string();
                 for prepare_apdu in prepare_apdus {
-                    prepare_result = send_apdu(prepare_apdu);
+                    prepare_result = send_apdu_timeout(prepare_apdu,constants::TIMEOUT_LONG);
                     ApduCheck::checke_response(&prepare_result)?;
                 }
 
@@ -191,7 +191,7 @@ impl EosTransaction {
 
         let mut prepare_response = "".to_string();
         for apdu in prepare_apdus {
-            prepare_response = send_apdu(apdu);
+            prepare_response = send_apdu_timeout(apdu,constants::TIMEOUT_LONG);
             ApduCheck::checke_response(&prepare_response)?;
         }
 

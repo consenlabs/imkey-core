@@ -10,6 +10,8 @@ const char *call_imkey_api(const char *hex_str);
 
 void clear_err(void);
 
+void free_const_string(const char *s);
+
 const char *get_apdu(void);
 
 const char *get_apdu_return(void);
