@@ -115,3 +115,8 @@ pub struct GetSdkInfoRes {
     #[prost(string, tag="1")]
     pub sdk_version: std::string::String,
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeviceModelListRes {
+    #[prost(string, tag="1")]
+    pub device_model_name: std::string::String,
+}

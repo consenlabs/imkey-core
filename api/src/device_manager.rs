@@ -1,14 +1,16 @@
-use device::deviceapi::{AppDownloadReq, AppUpdateReq, AppDeleteReq,
-                       CheckUpdateRes, AvailableAppBean, BindCheckReq, BindCheckRes, BindAcquireReq,
-                       BindAcquireRes, GetSeidRes, GetSnRes, GetRamSizeRes, GetFirmwareVersionRes,
-                       GetBatteryPowerRes, GetLifeTimeRes, GetBleNameRes, SetBleNameReq,
-                       GetBleVersionRes, GetSdkInfoRes, EmptyResponse};
+use device::deviceapi::{AppDownloadReq, AppUpdateReq, AppDeleteReq, CheckUpdateRes, AvailableAppBean,
+                        BindCheckReq, BindCheckRes, BindAcquireReq, BindAcquireRes, GetSeidRes,
+                        GetSnRes, GetRamSizeRes, GetFirmwareVersionRes, GetBatteryPowerRes,
+                        GetLifeTimeRes, GetBleNameRes, SetBleNameReq, GetBleVersionRes, GetSdkInfoRes,
+                        EmptyResponse, DeviceModelListRes};
 use crate::message_handler::encode_message;
 use common::constants;
 use common::applet;
 use prost::Message;
 use device::manager;
 use crate::error_handling::Result;
+use common::constants::DEVICE_MODEL_NAME;
+use mq::hid_api::device_connect as device_conn;
 
 pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppDownloadReq = AppDownloadReq::decode(data).expect("imkey_illegal_param");
@@ -201,4 +203,19 @@ pub fn cos_update() -> Result<Vec<u8>> {
     manager::cos_upgrade()?;
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
+}
+
+pub fn device_model_list() -> Result<Vec<u8>>{
+    let response_msg = DeviceModelListRes {
+        device_model_name: DEVICE_MODEL_NAME.to_string(),
+    };
+    encode_message(response_msg)
+}
+
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+pub fn device_connect() -> Result<Vec<u8>>{
+
+    device_conn()?;
+
+    encode_message(EmptyResponse{})
 }
