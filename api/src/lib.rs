@@ -15,6 +15,7 @@ pub mod ethereum_address;
 pub mod ethereum_signer;
 pub mod usdt_signer;
 pub mod message_handler;
+
 #[macro_use]
 extern crate failure;
 use crate::error_handling::{landingpad, LAST_BACKTRACE, LAST_ERROR};
@@ -85,6 +86,9 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
         "get_sdk_info" => landingpad(|| device_manager::get_sdk_info()),
         #[cfg(any(target_os = "macos", target_os = "windows"))]
         "cos_update" => landingpad(|| device_manager::cos_update()),
+        #[cfg(any(target_os = "macos", target_os = "windows"))]
+        "device_connect" => landingpad(|| device_manager::device_connect()),
+        "device_model_list" => landingpad(|| device_manager::device_model_list()),
 
         // btc
         "btc_tx_sign" => landingpad(|| btc_signer::sign_btc_transaction(&action.param.unwrap().value)),
