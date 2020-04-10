@@ -88,3 +88,4 @@ pub const APDU_BLUETOOTH_CHANNEL_ERROR: &str = "6F01";
 pub const APDU_RSP_SWITCH_BL_STATUS_SUCCESS: &str = "905A";
 
 pub const TIMEOUT_LONG: i32 = 120;
+ pub const DEVICE_MODEL_NAME: &str = "imKey pro";
