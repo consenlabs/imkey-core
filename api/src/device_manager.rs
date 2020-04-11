@@ -10,6 +10,7 @@ use prost::Message;
 use device::manager;
 use crate::error_handling::Result;
 use common::constants::DEVICE_MODEL_NAME;
+#[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::hid_api::device_connect as device_conn;
 
 pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {
