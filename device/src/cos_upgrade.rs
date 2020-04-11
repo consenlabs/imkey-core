@@ -12,7 +12,7 @@ use std::time::Duration;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::hid_api;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
-use mq::hid_api::DEVICE;
+use mq::hid_api::HID_DEVICE;
 
 #[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
@@ -122,11 +122,11 @@ impl CosUpgradeRequest {
                                     constants::APDU_RSP_SWITCH_BL_STATUS_SUCCESS.eq(&res[res.len() -4..])) &&
                                     ("03".eq(next_step_key.as_str()) ||
                                         "05".eq(next_step_key.as_str())) {
-                                    thread::sleep(Duration::from_millis(1000));
-                                    let connect_ret = hid_api::hid_connect()?;
-                                    let mut hid_device_obj = DEVICE.lock().unwrap();
-                                    *hid_device_obj = connect_ret;
-                                    std::mem::drop(hid_device_obj);
+//                                    thread::sleep(Duration::from_millis(1000));
+//                                    let connect_ret = hid_api::hid_connect()?;
+//                                    let mut hid_device_obj = HID_DEVICE.lock().unwrap();
+//                                    *hid_device_obj = connect_ret;
+//                                    std::mem::drop(hid_device_obj);
 
                                 }
                             }

@@ -9,6 +9,7 @@ use std::sync::RwLock;
 use std::thread;
 use std::time::Duration;
 use crate::Result;
+use hid_api::{HID_DEVICE};
 
 lazy_static! {
     pub static ref APDU: RwLock<String> = RwLock::new("".to_string());
@@ -20,10 +21,10 @@ lazy_static! {
     pub static ref TEST:RwLock<String> = RwLock::new("".to_string());
 }
 
-#[cfg(any(target_os = "macos", target_os = "windows"))]
-lazy_static! {
-   pub static ref DEVICE: Mutex<HidDevice> = Mutex::new(hid_api::hid_connect().unwrap());
-}
+//#[cfg(any(target_os = "macos", target_os = "windows"))]
+//lazy_static! {
+//   pub static ref DEVICE: Mutex<HidDevice> = Mutex::new(hid_api::hid_connect().unwrap());
+//}
 
 #[no_mangle]
 pub extern "C" fn default_callback(_apdu: *const c_char, _timeout: i32) -> *const c_char {
@@ -162,7 +163,7 @@ pub fn send_apdu(apdu: String) -> Result<String> {
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 pub fn send_apdu_timeout(apdu: String, timeout: i32) -> Result<String> {
-    hid_api::hid_send(&DEVICE.lock().unwrap(), &apdu, timeout)
+    hid_api::hid_send(&HID_DEVICE.lock().unwrap().get(0).unwrap(), &apdu, timeout)
 }
 
 #[cfg(any(target_os = "android", target_os = "ios"))]
