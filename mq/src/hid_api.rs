@@ -7,21 +7,40 @@ use hidapi::{HidApi, HidDevice};
 use crate::Result;
 use super::error::HidError;
 use crate::message::send_apdu;
+//use std::collections::HashMap;
+
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 lazy_static! {
     pub static ref HID_API: Mutex<HidApi> = Mutex::new(HidApi::new().expect("hid_initialization_error"));
-    pub static ref DEVICE: Mutex<HidDevice> = Mutex::new(hid_connect().expect("device_connect_error"));
+    pub static ref HID_DEVICE: Mutex<Vec<HidDevice>> = Mutex::new(vec![]);
+//    static ref DEVICE_CONN_INFO: HashMap<&'static str, (u16, u16)> = {
+//        let mut device_conn_info_map = HashMap::new();
+//        device_conn_info_map.insert("imKey Pro", (0x096e, 0x0891));
+//        device_conn_info_map
+//    };
 }
 
 //const RETRY_SEC: u64 = 1;
 const DEV_VID: u16 = 0x096e;
 const DEV_PID: u16 = 0x0891;
 
-pub fn hid_send(hid_device: &HidDevice, apdu: &String, timeout: i32) -> Result<String> {
+pub fn hid_send(hid_device: &HidDevice, apdu: &String, timeout: i32) -> Result<String> {//TODO write失败后校验是否是拔掉了设备
     println!("-->{}", apdu);
-    send_device_message(hid_device, Vec::from_hex(apdu.as_str()).unwrap().as_slice())?;
-    let return_data = read_device_response(hid_device, timeout)?;
+    match send_device_message(hid_device, Vec::from_hex(apdu.as_str()).unwrap().as_slice()) {
+        Ok(_val) => (),
+        Err(err) => {
+            is_conn_terminal()?;
+            return Err(err.into());
+        },
+    };
+    let return_data = match read_device_response(hid_device, timeout) {
+        Ok(ret_data) => ret_data,
+        Err(err) => {
+            is_conn_terminal()?;
+            return Err(err.into());
+        },
+    };
     let apdu_response = hex::encode_upper(return_data);
     println!("<--{}", apdu_response.clone());
     Ok(apdu_response)
@@ -125,9 +144,13 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
     Ok(total_written)
 }
 
-pub fn hid_connect() -> Result<HidDevice> {
+pub fn hid_connect(device_model_name: &str) -> Result<()> {
+
+    //Check if the device is connected to the terminal
+    is_conn_terminal()?;
+
     //get hid initialization obj
-    let hid_api = HID_API.lock().unwrap();
+    let mut hid_api = HID_API.lock().unwrap();
 
     //connect device
     match hid_api.open(DEV_VID, DEV_PID) {
@@ -135,19 +158,30 @@ pub fn hid_connect() -> Result<HidDevice> {
             println!("device connected!!!");
 //            first_write_read_device_response(&hid_device);
             drop(hid_api);
-            return Ok(hid_device);
+            let mut hid_device_obj = HID_DEVICE.lock().unwrap();
+            *hid_device_obj = vec![hid_device];
+            drop(hid_device_obj);
+
+            return Ok(());
         }
         Err(err) => {
-            println!("{}", err);
-//            sleep(Duration::from_secs(RETRY_SEC));
+            println!("device connect failed : {}", err);
             drop(hid_api);
-            return Err(err.into());
+            //Check if the connection is normal
+            match send_apdu("00A40400".to_string()) {
+                Ok(_apdu_res) =>{
+                    return Ok(());
+                } ,
+                Err(_err) =>{
+                    return Err(err.into());
+                },
+            }
         }
     };
 }
 
-pub fn device_connect() -> Result<()>{
-    //get hid initialization
+pub fn is_conn_terminal() -> Result<()> {
+    //get hid initialization obj
     let mut hid_api = HID_API.lock().unwrap();
 
     //refresh devices list
@@ -156,48 +190,35 @@ pub fn device_connect() -> Result<()>{
     //check the device is connect
     let mut connect_flg = false;
     for device_info in hid_api.device_list() {
-        if device_info.vendor_id() == DEV_VID && device_info.product_id() == DEV_PID {
+        if device_info.vendor_id() == DEV_VID && device_info.product_id() == DEV_PID{
             connect_flg = true;
             break;
         };
     };
     drop(hid_api);
     if !connect_flg {
+        println!("设备列表没发现设备");
         return Err(HidError::ImkeyDeviceIsNotConnect.into());
     };
-
-    match hid_connect() {
-        Ok(hid_device) => {
-            let mut hid_device_obj = DEVICE.lock().unwrap();
-            *hid_device_obj = hid_device;
-            return Ok(());
-        },
-        Err(e) =>{
-            //Check if the connection is normal
-            match send_apdu("00A40400".to_string()) {
-                Ok(_apdu_res) =>{
-                    return Ok(());
-                } ,
-                Err(_err) =>{
-                    return Err(e.into());
-                },
-            }
-        } ,
-    };
+    Ok(())
 }
-
 
 #[cfg(test)]
 mod test{
     use crate::hid_api;
     use crate::message::send_apdu;
-    use crate::hid_api::{device_connect, hid_connect};
+    use crate::hid_api::{ hid_connect, HID_DEVICE};
 
     #[test]
     fn hid_test(){
 //        let hid_device = hid_api::hid_connect();
 //        hid_api::hid_send(&hid_device, &"00A4040005695F62746300".to_string());
+        hid_connect("imKey Pro");
+        hid_connect("imKey Pro");
         send_apdu("00A4040005695F62746300".to_string());
-        device_connect();
+//        device_connect("imkey pro");
+//        send_apdu("00A4040005695F62746300".to_string());
+//        lazy_static::initialize(&DEVICE);
+//        println!("test");
     }
 }

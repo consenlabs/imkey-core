@@ -116,7 +116,7 @@ pub struct GetSdkInfoRes {
     pub sdk_version: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeviceModelListRes {
+pub struct DeviceConnectReq {
     #[prost(string, tag="1")]
     pub device_model_name: std::string::String,
 }
