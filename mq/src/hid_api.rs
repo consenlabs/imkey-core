@@ -7,6 +7,8 @@ use hidapi::{HidApi, HidDevice};
 use crate::Result;
 use super::error::HidError;
 use crate::message::send_apdu;
+//use regex::internal::Input;
+//use log::kv::Source;
 //use std::collections::HashMap;
 
 
@@ -25,22 +27,18 @@ lazy_static! {
 const DEV_VID: u16 = 0x096e;
 const DEV_PID: u16 = 0x0891;
 
-pub fn hid_send(hid_device: &HidDevice, apdu: &String, timeout: i32) -> Result<String> {//TODO write失败后校验是否是拔掉了设备
+pub fn hid_send(apdu: &String, timeout: i32) -> Result<String> {
+    //get hid_device obj
+    let hid_device_obj: &Vec<HidDevice> = &HID_DEVICE.lock().unwrap();
+    if hid_device_obj.is_empty() {
+        drop(hid_device_obj);
+        return Err(HidError::DeviceConnectInterfaceNotCalled.into());
+    }
+
     println!("-->{}", apdu);
-    match send_device_message(hid_device, Vec::from_hex(apdu.as_str()).unwrap().as_slice()) {
-        Ok(_val) => (),
-        Err(err) => {
-            is_conn_terminal()?;
-            return Err(err.into());
-        },
-    };
-    let return_data = match read_device_response(hid_device, timeout) {
-        Ok(ret_data) => ret_data,
-        Err(err) => {
-            is_conn_terminal()?;
-            return Err(err.into());
-        },
-    };
+    send_device_message(&hid_device_obj.get(0).unwrap(), Vec::from_hex(apdu.as_str()).unwrap().as_slice())?;
+    let return_data = read_device_response(&hid_device_obj.get(0).unwrap(), timeout)?;
+//    drop(hid_device_obj);
     let apdu_response = hex::encode_upper(return_data);
     println!("<--{}", apdu_response.clone());
     Ok(apdu_response)
@@ -69,6 +67,10 @@ fn read_device_response(device: &hidapi::HidDevice, timeout: i32) -> Result<Vec<
     let mut buf = vec![0; 64];
 
     device.read_timeout(&mut buf, 300_000)?;
+    if buf == vec![0;64]{
+        return Err(HidError::DevicePinCodeNoVerify.into());//读数据超时
+    }
+
     let msg_size = (buf[5] as u8 & 0xFF) + (buf[6] as u8 & 0xFF);
     let mut data = Vec::new();
     data.extend_from_slice(&buf[7..]);
@@ -146,11 +148,9 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
 
 pub fn hid_connect(device_model_name: &str) -> Result<()> {
 
-    //Check if the device is connected to the terminal
-    is_conn_terminal()?;
-
     //get hid initialization obj
     let mut hid_api = HID_API.lock().unwrap();
+//    hid_api.refresh_devices()?;
 
     //connect device
     match hid_api.open(DEV_VID, DEV_PID) {
@@ -176,16 +176,24 @@ pub fn hid_connect(device_model_name: &str) -> Result<()> {
                     return Err(err.into());
                 },
             }
+            return Err(err.into());
         }
     };
 }
 
-pub fn is_conn_terminal() -> Result<()> {
+pub fn device_exist_check() -> Result<()> {
     //get hid initialization obj
     let mut hid_api = HID_API.lock().unwrap();
 
     //refresh devices list
-    hid_api.refresh_devices()?;
+    match hid_api.refresh_devices() {
+        Ok(()) => (),
+        Err(err) => {
+          drop(hid_api);
+            return Err(err.into());
+        },
+    }
+//    hid_api.refresh_devices()?;
 
     //check the device is connect
     let mut connect_flg = false;
@@ -197,8 +205,7 @@ pub fn is_conn_terminal() -> Result<()> {
     };
     drop(hid_api);
     if !connect_flg {
-        println!("设备列表没发现设备");
-        return Err(HidError::ImkeyDeviceIsNotConnect.into());
+        return Err(HidError::DeviceIsNotConnectOrNoVerifyPin.into());
     };
     Ok(())
 }
@@ -211,14 +218,25 @@ mod test{
 
     #[test]
     fn hid_test(){
-//        let hid_device = hid_api::hid_connect();
-//        hid_api::hid_send(&hid_device, &"00A4040005695F62746300".to_string());
-        hid_connect("imKey Pro");
-        hid_connect("imKey Pro");
-        send_apdu("00A4040005695F62746300".to_string());
-//        device_connect("imkey pro");
-//        send_apdu("00A4040005695F62746300".to_string());
-//        lazy_static::initialize(&DEVICE);
-//        println!("test");
+
+        let connect_result = hid_connect("imKey Pro");
+        match connect_result {
+            Ok(()) => {
+                match send_apdu("00A4040000".to_string()) {
+                    Ok(val) => (),
+                    Err(e) => println!("{}", e),
+                }
+                match send_apdu("80CB800005DFFF028101".to_string()) {
+                    Ok(val) => (),
+                    Err(e) => println!("{}", e),
+                }
+            },
+            Err(err) => println!("{}", err),
+        }
+        //================================================
+//        match send_apdu("00A4040005695F62746300".to_string()) {
+//            Ok(val) => (),
+//            Err(e) => println!("{}", e),
+//        }
     }
 }
