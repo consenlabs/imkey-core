@@ -12,4 +12,4 @@ hex = "0.3"
 failure = "0.1.6"
 
 [target.'cfg(any(target_os = "macos", target_os = "windows"))'.dependencies]
-hidapi = "1.2.1"
+hidapi = "1.2.0"

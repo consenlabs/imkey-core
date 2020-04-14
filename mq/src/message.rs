@@ -163,7 +163,7 @@ pub fn send_apdu(apdu: String) -> Result<String> {
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 pub fn send_apdu_timeout(apdu: String, timeout: i32) -> Result<String> {
-    hid_api::hid_send(&HID_DEVICE.lock().unwrap().get(0).unwrap(), &apdu, timeout)
+    hid_api::hid_send(&apdu, timeout)
 }
 
 #[cfg(any(target_os = "android", target_os = "ios"))]
