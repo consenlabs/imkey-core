@@ -12,7 +12,7 @@ use std::time::Duration;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::hid_api;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
-use mq::hid_api::{HID_DEVICE, hid_connect};
+use mq::hid_api::{hid_connect};
 
 #[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
@@ -173,15 +173,14 @@ impl CosUpgradeRequest {
 
 //reconnect device
 fn reconnect() -> Result<()>{
-    thread::sleep(Duration::from_millis(5000));
+    thread::sleep(Duration::from_millis(1000));
 
     for _i in (0..5) {
         if hid_connect(DEVICE_MODEL_NAME).is_ok() {
             return Ok(());
         }
-        thread::sleep(Duration::from_millis(2000));
+        thread::sleep(Duration::from_millis(1000));
         continue;
-
     };
 
     Err(ImkeyError::ImkeyDeviceReconnectFail.into())

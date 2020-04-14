@@ -44,7 +44,6 @@ pub fn hid_send(apdu: &String, timeout: i32) -> Result<String> {
     Ok(apdu_response)
 }
 
-#[allow(dead_code)]
 fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<Vec<u8>> {
     let first_send_cmd: [u8; 8] = [0x00, 0x00, 0x00, 0x00, 0x01, 0x86, 0x00, 0x00];
     let mut send_first_data_string = String::new();
@@ -68,7 +67,7 @@ fn read_device_response(device: &hidapi::HidDevice, timeout: i32) -> Result<Vec<
 
     device.read_timeout(&mut buf, 300_000)?;
     if buf == vec![0;64]{
-        return Err(HidError::DevicePinCodeNoVerify.into());//读数据超时
+        return Err(HidError::DeviceDataReadTimeOut.into());//读数据超时
     }
 
     let msg_size = (buf[5] as u8 & 0xFF) + (buf[6] as u8 & 0xFF);
@@ -146,17 +145,16 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
     Ok(total_written)
 }
 
-pub fn hid_connect(device_model_name: &str) -> Result<()> {
+pub fn hid_connect(_device_model_name: &str) -> Result<()> {
 
     //get hid initialization obj
-    let mut hid_api = HID_API.lock().unwrap();
-//    hid_api.refresh_devices()?;
+    let hid_api = HID_API.lock().unwrap();
 
     //connect device
     match hid_api.open(DEV_VID, DEV_PID) {
         Ok(hid_device) => {
             println!("device connected!!!");
-//            first_write_read_device_response(&hid_device);
+            first_write_read_device_response(&hid_device);
             drop(hid_api);
             let mut hid_device_obj = HID_DEVICE.lock().unwrap();
             *hid_device_obj = vec![hid_device];

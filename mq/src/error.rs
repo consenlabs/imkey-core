@@ -4,6 +4,6 @@ pub enum HidError {
     DeviceIsNotConnectOrNoVerifyPin,
     #[fail(display = "device_connect_interface_not_called")]
     DeviceConnectInterfaceNotCalled,
-    #[fail(display = "device_pin_code_no_verify")]
-    DevicePinCodeNoVerify,
+    #[fail(display = "device_data_read_time_out")]
+    DeviceDataReadTimeOut,
 }
