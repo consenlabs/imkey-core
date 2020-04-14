@@ -89,3 +89,7 @@ message GetBleVersionRes {
 message GetSdkInfoRes {
     string sdk_version = 1;
 }
+
+message DeviceConnectReq {
+    string device_model_name = 1;
+}
