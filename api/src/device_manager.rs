@@ -5,6 +5,7 @@ use common::applet;
 use prost::Message;
 use device::manager;
 use crate::error_handling::Result;
+#[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::hid_api::hid_connect;
 
 pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {
