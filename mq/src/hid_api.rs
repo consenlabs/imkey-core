@@ -34,7 +34,6 @@ pub fn hid_send(apdu: &String, timeout: i32) -> Result<String> {
         drop(hid_device_obj);
         return Err(HidError::DeviceConnectInterfaceNotCalled.into());
     }
-
     println!("-->{}", apdu);
     send_device_message(&hid_device_obj.get(0).unwrap(), Vec::from_hex(apdu.as_str()).unwrap().as_slice())?;
     let return_data = read_device_response(&hid_device_obj.get(0).unwrap(), timeout)?;
@@ -89,10 +88,6 @@ fn read_device_response(device: &hidapi::HidDevice, timeout: i32) -> Result<Vec<
 }
 
 fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> {
-    let mut send_data_string = String::new();
-    for u in &msg[..msg.len()] {
-        send_data_string.push_str((format!("{:02X}", u)).as_ref());
-    }
 
     let msg_size = msg.len();
     let mut headerdata = Vec::new();
@@ -113,23 +108,22 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
         let mut datalenflage = 0;
         let mut flg = 0;
         loop {
-            if msg_size - datalenflage < 65 - 8 {
-                data.extend_from_slice(&headerdata[0..5]);
-                data.push(flg as u8);
-                data.extend_from_slice(&msg[datalenflage..msg_size]);
-                break;
-            } else {
-                if !(datalenflage == 0) {
+            if !(datalenflage == 0) {
+                if datalenflage + 65 - 6 >msg_size {
                     data.extend_from_slice(&headerdata[0..5]);
                     data.push(flg as u8);
-                    flg = 1 + flg;
-                    data.extend_from_slice(&msg[datalenflage..datalenflage + 65 - 6]);
-                    datalenflage += 65 - 6;
-                } else {
-                    data.extend_from_slice(&headerdata[0..8]);
-                    data.extend_from_slice(&msg[datalenflage..65 - 8]);
-                    datalenflage += 65 - 8;
+                    data.extend_from_slice(&msg[datalenflage..msg_size]);
+                    break;
                 }
+                data.extend_from_slice(&headerdata[0..5]);
+                data.push(flg as u8);
+                flg = 1 + flg;
+                data.extend_from_slice(&msg[datalenflage..datalenflage + 65 - 6]);
+                datalenflage += 65 - 6;
+            } else {
+                data.extend_from_slice(&headerdata[0..8]);
+                data.extend_from_slice(&msg[datalenflage..65 - 8]);
+                datalenflage += 65 - 8;
             }
         }
     }
@@ -191,8 +185,7 @@ pub fn device_exist_check() -> Result<()> {
             return Err(err.into());
         },
     }
-//    hid_api.refresh_devices()?;
-
+    hid_api.refresh_devices()?;
     //check the device is connect
     let mut connect_flg = false;
     for device_info in hid_api.device_list() {
