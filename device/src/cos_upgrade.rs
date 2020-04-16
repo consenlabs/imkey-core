@@ -10,8 +10,6 @@ use crate::error::ImkeyError;
 use std::thread;
 use std::time::Duration;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
-use mq::hid_api;
-#[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::hid_api::{hid_connect};
 
 #[allow(non_snake_case)]
@@ -175,7 +173,7 @@ impl CosUpgradeRequest {
 fn reconnect() -> Result<()>{
     thread::sleep(Duration::from_millis(1000));
 
-    for _i in (0..5) {
+    for _ in 0..5 {
         if hid_connect(DEVICE_MODEL_NAME).is_ok() {
             return Ok(());
         }

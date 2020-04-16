@@ -148,7 +148,7 @@ pub fn hid_connect(_device_model_name: &str) -> Result<()> {
     match hid_api.open(DEV_VID, DEV_PID) {
         Ok(hid_device) => {
             println!("device connected!!!");
-            first_write_read_device_response(&hid_device);
+            first_write_read_device_response(&hid_device)?;
             drop(hid_api);
             let mut hid_device_obj = HID_DEVICE.lock().unwrap();
             *hid_device_obj = vec![hid_device];
@@ -168,7 +168,6 @@ pub fn hid_connect(_device_model_name: &str) -> Result<()> {
                     return Err(err.into());
                 },
             }
-            return Err(err.into());
         }
     };
 }
