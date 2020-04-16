@@ -1,7 +1,5 @@
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use super::hid_api;
-#[cfg(any(target_os = "macos", target_os = "windows"))]
-use hidapi::HidDevice;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 use std::sync::Mutex;
@@ -9,8 +7,6 @@ use std::sync::RwLock;
 use std::thread;
 use std::time::Duration;
 use crate::Result;
-#[cfg(any(target_os = "macos", target_os = "windows"))]
-use hid_api::{HID_DEVICE};
 
 lazy_static! {
     pub static ref APDU: RwLock<String> = RwLock::new("".to_string());
