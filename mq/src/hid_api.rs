@@ -7,6 +7,8 @@ use hidapi::{HidApi, HidDevice};
 use crate::Result;
 use super::error::HidError;
 use crate::message::send_apdu;
+//use regex::internal::Input;
+//use log::kv::Source;
 //use std::collections::HashMap;
 
 
@@ -25,28 +27,22 @@ lazy_static! {
 const DEV_VID: u16 = 0x096e;
 const DEV_PID: u16 = 0x0891;
 
-pub fn hid_send(hid_device: &HidDevice, apdu: &String, timeout: i32) -> Result<String> {//TODO write失败后校验是否是拔掉了设备
+pub fn hid_send(apdu: &String, timeout: i32) -> Result<String> {
+    //get hid_device obj
+    let hid_device_obj: &Vec<HidDevice> = &HID_DEVICE.lock().unwrap();
+    if hid_device_obj.is_empty() {
+        drop(hid_device_obj);
+        return Err(HidError::DeviceConnectInterfaceNotCalled.into());
+    }
     println!("-->{}", apdu);
-    match send_device_message(hid_device, Vec::from_hex(apdu.as_str()).unwrap().as_slice()) {
-        Ok(_val) => (),
-        Err(err) => {
-            is_conn_terminal()?;
-            return Err(err.into());
-        },
-    };
-    let return_data = match read_device_response(hid_device, timeout) {
-        Ok(ret_data) => ret_data,
-        Err(err) => {
-            is_conn_terminal()?;
-            return Err(err.into());
-        },
-    };
+    send_device_message(&hid_device_obj.get(0).unwrap(), Vec::from_hex(apdu.as_str()).unwrap().as_slice())?;
+    let return_data = read_device_response(&hid_device_obj.get(0).unwrap(), timeout)?;
+//    drop(hid_device_obj);
     let apdu_response = hex::encode_upper(return_data);
     println!("<--{}", apdu_response.clone());
     Ok(apdu_response)
 }
 
-#[allow(dead_code)]
 fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<Vec<u8>> {
     let first_send_cmd: [u8; 8] = [0x00, 0x00, 0x00, 0x00, 0x01, 0x86, 0x00, 0x00];
     let mut send_first_data_string = String::new();
@@ -69,6 +65,10 @@ fn read_device_response(device: &hidapi::HidDevice, timeout: i32) -> Result<Vec<
     let mut buf = vec![0; 64];
 
     device.read_timeout(&mut buf, 300_000)?;
+    if buf == vec![0;64]{
+        return Err(HidError::DeviceDataReadTimeOut.into());//读数据超时
+    }
+
     let msg_size = (buf[5] as u8 & 0xFF) + (buf[6] as u8 & 0xFF);
     let mut data = Vec::new();
     data.extend_from_slice(&buf[7..]);
@@ -88,10 +88,6 @@ fn read_device_response(device: &hidapi::HidDevice, timeout: i32) -> Result<Vec<
 }
 
 fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> {
-    let mut send_data_string = String::new();
-    for u in &msg[..msg.len()] {
-        send_data_string.push_str((format!("{:02X}", u)).as_ref());
-    }
 
     let msg_size = msg.len();
     let mut headerdata = Vec::new();
@@ -112,23 +108,22 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
         let mut datalenflage = 0;
         let mut flg = 0;
         loop {
-            if msg_size - datalenflage < 65 - 8 {
-                data.extend_from_slice(&headerdata[0..5]);
-                data.push(flg as u8);
-                data.extend_from_slice(&msg[datalenflage..msg_size]);
-                break;
-            } else {
-                if !(datalenflage == 0) {
+            if !(datalenflage == 0) {
+                if datalenflage + 65 - 6 >msg_size {
                     data.extend_from_slice(&headerdata[0..5]);
                     data.push(flg as u8);
-                    flg = 1 + flg;
-                    data.extend_from_slice(&msg[datalenflage..datalenflage + 65 - 6]);
-                    datalenflage += 65 - 6;
-                } else {
-                    data.extend_from_slice(&headerdata[0..8]);
-                    data.extend_from_slice(&msg[datalenflage..65 - 8]);
-                    datalenflage += 65 - 8;
+                    data.extend_from_slice(&msg[datalenflage..msg_size]);
+                    break;
                 }
+                data.extend_from_slice(&headerdata[0..5]);
+                data.push(flg as u8);
+                flg = 1 + flg;
+                data.extend_from_slice(&msg[datalenflage..datalenflage + 65 - 6]);
+                datalenflage += 65 - 6;
+            } else {
+                data.extend_from_slice(&headerdata[0..8]);
+                data.extend_from_slice(&msg[datalenflage..65 - 8]);
+                datalenflage += 65 - 8;
             }
         }
     }
@@ -144,19 +139,16 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
     Ok(total_written)
 }
 
-pub fn hid_connect(device_model_name: &str) -> Result<()> {
-
-    //Check if the device is connected to the terminal
-    is_conn_terminal()?;
+pub fn hid_connect(_device_model_name: &str) -> Result<()> {
 
     //get hid initialization obj
-    let mut hid_api = HID_API.lock().unwrap();
+    let hid_api = HID_API.lock().unwrap();
 
     //connect device
     match hid_api.open(DEV_VID, DEV_PID) {
         Ok(hid_device) => {
             println!("device connected!!!");
-//            first_write_read_device_response(&hid_device);
+            first_write_read_device_response(&hid_device)?;
             drop(hid_api);
             let mut hid_device_obj = HID_DEVICE.lock().unwrap();
             *hid_device_obj = vec![hid_device];
@@ -180,13 +172,19 @@ pub fn hid_connect(device_model_name: &str) -> Result<()> {
     };
 }
 
-pub fn is_conn_terminal() -> Result<()> {
+pub fn device_exist_check() -> Result<()> {
     //get hid initialization obj
     let mut hid_api = HID_API.lock().unwrap();
 
     //refresh devices list
+    match hid_api.refresh_devices() {
+        Ok(()) => (),
+        Err(err) => {
+          drop(hid_api);
+            return Err(err.into());
+        },
+    }
     hid_api.refresh_devices()?;
-
     //check the device is connect
     let mut connect_flg = false;
     for device_info in hid_api.device_list() {
@@ -197,8 +195,7 @@ pub fn is_conn_terminal() -> Result<()> {
     };
     drop(hid_api);
     if !connect_flg {
-        println!("设备列表没发现设备");
-        return Err(HidError::ImkeyDeviceIsNotConnect.into());
+        return Err(HidError::DeviceIsNotConnectOrNoVerifyPin.into());
     };
     Ok(())
 }
@@ -211,14 +208,25 @@ mod test{
 
     #[test]
     fn hid_test(){
-//        let hid_device = hid_api::hid_connect();
-//        hid_api::hid_send(&hid_device, &"00A4040005695F62746300".to_string());
-        hid_connect("imKey Pro");
-        hid_connect("imKey Pro");
-        send_apdu("00A4040005695F62746300".to_string());
-//        device_connect("imkey pro");
-//        send_apdu("00A4040005695F62746300".to_string());
-//        lazy_static::initialize(&DEVICE);
-//        println!("test");
+
+        let connect_result = hid_connect("imKey Pro");
+        match connect_result {
+            Ok(()) => {
+                match send_apdu("00A4040000".to_string()) {
+                    Ok(val) => (),
+                    Err(e) => println!("{}", e),
+                }
+                match send_apdu("80CB800005DFFF028101".to_string()) {
+                    Ok(val) => (),
+                    Err(e) => println!("{}", e),
+                }
+            },
+            Err(err) => println!("{}", err),
+        }
+        //================================================
+//        match send_apdu("00A4040005695F62746300".to_string()) {
+//            Ok(val) => (),
+//            Err(e) => println!("{}", e),
+//        }
     }
 }

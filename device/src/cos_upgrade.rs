@@ -1,4 +1,4 @@
-use common::constants::{TSM_ACTION_COS_UPGRADE, TSM_RETURN_CODE_SUCCESS, TSM_END_FLAG};
+use common::constants::{TSM_ACTION_COS_UPGRADE, TSM_RETURN_CODE_SUCCESS, TSM_END_FLAG, DEVICE_MODEL_NAME};
 use common::{https, constants};
 use serde::{Deserialize, Serialize};
 use mq::message::{send_apdu};
@@ -10,9 +10,7 @@ use crate::error::ImkeyError;
 use std::thread;
 use std::time::Duration;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
-use mq::hid_api;
-#[cfg(any(target_os = "macos", target_os = "windows"))]
-use mq::hid_api::HID_DEVICE;
+use mq::hid_api::{hid_connect};
 
 #[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
@@ -127,7 +125,7 @@ impl CosUpgradeRequest {
 //                                    let mut hid_device_obj = HID_DEVICE.lock().unwrap();
 //                                    *hid_device_obj = connect_ret;
 //                                    std::mem::drop(hid_device_obj);
-
+                                    reconnect()?;
                                 }
                             }
                         }
@@ -171,14 +169,35 @@ impl CosUpgradeRequest {
     }
 }
 
+//reconnect device
+fn reconnect() -> Result<()>{
+    thread::sleep(Duration::from_millis(1000));
+
+    for _ in 0..5 {
+        if hid_connect(DEVICE_MODEL_NAME).is_ok() {
+            return Ok(());
+        }
+        thread::sleep(Duration::from_millis(1000));
+        continue;
+    };
+
+    Err(ImkeyError::ImkeyDeviceReconnectFail.into())
+}
+
 #[cfg(test)]
 mod tests {
     use crate::cos_upgrade::CosUpgradeRequest;
     use std::collections::HashMap;
+    use mq::hid_api::hid_connect;
+    use mq::message::send_apdu;
 
     #[test]
     fn cos_upgrade_test() {
-        let upgrade_result = CosUpgradeRequest::cos_upgrade(None);
-        println!("test result -->{}", upgrade_result.is_ok());
+        hid_connect("imKey Pro");
+        send_apdu("00a4040000".to_string());
+        match CosUpgradeRequest::cos_upgrade(None) {
+            Ok(()) => println!("COS upgrade success!"),
+            Err(e) => println!("{}", e),
+        };
     }
 }
