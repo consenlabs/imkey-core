@@ -179,7 +179,29 @@ pub fn send_apdu_timeout(apdu: String, timeout: i32) -> Result<String> {
 
     let callback = CALLBACK.lock().unwrap();
     let ptr = callback(CString::new(apdu).unwrap().into_raw(),timeout);
-    unsafe { Ok(CStr::from_ptr(ptr).to_string_lossy().into_owned()) }
+
+    // let mut res = unsafe { Ok(CStr::from_ptr(ptr).to_string_lossy().into_owned()) }?;
+    // let prefix = "communication_error_";
+    // if res.starts_with(prefix){
+    //     let error = &res[..prefix.len()-1];
+    //     return Err(format_err!("{}", error))
+    // }else {
+    //     return Ok(res)
+    // }
+
+
+    unsafe {
+        let res = CStr::from_ptr(ptr).to_string_lossy().into_owned();
+        let prefix = "communication_error_";
+        return if res.starts_with(prefix) {
+            let error = &res[prefix.len()..];
+            println!("{}", error);
+            Err(format_err!("{}", error))
+        } else {
+            println!("{}", res);
+            Ok(res)
+        }
+    }
 }
 
 #[test]

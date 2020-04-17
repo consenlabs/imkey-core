@@ -177,9 +177,9 @@
 				D865E99422DF03B300866879 /* EOSViewController.swift */,
 				D865E99622DF048100866879 /* CosmosViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
+				607FACD31AFB9204008FA782 /* Supporting Files */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
-				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
 			name = "Example for imKeyConnector";
 			path = imKeyConnector;
