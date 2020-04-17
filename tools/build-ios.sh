@@ -8,6 +8,10 @@ fi
 cargo lipo --release --targets aarch64-apple-ios,x86_64-apple-ios # for debug
 cbindgen src/lib.rs -l c > ../target/connector.h
 
-cp ../target/universal/release/libconnector.a ../ios/imKeyConnector/Classes/include/libconnector.a
-cp ../target/connector.h ../ios/imKeyConnector/Classes/include/connector.h
+#cp ../target/universal/release/libconnector.a ../ios/imKeyConnector/Classes/include/libconnector.a
+#cp ../target/connector.h ../ios/imKeyConnector/Classes/include/connector.h
+
+
+cp ../target/universal/release/libconnector.a ../examples/ios/iosExample/include/libconnector.a
+cp ../target/connector.h ../examples/ios/iosExample/include/connector.h
 popd

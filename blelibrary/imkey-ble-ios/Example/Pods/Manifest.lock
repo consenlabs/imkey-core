@@ -1,0 +1,35 @@
+PODS:
+  - CryptoSwift (1.3.0)
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - GRKOpenSSLFramework (1.0.2.19)
+  - imKeyConnector (0.1.0):
+    - CryptoSwift (~> 1.3)
+    - GRKOpenSSLFramework
+
+DEPENDENCIES:
+  - FBSnapshotTestCase (~> 2.1.4)
+  - imKeyConnector (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - CryptoSwift
+    - FBSnapshotTestCase
+    - GRKOpenSSLFramework
+
+EXTERNAL SOURCES:
+  imKeyConnector:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CryptoSwift: 1283821600233bdbeb96d7b389c3288c3bf77211
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  GRKOpenSSLFramework: 4abc733a8fcbc37060619a86a54202d2938dd70e
+  imKeyConnector: 64d704cd49ccc2576583692e91a1822ee3a54307
+
+PODFILE CHECKSUM: 9b48a2091ec3fb39b9fdd25fb4dbf285b0429fd3
+
+COCOAPODS: 1.7.0
