@@ -170,6 +170,7 @@ impl CosUpgradeRequest {
 }
 
 //reconnect device
+#[cfg(any(target_os = "macos", target_os = "windows"))]
 fn reconnect() -> Result<()>{
     thread::sleep(Duration::from_millis(1000));
 
