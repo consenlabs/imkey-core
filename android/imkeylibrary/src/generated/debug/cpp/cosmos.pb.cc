@@ -328,7 +328,6 @@ void protobuf_InitDefaults_cosmos_2eproto_impl() {
   ::google::protobuf::internal::GetEmptyString();
   MsgValue_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
-  ::google::protobuf::internal::GetEmptyString();
   MsgDelegateValue_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
   MsgSendValue_default_instance_.DefaultConstruct();

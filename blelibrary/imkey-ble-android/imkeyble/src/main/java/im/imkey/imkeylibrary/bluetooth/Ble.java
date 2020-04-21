@@ -1,5 +1,9 @@
 package im.imkey.imkeylibrary.bluetooth;
 
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.util.Log;
 
@@ -281,5 +285,14 @@ public class Ble {
 
     public Context getContext() {
         return mContext;
+    }
+
+    private boolean isBluetoothDeviceConnected(BluetoothDevice device) {
+        BluetoothManager bluetoothManager = (BluetoothManager) mContext.getSystemService(Context.BLUETOOTH_SERVICE);
+        if (bluetoothManager == null) {
+            return false;
+        }
+        int state = bluetoothManager.getConnectionState(device, BluetoothGatt.GATT);
+        return state == BluetoothProfile.STATE_CONNECTED;
     }
 }
