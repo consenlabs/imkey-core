@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: __local_aars__:/Users/joe/work/rust_proj/imkey-core/blelibrary/imkey-ble-android/imkeyble/libs/ftBTKey_Api.jar:unspecified@jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../blelibrary/imkey-ble-android/imkeyble/libs/ftBTKey_Api.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
