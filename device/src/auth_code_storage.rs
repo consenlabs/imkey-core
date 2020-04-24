@@ -3,6 +3,7 @@ use common::https;
 use serde::{Deserialize, Serialize};
 use crate::Result;
 use crate::error::ImkeyError;
+use crate::ServiceResponse;
 
 #[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
@@ -13,14 +14,6 @@ pub struct AuthCodeStorageRequest {
     pub statusWord: Option<String>,
     pub commandID: String,
     pub cardRetDataList: Option<Vec<String>>,
-}
-
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
-pub struct ServiceResponse {
-    pub _ReturnCode: String,
-    pub _ReturnMsg: String,
-    pub _ReturnData: AuthCodeStorageResponse,
 }
 
 #[allow(non_snake_case)]
@@ -47,7 +40,7 @@ impl AuthCodeStorageRequest {
         println!("请求报文：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
         let response_data = https::post(TSM_ACTION_AUTHCODE_STORAGE, req_data)?;
-        let return_bean: ServiceResponse = serde_json::from_str(response_data.as_str())?;
+        let return_bean: ServiceResponse<AuthCodeStorageResponse> = serde_json::from_str(response_data.as_str())?;
         println!("反馈报文：{:#?}", return_bean);
         if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
             return Ok(());

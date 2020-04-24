@@ -3,6 +3,7 @@ use common::https;
 use serde::{Deserialize, Serialize};
 use crate::Result;
 use crate::error::ImkeyError;
+use crate::ServiceResponse;
 
 #[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
@@ -14,14 +15,6 @@ pub struct SeQueryRequest {
     pub statusWord: Option<String>,
     pub commandID: String,
     pub cardRetDataList: Option<Vec<String>>,
-}
-
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
-pub struct ServiceResponse {
-    pub _ReturnCode: String,
-    pub _ReturnMsg: String,
-    pub _ReturnData: SeQueryResponse,
 }
 
 #[allow(non_snake_case)]
@@ -62,11 +55,11 @@ impl SeQueryRequest {
         }
     }
 
-    pub fn se_query(&mut self) -> Result<ServiceResponse> {
+    pub fn se_query(&mut self) -> Result<ServiceResponse<SeQueryResponse>> {
         println!("请求报文：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
         let response_data = https::post(constants::TSM_ACTION_SE_QUERY, req_data)?;
-        let return_bean: ServiceResponse = serde_json::from_str(response_data.as_str())?;
+        let return_bean: ServiceResponse<SeQueryResponse> = serde_json::from_str(response_data.as_str())?;
         println!("反馈报文：{:#?}", return_bean);
 
         match return_bean._ReturnCode.as_str() {

@@ -4,6 +4,7 @@ use mq::message;
 use serde::{Deserialize, Serialize};
 use crate::Result;
 use crate::error::ImkeyError;
+use crate::ServiceResponse;
 
 #[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
@@ -15,14 +16,6 @@ pub struct AppDeleteRequest {
     pub statusWord: Option<String>,
     pub commandID: String,
     pub cardRetDataList: Option<Vec<String>>,
-}
-
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
-pub struct ServiceResponse {
-    pub _ReturnCode: String,
-    pub _ReturnMsg: String,
-    pub _ReturnData: AppDeleteResponse,
 }
 
 #[allow(non_snake_case)]
@@ -56,7 +49,7 @@ impl AppDeleteRequest {
             println!("请求报文：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
             let response_data = https::post(constants::TSM_ACTION_APP_DELETE, req_data)?;
-            let return_bean: ServiceResponse = serde_json::from_str(response_data.as_str())?;
+            let return_bean: ServiceResponse<AppDeleteResponse> = serde_json::from_str(response_data.as_str())?;
             println!("反馈报文：{:#?}", return_bean);
             if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //判断步骤key是否已经结束

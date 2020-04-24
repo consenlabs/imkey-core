@@ -1,6 +1,6 @@
 use super::app_update;
 use super::se_activate;
-use super::se_query::{SeQueryRequest, ServiceResponse};
+use super::se_query::{SeQueryRequest};
 use super::se_secure_check::SeSecureCheckRequest;
 use crate::app_delete::AppDeleteRequest;
 use crate::app_download::AppDownloadRequest;
@@ -10,9 +10,11 @@ use common::constants;
 use common::applet;
 use mq::message::send_apdu;
 use se_activate::SeActivateRequest;
-use common::apdu::Apdu;
+use common::apdu::{Apdu, ApduCheck};
 use crate::Result;
 use crate::device_binding::DeviceManage;
+use crate::ServiceResponse;
+use crate::se_query::SeQueryResponse;
 
 pub fn get_se_id() -> Result<String> {
     send_apdu("00A4040000".to_string())?;
@@ -76,6 +78,7 @@ pub fn get_ble_version() -> Result<String> {
 pub fn get_cert() -> Result<String> {
     send_apdu("00A4040000".to_string())?;
     let res = send_apdu("80CABF2106A6048302151800".to_string())?;
+    ApduCheck::checke_response(&res)?;
     Ok(res.chars().take(res.len() - 4).collect())
 }
 
@@ -93,7 +96,7 @@ pub fn active_device() -> Result<()>{
     SeActivateRequest::build_request_data(seid, sn, device_cert).se_activate()
 }
 
-pub fn check_update() -> Result<ServiceResponse>  {
+pub fn check_update() -> Result<ServiceResponse<SeQueryResponse>>  {
     let seid: String = get_se_id().ok().unwrap();
     let sn: String = get_sn().ok().unwrap();
     let sdk_version = Some(constants::VERSION.to_string());
