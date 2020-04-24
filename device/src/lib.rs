@@ -21,6 +21,15 @@ pub mod error;
 extern crate failure;
 use core::result;
 pub type Result<T> = result::Result<T, failure::Error>;
+use serde::{Deserialize, Serialize};
+
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ServiceResponse<T> {
+    pub _ReturnCode: String,
+    pub _ReturnMsg: String,
+    pub _ReturnData: T,
+}
 
 #[cfg(test)]
 mod tests {

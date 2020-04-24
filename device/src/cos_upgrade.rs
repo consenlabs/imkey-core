@@ -11,6 +11,7 @@ use std::thread;
 use std::time::Duration;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::hid_api::{hid_connect};
+use crate::ServiceResponse;
 
 #[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
@@ -24,14 +25,6 @@ pub struct CosUpgradeRequest {
     pub statusWord: Option<String>,
     pub commandID: String,
     pub cardRetDataList: Option<Vec<String>>,
-}
-
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
-pub struct ServiceResponse {
-    pub _ReturnCode: String,
-    pub _ReturnMsg: String,
-    pub _ReturnData: CosUpgradeResponse,
 }
 
 #[allow(non_snake_case)]
@@ -98,7 +91,7 @@ impl CosUpgradeRequest {
             println!("请求报文：{:#?}", request_data);
             let req_data = serde_json::to_vec_pretty(&request_data).unwrap();
             let response_data = https::post(TSM_ACTION_COS_UPGRADE, req_data)?;
-            let return_bean: ServiceResponse = serde_json::from_str(response_data.as_str())?;
+            let return_bean: ServiceResponse<CosUpgradeResponse> = serde_json::from_str(response_data.as_str())?;
             println!("反馈报文：{:#?}", return_bean);
             if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
                 //判断步骤key是否已经结束
@@ -120,11 +113,6 @@ impl CosUpgradeRequest {
                                     constants::APDU_RSP_SWITCH_BL_STATUS_SUCCESS.eq(&res[res.len() -4..])) &&
                                     ("03".eq(next_step_key.as_str()) ||
                                         "05".eq(next_step_key.as_str())) {
-//                                    thread::sleep(Duration::from_millis(1000));
-//                                    let connect_ret = hid_api::hid_connect()?;
-//                                    let mut hid_device_obj = HID_DEVICE.lock().unwrap();
-//                                    *hid_device_obj = connect_ret;
-//                                    std::mem::drop(hid_device_obj);
                                     reconnect()?;
                                 }
                             }

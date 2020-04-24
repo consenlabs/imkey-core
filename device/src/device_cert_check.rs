@@ -2,6 +2,7 @@ use common::https;
 use serde::{Deserialize, Serialize};
 use crate::Result;
 use crate::error::ImkeyError;
+use crate::ServiceResponse;
 use common::constants::{TSM_ACTION_DEVICE_CERT_CHECK, TSM_RETURN_CODE_SUCCESS,
                         TSM_RETURNCODE_DEVICE_CHECK_FAIL, TSM_RETURNCODE_DEV_INACTIVATED,
                         TSM_RETURNCODE_DEVICE_ILLEGAL, TSM_RETURNCODE_DEVICE_STOP_USING};
@@ -17,15 +18,6 @@ pub struct DeviceCertCheckRequest {
     pub statusWord: Option<String>,
     pub commandID: String,
     pub cardRetDataList: Option<Vec<String>>,
-}
-
-//SE安全检查接口
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
-pub struct ServiceResponse {
-    pub _ReturnCode: String,
-    pub _ReturnMsg: String,
-    pub _ReturnData: DeviceCertCheckResponse,
 }
 
 #[allow(non_snake_case)]
@@ -58,7 +50,7 @@ impl DeviceCertCheckRequest {
         println!("请求报文：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
         let response_data = https::post(TSM_ACTION_DEVICE_CERT_CHECK, req_data)?;
-        let return_bean: ServiceResponse = serde_json::from_str(response_data.as_str())?;
+        let return_bean: ServiceResponse<DeviceCertCheckResponse> = serde_json::from_str(response_data.as_str())?;
         println!("返回报文：{:#?}", return_bean);
 
         match return_bean._ReturnCode.as_str() {
