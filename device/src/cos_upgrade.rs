@@ -5,7 +5,7 @@ use mq::message::{send_apdu};
 use crate::manager::{get_se_id, get_sn, get_firmware_version, get_cert};
 use common::utility::hex_to_bytes;
 use crate::app_download::AppDownloadRequest;
-use crate::Result;
+use crate::{Result, TsmService};
 use crate::error::ImkeyError;
 use std::thread;
 use std::time::Duration;
@@ -129,7 +129,7 @@ impl CosUpgradeRequest {
                                 AppDownloadRequest::build_request_data(seid.clone(),
                                                                          temp_instance_aid.clone(),
                                                                          device_cert.clone(),
-                                                                         sdk_version.clone()).app_download()?;
+                                                                         sdk_version.clone()).send_message()?;
                             }
                         },
                         None => (),
@@ -179,6 +179,7 @@ mod tests {
     use std::collections::HashMap;
     use mq::hid_api::hid_connect;
     use mq::message::send_apdu;
+    use crate::TsmService;
 
     #[test]
     fn cos_upgrade_test() {

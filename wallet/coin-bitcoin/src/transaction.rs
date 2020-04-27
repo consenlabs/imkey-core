@@ -18,7 +18,8 @@ use bitcoin::util::psbt::serialize::Serialize;
 use device::device_binding::{KEY_MANAGER};
 use common::path::check_path_validity;
 use crate::Result;
-use crate::btc::{get_address, get_segwit_address};
+//use crate::btc::{get_address, get_segwit_address};
+use crate::address::BtcAddress;
 
 #[derive(Clone)]
 pub struct Utxo {
@@ -89,7 +90,7 @@ impl BtcTransaction {
         //add change output
         if self.get_change_amount() > DUST_THRESHOLD {
             let path_temp = format!("{}{}{}", path_str, "1/", change_idx);
-            let address_str = get_address(network, path_temp.as_str())?;
+            let address_str = BtcAddress::get_address(network, path_temp.as_str())?;
             let address_obj = Address::from_str(address_str.as_str())?;
             txouts.push(TxOut {
                 value: self.get_change_amount() as u64,
@@ -261,7 +262,7 @@ impl BtcTransaction {
         //add change output
         if self.get_change_amount() > DUST_THRESHOLD {
             let path_temp = format!("{}{}{}", path_str, "1/", change_idx);
-            let address_str = get_segwit_address(network, path_temp.as_str())?;
+            let address_str = BtcAddress::get_segwit_address(network, path_temp.as_str())?;
             let address_obj = Address::from_str(address_str.as_str())?;
             txouts.push(TxOut {
                 value: self.get_change_amount() as u64,
@@ -500,6 +501,7 @@ mod tests {
 
     use device::key_manager::KeyManager;
     use device::device_binding::DeviceManage;
+    use mq::hid_api::hid_connect;
 
     #[test]
     fn test_sign_transaction() {
@@ -656,11 +658,11 @@ mod tests {
     fn device_binding_test(){
         // //设备绑定
          let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-         let bind_code = "3KN379K4".to_string();
-
+         let bind_code = "FRGB36FS".to_string();
 //        let path = "/Users/joe/work/sdk_gen_key".to_string();
 //        let bind_code = "YDSGQPKX".to_string();
-        // let mut device_manage = DeviceManage::new();
+
+        hid_connect("imKey Pro");
         let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
         if !"bound_this".eq(check_result.as_str()) { //如果未和本设备绑定则进行绑定操作
             let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
