@@ -1,7 +1,7 @@
 use common::constants;
 use common::https;
 use serde::{Deserialize, Serialize};
-use crate::Result;
+use crate::{Result, TsmService};
 use crate::error::ImkeyError;
 use crate::ServiceResponse;
 
@@ -38,24 +38,10 @@ pub struct AvailableAppBean {
     pub latestVersion: Option<String>,
 }
 
-impl SeQueryRequest {
-    pub fn build_request_data(
-        seid: String,
-        sn: String,
-        sdk_version: Option<String>,
-    ) -> SeQueryRequest {
-        SeQueryRequest {
-            seid: seid,
-            sn: sn,
-            sdkVersion: sdk_version,
-            stepKey: String::from("01"),
-            statusWord: None,
-            commandID: String::from(constants::TSM_ACTION_SE_QUERY),
-            cardRetDataList: None,
-        }
-    }
+impl TsmService for SeQueryRequest{
+    type ReturnData = ServiceResponse<SeQueryResponse>;
 
-    pub fn se_query(&mut self) -> Result<ServiceResponse<SeQueryResponse>> {
+    fn send_message(&mut self) -> Result<ServiceResponse<SeQueryResponse>> {
         println!("请求报文：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
         let response_data = https::post(constants::TSM_ACTION_SE_QUERY, req_data)?;
@@ -72,14 +58,50 @@ impl SeQueryRequest {
     }
 }
 
+impl SeQueryRequest {
+    pub fn build_request_data(
+        seid: String,
+        sn: String,
+        sdk_version: Option<String>,
+    ) -> Self {
+        SeQueryRequest {
+            seid: seid,
+            sn: sn,
+            sdkVersion: sdk_version,
+            stepKey: String::from("01"),
+            statusWord: None,
+            commandID: String::from(constants::TSM_ACTION_SE_QUERY),
+            cardRetDataList: None,
+        }
+    }
+
+//    pub fn se_query(&mut self) -> Result<ServiceResponse<SeQueryResponse>> {
+//        println!("请求报文：{:#?}", self);
+//        let req_data = serde_json::to_vec_pretty(&self).unwrap();
+//        let response_data = https::post(constants::TSM_ACTION_SE_QUERY, req_data)?;
+//        let return_bean: ServiceResponse<SeQueryResponse> = serde_json::from_str(response_data.as_str())?;
+//        println!("反馈报文：{:#?}", return_bean);
+//
+//        match return_bean._ReturnCode.as_str() {
+//            constants::TSM_RETURN_CODE_SUCCESS => Ok(return_bean),
+//            constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::ImkeyTsmDeviceIllegal.into()),
+//            constants::TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::ImkeyTsmDeviceStopUsing.into()),
+//            constants::TSM_RETURNCODE_SE_QUERY_FAIL => Err(ImkeyError::ImkeyTsmDeviceUpdateCheckFail.into()),
+//            _ => Err(ImkeyError::ImkeyTsmServerError.into()),
+//        }
+//    }
+}
+
 #[cfg(test)]
 mod tests {
     use crate::se_query::SeQueryRequest;
+    use crate::TsmService;
 
     #[test]
     fn se_query_test() {
         let seid: String = "19060000000200860001010000000014".to_string();
         let sn: String = "imKey01191200001".to_string();
-        SeQueryRequest::build_request_data(seid, sn, None).se_query();
+//        SeQueryRequest::build_request_data(seid, sn, None).se_query();
+        SeQueryRequest::build_request_data(seid, sn, None).send_message();
     }
 }

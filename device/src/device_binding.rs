@@ -11,7 +11,7 @@ use rsa::{BigUint, PaddingScheme, PublicKey as RSAPublic, RSAPublicKey};
 use secp256k1::ecdh::SharedSecret;
 use secp256k1::{PublicKey, SecretKey};
 use sha1::Sha1;
-use crate::manager;
+use crate::{manager, TsmService};
 use crate::auth_code_storage::AuthCodeStorageRequest;
 use crate::device_cert_check::DeviceCertCheckRequest;
 use common::constants::{IMK_AID, BIND_STATUS_UNBOUND, BIND_STATUS_BOUND_THIS, BIND_STATUS_BOUND_OTHER,
@@ -77,7 +77,7 @@ impl DeviceManage {
         if status.eq(BIND_STATUS_UNBOUND) || status.eq(BIND_STATUS_BOUND_OTHER) {
             //check se cert
             DeviceCertCheckRequest::build_request_data(seid.clone(), sn, se_pub_key_cert.clone())
-                .device_cert_check()?;
+                .send_message()?;
 
 
             //get se public key
@@ -121,7 +121,7 @@ impl DeviceManage {
 
         //save auth Code cipher
         let seid = manager::get_se_id()?;
-        AuthCodeStorageRequest::build_request_data(seid, auth_code_ciphertext).auth_code_storage()?;
+        AuthCodeStorageRequest::build_request_data(seid, auth_code_ciphertext).send_message()?;
 
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         //select IMK applet
@@ -214,6 +214,7 @@ mod test{
     use crate::key_manager::KeyManager;
     use crate::device_binding::DeviceManage;
     use crate::manager::bind_display_code;
+    use mq::hid_api::hid_connect;
 
     #[test]
     fn device_bind_test(){
@@ -223,7 +224,7 @@ mod test{
 //         let path = "/Users/joe/work/sdk_gen_key".to_string();
 //         let bind_code = "YDSGQPKX".to_string();
 
-        // let mut device_manage = DeviceManage::new();
+        hid_connect("imKey Pro");
         let check_result = DeviceManage::bind_check(&path).unwrap();
         let mut bind_result = String::new();
         println!("result:{}",&check_result);

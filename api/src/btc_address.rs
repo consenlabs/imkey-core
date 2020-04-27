@@ -1,7 +1,7 @@
 use coin_bitcoin::btcapi::{BtcXpubReq, BtcXpubRes, BtcAddressReq, BtcAddressRes};
 use bitcoin::Network;
 use crate::message_handler::encode_message;
-use coin_bitcoin::btc;
+use coin_bitcoin::address::BtcAddress;
 use crate::error_handling::Result;
 use prost::Message;
 
@@ -15,7 +15,7 @@ pub fn get_btc_xpub(data: &[u8]) -> Result<Vec<u8>> {
         _ => Network::Testnet,
     };
 
-    let xpub = btc::get_xpub(network, input.path.as_ref())?;
+    let xpub = BtcAddress::get_xpub(network, input.path.as_ref())?;
 
     let address_message = BtcXpubRes {
         xpub
@@ -34,7 +34,7 @@ pub fn get_btc_address(data: &[u8]) -> Result<Vec<u8>> {
         _ => Network::Testnet,
     };
 
-    let address = btc::get_address(network, input.path.as_ref())?;
+    let address = BtcAddress::get_address(network, input.path.as_ref())?;
 
     let address_message = BtcAddressRes {
         address
@@ -52,7 +52,7 @@ pub fn get_segwit_address(data: &[u8]) -> Result<Vec<u8>> {
         _ => Network::Testnet,
     };
 
-    let address = btc::get_segwit_address(network, input.path.as_ref())?;
+    let address = BtcAddress::get_segwit_address(network, input.path.as_ref())?;
 
     let address_message = BtcAddressRes {
         address
@@ -69,7 +69,7 @@ pub fn display_btc_address(data: &[u8]) -> Result<Vec<u8>> {
         _ => Network::Testnet,
     };
 
-    let address = btc::display_address(network, input.path.as_ref())?;
+    let address = BtcAddress::display_address(network, input.path.as_ref())?;
 
     let address_message = BtcAddressRes {
         address
@@ -85,7 +85,7 @@ pub fn display_segwit_address(data: &[u8]) -> Result<Vec<u8>> {
         _ => Network::Testnet,
     };
 
-    let address = btc::display_segwit_address(network, input.path.as_ref())?;
+    let address = BtcAddress::display_segwit_address(network, input.path.as_ref())?;
 
     let address_message = BtcAddressRes {
         address

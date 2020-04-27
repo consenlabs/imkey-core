@@ -31,6 +31,11 @@ pub struct ServiceResponse<T> {
     pub _ReturnData: T,
 }
 
+pub trait TsmService{
+    type ReturnData;
+    fn send_message(&mut self) -> Result<Self::ReturnData>;
+}
+
 #[cfg(test)]
 mod tests {
     #[test]
