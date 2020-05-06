@@ -18,16 +18,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.mk.imkeydemo.excepttest.devicemanger.ActiveDeviceTest;
-import com.mk.imkeydemo.excepttest.devicemanger.AppDeleteTest;
 import com.mk.imkeydemo.excepttest.devicemanger.AppUpdateTest;
 import com.mk.imkeydemo.excepttest.devicemanger.CheckDeviceTest;
 import com.mk.imkeydemo.excepttest.devicemanger.CheckUpdateTest;
 
 
-import com.mk.imkeydemo.excepttest.devicemanger.AppDownloadTest;
 import com.mk.imkeydemo.keycore.DeviceManager;
 
 import im.imkey.imkeylibrary.exception.ImkeyException;
+import im.imkey.imkeylibrary.utils.LogUtil;
+import com.mk.imkeydemo.keycore.Applet;
 
 
 public class DeviceManageActivity extends AppCompatActivity {
