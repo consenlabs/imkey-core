@@ -1,7 +1,7 @@
 use common::constants::{TSM_ACTION_COS_UPGRADE, TSM_RETURN_CODE_SUCCESS, TSM_END_FLAG, DEVICE_MODEL_NAME};
 use common::{https, constants};
 use serde::{Deserialize, Serialize};
-use mq::message::{send_apdu};
+use mq::message::send_apdu;
 use crate::manager::{get_se_id, get_sn, get_firmware_version, get_cert};
 use common::utility::hex_to_bytes;
 use crate::app_download::AppDownloadRequest;
@@ -10,7 +10,7 @@ use crate::error::ImkeyError;
 use std::thread;
 use std::time::Duration;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
-use mq::hid_api::{hid_connect};
+use mq::hid_api::hid_connect;
 use crate::ServiceResponse;
 
 #[allow(non_snake_case)]
@@ -60,7 +60,6 @@ impl CosUpgradeRequest {
                                      se_cos_version[0..1].to_string(),
                                      se_cos_version[1..2].to_string(),
                                      se_cos_version[2..].to_string());
-
         } else if device_cert.starts_with("7f21") || device_cert.starts_with("7F21") {
             seid = device_cert[12..44].to_string();
             sn = "0000000000000000".to_string();
@@ -88,13 +87,13 @@ impl CosUpgradeRequest {
         };
 
         loop {
-            println!("请求报文：{:#?}", request_data);
+            println!("send message：{:#?}", request_data);
             let req_data = serde_json::to_vec_pretty(&request_data).unwrap();
             let response_data = https::post(TSM_ACTION_COS_UPGRADE, req_data)?;
             let return_bean: ServiceResponse<CosUpgradeResponse> = serde_json::from_str(response_data.as_str())?;
-            println!("反馈报文：{:#?}", return_bean);
+            println!("return message：{:#?}", return_bean);
             if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
-                //判断步骤key是否已经结束
+                //check if end
                 let next_step_key = return_bean._ReturnData.nextStepKey.unwrap();
                 if TSM_END_FLAG.eq(next_step_key.as_str()) {
                     return Ok(());
@@ -104,13 +103,13 @@ impl CosUpgradeRequest {
                 match return_bean._ReturnData.apduList {
                     Some(apdu_list) => {
                         for (index_val, apdu_val) in apdu_list.iter().enumerate() {
-                            //调用发送指令接口，并获取执行结果
+                            //send apdu command and get return data
                             let res = send_apdu(apdu_val.to_string())?;
                             apdu_res.push(res.clone());
                             if index_val == apdu_list.len() - 1 {
-                                request_data.statusWord = Some(String::from(&res[res.len() -4..]));
-                                if (constants::APDU_RSP_SUCCESS.eq(&res[res.len() -4..]) ||
-                                    constants::APDU_RSP_SWITCH_BL_STATUS_SUCCESS.eq(&res[res.len() -4..])) &&
+                                request_data.statusWord = Some(String::from(&res[res.len() - 4..]));
+                                if (constants::APDU_RSP_SUCCESS.eq(&res[res.len() - 4..]) ||
+                                    constants::APDU_RSP_SWITCH_BL_STATUS_SUCCESS.eq(&res[res.len() - 4..])) &&
                                     ("03".eq(next_step_key.as_str()) ||
                                         "05".eq(next_step_key.as_str())) {
                                     reconnect()?;
@@ -124,42 +123,42 @@ impl CosUpgradeRequest {
 
                 if "06".eq(next_step_key.as_str()) {//applet download
                     match &return_bean._ReturnData.InstanceAidList {
-                        Some(aid_list) =>{
+                        Some(aid_list) => {
                             for temp_instance_aid in aid_list.iter() {
                                 AppDownloadRequest::build_request_data(seid.clone(),
-                                                                         temp_instance_aid.clone(),
-                                                                         device_cert.clone(),
-                                                                         sdk_version.clone()).send_message()?;
+                                                                       temp_instance_aid.clone(),
+                                                                       device_cert.clone(),
+                                                                       sdk_version.clone()).send_message()?;
                             }
-                        },
+                        }
                         None => (),
                     };
                 }
 
                 request_data.stepKey = next_step_key;
             } else {
-                 return match return_bean._ReturnCode.as_str() {
+                return match return_bean._ReturnCode.as_str() {
                     constants::TSM_RETURNCODE_COS_INFO_NO_CONF => Err(ImkeyError::ImkeyTsmCosInfoNoConf.into()),
                     constants::TSM_RETURNCODE_COS_UPGRADE_FAIL => Err(ImkeyError::ImkeyTsmCosUpgradeFail.into()),
                     constants::TSM_RETURNCODE_UPLOAD_COS_VERSION_IS_NULL => Err(ImkeyError::ImkeyTsmUploadCosVersionIsNull.into()),
                     constants::TSM_RETURNCODE_SWITCH_BL_STATUS_FAIL => Err(ImkeyError::ImkeyTsmSwitchBlStatusFail.into()),
                     constants::TSM_RETURNCODE_WRITE_WALLET_ADDRESS_FAIL => Err(ImkeyError::ImkeyTsmWriteWalletAddressFail.into()),
                     constants::TSM_RETURNCODE_DEVICE_CHECK_FAIL => Err(ImkeyError::BSE0009.into()),
-                     constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => Err(ImkeyError::BSE0010.into()),
-                     constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::BSE0017.into()),
-                     constants::TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::BSE0007.into()),
+                    constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => Err(ImkeyError::BSE0010.into()),
+                    constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::BSE0017.into()),
+                    constants::TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::BSE0007.into()),
                     _ => Err(ImkeyError::ImkeyTsmServerError.into()),
                 };
-
-
             }
         }
     }
 }
 
-//reconnect device
+/**
+reconnect device
+*/
 #[cfg(any(target_os = "macos", target_os = "windows"))]
-fn reconnect() -> Result<()>{
+fn reconnect() -> Result<()> {
     thread::sleep(Duration::from_millis(1000));
 
     for _ in 0..5 {

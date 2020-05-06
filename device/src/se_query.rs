@@ -25,6 +25,7 @@ pub struct SeQueryResponse {
     pub sn: Option<String>,
     pub sdkMode: Option<String>,
     pub availableAppBeanList: Option<Vec<AvailableAppBean>>,
+//    pub status: Option<String>,
 }
 
 #[allow(non_snake_case)]
@@ -38,21 +39,22 @@ pub struct AvailableAppBean {
     pub latestVersion: Option<String>,
 }
 
-impl TsmService for SeQueryRequest{
+impl TsmService for SeQueryRequest {
     type ReturnData = ServiceResponse<SeQueryResponse>;
 
     fn send_message(&mut self) -> Result<ServiceResponse<SeQueryResponse>> {
-        println!("请求报文：{:#?}", self);
+        println!("send message：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
         let response_data = https::post(constants::TSM_ACTION_SE_QUERY, req_data)?;
         let return_bean: ServiceResponse<SeQueryResponse> = serde_json::from_str(response_data.as_str())?;
-        println!("反馈报文：{:#?}", return_bean);
+        println!("return message：{:#?}", return_bean);
 
         match return_bean._ReturnCode.as_str() {
             constants::TSM_RETURN_CODE_SUCCESS => Ok(return_bean),
             constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::ImkeyTsmDeviceIllegal.into()),
             constants::TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::ImkeyTsmDeviceStopUsing.into()),
             constants::TSM_RETURNCODE_SE_QUERY_FAIL => Err(ImkeyError::ImkeyTsmDeviceUpdateCheckFail.into()),
+            constants::TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::BSE0007.into()),
             _ => Err(ImkeyError::ImkeyTsmServerError.into()),
         }
     }
@@ -74,22 +76,6 @@ impl SeQueryRequest {
             cardRetDataList: None,
         }
     }
-
-//    pub fn se_query(&mut self) -> Result<ServiceResponse<SeQueryResponse>> {
-//        println!("请求报文：{:#?}", self);
-//        let req_data = serde_json::to_vec_pretty(&self).unwrap();
-//        let response_data = https::post(constants::TSM_ACTION_SE_QUERY, req_data)?;
-//        let return_bean: ServiceResponse<SeQueryResponse> = serde_json::from_str(response_data.as_str())?;
-//        println!("反馈报文：{:#?}", return_bean);
-//
-//        match return_bean._ReturnCode.as_str() {
-//            constants::TSM_RETURN_CODE_SUCCESS => Ok(return_bean),
-//            constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::ImkeyTsmDeviceIllegal.into()),
-//            constants::TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::ImkeyTsmDeviceStopUsing.into()),
-//            constants::TSM_RETURNCODE_SE_QUERY_FAIL => Err(ImkeyError::ImkeyTsmDeviceUpdateCheckFail.into()),
-//            _ => Err(ImkeyError::ImkeyTsmServerError.into()),
-//        }
-//    }
 }
 
 #[cfg(test)]
@@ -101,7 +87,6 @@ mod tests {
     fn se_query_test() {
         let seid: String = "19060000000200860001010000000014".to_string();
         let sn: String = "imKey01191200001".to_string();
-//        SeQueryRequest::build_request_data(seid, sn, None).se_query();
         SeQueryRequest::build_request_data(seid, sn, None).send_message();
     }
 }
