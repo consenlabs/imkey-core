@@ -29,6 +29,8 @@ import java.util.concurrent.Executors;
 import com.mk.imkeydemo.excepttest.devicemanger.DeviceBindingTest;
 import com.mk.imkeydemo.keycore.Api;
 import com.mk.imkeydemo.keycore.DeviceBidingExample;
+import com.mk.imkeydemo.keycore.DeviceManager;
+import com.mk.imkeydemo.keycore.SdkInfo;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog pd;
     private Context mContext;
     private BleDevice mDevice;//current connect device
+    private DeviceManager mManager;
 
    static {
        System.loadLibrary("crypto");
@@ -148,10 +151,10 @@ public class MainActivity extends AppCompatActivity {
                 disConnect();
                 break;
             case R.id.btn_device_info:
+                showDeviceInfo(mDevice.getBluetoothDevice().getName(),mDevice.getBluetoothDevice().getAddress());
                 break;
             case R.id.btn_bind:
-//                matchDevice(mDevice.getBluetoothDevice().getAddress());
-                DeviceBidingExample.bindAcquire();
+                matchDevice(mDevice.getBluetoothDevice().getAddress());
                 break;
             case R.id.btn_btc:
                 goBtc();
@@ -173,28 +176,66 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void showDeviceInfo(String name,String mac){
+        mTxtState.setText("");
+        mTxtState.append("蓝牙名称：" + name);
+        mTxtState.append("\n蓝牙地址：" + mac);
+        pd.setMessage("获取设备信息...");
+        pd.show();
+        es.execute(new Runnable() {
+            @Override
+            public void run() {
+                final String bleVersion = mManager.getBleVersion();
+                final String seid = mManager.getSeId();
+                final int ramSize = mManager.getRamSize();
+                final String battery = mManager.getBatteryPower();
+                final String lifeCycle = mManager.getLifeTime();
+                final String sn = mManager.getSn();
+                final String firmwareVersion = mManager.getFirmwareVersion();
+                final String bleName = mManager.getBleName();
+                final SdkInfo sdkInfo = mManager.getSdkInfo();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTxtState.append("\n蓝牙版本：" + bleVersion);
+                        mTxtState.append("\nseid：" + seid);
+                        mTxtState.append("\n剩余空间：" + ramSize);
+                        mTxtState.append("\n剩余电量：" + battery);
+                        mTxtState.append("\n生命周期：" + lifeCycle);
+                        mTxtState.append("\n固件版本：" + firmwareVersion);
+                        mTxtState.append("\n蓝牙名称：" + bleName);
+                        mTxtState.append("\nSDK版本：" + sdkInfo.getSdkVersion());
+                        mTxtState.append("\nsn：" + sn);
+                        pd.cancel();
+                    }
+                });
+            }
+        });
+    }
+
     private void goBtc(){
-//        Intent intent = new Intent(mContext,BtcActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(mContext,BtcActivity.class);
+        startActivity(intent);
     }
 
     private void goEth(){
-//        Intent intent = new Intent(mContext,EthActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(mContext,EthActivity.class);
+        startActivity(intent);
     }
     private void goEos(){
-//        Intent intent = new Intent(mContext,EosActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(mContext,EosActivity.class);
+        startActivity(intent);
     }
 
     private void goCosmos(){
-//        Intent intent = new Intent(mContext,CosmosActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(mContext,CosmosActivity.class);
+        startActivity(intent);
     }
 
     private void goDeviceManage(){
-//        Intent intent = new Intent(mContext,DeviceManageActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(mContext,DeviceManageActivity.class);
+        startActivity(intent);
     }
 
 
@@ -235,6 +276,7 @@ public class MainActivity extends AppCompatActivity {
                 mTxtState.append("蓝牙名称：" + mDevice.getBluetoothDevice().getName());
                 mTxtState.append("\n蓝牙地址：" + mDevice.getBluetoothDevice().getAddress());
                 pd.dismiss();
+                mManager = new DeviceManager();
 
                 // ble status
                 BluetoothManager bm = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
@@ -262,29 +304,29 @@ public class MainActivity extends AppCompatActivity {
         es.execute(new Runnable() {
             @Override
             public void run() {
-//                try {
-//                    String status = mManager.bindCheck();
-//                    if("unbound".equals(status)){
-//                        mManager.displayBindingCode();
-//                        bindDevice(status,deviceMac);
-//                    }else if("bound_other".equals(status)){
-//                        String bindCode = SpTool.ins(mContext).getBindCode(deviceMac);
-//                        if(!bindCode.isEmpty()){
-//                            toast("已绑定其他设备,重新绑定..");
-//                            String res = mManager.bindAcquire(bindCode);
-//                            if(!"success".equals(res)){
-//                                bindDevice(status,deviceMac);
-//                            }
-//                        }else{
-//                            toast("未绑定过的设备，请输入绑定码");
-//                            bindDevice(status,deviceMac);
-//                        }
-//                    }else{
-//                        toast("已绑定");
-//                    }
-//                } catch (Exception e) {
-//                    toast(e.getMessage());
-//                }
+                try {
+                    String status = mManager.bindCheck(mContext);
+                    if("unbound".equals(status)){
+                        mManager.displayBindingCode();
+                        bindDevice(status,deviceMac);
+                    }else if("bound_other".equals(status)){
+                        String bindCode = SpTool.ins(mContext).getBindCode(deviceMac);
+                        if(!bindCode.isEmpty()){
+                            toast("已绑定其他设备,重新绑定..");
+                            String res = mManager.bindAcquire(bindCode);
+                            if(!"success".equals(res)){
+                                bindDevice(status,deviceMac);
+                            }
+                        }else{
+                            toast("未绑定过的设备，请输入绑定码");
+                            bindDevice(status,deviceMac);
+                        }
+                    }else{
+                        toast("已绑定");
+                    }
+                } catch (Exception e) {
+                    toast(e.getMessage());
+                }
             }
         });
     }

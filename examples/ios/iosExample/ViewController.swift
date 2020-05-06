@@ -93,6 +93,13 @@ class ViewController: UIViewController,BLEDelegate {
     let bindResult = API.bindAcquire(bindCode: "YDSGQPKX")
     print("bind result:\(bindResult)")
   }
+  
+  @IBAction func deviceManageClick(_ sender: Any) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    guard let deviceManageVC = storyboard.instantiateViewController(withIdentifier: "DeviceManageViewController") as? DeviceManageViewController else {  return }
+//    deviceManageVC.handle= handle
+    self.present(deviceManageVC, animated: true, completion: nil)
+  }
 }
 
 

@@ -18,6 +18,31 @@
 		D818AE772449938B0051611D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D818AE752449938B0051611D /* LaunchScreen.storyboard */; };
 		D818AE822449938B0051611D /* iosExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818AE812449938B0051611D /* iosExampleTests.swift */; };
 		D818AE8D2449938C0051611D /* iosExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818AE8C2449938C0051611D /* iosExampleUITests.swift */; };
+		D87BBB912462068900F09CFB /* DeviceManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBB902462068900F09CFB /* DeviceManageViewController.swift */; };
+		D87BBB9624621F2100F09CFB /* CosmosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBB9224621F2100F09CFB /* CosmosViewController.swift */; };
+		D87BBB9724621F2100F09CFB /* EOSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBB9324621F2100F09CFB /* EOSViewController.swift */; };
+		D87BBB9824621F2100F09CFB /* BTCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBB9424621F2100F09CFB /* BTCViewController.swift */; };
+		D87BBB9924621F2100F09CFB /* ETHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBB9524621F2100F09CFB /* ETHViewController.swift */; };
+		D87BBBA92462244600F09CFB /* btcsegwittransactiontestmoreutxo.json in Resources */ = {isa = PBXBuildFile; fileRef = D87BBB9C2462244600F09CFB /* btcsegwittransactiontestmoreutxo.json */; };
+		D87BBBAA2462244600F09CFB /* btctransactiontest.json in Resources */ = {isa = PBXBuildFile; fileRef = D87BBB9D2462244600F09CFB /* btctransactiontest.json */; };
+		D87BBBAB2462244600F09CFB /* btcsegwitopreturntest.json in Resources */ = {isa = PBXBuildFile; fileRef = D87BBB9E2462244600F09CFB /* btcsegwitopreturntest.json */; };
+		D87BBBAC2462244600F09CFB /* usdttransactiontestmoreutxo.json in Resources */ = {isa = PBXBuildFile; fileRef = D87BBB9F2462244600F09CFB /* usdttransactiontestmoreutxo.json */; };
+		D87BBBAD2462244600F09CFB /* btcsegwittransactiontest.json in Resources */ = {isa = PBXBuildFile; fileRef = D87BBBA02462244600F09CFB /* btcsegwittransactiontest.json */; };
+		D87BBBAE2462244600F09CFB /* usdttransactiontest.json in Resources */ = {isa = PBXBuildFile; fileRef = D87BBBA12462244600F09CFB /* usdttransactiontest.json */; };
+		D87BBBAF2462244600F09CFB /* eostransactiontest.json in Resources */ = {isa = PBXBuildFile; fileRef = D87BBBA22462244600F09CFB /* eostransactiontest.json */; };
+		D87BBBB02462244600F09CFB /* cosmostransactiontest.json in Resources */ = {isa = PBXBuildFile; fileRef = D87BBBA32462244600F09CFB /* cosmostransactiontest.json */; };
+		D87BBBB12462244600F09CFB /* usdtsegwittransactiontest.json in Resources */ = {isa = PBXBuildFile; fileRef = D87BBBA42462244600F09CFB /* usdtsegwittransactiontest.json */; };
+		D87BBBB22462244600F09CFB /* ethtransactiontest.json in Resources */ = {isa = PBXBuildFile; fileRef = D87BBBA52462244600F09CFB /* ethtransactiontest.json */; };
+		D87BBBB32462244600F09CFB /* btctransactiontestmoreutxo.json in Resources */ = {isa = PBXBuildFile; fileRef = D87BBBA62462244600F09CFB /* btctransactiontestmoreutxo.json */; };
+		D87BBBB42462244600F09CFB /* usdtsegwittransactiontestmoreutxo.json in Resources */ = {isa = PBXBuildFile; fileRef = D87BBBA72462244600F09CFB /* usdtsegwittransactiontestmoreutxo.json */; };
+		D87BBBB52462244600F09CFB /* btcopreturntest.json in Resources */ = {isa = PBXBuildFile; fileRef = D87BBBA82462244600F09CFB /* btcopreturntest.json */; };
+		D87BBBBB2462245B00F09CFB /* USDTTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBBB62462245A00F09CFB /* USDTTest.swift */; };
+		D87BBBBC2462245B00F09CFB /* BTCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBBB72462245A00F09CFB /* BTCTest.swift */; };
+		D87BBBBD2462245B00F09CFB /* EOSTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBBB82462245A00F09CFB /* EOSTest.swift */; };
+		D87BBBBE2462245B00F09CFB /* CosmosTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBBB92462245B00F09CFB /* CosmosTest.swift */; };
+		D87BBBBF2462245B00F09CFB /* ETHTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBBBA2462245B00F09CFB /* ETHTest.swift */; };
+		D87BBBC1246224AF00F09CFB /* BIP44.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBBC0246224AF00F09CFB /* BIP44.swift */; };
+		D87BBBC32462250C00F09CFB /* FeatTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBBC22462250C00F09CFB /* FeatTest.swift */; };
 		D8B0C35D244A463F009F1B06 /* cosmos.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B0C357244A463F009F1B06 /* cosmos.pb.swift */; };
 		D8B0C35E244A463F009F1B06 /* eos.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B0C358244A463F009F1B06 /* eos.pb.swift */; };
 		D8B0C35F244A463F009F1B06 /* eth.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B0C359244A463F009F1B06 /* eth.pb.swift */; };
@@ -69,6 +94,31 @@
 		D818AE882449938C0051611D /* iosExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D818AE8C2449938C0051611D /* iosExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosExampleUITests.swift; sourceTree = "<group>"; };
 		D818AE8E2449938C0051611D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D87BBB902462068900F09CFB /* DeviceManageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceManageViewController.swift; sourceTree = "<group>"; };
+		D87BBB9224621F2100F09CFB /* CosmosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosViewController.swift; sourceTree = "<group>"; };
+		D87BBB9324621F2100F09CFB /* EOSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EOSViewController.swift; sourceTree = "<group>"; };
+		D87BBB9424621F2100F09CFB /* BTCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCViewController.swift; sourceTree = "<group>"; };
+		D87BBB9524621F2100F09CFB /* ETHViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETHViewController.swift; sourceTree = "<group>"; };
+		D87BBB9C2462244600F09CFB /* btcsegwittransactiontestmoreutxo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = btcsegwittransactiontestmoreutxo.json; sourceTree = "<group>"; };
+		D87BBB9D2462244600F09CFB /* btctransactiontest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = btctransactiontest.json; sourceTree = "<group>"; };
+		D87BBB9E2462244600F09CFB /* btcsegwitopreturntest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = btcsegwitopreturntest.json; sourceTree = "<group>"; };
+		D87BBB9F2462244600F09CFB /* usdttransactiontestmoreutxo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = usdttransactiontestmoreutxo.json; sourceTree = "<group>"; };
+		D87BBBA02462244600F09CFB /* btcsegwittransactiontest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = btcsegwittransactiontest.json; sourceTree = "<group>"; };
+		D87BBBA12462244600F09CFB /* usdttransactiontest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = usdttransactiontest.json; sourceTree = "<group>"; };
+		D87BBBA22462244600F09CFB /* eostransactiontest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = eostransactiontest.json; sourceTree = "<group>"; };
+		D87BBBA32462244600F09CFB /* cosmostransactiontest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cosmostransactiontest.json; sourceTree = "<group>"; };
+		D87BBBA42462244600F09CFB /* usdtsegwittransactiontest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = usdtsegwittransactiontest.json; sourceTree = "<group>"; };
+		D87BBBA52462244600F09CFB /* ethtransactiontest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ethtransactiontest.json; sourceTree = "<group>"; };
+		D87BBBA62462244600F09CFB /* btctransactiontestmoreutxo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = btctransactiontestmoreutxo.json; sourceTree = "<group>"; };
+		D87BBBA72462244600F09CFB /* usdtsegwittransactiontestmoreutxo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = usdtsegwittransactiontestmoreutxo.json; sourceTree = "<group>"; };
+		D87BBBA82462244600F09CFB /* btcopreturntest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = btcopreturntest.json; sourceTree = "<group>"; };
+		D87BBBB62462245A00F09CFB /* USDTTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = USDTTest.swift; sourceTree = "<group>"; };
+		D87BBBB72462245A00F09CFB /* BTCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCTest.swift; sourceTree = "<group>"; };
+		D87BBBB82462245A00F09CFB /* EOSTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EOSTest.swift; sourceTree = "<group>"; };
+		D87BBBB92462245B00F09CFB /* CosmosTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosTest.swift; sourceTree = "<group>"; };
+		D87BBBBA2462245B00F09CFB /* ETHTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETHTest.swift; sourceTree = "<group>"; };
+		D87BBBC0246224AF00F09CFB /* BIP44.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BIP44.swift; sourceTree = "<group>"; };
+		D87BBBC22462250C00F09CFB /* FeatTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatTest.swift; sourceTree = "<group>"; };
 		D8B0C357244A463F009F1B06 /* cosmos.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = cosmos.pb.swift; path = iosExample/Proto/cosmos.pb.swift; sourceTree = SOURCE_ROOT; };
 		D8B0C358244A463F009F1B06 /* eos.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = eos.pb.swift; path = iosExample/Proto/eos.pb.swift; sourceTree = SOURCE_ROOT; };
 		D8B0C359244A463F009F1B06 /* eth.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = eth.pb.swift; path = iosExample/Proto/eth.pb.swift; sourceTree = SOURCE_ROOT; };
@@ -158,6 +208,13 @@
 		D818AE692449938A0051611D /* iosExample */ = {
 			isa = PBXGroup;
 			children = (
+				D87BBBC0246224AF00F09CFB /* BIP44.swift */,
+				D87BBB9A246223B800F09CFB /* FeatureTest */,
+				D87BBB9424621F2100F09CFB /* BTCViewController.swift */,
+				D87BBB9224621F2100F09CFB /* CosmosViewController.swift */,
+				D87BBB9324621F2100F09CFB /* EOSViewController.swift */,
+				D87BBB9524621F2100F09CFB /* ETHViewController.swift */,
+				D87BBB902462068900F09CFB /* DeviceManageViewController.swift */,
 				D8B0C356244A4565009F1B06 /* include */,
 				D8B0C355244A43EB009F1B06 /* proto */,
 				D8B0C369244A520F009F1B06 /* API.swift */,
@@ -189,6 +246,40 @@
 				D818AE8E2449938C0051611D /* Info.plist */,
 			);
 			path = iosExampleUITests;
+			sourceTree = "<group>";
+		};
+		D87BBB9A246223B800F09CFB /* FeatureTest */ = {
+			isa = PBXGroup;
+			children = (
+				D87BBBC22462250C00F09CFB /* FeatTest.swift */,
+				D87BBBB72462245A00F09CFB /* BTCTest.swift */,
+				D87BBBB92462245B00F09CFB /* CosmosTest.swift */,
+				D87BBBB82462245A00F09CFB /* EOSTest.swift */,
+				D87BBBBA2462245B00F09CFB /* ETHTest.swift */,
+				D87BBBB62462245A00F09CFB /* USDTTest.swift */,
+				D87BBB9B246223D000F09CFB /* TestData */,
+			);
+			path = FeatureTest;
+			sourceTree = "<group>";
+		};
+		D87BBB9B246223D000F09CFB /* TestData */ = {
+			isa = PBXGroup;
+			children = (
+				D87BBBA82462244600F09CFB /* btcopreturntest.json */,
+				D87BBB9E2462244600F09CFB /* btcsegwitopreturntest.json */,
+				D87BBBA02462244600F09CFB /* btcsegwittransactiontest.json */,
+				D87BBB9C2462244600F09CFB /* btcsegwittransactiontestmoreutxo.json */,
+				D87BBB9D2462244600F09CFB /* btctransactiontest.json */,
+				D87BBBA62462244600F09CFB /* btctransactiontestmoreutxo.json */,
+				D87BBBA32462244600F09CFB /* cosmostransactiontest.json */,
+				D87BBBA22462244600F09CFB /* eostransactiontest.json */,
+				D87BBBA52462244600F09CFB /* ethtransactiontest.json */,
+				D87BBBA42462244600F09CFB /* usdtsegwittransactiontest.json */,
+				D87BBBA72462244600F09CFB /* usdtsegwittransactiontestmoreutxo.json */,
+				D87BBBA12462244600F09CFB /* usdttransactiontest.json */,
+				D87BBB9F2462244600F09CFB /* usdttransactiontestmoreutxo.json */,
+			);
+			path = TestData;
 			sourceTree = "<group>";
 		};
 		D8B0C355244A43EB009F1B06 /* proto */ = {
@@ -323,8 +414,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				D818AE772449938B0051611D /* LaunchScreen.storyboard in Resources */,
+				D87BBBAB2462244600F09CFB /* btcsegwitopreturntest.json in Resources */,
+				D87BBBAF2462244600F09CFB /* eostransactiontest.json in Resources */,
+				D87BBBB02462244600F09CFB /* cosmostransactiontest.json in Resources */,
+				D87BBBB52462244600F09CFB /* btcopreturntest.json in Resources */,
 				D818AE742449938B0051611D /* Assets.xcassets in Resources */,
+				D87BBBB32462244600F09CFB /* btctransactiontestmoreutxo.json in Resources */,
+				D87BBBA92462244600F09CFB /* btcsegwittransactiontestmoreutxo.json in Resources */,
+				D87BBBB42462244600F09CFB /* usdtsegwittransactiontestmoreutxo.json in Resources */,
+				D87BBBAE2462244600F09CFB /* usdttransactiontest.json in Resources */,
+				D87BBBB22462244600F09CFB /* ethtransactiontest.json in Resources */,
+				D87BBBAC2462244600F09CFB /* usdttransactiontestmoreutxo.json in Resources */,
 				D818AE722449938A0051611D /* Main.storyboard in Resources */,
+				D87BBBAA2462244600F09CFB /* btctransactiontest.json in Resources */,
+				D87BBBAD2462244600F09CFB /* btcsegwittransactiontest.json in Resources */,
+				D87BBBB12462244600F09CFB /* usdtsegwittransactiontest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,15 +540,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8B0C361244A463F009F1B06 /* btc.pb.swift in Sources */,
+				D87BBBBF2462245B00F09CFB /* ETHTest.swift in Sources */,
 				D818AE6F2449938A0051611D /* ViewController.swift in Sources */,
+				D87BBBBC2462245B00F09CFB /* BTCTest.swift in Sources */,
 				D818AE6B2449938A0051611D /* AppDelegate.swift in Sources */,
 				D8B0C362244A463F009F1B06 /* device.pb.swift in Sources */,
+				D87BBBBE2462245B00F09CFB /* CosmosTest.swift in Sources */,
+				D87BBB9824621F2100F09CFB /* BTCViewController.swift in Sources */,
+				D87BBB9624621F2100F09CFB /* CosmosViewController.swift in Sources */,
 				D8B0C36A244A520F009F1B06 /* API.swift in Sources */,
 				D8B0C35D244A463F009F1B06 /* cosmos.pb.swift in Sources */,
+				D87BBBC1246224AF00F09CFB /* BIP44.swift in Sources */,
+				D87BBBBD2462245B00F09CFB /* EOSTest.swift in Sources */,
+				D87BBB9924621F2100F09CFB /* ETHViewController.swift in Sources */,
+				D87BBBBB2462245B00F09CFB /* USDTTest.swift in Sources */,
 				D818AE6D2449938A0051611D /* SceneDelegate.swift in Sources */,
 				D8B0C35F244A463F009F1B06 /* eth.pb.swift in Sources */,
+				D87BBB912462068900F09CFB /* DeviceManageViewController.swift in Sources */,
 				D8B0C35E244A463F009F1B06 /* eos.pb.swift in Sources */,
+				D87BBBC32462250C00F09CFB /* FeatTest.swift in Sources */,
 				D8B0C360244A463F009F1B06 /* api.pb.swift in Sources */,
+				D87BBB9724621F2100F09CFB /* EOSViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
