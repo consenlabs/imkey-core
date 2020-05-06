@@ -93,12 +93,7 @@ impl Apdu {
         if data.len() as u32 > LC_MAX {
             panic!("data to long");
         }
-        let mut apdu = Vec::new();
-        apdu.push(0x80);
-        apdu.push(ins);
-        apdu.push(0x00);
-        apdu.push(0x00);
-        apdu.push(data.len() as u8);
+        let mut apdu = ApduHeader::new(0x80, ins, 0x00, 0x00, data.len() as u8).to_array();
         apdu.extend(data.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
@@ -186,12 +181,7 @@ impl EosApdu {
     }
 
     pub fn sign_tx(nonce: usize) -> String {
-        let mut apdu = Vec::new();
-        apdu.push(0x80);
-        apdu.push(0x62);
-        apdu.push(0x00);
-        apdu.push(0x00);
-        apdu.push(2 as u8);
+        let mut apdu = ApduHeader::new(0x80, 0x62, 0x00, 0x00, 0x02).to_array();
         apdu.push(((nonce & 0xFF00) >> 8) as u8);
         apdu.push((nonce & 0x00FF) as u8);
         apdu.push(0x00);
@@ -203,12 +193,7 @@ impl EosApdu {
     }
 
     pub fn sign_message(nonce: usize) -> String {
-        let mut apdu = Vec::new();
-        apdu.push(0x80);
-        apdu.push(0x65);
-        apdu.push(0x00);
-        apdu.push(0x00);
-        apdu.push(2 as u8);
+        let mut apdu = ApduHeader::new(0x80, 0x65, 0x00, 0x00, 0x02).to_array();
         apdu.push(((nonce & 0xFF00) >> 8) as u8);
         apdu.push((nonce & 0x00FF) as u8);
         apdu.push(0x00);
@@ -254,18 +239,11 @@ impl BtcApdu {
         if path.as_bytes().len() as u32 > LC_MAX {
             panic!("data to long");
         }
-        let mut apdu = Vec::new();
-        apdu.push(0x80); //CLA
-        apdu.push(0x43); //INS
-        //p1
-        if verify_flag {
-            apdu.push(0x01);
-        } else {
-            apdu.push(0x00);
-        }
-        apdu.push(0x00); //P2
         let path_bytes = path.as_bytes();
-        apdu.push(path_bytes.len() as u8); //Lc
+        let mut apdu = match verify_flag {
+            true => ApduHeader::new(0x80, 0x43, 0x01, 0x00, path_bytes.len() as u8).to_array(),
+            _ => ApduHeader::new(0x80, 0x43, 0x00, 0x00, path_bytes.len() as u8).to_array(),
+        };
         apdu.extend(path_bytes.iter()); //data
         apdu.push(0x00); //Le
         apdu.to_hex().to_uppercase()
@@ -281,21 +259,11 @@ impl BtcApdu {
                 } else {
                     (data.len() % LC_MAX as usize) as u32
                 };
-                let mut temp_apdu_vec = Vec::new();
-                temp_apdu_vec.push(0x80);
-                temp_apdu_vec.push(ins);
-                temp_apdu_vec.push(p1);
-                temp_apdu_vec.push(0x80);
-                temp_apdu_vec.push(length as u8);
+                let mut temp_apdu_vec =ApduHeader::new(0x80, ins, p1, 0x80, length as u8).to_array();
                 temp_apdu_vec.extend_from_slice(&data[index * LC_MAX as usize..]);
                 apdu_vec.push(hex::encode_upper(temp_apdu_vec));
             } else {
-                let mut temp_apdu_vec = Vec::new();
-                temp_apdu_vec.push(0x80);
-                temp_apdu_vec.push(ins);
-                temp_apdu_vec.push(p1);
-                temp_apdu_vec.push(0x00);
-                temp_apdu_vec.push(LC_MAX as u8);
+                let mut temp_apdu_vec =ApduHeader::new(0x80, ins, p1, 0x00, LC_MAX as u8).to_array();
                 temp_apdu_vec.extend_from_slice(
                     &data[index * LC_MAX as usize..((index + 1) * LC_MAX as usize) as usize],
                 );
@@ -309,12 +277,7 @@ impl BtcApdu {
         if data.len() as u32 > LC_MAX {
             panic!("data to long");
         }
-        let mut apdu = Vec::new();
-        apdu.push(0x80);
-        apdu.push(0x41);
-        apdu.push(p1);
-        apdu.push(0x00);
-        apdu.push(data.len() as u8);
+        let mut apdu =ApduHeader::new(0x80, 0x41, p1, 0x00, data.len() as u8).to_array();
         apdu.extend(data.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
@@ -322,28 +285,22 @@ impl BtcApdu {
 
     pub fn btc_sign(index: u8, hash_type: u8, path: &str) -> String {
         let path_bytes = path.as_bytes();
-        let mut apdu = Vec::new();
-        apdu.push(0x80);
-        apdu.push(0x42);
-        apdu.push(index);
-        apdu.push(hash_type);
-        apdu.push(path_bytes.len() as u8);
+        let mut apdu =ApduHeader::new(0x80, 0x42, index, hash_type, path_bytes.len() as u8).to_array();
         apdu.extend(path_bytes.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
     }
 
     pub fn btc_segwit_sign(last_one: bool, hash_type: u8, data: Vec<u8>) -> String {
-        let mut apdu = Vec::new();
-        apdu.push(0x80);
-        apdu.push(0x32);
-        if last_one {
-            apdu.push(0x80);
-        } else {
-            apdu.push(0x00);
+        if data.len() as u32 > LC_MAX {
+            panic!("data to long");
         }
-        apdu.push(hash_type);
-        apdu.push(data.len() as u8);
+
+        let mut apdu = match last_one{
+            true => ApduHeader::new(0x80, 0x32, 0x80, hash_type, data.len() as u8).to_array(),
+            _ => ApduHeader::new(0x80, 0x32, 0x00, hash_type, data.len() as u8).to_array(),
+        };
+
         apdu.extend(data.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
@@ -353,12 +310,7 @@ impl BtcApdu {
         if data.len() as u32 > LC_MAX {
             panic!("data to long");
         }
-        let mut apdu = Vec::new();
-        apdu.push(0x80);
-        apdu.push(0x44);
-        apdu.push(p1);
-        apdu.push(0x00);
-        apdu.push(data.len() as u8);
+        let mut apdu = ApduHeader::new(0x80, 0x44, p1, 0x00, data.len() as u8).to_array();
         apdu.extend(data.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
@@ -368,12 +320,7 @@ impl BtcApdu {
         if address.len() as u32 > LC_MAX {
             panic!("data to long");
         }
-        let mut apdu = vec![];
-        apdu.push(0x80);
-        apdu.push(0x36);
-        apdu.push(0x00);
-        apdu.push(0x00);
-        apdu.push(address.len() as u8);
+        let mut apdu = ApduHeader::new(0x80, 0x36, 0x00, 0x00, address.len() as u8).to_array();
         apdu.extend(address.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
@@ -390,12 +337,7 @@ impl DeviceBindingApdu {
         if data.len() as u32 > LC_MAX {
             panic!("data to long");
         }
-        let mut apdu = Vec::new();
-        apdu.push(0x80);
-        apdu.push(0x71);
-        apdu.push(0x00);
-        apdu.push(0x00);
-        apdu.push(data.len() as u8);
+        let mut apdu = ApduHeader::new(0x80, 0x71, 0x00, 0x00, data.len() as u8).to_array();
         apdu.extend(data.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
@@ -405,12 +347,7 @@ impl DeviceBindingApdu {
     binding check apdu build
     */
     pub fn generate_auth_code() -> String {
-        let mut apdu = Vec::new();
-        apdu.push(0x80);
-        apdu.push(0x72);
-        apdu.push(0x00);
-        apdu.push(0x00);
-        apdu.push(0x00);
+        let apdu = ApduHeader::new(0x80, 0x72, 0x00, 0x00, 0x00).to_array();
         apdu.to_hex().to_uppercase()
     }
 
@@ -421,12 +358,7 @@ impl DeviceBindingApdu {
         if data.len() as u32 > LC_MAX {
             panic!("data to long");
         }
-        let mut apdu = Vec::new();
-        apdu.push(0x80);
-        apdu.push(0x73);
-        apdu.push(0x80);
-        apdu.push(0x00);
-        apdu.push(data.len() as u8);
+        let mut apdu = ApduHeader::new(0x80, 0x73, 0x80, 0x00, data.len() as u8).to_array();
         apdu.extend(data.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()

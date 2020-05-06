@@ -25,7 +25,7 @@ pub struct SeQueryResponse {
     pub sn: Option<String>,
     pub sdkMode: Option<String>,
     pub availableAppBeanList: Option<Vec<AvailableAppBean>>,
-//    pub status: Option<String>,
+    pub status: Option<String>,
 }
 
 #[allow(non_snake_case)]
@@ -46,15 +46,21 @@ impl TsmService for SeQueryRequest {
         println!("send message：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
         let response_data = https::post(constants::TSM_ACTION_SE_QUERY, req_data)?;
-        let return_bean: ServiceResponse<SeQueryResponse> = serde_json::from_str(response_data.as_str())?;
+        let mut return_bean: ServiceResponse<SeQueryResponse> = serde_json::from_str(response_data.as_str())?;
         println!("return message：{:#?}", return_bean);
 
         match return_bean._ReturnCode.as_str() {
-            constants::TSM_RETURN_CODE_SUCCESS => Ok(return_bean),
+            constants::TSM_RETURN_CODE_SUCCESS => {
+                return_bean._ReturnData.status = Some(constants::IMKEY_DEV_STATUS_LATEST.to_string());
+                Ok(return_bean)
+            }
             constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::ImkeyTsmDeviceIllegal.into()),
             constants::TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::ImkeyTsmDeviceStopUsing.into()),
             constants::TSM_RETURNCODE_SE_QUERY_FAIL => Err(ImkeyError::ImkeyTsmDeviceUpdateCheckFail.into()),
-            constants::TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::BSE0007.into()),
+            constants::TSM_RETURNCODE_DEV_INACTIVATED => {
+                return_bean._ReturnData.status = Some(constants::IMKEY_DEV_STATUS_INACTIVATED.to_string());
+                Ok(return_bean)
+            }
             _ => Err(ImkeyError::ImkeyTsmServerError.into()),
         }
     }
