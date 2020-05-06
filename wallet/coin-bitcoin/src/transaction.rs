@@ -1,12 +1,12 @@
 use bitcoin::{Address, Network, TxOut, Transaction, TxIn, OutPoint, Script, SigHashType, BitcoinHash};
 use common::error::CoinError;
 use common::apdu::{BtcApdu, ApduCheck};
-use common::constants::{MAX_UTXO_NUMBER, EACH_ROUND_NUMBER, DUST_THRESHOLD, MAX_OPRETURN_SIZE,TIMEOUT_LONG};
+use common::constants::{MAX_UTXO_NUMBER, EACH_ROUND_NUMBER, DUST_THRESHOLD, MAX_OPRETURN_SIZE, TIMEOUT_LONG};
 use bitcoin::hashes::core::str::FromStr;
-use secp256k1::{Signature};
+use secp256k1::Signature;
 use bitcoin::hashes::hex::FromHex;
 use bitcoin::blockdata::{opcodes, script::Builder};
-use bitcoin::consensus::{serialize};
+use bitcoin::consensus::serialize;
 use bitcoin_hashes::sha256d::Hash as Hash256;
 use bitcoin_hashes::hex::ToHex;
 use mq::message::{send_apdu, send_apdu_timeout};
@@ -15,10 +15,11 @@ use bitcoin_hashes::Hash;
 use common::utility::{hex_to_bytes, bigint_to_byte_vec, secp256k1_sign};
 use crate::common::{address_verify, get_xpub_data, secp256k1_sign_verify, get_address_version, TxSignResult, TransTypeFlg};
 use bitcoin::util::psbt::serialize::Serialize;
-use device::device_binding::{KEY_MANAGER};
+use device::device_binding::KEY_MANAGER;
 use common::path::check_path_validity;
 use crate::Result;
-use crate::btc::{get_address, get_segwit_address};
+//use crate::btc::{get_address, get_segwit_address};
+use crate::address::BtcAddress;
 
 #[derive(Clone)]
 pub struct Utxo {
@@ -39,7 +40,7 @@ pub struct BtcTransaction {
 }
 
 impl BtcTransaction {
-    pub fn sign_transaction(&self, network : Network, path : &str, change_idx: i32, extra_data : &Vec<u8>) -> Result<TxSignResult>{
+    pub fn sign_transaction(&self, network: Network, path: &str, change_idx: i32, extra_data: &Vec<u8>) -> Result<TxSignResult> {
         //path check
         check_path_validity(path)?;
         let mut path_str = path.to_string();
@@ -64,17 +65,17 @@ impl BtcTransaction {
         //use se public key verify sign
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let sign_verify_result = secp256k1_sign_verify(&key_manager_obj.se_pub_key.as_slice(),
-                            hex::decode(sign_result).unwrap().as_slice(),
-                            hex::decode(sign_source_val).unwrap().as_slice());
+                                                       hex::decode(sign_result).unwrap().as_slice(),
+                                                       hex::decode(sign_source_val).unwrap().as_slice());
         if sign_verify_result.is_err() || !sign_verify_result.ok().unwrap() {
             return Err(CoinError::ImkeySignatureVerifyFail.into());
         }
 
         //utxo address verify
         let utxo_pub_key_vec = address_verify(&self.unspents,
-                                                   pub_key,
-                                                   hex::decode(chain_code).unwrap().as_slice(),
-                                                   network,
+                                              pub_key,
+                                              hex::decode(chain_code).unwrap().as_slice(),
+                                              network,
                                               TransTypeFlg::BTC)?;
 
         //calc utxo total amount
@@ -89,7 +90,7 @@ impl BtcTransaction {
         //add change output
         if self.get_change_amount() > DUST_THRESHOLD {
             let path_temp = format!("{}{}{}", path_str, "1/", change_idx);
-            let address_str = get_address(network, path_temp.as_str())?;
+            let address_str = BtcAddress::get_address(network, path_temp.as_str())?;
             let address_obj = Address::from_str(address_str.as_str())?;
             txouts.push(TxOut {
                 value: self.get_change_amount() as u64,
@@ -112,9 +113,8 @@ impl BtcTransaction {
             input: vec![],
             output: txouts,
         };
-        let mut output_serialize_data =  serialize(&tx_to_sign);
+        let mut output_serialize_data = serialize(&tx_to_sign);
 
-        //删除多余的input序列化数据
         output_serialize_data.remove(5);
         output_serialize_data.remove(5);
         //add sign type
@@ -143,41 +143,41 @@ impl BtcTransaction {
 
         let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x41, 0x00, &output_pareper_data);
         for temp_str in btc_prepare_apdu_vec {
-            ApduCheck::checke_response(&send_apdu_timeout(temp_str,TIMEOUT_LONG)?)?;
+            ApduCheck::checke_response(&send_apdu_timeout(temp_str, TIMEOUT_LONG)?)?;
         }
 
-        let mut lock_script_ver : Vec<Script> = vec![];
-        let count = (self.unspents.len() - 1 )/ EACH_ROUND_NUMBER + 1;
+        let mut lock_script_ver: Vec<Script> = vec![];
+        let count = (self.unspents.len() - 1) / EACH_ROUND_NUMBER + 1;
         for i in 0..count {
             for (x, temp_utxo) in self.unspents.iter().enumerate() {
                 let mut input_data_vec = vec![];
                 input_data_vec.push(x as u8);
 
-                let mut temp_serialize_txin = TxIn{
+                let mut temp_serialize_txin = TxIn {
                     previous_output: OutPoint {
                         txid: Hash256::from_hex(temp_utxo.txhash.as_str())?,
                         vout: temp_utxo.vout as u32,
                     },
                     script_sig: Script::default(),
                     sequence: 0xFFFFFFFF as u32,
-                    witness: vec![]
+                    witness: vec![],
                 };
                 if (x >= i * EACH_ROUND_NUMBER) && (x < (i + 1) * EACH_ROUND_NUMBER) {
                     temp_serialize_txin.script_sig = Script::from(Vec::from_hex(temp_utxo.script_pubkey.as_str())?);
                 }
                 input_data_vec.extend_from_slice(serialize(&temp_serialize_txin).as_slice());
                 let btc_perpare_apdu = BtcApdu::btc_perpare_input(0x80, &input_data_vec);
-                //发送签名指令到设备并获取返回数据
+                //send perpare apdu to device
                 ApduCheck::checke_response(&send_apdu(btc_perpare_apdu)?)?;
             }
-            for y in i * EACH_ROUND_NUMBER..(i+1) * EACH_ROUND_NUMBER {
-                if y >= utxo_pub_key_vec.len(){
+            for y in i * EACH_ROUND_NUMBER..(i + 1) * EACH_ROUND_NUMBER {
+                if y >= utxo_pub_key_vec.len() {
                     break;
                 }
                 let btc_sign_apdu = BtcApdu::btc_sign(y as u8,
                                                       SigHashType::All.as_u32() as u8,
                                                       format!("{}{}", path_str, self.unspents.get(y).unwrap().derive_path).as_str());
-                //发送签名指令到设备并获取签名结果
+                //sign data
                 let btc_sign_apdu_return = send_apdu(btc_sign_apdu)?;
                 ApduCheck::checke_response(&btc_sign_apdu_return)?;
                 let btc_sign_apdu_return = &btc_sign_apdu_return[..btc_sign_apdu_return.len() - 4].to_string();
@@ -202,9 +202,6 @@ impl BtcTransaction {
         }
         tx_to_sign.input = txinputs;
         let tx_bytes = serialize(&tx_to_sign);
-        println!("signature-->{:?}", tx_bytes.to_hex());
-        println!("tx_hash-->{:?}", tx_to_sign.txid().to_hex());
-        println!("ntxid-->{:?}", tx_to_sign.ntxid().to_hex());
         Ok(TxSignResult {
             signature: tx_bytes.to_hex(),
             tx_hash: tx_to_sign.txid().to_hex(),
@@ -212,7 +209,7 @@ impl BtcTransaction {
         })
     }
 
-    pub fn sign_segwit_transaction(&self, network: Network, path: &str,change_idx: i32, extra_data : &Vec<u8>) -> Result<TxSignResult> {
+    pub fn sign_segwit_transaction(&self, network: Network, path: &str, change_idx: i32, extra_data: &Vec<u8>) -> Result<TxSignResult> {
         //path check
         check_path_validity(path)?;
         let mut path_str = path.to_string();
@@ -244,9 +241,9 @@ impl BtcTransaction {
         }
         //utxo address verify
         let utxo_pub_key_vec = address_verify(&self.unspents,
-                                                   pub_key,
-                                                   hex::decode(chain_code).unwrap().as_slice(),
-                                                    network,
+                                              pub_key,
+                                              hex::decode(chain_code).unwrap().as_slice(),
+                                              network,
                                               TransTypeFlg::SEGWIT)?;
 
         //calc utxo total amount
@@ -261,7 +258,7 @@ impl BtcTransaction {
         //add change output
         if self.get_change_amount() > DUST_THRESHOLD {
             let path_temp = format!("{}{}{}", path_str, "1/", change_idx);
-            let address_str = get_segwit_address(network, path_temp.as_str())?;
+            let address_str = BtcAddress::get_segwit_address(network, path_temp.as_str())?;
             let address_obj = Address::from_str(address_str.as_str())?;
             txouts.push(TxOut {
                 value: self.get_change_amount() as u64,
@@ -285,7 +282,6 @@ impl BtcTransaction {
         };
         let mut output_serialize_data = serialize(&tx_to_sign);
 
-        //删除多余的input序列化数据
         output_serialize_data.remove(5);
         output_serialize_data.remove(5);
 
@@ -316,13 +312,13 @@ impl BtcTransaction {
         let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x31, 0x00, &output_pareper_data);
         //send output pareper command
         for temp_str in btc_prepare_apdu_vec {
-            ApduCheck::checke_response(&send_apdu_timeout(temp_str,TIMEOUT_LONG)?)?;
+            ApduCheck::checke_response(&send_apdu_timeout(temp_str, TIMEOUT_LONG)?)?;
         }
 
         let mut txinputs: Vec<TxIn> = vec![];
         let mut txhash_vout_vec = vec![];
-        let mut sequence_vec : Vec<u8> = vec![];
-        let mut sign_apdu_vec : Vec<String> = vec![];
+        let mut sequence_vec: Vec<u8> = vec![];
+        let mut sign_apdu_vec: Vec<String> = vec![];
         for (index, unspent) in self.unspents.iter().enumerate() {
             let txin = TxIn {
                 previous_output: OutPoint {
@@ -337,7 +333,7 @@ impl BtcTransaction {
             txhash_vout_vec.extend(serialize(&txin.previous_output).iter());
             sequence_vec.extend(serialize(&txin.sequence).iter());
 
-            let mut data : Vec<u8> = vec![];
+            let mut data: Vec<u8> = vec![];
             //txhash and vout
             let txhash_data = serialize(&txin.previous_output);
             data.extend(txhash_data.iter());
@@ -357,12 +353,12 @@ impl BtcTransaction {
             }
             data.extend(utxo_amount.iter());
 
-            //sequence
+            //set sequence
             data.extend(hex::decode("FFFFFFFF").unwrap());
             //set length
             data.insert(0, data.len() as u8);
             //address
-            let mut address_data : Vec<u8> = vec![];
+            let mut address_data: Vec<u8> = vec![];
             let sign_path = format!("{}{}", path_str, unspent.derive_path);
             address_data.push(sign_path.as_bytes().len() as u8);
             address_data.extend_from_slice(sign_path.as_bytes());
@@ -370,7 +366,7 @@ impl BtcTransaction {
             data.extend(address_data.iter());
             if index == self.unspents.len() - 1 {
                 sign_apdu_vec.push(BtcApdu::btc_segwit_sign(true, 0x01, data));
-            }else{
+            } else {
                 sign_apdu_vec.push(BtcApdu::btc_segwit_sign(false, 0x01, data));
             }
 
@@ -388,7 +384,7 @@ impl BtcTransaction {
         //send sign apdu
         let mut witnesses: Vec<(Vec<u8>, Vec<u8>)> = vec![];
         for (index, wegwit_sign_apdu) in sign_apdu_vec.iter().enumerate() {
-            //send sign apdu （//响应报文为签名结果，格式为L|R|S|V|，66字节，其中L为1个字节，R、S分别为32字节，V为1个字节（27或28））
+            //send sign apdu
             let sign_apdu_return_data = send_apdu(wegwit_sign_apdu.clone())?;
             ApduCheck::checke_response(&sign_apdu_return_data)?;
             //build signature obj
@@ -419,10 +415,6 @@ impl BtcTransaction {
 
         tx_to_sign.input = input_with_sigs?;
         let tx_bytes = serialize(&tx_to_sign);
-        println!("seralize--->{:?}", hex::encode_upper(tx_bytes.clone()));
-        println!("tx_bytes--->{:?}", tx_bytes.to_hex());
-        println!("txid--->{:?}", tx_to_sign.txid().to_hex());
-        println!("ntxid--->{:?}", tx_to_sign.bitcoin_hash().to_hex());
 
         Ok(TxSignResult {
             signature: tx_bytes.to_hex(),
@@ -452,19 +444,7 @@ impl BtcTransaction {
         }
     }
 
-//    pub fn build_change_output(&self, pub_key : &str, network : Network) ->Result<TxOut> {
-//        //get change address
-//        let mut public_key_obj = PublicKey::from_str(pub_key)?;
-//        public_key_obj.compressed = true;
-//        let change_addr = Address::p2pkh(&public_key_obj, network);
-//        //build change output
-//        Ok(TxOut {
-//            value: self.get_change_amount() as u64,
-//            script_pubkey: change_addr.script_pubkey(),
-//        })
-//    }
-
-    pub fn build_op_return_output(&self, extra_data : &Vec<u8>) -> TxOut {
+    pub fn build_op_return_output(&self, extra_data: &Vec<u8>) -> TxOut {
         let opreturn_script = Builder::new()
             .push_opcode(opcodes::all::OP_RETURN)
             .push_slice(&extra_data[..])
@@ -475,7 +455,7 @@ impl BtcTransaction {
         }
     }
 
-    pub fn build_lock_script(&self, signed : &str, utxo_public_key : &str) -> Result<Script>{
+    pub fn build_lock_script(&self, signed: &str, utxo_public_key: &str) -> Result<Script> {
         let signed_vec = Vec::from_hex(&signed)?;
         let mut signnture_obj = Signature::from_compact(signed_vec.as_slice())?;
         signnture_obj.normalize_s();
@@ -487,7 +467,6 @@ impl BtcTransaction {
             .push_slice(Vec::from_hex(utxo_public_key)?.as_slice())
             .into_script())
     }
-
 }
 
 #[cfg(test)]
@@ -500,13 +479,14 @@ mod tests {
 
     use device::key_manager::KeyManager;
     use device::device_binding::DeviceManage;
+    use mq::hid_api::hid_connect;
 
     #[test]
     fn test_sign_transaction() {
-        //设备绑定
-         device_binding_test();
+        //binding device
+        device_binding_test();
 
-       let extra_data = Vec::from_hex("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385").unwrap();
+        let extra_data = Vec::from_hex("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385").unwrap();
         let utxo = Utxo {
             txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
             vout: 0,
@@ -601,7 +581,7 @@ mod tests {
             Ok(val) => {
                 assert_eq!("d40ceeecbb1ad07e7a19d4c807808ad7b5c78854cfebd7f25e2f79fcc43055f4", val.tx_hash);
                 assert_eq!("aad80fe8069e77559d3f99602a2f10cc9d459a591a04684bdfba9595029055e5", val.wtx_id);
-            },
+            }
             Err(e) => panic!("btc sign error!"),
         }
     }
@@ -609,8 +589,8 @@ mod tests {
     #[test]
     fn test_sign_segwit_transaction() {
 
-        //设备绑定
-         device_binding_test();
+        //binding device
+        device_binding_test();
 
         let extra_data = Vec::from_hex("1234").unwrap();
         let utxo = Utxo {
@@ -636,48 +616,46 @@ mod tests {
         utxos.push(utxo2);
         let transaction_req_data = BtcTransaction {
             to: Address::from_str("2N9wBy6f1KTUF5h2UUeqRdKnBT6oSMh4Whp").unwrap(),
-//            change_idx: 0,
             amount: 88000,
             unspents: utxos,
             fee: 10000,
-//            extra_data: extra_data,
         };
         let sign_result = transaction_req_data.sign_segwit_transaction(Network::Testnet, &"m/49'/1'/0'/".to_string(), 0, &extra_data);
         match sign_result {
             Ok(val) => {
                 assert_eq!("3b2178aa4d52377226dd394776680a91a05781fe93ce42666e307dc16aeaae99", val.tx_hash);
                 assert_eq!("92fa20346dc6a97d852db332beffb7d60d57d82207b63c6484d886541a924041", val.wtx_id);
-            },
+            }
             Err(e) => panic!("btc sign error!"),
         }
     }
 
     #[test]
-    fn device_binding_test(){
-        // //设备绑定
-         let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-         let bind_code = "3KN379K4".to_string();
-
+    fn device_binding_test() {
+        //binding device
+        let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+        let bind_code = "FRGB36FS".to_string();
 //        let path = "/Users/joe/work/sdk_gen_key".to_string();
 //        let bind_code = "YDSGQPKX".to_string();
-        // let mut device_manage = DeviceManage::new();
+
+        hid_connect("imKey Pro");
         let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
         if !"bound_this".eq(check_result.as_str()) { //如果未和本设备绑定则进行绑定操作
             let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
             if "5A".eq(bind_result.as_str()) {
                 println!("{:?}", "binding success");
-            }else {
+            } else {
                 println!("{:?}", "binding error");
                 return;
             }
-        }else{
+        } else {
             println!("bind this");
         }
     }
 
     #[test]
-    fn test1(){
-        //设备绑定
+    fn test1() {
+        //binding device
         device_binding_test();
 
 //        let extra_data = Vec::from_hex("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385").unwrap();
@@ -696,7 +674,6 @@ mod tests {
 
         let transaction_req_data = BtcTransaction {
             to: Address::from_str("18pMkq6HK5HR36jr7bSd39MpkVCfnP68VV").unwrap(),
-//            change_idx: 53,
             amount: 10000012345678,
             unspents: utxos,
             fee: 502130,
@@ -706,7 +683,7 @@ mod tests {
             Ok(val) => {
                 assert_eq!("a80aa368b10c8bdf0d2b1866462f2b4bb6b767e9b2b45abe2d05fa4c8efb40e0", val.tx_hash);
                 assert_eq!("9129a31332f509a9d03b25cf598d11cf4eaa0f6dbd27957d1f0d8f1b3d00a05d", val.wtx_id);
-            },
+            }
             Err(e) => panic!("btc sign error!"),
         }
     }
@@ -714,10 +691,9 @@ mod tests {
     #[test]
     fn test2() {
 
-        //设备绑定
+        //binding device
         device_binding_test();
 
-//        let extra_data = Vec::from_hex("1234").unwrap();
         let extra_data = vec![];
         let utxo = Utxo {
             txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
@@ -732,18 +708,16 @@ mod tests {
         utxos.push(utxo);
         let transaction_req_data = BtcTransaction {
             to: Address::from_str("18pMkq6HK5HR36jr7bSd39MpkVCfnP68VV").unwrap(),
-//            change_idx: 0,
             amount: 112345678,
             unspents: utxos,
             fee: 502130,
-//            extra_data: extra_data,
         };
         let sign_result = transaction_req_data.sign_segwit_transaction(Network::Bitcoin, &"m/49'/0'/0'".to_string(), 53, &extra_data);
         match sign_result {
             Ok(val) => {
                 assert_eq!("bfa6137f3cdd4a9bc672380afc931bb89d4539d8c1a589316bedad30e4248a90", val.tx_hash);
                 assert_eq!("4694a01d72237fc066564fc807d9a2d7be9518151aabb32f3911526a4589109c", val.wtx_id);
-            },
+            }
             Err(e) => panic!("btc sign error!"),
         }
     }

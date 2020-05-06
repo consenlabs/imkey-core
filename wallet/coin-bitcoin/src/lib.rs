@@ -1,7 +1,7 @@
 pub mod transaction;
 pub mod usdt_transaction;
 pub mod common;
-pub mod btc;
+pub mod address;
 pub mod btcapi;
 extern crate failure;
 use core::result;

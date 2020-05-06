@@ -12,8 +12,6 @@ http post request
 */
 pub fn post2<T: Serialize>(action: &str, req_data: &T) -> reqwest::Response {
     let url: String = constants::URL.to_string() + action;
-    // let mut url = String::from("http://localhost:8080/imkey/");
-    //    url.push_str(action);
     let client = reqwest::Client::new();
     let response: reqwest::Response = client.post(&*url).json(&req_data).send().unwrap();
     response
@@ -33,16 +31,11 @@ pub fn post(action: &str, req_data: Vec<u8>) -> Result<String> {
     );
 
     let mut event_loop = Core::new()?;
-//    let handle = event_loop.handle();
 
     let https = hyper_tls::HttpsConnector::new(4)?;
     let client = Client::builder().build::<_, hyper::Body>(https);
 
     let work = client.request(req).and_then(|res| {
-        println!("Response: {}", res.status());
-        //        if(!res.status().is_success()){
-        //            Err(ImkeyError::NETWORK_ERROR)
-        //        }
         res.into_body()
             .fold(Vec::new(), |mut v, chunk| {
                 v.extend(&chunk[..]);
