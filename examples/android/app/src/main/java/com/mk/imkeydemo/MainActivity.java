@@ -347,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 // error test
-                                new DeviceBindingTest().deviceBingdingTest();
+                                new DeviceBindingTest().deviceBingdingTest2(inputAuthCode.getText().toString());
                             }
                         });
 
