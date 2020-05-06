@@ -1,4 +1,5 @@
 extern crate aes_soft as aes;
+
 use super::key_manager::KeyManager;
 use aes::Aes128;
 use block_modes::block_padding::Pkcs7;
@@ -39,38 +40,36 @@ pub struct DeviceManage {}
 
 impl DeviceManage {
     pub fn bind_check(file_path: &String) -> Result<String> {
-        //获取seid
+        //get seid
         let seid = manager::get_se_id()?;
-        //获取SN号
+        //get SN number
         let sn = manager::get_sn()?;
-        //计算文件加密密钥
-        // let mut key_manager_obj = &mut self.key_manager;
+        //Calculate encryption key
         let mut key_manager_obj = KEY_MANAGER.lock().unwrap();
         key_manager_obj.gen_encrypt_key(&seid, &sn);
 
-        //获取本地密钥文件内容
+        //Get the ciphertext of the local key file
         let ciphertext = KeyManager::get_key_file_data(file_path, &seid)?;
         let mut key_flag = false;
         if !ciphertext.is_empty() {
+            //Decrypt and parse the ciphertext
             key_flag = !key_manager_obj.decrypt_keys(ciphertext.as_bytes())?;
         }
 
-        //如果密钥文件不存在或者密钥文件里没有数据则重新生成
+        //If the key file does not exist or is empty then regenerate
         if ciphertext.is_empty() || key_flag {
-            //生成公私钥
             key_manager_obj.gen_local_keys();
             key_flag = true;
         }
 
-        //生成bindcheck指令
+        //gen bindchec apdu
         let bind_check_apdu =
             DeviceBindingApdu::bind_check(&key_manager_obj.pub_key);
-        //发送bindcheck指令，并获取返回数据
+        //send bindcheck command and get return data
         select_imk_applet()?;
         let bind_check_apdu_resp_data = send_apdu(bind_check_apdu)?;
         ApduCheck::checke_response(bind_check_apdu_resp_data.as_str())?;
 
-        //获取状态值 //状态 0x00: 未绑定  0x55: 与传入appPK绑定  0xAA：与其他appPK绑定
         let status = String::from(&bind_check_apdu_resp_data[..2]);
         let se_pub_key_cert: String = String::from(&bind_check_apdu_resp_data[2..]);
 
@@ -89,7 +88,7 @@ impl DeviceManage {
             let expect_result: [u8; 64] = [0; 64];
             let mut x_out = [0u8; 32];
             let mut y_out = [0u8; 32];
-            SharedSecret::new_with_hash(&pk2, &sk1, | x, y | {
+            SharedSecret::new_with_hash(&pk2, &sk1, |x, y| {
                 x_out = x;
                 y_out = y;
                 expect_result.into()
@@ -99,7 +98,7 @@ impl DeviceManage {
             //set the session key
             key_manager_obj.session_key = sha1_result[..16].to_vec();
 
-            //保存密钥到本地文件
+            //Save the ciphertext to a local file
             if key_flag {
                 let ciphertext = key_manager_obj.encrypt_data()?;
                 KeyManager::save_keys_to_local_file(&ciphertext, file_path, &seid)?;
@@ -160,7 +159,7 @@ impl DeviceManage {
     }
 }
 
-fn select_imk_applet() ->Result<()> {
+fn select_imk_applet() -> Result<()> {
     let apdu_response = send_apdu(Apdu::select_applet(IMK_AID))?;
     ApduCheck::checke_response(apdu_response.as_str())
 }
@@ -195,14 +194,13 @@ fn auth_code_encrypt(auth_code: &String) -> Result<String> {
     Ok(hex::encode_upper(enc_data))
 }
 
-fn get_se_pubkey(se_pubkey_cert: String) -> Result<String>{
-//    let se_cert_str = manager::get_cert();
+fn get_se_pubkey(se_pubkey_cert: String) -> Result<String> {
     let index;
     if se_pubkey_cert.contains("7F4947B041") {
         index = se_pubkey_cert.find("7F4947B041").expect("parsing_se_cert_error");
-    }else if se_pubkey_cert.contains("7F4946B041") {
+    } else if se_pubkey_cert.contains("7F4946B041") {
         index = se_pubkey_cert.find("7F4946B041").expect("parsing_se_cert_error");
-    }else {
+    } else {
         return Err(ImkeyError::ImkeySeCertInvalid.into());
     }
 
@@ -210,55 +208,48 @@ fn get_se_pubkey(se_pubkey_cert: String) -> Result<String>{
 }
 
 #[cfg(test)]
-mod test{
+mod test {
     use crate::key_manager::KeyManager;
     use crate::device_binding::DeviceManage;
     use crate::manager::bind_display_code;
     use mq::hid_api::hid_connect;
 
     #[test]
-    fn device_bind_test(){
-
-         let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-         let bind_code = "3KN379K4".to_string();
+    fn device_bind_test() {
+        let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+        let bind_code = "3KN379K4".to_string();
 //         let path = "/Users/joe/work/sdk_gen_key".to_string();
 //         let bind_code = "YDSGQPKX".to_string();
 
         hid_connect("imKey Pro");
         let check_result = DeviceManage::bind_check(&path).unwrap();
         let mut bind_result = String::new();
-        println!("result:{}",&check_result);
+        println!("result:{}", &check_result);
         if check_result.as_str().eq("unbound") {
 //            bind_display_code();
 //            let mut bind_code_temp = String::new();
-//            println!("请输入绑定码:");
+//            println!("please input bind code:");
 //            let bl = std::io::stdin().read_line(&mut bind_code_temp).unwrap();
             bind_result = DeviceManage::bind_acquire(&bind_code).unwrap();
-
-        }else if check_result.as_str().eq("bound_other"){
+        } else if check_result.as_str().eq("bound_other") {
             bind_result = DeviceManage::bind_acquire(&bind_code).unwrap();
-        }else {
+        } else {
             ();
         }
         println!("{}", bind_result);
 
-//        println!("result:{}",&bind_result);
-
-
     }
 
     #[test]
-    fn cert_parsing(){
-        //证书解析
+    fn cert_parsing() {
         let cert = "BF2181CA7F2181C6931019060000000200860001010000000014420200015F200401020304950200805F2504201810145F2404FFFFFFFF53007F4947B04104FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44F002DFFE5F374830460221008CB58D54BDED501236621B83B320081E6F9B6B5539AE5EC9D36B660EC445A5E8022100A203CA1F9ABEE69751EA402A2ACDFD6B4A87697D6CD721F60540959095EC";
-        if cert.contains("7F4947B041") || cert.contains("7F4946B041"){
+        if cert.contains("7F4947B041") || cert.contains("7F4946B041") {
             println!("success");
             let index = cert.find("7F4947B041").expect("get tager index error");
             let se_pub_key = &cert[index + 10..index + 140];
             println!("{:?}", se_pub_key);
-        }else {
+        } else {
             println!("{:?}", "cert error");
         }
     }
-
 }
