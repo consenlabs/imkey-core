@@ -1,4 +1,3 @@
-
 #[derive(Fail, Debug, PartialOrd, PartialEq)]
 pub enum ImkeyError {
     #[fail(display = "imkey_tsm_device_not_activated")]

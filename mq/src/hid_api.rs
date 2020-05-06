@@ -153,7 +153,7 @@ pub fn hid_connect(_device_model_name: &str) -> Result<()> {
             let mut hid_device_obj = HID_DEVICE.lock().unwrap();
             *hid_device_obj = vec![hid_device];
             drop(hid_device_obj);
-
+            send_apdu("00A40400".to_string())?;
             return Ok(());
         }
         Err(err) => {

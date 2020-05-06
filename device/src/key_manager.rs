@@ -3,9 +3,11 @@ use ring::digest;
 use std::fs::{File, OpenOptions};
 use std::io::{ErrorKind, Read, Write};
 use std::path::Path;
+
 extern crate aes_soft as aes;
 extern crate block_modes;
 extern crate hex_literal;
+
 use aes_soft::Aes128;
 use block_modes::block_padding::Pkcs7;
 use block_modes::{BlockMode, Cbc};
@@ -17,12 +19,18 @@ use crate::error::BindError;
 
 
 pub struct KeyManager {
-    pub pri_key: Vec<u8>,//32 byte
-    pub pub_key: Vec<u8>,//65 byte
-    pub se_pub_key: Vec<u8>,//65 byte
-    pub session_key: Vec<u8>,//16 byte
-    pub check_sum: Vec<u8>,//4 byte
-    pub encry_key: Vec<u8>,//16 byte
+    pub pri_key: Vec<u8>,
+    //32 byte TODO
+    pub pub_key: Vec<u8>,
+    //65 byte
+    pub se_pub_key: Vec<u8>,
+    //65 byte
+    pub session_key: Vec<u8>,
+    //16 byte
+    pub check_sum: Vec<u8>,
+    //4 byte
+    pub encry_key: Vec<u8>,
+    //16 byte
     pub iv: Vec<u8>,//16 byte
 }
 
@@ -39,14 +47,14 @@ impl KeyManager {
         }
     }
     /**
-    生成加密密钥
+    Generate encryption key
     */
     pub fn gen_encrypt_key(&mut self, seid: &str, sn: &str) {
         //calc seid and sn hash
         let seid_hash = digest::digest(&digest::SHA256, seid.as_bytes()).as_ref().to_vec();
         let sn_hash = digest::digest(&digest::SHA256, sn.as_bytes()).as_ref().to_vec();
 
-        let mut xor_result : Vec<u8> = vec![];
+        let mut xor_result: Vec<u8> = vec![];
         for (index, value) in seid_hash.iter().enumerate() {
             xor_result.push(value ^ sn_hash.get(index).unwrap());
         }
@@ -55,32 +63,32 @@ impl KeyManager {
     }
 
     /**
-    加密密钥文件数据
+    Organize and encrypt key file data
     */
     pub fn encrypt_data(&self) -> Result<String> {
         let mut data = vec![];
-        //组织原数据
+        //
         data.extend(self.pri_key.iter());
         data.extend(self.pub_key.iter());
         data.extend(self.se_pub_key.iter());
         data.extend(self.session_key.iter());
 
-        //计算HASH
+        //calc HASH
         let hash = digest::digest(&digest::SHA256, data.as_slice());
         data.extend(hash.as_ref()[..4].iter());
 
-        //进行AES-CBC加密
+        //AES-CBC encryption
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
         let cipher =
             Aes128Cbc::new_var(self.encry_key.as_ref(), self.iv.as_ref()).expect("aes_128cbc_encrypt_error");
         let ciphertext = cipher.encrypt_vec(data.as_ref());
 
-        //base64编码
+        //base64 coding
         Ok(encode(&ciphertext))
     }
 
     /**
-    获取密钥文件数据
+    Get key file data
     */
     pub fn get_key_file_data(path: &String, seid: &String) -> Result<String> {
         let mut return_data = String::new();
@@ -98,13 +106,13 @@ impl KeyManager {
     }
 
     /**
-    解密密钥文件数据
+    Decrypt key file data
     */
     pub fn decrypt_keys(&mut self, ciphertext: &[u8]) -> Result<bool> {
-        //base64解码
+        //base64 decoding
         let ciphertext_bytes = decode(ciphertext)?;
 
-        //AES CBC解密
+        //AES-CBC Decrypt
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
         let cipher =
             Aes128Cbc::new_var(self.encry_key.as_ref(), self.iv.as_ref())?;
@@ -114,7 +122,7 @@ impl KeyManager {
         }
         let decrypted_data = decrypt_result.unwrap();
 
-        //解析明文数据
+        //Parsing data
         //pri_key
         self.pri_key = decrypted_data[..32].to_vec();
 
@@ -130,7 +138,7 @@ impl KeyManager {
         //check sum
         self.check_sum = decrypted_data[178..].to_vec();
 
-        //校验checksum，检验成功则返回true，否则返回false
+        //check checksum
         let data = &decrypted_data[..178];
         let data_hash = digest::digest(&digest::SHA256, data);
         let data_hash_byte = data_hash.as_ref();
@@ -143,7 +151,7 @@ impl KeyManager {
     }
 
     /**
-    生成本地密钥对
+    gen local key pair
     */
     pub fn gen_local_keys(&mut self) {
         let s = Secp256k1::new();
@@ -152,10 +160,9 @@ impl KeyManager {
         self.pub_key = pk.serialize_uncompressed().to_vec();
     }
     /**
-     保存密钥倒本地文件
+     Store key data
     */
-    pub fn save_keys_to_local_file(keys: &String, path: &String, seid: &String) ->Result<()> {
-
+    pub fn save_keys_to_local_file(keys: &String, path: &String, seid: &String) -> Result<()> {
         let mut file = OpenOptions::new()
             .read(true)
             .write(true)
@@ -169,11 +176,11 @@ impl KeyManager {
 }
 
 #[cfg(test)]
-mod test{
+mod test {
     use crate::key_manager::KeyManager;
 
     #[test]
-    fn gen_encrypt_key_test(){
+    fn gen_encrypt_key_test() {
         let seid = "19060000000200860001010000000014";
         let sn = "imKey01191200001";
         let mut key_manager_obj = KeyManager::new();
@@ -189,5 +196,4 @@ mod test{
             "92AF372F64C10BAA942478560F91F346".to_string()
         );
     }
-
 }

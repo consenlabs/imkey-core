@@ -36,7 +36,7 @@ pub fn sign_usdt_transaction(data: &[u8]) -> Result<Vec<u8>> {
         Network::Bitcoin
     };
     let signed = btc_tx
-        .sign_omni_transaction(network, &input.path_prefix, input.property_id as i32)?;//todo check
+        .sign_omni_transaction(network, &input.path_prefix, input.property_id as i32)?;
     let tx_sign_result = BtcTxRes {
         tx_data: signed.signature,
         tx_hash: signed.tx_hash,

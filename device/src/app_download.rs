@@ -2,8 +2,9 @@ use common::constants;
 use common::https;
 use mq::message;
 use serde::{Deserialize, Serialize};
-use crate::Result;
+use crate::{Result, TsmService};
 use crate::error::ImkeyError;
+use crate::ServiceResponse;
 
 #[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
@@ -20,14 +21,6 @@ pub struct AppDownloadRequest {
 
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Debug)]
-pub struct ServiceResponse {
-    pub _ReturnCode: String,
-    pub _ReturnMsg: String,
-    pub _ReturnData: AppDownloadResponse,
-}
-
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
 pub struct AppDownloadResponse {
     pub seid: Option<String>,
     pub instanceAid: Option<String>,
@@ -35,34 +28,18 @@ pub struct AppDownloadResponse {
     pub apduList: Option<Vec<String>>,
 }
 
-impl AppDownloadRequest {
-    pub fn build_request_data(
-        seid: String,
-        instance_aid: String,
-        device_cert: String,
-        sdk_version: Option<String>,
-    ) -> AppDownloadRequest {
-        AppDownloadRequest {
-            seid: seid,
-            instanceAid: instance_aid,
-            deviceCert: device_cert,
-            sdkVersion: sdk_version,
-            stepKey: String::from("01"),
-            statusWord: None,
-            commandID: String::from(constants::TSM_ACTION_APP_DOWNLOAD),
-            cardRetDataList: None,
-        }
-    }
+impl TsmService for AppDownloadRequest {
+    type ReturnData = ();
 
-    pub fn app_download(&mut self) -> Result<()> {
+    fn send_message(&mut self) -> Result<()> {
         loop {
-            println!("请求报文：{:#?}", self);
+            println!("send message：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
             let response_data = https::post(constants::TSM_ACTION_APP_DOWNLOAD, req_data)?;
-            let return_bean: ServiceResponse = serde_json::from_str(response_data.as_str())?;
-            println!("反馈报文：{:#?}", return_bean);
+            let return_bean: ServiceResponse<AppDownloadResponse> = serde_json::from_str(response_data.as_str())?;
+            println!("return message：{:#?}", return_bean);
             if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
-                //判断步骤key是否已经结束
+                //check step key is end
                 let next_step_key = return_bean._ReturnData.nextStepKey.unwrap();
                 if constants::TSM_END_FLAG.eq(next_step_key.as_str()) {
                     return Ok(());
@@ -72,11 +49,11 @@ impl AppDownloadRequest {
                 match return_bean._ReturnData.apduList {
                     Some(apdu_list) => {
                         for (index_val, apdu_val) in apdu_list.iter().enumerate() {
-                            //调用发送指令接口，并获取执行结果
+                            //send apdu
                             let res = message::send_apdu(apdu_val.to_string())?;
                             apdu_res.push(res.clone());
                             if index_val == apdu_list.len() - 1 {
-                                self.statusWord = Some(String::from(&res[res.len() -4..]));
+                                self.statusWord = Some(String::from(&res[res.len() - 4..]));
                             }
                         }
                         self.cardRetDataList = Some(apdu_res);
@@ -100,15 +77,36 @@ impl AppDownloadRequest {
     }
 }
 
+impl AppDownloadRequest {
+    pub fn build_request_data(
+        seid: String,
+        instance_aid: String,
+        device_cert: String,
+        sdk_version: Option<String>,
+    ) -> Self {
+        AppDownloadRequest {
+            seid: seid,
+            instanceAid: instance_aid,
+            deviceCert: device_cert,
+            sdkVersion: sdk_version,
+            stepKey: String::from("01"),
+            statusWord: None,
+            commandID: String::from(constants::TSM_ACTION_APP_DOWNLOAD),
+            cardRetDataList: None,
+        }
+    }
+}
+
 #[cfg(test)]
-mod test{
+mod test {
     use crate::app_download::AppDownloadRequest;
+    use crate::TsmService;
 
     #[test]
-    pub fn app_download_test(){
+    pub fn app_download_test() {
         let seid: String = "19060000000200860001010000000014".to_string();
         let instance_aid: String = "695F657468".to_string();
         let device_cert: String = "BF2181CA7F2181C6931019060000000200860001010000000014420200015F200401020304950200805F2504201810145F2404FFFFFFFF53007F4947B04104FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44F002DFFE5F374830460221008CB58D54BDED501236621B83B320081E6F9B6B5539AE5EC9D36B660EC445A5E8022100A203CA1F9ABEE69751EA402A2ACDFD6B4A87697D6CD721F60540959095EC9466".to_string();
-        AppDownloadRequest::build_request_data(seid, instance_aid, device_cert, None).app_download();
+        AppDownloadRequest::build_request_data(seid, instance_aid, device_cert, None).send_message();
     }
 }
