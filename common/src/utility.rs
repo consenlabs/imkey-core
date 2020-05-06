@@ -101,8 +101,6 @@ pub fn retrieve_recid(
 
         if let Ok(rec_pubkey) = secp_context.recover(&msg_to_sign, &sig) {
             let rec_pubkey_raw = rec_pubkey.serialize_uncompressed();
-            let rec_pubkey = hex::encode(rec_pubkey_raw.iter());
-            let pub_key = hex::encode(pubkey);
             if rec_pubkey_raw.to_vec() == *pubkey {
                 recid_final = i;
                 break;
