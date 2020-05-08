@@ -5,7 +5,6 @@ members = [
     "device",
     "wallet/coin-ethereum",
     "mq",
-    "crypto",
     "common",
     "testcase",
     "wallet/coin-eos",
