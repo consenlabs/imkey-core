@@ -1,11 +1,10 @@
-use ring::digest;
-use secp256k1::{Secp256k1, Message, Signature, PublicKey as PublicKey2, SecretKey};
-use num_bigint::BigInt;
-use num_traits::{Num, FromPrimitive, Zero};
-use num_integer::Integer;
-use secp256k1::recovery::{RecoverableSignature, RecoveryId};
 use crate::Result;
-
+use num_bigint::BigInt;
+use num_integer::Integer;
+use num_traits::{FromPrimitive, Num, Zero};
+use ring::digest;
+use secp256k1::recovery::{RecoverableSignature, RecoveryId};
+use secp256k1::{Message, PublicKey as PublicKey2, Secp256k1, SecretKey, Signature};
 
 pub fn hex_to_bytes(value: &str) -> Result<Vec<u8>> {
     let ret_data;
@@ -18,10 +17,7 @@ pub fn hex_to_bytes(value: &str) -> Result<Vec<u8>> {
 }
 
 pub fn sha256_hash(data: &[u8]) -> Vec<u8> {
-    let digest_obj = digest::digest(
-        &digest::SHA256,
-        data,
-    );
+    let digest_obj = digest::digest(&digest::SHA256, data);
     digest_obj.as_ref().to_vec()
 }
 
@@ -34,7 +30,10 @@ pub fn secp256k1_sign(private_key: &[u8], message: &[u8]) -> Result<Vec<u8>> {
     let message_data = Message::from_slice(message_hash.as_ref())?;
     let secp = Secp256k1::new();
     //sign data
-    Ok(secp.sign(&message_data, &secret_key).serialize_der().to_vec())
+    Ok(secp
+        .sign(&message_data, &secret_key)
+        .serialize_der()
+        .to_vec())
 }
 
 pub fn secp256k1_sign_hash(private_key: &[u8], hash: &[u8]) -> Result<Vec<u8>> {
@@ -44,7 +43,10 @@ pub fn secp256k1_sign_hash(private_key: &[u8], hash: &[u8]) -> Result<Vec<u8>> {
     let message_data = Message::from_slice(hash.as_ref())?;
     let secp = Secp256k1::new();
     //sign data
-    Ok(secp.sign(&message_data, &secret_key).serialize_der().to_vec())
+    Ok(secp
+        .sign(&message_data, &secret_key)
+        .serialize_der()
+        .to_vec())
 }
 
 /**
@@ -86,11 +88,7 @@ pub fn uncompress_pubkey_2_compress(uncomprs_pubkey: &str) -> String {
     };
 }
 
-pub fn retrieve_recid(
-    msg: &[u8],
-    sign_compact: &[u8],
-    pubkey: &Vec<u8>,
-) -> Result<RecoveryId> {
+pub fn retrieve_recid(msg: &[u8], sign_compact: &[u8], pubkey: &Vec<u8>) -> Result<RecoveryId> {
     let secp_context = secp256k1::Secp256k1::new();
 
     let mut recid_final = -1i32;

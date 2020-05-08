@@ -1,12 +1,12 @@
 use crate::error::CommonError;
-use regex::Regex;
 use crate::Result;
+use regex::Regex;
 
 pub fn check_path_validity(path: &str) -> Result<()> {
     //check depth and length
     let strings: Vec<&str> = path.split("/").collect();
     let depth = strings.len();
-    if depth < 2 || depth > 10 || path.len() > 100{
+    if depth < 2 || depth > 10 || path.len() > 100 {
         return Err(CommonError::ImkeyPathIllegal.into());
     }
     //regx check

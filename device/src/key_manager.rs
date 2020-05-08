@@ -8,15 +8,14 @@ extern crate aes_soft as aes;
 extern crate block_modes;
 extern crate hex_literal;
 
+use crate::error::BindError;
+use crate::Result;
 use aes_soft::Aes128;
 use block_modes::block_padding::Pkcs7;
 use block_modes::{BlockMode, Cbc};
 use hex::FromHex;
-use secp256k1::Secp256k1;
 use rand::thread_rng;
-use crate::Result;
-use crate::error::BindError;
-
+use secp256k1::Secp256k1;
 
 pub struct KeyManager {
     pub pri_key: Vec<u8>,
@@ -31,7 +30,7 @@ pub struct KeyManager {
     //4 byte
     pub encry_key: Vec<u8>,
     //16 byte
-    pub iv: Vec<u8>,//16 byte
+    pub iv: Vec<u8>, //16 byte
 }
 
 impl KeyManager {
@@ -51,8 +50,12 @@ impl KeyManager {
     */
     pub fn gen_encrypt_key(&mut self, seid: &str, sn: &str) {
         //calc seid and sn hash
-        let seid_hash = digest::digest(&digest::SHA256, seid.as_bytes()).as_ref().to_vec();
-        let sn_hash = digest::digest(&digest::SHA256, sn.as_bytes()).as_ref().to_vec();
+        let seid_hash = digest::digest(&digest::SHA256, seid.as_bytes())
+            .as_ref()
+            .to_vec();
+        let sn_hash = digest::digest(&digest::SHA256, sn.as_bytes())
+            .as_ref()
+            .to_vec();
 
         let mut xor_result: Vec<u8> = vec![];
         for (index, value) in seid_hash.iter().enumerate() {
@@ -79,8 +82,8 @@ impl KeyManager {
 
         //AES-CBC encryption
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
-        let cipher =
-            Aes128Cbc::new_var(self.encry_key.as_ref(), self.iv.as_ref()).expect("aes_128cbc_encrypt_error");
+        let cipher = Aes128Cbc::new_var(self.encry_key.as_ref(), self.iv.as_ref())
+            .expect("aes_128cbc_encrypt_error");
         let ciphertext = cipher.encrypt_vec(data.as_ref());
 
         //base64 coding
@@ -95,7 +98,8 @@ impl KeyManager {
         let file = File::open(format!("{}key{}{}", path, seid, ".txt").as_str());
         match file {
             Ok(mut f) => {
-                f.read_to_string(&mut return_data).expect("imkey_keyfile_io_error");
+                f.read_to_string(&mut return_data)
+                    .expect("imkey_keyfile_io_error");
                 Ok(return_data)
             }
             Err(e) => match e.kind() {
@@ -114,8 +118,7 @@ impl KeyManager {
 
         //AES-CBC Decrypt
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
-        let cipher =
-            Aes128Cbc::new_var(self.encry_key.as_ref(), self.iv.as_ref())?;
+        let cipher = Aes128Cbc::new_var(self.encry_key.as_ref(), self.iv.as_ref())?;
         let decrypt_result = cipher.decrypt_vec(&ciphertext_bytes);
         if decrypt_result.is_err() {
             return Ok(false);
@@ -167,7 +170,8 @@ impl KeyManager {
             .read(true)
             .write(true)
             .create(true)
-            .open(Path::new(format!("{}key{}{}", path, seid, ".txt").as_str())).expect("imkey_keyfile_opertion_error");
+            .open(Path::new(format!("{}key{}{}", path, seid, ".txt").as_str()))
+            .expect("imkey_keyfile_opertion_error");
         match file.write_all(keys.as_bytes()) {
             Ok(val) => Ok(val),
             Err(_e) => Err(BindError::ImkeySaveKeyFileFail.into()),
@@ -185,7 +189,10 @@ mod test {
         let sn = "imKey01191200001";
         let mut key_manager_obj = KeyManager::new();
         key_manager_obj.gen_encrypt_key(&seid, &sn);
-        println!("encry key-->{:?}", hex::encode_upper(&key_manager_obj.encry_key));
+        println!(
+            "encry key-->{:?}",
+            hex::encode_upper(&key_manager_obj.encry_key)
+        );
         println!("iv-->{:?}", hex::encode_upper(&key_manager_obj.iv));
         assert_eq!(
             hex::encode_upper(key_manager_obj.encry_key),

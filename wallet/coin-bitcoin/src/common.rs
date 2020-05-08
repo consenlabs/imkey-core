@@ -1,21 +1,26 @@
 use crate::transaction::Utxo;
-use bitcoin::util::bip32::{ExtendedPubKey, ChainCode, ChildNumber};
-use bitcoin::{Address, PublicKey, Network};
-use bitcoin::secp256k1::Secp256k1 as BitcoinSecp256k1;
-use std::str::FromStr;
-use common::error::CoinError;
-use mq::message::send_apdu;
-use common::apdu::{BtcApdu, ApduCheck};
-use secp256k1::{Secp256k1, Message, Signature, PublicKey as PublicKey2};
-use common::utility::sha256_hash;
-use bitcoin::util::base58;
 use crate::Result;
-
+use bitcoin::secp256k1::Secp256k1 as BitcoinSecp256k1;
+use bitcoin::util::base58;
+use bitcoin::util::bip32::{ChainCode, ChildNumber, ExtendedPubKey};
+use bitcoin::{Address, Network, PublicKey};
+use common::apdu::{ApduCheck, BtcApdu};
+use common::error::CoinError;
+use common::utility::sha256_hash;
+use mq::message::send_apdu;
+use secp256k1::{Message, PublicKey as PublicKey2, Secp256k1, Signature};
+use std::str::FromStr;
 
 /**
 utxo address verify
 */
-pub fn address_verify(utxos: &Vec<Utxo>, public_key: &str, chain_code: &[u8], network: Network, trans_type_flg: TransTypeFlg) -> Result<Vec<String>> {
+pub fn address_verify(
+    utxos: &Vec<Utxo>,
+    public_key: &str,
+    chain_code: &[u8],
+    network: Network,
+    trans_type_flg: TransTypeFlg,
+) -> Result<Vec<String>> {
     let mut utxo_pub_key_vec: Vec<String> = vec![];
     for utxo in utxos {
         //get utxo public key
@@ -36,18 +41,21 @@ pub fn address_verify(utxos: &Vec<Utxo>, public_key: &str, chain_code: &[u8], ne
         let bitcoin_secp = BitcoinSecp256k1::new();
         let index_number_vec: Vec<&str> = utxo.derive_path.as_str().split('/').collect();
         for index_number in index_number_vec {
-            let test_chain_number =
-                ChildNumber::from_normal_idx(index_number.parse().unwrap())?;
+            let test_chain_number = ChildNumber::from_normal_idx(index_number.parse().unwrap())?;
             extend_public_key = extend_public_key.ckd_pub(&bitcoin_secp, test_chain_number)?;
         }
         //verify address
         let se_gen_address: Result<String> = match trans_type_flg {
             TransTypeFlg::BTC => Ok(Address::p2pkh(
                 &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
-                network).to_string()),
+                network,
+            )
+            .to_string()),
             TransTypeFlg::SEGWIT => Ok(Address::p2shwpkh(
                 &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
-                network).to_string()),
+                network,
+            )
+            .to_string()),
         };
         let se_gen_address_str = se_gen_address?;
         let utxo_address = utxo.address.to_string();
@@ -106,9 +114,7 @@ pub fn get_address_version(network: Network, address: &str) -> Result<u8> {
             }
         }
         Network::Testnet => {
-            if !address.starts_with('m') &&
-                !address.starts_with('n') &&
-                !address.starts_with('2') {
+            if !address.starts_with('m') && !address.starts_with('n') && !address.starts_with('2') {
                 return Err(CoinError::AddressTypeMismatch.into());
             }
         }
@@ -134,7 +140,8 @@ mod test {
 
     #[test]
     fn get_address_version_test() {
-        let address_version = get_address_version(Network::Bitcoin, "3CVD68V71no5jn2UZpLLq6hASpXu1jrByt");
+        let address_version =
+            get_address_version(Network::Bitcoin, "3CVD68V71no5jn2UZpLLq6hASpXu1jrByt");
         if address_version.is_ok() {
             println!("address version is : {}", address_version.ok().unwrap());
         } else {

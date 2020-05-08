@@ -1,11 +1,12 @@
-use common::https;
-use serde::{Deserialize, Serialize};
-use crate::{Result, TsmService};
 use crate::error::ImkeyError;
 use crate::ServiceResponse;
-use common::constants::{TSM_ACTION_DEVICE_CERT_CHECK, TSM_RETURN_CODE_SUCCESS,
-                        TSM_RETURNCODE_DEVICE_CHECK_FAIL, TSM_RETURNCODE_DEV_INACTIVATED,
-                        TSM_RETURNCODE_DEVICE_ILLEGAL, TSM_RETURNCODE_DEVICE_STOP_USING};
+use crate::{Result, TsmService};
+use common::constants::{
+    TSM_ACTION_DEVICE_CERT_CHECK, TSM_RETURNCODE_DEVICE_CHECK_FAIL, TSM_RETURNCODE_DEVICE_ILLEGAL,
+    TSM_RETURNCODE_DEVICE_STOP_USING, TSM_RETURNCODE_DEV_INACTIVATED, TSM_RETURN_CODE_SUCCESS,
+};
+use common::https;
+use serde::{Deserialize, Serialize};
 
 // SE安全检查请求bean
 #[allow(non_snake_case)]
@@ -36,7 +37,8 @@ impl TsmService for DeviceCertCheckRequest {
         println!("send message：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
         let response_data = https::post(TSM_ACTION_DEVICE_CERT_CHECK, req_data)?;
-        let return_bean: ServiceResponse<DeviceCertCheckResponse> = serde_json::from_str(response_data.as_str())?;
+        let return_bean: ServiceResponse<DeviceCertCheckResponse> =
+            serde_json::from_str(response_data.as_str())?;
         println!("return message：{:#?}", return_bean);
 
         match return_bean._ReturnCode.as_str() {
@@ -46,7 +48,9 @@ impl TsmService for DeviceCertCheckRequest {
                 }
                 return Err(ImkeyError::ImkeySeCertInvalid.into());
             }
-            TSM_RETURNCODE_DEVICE_CHECK_FAIL => Err(ImkeyError::ImkeyTsmDeviceAuthenticityCheckFail.into()),
+            TSM_RETURNCODE_DEVICE_CHECK_FAIL => {
+                Err(ImkeyError::ImkeyTsmDeviceAuthenticityCheckFail.into())
+            }
             TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::ImkeyTsmDeviceNotActivated.into()),
             TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::ImkeyTsmDeviceIllegal.into()),
             TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::ImkeyTsmDeviceStopUsing.into()),
@@ -56,11 +60,7 @@ impl TsmService for DeviceCertCheckRequest {
 }
 
 impl DeviceCertCheckRequest {
-    pub fn build_request_data(
-        seid: String,
-        sn: String,
-        device_cert: String,
-    ) -> Self {
+    pub fn build_request_data(seid: String, sn: String, device_cert: String) -> Self {
         DeviceCertCheckRequest {
             seid: seid,
             sn: sn,

@@ -1,16 +1,15 @@
 use hex::FromHex;
 //use std::thread::sleep;
 //use std::time::Duration;
-use std::sync::Mutex;
-#[cfg(any(target_os = "macos", target_os = "windows"))]
-use hidapi::{HidApi, HidDevice};
-use crate::Result;
 use super::error::HidError;
 use crate::message::send_apdu;
+use crate::Result;
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+use hidapi::{HidApi, HidDevice};
+use std::sync::Mutex;
 //use regex::internal::Input;
 //use log::kv::Source;
 //use std::collections::HashMap;
-
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 lazy_static! {
@@ -35,9 +34,12 @@ pub fn hid_send(apdu: &String, timeout: i32) -> Result<String> {
         return Err(HidError::DeviceConnectInterfaceNotCalled.into());
     }
     println!("-->{}", apdu);
-    send_device_message(&hid_device_obj.get(0).unwrap(), Vec::from_hex(apdu.as_str()).unwrap().as_slice())?;
+    send_device_message(
+        &hid_device_obj.get(0).unwrap(),
+        Vec::from_hex(apdu.as_str()).unwrap().as_slice(),
+    )?;
     let return_data = read_device_response(&hid_device_obj.get(0).unwrap(), timeout)?;
-//    drop(hid_device_obj);
+    //    drop(hid_device_obj);
     let apdu_response = hex::encode_upper(return_data);
     println!("<--{}", apdu_response.clone());
     Ok(apdu_response)
@@ -65,8 +67,8 @@ fn read_device_response(device: &hidapi::HidDevice, timeout: i32) -> Result<Vec<
     let mut buf = vec![0; 64];
 
     device.read_timeout(&mut buf, 300_000)?;
-    if buf == vec![0;64]{
-        return Err(HidError::DeviceDataReadTimeOut.into());//读数据超时
+    if buf == vec![0; 64] {
+        return Err(HidError::DeviceDataReadTimeOut.into()); //读数据超时
     }
 
     let msg_size = (buf[5] as u8 & 0xFF) + (buf[6] as u8 & 0xFF);
@@ -88,7 +90,6 @@ fn read_device_response(device: &hidapi::HidDevice, timeout: i32) -> Result<Vec<
 }
 
 fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> {
-
     let msg_size = msg.len();
     let mut headerdata = Vec::new();
     // first pack
@@ -109,7 +110,7 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
         let mut flg = 0;
         loop {
             if !(datalenflage == 0) {
-                if datalenflage + 65 - 6 >msg_size {
+                if datalenflage + 65 - 6 > msg_size {
                     data.extend_from_slice(&headerdata[0..5]);
                     data.push(flg as u8);
                     data.extend_from_slice(&msg[datalenflage..msg_size]);
@@ -140,7 +141,6 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
 }
 
 pub fn hid_connect(_device_model_name: &str) -> Result<()> {
-
     //get hid initialization obj
     let hid_api = HID_API.lock().unwrap();
 
@@ -161,12 +161,12 @@ pub fn hid_connect(_device_model_name: &str) -> Result<()> {
             drop(hid_api);
             //Check if the connection is normal
             match send_apdu("00A40400".to_string()) {
-                Ok(_apdu_res) =>{
+                Ok(_apdu_res) => {
                     return Ok(());
-                } ,
-                Err(_err) =>{
+                }
+                Err(_err) => {
                     return Err(err.into());
-                },
+                }
             }
         }
     };
@@ -180,19 +180,19 @@ pub fn device_exist_check() -> Result<()> {
     match hid_api.refresh_devices() {
         Ok(()) => (),
         Err(err) => {
-          drop(hid_api);
+            drop(hid_api);
             return Err(err.into());
-        },
+        }
     }
     hid_api.refresh_devices()?;
     //check the device is connect
     let mut connect_flg = false;
     for device_info in hid_api.device_list() {
-        if device_info.vendor_id() == DEV_VID && device_info.product_id() == DEV_PID{
+        if device_info.vendor_id() == DEV_VID && device_info.product_id() == DEV_PID {
             connect_flg = true;
             break;
         };
-    };
+    }
     drop(hid_api);
     if !connect_flg {
         return Err(HidError::DeviceIsNotConnectOrNoVerifyPin.into());
@@ -201,14 +201,13 @@ pub fn device_exist_check() -> Result<()> {
 }
 
 #[cfg(test)]
-mod test{
+mod test {
     use crate::hid_api;
+    use crate::hid_api::{hid_connect, HID_DEVICE};
     use crate::message::send_apdu;
-    use crate::hid_api::{ hid_connect, HID_DEVICE};
 
     #[test]
-    fn hid_test(){
-
+    fn hid_test() {
         let connect_result = hid_connect("imKey Pro");
         match connect_result {
             Ok(()) => {
@@ -220,13 +219,13 @@ mod test{
                     Ok(val) => (),
                     Err(e) => println!("{}", e),
                 }
-            },
+            }
             Err(err) => println!("{}", err),
         }
         //================================================
-//        match send_apdu("00A4040005695F62746300".to_string()) {
-//            Ok(val) => (),
-//            Err(e) => println!("{}", e),
-//        }
+        //        match send_apdu("00A4040005695F62746300".to_string()) {
+        //            Ok(val) => (),
+        //            Err(e) => println!("{}", e),
+        //        }
     }
 }

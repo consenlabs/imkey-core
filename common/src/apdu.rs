@@ -1,8 +1,8 @@
-use crate::constants::{BTC_AID, ETH_AID, LC_MAX, COSMOS_AID, EOS_AID};
+use crate::constants::{BTC_AID, COSMOS_AID, EOS_AID, ETH_AID, LC_MAX};
+use crate::error::ApduError;
+use crate::Result;
 use hex;
 use rustc_serialize::hex::ToHex;
-use crate::Result;
-use crate::error::ApduError;
 
 pub struct Apdu {}
 
@@ -45,10 +45,10 @@ impl Apdu {
         let mut apdu_list = Vec::new();
         let size = data.len() as u32 / LC_MAX as u32
             + if data.len() as u32 % LC_MAX as u32 != 0 {
-            1
-        } else {
-            0
-        };
+                1
+            } else {
+                0
+            };
 
         for i in 0..size {
             let mut apdu = Vec::new();
@@ -259,11 +259,13 @@ impl BtcApdu {
                 } else {
                     (data.len() % LC_MAX as usize) as u32
                 };
-                let mut temp_apdu_vec =ApduHeader::new(0x80, ins, p1, 0x80, length as u8).to_array();
+                let mut temp_apdu_vec =
+                    ApduHeader::new(0x80, ins, p1, 0x80, length as u8).to_array();
                 temp_apdu_vec.extend_from_slice(&data[index * LC_MAX as usize..]);
                 apdu_vec.push(hex::encode_upper(temp_apdu_vec));
             } else {
-                let mut temp_apdu_vec =ApduHeader::new(0x80, ins, p1, 0x00, LC_MAX as u8).to_array();
+                let mut temp_apdu_vec =
+                    ApduHeader::new(0x80, ins, p1, 0x00, LC_MAX as u8).to_array();
                 temp_apdu_vec.extend_from_slice(
                     &data[index * LC_MAX as usize..((index + 1) * LC_MAX as usize) as usize],
                 );
@@ -277,7 +279,7 @@ impl BtcApdu {
         if data.len() as u32 > LC_MAX {
             panic!("data to long");
         }
-        let mut apdu =ApduHeader::new(0x80, 0x41, p1, 0x00, data.len() as u8).to_array();
+        let mut apdu = ApduHeader::new(0x80, 0x41, p1, 0x00, data.len() as u8).to_array();
         apdu.extend(data.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
@@ -285,7 +287,8 @@ impl BtcApdu {
 
     pub fn btc_sign(index: u8, hash_type: u8, path: &str) -> String {
         let path_bytes = path.as_bytes();
-        let mut apdu =ApduHeader::new(0x80, 0x42, index, hash_type, path_bytes.len() as u8).to_array();
+        let mut apdu =
+            ApduHeader::new(0x80, 0x42, index, hash_type, path_bytes.len() as u8).to_array();
         apdu.extend(path_bytes.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
@@ -296,7 +299,7 @@ impl BtcApdu {
             panic!("data to long");
         }
 
-        let mut apdu = match last_one{
+        let mut apdu = match last_one {
             true => ApduHeader::new(0x80, 0x32, 0x80, hash_type, data.len() as u8).to_array(),
             _ => ApduHeader::new(0x80, 0x32, 0x00, hash_type, data.len() as u8).to_array(),
         };
@@ -386,7 +389,7 @@ impl ApduCheck {
             "F080" => Err(ApduError::ImkeyInMenuPage.into()),
             "F081" => Err(ApduError::ImkeyPinNotVerified.into()),
             "6F01" => Err(ApduError::ImkeyBluetoothChannelError.into()),
-            _ => Err(format_err!("imkey_command_execute_fail_{}", response_data)),//Err(ApduError::ImkeyCommandExecuteFail.into())
+            _ => Err(format_err!("imkey_command_execute_fail_{}", response_data)), //Err(ApduError::ImkeyCommandExecuteFail.into())
         }
     }
 }

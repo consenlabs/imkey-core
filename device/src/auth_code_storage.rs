@@ -1,9 +1,9 @@
+use crate::error::ImkeyError;
+use crate::ServiceResponse;
+use crate::{Result, TsmService};
 use common::constants::{TSM_ACTION_AUTHCODE_STORAGE, TSM_RETURN_CODE_SUCCESS};
 use common::https;
 use serde::{Deserialize, Serialize};
-use crate::{Result, TsmService};
-use crate::error::ImkeyError;
-use crate::ServiceResponse;
 
 #[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
@@ -31,7 +31,8 @@ impl TsmService for AuthCodeStorageRequest {
         println!("send message：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
         let response_data = https::post(TSM_ACTION_AUTHCODE_STORAGE, req_data)?;
-        let return_bean: ServiceResponse<AuthCodeStorageResponse> = serde_json::from_str(response_data.as_str())?;
+        let return_bean: ServiceResponse<AuthCodeStorageResponse> =
+            serde_json::from_str(response_data.as_str())?;
         println!("return message：{:#?}", return_bean);
         if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
             return Ok(());

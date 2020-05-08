@@ -1,10 +1,10 @@
+use crate::Result;
 use bitcoin::util::base58;
 use bitcoin_hashes::{ripemd160, Hash};
-use common::apdu::{EosApdu, ApduCheck};
+use common::apdu::{ApduCheck, EosApdu};
 use common::{path, utility};
-use mq::message;
-use crate::Result;
 use device::device_binding::KEY_MANAGER;
+use mq::message;
 
 #[derive(Debug)]
 pub struct EosPubkey {}
@@ -23,14 +23,16 @@ impl EosPubkey {
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
         let sign_source_val = &res_msg_pubkey[..194];
-        let sign_result = &res_msg_pubkey[194..res_msg_pubkey.len()-4];
+        let sign_result = &res_msg_pubkey[194..res_msg_pubkey.len() - 4];
 
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
 
         //use se public key verify sign
-        let sign_verify_result = utility::secp256k1_sign_verify(&key_manager_obj.se_pub_key,
-                                                                hex::decode(sign_result).unwrap().as_slice(),
-                                                                hex::decode(sign_source_val).unwrap().as_slice())?;
+        let sign_verify_result = utility::secp256k1_sign_verify(
+            &key_manager_obj.se_pub_key,
+            hex::decode(sign_result).unwrap().as_slice(),
+            hex::decode(sign_source_val).unwrap().as_slice(),
+        )?;
         if !sign_verify_result {
             return Err(format_err!("imkey_signature_verify_fail"));
         }
@@ -54,10 +56,7 @@ impl EosPubkey {
 
     pub fn pubkey_from_response(response: &str) -> Result<String> {
         //compressed key
-        let uncomprs_pubkey: String = response
-            .chars()
-            .take(response.len() - 4)
-            .collect();
+        let uncomprs_pubkey: String = response.chars().take(response.len() - 4).collect();
         let comprs_pubkey = utility::uncompress_pubkey_2_compress(&uncomprs_pubkey);
 
         //checksum base58
@@ -88,22 +87,22 @@ mod tests {
     fn test_get_pubkey() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
         let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}",&check_result);
+        println!("check_result:{}", &check_result);
 
         let pubkey = EosPubkey::get_pubkey(constants::EOS_PATH);
-        println!("pubkey:{}",pubkey.unwrap());
+        println!("pubkey:{}", pubkey.unwrap());
     }
 
     #[test]
     fn pubkey_from_response() {
         let response = "04AAF80E479AAC0813B17950C390A16438B307AEE9A814689D6706BE4FB4A4E30A4D2A7F75EF43344FA80580B5B1FBF9F233C378D99D5ADB5CAC9AE86F562803E13DC6BED90C9CE56BB58C24F200D64966E9553CCAAA731DD6B0B2C1C7708C55E53045022012B1393FAED0B88BD8FFC1333DC61F0D7FC862454339574A3A550D555F0ACCD2022100AF1C929FECB18F3226E0DB511731FA9D7016C23CB8E7AD30F5327B4CF681DD729000";
         let pubkey = EosPubkey::pubkey_from_response(response);
-        println!("pubkey:{}",pubkey.unwrap());
+        println!("pubkey:{}", pubkey.unwrap());
     }
 
     #[test]
     fn test_display_pubkey() {
         let pubkey = EosPubkey::display_pubkey(constants::EOS_PATH);
-        println!("pubkey:{}",pubkey.unwrap());
+        println!("pubkey:{}", pubkey.unwrap());
     }
 }

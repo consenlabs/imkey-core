@@ -29,8 +29,8 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use std::env;
     use crate::main;
+    use std::env;
 
     extern crate prost_build;
 

@@ -1,15 +1,15 @@
-use common::apdu::{CosmosApdu, ApduCheck};
-use common::path;
-use common::utility;
-use hex;
-use mq::message;
+use crate::Result;
 use bech32::bech32::Bech32;
 use bitcoin::bech32::convert_bits;
 use bitcoin_hashes::hex::{FromHex, ToHex};
 use bitcoin_hashes::{hash160, Hash};
-use crate::Result;
-use device::device_binding::KEY_MANAGER;
+use common::apdu::{ApduCheck, CosmosApdu};
 use common::error::CoinError;
+use common::path;
+use common::utility;
+use device::device_binding::KEY_MANAGER;
+use hex;
+use mq::message;
 
 #[derive(Debug)]
 pub struct CosmosAddress {}
@@ -65,7 +65,7 @@ impl CosmosAddress {
         }; //todo use bitcoin_hash istead
         let address = match b32.to_string() {
             Ok(s) => s,
-//            Err(e) => return Err(error::Error::AddressError),
+            //            Err(e) => return Err(error::Error::AddressError),
             Err(_e) => return Err(format_err!("AddressError")),
         };
         Ok(address)
@@ -91,26 +91,29 @@ mod tests {
     fn test_get_pub_key() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
         let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}",&check_result);
+        println!("check_result:{}", &check_result);
 
         let comprs_pubkey = CosmosAddress::get_pub_key(constants::COSMOS_PATH).unwrap();
-        assert_eq!(&comprs_pubkey,"0232C1EF21D73C19531B0AA4E863CF397C2B982B2F958F60CDB62969824C096D65");
+        assert_eq!(
+            &comprs_pubkey,
+            "0232C1EF21D73C19531B0AA4E863CF397C2B982B2F958F60CDB62969824C096D65"
+        );
     }
 
     #[test]
     fn test_get_address() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
         let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}",&check_result);
+        println!("check_result:{}", &check_result);
 
         let address = CosmosAddress::get_address(constants::COSMOS_PATH).unwrap();
-        assert_eq!(&address,"cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992");
+        assert_eq!(&address, "cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992");
     }
 
     #[test]
     fn test_display_address() {
         let address = CosmosAddress::display_address(constants::COSMOS_PATH).unwrap();
-        assert_eq!(&address,"cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992");
+        assert_eq!(&address, "cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992");
     }
 
     #[test]

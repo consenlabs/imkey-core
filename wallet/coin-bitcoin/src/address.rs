@@ -1,11 +1,11 @@
-use bitcoin::{Address, PublicKey, Network};
-use std::str::FromStr;
-use bitcoin::util::bip32::{ExtendedPubKey, ChainCode, ChildNumber, DerivationPath, Fingerprint};
-use common::path::check_path_validity;
 use crate::common::get_xpub_data;
 use crate::Result;
-use common::apdu::{BtcApdu, ApduCheck};
+use bitcoin::util::bip32::{ChainCode, ChildNumber, DerivationPath, ExtendedPubKey, Fingerprint};
+use bitcoin::{Address, Network, PublicKey};
+use common::apdu::{ApduCheck, BtcApdu};
+use common::path::check_path_validity;
 use mq::message::send_apdu;
+use std::str::FromStr;
 
 pub struct BtcAddress();
 
@@ -14,7 +14,6 @@ impl BtcAddress {
     get btc xpub by path
     */
     pub fn get_xpub(network: Network, path: &str) -> Result<String> {
-
         //path check
         check_path_validity(path)?;
 
@@ -194,7 +193,8 @@ mod test {
         let bind_code = "YDSGQPKX".to_string();
         // let mut device_manage = DeviceManage::new();
         let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
-        if !"bound_this".eq(check_result.as_str()) { //如果未和本设备绑定则进行绑定操作
+        if !"bound_this".eq(check_result.as_str()) {
+            //如果未和本设备绑定则进行绑定操作
             let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
             if "5A".eq(bind_result.as_str()) {
                 println!("{:?}", "binding success");

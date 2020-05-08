@@ -1,12 +1,12 @@
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use super::hid_api;
+use crate::Result;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 use std::sync::Mutex;
 use std::sync::RwLock;
 use std::thread;
 use std::time::Duration;
-use crate::Result;
 
 lazy_static! {
     pub static ref APDU: RwLock<String> = RwLock::new("".to_string());
@@ -112,8 +112,8 @@ pub fn set_apdu(apdu: *const c_char) {
 
 #[allow(dead_code)]
 fn get_apdu_return_r() -> Result<String> {
-    let timeout = 10;//second
-    let loop_max = timeout * 1000/100;
+    let timeout = 10; //second
+    let loop_max = timeout * 1000 / 100;
     let mut loop_count = 0;
     loop {
         let mut apdu_return = APDU_RETURN.write().unwrap();
@@ -128,7 +128,7 @@ fn get_apdu_return_r() -> Result<String> {
         drop(apdu_return);
 
         loop_count = loop_count + 1;
-        println!("loop time:{}",&loop_count);
+        println!("loop time:{}", &loop_count);
         thread::sleep(Duration::from_millis(100));
         if loop_count >= loop_max {
             println!("timeout panic!");
@@ -155,7 +155,7 @@ pub fn set_apdu_return(apdu_return: *const c_char) {
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 pub fn send_apdu(apdu: String) -> Result<String> {
-    send_apdu_timeout(apdu,20)
+    send_apdu_timeout(apdu, 20)
 }
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
@@ -165,7 +165,7 @@ pub fn send_apdu_timeout(apdu: String, timeout: i32) -> Result<String> {
 
 #[cfg(any(target_os = "android", target_os = "ios"))]
 pub fn send_apdu(apdu: String) -> Result<String> {
-    send_apdu_timeout(apdu,20)
+    send_apdu_timeout(apdu, 20)
 }
 
 #[cfg(any(target_os = "android", target_os = "ios"))]
@@ -174,7 +174,7 @@ pub fn send_apdu_timeout(apdu: String, timeout: i32) -> Result<String> {
     // get_apdu_return_r().unwrap()
 
     let callback = CALLBACK.lock().unwrap();
-    let ptr = callback(CString::new(apdu).unwrap().into_raw(),timeout);
+    let ptr = callback(CString::new(apdu).unwrap().into_raw(), timeout);
 
     // let mut res = unsafe { Ok(CStr::from_ptr(ptr).to_string_lossy().into_owned()) }?;
     // let prefix = "communication_error_";
@@ -184,7 +184,6 @@ pub fn send_apdu_timeout(apdu: String, timeout: i32) -> Result<String> {
     // }else {
     //     return Ok(res)
     // }
-
 
     unsafe {
         let res = CStr::from_ptr(ptr).to_string_lossy().into_owned();
@@ -196,7 +195,7 @@ pub fn send_apdu_timeout(apdu: String, timeout: i32) -> Result<String> {
         } else {
             println!("{}", res);
             Ok(res)
-        }
+        };
     }
 }
 
@@ -206,8 +205,7 @@ fn test_str() {
 
     // string.push_str("hello");
     *string = String::from("dereferenced22");
-//    std::mem::drop(string);
-
+    //    std::mem::drop(string);
 
     let mut str2 = STRING.lock().unwrap();
     // str2.push_str("hah");
@@ -229,23 +227,26 @@ fn test_str() {
 #[test]
 fn test_rwlock() {
     let r1 = TEST.read().unwrap();
-    println!("test:{}",*r1);
+    println!("test:{}", *r1);
 
     let r2 = TEST.read().unwrap();
-    println!("test:{}",*r2);
+    println!("test:{}", *r2);
     drop(r1);
     drop(r2);
 
     let mut w = TEST.write().unwrap();
     *w = "haha".to_string();
-    println!("test:{}",*w);
+    println!("test:{}", *w);
     drop(w);
 }
 
 #[test]
 fn test_callback() {
     let callback = CALLBACK.lock().unwrap();
-    let ptr = callback(CString::new("00A4040000".to_owned()).unwrap().into_raw(),20);
+    let ptr = callback(
+        CString::new("00A4040000".to_owned()).unwrap().into_raw(),
+        20,
+    );
     let result = unsafe { CStr::from_ptr(ptr).to_string_lossy().into_owned() };
-    println!("callback result:{:#?}",result);
+    println!("callback result:{:#?}", result);
 }
