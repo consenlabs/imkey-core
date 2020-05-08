@@ -160,41 +160,56 @@ class DeviceManageViewController: UIViewController {
   
   
   @IBAction func downloadClick(_ sender: Any) {
-    do {
-//      try Manager.downloadAPP(handle: handle,appletName: appletName)
-      API.downloadApp()
-      toastMsg(message: "success")
-    } catch let e as ImkeyError {
-      Log.d("!!!error:\(e.message)")
-      toastMsg(message: e.message)
-    }catch{
-      Log.d(error)
+    DispatchQueue.global().async {
+          do {
+            Log.d("start download................")
+            Log.d("start download................")
+            Log.d("start download................")
+      //      try Manager.updateAPP(handle: handle,appletName: appletName)
+            API.downloadApp()
+            self.toastMsg(message: "success")
+          } catch let e as ImkeyError {
+            Log.d("!!!error:\(e.message)")
+            self.toastMsg(message: e.message)
+          }catch{
+            Log.d(error)
+          }
     }
   }
   
   @IBAction func updateClick(_ sender: Any) {
-    do {
-//      try Manager.updateAPP(handle: handle,appletName: appletName)
-      API.updateApp()
-      toastMsg(message: "success")
-    } catch let e as ImkeyError {
-      Log.d("!!!error:\(e.message)")
-      toastMsg(message: e.message)
-    }catch{
-      Log.d(error)
+    DispatchQueue.global().async {
+          do {
+            Log.d("start update................")
+            Log.d("start update................")
+            Log.d("start update................")
+      //      try Manager.updateAPP(handle: handle,appletName: appletName)
+            API.updateApp()
+            self.toastMsg(message: "success")
+          } catch let e as ImkeyError {
+            Log.d("!!!error:\(e.message)")
+            self.toastMsg(message: e.message)
+          }catch{
+            Log.d(error)
+          }
     }
   }
   
   @IBAction func deleteClick(_ sender: Any) {
-    do {
-//      try Manager.deleteAPP(handle: handle,appletName: appletName)
-      API.deleteApp()
-      toastMsg(message: "success")
-    } catch let e as ImkeyError {
-      Log.d("!!!error:\(e.message)")
-      toastMsg(message: e.message)
-    }catch{
-      Log.d(error)
+    DispatchQueue.global().async {
+          do {
+            Log.d("start delete................")
+            Log.d("start delete................")
+            Log.d("start delete................")
+      //      try Manager.updateAPP(handle: handle,appletName: appletName)
+            API.deleteApp()
+            self.toastMsg(message: "success")
+          } catch let e as ImkeyError {
+            Log.d("!!!error:\(e.message)")
+            self.toastMsg(message: e.message)
+          }catch{
+            Log.d(error)
+          }
     }
   }
 }
