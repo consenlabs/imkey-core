@@ -1,9 +1,13 @@
 use crate::address::EthAddress;
-use crate::types::{Action, Signature};
 use crate::ethapi::{EthMessageSignReq, EthMessageSignRes, EthTxRes};
-use common::apdu::{EthApdu, ApduCheck};
+use crate::types::{Action, Signature};
+use crate::Result as EthResult;
+use common::apdu::{ApduCheck, EthApdu};
+use common::error::CoinError;
 use common::path::check_path_validity;
 use common::utility::{hex_to_bytes, secp256k1_sign};
+use common::{constants, utility};
+use device::device_binding::KEY_MANAGER;
 use ethereum_types::{H256, U256};
 use keccak_hash::keccak;
 use lazy_static::lazy_static;
@@ -11,10 +15,6 @@ use mq::message::{send_apdu, send_apdu_timeout};
 use rlp::{self, DecoderError, Encodable, Rlp, RlpStream};
 use secp256k1::recovery::{RecoverableSignature, RecoveryId};
 use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
-use common::{utility, constants};
-use crate::Result as EthResult;
-use device::device_binding::KEY_MANAGER;
-use common::error::CoinError;
 
 lazy_static! {
     pub static ref SECP256K1: secp256k1::Secp256k1<secp256k1::All> = secp256k1::Secp256k1::new();
@@ -41,12 +41,12 @@ impl Transaction {
         sender: &str,
         fee: &str,
     ) -> EthResult<EthTxRes> {
-    // ) {
+        // ) {
         //check path
         check_path_validity(path)?;
 
         //organize data
-        let mut data_pack:Vec<u8> = Vec::new();
+        let mut data_pack: Vec<u8> = Vec::new();
         let encode_tx = self.rlp_encode_tx(chain_id);
 
         //rlp encoded tx in TLV format
@@ -72,7 +72,7 @@ impl Transaction {
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap();
 
-        let mut apdu_pack: Vec<u8>  = Vec::new();
+        let mut apdu_pack: Vec<u8> = Vec::new();
         apdu_pack.push(0x00);
         apdu_pack.push(bind_signature.len() as u8);
         apdu_pack.extend(bind_signature.as_slice());
@@ -86,7 +86,7 @@ impl Transaction {
         //prepare apdu
         let msg_prepare = EthApdu::prepare_sign(apdu_pack);
         for msg in msg_prepare {
-            let res = send_apdu_timeout(msg,constants::TIMEOUT_LONG)?;
+            let res = send_apdu_timeout(msg, constants::TIMEOUT_LONG)?;
             ApduCheck::checke_response(&res)?;
         }
 
@@ -95,8 +95,7 @@ impl Transaction {
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
-        let pubkey_raw =
-            hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
+        let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
 
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone()).unwrap();
         let address_checksummed = EthAddress::address_checksummed(&address_main);
@@ -110,8 +109,7 @@ impl Transaction {
         ApduCheck::checke_response(&res_msg_sign)?;
 
         let sign_compact = &res_msg_sign[2..130];
-        let sign_compact_vec = hex_to_bytes(sign_compact).unwrap();//todo error
-
+        let sign_compact_vec = hex_to_bytes(sign_compact).unwrap(); //todo error
 
         let mut signnture_obj = SecpSignature::from_compact(sign_compact_vec.as_slice()).unwrap();
         signnture_obj.normalize_s();
@@ -119,18 +117,19 @@ impl Transaction {
 
         let msg_hash = self.hash(chain_id);
 
-        let rec_id = utility::retrieve_recid(&msg_hash[..], &normalizes_sig_vec, &pubkey_raw).unwrap();
+        let rec_id =
+            utility::retrieve_recid(&msg_hash[..], &normalizes_sig_vec, &pubkey_raw).unwrap();
 
         let mut data_arr = [0; 65];
         data_arr[0..64].copy_from_slice(&normalizes_sig_vec[0..64]);
         data_arr[64] = rec_id.to_i32() as u8;
         let sig = Signature(data_arr);
 
-        let signed= self.with_signature(sig, chain_id);
+        let signed = self.with_signature(sig, chain_id);
 
         let mut tx_hash = hex::encode(signed.1.hash);
-        if !tx_hash.starts_with("0x"){
-            tx_hash.insert_str(0,"0x");
+        if !tx_hash.starts_with("0x") {
+            tx_hash.insert_str(0, "0x");
         }
 
         let tx_sign_result = EthTxRes {
@@ -193,15 +192,18 @@ impl Transaction {
         }
     }
 
-    pub fn sign_persional_message(input:EthMessageSignReq) -> EthResult<EthMessageSignRes>{
+    pub fn sign_persional_message(input: EthMessageSignReq) -> EthResult<EthMessageSignRes> {
         check_path_validity(&input.path).unwrap();
-        let header = format!("Ethereum Signed Message:\n{}", &input.message.as_bytes().len());
+        let header = format!(
+            "Ethereum Signed Message:\n{}",
+            &input.message.as_bytes().len()
+        );
 
         let mut data = Vec::new();
         data.extend(header.as_bytes());
         data.extend(input.message.as_bytes());
 
-        let mut data_to_sign: Vec<u8>  = Vec::new();
+        let mut data_to_sign: Vec<u8> = Vec::new();
         data_to_sign.push(0x01);
         data_to_sign.push(((data.len() & 0xFF00) >> 8) as u8);
         data_to_sign.push((data.len() & 0x00FF) as u8);
@@ -210,7 +212,7 @@ impl Transaction {
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_to_sign)?;
 
-        let mut apdu_pack: Vec<u8>  = vec![];
+        let mut apdu_pack: Vec<u8> = vec![];
         apdu_pack.push(0x00);
         apdu_pack.push(bind_signature.len() as u8);
         apdu_pack.extend(bind_signature.as_slice());
@@ -233,7 +235,7 @@ impl Transaction {
         let prepare_apdus = EthApdu::prepare_personal_sign(apdu_pack);
         for apdu in prepare_apdus {
             println!("prepare apdu:{}", &apdu);
-            let res = send_apdu_timeout(apdu,constants::TIMEOUT_LONG)?;
+            let res = send_apdu_timeout(apdu, constants::TIMEOUT_LONG)?;
             ApduCheck::checke_response(&res)?;
         }
 
@@ -254,9 +256,7 @@ impl Transaction {
         let mut signature = hex::encode(&normalizes_sig_vec.as_ref());
         signature.push_str(&format!("{:02x}", &v));
 
-        Ok(EthMessageSignRes{
-            signature
-        })
+        Ok(EthMessageSignRes { signature })
     }
 }
 
@@ -338,8 +338,7 @@ pub fn retrieve_recid_deprecated(
     let mut recid_final = -1i32;
     for i in 0..4 {
         let rec_id = RecoveryId::from_i32(i as i32).unwrap();
-        let sig = RecoverableSignature::from_compact(&sign_compact, rec_id)
-            .expect("error");//todo handle error
+        let sig = RecoverableSignature::from_compact(&sign_compact, rec_id).expect("error"); //todo handle error
 
         if let Ok(rec_pubkey) = secp_context.recover(&msg, &sig) {
             let rec_pubkey_raw = rec_pubkey.serialize_uncompressed();
@@ -359,19 +358,19 @@ pub fn retrieve_recid_deprecated(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use common::constants;
+    use device::device_binding::DeviceManage;
     use ethereum_types::{Address, H160, U256};
     use hex;
     use rustc_hex::{FromHex, ToHex};
     use serde;
     use std::str::FromStr;
-    use common::constants;
-    use device::device_binding::DeviceManage;
 
     #[test]
     fn test_apdu_pack() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
         let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}",&check_result);
+        println!("check_result:{}", &check_result);
 
         let tx = Transaction {
             nonce: U256::from(8),
@@ -390,7 +389,9 @@ mod tests {
         let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
         let fee = "0.0032 ether".to_string();
 
-        let tx_result = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee).unwrap();
+        let tx_result = tx
+            .sign(Some(28), &path, &payment, &receiver, &sender, &fee)
+            .unwrap();
 
         //expected apdu_pack before sign using binding privekey is "010028E708850
         //4A817C8088302E2489435353535353535353535353535353535353535358202
@@ -399,10 +400,10 @@ mod tests {
     }
 
     #[test]
-    fn test_sign_trans(){
+    fn test_sign_trans() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
         let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}",&check_result);
+        println!("check_result:{}", &check_result);
 
         let tx = Transaction {
             nonce: U256::from(8),
@@ -421,7 +422,9 @@ mod tests {
         let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
         let fee = "0.0032 ether".to_string();
 
-        let tx_result = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee).unwrap();
+        let tx_result = tx
+            .sign(Some(28), &path, &payment, &receiver, &sender, &fee)
+            .unwrap();
         assert_eq!(
             tx_result.tx_data,
             "f867088504a817c8088302e248943535353535353535353535353535353535353535820200805ba03aa62abb45b77418caf139dda0179aea802c99967b3d690b87d586a87bc805afa02b5ce94f40dc865ca63403e0e5e723e1523884f001573677cd8cec11c7ca332f".to_string()
@@ -433,10 +436,10 @@ mod tests {
     }
 
     #[test]
-    fn test_data_is_null(){
+    fn test_data_is_null() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
         let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}",&check_result);
+        println!("check_result:{}", &check_result);
 
         let tx = Transaction {
             nonce: U256::from_dec_str("13").unwrap(),
@@ -454,7 +457,9 @@ mod tests {
         let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
         let fee = "0.0032 ether".to_string();
 
-        let tx_result = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee).unwrap();
+        let tx_result = tx
+            .sign(Some(28), &path, &payment, &receiver, &sender, &fee)
+            .unwrap();
         assert_eq!(
             tx_result.tx_hash,
             "0x9cb10bab794454c5c2606b5475a35f6429f5ff54c3e088d0c5d330f56155b0be".to_string()
@@ -462,17 +467,17 @@ mod tests {
     }
 
     #[test]
-    fn test_data_is_long(){
+    fn test_data_is_long() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
         let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}",&check_result);
+        println!("check_result:{}", &check_result);
 
         let mut data = "0x60056013565b6101918061001d6000396000f35b3360008190555056006001600060e060020a6000350480630a874df61461003a57806341c0e1b514610058578063a02b161e14610066578063dbbdf0831461007757005b610045600435610149565b80600160a060020a031660005260206000f35b610060610161565b60006000f35b6100716004356100d4565b60006000f35b61008560043560243561008b565b60006000f35b600054600160a060020a031632600160a060020a031614156100ac576100b1565b6100d0565b8060018360005260205260406000208190555081600060005260206000a15b5050565b600054600160a060020a031633600160a060020a031614158015610118575033600160a060020a0316600182600052602052604060002054600160a060020a031614155b61012157610126565b610146565b600060018260005260205260406000208190555080600060005260206000a15b50565b60006001826000526020526040600020549050919050565b600054600160a060020a031633600160a060020a0316146101815761018f565b600054600160a060020a0316ff5b56".to_string();
         let mut data_vec = Vec::new();
-        if data.starts_with("0x"){
+        if data.starts_with("0x") {
             // data = hex::encode(&data[2..]);
             data_vec = hex::decode(&data[2..]).unwrap();
-        }else{
+        } else {
             data_vec = hex::decode(&data).unwrap();
         }
 
@@ -492,7 +497,9 @@ mod tests {
         let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
         let fee = "0.0032 ether".to_string();
 
-        let tx_result = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee).unwrap();
+        let tx_result = tx
+            .sign(Some(28), &path, &payment, &receiver, &sender, &fee)
+            .unwrap();
         assert_eq!(
             tx_result.tx_hash,
             "0xff0c83a7c9208ea28712900cabc8cd5fe624b9c6bdc208517b6725c706422e08".to_string()
@@ -500,17 +507,17 @@ mod tests {
     }
 
     #[test]
-    fn test_zero_bytes(){
+    fn test_zero_bytes() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
         let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}",&check_result);
+        println!("check_result:{}", &check_result);
 
         let mut data = "0x000000000000000000000000000000000000000000000000000000000".to_string();
         let mut data_vec = Vec::new();
-        if data.starts_with("0x"){
+        if data.starts_with("0x") {
             // data = hex::encode(&data[2..]);
             data_vec = hex::decode(&data[2..]).unwrap();
-        }else{
+        } else {
             data_vec = hex::decode(&data).unwrap();
         }
 
@@ -530,7 +537,9 @@ mod tests {
         let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
         let fee = "0.0032 ether".to_string();
 
-        let tx_result = tx.sign(Some(28), &path, &payment, &receiver, &sender, &fee).unwrap();
+        let tx_result = tx
+            .sign(Some(28), &path, &payment, &receiver, &sender, &fee)
+            .unwrap();
         assert_eq!(
             tx_result.tx_hash,
             "0x5481b9f73cb42eb2be84c4a3995ec1ea2fafc93597f564fe46b40d82026c4224".to_string()
@@ -538,15 +547,15 @@ mod tests {
     }
 
     #[test]
-    fn test_sign_personal_message(){
+    fn test_sign_personal_message() {
         let path = "/Users/joe/work/sdk_gen_key".to_string();
         let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}",&check_result);
+        println!("check_result:{}", &check_result);
 
-        let input = EthMessageSignReq{
+        let input = EthMessageSignReq {
             path: constants::ETH_PATH.to_string(),
             message: "Hello imKey".to_string(),
-            sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string()
+            sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
         };
         let output = Transaction::sign_persional_message(input).unwrap();
         assert_eq!(
@@ -556,12 +565,17 @@ mod tests {
     }
 
     #[test]
-    fn test_retrieve_recid(){
+    fn test_retrieve_recid() {
         let hash = "123faa96160f0b89a758c4f8585500d0ab6559565e184a02882c8b3cda20263d";
         let sign = "397828f985a5d19546fe59425d44c745c72152eac845e54fd748b457ba306c682582567be75888645d623225af599cc0ae9f285f8d0d020e7c9a9246985b4dda";
         let pubkey = "04aaf80e479aac0813b17950c390a16438b307aee9a814689d6706be4fb4a4e30a4d2a7f75ef43344fa80580b5b1fbf9f233c378d99d5adb5cac9ae86f562803e1";
 
-        let rec_id = utility::retrieve_recid(&hex::decode(hash).unwrap(), &&hex::decode(sign).unwrap(), &&hex::decode(pubkey).unwrap()).unwrap();
+        let rec_id = utility::retrieve_recid(
+            &hex::decode(hash).unwrap(),
+            &&hex::decode(sign).unwrap(),
+            &&hex::decode(pubkey).unwrap(),
+        )
+        .unwrap();
         let rec_id = rec_id.to_i32();
         println!("rec_id:{}", &rec_id);
     }

@@ -1,17 +1,19 @@
-use common::constants::{TSM_ACTION_COS_UPGRADE, TSM_RETURN_CODE_SUCCESS, TSM_END_FLAG, DEVICE_MODEL_NAME};
-use common::{https, constants};
-use serde::{Deserialize, Serialize};
-use mq::message::send_apdu;
-use crate::manager::{get_se_id, get_sn, get_firmware_version, get_cert};
-use common::utility::hex_to_bytes;
 use crate::app_download::AppDownloadRequest;
-use crate::{Result, TsmService};
 use crate::error::ImkeyError;
-use std::thread;
-use std::time::Duration;
+use crate::manager::{get_cert, get_firmware_version, get_se_id, get_sn};
+use crate::ServiceResponse;
+use crate::{Result, TsmService};
+use common::constants::{
+    DEVICE_MODEL_NAME, TSM_ACTION_COS_UPGRADE, TSM_END_FLAG, TSM_RETURN_CODE_SUCCESS,
+};
+use common::utility::hex_to_bytes;
+use common::{constants, https};
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::hid_api::hid_connect;
-use crate::ServiceResponse;
+use mq::message::send_apdu;
+use serde::{Deserialize, Serialize};
+use std::thread;
+use std::time::Duration;
 
 #[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
@@ -42,7 +44,7 @@ impl CosUpgradeRequest {
     pub fn cos_upgrade(sdk_version: Option<String>) -> Result<()> {
         //read se device cert
         let mut device_cert = get_cert()?;
-//        ApduCheck::checke_response(&device_cert)?; //TODO 在所有manager里的接口中增加check方法
+        //        ApduCheck::checke_response(&device_cert)?; //TODO 在所有manager里的接口中增加check方法
 
         let mut is_jump = false;
         let seid;
@@ -56,17 +58,23 @@ impl CosUpgradeRequest {
             is_bl_status = false;
             //read se cos version
             se_cos_version = get_firmware_version()?;
-            se_cos_version = format!("{}.{}.{}",
-                                     se_cos_version[0..1].to_string(),
-                                     se_cos_version[1..2].to_string(),
-                                     se_cos_version[2..].to_string());
+            se_cos_version = format!(
+                "{}.{}.{}",
+                se_cos_version[0..1].to_string(),
+                se_cos_version[1..2].to_string(),
+                se_cos_version[2..].to_string()
+            );
         } else if device_cert.starts_with("7f21") || device_cert.starts_with("7F21") {
             seid = device_cert[12..44].to_string();
             sn = "0000000000000000".to_string();
             is_jump = true;
             let mut temp_device_cert = hex_to_bytes("bf2181").unwrap();
             temp_device_cert.push(((device_cert.len()) / 2) as u8);
-            temp_device_cert.extend(hex_to_bytes(&device_cert[..device_cert.len()]).unwrap().iter());
+            temp_device_cert.extend(
+                hex_to_bytes(&device_cert[..device_cert.len()])
+                    .unwrap()
+                    .iter(),
+            );
             device_cert = hex::encode_upper(temp_device_cert);
         } else {
             return Err(ImkeyError::BCOS0003.into());
@@ -78,7 +86,9 @@ impl CosUpgradeRequest {
             deviceCert: device_cert.clone(),
             seCosVersion: se_cos_version,
             isBLStatus: is_bl_status,
-            stepKey: if is_jump { "03".to_string() } else {
+            stepKey: if is_jump {
+                "03".to_string()
+            } else {
                 "01".to_string()
             },
             statusWord: None,
@@ -90,7 +100,8 @@ impl CosUpgradeRequest {
             println!("send message：{:#?}", request_data);
             let req_data = serde_json::to_vec_pretty(&request_data).unwrap();
             let response_data = https::post(TSM_ACTION_COS_UPGRADE, req_data)?;
-            let return_bean: ServiceResponse<CosUpgradeResponse> = serde_json::from_str(response_data.as_str())?;
+            let return_bean: ServiceResponse<CosUpgradeResponse> =
+                serde_json::from_str(response_data.as_str())?;
             println!("return message：{:#?}", return_bean);
             if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
                 //check if end
@@ -108,10 +119,12 @@ impl CosUpgradeRequest {
                             apdu_res.push(res.clone());
                             if index_val == apdu_list.len() - 1 {
                                 request_data.statusWord = Some(String::from(&res[res.len() - 4..]));
-                                if (constants::APDU_RSP_SUCCESS.eq(&res[res.len() - 4..]) ||
-                                    constants::APDU_RSP_SWITCH_BL_STATUS_SUCCESS.eq(&res[res.len() - 4..])) &&
-                                    ("03".eq(next_step_key.as_str()) ||
-                                        "05".eq(next_step_key.as_str())) {
+                                if (constants::APDU_RSP_SUCCESS.eq(&res[res.len() - 4..])
+                                    || constants::APDU_RSP_SWITCH_BL_STATUS_SUCCESS
+                                        .eq(&res[res.len() - 4..]))
+                                    && ("03".eq(next_step_key.as_str())
+                                        || "05".eq(next_step_key.as_str()))
+                                {
                                     reconnect()?;
                                 }
                             }
@@ -121,14 +134,18 @@ impl CosUpgradeRequest {
                     None => (),
                 }
 
-                if "06".eq(next_step_key.as_str()) {//applet download
+                if "06".eq(next_step_key.as_str()) {
+                    //applet download
                     match &return_bean._ReturnData.InstanceAidList {
                         Some(aid_list) => {
                             for temp_instance_aid in aid_list.iter() {
-                                AppDownloadRequest::build_request_data(seid.clone(),
-                                                                       temp_instance_aid.clone(),
-                                                                       device_cert.clone(),
-                                                                       sdk_version.clone()).send_message()?;
+                                AppDownloadRequest::build_request_data(
+                                    seid.clone(),
+                                    temp_instance_aid.clone(),
+                                    device_cert.clone(),
+                                    sdk_version.clone(),
+                                )
+                                .send_message()?;
                             }
                         }
                         None => (),
@@ -138,13 +155,25 @@ impl CosUpgradeRequest {
                 request_data.stepKey = next_step_key;
             } else {
                 return match return_bean._ReturnCode.as_str() {
-                    constants::TSM_RETURNCODE_COS_INFO_NO_CONF => Err(ImkeyError::ImkeyTsmCosInfoNoConf.into()),
-                    constants::TSM_RETURNCODE_COS_UPGRADE_FAIL => Err(ImkeyError::ImkeyTsmCosUpgradeFail.into()),
-                    constants::TSM_RETURNCODE_UPLOAD_COS_VERSION_IS_NULL => Err(ImkeyError::ImkeyTsmUploadCosVersionIsNull.into()),
-                    constants::TSM_RETURNCODE_SWITCH_BL_STATUS_FAIL => Err(ImkeyError::ImkeyTsmSwitchBlStatusFail.into()),
-                    constants::TSM_RETURNCODE_WRITE_WALLET_ADDRESS_FAIL => Err(ImkeyError::ImkeyTsmWriteWalletAddressFail.into()),
+                    constants::TSM_RETURNCODE_COS_INFO_NO_CONF => {
+                        Err(ImkeyError::ImkeyTsmCosInfoNoConf.into())
+                    }
+                    constants::TSM_RETURNCODE_COS_UPGRADE_FAIL => {
+                        Err(ImkeyError::ImkeyTsmCosUpgradeFail.into())
+                    }
+                    constants::TSM_RETURNCODE_UPLOAD_COS_VERSION_IS_NULL => {
+                        Err(ImkeyError::ImkeyTsmUploadCosVersionIsNull.into())
+                    }
+                    constants::TSM_RETURNCODE_SWITCH_BL_STATUS_FAIL => {
+                        Err(ImkeyError::ImkeyTsmSwitchBlStatusFail.into())
+                    }
+                    constants::TSM_RETURNCODE_WRITE_WALLET_ADDRESS_FAIL => {
+                        Err(ImkeyError::ImkeyTsmWriteWalletAddressFail.into())
+                    }
                     constants::TSM_RETURNCODE_DEVICE_CHECK_FAIL => Err(ImkeyError::BSE0009.into()),
-                    constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => Err(ImkeyError::BSE0010.into()),
+                    constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => {
+                        Err(ImkeyError::BSE0010.into())
+                    }
                     constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::BSE0017.into()),
                     constants::TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::BSE0007.into()),
                     _ => Err(ImkeyError::ImkeyTsmServerError.into()),
@@ -167,7 +196,7 @@ fn reconnect() -> Result<()> {
         }
         thread::sleep(Duration::from_millis(1000));
         continue;
-    };
+    }
 
     Err(ImkeyError::ImkeyDeviceReconnectFail.into())
 }
@@ -175,10 +204,10 @@ fn reconnect() -> Result<()> {
 #[cfg(test)]
 mod tests {
     use crate::cos_upgrade::CosUpgradeRequest;
-    use std::collections::HashMap;
+    use crate::TsmService;
     use mq::hid_api::hid_connect;
     use mq::message::send_apdu;
-    use crate::TsmService;
+    use std::collections::HashMap;
 
     #[test]
     fn cos_upgrade_test() {

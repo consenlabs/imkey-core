@@ -1,8 +1,8 @@
 pub mod address;
+pub mod ethapi;
 mod rlp;
 pub mod transaction;
 pub mod types;
-pub mod ethapi;
 
 #[macro_use]
 extern crate failure;

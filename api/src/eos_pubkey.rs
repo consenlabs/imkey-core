@@ -1,7 +1,7 @@
-use coin_eos::eosapi::{EosPubkeyReq, EosPubkeyRes};
-use crate::message_handler::encode_message;
-use coin_eos::pubkey::EosPubkey;
 use crate::error_handling::Result;
+use crate::message_handler::encode_message;
+use coin_eos::eosapi::{EosPubkeyReq, EosPubkeyRes};
+use coin_eos::pubkey::EosPubkey;
 use prost::Message;
 
 pub fn display_eos_pubkey(data: &[u8]) -> Result<Vec<u8>> {

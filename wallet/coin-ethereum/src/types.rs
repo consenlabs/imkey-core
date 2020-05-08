@@ -1,4 +1,4 @@
-use ethereum_types::{Address};
+use ethereum_types::Address;
 use rlp::{self, DecoderError, Rlp, RlpStream};
 
 /// Transaction action type.

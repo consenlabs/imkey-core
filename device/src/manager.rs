@@ -1,32 +1,32 @@
 use super::app_update;
 use super::se_activate;
-use super::se_query::{SeQueryRequest};
+use super::se_query::SeQueryRequest;
 use super::se_secure_check::SeSecureCheckRequest;
 use crate::app_delete::AppDeleteRequest;
 use crate::app_download::AppDownloadRequest;
 use crate::cos_upgrade::CosUpgradeRequest;
+use crate::device_binding::DeviceManage;
+use crate::se_query::SeQueryResponse;
+use crate::ServiceResponse;
+use crate::{Result, TsmService};
 use app_update::AppUpdateRequest;
-use common::constants;
+use common::apdu::{Apdu, ApduCheck};
 use common::applet;
+use common::constants;
 use mq::message::send_apdu;
 use se_activate::SeActivateRequest;
-use common::apdu::{Apdu, ApduCheck};
-use crate::{Result, TsmService};
-use crate::device_binding::DeviceManage;
-use crate::ServiceResponse;
-use crate::se_query::SeQueryResponse;
 
 pub fn get_se_id() -> Result<String> {
     send_apdu("00A4040000".to_string())?;
     let res = send_apdu("80CB800005DFFF028101".to_string())?;
-    Ok(String::from(&res[0..res.len()-4]))
+    Ok(String::from(&res[0..res.len() - 4]))
     //res.chars().take(res.len() - 4).collect()
 }
 
 pub fn get_sn() -> Result<String> {
     send_apdu("00A4040000".to_string())?;
     let res = send_apdu("80CA004400".to_string())?;
-    let hex_decode = hex::decode(String::from(&res[0..res.len()-4]));
+    let hex_decode = hex::decode(String::from(&res[0..res.len() - 4]));
     match hex_decode {
         Ok(sn) => Ok(String::from_utf8(sn).unwrap()),
         Err(error) => Err(error.into()),
@@ -89,14 +89,14 @@ pub fn check_device() -> Result<()> {
     SeSecureCheckRequest::build_request_data(seid, sn, device_cert).send_message()
 }
 
-pub fn active_device() -> Result<()>{
+pub fn active_device() -> Result<()> {
     let seid: String = get_se_id().ok().unwrap();
     let sn: String = get_sn().ok().unwrap();
     let device_cert: String = get_cert()?;
     SeActivateRequest::build_request_data(seid, sn, device_cert).send_message()
 }
 
-pub fn check_update() -> Result<ServiceResponse<SeQueryResponse>>  {
+pub fn check_update() -> Result<ServiceResponse<SeQueryResponse>> {
     let seid: String = get_se_id().ok().unwrap();
     let sn: String = get_sn().ok().unwrap();
     let sdk_version = Some(constants::VERSION.to_string());
@@ -107,7 +107,9 @@ pub fn app_download(app_name: &str) -> Result<()> {
     let seid: String = get_se_id().ok().unwrap();
     let device_cert: String = get_cert()?;
     let sdk_version = Some(constants::VERSION.to_string());
-    let instance_aid: String = applet::get_instid_by_appname(app_name).expect("imkey_app_name_not_exist").to_string();
+    let instance_aid: String = applet::get_instid_by_appname(app_name)
+        .expect("imkey_app_name_not_exist")
+        .to_string();
     AppDownloadRequest::build_request_data(seid, instance_aid, device_cert, sdk_version)
         .send_message()
 }
@@ -116,7 +118,9 @@ pub fn app_update(app_name: &str) -> Result<()> {
     let seid: String = get_se_id().ok().unwrap();
     let device_cert: String = get_cert()?;
     let sdk_version = Some(constants::VERSION.to_string());
-    let instance_aid: String = applet::get_instid_by_appname(app_name).expect("imkey_app_name_not_exist").to_string();
+    let instance_aid: String = applet::get_instid_by_appname(app_name)
+        .expect("imkey_app_name_not_exist")
+        .to_string();
     AppUpdateRequest::build_request_data(seid, instance_aid, device_cert, sdk_version)
         .send_message()
 }
@@ -124,10 +128,11 @@ pub fn app_update(app_name: &str) -> Result<()> {
 pub fn app_delete(app_name: &str) -> Result<()> {
     let seid: String = get_se_id().ok().unwrap();
     let device_cert: String = get_cert()?;
-    let instance_aid: String = applet::get_instid_by_appname(app_name).expect("imkey_app_name_not_exist").to_string();
+    let instance_aid: String = applet::get_instid_by_appname(app_name)
+        .expect("imkey_app_name_not_exist")
+        .to_string();
     AppDeleteRequest::build_request_data(seid, instance_aid, device_cert).send_message()
 }
-
 
 pub fn bind_check(file_path: &str) -> Result<String> {
     DeviceManage::bind_check(&file_path.to_string())
@@ -143,6 +148,5 @@ pub fn bind_acquire(bind_code: &str) -> Result<String> {
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 pub fn cos_upgrade() -> Result<()> {
-    CosUpgradeRequest::cos_upgrade(None)//TODO 没有传sdk_version的情况？
+    CosUpgradeRequest::cos_upgrade(None) //TODO 没有传sdk_version的情况？
 }
-

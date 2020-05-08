@@ -13,3 +13,8 @@ failure = "0.1.6"
 
 [target.'cfg(any(target_os = "macos", target_os = "windows"))'.dependencies]
 hidapi = "1.2.1"
+
+[dev-dependencies.cargo-husky]
+version = "1"
+default-features = false
+features = ["precommit-hook", "run-cargo-fmt"]

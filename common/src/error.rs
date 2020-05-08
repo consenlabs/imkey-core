@@ -1,4 +1,3 @@
-
 #[derive(Fail, Debug, PartialOrd, PartialEq)]
 pub enum CommonError {
     #[fail(display = "imkey_path_illegal")]
@@ -58,4 +57,3 @@ pub enum CoinError {
     #[fail(display = "address_type_mismatch")]
     AddressTypeMismatch,
 }
-

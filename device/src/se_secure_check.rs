@@ -1,9 +1,9 @@
+use crate::error::ImkeyError;
+use crate::{Result, TsmService};
 use common::constants;
 use common::https;
 use mq::message;
 use serde::{Deserialize, Serialize};
-use crate::{Result, TsmService};
-use crate::error::ImkeyError;
 
 #[allow(non_snake_case)]
 #[derive(Debug, Serialize, Deserialize)]
@@ -68,12 +68,24 @@ impl TsmService for SeSecureCheckRequest {
                 }
             } else {
                 let ret_code_check_result: Result<()> = match return_bean._ReturnCode.as_str() {
-                    constants::TSM_RETURNCODE_DEVICE_CHECK_FAIL => Err(ImkeyError::ImkeyTsmDeviceAuthenticityCheckFail.into()),
-                    constants::TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::ImkeyTsmDeviceNotActivated.into()),
-                    constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::ImkeyTsmDeviceIllegal.into()),
-                    constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => Err(ImkeyError::ImkeyTsmOceCertCheckFail.into()),
-                    constants::TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::ImkeyTsmDeviceStopUsing.into()),
-                    constants::TSM_RETURNCODE_RECEIPT_CHECK_FAIL => Err(ImkeyError::ImkeyTsmReceiptCheckFail.into()),
+                    constants::TSM_RETURNCODE_DEVICE_CHECK_FAIL => {
+                        Err(ImkeyError::ImkeyTsmDeviceAuthenticityCheckFail.into())
+                    }
+                    constants::TSM_RETURNCODE_DEV_INACTIVATED => {
+                        Err(ImkeyError::ImkeyTsmDeviceNotActivated.into())
+                    }
+                    constants::TSM_RETURNCODE_DEVICE_ILLEGAL => {
+                        Err(ImkeyError::ImkeyTsmDeviceIllegal.into())
+                    }
+                    constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => {
+                        Err(ImkeyError::ImkeyTsmOceCertCheckFail.into())
+                    }
+                    constants::TSM_RETURNCODE_DEVICE_STOP_USING => {
+                        Err(ImkeyError::ImkeyTsmDeviceStopUsing.into())
+                    }
+                    constants::TSM_RETURNCODE_RECEIPT_CHECK_FAIL => {
+                        Err(ImkeyError::ImkeyTsmReceiptCheckFail.into())
+                    }
                     _ => Err(ImkeyError::ImkeyTsmServerError.into()),
                 };
                 return ret_code_check_result;
@@ -83,11 +95,7 @@ impl TsmService for SeSecureCheckRequest {
 }
 
 impl SeSecureCheckRequest {
-    pub fn build_request_data(
-        seid: String,
-        sn: String,
-        device_cert: String,
-    ) -> Self {
+    pub fn build_request_data(seid: String, sn: String, device_cert: String) -> Self {
         SeSecureCheckRequest {
             seid: seid,
             sn: sn,

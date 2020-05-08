@@ -8,11 +8,11 @@ pub mod se_activate;
 pub mod se_query;
 pub mod se_secure_check;
 extern crate common;
+pub mod cos_upgrade;
 pub mod device_manager;
+pub mod deviceapi;
 pub mod key_manager;
 pub mod manager;
-pub mod cos_upgrade;
-pub mod deviceapi;
 #[macro_use]
 extern crate lazy_static;
 extern crate mq;
@@ -31,7 +31,7 @@ pub struct ServiceResponse<T> {
     pub _ReturnData: T,
 }
 
-pub trait TsmService{
+pub trait TsmService {
     type ReturnData;
     fn send_message(&mut self) -> Result<Self::ReturnData>;
 }

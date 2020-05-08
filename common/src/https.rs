@@ -1,11 +1,11 @@
 use crate::constants;
-use serde::Serialize;
+use crate::Result;
 use futures::{future, Future, Stream};
 use hyper::client::Client;
 use hyper::header::HeaderValue;
 use hyper::{Body, Error, Method, Request};
+use serde::Serialize;
 use tokio_core::reactor::Core;
-use crate::Result;
 
 /**
 http post request

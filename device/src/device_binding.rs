@@ -1,27 +1,29 @@
 extern crate aes_soft as aes;
 
 use super::key_manager::KeyManager;
+use crate::auth_code_storage::AuthCodeStorageRequest;
+use crate::device_cert_check::DeviceCertCheckRequest;
+use crate::error::{BindError, ImkeyError};
+use crate::Result;
+use crate::{manager, TsmService};
 use aes::Aes128;
 use block_modes::block_padding::Pkcs7;
 use block_modes::{BlockMode, Cbc};
-use common::apdu::{Apdu, DeviceBindingApdu, ApduCheck};
+use common::apdu::{Apdu, ApduCheck, DeviceBindingApdu};
+use common::constants::{
+    BIND_RESULT_ERROR, BIND_RESULT_SUCCESS, BIND_STATUS_BOUND_OTHER, BIND_STATUS_BOUND_THIS,
+    BIND_STATUS_UNBOUND, IMK_AID,
+};
 use mq::message::send_apdu;
 use rand::rngs::OsRng;
+use regex::Regex;
 use ring::digest;
 use rsa::{BigUint, PaddingScheme, PublicKey as RSAPublic, RSAPublicKey};
 use secp256k1::ecdh::SharedSecret;
 use secp256k1::{PublicKey, SecretKey};
 use sha1::Sha1;
-use crate::{manager, TsmService};
-use crate::auth_code_storage::AuthCodeStorageRequest;
-use crate::device_cert_check::DeviceCertCheckRequest;
-use common::constants::{IMK_AID, BIND_STATUS_UNBOUND, BIND_STATUS_BOUND_THIS, BIND_STATUS_BOUND_OTHER,
-                        BIND_RESULT_SUCCESS, BIND_RESULT_ERROR};
-use crate::error::{ImkeyError, BindError};
-use regex::Regex;
-use crate::Result;
-use std::sync::Mutex;
 use std::collections::HashMap;
+use std::sync::Mutex;
 
 lazy_static! {
     pub static ref KEY_MANAGER: Mutex<KeyManager> = Mutex::new(KeyManager::new());
@@ -63,8 +65,7 @@ impl DeviceManage {
         }
 
         //gen bindchec apdu
-        let bind_check_apdu =
-            DeviceBindingApdu::bind_check(&key_manager_obj.pub_key);
+        let bind_check_apdu = DeviceBindingApdu::bind_check(&key_manager_obj.pub_key);
         //send bindcheck command and get return data
         select_imk_applet()?;
         let bind_check_apdu_resp_data = send_apdu(bind_check_apdu)?;
@@ -77,7 +78,6 @@ impl DeviceManage {
             //check se cert
             DeviceCertCheckRequest::build_request_data(seid.clone(), sn, se_pub_key_cert.clone())
                 .send_message()?;
-
 
             //get se public key
             key_manager_obj.se_pub_key = hex::decode(get_se_pubkey(se_pub_key_cert)?)?;
@@ -149,7 +149,10 @@ impl DeviceManage {
         //send command to device
         let bind_result = send_apdu(identity_verify_apdu)?;
         ApduCheck::checke_response(&bind_result)?;
-        Ok(BIND_STATUS_MAP.get(&bind_result[..bind_result.len() - 4]).unwrap().to_string())
+        Ok(BIND_STATUS_MAP
+            .get(&bind_result[..bind_result.len() - 4])
+            .unwrap()
+            .to_string())
     }
 
     pub fn display_bind_code() -> Result<()> {
@@ -189,17 +192,20 @@ fn auth_code_encrypt(auth_code: &String) -> Result<String> {
     let u32_vec_e = BigUint::from_bytes_be(&e.unwrap());
     let rsa_pub_key = RSAPublicKey::new(u32_vec_n, u32_vec_e)?;
     let mut rng = OsRng::new()?;
-    let enc_data =
-        rsa_pub_key.encrypt(&mut rng, PaddingScheme::PKCS1v15, auth_code.as_bytes())?;
+    let enc_data = rsa_pub_key.encrypt(&mut rng, PaddingScheme::PKCS1v15, auth_code.as_bytes())?;
     Ok(hex::encode_upper(enc_data))
 }
 
 fn get_se_pubkey(se_pubkey_cert: String) -> Result<String> {
     let index;
     if se_pubkey_cert.contains("7F4947B041") {
-        index = se_pubkey_cert.find("7F4947B041").expect("parsing_se_cert_error");
+        index = se_pubkey_cert
+            .find("7F4947B041")
+            .expect("parsing_se_cert_error");
     } else if se_pubkey_cert.contains("7F4946B041") {
-        index = se_pubkey_cert.find("7F4946B041").expect("parsing_se_cert_error");
+        index = se_pubkey_cert
+            .find("7F4946B041")
+            .expect("parsing_se_cert_error");
     } else {
         return Err(ImkeyError::ImkeySeCertInvalid.into());
     }
@@ -209,8 +215,8 @@ fn get_se_pubkey(se_pubkey_cert: String) -> Result<String> {
 
 #[cfg(test)]
 mod test {
-    use crate::key_manager::KeyManager;
     use crate::device_binding::DeviceManage;
+    use crate::key_manager::KeyManager;
     use crate::manager::bind_display_code;
     use mq::hid_api::hid_connect;
 
@@ -218,18 +224,18 @@ mod test {
     fn device_bind_test() {
         let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
         let bind_code = "3KN379K4".to_string();
-//         let path = "/Users/joe/work/sdk_gen_key".to_string();
-//         let bind_code = "YDSGQPKX".to_string();
+        //         let path = "/Users/joe/work/sdk_gen_key".to_string();
+        //         let bind_code = "YDSGQPKX".to_string();
 
         hid_connect("imKey Pro");
         let check_result = DeviceManage::bind_check(&path).unwrap();
         let mut bind_result = String::new();
         println!("result:{}", &check_result);
         if check_result.as_str().eq("unbound") {
-//            bind_display_code();
-//            let mut bind_code_temp = String::new();
-//            println!("please input bind code:");
-//            let bl = std::io::stdin().read_line(&mut bind_code_temp).unwrap();
+            //            bind_display_code();
+            //            let mut bind_code_temp = String::new();
+            //            println!("please input bind code:");
+            //            let bl = std::io::stdin().read_line(&mut bind_code_temp).unwrap();
             bind_result = DeviceManage::bind_acquire(&bind_code).unwrap();
         } else if check_result.as_str().eq("bound_other") {
             bind_result = DeviceManage::bind_acquire(&bind_code).unwrap();
@@ -237,7 +243,6 @@ mod test {
             ();
         }
         println!("{}", bind_result);
-
     }
 
     #[test]

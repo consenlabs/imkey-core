@@ -1,11 +1,11 @@
 pub mod apdu;
+pub mod applet;
 pub mod constants;
 pub mod error;
 pub mod https;
 pub mod path;
 pub mod sign_res;
 pub mod utility;
-pub mod applet;
 
 #[macro_use]
 extern crate failure;

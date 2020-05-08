@@ -1,11 +1,11 @@
+use crate::Result;
+use common::apdu::{ApduCheck, EthApdu};
+use common::path::check_path_validity;
+use common::utility::hex_to_bytes;
 use hex;
 use keccak_hash::keccak;
-use regex::Regex;
-use crate::Result;
-use common::apdu::{EthApdu, ApduCheck};
 use mq::message::send_apdu;
-use common::utility::hex_to_bytes;
-use common::path::check_path_validity;
+use regex::Regex;
 
 #[derive(Debug)]
 pub struct EthAddress {}
@@ -54,8 +54,7 @@ impl EthAddress {
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
-        let pubkey_raw =
-            hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
+        let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
 
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone())?;
         let address_checksum = EthAddress::address_checksummed(&address_main);
@@ -73,8 +72,8 @@ impl EthAddress {
 
 #[cfg(test)]
 mod test {
-    use common::constants;
     use crate::address::EthAddress;
+    use common::constants;
 
     #[test]
     fn test_pubkey_to_address() {
@@ -112,20 +111,14 @@ mod test {
     #[test]
     fn test_get_address() {
         let address = EthAddress::get_address(constants::ETH_PATH).unwrap();
-        println!("address:{}",&address);
-        assert_eq!(
-            &address,
-            "0x6031564e7b2F5cc33737807b2E58DaFF870B590b"
-        );
+        println!("address:{}", &address);
+        assert_eq!(&address, "0x6031564e7b2F5cc33737807b2E58DaFF870B590b");
     }
 
     #[test]
     fn test_display_address() {
         let address = EthAddress::display_address(constants::ETH_PATH).unwrap();
         println!("address:{}", &address);
-        assert_eq!(
-            &address,
-            "0x6031564e7b2F5cc33737807b2E58DaFF870B590b"
-        );
+        assert_eq!(&address, "0x6031564e7b2F5cc33737807b2E58DaFF870B590b");
     }
 }

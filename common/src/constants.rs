@@ -1,4 +1,4 @@
- // pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
+// pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
 pub const URL: &str = "https://imkey.online:1000/imkey/";
 //pub const URL: &str = "http://localhost:8080/imkey/";
 
@@ -48,7 +48,7 @@ pub const BIND_RESULT_ERROR: &str = "A5";
 
 // tsm return code
 pub const TSM_RETURN_CODE_SUCCESS: &str = "000000";
-pub const TSM_RETURNCODE_DEV_INACTIVATED : &str = "BSE0007";
+pub const TSM_RETURNCODE_DEV_INACTIVATED: &str = "BSE0007";
 pub const TSM_RETURNCODE_DEVICE_ILLEGAL: &str = "BSE0017";
 pub const TSM_RETURNCODE_DEVICE_STOP_USING: &str = "BSE0019";
 pub const TSM_RETURNCODE_SE_QUERY_FAIL: &str = "BSE0018";
@@ -65,7 +65,6 @@ pub const TSM_RETURNCODE_COS_UPGRADE_FAIL: &str = "BCOS0003";
 pub const TSM_RETURNCODE_UPLOAD_COS_VERSION_IS_NULL: &str = "BCOS0004";
 pub const TSM_RETURNCODE_SWITCH_BL_STATUS_FAIL: &str = "BCOS0005";
 pub const TSM_RETURNCODE_WRITE_WALLET_ADDRESS_FAIL: &str = "BCOS0006";
-
 
 //tsm end flag
 pub const TSM_END_FLAG: &str = "end";
@@ -88,4 +87,4 @@ pub const APDU_BLUETOOTH_CHANNEL_ERROR: &str = "6F01";
 pub const APDU_RSP_SWITCH_BL_STATUS_SUCCESS: &str = "905A";
 
 pub const TIMEOUT_LONG: i32 = 120;
- pub const DEVICE_MODEL_NAME: &str = "imKey Pro";
+pub const DEVICE_MODEL_NAME: &str = "imKey Pro";
