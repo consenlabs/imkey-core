@@ -26,7 +26,28 @@ class ViewController: UIViewController,BLEDelegate {
     
     self.hideKeyboardWhenTappedAround()
     
-    API.setCallback()
+//    API.setCallback()
+    set_callback(swiftCallback)
+  }
+  
+  let swiftCallback : @convention(c) (UnsafePointer<Int8>?,Int32) -> UnsafePointer<Int8>? = {
+    (apdu,timeout) -> UnsafePointer<Int8>? in
+    print("callback miaomiao v v timeout\(timeout)")
+    let swiftApdu = String(cString:apdu!)
+    
+    var response = "";
+    do {
+      response = try BLE.shared().sendApdu(apdu: swiftApdu,timeout: UInt32(timeout * 1000))
+    }catch let e as ImkeyError {
+      response = "communication_error_" + e.message
+    }catch{
+      Log.d(error)
+    }
+    let count = response.utf8CString.count
+    let result: UnsafeMutableBufferPointer<Int8> = UnsafeMutableBufferPointer<Int8>.allocate(capacity: count)
+    _ = result.initialize(from: response.utf8CString)
+    let p = UnsafePointer(result.baseAddress!)
+    return p
   }
   
   // bind ble devices

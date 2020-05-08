@@ -42,21 +42,23 @@ public class Api {
         }).start();
     }
 
-    public static void setCallback(){
-        RustApi.INSTANCE.set_callback(new Sender() {
-            @Override
-            public String sendApdu(String apdu, int timeout) {
-                LogUtil.d("set call back sucess");
-                RustApi.INSTANCE.free_const_string(apdu);
-                String result = "";
-                try {
-                    result = Ble.getInstance().sendApdu(apdu,timeout);
-                }catch (Exception e){
-                    result = "communication_error_" + e.getMessage();
-                }
-                return result;
+    public static Sender sender = new Sender() {
+        @Override
+        public String sendApdu(String apdu, int timeout) {
+            LogUtil.d("set call back sucess");
+            RustApi.INSTANCE.free_const_string(apdu);
+            String result = "";
+            try {
+                result = Ble.getInstance().sendApdu(apdu,timeout);
+            }catch (Exception e){
+                result = "communication_error_" + e.getMessage();
             }
-        });
+            return result;
+        }
+    };
+
+    public static void setCallback(){
+        RustApi.INSTANCE.set_callback(sender);
     }
 
 }

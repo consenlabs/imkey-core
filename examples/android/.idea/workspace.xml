@@ -24,9 +24,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c436b60c-fd39-45b7-8f86-85c86457a7c5" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/excepttest/devicemanger/DeviceBindingTest.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/excepttest/devicemanger/DeviceBindingTest.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/jniLibs/arm64-v8a/libconnector.so" afterPath="$PROJECT_DIR$/app/src/main/jniLibs/arm64-v8a/libconnector.so" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/keycore/Api.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/keycore/Api.java" />
+      <change beforePath="$PROJECT_DIR$/../ios/iosExample/API.swift" afterPath="$PROJECT_DIR$/../ios/iosExample/API.swift" />
+      <change beforePath="$PROJECT_DIR$/../ios/iosExample/ViewController.swift" afterPath="$PROJECT_DIR$/../ios/iosExample/ViewController.swift" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -131,15 +131,40 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="47">
-              <caret line="324" column="37" lean-forward="false" selection-start-line="324" selection-start-column="37" selection-end-line="324" selection-end-column="37" />
+            <state relative-caret-position="394">
+              <caret line="101" column="21" lean-forward="false" selection-start-line="101" selection-start-column="21" selection-end-line="101" selection-end-column="21" />
               <folding>
                 <element signature="e#12302#12619#0" expanded="true" />
                 <element signature="e#12618#12619#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Api.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/keycore/Api.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="385">
+              <caret line="60" column="46" lean-forward="false" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
+              <folding>
+                <element signature="e#1317#1783#0" expanded="true" />
+                <element signature="e#1782#1783#0" expanded="true" />
+                <element signature="e#1822#1823#0" expanded="true" />
+                <element signature="e#1875#1876#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpTool.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/SpTool.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -179,26 +204,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="266">
               <caret line="706" column="46" lean-forward="false" selection-start-line="706" selection-start-column="46" selection-end-line="706" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AppUpdateTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/excepttest/devicemanger/AppUpdateTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="45" column="32" lean-forward="false" selection-start-line="45" selection-start-column="32" selection-end-line="45" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CheckDeviceTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/excepttest/devicemanger/CheckDeviceTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -3531,7 +3536,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/excepttest/devicemanger/CheckDeviceTest.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/excepttest/devicemanger/AppDeleteTest.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/keycore/DeviceBidingExample.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/keycore/Api.java" />
         <option value="$PROJECT_DIR$/../../blelibrary/imkey-ble-android/imkeyble/src/main/java/im/imkey/imkeylibrary/bluetooth/Ble.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/keycore/SdkInfo.java" />
@@ -3560,6 +3564,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/DeviceManageActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/excepttest/devicemanger/DeviceBindingTest.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/keycore/Api.java" />
       </list>
     </option>
   </component>
@@ -3645,7 +3650,7 @@
               <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="jniLibs" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="android" type="b2602c69:ProjectViewProjectNode" />
@@ -3653,8 +3658,8 @@
               <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="jniLibs" type="462c0819:PsiDirectoryNode" />
-              <item name="arm64-v8a" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="imkeydemo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="android" type="b2602c69:ProjectViewProjectNode" />
@@ -4088,25 +4093,12 @@
           <line>47</line>
           <properties />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/keycore/Api.java</url>
-          <line>48</line>
-          <properties />
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
       </breakpoints>
       <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/excepttest/devicemanger/AppDeleteTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-512">
-          <caret line="42" column="16" lean-forward="false" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../blelibrary/imkey-ble-android/imkeyble/src/main/java/im/imkey/imkeylibrary/bluetooth/ErrorCode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -4265,14 +4257,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="1" lean-forward="false" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/keycore/Api.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="44" column="23" lean-forward="false" selection-start-line="44" selection-start-column="23" selection-end-line="44" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -4509,13 +4493,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/SpTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
-          <caret line="324" column="37" lean-forward="false" selection-start-line="324" selection-start-column="37" selection-end-line="324" selection-end-column="37" />
+        <state relative-caret-position="394">
+          <caret line="101" column="21" lean-forward="false" selection-start-line="101" selection-start-column="21" selection-end-line="101" selection-end-column="21" />
           <folding>
             <element signature="e#12302#12619#0" expanded="true" />
             <element signature="e#12618#12619#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/keycore/Api.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="60" column="46" lean-forward="false" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
+          <folding>
+            <element signature="e#1317#1783#0" expanded="true" />
+            <element signature="e#1782#1783#0" expanded="true" />
+            <element signature="e#1822#1823#0" expanded="true" />
+            <element signature="e#1875#1876#0" expanded="true" />
           </folding>
         </state>
       </provider>
