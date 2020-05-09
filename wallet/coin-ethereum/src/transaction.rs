@@ -2,8 +2,8 @@ use crate::address::EthAddress;
 use crate::ethapi::{EthMessageSignReq, EthMessageSignRes, EthTxRes};
 use crate::types::{Action, Signature};
 use crate::Result as EthResult;
-use common::apdu::{ApduCheck, EthApdu};
 use common::error::CoinError;
+use common::apdu::{EthApdu, ApduCheck, CoinCommonApdu};
 use common::path::check_path_validity;
 use common::utility::{hex_to_bytes, secp256k1_sign};
 use common::{constants, utility};
@@ -91,7 +91,7 @@ impl Transaction {
         }
 
         //get public
-        let msg_pubkey = EthApdu::get_pubkey(path, false);
+        let msg_pubkey = EthApdu::get_xpub(path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
@@ -222,7 +222,7 @@ impl Transaction {
         let select_result = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_result)?;
 
-        let msg_pubkey = EthApdu::get_pubkey(&input.path, false);
+        let msg_pubkey = EthApdu::get_xpub(&input.path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
         let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone()).unwrap();

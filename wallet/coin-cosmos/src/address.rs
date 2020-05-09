@@ -3,7 +3,7 @@ use bech32::bech32::Bech32;
 use bitcoin::bech32::convert_bits;
 use bitcoin_hashes::hex::{FromHex, ToHex};
 use bitcoin_hashes::{hash160, Hash};
-use common::apdu::{ApduCheck, CosmosApdu};
+use common::apdu::{ApduCheck, CosmosApdu, CoinCommonApdu};
 use common::error::CoinError;
 use common::path;
 use common::utility;
@@ -23,7 +23,7 @@ impl CosmosAddress {
         ApduCheck::checke_response(&select_response)?;
 
         //get public
-        let msg_pubkey = CosmosApdu::get_pubkey(&path, true);
+        let msg_pubkey = CosmosApdu::get_xpub(&path, true);
         let res_msg_pubkey = message::send_apdu(msg_pubkey)?;
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
@@ -73,7 +73,7 @@ impl CosmosAddress {
 
     pub fn display_address(path: &str) -> Result<String> {
         let address = CosmosAddress::get_address(path).unwrap();
-        let reg_apdu = CosmosApdu::register_pubkey(address.as_bytes());
+        let reg_apdu = CosmosApdu::register_address(address.as_bytes());
         let res_reg = message::send_apdu(reg_apdu)?;
         ApduCheck::checke_response(&res_reg)?;
         Ok(address)
