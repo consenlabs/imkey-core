@@ -9,11 +9,12 @@ use crate::{manager, TsmService};
 use aes::Aes128;
 use block_modes::block_padding::Pkcs7;
 use block_modes::{BlockMode, Cbc};
+use common::apdu::{Apdu, ApduCheck, ImkApdu};
 use common::constants::{
     BIND_RESULT_ERROR, BIND_RESULT_SUCCESS, BIND_STATUS_BOUND_OTHER, BIND_STATUS_BOUND_THIS,
     BIND_STATUS_UNBOUND, IMK_AID,
 };
-use common::apdu::{Apdu, ImkApdu, ApduCheck};
+use mq::hid_api::hid_connect;
 use mq::message::send_apdu;
 use rand::rngs::OsRng;
 use regex::Regex;
@@ -211,6 +212,29 @@ fn get_se_pubkey(se_pubkey_cert: String) -> Result<String> {
     }
 
     Ok(se_pubkey_cert[index + 10..index + 130 + 10].to_string())
+}
+
+pub fn bind_test() {
+    //binding device
+    // let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+    // let bind_code = "FRGB36FS".to_string();
+    let path = "/Users/joe/work/sdk_gen_key".to_string();
+    let bind_code = "YDSGQPKX".to_string();
+
+    hid_connect("imKey Pro");
+    let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+    if !"bound_this".eq(check_result.as_str()) {
+        //如果未和本设备绑定则进行绑定操作
+        let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
+        if "5A".eq(bind_result.as_str()) {
+            println!("{:?}", "binding success");
+        } else {
+            println!("{:?}", "binding error");
+            return;
+        }
+    } else {
+        println!("bind this");
+    }
 }
 
 #[cfg(test)]

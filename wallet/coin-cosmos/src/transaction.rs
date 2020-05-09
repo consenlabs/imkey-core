@@ -2,7 +2,7 @@ use crate::address::CosmosAddress;
 use crate::cosmosapi::CosmosTxRes;
 use crate::Result;
 use bitcoin_hashes::hex::ToHex;
-use common::apdu::{ApduCheck, CosmosApdu, CoinCommonApdu};
+use common::apdu::{ApduCheck, CoinCommonApdu, CosmosApdu};
 use common::constants;
 use common::utility::{secp256k1_sign, sha256_hash};
 use device::device_binding::KEY_MANAGER;
@@ -198,7 +198,7 @@ mod tests {
     use crate::transaction::{Coin, CosmosTransaction, Msg, MsgValue, SignData, StdFee};
     use common::constants;
     use common::utility::{hex_to_bytes, secp256k1_sign};
-    use device::device_binding::DeviceManage;
+    use device::device_binding::{bind_test, DeviceManage};
     use linked_hash_map::LinkedHashMap;
     use std::collections::HashMap;
 
@@ -230,9 +230,7 @@ mod tests {
 
     #[test]
     fn test_sign_delegate() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}", &check_result);
+        bind_test();
 
         let stdfee = StdFee {
             amount: vec![Coin {
@@ -286,9 +284,7 @@ mod tests {
 
     #[test]
     fn test_sign_send() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}", &check_result);
+        bind_test();
 
         let stdfee = StdFee {
             amount: vec![Coin {

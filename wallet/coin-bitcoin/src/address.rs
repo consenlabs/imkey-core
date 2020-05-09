@@ -111,8 +111,10 @@ impl BtcAddress {
         //path check
         check_path_validity(path)?;
         let address_str = Self::get_address(network, path)?;
-//        let apdu_res = send_apdu(BtcApdu::btc_coin_reg(address_str.clone().into_bytes()))?;
-        let apdu_res = send_apdu(BtcApdu::register_address(&address_str.clone().into_bytes().to_vec()))?;
+        //        let apdu_res = send_apdu(BtcApdu::btc_coin_reg(address_str.clone().into_bytes()))?;
+        let apdu_res = send_apdu(BtcApdu::register_address(
+            &address_str.clone().into_bytes().to_vec(),
+        ))?;
         ApduCheck::checke_response(apdu_res.as_str())?;
         Ok(address_str)
     }
@@ -121,8 +123,10 @@ impl BtcAddress {
         //path check
         check_path_validity(path)?;
         let address_str = Self::get_segwit_address(network, path)?;
-//        let apdu_res = send_apdu(BtcApdu::btc_coin_reg(address_str.clone().into_bytes()))?;
-        let apdu_res = send_apdu(BtcApdu::register_address(&address_str.clone().into_bytes().to_vec()))?;
+        //        let apdu_res = send_apdu(BtcApdu::btc_coin_reg(address_str.clone().into_bytes()))?;
+        let apdu_res = send_apdu(BtcApdu::register_address(
+            &address_str.clone().into_bytes().to_vec(),
+        ))?;
         ApduCheck::checke_response(apdu_res.as_str())?;
         Ok(address_str)
     }

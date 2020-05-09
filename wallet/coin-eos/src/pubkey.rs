@@ -1,7 +1,7 @@
 use crate::Result;
 use bitcoin::util::base58;
 use bitcoin_hashes::{ripemd160, Hash};
-use common::apdu::{EosApdu, ApduCheck, CoinCommonApdu};
+use common::apdu::{ApduCheck, CoinCommonApdu, EosApdu};
 use common::{path, utility};
 use device::device_binding::KEY_MANAGER;
 use mq::message;
@@ -81,13 +81,11 @@ impl EosPubkey {
 mod tests {
     use crate::pubkey::EosPubkey;
     use common::constants;
-    use device::device_binding::DeviceManage;
+    use device::device_binding::{bind_test, DeviceManage};
 
     #[test]
     fn test_get_pubkey() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}", &check_result);
+        bind_test();
 
         let pubkey = EosPubkey::get_pubkey(constants::EOS_PATH);
         println!("pubkey:{}", pubkey.unwrap());
@@ -102,6 +100,8 @@ mod tests {
 
     #[test]
     fn test_display_pubkey() {
+        bind_test();
+
         let pubkey = EosPubkey::display_pubkey(constants::EOS_PATH);
         println!("pubkey:{}", pubkey.unwrap());
     }

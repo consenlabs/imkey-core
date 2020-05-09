@@ -113,16 +113,17 @@ impl AppDownloadRequest {
 #[cfg(test)]
 mod test {
     use crate::app_download::AppDownloadRequest;
+    use crate::manager::{get_cert, get_se_id};
     use crate::TsmService;
-    use crate::manager::{get_se_id, get_cert};
     use mq::hid_api::hid_connect;
 
     #[test]
     pub fn app_download_test() {
         hid_connect("imKey Pro");
         let seid = get_se_id().unwrap();
-        let device_cert= get_cert().unwrap();
+        let device_cert = get_cert().unwrap();
         let instance_aid = "695F627463".to_string();
-        AppDownloadRequest::build_request_data(seid, instance_aid, device_cert, None).send_message();
+        AppDownloadRequest::build_request_data(seid, instance_aid, device_cert, None)
+            .send_message();
     }
 }
