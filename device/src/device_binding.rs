@@ -9,11 +9,11 @@ use crate::{manager, TsmService};
 use aes::Aes128;
 use block_modes::block_padding::Pkcs7;
 use block_modes::{BlockMode, Cbc};
-use common::apdu::{Apdu, ApduCheck, DeviceBindingApdu};
 use common::constants::{
     BIND_RESULT_ERROR, BIND_RESULT_SUCCESS, BIND_STATUS_BOUND_OTHER, BIND_STATUS_BOUND_THIS,
     BIND_STATUS_UNBOUND, IMK_AID,
 };
+use common::apdu::{Apdu, ImkApdu, ApduCheck};
 use mq::message::send_apdu;
 use rand::rngs::OsRng;
 use regex::Regex;
@@ -65,7 +65,7 @@ impl DeviceManage {
         }
 
         //gen bindchec apdu
-        let bind_check_apdu = DeviceBindingApdu::bind_check(&key_manager_obj.pub_key);
+        let bind_check_apdu = ImkApdu::bind_check(&key_manager_obj.pub_key);
         //send bindcheck command and get return data
         select_imk_applet()?;
         let bind_check_apdu_resp_data = send_apdu(bind_check_apdu)?;
@@ -144,7 +144,7 @@ impl DeviceManage {
         let mut apdu_data = vec![];
         apdu_data.extend(&key_manager_obj.pub_key);
         apdu_data.extend(ciphertext);
-        let identity_verify_apdu = DeviceBindingApdu::identity_verify(&apdu_data);
+        let identity_verify_apdu = ImkApdu::identity_verify(&apdu_data);
         std::mem::drop(key_manager_obj);
         //send command to device
         let bind_result = send_apdu(identity_verify_apdu)?;
@@ -157,7 +157,7 @@ impl DeviceManage {
 
     pub fn display_bind_code() -> Result<()> {
         select_imk_applet()?;
-        let gen_auth_code_ret_data = send_apdu(DeviceBindingApdu::generate_auth_code())?;
+        let gen_auth_code_ret_data = send_apdu(ImkApdu::generate_auth_code())?;
         ApduCheck::checke_response(&gen_auth_code_ret_data)
     }
 }

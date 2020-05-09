@@ -1,25 +1,15 @@
 use hex::FromHex;
-//use std::thread::sleep;
-//use std::time::Duration;
 use super::error::HidError;
 use crate::message::send_apdu;
 use crate::Result;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use hidapi::{HidApi, HidDevice};
 use std::sync::Mutex;
-//use regex::internal::Input;
-//use log::kv::Source;
-//use std::collections::HashMap;
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 lazy_static! {
     pub static ref HID_API: Mutex<HidApi> = Mutex::new(HidApi::new().expect("hid_initialization_error"));
     pub static ref HID_DEVICE: Mutex<Vec<HidDevice>> = Mutex::new(vec![]);
-//    static ref DEVICE_CONN_INFO: HashMap<&'static str, (u16, u16)> = {
-//        let mut device_conn_info_map = HashMap::new();
-//        device_conn_info_map.insert("imKey Pro", (0x096e, 0x0891));
-//        device_conn_info_map
-//    };
 }
 
 //const RETRY_SEC: u64 = 1;
@@ -170,34 +160,6 @@ pub fn hid_connect(_device_model_name: &str) -> Result<()> {
             }
         }
     };
-}
-
-pub fn device_exist_check() -> Result<()> {
-    //get hid initialization obj
-    let mut hid_api = HID_API.lock().unwrap();
-
-    //refresh devices list
-    match hid_api.refresh_devices() {
-        Ok(()) => (),
-        Err(err) => {
-            drop(hid_api);
-            return Err(err.into());
-        }
-    }
-    hid_api.refresh_devices()?;
-    //check the device is connect
-    let mut connect_flg = false;
-    for device_info in hid_api.device_list() {
-        if device_info.vendor_id() == DEV_VID && device_info.product_id() == DEV_PID {
-            connect_flg = true;
-            break;
-        };
-    }
-    drop(hid_api);
-    if !connect_flg {
-        return Err(HidError::DeviceIsNotConnectOrNoVerifyPin.into());
-    };
-    Ok(())
 }
 
 #[cfg(test)]

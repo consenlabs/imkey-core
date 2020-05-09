@@ -2,7 +2,7 @@ use crate::address::CosmosAddress;
 use crate::cosmosapi::CosmosTxRes;
 use crate::Result;
 use bitcoin_hashes::hex::ToHex;
-use common::apdu::{ApduCheck, CosmosApdu};
+use common::apdu::{ApduCheck, CosmosApdu, CoinCommonApdu};
 use common::constants;
 use common::utility::{secp256k1_sign, sha256_hash};
 use device::device_binding::KEY_MANAGER;

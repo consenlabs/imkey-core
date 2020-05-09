@@ -1,7 +1,7 @@
 use crate::Result;
 use bitcoin::util::base58;
 use bitcoin_hashes::{ripemd160, Hash};
-use common::apdu::{ApduCheck, EosApdu};
+use common::apdu::{EosApdu, ApduCheck, CoinCommonApdu};
 use common::{path, utility};
 use device::device_binding::KEY_MANAGER;
 use mq::message;
@@ -18,7 +18,7 @@ impl EosPubkey {
         ApduCheck::checke_response(&select_response)?;
 
         //get public key
-        let msg_pubkey = EosApdu::get_pubkey(&path, true);
+        let msg_pubkey = EosApdu::get_xpub(&path, true);
         let res_msg_pubkey = message::send_apdu(msg_pubkey)?;
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
@@ -70,7 +70,7 @@ impl EosPubkey {
     }
     pub fn display_pubkey(path: &str) -> Result<String> {
         let pubkey = EosPubkey::get_pubkey(path).unwrap();
-        let reg_apdu = EosApdu::register_pubkey(pubkey.as_bytes());
+        let reg_apdu = EosApdu::register_address(pubkey.as_bytes());
         let res_reg = message::send_apdu(reg_apdu)?;
         ApduCheck::checke_response(&res_reg)?;
         Ok(pubkey)

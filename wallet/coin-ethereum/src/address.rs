@@ -1,9 +1,9 @@
-use crate::Result;
-use common::apdu::{ApduCheck, EthApdu};
 use common::path::check_path_validity;
 use common::utility::hex_to_bytes;
 use hex;
 use keccak_hash::keccak;
+use crate::Result;
+use common::apdu::{EthApdu, ApduCheck, CoinCommonApdu};
 use mq::message::send_apdu;
 use regex::Regex;
 
@@ -50,7 +50,7 @@ impl EthAddress {
         ApduCheck::checke_response(&select_response)?;
 
         //get public
-        let msg_pubkey = EthApdu::get_pubkey(&path, false);
+        let msg_pubkey = EthApdu::get_xpub(&path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
         ApduCheck::checke_response(&res_msg_pubkey)?;
 

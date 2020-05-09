@@ -4,6 +4,233 @@ use crate::Result;
 use hex;
 use rustc_serialize::hex::ToHex;
 
+pub trait CoinCommonApdu: Default{
+    fn select_applet() -> String;
+    fn get_xpub(path: &str, verify_flag: bool) -> String;
+    fn register_address(address: &[u8]) -> String;
+}
+
+pub struct BtcApdu();
+
+impl Default for BtcApdu{
+    fn default() -> Self {
+        BtcApdu{}
+    }
+}
+
+impl CoinCommonApdu for BtcApdu{
+
+    fn select_applet() -> String {
+        Apdu::select_applet(BTC_AID)
+    }
+
+    fn get_xpub(path: &str, verify_flag: bool) -> String {
+        Apdu::get_pubkey(0x43, path, verify_flag)
+    }
+
+    fn register_address(address: &[u8]) -> String {
+        Apdu::register_address(0x36, address)
+    }
+}
+
+impl BtcApdu{
+    pub fn btc_prepare(ins: u8, p1: u8, data: &Vec<u8>) -> Vec<String> {
+        let mut apdu_vec = Vec::new();
+        let apdu_number = (data.len() - 1) / LC_MAX as usize + 1;
+        for index in 0..apdu_number {
+            if index == apdu_number - 1 {
+                let length = if data.len() % LC_MAX as usize == 0 {
+                    LC_MAX
+                } else {
+                    (data.len() % LC_MAX as usize) as u32
+                };
+                let mut temp_apdu_vec =ApduHeader::new(0x80, ins, p1, 0x80, length as u8).to_array();
+                temp_apdu_vec.extend_from_slice(&data[index * LC_MAX as usize..]);
+                apdu_vec.push(hex::encode_upper(temp_apdu_vec));
+            } else {
+                let mut temp_apdu_vec =ApduHeader::new(0x80, ins, p1, 0x00, LC_MAX as u8).to_array();
+                temp_apdu_vec.extend_from_slice(
+                    &data[index * LC_MAX as usize..((index + 1) * LC_MAX as usize) as usize],
+                );
+                apdu_vec.push(hex::encode_upper(temp_apdu_vec));
+            }
+        }
+        return apdu_vec;
+    }
+
+    pub fn btc_perpare_input(p1: u8, data: &Vec<u8>) -> String {
+        if data.len() as u32 > LC_MAX {
+            panic!("data to long");
+        }
+        let mut apdu =ApduHeader::new(0x80, 0x41, p1, 0x00, data.len() as u8).to_array();
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
+    pub fn btc_sign(index: u8, hash_type: u8, path: &str) -> String {
+        let path_bytes = path.as_bytes();
+        let mut apdu =ApduHeader::new(0x80, 0x42, index, hash_type, path_bytes.len() as u8).to_array();
+        apdu.extend(path_bytes.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
+    pub fn btc_segwit_sign(last_one: bool, hash_type: u8, data: Vec<u8>) -> String {
+        if data.len() as u32 > LC_MAX {
+            panic!("data to long");
+        }
+
+        let mut apdu = match last_one{
+            true => ApduHeader::new(0x80, 0x32, 0x80, hash_type, data.len() as u8).to_array(),
+            _ => ApduHeader::new(0x80, 0x32, 0x00, hash_type, data.len() as u8).to_array(),
+        };
+
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
+    pub fn omni_prepare_data(p1: u8, data: Vec<u8>) -> String {
+        if data.len() as u32 > LC_MAX {
+            panic!("data to long");
+        }
+        let mut apdu = ApduHeader::new(0x80, 0x44, p1, 0x00, data.len() as u8).to_array();
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+}
+
+pub struct EthApdu();
+
+impl Default for EthApdu{
+    fn default() -> Self {
+        EthApdu()
+    }
+}
+
+impl CoinCommonApdu for EthApdu{
+
+    fn select_applet() -> String {
+        Apdu::select_applet(ETH_AID)
+    }
+
+    fn get_xpub(path: &str, verify_flag: bool) -> String {
+        Apdu::get_pubkey(0x53, path, verify_flag)
+    }
+
+    fn register_address(address: &[u8]) -> String {
+        Apdu::register_address(0x56, address)
+    }
+}
+
+impl EthApdu{
+    pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
+        Apdu::prepare_sign(0x51, data)
+    }
+
+    pub fn sign_digest(path: &str) -> String {
+        Apdu::sign_digest(0x52, 0x00, 0x00, path)
+    }
+
+    pub fn prepare_personal_sign(data: Vec<u8>) -> Vec<String> {
+        Apdu::prepare_sign(0x54, data)
+    }
+
+    pub fn personal_sign(path: &str) -> String {
+        Apdu::sign_digest(0x55, 0x00, 0x00, path)
+    }
+}
+
+pub struct EosApdu();
+
+impl Default for EosApdu{
+    fn default() -> Self {
+        EosApdu()
+    }
+}
+
+impl CoinCommonApdu for EosApdu{
+
+    fn select_applet() -> String {
+        Apdu::select_applet(EOS_AID)
+    }
+
+    fn get_xpub(path: &str, verify_flag: bool) -> String {
+        Apdu::get_pubkey(0x63, path, verify_flag)
+    }
+
+    fn register_address(address: &[u8]) -> String {
+        Apdu::register_address(0x66, address)
+    }
+}
+
+impl EosApdu{
+
+    pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
+        Apdu::prepare_sign(0x61, data)
+    }
+
+    pub fn sign_digest(path: &str) -> String {
+        Apdu::sign_digest(0x52, 0x00, 0x00, path)
+    }
+
+    pub fn sign_tx(nonce: usize) -> String {
+        let mut apdu = ApduHeader::new(0x80, 0x62, 0x00, 0x00, 0x02).to_array();
+        apdu.push(((nonce & 0xFF00) >> 8) as u8);
+        apdu.push((nonce & 0x00FF) as u8);
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
+    pub fn prepare_message_sign(data: Vec<u8>) -> Vec<String> {
+        Apdu::prepare_sign(0x64, data)
+    }
+
+    pub fn sign_message(nonce: usize) -> String {
+        let mut apdu = ApduHeader::new(0x80, 0x65, 0x00, 0x00, 0x02).to_array();
+        apdu.push(((nonce & 0xFF00) >> 8) as u8);
+        apdu.push((nonce & 0x00FF) as u8);
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+}
+
+pub struct CosmosApdu();
+
+impl Default for CosmosApdu{
+    fn default() -> Self {
+        CosmosApdu()
+    }
+}
+
+impl CoinCommonApdu for CosmosApdu{
+
+    fn select_applet() -> String {
+        Apdu::select_applet(COSMOS_AID)
+    }
+
+    fn get_xpub(path: &str, verify_flag: bool) -> String {
+        Apdu::get_pubkey(0x73, path, verify_flag)
+    }
+
+    fn register_address(address: &[u8]) -> String {
+        Apdu::register_address(0x76, address)
+    }
+}
+
+impl CosmosApdu{
+    pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
+        Apdu::prepare_sign(0x71, data)
+    }
+
+    pub fn sign_digest(path: &str) -> String {
+        Apdu::sign_digest(0x72, 0x00, 0x00, path)
+    }
+}
+
+
 pub struct Apdu {}
 
 struct ApduHeader {
@@ -45,10 +272,10 @@ impl Apdu {
         let mut apdu_list = Vec::new();
         let size = data.len() as u32 / LC_MAX as u32
             + if data.len() as u32 % LC_MAX as u32 != 0 {
-                1
-            } else {
-                0
-            };
+            1
+        } else {
+            0
+        };
 
         for i in 0..size {
             let mut apdu = Vec::new();
@@ -77,13 +304,8 @@ impl Apdu {
         if path_bytes.len() as u32 > LC_MAX {
             panic!("data to long");
         }
-
-        let mut apdu = Vec::new();
-
         let p1 = if verify_flag { 0x01 } else { 0x00 };
-
-        let apdu_header = ApduHeader::new(0x80, ins, p1, 0x00, path_bytes.len() as u8);
-        apdu.extend(apdu_header.to_array().iter());
+        let mut apdu = ApduHeader::new(0x80, ins, p1, 0x00, path_bytes.len() as u8).to_array();
         apdu.extend(path_bytes.iter());
         apdu.push(0x00); //Le
         hex::encode(apdu)
@@ -125,214 +347,9 @@ impl Apdu {
     }
 }
 
-pub struct EthApdu {}
+pub struct ImkApdu {}
 
-impl EthApdu {
-    pub fn select_applet() -> String {
-        Apdu::select_applet(ETH_AID)
-    }
-
-    pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
-        Apdu::prepare_sign(0x51, data)
-    }
-
-    pub fn get_pubkey(path: &str, verify_flag: bool) -> String {
-        Apdu::get_pubkey(0x53, path, verify_flag)
-    }
-
-    pub fn register_address(data: &[u8]) -> String {
-        Apdu::register_address(0x56, data)
-    }
-
-    pub fn sign_digest(path: &str) -> String {
-        Apdu::sign_digest(0x52, 0x00, 0x00, path)
-    }
-
-    pub fn prepare_personal_sign(data: Vec<u8>) -> Vec<String> {
-        Apdu::prepare_sign(0x54, data)
-    }
-
-    pub fn personal_sign(path: &str) -> String {
-        Apdu::sign_digest(0x55, 0x00, 0x00, path)
-    }
-}
-
-pub struct EosApdu {}
-
-impl EosApdu {
-    pub fn select_applet() -> String {
-        Apdu::select_applet(EOS_AID)
-    }
-
-    pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
-        Apdu::prepare_sign(0x61, data)
-    }
-
-    pub fn get_pubkey(path: &str, verify_flag: bool) -> String {
-        Apdu::get_pubkey(0x63, path, verify_flag)
-    }
-
-    pub fn register_pubkey(data: &[u8]) -> String {
-        Apdu::register_address(0x66, data)
-    }
-
-    pub fn sign_digest(path: &str) -> String {
-        Apdu::sign_digest(0x52, 0x00, 0x00, path)
-    }
-
-    pub fn sign_tx(nonce: usize) -> String {
-        let mut apdu = ApduHeader::new(0x80, 0x62, 0x00, 0x00, 0x02).to_array();
-        apdu.push(((nonce & 0xFF00) >> 8) as u8);
-        apdu.push((nonce & 0x00FF) as u8);
-        apdu.push(0x00);
-        apdu.to_hex().to_uppercase()
-    }
-
-    pub fn prepare_message_sign(data: Vec<u8>) -> Vec<String> {
-        Apdu::prepare_sign(0x64, data)
-    }
-
-    pub fn sign_message(nonce: usize) -> String {
-        let mut apdu = ApduHeader::new(0x80, 0x65, 0x00, 0x00, 0x02).to_array();
-        apdu.push(((nonce & 0xFF00) >> 8) as u8);
-        apdu.push((nonce & 0x00FF) as u8);
-        apdu.push(0x00);
-        apdu.to_hex().to_uppercase()
-    }
-}
-
-pub struct CosmosApdu {}
-
-impl CosmosApdu {
-    pub fn select_applet() -> String {
-        Apdu::select_applet(COSMOS_AID)
-    }
-
-    pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
-        Apdu::prepare_sign(0x71, data)
-    }
-
-    pub fn get_pubkey(path: &str, verify_flag: bool) -> String {
-        Apdu::get_pubkey(0x73, path, verify_flag)
-    }
-
-    pub fn register_pubkey(data: &[u8]) -> String {
-        Apdu::register_address(0x76, data)
-    }
-
-    pub fn sign_digest(path: &str) -> String {
-        Apdu::sign_digest(0x72, 0x00, 0x00, path)
-    }
-}
-
-pub struct BtcApdu {}
-
-impl BtcApdu {
-    pub fn select_applet() -> String {
-        Apdu::select_applet(BTC_AID)
-    }
-
-    /**
-    get xpub
-    */
-    pub fn get_xpub(path: &str, verify_flag: bool) -> String {
-        if path.as_bytes().len() as u32 > LC_MAX {
-            panic!("data to long");
-        }
-        let path_bytes = path.as_bytes();
-        let mut apdu = match verify_flag {
-            true => ApduHeader::new(0x80, 0x43, 0x01, 0x00, path_bytes.len() as u8).to_array(),
-            _ => ApduHeader::new(0x80, 0x43, 0x00, 0x00, path_bytes.len() as u8).to_array(),
-        };
-        apdu.extend(path_bytes.iter()); //data
-        apdu.push(0x00); //Le
-        apdu.to_hex().to_uppercase()
-    }
-
-    pub fn btc_prepare(ins: u8, p1: u8, data: &Vec<u8>) -> Vec<String> {
-        let mut apdu_vec = Vec::new();
-        let apdu_number = (data.len() - 1) / LC_MAX as usize + 1;
-        for index in 0..apdu_number {
-            if index == apdu_number - 1 {
-                let length = if data.len() % LC_MAX as usize == 0 {
-                    LC_MAX
-                } else {
-                    (data.len() % LC_MAX as usize) as u32
-                };
-                let mut temp_apdu_vec =
-                    ApduHeader::new(0x80, ins, p1, 0x80, length as u8).to_array();
-                temp_apdu_vec.extend_from_slice(&data[index * LC_MAX as usize..]);
-                apdu_vec.push(hex::encode_upper(temp_apdu_vec));
-            } else {
-                let mut temp_apdu_vec =
-                    ApduHeader::new(0x80, ins, p1, 0x00, LC_MAX as u8).to_array();
-                temp_apdu_vec.extend_from_slice(
-                    &data[index * LC_MAX as usize..((index + 1) * LC_MAX as usize) as usize],
-                );
-                apdu_vec.push(hex::encode_upper(temp_apdu_vec));
-            }
-        }
-        return apdu_vec;
-    }
-
-    pub fn btc_perpare_input(p1: u8, data: &Vec<u8>) -> String {
-        if data.len() as u32 > LC_MAX {
-            panic!("data to long");
-        }
-        let mut apdu = ApduHeader::new(0x80, 0x41, p1, 0x00, data.len() as u8).to_array();
-        apdu.extend(data.iter());
-        apdu.push(0x00);
-        apdu.to_hex().to_uppercase()
-    }
-
-    pub fn btc_sign(index: u8, hash_type: u8, path: &str) -> String {
-        let path_bytes = path.as_bytes();
-        let mut apdu =
-            ApduHeader::new(0x80, 0x42, index, hash_type, path_bytes.len() as u8).to_array();
-        apdu.extend(path_bytes.iter());
-        apdu.push(0x00);
-        apdu.to_hex().to_uppercase()
-    }
-
-    pub fn btc_segwit_sign(last_one: bool, hash_type: u8, data: Vec<u8>) -> String {
-        if data.len() as u32 > LC_MAX {
-            panic!("data to long");
-        }
-
-        let mut apdu = match last_one {
-            true => ApduHeader::new(0x80, 0x32, 0x80, hash_type, data.len() as u8).to_array(),
-            _ => ApduHeader::new(0x80, 0x32, 0x00, hash_type, data.len() as u8).to_array(),
-        };
-
-        apdu.extend(data.iter());
-        apdu.push(0x00);
-        apdu.to_hex().to_uppercase()
-    }
-
-    pub fn omni_prepare_data(p1: u8, data: Vec<u8>) -> String {
-        if data.len() as u32 > LC_MAX {
-            panic!("data to long");
-        }
-        let mut apdu = ApduHeader::new(0x80, 0x44, p1, 0x00, data.len() as u8).to_array();
-        apdu.extend(data.iter());
-        apdu.push(0x00);
-        apdu.to_hex().to_uppercase()
-    }
-
-    pub fn btc_coin_reg(address: Vec<u8>) -> String {
-        if address.len() as u32 > LC_MAX {
-            panic!("data to long");
-        }
-        let mut apdu = ApduHeader::new(0x80, 0x36, 0x00, 0x00, address.len() as u8).to_array();
-        apdu.extend(address.iter());
-        apdu.push(0x00);
-        apdu.to_hex().to_uppercase()
-    }
-}
-
-pub struct DeviceBindingApdu {}
-
-impl DeviceBindingApdu {
+impl ImkApdu {
     /**
     binding check apdu build
     */

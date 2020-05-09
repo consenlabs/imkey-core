@@ -6,7 +6,7 @@ use bitcoin::util::base58;
 use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::{ripemd160, Hash};
 use bytes::BufMut;
-use common::apdu::{ApduCheck, EosApdu};
+use common::apdu::{ApduCheck, EosApdu, CoinCommonApdu};
 use common::utility::{retrieve_recid, secp256k1_sign, secp256k1_sign_hash, sha256_hash};
 use common::{constants, path, utility};
 use device::device_binding::KEY_MANAGER;
