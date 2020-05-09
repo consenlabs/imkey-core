@@ -3,7 +3,7 @@ use bech32::bech32::Bech32;
 use bitcoin::bech32::convert_bits;
 use bitcoin_hashes::hex::{FromHex, ToHex};
 use bitcoin_hashes::{hash160, Hash};
-use common::apdu::{ApduCheck, CosmosApdu, CoinCommonApdu};
+use common::apdu::{ApduCheck, CoinCommonApdu, CosmosApdu};
 use common::error::CoinError;
 use common::path;
 use common::utility;
@@ -85,13 +85,11 @@ mod tests {
     use crate::address::CosmosAddress;
     use bech32::bech32::Bech32;
     use common::constants;
-    use device::device_binding::DeviceManage;
+    use device::device_binding::{bind_test, DeviceManage};
 
     #[test]
     fn test_get_pub_key() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}", &check_result);
+        bind_test();
 
         let comprs_pubkey = CosmosAddress::get_pub_key(constants::COSMOS_PATH).unwrap();
         assert_eq!(
@@ -102,9 +100,7 @@ mod tests {
 
     #[test]
     fn test_get_address() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}", &check_result);
+        bind_test();
 
         let address = CosmosAddress::get_address(constants::COSMOS_PATH).unwrap();
         assert_eq!(&address, "cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992");
@@ -112,6 +108,7 @@ mod tests {
 
     #[test]
     fn test_display_address() {
+        bind_test();
         let address = CosmosAddress::display_address(constants::COSMOS_PATH).unwrap();
         assert_eq!(&address, "cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992");
     }

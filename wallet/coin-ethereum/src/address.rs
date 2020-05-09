@@ -1,9 +1,9 @@
+use crate::Result;
+use common::apdu::{ApduCheck, CoinCommonApdu, EthApdu};
 use common::path::check_path_validity;
 use common::utility::hex_to_bytes;
 use hex;
 use keccak_hash::keccak;
-use crate::Result;
-use common::apdu::{EthApdu, ApduCheck, CoinCommonApdu};
 use mq::message::send_apdu;
 use regex::Regex;
 
@@ -74,6 +74,7 @@ impl EthAddress {
 mod test {
     use crate::address::EthAddress;
     use common::constants;
+    use device::device_binding::bind_test;
 
     #[test]
     fn test_pubkey_to_address() {
@@ -110,6 +111,7 @@ mod test {
 
     #[test]
     fn test_get_address() {
+        bind_test();
         let address = EthAddress::get_address(constants::ETH_PATH).unwrap();
         println!("address:{}", &address);
         assert_eq!(&address, "0x6031564e7b2F5cc33737807b2E58DaFF870B590b");
@@ -117,6 +119,7 @@ mod test {
 
     #[test]
     fn test_display_address() {
+        bind_test();
         let address = EthAddress::display_address(constants::ETH_PATH).unwrap();
         println!("address:{}", &address);
         assert_eq!(&address, "0x6031564e7b2F5cc33737807b2E58DaFF870B590b");

@@ -1,14 +1,15 @@
-use hex::FromHex;
 use super::error::HidError;
 use crate::message::send_apdu;
 use crate::Result;
+use hex::FromHex;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use hidapi::{HidApi, HidDevice};
 use std::sync::Mutex;
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 lazy_static! {
-    pub static ref HID_API: Mutex<HidApi> = Mutex::new(HidApi::new().expect("hid_initialization_error"));
+    pub static ref HID_API: Mutex<HidApi> =
+        Mutex::new(HidApi::new().expect("hid_initialization_error"));
     pub static ref HID_DEVICE: Mutex<Vec<HidDevice>> = Mutex::new(vec![]);
 }
 

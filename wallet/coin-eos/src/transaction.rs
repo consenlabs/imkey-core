@@ -6,7 +6,7 @@ use bitcoin::util::base58;
 use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::{ripemd160, Hash};
 use bytes::BufMut;
-use common::apdu::{ApduCheck, EosApdu, CoinCommonApdu};
+use common::apdu::{ApduCheck, CoinCommonApdu, EosApdu};
 use common::utility::{retrieve_recid, secp256k1_sign, secp256k1_sign_hash, sha256_hash};
 use common::{constants, path, utility};
 use device::device_binding::KEY_MANAGER;
@@ -261,13 +261,11 @@ mod tests {
     use crate::eosapi::{EosMessageSignReq, EosSignData, EosTxReq};
     use crate::transaction::EosTransaction;
     use common::constants;
-    use device::device_binding::DeviceManage;
+    use device::device_binding::{bind_test, DeviceManage};
 
     #[test]
     fn test_sgin_tx() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}", &check_result);
+        bind_test();
 
         let eos_sign_data = EosSignData{
             tx_data: "c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00".to_string(),
@@ -289,9 +287,7 @@ mod tests {
 
     #[test]
     fn test_sign_messgage() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}", &check_result);
+        bind_test();
 
         let input = EosMessageSignReq {
             path: constants::EOS_PATH.to_string(),

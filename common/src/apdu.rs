@@ -4,7 +4,7 @@ use crate::Result;
 use hex;
 use rustc_serialize::hex::ToHex;
 
-pub trait CoinCommonApdu: Default{
+pub trait CoinCommonApdu: Default {
     fn select_applet() -> String;
     fn get_xpub(path: &str, verify_flag: bool) -> String;
     fn register_address(address: &[u8]) -> String;
@@ -12,14 +12,13 @@ pub trait CoinCommonApdu: Default{
 
 pub struct BtcApdu();
 
-impl Default for BtcApdu{
+impl Default for BtcApdu {
     fn default() -> Self {
-        BtcApdu{}
+        BtcApdu {}
     }
 }
 
-impl CoinCommonApdu for BtcApdu{
-
+impl CoinCommonApdu for BtcApdu {
     fn select_applet() -> String {
         Apdu::select_applet(BTC_AID)
     }
@@ -33,7 +32,7 @@ impl CoinCommonApdu for BtcApdu{
     }
 }
 
-impl BtcApdu{
+impl BtcApdu {
     pub fn btc_prepare(ins: u8, p1: u8, data: &Vec<u8>) -> Vec<String> {
         let mut apdu_vec = Vec::new();
         let apdu_number = (data.len() - 1) / LC_MAX as usize + 1;
@@ -44,11 +43,13 @@ impl BtcApdu{
                 } else {
                     (data.len() % LC_MAX as usize) as u32
                 };
-                let mut temp_apdu_vec =ApduHeader::new(0x80, ins, p1, 0x80, length as u8).to_array();
+                let mut temp_apdu_vec =
+                    ApduHeader::new(0x80, ins, p1, 0x80, length as u8).to_array();
                 temp_apdu_vec.extend_from_slice(&data[index * LC_MAX as usize..]);
                 apdu_vec.push(hex::encode_upper(temp_apdu_vec));
             } else {
-                let mut temp_apdu_vec =ApduHeader::new(0x80, ins, p1, 0x00, LC_MAX as u8).to_array();
+                let mut temp_apdu_vec =
+                    ApduHeader::new(0x80, ins, p1, 0x00, LC_MAX as u8).to_array();
                 temp_apdu_vec.extend_from_slice(
                     &data[index * LC_MAX as usize..((index + 1) * LC_MAX as usize) as usize],
                 );
@@ -62,7 +63,7 @@ impl BtcApdu{
         if data.len() as u32 > LC_MAX {
             panic!("data to long");
         }
-        let mut apdu =ApduHeader::new(0x80, 0x41, p1, 0x00, data.len() as u8).to_array();
+        let mut apdu = ApduHeader::new(0x80, 0x41, p1, 0x00, data.len() as u8).to_array();
         apdu.extend(data.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
@@ -70,7 +71,8 @@ impl BtcApdu{
 
     pub fn btc_sign(index: u8, hash_type: u8, path: &str) -> String {
         let path_bytes = path.as_bytes();
-        let mut apdu =ApduHeader::new(0x80, 0x42, index, hash_type, path_bytes.len() as u8).to_array();
+        let mut apdu =
+            ApduHeader::new(0x80, 0x42, index, hash_type, path_bytes.len() as u8).to_array();
         apdu.extend(path_bytes.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
@@ -81,7 +83,7 @@ impl BtcApdu{
             panic!("data to long");
         }
 
-        let mut apdu = match last_one{
+        let mut apdu = match last_one {
             true => ApduHeader::new(0x80, 0x32, 0x80, hash_type, data.len() as u8).to_array(),
             _ => ApduHeader::new(0x80, 0x32, 0x00, hash_type, data.len() as u8).to_array(),
         };
@@ -104,14 +106,13 @@ impl BtcApdu{
 
 pub struct EthApdu();
 
-impl Default for EthApdu{
+impl Default for EthApdu {
     fn default() -> Self {
         EthApdu()
     }
 }
 
-impl CoinCommonApdu for EthApdu{
-
+impl CoinCommonApdu for EthApdu {
     fn select_applet() -> String {
         Apdu::select_applet(ETH_AID)
     }
@@ -125,7 +126,7 @@ impl CoinCommonApdu for EthApdu{
     }
 }
 
-impl EthApdu{
+impl EthApdu {
     pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
         Apdu::prepare_sign(0x51, data)
     }
@@ -145,14 +146,13 @@ impl EthApdu{
 
 pub struct EosApdu();
 
-impl Default for EosApdu{
+impl Default for EosApdu {
     fn default() -> Self {
         EosApdu()
     }
 }
 
-impl CoinCommonApdu for EosApdu{
-
+impl CoinCommonApdu for EosApdu {
     fn select_applet() -> String {
         Apdu::select_applet(EOS_AID)
     }
@@ -166,8 +166,7 @@ impl CoinCommonApdu for EosApdu{
     }
 }
 
-impl EosApdu{
-
+impl EosApdu {
     pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
         Apdu::prepare_sign(0x61, data)
     }
@@ -199,14 +198,13 @@ impl EosApdu{
 
 pub struct CosmosApdu();
 
-impl Default for CosmosApdu{
+impl Default for CosmosApdu {
     fn default() -> Self {
         CosmosApdu()
     }
 }
 
-impl CoinCommonApdu for CosmosApdu{
-
+impl CoinCommonApdu for CosmosApdu {
     fn select_applet() -> String {
         Apdu::select_applet(COSMOS_AID)
     }
@@ -220,7 +218,7 @@ impl CoinCommonApdu for CosmosApdu{
     }
 }
 
-impl CosmosApdu{
+impl CosmosApdu {
     pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
         Apdu::prepare_sign(0x71, data)
     }
@@ -229,7 +227,6 @@ impl CosmosApdu{
         Apdu::sign_digest(0x72, 0x00, 0x00, path)
     }
 }
-
 
 pub struct Apdu {}
 
@@ -272,10 +269,10 @@ impl Apdu {
         let mut apdu_list = Vec::new();
         let size = data.len() as u32 / LC_MAX as u32
             + if data.len() as u32 % LC_MAX as u32 != 0 {
-            1
-        } else {
-            0
-        };
+                1
+            } else {
+                0
+            };
 
         for i in 0..size {
             let mut apdu = Vec::new();

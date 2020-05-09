@@ -2,8 +2,8 @@ use crate::address::EthAddress;
 use crate::ethapi::{EthMessageSignReq, EthMessageSignRes, EthTxRes};
 use crate::types::{Action, Signature};
 use crate::Result as EthResult;
+use common::apdu::{ApduCheck, CoinCommonApdu, EthApdu};
 use common::error::CoinError;
-use common::apdu::{EthApdu, ApduCheck, CoinCommonApdu};
 use common::path::check_path_validity;
 use common::utility::{hex_to_bytes, secp256k1_sign};
 use common::{constants, utility};
@@ -359,7 +359,7 @@ pub fn retrieve_recid_deprecated(
 mod tests {
     use super::*;
     use common::constants;
-    use device::device_binding::DeviceManage;
+    use device::device_binding::{bind_test, DeviceManage};
     use ethereum_types::{Address, H160, U256};
     use hex;
     use rustc_hex::{FromHex, ToHex};
@@ -368,9 +368,7 @@ mod tests {
 
     #[test]
     fn test_apdu_pack() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}", &check_result);
+        bind_test();
 
         let tx = Transaction {
             nonce: U256::from(8),
@@ -401,9 +399,7 @@ mod tests {
 
     #[test]
     fn test_sign_trans() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}", &check_result);
+        bind_test();
 
         let tx = Transaction {
             nonce: U256::from(8),
@@ -437,9 +433,7 @@ mod tests {
 
     #[test]
     fn test_data_is_null() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}", &check_result);
+        bind_test();
 
         let tx = Transaction {
             nonce: U256::from_dec_str("13").unwrap(),
@@ -468,9 +462,7 @@ mod tests {
 
     #[test]
     fn test_data_is_long() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}", &check_result);
+        bind_test();
 
         let mut data = "0x60056013565b6101918061001d6000396000f35b3360008190555056006001600060e060020a6000350480630a874df61461003a57806341c0e1b514610058578063a02b161e14610066578063dbbdf0831461007757005b610045600435610149565b80600160a060020a031660005260206000f35b610060610161565b60006000f35b6100716004356100d4565b60006000f35b61008560043560243561008b565b60006000f35b600054600160a060020a031632600160a060020a031614156100ac576100b1565b6100d0565b8060018360005260205260406000208190555081600060005260206000a15b5050565b600054600160a060020a031633600160a060020a031614158015610118575033600160a060020a0316600182600052602052604060002054600160a060020a031614155b61012157610126565b610146565b600060018260005260205260406000208190555080600060005260206000a15b50565b60006001826000526020526040600020549050919050565b600054600160a060020a031633600160a060020a0316146101815761018f565b600054600160a060020a0316ff5b56".to_string();
         let mut data_vec = Vec::new();
@@ -508,9 +500,7 @@ mod tests {
 
     #[test]
     fn test_zero_bytes() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}", &check_result);
+        bind_test();
 
         let mut data = "0x000000000000000000000000000000000000000000000000000000000".to_string();
         let mut data_vec = Vec::new();
@@ -548,9 +538,7 @@ mod tests {
 
     #[test]
     fn test_sign_personal_message() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let check_result = DeviceManage::bind_check(&path).unwrap();
-        println!("check_result:{}", &check_result);
+        bind_test();
 
         let input = EthMessageSignReq {
             path: constants::ETH_PATH.to_string(),
