@@ -22,11 +22,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="imkey" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c436b60c-fd39-45b7-8f86-85c86457a7c5" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/DeviceManageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mk/imkeydemo/DeviceManageActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/jniLibs/arm64-v8a/libconnector.so" afterPath="$PROJECT_DIR$/app/src/main/jniLibs/arm64-v8a/libconnector.so" />
-    </list>
+    <list default="true" id="c436b60c-fd39-45b7-8f86-85c86457a7c5" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
