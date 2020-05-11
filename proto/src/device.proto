@@ -93,3 +93,11 @@ message GetSdkInfoRes {
 message DeviceConnectReq {
     string device_model_name = 1;
 }
+
+message CosCheckUpdateRes {
+    string seid = 1;
+    string is_latest = 2;
+    string latest_cos_version = 3;
+    string update_type = 4;
+    string description = 5;
+}

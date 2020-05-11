@@ -4,7 +4,7 @@ use common::applet;
 use common::constants;
 use device::deviceapi::{
     AppDeleteReq, AppDownloadReq, AppUpdateReq, AvailableAppBean, BindAcquireReq, BindAcquireRes,
-    BindCheckReq, BindCheckRes, CheckUpdateRes, DeviceConnectReq, EmptyResponse,
+    BindCheckReq, BindCheckRes, CheckUpdateRes, CosCheckUpdateRes, DeviceConnectReq, EmptyResponse,
     GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes, GetLifeTimeRes,
     GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, SetBleNameReq,
 };
@@ -203,4 +203,17 @@ pub fn device_connect(data: &[u8]) -> Result<Vec<u8>> {
     hid_connect(&device_connect_req.device_model_name)?;
 
     encode_message(EmptyResponse {})
+}
+
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+pub fn cos_check_update() -> Result<Vec<u8>> {
+    let cos_check_update = manager::cos_check_update()?;
+
+    encode_message(CosCheckUpdateRes {
+        seid: cos_check_update._ReturnData.seid,
+        is_latest: cos_check_update._ReturnData.is_latest,
+        latest_cos_version: cos_check_update._ReturnData.latest_cos_version.unwrap(),
+        update_type: cos_check_update._ReturnData.update_type.unwrap(),
+        description: cos_check_update._ReturnData.description.unwrap(),
+    })
 }
