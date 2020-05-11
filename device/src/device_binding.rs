@@ -223,7 +223,7 @@ pub fn bind_test() {
     let path = "/Users/joe/work/sdk_gen_key".to_string();
     let bind_code = "YDSGQPKX".to_string();
 
-    hid_connect("imKey Pro");
+    let _ = hid_connect("imKey Pro");
     let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
     if !"bound_this".eq(check_result.as_str()) {
         //如果未和本设备绑定则进行绑定操作
