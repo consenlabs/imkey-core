@@ -1,36 +1,30 @@
 use crate::error::ImkeyError;
+use crate::ServiceResponse;
 use crate::{Result, TsmService};
 use common::constants;
 use common::https;
 use mq::message;
 use serde::{Deserialize, Serialize};
 
-#[allow(non_snake_case)]
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct SeSecureCheckRequest {
     pub seid: String,
     pub sn: String,
-    pub deviceCert: String,
-    pub stepKey: String,
-    pub statusWord: Option<String>,
-    pub commandID: String,
-    pub cardRetDataList: Option<Vec<String>>,
+    pub device_cert: String,
+    pub step_key: String,
+    pub status_word: Option<String>,
+    #[serde(rename = "commandID")]
+    pub command_id: String,
+    pub card_ret_data_list: Option<Vec<String>>,
 }
 
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
-pub struct ServiceResponse {
-    pub _ReturnCode: String,
-    pub _ReturnMsg: String,
-    pub _ReturnData: SeSecureCheckResponse,
-}
-
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct SeSecureCheckResponse {
     pub seid: Option<String>,
-    pub nextStepKey: Option<String>,
-    pub apduList: Option<Vec<String>>,
+    pub next_step_key: Option<String>,
+    pub apdu_list: Option<Vec<String>>,
 }
 
 impl TsmService for SeSecureCheckRequest {
@@ -41,28 +35,29 @@ impl TsmService for SeSecureCheckRequest {
             println!("send message：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
             let response_data = https::post(constants::TSM_ACTION_SE_SECURE_CHECK, req_data)?;
-            let return_bean: ServiceResponse = serde_json::from_str(response_data.as_str())?;
+            let return_bean: ServiceResponse<SeSecureCheckResponse> =
+                serde_json::from_str(response_data.as_str())?;
             println!("return message：{:#?}", return_bean);
             if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //check if end
-                let next_step_key = return_bean._ReturnData.nextStepKey.unwrap();
+                let next_step_key = return_bean._ReturnData.next_step_key.unwrap();
                 if constants::TSM_END_FLAG.eq(next_step_key.as_str()) {
                     return Ok(());
                 }
 
                 let mut apdu_res: Vec<String> = Vec::new();
-                match return_bean._ReturnData.apduList {
+                match return_bean._ReturnData.apdu_list {
                     Some(apdu_list) => {
                         for (index_val, apdu_val) in apdu_list.iter().enumerate() {
                             //send apdu command
                             let res = message::send_apdu(apdu_val.to_string())?;
                             apdu_res.push(res.clone());
                             if index_val == apdu_list.len() - 1 {
-                                self.statusWord = Some(String::from(&res[res.len() - 4..]));
+                                self.status_word = Some(String::from(&res[res.len() - 4..]));
                             }
                         }
-                        self.cardRetDataList = Some(apdu_res);
-                        self.stepKey = next_step_key;
+                        self.card_ret_data_list = Some(apdu_res);
+                        self.step_key = next_step_key;
                     }
                     None => (),
                 }
@@ -99,11 +94,11 @@ impl SeSecureCheckRequest {
         SeSecureCheckRequest {
             seid: seid,
             sn: sn,
-            deviceCert: device_cert,
-            stepKey: String::from("01"),
-            statusWord: None,
-            commandID: String::from(constants::TSM_ACTION_SE_SECURE_CHECK),
-            cardRetDataList: None,
+            device_cert: device_cert,
+            step_key: String::from("01"),
+            status_word: None,
+            command_id: String::from(constants::TSM_ACTION_SE_SECURE_CHECK),
+            card_ret_data_list: None,
         }
     }
 }

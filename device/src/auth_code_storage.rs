@@ -5,23 +5,24 @@ use common::constants::{TSM_ACTION_AUTHCODE_STORAGE, TSM_RETURN_CODE_SUCCESS};
 use common::https;
 use serde::{Deserialize, Serialize};
 
-#[allow(non_snake_case)]
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct AuthCodeStorageRequest {
     pub seid: String,
-    pub authCode: String,
-    pub stepKey: String,
-    pub statusWord: Option<String>,
-    pub commandID: String,
-    pub cardRetDataList: Option<Vec<String>>,
+    pub auth_code: String,
+    pub step_key: String,
+    pub status_word: Option<String>,
+    #[serde(rename = "commandID")]
+    pub command_id: String,
+    pub card_ret_data_list: Option<Vec<String>>,
 }
 
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct AuthCodeStorageResponse {
     pub seid: Option<String>,
-    pub nextStepKey: Option<String>,
-    pub apduList: Option<Vec<String>>,
+    pub next_step_key: Option<String>,
+    pub apdu_list: Option<Vec<String>>,
 }
 
 impl TsmService for AuthCodeStorageRequest {
@@ -46,11 +47,11 @@ impl AuthCodeStorageRequest {
     pub fn build_request_data(seid: String, auth_code: String) -> Self {
         AuthCodeStorageRequest {
             seid: seid,
-            authCode: auth_code,
-            stepKey: String::from("01"),
-            statusWord: None,
-            commandID: String::from(TSM_ACTION_AUTHCODE_STORAGE),
-            cardRetDataList: None,
+            auth_code: auth_code,
+            step_key: String::from("01"),
+            status_word: None,
+            command_id: String::from(TSM_ACTION_AUTHCODE_STORAGE),
+            card_ret_data_list: None,
         }
     }
 }
