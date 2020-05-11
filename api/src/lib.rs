@@ -100,7 +100,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
         #[cfg(any(target_os = "macos", target_os = "windows"))]
         "cos_update" => landingpad(|| device_manager::cos_update()),
         #[cfg(any(target_os = "macos", target_os = "windows"))]
-        "cos_check_update" => landingpad(|| device_manager::cos_update()),
+        "cos_check_update" => landingpad(|| device_manager::cos_check_update()),
         #[cfg(any(target_os = "macos", target_os = "windows"))]
         "device_connect" => {
             landingpad(|| device_manager::device_connect(&action.param.unwrap().value))
