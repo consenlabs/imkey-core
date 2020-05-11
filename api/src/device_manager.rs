@@ -46,12 +46,12 @@ pub fn check_update() -> Result<Vec<u8>> {
     let mut available_bean_list: Vec<AvailableAppBean> = Vec::new();
     for (index, value) in response
         ._ReturnData
-        .availableAppBeanList
+        .available_app_bean_list
         .unwrap()
         .iter()
         .enumerate()
     {
-        let version = match value.installedVersion.as_ref() {
+        let version = match value.installed_version.as_ref() {
             Some(version) => version,
             None => "none",
         };
@@ -59,14 +59,14 @@ pub fn check_update() -> Result<Vec<u8>> {
         available_bean_list.insert(
             index,
             AvailableAppBean {
-                app_name: applet::get_appname_by_instid(value.instanceAid.as_ref().unwrap())
+                app_name: applet::get_appname_by_instid(value.instance_aid.as_ref().unwrap())
                     .unwrap()
                     .to_string(),
-                app_logo: value.appLogo.as_ref().unwrap().to_string(),
+                app_logo: value.app_logo.as_ref().unwrap().to_string(),
                 installed_version: version.to_string(),
-                last_updated: value.lastUpdated.as_ref().unwrap().to_string(),
-                latest_version: value.latestVersion.as_ref().unwrap().to_string(),
-                install_mode: value.installMode.as_ref().unwrap().to_string(),
+                last_updated: value.last_updated.as_ref().unwrap().to_string(),
+                latest_version: value.latest_version.as_ref().unwrap().to_string(),
+                install_mode: value.install_mode.as_ref().unwrap().to_string(),
             },
         );
     }
@@ -81,7 +81,7 @@ pub fn check_update() -> Result<Vec<u8>> {
         se_id: response._ReturnData.seid.unwrap(),
         sn: response._ReturnData.sn.unwrap(),
         status: status.to_string(),
-        sdk_mode: response._ReturnData.sdkMode.unwrap(),
+        sdk_mode: response._ReturnData.sdk_mode.unwrap(),
         available_app_list: available_bean_list,
     };
     encode_message(response_msg)
