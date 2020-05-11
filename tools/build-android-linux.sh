@@ -18,7 +18,7 @@ AR=$ANDROID_NDK_TOOLCHAINS/arm/bin/arm-linux-androideabi-ar CC=$ANDROID_NDK_TOOL
 AR=$ANDROID_NDK_TOOLCHAINS/x86/bin/i686-linux-android-ar CC=$ANDROID_NDK_TOOLCHAINS/x86/bin/i686-linux-android29-clang LD=$ANDROID_NDK_TOOLCHAINS/x86/bin/i686-linux-android-ld PKG_CONFIG_ALLOW_CROSS=1 OPENSSL_DIR=$OPENSSL_DIR/android-x86 LDFLAGS=-L$OPENSSL_DIR/android-x86/lib/ CPPFLAGS=-I$OPENSSL_DIR/android-x86/include cargo build --target i686-linux-android --release
 AR=$ANDROID_NDK_TOOLCHAINS/x86_64/bin/x86_64-linux-android-ar CC=$ANDROID_NDK_TOOLCHAINS/x86_64/bin/x86_64-linux-android29-clang LD=$ANDROID_NDK_TOOLCHAINS/x86_64/bin/x86_64-linux-android-ld PKG_CONFIG_ALLOW_CROSS=1 OPENSSL_DIR=$OPENSSL_DIR/android-x86_64 LDFLAGS=-L$OPENSSL_DIR/android-x86_64/lib/ CPPFLAGS=-I$OPENSSL_DIR/android-x86_64/include cargo build --target x86_64-linux-android --release
 
-cp ../target/aarch64-linux-android/release/libconnector.so ../android/imkeylibrary/src/main/jniLibs/arm64-v8a/libconnector.so
-cp ../target/armv7-linux-androideabi/release/libconnector.so ../android/imkeylibrary/src/main/jniLibs/armeabi-v7a/libconnector.so
-cp ../target/i686-linux-android/release/libconnector.so ../android/imkeylibrary/src/main/jniLibs/x86/libconnector.so
-cp ../target/x86_64-linux-android/release/libconnector.so ../android/imkeylibrary/src/main/jniLibs/x86_64/libconnector.so
+cp ../target/aarch64-linux-android/release/libconnector.so ../examples/android/app/src/main/jniLibs/arm64-v8a/libconnector.so
+cp ../target/armv7-linux-androideabi/release/libconnector.so ../examples/android/app/src/main/jniLibs/armeabi-v7a/libconnector.so
+cp ../target/i686-linux-android/release/libconnector.so ../examples/android/app/src/main/jniLibs/x86/libconnector.so
+cp ../target/x86_64-linux-android/release/libconnector.so ../examples/android/app/src/main/jniLibs/x86_64/libconnector.so
