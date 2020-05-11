@@ -5,38 +5,39 @@ use common::constants;
 use common::https;
 use serde::{Deserialize, Serialize};
 
-#[allow(non_snake_case)]
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct SeQueryRequest {
     pub seid: String,
     pub sn: String,
-    pub sdkVersion: Option<String>,
-    pub stepKey: String,
-    pub statusWord: Option<String>,
-    pub commandID: String,
-    pub cardRetDataList: Option<Vec<String>>,
+    pub sdk_version: Option<String>,
+    pub step_key: String,
+    pub status_word: Option<String>,
+    #[serde(rename = "commandID")]
+    pub command_id: String,
+    pub card_ret_data_list: Option<Vec<String>>,
 }
 
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct SeQueryResponse {
     pub seid: Option<String>,
-    pub nextStepKey: Option<String>,
+    pub next_step_key: Option<String>,
     pub sn: Option<String>,
-    pub sdkMode: Option<String>,
-    pub availableAppBeanList: Option<Vec<AvailableAppBean>>,
+    pub sdk_mode: Option<String>,
+    pub available_app_bean_list: Option<Vec<AvailableAppBean>>,
     pub status: Option<String>,
 }
 
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct AvailableAppBean {
-    pub appLogo: Option<String>,
-    pub installMode: Option<String>,
-    pub installedVersion: Option<String>,
-    pub instanceAid: Option<String>,
-    pub lastUpdated: Option<String>,
-    pub latestVersion: Option<String>,
+    pub app_logo: Option<String>,
+    pub install_mode: Option<String>,
+    pub installed_version: Option<String>,
+    pub instance_aid: Option<String>,
+    pub last_updated: Option<String>,
+    pub latest_version: Option<String>,
 }
 
 impl TsmService for SeQueryRequest {
@@ -80,11 +81,11 @@ impl SeQueryRequest {
         SeQueryRequest {
             seid: seid,
             sn: sn,
-            sdkVersion: sdk_version,
-            stepKey: String::from("01"),
-            statusWord: None,
-            commandID: String::from(constants::TSM_ACTION_SE_QUERY),
-            cardRetDataList: None,
+            sdk_version: sdk_version,
+            step_key: String::from("01"),
+            status_word: None,
+            command_id: String::from(constants::TSM_ACTION_SE_QUERY),
+            card_ret_data_list: None,
         }
     }
 }

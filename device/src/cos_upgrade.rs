@@ -15,28 +15,29 @@ use serde::{Deserialize, Serialize};
 use std::thread;
 use std::time::Duration;
 
-#[allow(non_snake_case)]
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct CosUpgradeRequest {
     pub seid: String,
     pub sn: String,
-    pub deviceCert: String,
-    pub seCosVersion: String,
-    pub isBLStatus: bool,
-    pub stepKey: String,
-    pub statusWord: Option<String>,
-    pub commandID: String,
-    pub cardRetDataList: Option<Vec<String>>,
+    pub device_cert: String,
+    pub se_cos_version: String,
+    pub is_bl_status: bool,
+    pub step_key: String,
+    pub status_word: Option<String>,
+    #[serde(rename = "commandID")]
+    pub command_id: String,
+    pub card_ret_data_list: Option<Vec<String>>,
 }
 
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct CosUpgradeResponse {
     pub seid: Option<String>,
-    pub CosVersion: Option<String>,
-    pub InstanceAidList: Option<Vec<String>>,
-    pub nextStepKey: Option<String>,
-    pub apduList: Option<Vec<String>>,
+    pub cos_version: Option<String>,
+    pub instance_aid_list: Option<Vec<String>>,
+    pub next_step_key: Option<String>,
+    pub apdu_list: Option<Vec<String>>,
 }
 
 impl CosUpgradeRequest {
@@ -83,17 +84,17 @@ impl CosUpgradeRequest {
         let mut request_data = CosUpgradeRequest {
             seid: seid.clone(),
             sn: sn,
-            deviceCert: device_cert.clone(),
-            seCosVersion: se_cos_version,
-            isBLStatus: is_bl_status,
-            stepKey: if is_jump {
+            device_cert: device_cert.clone(),
+            se_cos_version: se_cos_version,
+            is_bl_status: is_bl_status,
+            step_key: if is_jump {
                 "03".to_string()
             } else {
                 "01".to_string()
             },
-            statusWord: None,
-            commandID: String::from(TSM_ACTION_COS_UPGRADE),
-            cardRetDataList: None,
+            status_word: None,
+            command_id: String::from(TSM_ACTION_COS_UPGRADE),
+            card_ret_data_list: None,
         };
 
         loop {
@@ -105,20 +106,21 @@ impl CosUpgradeRequest {
             println!("return message：{:#?}", return_bean);
             if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
                 //check if end
-                let next_step_key = return_bean._ReturnData.nextStepKey.unwrap();
+                let next_step_key = return_bean._ReturnData.next_step_key.unwrap();
                 if TSM_END_FLAG.eq(next_step_key.as_str()) {
                     return Ok(());
                 }
 
                 let mut apdu_res: Vec<String> = vec![];
-                match return_bean._ReturnData.apduList {
+                match return_bean._ReturnData.apdu_list {
                     Some(apdu_list) => {
                         for (index_val, apdu_val) in apdu_list.iter().enumerate() {
                             //send apdu command and get return data
                             let res = send_apdu(apdu_val.to_string())?;
                             apdu_res.push(res.clone());
                             if index_val == apdu_list.len() - 1 {
-                                request_data.statusWord = Some(String::from(&res[res.len() - 4..]));
+                                request_data.status_word =
+                                    Some(String::from(&res[res.len() - 4..]));
                                 if (constants::APDU_RSP_SUCCESS.eq(&res[res.len() - 4..])
                                     || constants::APDU_RSP_SWITCH_BL_STATUS_SUCCESS
                                         .eq(&res[res.len() - 4..]))
@@ -129,14 +131,14 @@ impl CosUpgradeRequest {
                                 }
                             }
                         }
-                        request_data.cardRetDataList = Some(apdu_res);
+                        request_data.card_ret_data_list = Some(apdu_res);
                     }
                     None => (),
                 }
 
                 if "06".eq(next_step_key.as_str()) {
                     //applet download
-                    match &return_bean._ReturnData.InstanceAidList {
+                    match &return_bean._ReturnData.instance_aid_list {
                         Some(aid_list) => {
                             for temp_instance_aid in aid_list.iter() {
                                 AppDownloadRequest::build_request_data(
@@ -152,7 +154,7 @@ impl CosUpgradeRequest {
                     };
                 }
 
-                request_data.stepKey = next_step_key;
+                request_data.step_key = next_step_key;
             } else {
                 return match return_bean._ReturnCode.as_str() {
                     constants::TSM_RETURNCODE_COS_INFO_NO_CONF => {

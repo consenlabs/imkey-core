@@ -6,25 +6,26 @@ use common::https;
 use mq::message;
 use serde::{Deserialize, Serialize};
 
-#[allow(non_snake_case)]
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct AppDeleteRequest {
     pub seid: String,
-    pub instanceAid: String,
-    pub deviceCert: String,
-    pub stepKey: String,
-    pub statusWord: Option<String>,
-    pub commandID: String,
-    pub cardRetDataList: Option<Vec<String>>,
+    pub instance_aid: String,
+    pub device_cert: String,
+    pub step_key: String,
+    pub status_word: Option<String>,
+    #[serde(rename = "commandID")]
+    pub command_id: String,
+    pub card_ret_data_list: Option<Vec<String>>,
 }
 
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct AppDeleteResponse {
     pub seid: Option<String>,
-    pub instanceAid: Option<String>,
-    pub nextStepKey: Option<String>,
-    pub apduList: Option<Vec<String>>,
+    pub instance_aid: Option<String>,
+    pub next_step_key: Option<String>,
+    pub apdu_list: Option<Vec<String>>,
 }
 
 impl TsmService for AppDeleteRequest {
@@ -40,23 +41,23 @@ impl TsmService for AppDeleteRequest {
             println!("return message：{:#?}", return_bean);
             if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //check if end
-                let next_step_key = return_bean._ReturnData.nextStepKey.unwrap();
+                let next_step_key = return_bean._ReturnData.next_step_key.unwrap();
                 if constants::TSM_END_FLAG.eq(next_step_key.as_str()) {
                     return Ok(());
                 }
                 let mut apdu_res: Vec<String> = Vec::new();
-                match return_bean._ReturnData.apduList {
+                match return_bean._ReturnData.apdu_list {
                     Some(apdu_list) => {
                         for (index_val, apdu_val) in apdu_list.iter().enumerate() {
                             //sende apdu command
                             let res = message::send_apdu(apdu_val.to_string())?;
                             apdu_res.push(res.clone());
                             if index_val == apdu_list.len() - 1 {
-                                self.statusWord = Some(String::from(&res[res.len() - 4..]));
+                                self.status_word = Some(String::from(&res[res.len() - 4..]));
                             }
                         }
-                        self.cardRetDataList = Some(apdu_res);
-                        self.stepKey = next_step_key;
+                        self.card_ret_data_list = Some(apdu_res);
+                        self.step_key = next_step_key;
                     }
                     None => (),
                 }
@@ -92,12 +93,12 @@ impl AppDeleteRequest {
     pub fn build_request_data(seid: String, instance_aid: String, device_cert: String) -> Self {
         AppDeleteRequest {
             seid: seid,
-            instanceAid: instance_aid,
-            deviceCert: device_cert,
-            stepKey: String::from("01"),
-            statusWord: None,
-            commandID: String::from(constants::TSM_ACTION_APP_DELETE),
-            cardRetDataList: None,
+            instance_aid: instance_aid,
+            device_cert: device_cert,
+            step_key: String::from("01"),
+            status_word: None,
+            command_id: String::from(constants::TSM_ACTION_APP_DELETE),
+            card_ret_data_list: None,
         }
     }
 }
@@ -105,13 +106,16 @@ impl AppDeleteRequest {
 #[cfg(test)]
 mod test {
     use crate::app_delete::AppDeleteRequest;
+    use crate::manager::{get_cert, get_se_id};
     use crate::TsmService;
+    use mq::hid_api::hid_connect;
 
     #[test]
     pub fn app_delete_test() {
-        let seid: String = "19060000000200860001010000000014".to_string();
-        let instance_aid: String = "695F657468".to_string();
-        let device_cert: String = "BF2181CA7F2181C6931019060000000200860001010000000014420200015F200401020304950200805F2504201810145F2404FFFFFFFF53007F4947B04104FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44F002DFFE5F374830460221008CB58D54BDED501236621B83B320081E6F9B6B5539AE5EC9D36B660EC445A5E8022100A203CA1F9ABEE69751EA402A2ACDFD6B4A87697D6CD721F60540959095EC9466".to_string();
+        hid_connect("imKey Pro");
+        let seid = get_se_id().unwrap();
+        let device_cert = get_cert().unwrap();
+        let instance_aid = "695F627463".to_string();
         AppDeleteRequest::build_request_data(seid, instance_aid, device_cert).send_message();
     }
 }

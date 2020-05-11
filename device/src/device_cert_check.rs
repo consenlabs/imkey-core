@@ -8,26 +8,26 @@ use common::constants::{
 use common::https;
 use serde::{Deserialize, Serialize};
 
-// SE安全检查请求bean
-#[allow(non_snake_case)]
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct DeviceCertCheckRequest {
     pub seid: String,
     pub sn: String,
-    pub deviceCert: String,
-    pub stepKey: String,
-    pub statusWord: Option<String>,
-    pub commandID: String,
-    pub cardRetDataList: Option<Vec<String>>,
+    pub device_cert: String,
+    pub step_key: String,
+    pub status_word: Option<String>,
+    #[serde(rename = "commandID")]
+    pub command_id: String,
+    pub card_ret_data_list: Option<Vec<String>>,
 }
 
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct DeviceCertCheckResponse {
     pub seid: Option<String>,
-    pub verifyResult: Option<bool>,
-    pub nextStepKey: Option<String>,
-    pub apduList: Option<Vec<String>>,
+    pub verify_result: Option<bool>,
+    pub next_step_key: Option<String>,
+    pub apdu_list: Option<Vec<String>>,
 }
 
 impl TsmService for DeviceCertCheckRequest {
@@ -43,7 +43,7 @@ impl TsmService for DeviceCertCheckRequest {
 
         match return_bean._ReturnCode.as_str() {
             TSM_RETURN_CODE_SUCCESS => {
-                if return_bean._ReturnData.verifyResult.unwrap() {
+                if return_bean._ReturnData.verify_result.unwrap() {
                     return Ok(());
                 }
                 return Err(ImkeyError::ImkeySeCertInvalid.into());
@@ -64,11 +64,11 @@ impl DeviceCertCheckRequest {
         DeviceCertCheckRequest {
             seid: seid,
             sn: sn,
-            deviceCert: device_cert,
-            stepKey: String::from("01"),
-            statusWord: None,
-            commandID: String::from(TSM_ACTION_DEVICE_CERT_CHECK),
-            cardRetDataList: None,
+            device_cert: device_cert,
+            step_key: String::from("01"),
+            status_word: None,
+            command_id: String::from(TSM_ACTION_DEVICE_CERT_CHECK),
+            card_ret_data_list: None,
         }
     }
 }
@@ -76,13 +76,16 @@ impl DeviceCertCheckRequest {
 #[cfg(test)]
 mod test {
     use crate::device_cert_check::DeviceCertCheckRequest;
+    use crate::manager::{get_cert, get_se_id, get_sn};
     use crate::TsmService;
+    use mq::hid_api::hid_connect;
 
     #[test]
     pub fn device_cert_check_test() {
-        let seid: String = "19060000000200860001010000000014".to_string();
-        let sn: String = "imKey01191200001".to_string();
-        let device_cert: String = "BF2181CA7F2181C6931019060000000200860001010000000014420200015F200401020304950200805F2504201810145F2404FFFFFFFF53007F4947B04104FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44F002DFFE5F374830460221008CB58D54BDED501236621B83B320081E6F9B6B5539AE5EC9D36B660EC445A5E8022100A203CA1F9ABEE69751EA402A2ACDFD6B4A87697D6CD721F60540959095EC9466".to_string();
+        hid_connect("imKey Pro");
+        let seid = get_se_id().unwrap();
+        let device_cert = get_cert().unwrap();
+        let sn = get_sn().unwrap();
         DeviceCertCheckRequest::build_request_data(seid, sn, device_cert).send_message();
     }
 }

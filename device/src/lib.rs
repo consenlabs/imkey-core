@@ -24,7 +24,7 @@ pub type Result<T> = result::Result<T, failure::Error>;
 use serde::{Deserialize, Serialize};
 
 #[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ServiceResponse<T> {
     pub _ReturnCode: String,
     pub _ReturnMsg: String,

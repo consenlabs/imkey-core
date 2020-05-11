@@ -6,26 +6,27 @@ use common::https;
 use mq::message;
 use serde::{Deserialize, Serialize};
 
-#[allow(non_snake_case)]
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct AppDownloadRequest {
     pub seid: String,
-    pub instanceAid: String,
-    pub deviceCert: String,
-    pub sdkVersion: Option<String>,
-    pub stepKey: String,
-    pub statusWord: Option<String>,
-    pub commandID: String,
-    pub cardRetDataList: Option<Vec<String>>,
+    pub instance_aid: String,
+    pub device_cert: String,
+    pub sdk_version: Option<String>,
+    pub step_key: String,
+    pub status_word: Option<String>,
+    #[serde(rename = "commandID")]
+    pub command_id: String,
+    pub card_ret_data_list: Option<Vec<String>>,
 }
 
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct AppDownloadResponse {
     pub seid: Option<String>,
-    pub instanceAid: Option<String>,
-    pub nextStepKey: Option<String>,
-    pub apduList: Option<Vec<String>>,
+    pub instance_aid: Option<String>,
+    pub next_step_key: Option<String>,
+    pub apdu_list: Option<Vec<String>>,
 }
 
 impl TsmService for AppDownloadRequest {
@@ -41,24 +42,24 @@ impl TsmService for AppDownloadRequest {
             println!("return message：{:#?}", return_bean);
             if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //check step key is end
-                let next_step_key = return_bean._ReturnData.nextStepKey.unwrap();
+                let next_step_key = return_bean._ReturnData.next_step_key.unwrap();
                 if constants::TSM_END_FLAG.eq(next_step_key.as_str()) {
                     return Ok(());
                 }
 
                 let mut apdu_res: Vec<String> = Vec::new();
-                match return_bean._ReturnData.apduList {
+                match return_bean._ReturnData.apdu_list {
                     Some(apdu_list) => {
                         for (index_val, apdu_val) in apdu_list.iter().enumerate() {
                             //send apdu
                             let res = message::send_apdu(apdu_val.to_string())?;
                             apdu_res.push(res.clone());
                             if index_val == apdu_list.len() - 1 {
-                                self.statusWord = Some(String::from(&res[res.len() - 4..]));
+                                self.status_word = Some(String::from(&res[res.len() - 4..]));
                             }
                         }
-                        self.cardRetDataList = Some(apdu_res);
-                        self.stepKey = next_step_key;
+                        self.card_ret_data_list = Some(apdu_res);
+                        self.step_key = next_step_key;
                     }
                     None => (),
                 }
@@ -99,13 +100,13 @@ impl AppDownloadRequest {
     ) -> Self {
         AppDownloadRequest {
             seid: seid,
-            instanceAid: instance_aid,
-            deviceCert: device_cert,
-            sdkVersion: sdk_version,
-            stepKey: String::from("01"),
-            statusWord: None,
-            commandID: String::from(constants::TSM_ACTION_APP_DOWNLOAD),
-            cardRetDataList: None,
+            instance_aid: instance_aid,
+            device_cert: device_cert,
+            sdk_version: sdk_version,
+            step_key: String::from("01"),
+            status_word: None,
+            command_id: String::from(constants::TSM_ACTION_APP_DOWNLOAD),
+            card_ret_data_list: None,
         }
     }
 }
