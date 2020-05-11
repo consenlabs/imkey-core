@@ -14,6 +14,7 @@ use common::constants::{
     BIND_RESULT_ERROR, BIND_RESULT_SUCCESS, BIND_STATUS_BOUND_OTHER, BIND_STATUS_BOUND_THIS,
     BIND_STATUS_UNBOUND, IMK_AID,
 };
+#[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::hid_api::hid_connect;
 use mq::message::send_apdu;
 use rand::rngs::OsRng;
@@ -214,6 +215,7 @@ fn get_se_pubkey(se_pubkey_cert: String) -> Result<String> {
     Ok(se_pubkey_cert[index + 10..index + 130 + 10].to_string())
 }
 
+#[cfg(any(target_os = "macos", target_os = "windows"))]
 pub fn bind_test() {
     //binding device
     // let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
@@ -246,10 +248,10 @@ mod test {
 
     #[test]
     fn device_bind_test() {
-        let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-        let bind_code = "3KN379K4".to_string();
-        //         let path = "/Users/joe/work/sdk_gen_key".to_string();
-        //         let bind_code = "YDSGQPKX".to_string();
+        // let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+        // let bind_code = "3KN379K4".to_string();
+        let path = "/Users/joe/work/sdk_gen_key".to_string();
+        let bind_code = "YDSGQPKX".to_string();
 
         hid_connect("imKey Pro");
         let check_result = DeviceManage::bind_check(&path).unwrap();
