@@ -288,6 +288,12 @@ public class DeviceManageActivity extends AppCompatActivity {
                 pdCancel();
             }
         });
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                mManager.download(appletName);
+//            }
+//        }).start();
     }
 
     private void setBleName() {
