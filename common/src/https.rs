@@ -4,8 +4,14 @@ use futures::{future, Future, Stream};
 use hyper::client::Client;
 use hyper::header::HeaderValue;
 use hyper::{Body, Error, Method, Request};
+use hyper_tls::HttpsConnector;
 use serde::Serialize;
 use tokio_core::reactor::Core;
+// use futures_util::TryFutureExt;
+use futures::future::TryFutureExt;
+// use futures_util::stream::StreamExt;
+use futures::stream::{self, StreamExt};
+use tokio::runtime::Runtime;
 
 /**
 http post request
@@ -18,6 +24,12 @@ pub fn post2<T: Serialize>(action: &str, req_data: &T) -> reqwest::Response {
 }
 
 pub fn post(action: &str, req_data: Vec<u8>) -> Result<String> {
+    let f = async_post(action, req_data);
+    // futures::executor::block_on(f)
+    Runtime::new().unwrap().block_on(f)
+}
+
+async fn async_post(action: &str, req_data: Vec<u8>) -> Result<String> {
     let uri: hyper::Uri = format!("{}{}", constants::URL.to_string(), action)
         .to_string()
         .parse()
@@ -30,23 +42,14 @@ pub fn post(action: &str, req_data: Vec<u8>) -> Result<String> {
         HeaderValue::from_static("application/json"),
     );
 
-    let mut event_loop = Core::new()?;
-
-    let https = hyper_tls::HttpsConnector::new(4)?;
+    let https = HttpsConnector::new();
     let client = Client::builder().build::<_, hyper::Body>(https);
 
-    let work = client.request(req).and_then(|res| {
-        res.into_body()
-            .fold(Vec::new(), |mut v, chunk| {
-                v.extend(&chunk[..]);
-                future::ok::<_, Error>(v)
-            })
-            .and_then(|chunks| {
-                let s = String::from_utf8(chunks).expect("return_message_conver_error");
-                future::ok::<_, Error>(s)
-            })
-    });
+    let resp = client.request(req).await?;
 
-    let res_data = event_loop.run(work)?;
+    let bytes = hyper::body::to_bytes(resp.into_body()).await?;
+    let res_data = std::str::from_utf8(&bytes).unwrap().to_string();
+    // // let res_data = event_loop.run(work)?;
+    // let res_data = futures::executor::block_on(work);
     Ok(res_data)
 }
