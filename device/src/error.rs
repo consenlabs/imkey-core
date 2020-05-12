@@ -66,6 +66,8 @@ pub enum ImkeyError {
     ImkeyTsmWriteWalletAddressFail,
     #[fail(display = "imkey_device_reconnect_fail")]
     ImkeyDeviceReconnectFail,
+    #[fail(display = "imkey_tsm_check_update_fail")]
+    ImkeyTsmCosCheckUpdateFail,
 }
 
 #[derive(Fail, Debug, PartialOrd, PartialEq)]

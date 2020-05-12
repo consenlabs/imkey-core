@@ -1,6 +1,6 @@
 // pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
-pub const URL: &str = "https://imkey.online:1000/imkey/";
-//pub const URL: &str = "http://localhost:8080/imkey/";
+//pub const URL: &str = "https://imkey.online:1000/imkey/";
+pub const URL: &str = "http://localhost:8080/imkey/";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
 pub const TSM_ACTION_APP_DOWNLOAD: &str = "/appDownload";
@@ -11,6 +11,7 @@ pub const TSM_ACTION_SE_QUERY: &str = "/seInfoQuery";
 pub const TSM_ACTION_AUTHCODE_STORAGE: &str = "/authCodeStorage";
 pub const TSM_ACTION_DEVICE_CERT_CHECK: &str = "/deviceCertCheck";
 pub const TSM_ACTION_COS_UPGRADE: &str = "/seCosUpdate";
+pub const TSM_ACTION_COS_CHECK_UPDATE: &str = "/cosCheckUpdate";
 
 //apud related constant
 pub const LC_MAX: u32 = 245;
@@ -65,6 +66,7 @@ pub const TSM_RETURNCODE_COS_UPGRADE_FAIL: &str = "BCOS0003";
 pub const TSM_RETURNCODE_UPLOAD_COS_VERSION_IS_NULL: &str = "BCOS0004";
 pub const TSM_RETURNCODE_SWITCH_BL_STATUS_FAIL: &str = "BCOS0005";
 pub const TSM_RETURNCODE_WRITE_WALLET_ADDRESS_FAIL: &str = "BCOS0006";
+pub const TSM_RETURNCODE_COS_CHECK_UPDATE_FAIL: &str = "BCOS0007";
 
 //tsm end flag
 pub const TSM_END_FLAG: &str = "end";

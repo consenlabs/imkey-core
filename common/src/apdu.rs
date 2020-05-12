@@ -410,7 +410,7 @@ impl ApduCheck {
 
 #[cfg(test)]
 mod tests {
-    use crate::apdu::BtcApdu;
+    use crate::apdu::{BtcApdu, CoinCommonApdu};
     use hex::FromHex;
 
     #[test]
