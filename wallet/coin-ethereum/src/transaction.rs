@@ -37,10 +37,10 @@ impl Transaction {
         chain_id: Option<u64>,
         path: &str,
         payment: &str,
-        receiver: &str,
-        sender: &str,
         fee: &str,
     ) -> EthResult<EthTxRes> {
+        let receiver = "";
+        let sender = "";
         // ) {
         //check path
         check_path_validity(path)?;
