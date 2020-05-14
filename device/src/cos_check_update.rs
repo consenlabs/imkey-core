@@ -69,6 +69,6 @@ mod test {
         let seid: String = "18080000000000860001010000000106".to_string();
         let sn: String = "imKey01200200010".to_string();
         let cos_version: String = "1.0.10".to_string();
-        CosCheckUpdateRequest::build_request_data(seid, sn, cos_version).send_message();
+        CosCheckUpdateRequest::build_request_data(seid, cos_version).send_message();
     }
 }
