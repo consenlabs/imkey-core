@@ -36,19 +36,6 @@ pub fn secp256k1_sign(private_key: &[u8], message: &[u8]) -> Result<Vec<u8>> {
         .to_vec())
 }
 
-pub fn secp256k1_sign_hash(private_key: &[u8], hash: &[u8]) -> Result<Vec<u8>> {
-    //generator SecretKey obj
-    let secret_key = SecretKey::from_slice(private_key)?;
-    //generator Message obj
-    let message_data = Message::from_slice(hash.as_ref())?;
-    let secp = Secp256k1::new();
-    //sign data
-    Ok(secp
-        .sign(&message_data, &secret_key)
-        .serialize_der()
-        .to_vec())
-}
-
 /**
 sign verify
 */
