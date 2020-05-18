@@ -107,6 +107,7 @@ impl EosTransaction {
 
                 //sign
                 let mut nonce = 0;
+                let mut sig_str = "".to_string();
                 loop {
                     let sign_apdu = EosApdu::sign_tx(nonce);
                     let sign_result = send_apdu(sign_apdu)?;
@@ -119,6 +120,8 @@ impl EosTransaction {
                     //generator der sign data
                     signature_obj.normalize_s();
                     let signatrue_der = signature_obj.serialize_der().to_vec();
+                    let normalizes_sig_vec = signature_obj.serialize_compact();
+                    sig_str = hex::encode(&normalizes_sig_vec.as_ref());
 
                     let len_r = signatrue_der[3];
                     let len_s = signatrue_der[5 + len_r as usize];
@@ -134,8 +137,7 @@ impl EosTransaction {
                         let v = rec_id + 27 + 4;
 
                         signature.push_str(&format!("{:02X}", &v));
-                        signature.push_str(r);
-                        signature.push_str(s);
+                        signature.push_str(&sig_str);
                         break;
                     }
                     nonce = nonce + 1;
@@ -205,6 +207,7 @@ impl EosTransaction {
         }
         //sign
         let mut nonce = 0;
+        let mut sig_str = "".to_string();
         loop {
             let sign_apdu = EosApdu::sign_message(nonce);
             let sign_result = send_apdu(sign_apdu)?;
@@ -215,6 +218,8 @@ impl EosTransaction {
             //generator der sign data
             signature_obj.normalize_s();
             let signatrue_der = signature_obj.serialize_der().to_vec();
+            let normalizes_sig_vec = signature_obj.serialize_compact();
+            sig_str = hex::encode(&normalizes_sig_vec.as_ref());
 
             let len_r = signatrue_der[3];
             let len_s = signatrue_der[5 + len_r as usize];
@@ -234,8 +239,7 @@ impl EosTransaction {
                 let v = rec_id + 27 + 4;
 
                 signature.push_str(&format!("{:02X}", &v));
-                signature.push_str(r);
-                signature.push_str(s);
+                signature.push_str(&sig_str);
                 break;
             }
             nonce = nonce + 1;
@@ -297,5 +301,6 @@ mod tests {
         };
 
         let output = EosTransaction::sign_message(input);
+        println!("output:{}", output.unwrap().signature);
     }
 }
