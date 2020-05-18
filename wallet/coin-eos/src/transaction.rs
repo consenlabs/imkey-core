@@ -7,7 +7,7 @@ use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::{ripemd160, Hash};
 use bytes::BufMut;
 use common::apdu::{ApduCheck, CoinCommonApdu, EosApdu};
-use common::utility::{retrieve_recid, secp256k1_sign, secp256k1_sign_hash, sha256_hash};
+use common::utility::{retrieve_recid, secp256k1_sign, sha256_hash};
 use common::{constants, path, utility};
 use device::device_binding::KEY_MANAGER;
 use hex::FromHex;
@@ -67,13 +67,9 @@ impl EosTransaction {
                 sign_data_pack.extend(tx_input.path.as_bytes());
                 sign_data_pack.extend(hex::decode(&view_info).unwrap().as_slice());
 
-                //hash twice
-                let sign_data_hash = sha256_hash(&sha256_hash(&sign_data_pack));
-
                 //bind signature
                 let key_manager_obj = KEY_MANAGER.lock().unwrap();
-                let bind_signature =
-                    secp256k1_sign_hash(&key_manager_obj.pri_key, &sign_data_hash)?;
+                let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &sign_data_pack)?;
 
                 //send prepare data
                 let mut prepare_apdu_data: Vec<u8> = Vec::new();
