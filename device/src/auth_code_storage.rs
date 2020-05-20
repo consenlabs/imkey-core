@@ -1,7 +1,6 @@
-use crate::error::ImkeyError;
 use crate::ServiceResponse;
 use crate::{Result, TsmService};
-use common::constants::{TSM_ACTION_AUTHCODE_STORAGE, TSM_RETURN_CODE_SUCCESS};
+use common::constants;
 use common::https;
 use serde::{Deserialize, Serialize};
 
@@ -31,15 +30,11 @@ impl TsmService for AuthCodeStorageRequest {
     fn send_message(&mut self) -> Result<()> {
         println!("send message：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
-        let response_data = https::post(TSM_ACTION_AUTHCODE_STORAGE, req_data)?;
+        let response_data = https::post(constants::TSM_ACTION_AUTHCODE_STORAGE, req_data)?;
         let return_bean: ServiceResponse<AuthCodeStorageResponse> =
             serde_json::from_str(response_data.as_str())?;
         println!("return message：{:#?}", return_bean);
-        if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
-            return Ok(());
-        } else {
-            return Err(ImkeyError::BSE0021.into());
-        }
+        return_bean.service_res_check()
     }
 }
 
@@ -50,7 +45,7 @@ impl AuthCodeStorageRequest {
             auth_code: auth_code,
             step_key: String::from("01"),
             status_word: None,
-            command_id: String::from(TSM_ACTION_AUTHCODE_STORAGE),
+            command_id: String::from(constants::TSM_ACTION_AUTHCODE_STORAGE),
             card_ret_data_list: None,
         }
     }

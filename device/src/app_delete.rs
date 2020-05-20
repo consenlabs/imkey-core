@@ -1,4 +1,3 @@
-use crate::error::ImkeyError;
 use crate::ServiceResponse;
 use crate::{Result, TsmService};
 use common::constants;
@@ -62,28 +61,7 @@ impl TsmService for AppDeleteRequest {
                     None => (),
                 }
             } else {
-                let ret_code_check_result: Result<()> = match return_bean._ReturnCode.as_str() {
-                    constants::TSM_RETURNCODE_APP_DELETE_FAIL => {
-                        Err(ImkeyError::ImkeyTsmAppDeleteFail.into())
-                    }
-                    constants::TSM_RETURNCODE_DEVICE_ILLEGAL => {
-                        Err(ImkeyError::ImkeyTsmDeviceIllegal.into())
-                    }
-                    constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => {
-                        Err(ImkeyError::ImkeyTsmOceCertCheckFail.into())
-                    }
-                    constants::TSM_RETURNCODE_DEVICE_STOP_USING => {
-                        Err(ImkeyError::ImkeyTsmDeviceStopUsing.into())
-                    }
-                    constants::TSM_RETURNCODE_RECEIPT_CHECK_FAIL => {
-                        Err(ImkeyError::ImkeyTsmReceiptCheckFail.into())
-                    }
-                    constants::TSM_RETURNCODE_DEV_INACTIVATED => {
-                        Err(ImkeyError::ImkeyTsmDeviceNotActivated.into())
-                    }
-                    _ => Err(ImkeyError::ImkeyTsmServerError.into()),
-                };
-                return ret_code_check_result;
+                return_bean.service_res_check()?;
             }
         }
     }
@@ -115,7 +93,7 @@ mod test {
         hid_connect("imKey Pro");
         let seid = get_se_id().unwrap();
         let device_cert = get_cert().unwrap();
-        let instance_aid = "695F627463".to_string();
+        let instance_aid = "695F62746333".to_string();
         AppDeleteRequest::build_request_data(seid, instance_aid, device_cert).send_message();
     }
 }

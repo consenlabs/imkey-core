@@ -1,4 +1,3 @@
-use crate::error::ImkeyError;
 use crate::ServiceResponse;
 use crate::{Result, TsmService};
 use common::constants;
@@ -62,28 +61,7 @@ impl TsmService for SeSecureCheckRequest {
                     None => (),
                 }
             } else {
-                let ret_code_check_result: Result<()> = match return_bean._ReturnCode.as_str() {
-                    constants::TSM_RETURNCODE_DEVICE_CHECK_FAIL => {
-                        Err(ImkeyError::ImkeyTsmDeviceAuthenticityCheckFail.into())
-                    }
-                    constants::TSM_RETURNCODE_DEV_INACTIVATED => {
-                        Err(ImkeyError::ImkeyTsmDeviceNotActivated.into())
-                    }
-                    constants::TSM_RETURNCODE_DEVICE_ILLEGAL => {
-                        Err(ImkeyError::ImkeyTsmDeviceIllegal.into())
-                    }
-                    constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => {
-                        Err(ImkeyError::ImkeyTsmOceCertCheckFail.into())
-                    }
-                    constants::TSM_RETURNCODE_DEVICE_STOP_USING => {
-                        Err(ImkeyError::ImkeyTsmDeviceStopUsing.into())
-                    }
-                    constants::TSM_RETURNCODE_RECEIPT_CHECK_FAIL => {
-                        Err(ImkeyError::ImkeyTsmReceiptCheckFail.into())
-                    }
-                    _ => Err(ImkeyError::ImkeyTsmServerError.into()),
-                };
-                return ret_code_check_result;
+                return_bean.service_res_check()?;
             }
         }
     }
@@ -105,14 +83,17 @@ impl SeSecureCheckRequest {
 
 #[cfg(test)]
 mod test {
+    use crate::manager::{get_cert, get_se_id, get_sn};
     use crate::se_secure_check::SeSecureCheckRequest;
     use crate::TsmService;
+    use mq::hid_api::hid_connect;
 
     #[test]
     pub fn se_secure_check_test() {
-        let seid: String = "19060000000200860001010000000014".to_string();
-        let sn: String = "imKey01191200001".to_string();
-        let device_cert: String = "BF2181CA7F2181C6931019060000000200860001010000000014420200015F200401020304950200805F2504201810145F2404FFFFFFFF53007F4947B04104FAF45816AB9B5364B5C4C376E9E63F716CEB3CD63E7A195D780D2ECA1DD50F04C9230A8A72FDEE02A9306B1951C00EB452131243091961B191470AB3EED33F44F002DFFE5F374830460221008CB58D54BDED501236621B83B320081E6F9B6B5539AE5EC9D36B660EC445A5E8022100A203CA1F9ABEE69751EA402A2ACDFD6B4A87697D6CD721F60540959095EC9466".to_string();
+        hid_connect("imKey Pro");
+        let seid = get_se_id().unwrap();
+        let sn: String = get_sn().unwrap();
+        let device_cert = get_cert().unwrap();
         SeSecureCheckRequest::build_request_data(seid, sn, device_cert).send_message();
     }
 }

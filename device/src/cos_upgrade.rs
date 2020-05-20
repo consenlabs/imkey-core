@@ -78,7 +78,7 @@ impl CosUpgradeRequest {
             );
             device_cert = hex::encode_upper(temp_device_cert);
         } else {
-            return Err(ImkeyError::BCOS0003.into());
+            return Err(ImkeyError::ImkeyTsmCosUpgradeFail.into());
         }
 
         let mut request_data = CosUpgradeRequest {
@@ -153,33 +153,9 @@ impl CosUpgradeRequest {
                         None => (),
                     };
                 }
-
                 request_data.step_key = next_step_key;
             } else {
-                return match return_bean._ReturnCode.as_str() {
-                    constants::TSM_RETURNCODE_COS_INFO_NO_CONF => {
-                        Err(ImkeyError::ImkeyTsmCosInfoNoConf.into())
-                    }
-                    constants::TSM_RETURNCODE_COS_UPGRADE_FAIL => {
-                        Err(ImkeyError::ImkeyTsmCosUpgradeFail.into())
-                    }
-                    constants::TSM_RETURNCODE_UPLOAD_COS_VERSION_IS_NULL => {
-                        Err(ImkeyError::ImkeyTsmUploadCosVersionIsNull.into())
-                    }
-                    constants::TSM_RETURNCODE_SWITCH_BL_STATUS_FAIL => {
-                        Err(ImkeyError::ImkeyTsmSwitchBlStatusFail.into())
-                    }
-                    constants::TSM_RETURNCODE_WRITE_WALLET_ADDRESS_FAIL => {
-                        Err(ImkeyError::ImkeyTsmWriteWalletAddressFail.into())
-                    }
-                    constants::TSM_RETURNCODE_DEVICE_CHECK_FAIL => Err(ImkeyError::BSE0009.into()),
-                    constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => {
-                        Err(ImkeyError::BSE0010.into())
-                    }
-                    constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::BSE0017.into()),
-                    constants::TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::BSE0007.into()),
-                    _ => Err(ImkeyError::ImkeyTsmServerError.into()),
-                };
+                return_bean.service_res_check()?;
             }
         }
     }

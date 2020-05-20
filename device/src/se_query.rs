@@ -1,4 +1,3 @@
-use crate::error::ImkeyError;
 use crate::ServiceResponse;
 use crate::{Result, TsmService};
 use common::constants;
@@ -51,27 +50,18 @@ impl TsmService for SeQueryRequest {
             serde_json::from_str(response_data.as_str())?;
         println!("return message：{:#?}", return_bean);
 
-        match return_bean._ReturnCode.as_str() {
-            constants::TSM_RETURN_CODE_SUCCESS => {
+        match return_bean.service_res_check() {
+            Ok(()) => {
                 return_bean._ReturnData.status =
                     Some(constants::IMKEY_DEV_STATUS_LATEST.to_string());
                 Ok(return_bean)
             }
-            constants::TSM_RETURNCODE_DEVICE_ILLEGAL => {
-                Err(ImkeyError::ImkeyTsmDeviceIllegal.into())
+            Err(e) => {
+                if constants::TSM_RETURNCODE_DEV_INACTIVATED.eq(return_bean._ReturnCode.as_str()) {
+                    return Ok(return_bean);
+                }
+                Err(e)
             }
-            constants::TSM_RETURNCODE_DEVICE_STOP_USING => {
-                Err(ImkeyError::ImkeyTsmDeviceStopUsing.into())
-            }
-            constants::TSM_RETURNCODE_SE_QUERY_FAIL => {
-                Err(ImkeyError::ImkeyTsmDeviceUpdateCheckFail.into())
-            }
-            constants::TSM_RETURNCODE_DEV_INACTIVATED => {
-                return_bean._ReturnData.status =
-                    Some(constants::IMKEY_DEV_STATUS_INACTIVATED.to_string());
-                Ok(return_bean)
-            }
-            _ => Err(ImkeyError::ImkeyTsmServerError.into()),
         }
     }
 }

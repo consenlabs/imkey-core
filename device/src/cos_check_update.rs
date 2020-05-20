@@ -1,4 +1,3 @@
-use crate::error::ImkeyError;
 use crate::ServiceResponse;
 use crate::{Result, TsmService};
 use common::{constants, https};
@@ -33,18 +32,9 @@ impl TsmService for CosCheckUpdateRequest {
         let return_bean: ServiceResponse<CosCheckUpdateResponse> =
             serde_json::from_str(response_data.as_str())?;
         println!("return message：{:#?}", return_bean);
-        match return_bean._ReturnCode.as_str() {
-            constants::TSM_RETURN_CODE_SUCCESS => Ok(return_bean),
-            constants::TSM_RETURNCODE_DEVICE_ILLEGAL => {
-                Err(ImkeyError::ImkeyTsmDeviceIllegal.into())
-            }
-            constants::TSM_RETURNCODE_DEVICE_STOP_USING => {
-                Err(ImkeyError::ImkeyTsmDeviceStopUsing.into())
-            }
-            constants::TSM_RETURNCODE_COS_CHECK_UPDATE_FAIL => {
-                Err(ImkeyError::ImkeyTsmCosCheckUpdateFail.into())
-            }
-            _ => Err(ImkeyError::ImkeyTsmServerError.into()),
+        match return_bean.service_res_check() {
+            Ok(()) => Ok(return_bean),
+            Err(e) => Err(e),
         }
     }
 }
@@ -67,7 +57,6 @@ mod test {
     #[test]
     pub fn cos_check_update_test() {
         let seid: String = "18080000000000860001010000000106".to_string();
-        let sn: String = "imKey01200200010".to_string();
         let cos_version: String = "1.0.10".to_string();
         CosCheckUpdateRequest::build_request_data(seid, cos_version).send_message();
     }
