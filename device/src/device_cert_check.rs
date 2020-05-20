@@ -1,10 +1,7 @@
 use crate::error::ImkeyError;
 use crate::ServiceResponse;
 use crate::{Result, TsmService};
-use common::constants::{
-    TSM_ACTION_DEVICE_CERT_CHECK, TSM_RETURNCODE_DEVICE_CHECK_FAIL, TSM_RETURNCODE_DEVICE_ILLEGAL,
-    TSM_RETURNCODE_DEVICE_STOP_USING, TSM_RETURNCODE_DEV_INACTIVATED, TSM_RETURN_CODE_SUCCESS,
-};
+use common::constants;
 use common::https;
 use serde::{Deserialize, Serialize};
 
@@ -36,25 +33,19 @@ impl TsmService for DeviceCertCheckRequest {
     fn send_message(&mut self) -> Result<()> {
         println!("send message：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
-        let response_data = https::post(TSM_ACTION_DEVICE_CERT_CHECK, req_data)?;
+        let response_data = https::post(constants::TSM_ACTION_DEVICE_CERT_CHECK, req_data)?;
         let return_bean: ServiceResponse<DeviceCertCheckResponse> =
             serde_json::from_str(response_data.as_str())?;
         println!("return message：{:#?}", return_bean);
 
-        match return_bean._ReturnCode.as_str() {
-            TSM_RETURN_CODE_SUCCESS => {
+        match return_bean.service_res_check() {
+            Ok(()) => {
                 if return_bean._ReturnData.verify_result.unwrap() {
                     return Ok(());
                 }
-                return Err(ImkeyError::ImkeySeCertInvalid.into());
+                Err(ImkeyError::ImkeySeCertInvalid.into())
             }
-            TSM_RETURNCODE_DEVICE_CHECK_FAIL => {
-                Err(ImkeyError::ImkeyTsmDeviceAuthenticityCheckFail.into())
-            }
-            TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::ImkeyTsmDeviceNotActivated.into()),
-            TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::ImkeyTsmDeviceIllegal.into()),
-            TSM_RETURNCODE_DEVICE_STOP_USING => Err(ImkeyError::ImkeyTsmDeviceStopUsing.into()),
-            _ => Err(ImkeyError::ImkeyTsmServerError.into()),
+            Err(e) => Err(e),
         }
     }
 }
@@ -67,7 +58,7 @@ impl DeviceCertCheckRequest {
             device_cert: device_cert,
             step_key: String::from("01"),
             status_word: None,
-            command_id: String::from(TSM_ACTION_DEVICE_CERT_CHECK),
+            command_id: String::from(constants::TSM_ACTION_DEVICE_CERT_CHECK),
             card_ret_data_list: None,
         }
     }

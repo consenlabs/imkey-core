@@ -4,18 +4,7 @@ use hyper::client::Client;
 use hyper::header::HeaderValue;
 use hyper::{Body, Method, Request};
 use hyper_tls::HttpsConnector;
-use serde::Serialize;
 use tokio::runtime::Runtime;
-
-/**
-http post request
-*/
-pub fn post2<T: Serialize>(action: &str, req_data: &T) -> reqwest::Response {
-    let url: String = constants::URL.to_string() + action;
-    let client = reqwest::Client::new();
-    let response: reqwest::Response = client.post(&*url).json(&req_data).send().unwrap();
-    response
-}
 
 pub fn post(action: &str, req_data: Vec<u8>) -> Result<String> {
     let f = async_post(action, req_data);

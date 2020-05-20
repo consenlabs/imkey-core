@@ -1,4 +1,3 @@
-use crate::error::ImkeyError;
 use crate::ServiceResponse;
 use crate::{Result, TsmService};
 use common::constants;
@@ -64,28 +63,7 @@ impl TsmService for AppUpdateRequest {
                     None => (),
                 }
             } else {
-                let ret_code_check_result: Result<()> = match return_bean._ReturnCode.as_str() {
-                    constants::TSM_RETURNCODE_APP_UPDATE_FAIL => {
-                        Err(ImkeyError::ImkeyTsmAppUpdateFail.into())
-                    }
-                    constants::TSM_RETURNCODE_DEVICE_ILLEGAL => {
-                        Err(ImkeyError::ImkeyTsmDeviceIllegal.into())
-                    }
-                    constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => {
-                        Err(ImkeyError::ImkeyTsmOceCertCheckFail.into())
-                    }
-                    constants::TSM_RETURNCODE_DEVICE_STOP_USING => {
-                        Err(ImkeyError::ImkeyTsmDeviceStopUsing.into())
-                    }
-                    constants::TSM_RETURNCODE_RECEIPT_CHECK_FAIL => {
-                        Err(ImkeyError::ImkeyTsmReceiptCheckFail.into())
-                    }
-                    constants::TSM_RETURNCODE_DEV_INACTIVATED => {
-                        Err(ImkeyError::ImkeyTsmDeviceNotActivated.into())
-                    }
-                    _ => Err(ImkeyError::ImkeyTsmServerError.into()),
-                };
-                return ret_code_check_result;
+                return_bean.service_res_check()?;
             }
         }
     }

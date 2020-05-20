@@ -1,4 +1,3 @@
-use crate::error::ImkeyError;
 use crate::ServiceResponse;
 use crate::{Result, TsmService};
 use common::constants;
@@ -63,19 +62,7 @@ impl TsmService for SeActivateRequest {
                     None => (),
                 }
             } else {
-                let ret_code_check_result: Result<()> = match return_bean._ReturnCode.as_str() {
-                    constants::TSM_RETURNCODE_DEVICE_ACTIVE_FAIL => {
-                        Err(ImkeyError::ImkeyTsmDeviceActiveFail.into())
-                    }
-                    constants::TSM_RETURNCODE_SEID_ILLEGAL => {
-                        Err(ImkeyError::ImkeyTsmDeviceIllegal.into())
-                    }
-                    constants::TSM_RETURNCODE_DEVICE_STOP_USING => {
-                        Err(ImkeyError::ImkeyTsmDeviceStopUsing.into())
-                    }
-                    _ => Err(ImkeyError::ImkeyTsmServerError.into()),
-                };
-                return ret_code_check_result;
+                return_bean.service_res_check()?;
             }
         }
     }
