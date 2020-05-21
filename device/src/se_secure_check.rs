@@ -44,18 +44,11 @@ impl TsmService for SeSecureCheckRequest {
                     return Ok(());
                 }
 
-                let mut apdu_res: Vec<String> = Vec::new();
                 match return_bean._ReturnData.apdu_list {
                     Some(apdu_list) => {
-                        for (index_val, apdu_val) in apdu_list.iter().enumerate() {
-                            //send apdu command
-                            let res = message::send_apdu(apdu_val.to_string())?;
-                            apdu_res.push(res.clone());
-                            if index_val == apdu_list.len() - 1 {
-                                self.status_word = Some(String::from(&res[res.len() - 4..]));
-                            }
-                        }
-                        self.card_ret_data_list = Some(apdu_res);
+                        let handle_result = ServiceResponse::<SeSecureCheckResponse>::apdu_handle(apdu_list)?;
+                        self.card_ret_data_list = Some(handle_result.0);
+                        self.status_word = Some(handle_result.1);
                         self.step_key = next_step_key;
                     }
                     None => (),

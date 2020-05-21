@@ -24,6 +24,7 @@ pub type Result<T> = result::Result<T, failure::Error>;
 use crate::error::ImkeyError;
 use common::constants;
 use serde::{Deserialize, Serialize};
+use mq::message;
 
 pub mod cos_check_update;
 
@@ -98,6 +99,23 @@ impl<T> ServiceResponse<T> {
             }
             _ => Err(ImkeyError::ImkeyTsmServerError.into()),
         }
+    }
+
+    pub fn apdu_handle(apdu_list: Vec<String>) -> Result<(Vec<String>, String)>{
+        if apdu_list.is_empty(){
+            ()
+        }
+        let mut apdu_res: Vec<String> = vec![];
+        let mut status_word: String = String::new();
+        for (index_val, apdu_val) in apdu_list.iter().enumerate() {
+            //sende apdu command
+            let res = message::send_apdu(apdu_val.to_string())?;
+            apdu_res.push(res.clone());
+            if index_val == apdu_list.len() - 1 {
+                status_word = String::from(&res[res.len() - 4..]);
+            }
+        }
+        Ok((apdu_res, status_word))
     }
 }
 
