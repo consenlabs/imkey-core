@@ -111,7 +111,7 @@ class ViewController: UIViewController,BLEDelegate {
   @IBAction func bindCheck(_ sender: Any) {
     let status = API.bindCheck()
     print("status:\(status)")
-    let bindResult = API.bindAcquire(bindCode: "YDSGQPKX")
+    let bindResult = API.bindAcquire(bindCode: "qx2vmuty")
     print("bind result:\(bindResult)")
   }
   
@@ -120,6 +120,12 @@ class ViewController: UIViewController,BLEDelegate {
     guard let deviceManageVC = storyboard.instantiateViewController(withIdentifier: "DeviceManageViewController") as? DeviceManageViewController else {  return }
 //    deviceManageVC.handle= handle
     self.present(deviceManageVC, animated: true, completion: nil)
+  }
+  
+  @IBAction func ethClick(_ sender: Any) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    guard let ethVC = storyboard.instantiateViewController(withIdentifier: "ETHViewController") as? ETHViewController else {  return }
+    self.present(ethVC, animated: true, completion: nil)
   }
 }
 
