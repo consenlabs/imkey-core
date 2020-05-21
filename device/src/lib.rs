@@ -23,8 +23,8 @@ use core::result;
 pub type Result<T> = result::Result<T, failure::Error>;
 use crate::error::ImkeyError;
 use common::constants;
-use serde::{Deserialize, Serialize};
 use mq::message;
+use serde::{Deserialize, Serialize};
 
 pub mod cos_check_update;
 
@@ -101,8 +101,8 @@ impl<T> ServiceResponse<T> {
         }
     }
 
-    pub fn apdu_handle(apdu_list: Vec<String>) -> Result<(Vec<String>, String)>{
-        if apdu_list.is_empty(){
+    pub fn apdu_handle(apdu_list: Vec<String>) -> Result<(Vec<String>, String)> {
+        if apdu_list.is_empty() {
             ()
         }
         let mut apdu_res: Vec<String> = vec![];
