@@ -46,7 +46,8 @@ impl TsmService for SeSecureCheckRequest {
 
                 match return_bean._ReturnData.apdu_list {
                     Some(apdu_list) => {
-                        let handle_result = ServiceResponse::<SeSecureCheckResponse>::apdu_handle(apdu_list)?;
+                        let handle_result =
+                            ServiceResponse::<SeSecureCheckResponse>::apdu_handle(apdu_list)?;
                         self.card_ret_data_list = Some(handle_result.0);
                         self.status_word = Some(handle_result.1);
                         self.step_key = next_step_key;
