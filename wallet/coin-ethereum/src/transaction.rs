@@ -39,8 +39,8 @@ impl Transaction {
         payment: &str,
         fee: &str,
     ) -> EthResult<EthTxRes> {
-        let receiver = "";
-        let sender = "";
+        let receiver = "0x7c47ef93268a311f4cad0c750724299e9b72c268";
+        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b";
         // ) {
         //check path
         check_path_validity(path)?;
@@ -387,9 +387,7 @@ mod tests {
         let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
         let fee = "0.0032 ether".to_string();
 
-        let tx_result = tx
-            .sign(Some(28), &path, &payment, &receiver, &sender, &fee)
-            .unwrap();
+        let tx_result = tx.sign(Some(28), &path, &payment, &fee).unwrap();
 
         //expected apdu_pack before sign using binding privekey is "010028E708850
         //4A817C8088302E2489435353535353535353535353535353535353535358202
@@ -418,9 +416,7 @@ mod tests {
         let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
         let fee = "0.0032 ether".to_string();
 
-        let tx_result = tx
-            .sign(Some(28), &path, &payment, &receiver, &sender, &fee)
-            .unwrap();
+        let tx_result = tx.sign(Some(28), &path, &payment, &fee).unwrap();
         assert_eq!(
             tx_result.tx_data,
             "f867088504a817c8088302e248943535353535353535353535353535353535353535820200805ba03aa62abb45b77418caf139dda0179aea802c99967b3d690b87d586a87bc805afa02b5ce94f40dc865ca63403e0e5e723e1523884f001573677cd8cec11c7ca332f".to_string()
@@ -451,9 +447,7 @@ mod tests {
         let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
         let fee = "0.0032 ether".to_string();
 
-        let tx_result = tx
-            .sign(Some(28), &path, &payment, &receiver, &sender, &fee)
-            .unwrap();
+        let tx_result = tx.sign(Some(28), &path, &payment, &fee).unwrap();
         assert_eq!(
             tx_result.tx_hash,
             "0x9cb10bab794454c5c2606b5475a35f6429f5ff54c3e088d0c5d330f56155b0be".to_string()
@@ -478,7 +472,7 @@ mod tests {
             gas_price: U256::from_dec_str("150000").unwrap(),
             gas_limit: U256::from_dec_str("21000000000").unwrap(),
             to: Action::Call(
-                Address::from_str("7c47ef93268a311f4cad0c750724299e9b72c268").unwrap(),
+                Address::from_str("6031564e7b2F5cc33737807b2E58DaFF870B590b").unwrap(),
             ),
             value: U256::from_dec_str("10000000000000000").unwrap(),
             data: Vec::from(data_vec.as_slice()),
@@ -489,9 +483,7 @@ mod tests {
         let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
         let fee = "0.0032 ether".to_string();
 
-        let tx_result = tx
-            .sign(Some(28), &path, &payment, &receiver, &sender, &fee)
-            .unwrap();
+        let tx_result = tx.sign(Some(28), &path, &payment, &fee).unwrap();
         assert_eq!(
             tx_result.tx_hash,
             "0xff0c83a7c9208ea28712900cabc8cd5fe624b9c6bdc208517b6725c706422e08".to_string()
@@ -527,9 +519,7 @@ mod tests {
         let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
         let fee = "0.0032 ether".to_string();
 
-        let tx_result = tx
-            .sign(Some(28), &path, &payment, &receiver, &sender, &fee)
-            .unwrap();
+        let tx_result = tx.sign(Some(28), &path, &payment, &fee).unwrap();
         assert_eq!(
             tx_result.tx_hash,
             "0x5481b9f73cb42eb2be84c4a3995ec1ea2fafc93597f564fe46b40d82026c4224".to_string()

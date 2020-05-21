@@ -166,7 +166,7 @@ class DeviceManageViewController: UIViewController {
             Log.d("start download................")
             Log.d("start download................")
       //      try Manager.updateAPP(handle: handle,appletName: appletName)
-            API.downloadApp()
+            API.downloadApp(appletName: self.appletName)
             self.toastMsg(message: "success")
           } catch let e as ImkeyError {
             Log.d("!!!error:\(e.message)")
@@ -184,7 +184,7 @@ class DeviceManageViewController: UIViewController {
             Log.d("start update................")
             Log.d("start update................")
       //      try Manager.updateAPP(handle: handle,appletName: appletName)
-            API.updateApp()
+            API.updateApp(appletName: self.appletName)
             self.toastMsg(message: "success")
           } catch let e as ImkeyError {
             Log.d("!!!error:\(e.message)")
@@ -202,7 +202,7 @@ class DeviceManageViewController: UIViewController {
             Log.d("start delete................")
             Log.d("start delete................")
       //      try Manager.updateAPP(handle: handle,appletName: appletName)
-            API.deleteApp()
+            API.deleteApp(appletName: self.appletName)
             self.toastMsg(message: "success")
           } catch let e as ImkeyError {
             Log.d("!!!error:\(e.message)")

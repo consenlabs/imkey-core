@@ -100,6 +100,9 @@
                                 <rect key="frame" x="82" y="405" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="ETH"/>
+                                <connections>
+                                    <action selector="ethClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LQK-3K-agY"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9mu-kp-zv7">
                                 <rect key="frame" x="147" y="405" width="30" height="30"/>

@@ -133,9 +133,9 @@ public class API{
 //    call_tcx_api(paramHex)
   }
   
-  public class func downloadApp(){
+  public class func downloadApp(appletName:String){
     var param = Deviceapi_AppDownloadReq()
-    param.appName = "BTC"
+    param.appName = appletName
     
     var action = Api_ImkeyAction()
     action.method = "app_download"
@@ -146,9 +146,9 @@ public class API{
     call_imkey_api(paramHex)
   }
   
-  public class func updateApp(){
+  public class func updateApp(appletName:String){
     var param = Deviceapi_AppDownloadReq()
-    param.appName = "BTC"
+    param.appName = appletName
     
     var action = Api_ImkeyAction()
     action.method = "app_update"
@@ -159,9 +159,9 @@ public class API{
     call_imkey_api(paramHex)
   }
   
-  public class func deleteApp(){
+  public class func deleteApp(appletName:String){
     var param = Deviceapi_AppDownloadReq()
-    param.appName = "BTC"
+    param.appName = appletName
     
     var action = Api_ImkeyAction()
     action.method = "app_delete"
