@@ -3,9 +3,6 @@ use crate::error::ImkeyError;
 use crate::manager::{get_cert, get_firmware_version, get_se_id, get_sn};
 use crate::ServiceResponse;
 use crate::{Result, TsmService};
-use common::constants::{
-    DEVICE_MODEL_NAME, TSM_ACTION_COS_UPGRADE, TSM_END_FLAG, TSM_RETURN_CODE_SUCCESS,
-};
 use common::utility::hex_to_bytes;
 use common::{constants, https};
 #[cfg(any(target_os = "macos", target_os = "windows"))]
@@ -93,21 +90,21 @@ impl CosUpgradeRequest {
                 "01".to_string()
             },
             status_word: None,
-            command_id: String::from(TSM_ACTION_COS_UPGRADE),
+            command_id: String::from(constants::TSM_ACTION_COS_UPGRADE),
             card_ret_data_list: None,
         };
 
         loop {
             println!("send message：{:#?}", request_data);
             let req_data = serde_json::to_vec_pretty(&request_data).unwrap();
-            let response_data = https::post(TSM_ACTION_COS_UPGRADE, req_data)?;
+            let response_data = https::post(constants::TSM_ACTION_COS_UPGRADE, req_data)?;
             let return_bean: ServiceResponse<CosUpgradeResponse> =
                 serde_json::from_str(response_data.as_str())?;
             println!("return message：{:#?}", return_bean);
-            if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
+            if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //check if end
                 let next_step_key = return_bean._ReturnData.next_step_key.unwrap();
-                if TSM_END_FLAG.eq(next_step_key.as_str()) {
+                if constants::TSM_END_FLAG.eq(next_step_key.as_str()) {
                     return Ok(());
                 }
 
@@ -169,7 +166,7 @@ fn reconnect() -> Result<()> {
     thread::sleep(Duration::from_millis(1000));
 
     for _ in 0..5 {
-        if hid_connect(DEVICE_MODEL_NAME).is_ok() {
+        if hid_connect(constants::DEVICE_MODEL_NAME).is_ok() {
             return Ok(());
         }
         thread::sleep(Duration::from_millis(1000));
