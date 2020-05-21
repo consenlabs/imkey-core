@@ -1,4 +1,3 @@
-use crate::error::ImkeyError;
 use crate::ServiceResponse;
 use crate::{Result, TsmService};
 use common::constants;
@@ -45,45 +44,19 @@ impl TsmService for AppDeleteRequest {
                 if constants::TSM_END_FLAG.eq(next_step_key.as_str()) {
                     return Ok(());
                 }
-                let mut apdu_res: Vec<String> = Vec::new();
+
                 match return_bean._ReturnData.apdu_list {
                     Some(apdu_list) => {
-                        for (index_val, apdu_val) in apdu_list.iter().enumerate() {
-                            //sende apdu command
-                            let res = message::send_apdu(apdu_val.to_string())?;
-                            apdu_res.push(res.clone());
-                            if index_val == apdu_list.len() - 1 {
-                                self.status_word = Some(String::from(&res[res.len() - 4..]));
-                            }
-                        }
-                        self.card_ret_data_list = Some(apdu_res);
+                        let handle_result =
+                            ServiceResponse::<AppDeleteResponse>::apdu_handle(apdu_list)?;
+                        self.card_ret_data_list = Some(handle_result.0);
+                        self.status_word = Some(handle_result.1);
                         self.step_key = next_step_key;
                     }
                     None => (),
                 }
             } else {
-                let ret_code_check_result: Result<()> = match return_bean._ReturnCode.as_str() {
-                    constants::TSM_RETURNCODE_APP_DELETE_FAIL => {
-                        Err(ImkeyError::ImkeyTsmAppDeleteFail.into())
-                    }
-                    constants::TSM_RETURNCODE_DEVICE_ILLEGAL => {
-                        Err(ImkeyError::ImkeyTsmDeviceIllegal.into())
-                    }
-                    constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => {
-                        Err(ImkeyError::ImkeyTsmOceCertCheckFail.into())
-                    }
-                    constants::TSM_RETURNCODE_DEVICE_STOP_USING => {
-                        Err(ImkeyError::ImkeyTsmDeviceStopUsing.into())
-                    }
-                    constants::TSM_RETURNCODE_RECEIPT_CHECK_FAIL => {
-                        Err(ImkeyError::ImkeyTsmReceiptCheckFail.into())
-                    }
-                    constants::TSM_RETURNCODE_DEV_INACTIVATED => {
-                        Err(ImkeyError::ImkeyTsmDeviceNotActivated.into())
-                    }
-                    _ => Err(ImkeyError::ImkeyTsmServerError.into()),
-                };
-                return ret_code_check_result;
+                return_bean.service_res_check()?;
             }
         }
     }

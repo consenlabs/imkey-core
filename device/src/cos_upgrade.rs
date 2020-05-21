@@ -3,9 +3,6 @@ use crate::error::ImkeyError;
 use crate::manager::{get_cert, get_firmware_version, get_se_id, get_sn};
 use crate::ServiceResponse;
 use crate::{Result, TsmService};
-use common::constants::{
-    DEVICE_MODEL_NAME, TSM_ACTION_COS_UPGRADE, TSM_END_FLAG, TSM_RETURN_CODE_SUCCESS,
-};
 use common::utility::hex_to_bytes;
 use common::{constants, https};
 #[cfg(any(target_os = "macos", target_os = "windows"))]
@@ -78,7 +75,7 @@ impl CosUpgradeRequest {
             );
             device_cert = hex::encode_upper(temp_device_cert);
         } else {
-            return Err(ImkeyError::BCOS0003.into());
+            return Err(ImkeyError::ImkeyTsmCosUpgradeFail.into());
         }
 
         let mut request_data = CosUpgradeRequest {
@@ -93,21 +90,21 @@ impl CosUpgradeRequest {
                 "01".to_string()
             },
             status_word: None,
-            command_id: String::from(TSM_ACTION_COS_UPGRADE),
+            command_id: String::from(constants::TSM_ACTION_COS_UPGRADE),
             card_ret_data_list: None,
         };
 
         loop {
             println!("send message：{:#?}", request_data);
             let req_data = serde_json::to_vec_pretty(&request_data).unwrap();
-            let response_data = https::post(TSM_ACTION_COS_UPGRADE, req_data)?;
+            let response_data = https::post(constants::TSM_ACTION_COS_UPGRADE, req_data)?;
             let return_bean: ServiceResponse<CosUpgradeResponse> =
                 serde_json::from_str(response_data.as_str())?;
             println!("return message：{:#?}", return_bean);
-            if return_bean._ReturnCode == TSM_RETURN_CODE_SUCCESS {
+            if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //check if end
                 let next_step_key = return_bean._ReturnData.next_step_key.unwrap();
-                if TSM_END_FLAG.eq(next_step_key.as_str()) {
+                if constants::TSM_END_FLAG.eq(next_step_key.as_str()) {
                     return Ok(());
                 }
 
@@ -153,33 +150,9 @@ impl CosUpgradeRequest {
                         None => (),
                     };
                 }
-
                 request_data.step_key = next_step_key;
             } else {
-                return match return_bean._ReturnCode.as_str() {
-                    constants::TSM_RETURNCODE_COS_INFO_NO_CONF => {
-                        Err(ImkeyError::ImkeyTsmCosInfoNoConf.into())
-                    }
-                    constants::TSM_RETURNCODE_COS_UPGRADE_FAIL => {
-                        Err(ImkeyError::ImkeyTsmCosUpgradeFail.into())
-                    }
-                    constants::TSM_RETURNCODE_UPLOAD_COS_VERSION_IS_NULL => {
-                        Err(ImkeyError::ImkeyTsmUploadCosVersionIsNull.into())
-                    }
-                    constants::TSM_RETURNCODE_SWITCH_BL_STATUS_FAIL => {
-                        Err(ImkeyError::ImkeyTsmSwitchBlStatusFail.into())
-                    }
-                    constants::TSM_RETURNCODE_WRITE_WALLET_ADDRESS_FAIL => {
-                        Err(ImkeyError::ImkeyTsmWriteWalletAddressFail.into())
-                    }
-                    constants::TSM_RETURNCODE_DEVICE_CHECK_FAIL => Err(ImkeyError::BSE0009.into()),
-                    constants::TSM_RETURNCODE_OCE_CERT_CHECK_FAIL => {
-                        Err(ImkeyError::BSE0010.into())
-                    }
-                    constants::TSM_RETURNCODE_DEVICE_ILLEGAL => Err(ImkeyError::BSE0017.into()),
-                    constants::TSM_RETURNCODE_DEV_INACTIVATED => Err(ImkeyError::BSE0007.into()),
-                    _ => Err(ImkeyError::ImkeyTsmServerError.into()),
-                };
+                return_bean.service_res_check()?;
             }
         }
     }
@@ -193,7 +166,7 @@ fn reconnect() -> Result<()> {
     thread::sleep(Duration::from_millis(1000));
 
     for _ in 0..5 {
-        if hid_connect(DEVICE_MODEL_NAME).is_ok() {
+        if hid_connect(constants::DEVICE_MODEL_NAME).is_ok() {
             return Ok(());
         }
         thread::sleep(Duration::from_millis(1000));
