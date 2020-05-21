@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Gradle: __local_aars__:/Users/joe/work/droid_proj/imkey-ble-android/imkeyble/libs/bcpg-jdk15on-1.51.jar:unspecified@jar">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/imkeyble/libs/bcpg-jdk15on-1.51.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
