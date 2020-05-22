@@ -17,15 +17,15 @@ secp256k1 = "0.17.1"
 ring = "0.16.9"
 #bech32 = "0.7.1"
 bech32 = { git = "https://github.com/sipa/bech32" }
-serde = { version = "1.0", features = ["derive"] }
-serde_derive = "1.0.101"
-serde_json = "1.0"
-num-bigint = "0.2"
-num-traits = "0.2"
-num-integer = "0.1"
-base64 = "0.11.0"
+serde = { version = "1.0.110", features = ["derive"] }
+serde_derive = "1.0.110"
+serde_json = "1.0.53"
+num-bigint = "0.2.6"
+num-traits = "0.2.11"
+num-integer = "0.1.42"
+base64 = "0.12.1"
 failure = "0.1.6"
-bytes = "0.4.8"
+bytes = "0.4.12"
 prost = "0.5.0"
 prost-types = "0.5.0"
 linked-hash-map = { version = "0.5", features = ["serde_impl"] }

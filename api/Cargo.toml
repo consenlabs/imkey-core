@@ -19,15 +19,15 @@ coin-ethereum = {path = "../wallet/coin-ethereum"}
 coin-bitcoin = {path = "../wallet/coin-bitcoin"}
 coin-eos = {path = "../wallet/coin-eos"}
 coin-cosmos = {path = "../wallet/coin-cosmos"}
+common = {path = "../common"}
 bitcoin = "0.21.0"
 ethereum-types = "0.6.0"
-common = {path = "../common"}
 prost = "0.5.0"
 bytes = "0.4.12"
 prost-types = "0.5.0"
-hex = "0.3"
-failure = "0.1.6"
-linked-hash-map = { version = "0.5", features = ["serde_impl"] }
+hex = "0.4.2"
+failure = "0.1.8"
+linked-hash-map = { version = "0.5.3", features = ["serde_impl"] }
 
 [lib]
 name="connector"
