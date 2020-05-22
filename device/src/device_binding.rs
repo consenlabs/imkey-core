@@ -5,7 +5,7 @@ use crate::auth_code_storage::AuthCodeStorageRequest;
 use crate::device_cert_check::DeviceCertCheckRequest;
 use crate::error::{BindError, ImkeyError};
 use crate::Result;
-use crate::{manager, TsmService};
+use crate::{device_manager, TsmService};
 use aes::Aes128;
 use block_modes::block_padding::Pkcs7;
 use block_modes::{BlockMode, Cbc};
@@ -45,9 +45,9 @@ pub struct DeviceManage {}
 impl DeviceManage {
     pub fn bind_check(file_path: &String) -> Result<String> {
         //get seid
-        let seid = manager::get_se_id()?;
+        let seid = device_manager::get_se_id()?;
         //get SN number
-        let sn = manager::get_sn()?;
+        let sn = device_manager::get_sn()?;
         //Calculate encryption key
         let mut key_manager_obj = KEY_MANAGER.lock().unwrap();
         key_manager_obj.gen_encrypt_key(&seid, &sn);
@@ -121,7 +121,7 @@ impl DeviceManage {
         let auth_code_ciphertext = auth_code_encrypt(&temp_binding_code)?;
 
         //save auth Code cipher
-        let seid = manager::get_se_id()?;
+        let seid = device_manager::get_se_id()?;
         AuthCodeStorageRequest::build_request_data(seid, auth_code_ciphertext).send_message()?;
 
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
@@ -242,8 +242,8 @@ pub fn bind_test() {
 #[cfg(test)]
 mod test {
     use crate::device_binding::DeviceManage;
+    use crate::device_manager::bind_display_code;
     use crate::key_manager::KeyManager;
-    use crate::manager::bind_display_code;
     use mq::hid_api::hid_connect;
 
     #[test]

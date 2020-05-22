@@ -67,7 +67,7 @@ impl DeviceCertCheckRequest {
 #[cfg(test)]
 mod test {
     use crate::device_cert_check::DeviceCertCheckRequest;
-    use crate::manager::{get_cert, get_se_id, get_sn};
+    use crate::device_manager::{get_cert, get_se_id, get_sn};
     use crate::TsmService;
     use mq::hid_api::hid_connect;
 
