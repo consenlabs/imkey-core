@@ -6,10 +6,13 @@ use common::apdu::{ApduCheck, CoinCommonApdu, CosmosApdu};
 use common::constants;
 use common::utility::{secp256k1_sign, sha256_hash};
 use device::device_binding::KEY_MANAGER;
-use linked_hash_map::LinkedHashMap;
 use mq::message::{send_apdu, send_apdu_timeout};
 use secp256k1::{self, Signature as SecpSignature};
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize, Serializer};
+use serde_json::json;
+use serde_json::{Map, Value};
+use std::collections::{BTreeMap, HashMap};
+use std::result;
 
 #[derive(Debug)]
 pub struct CosmosTransaction {
@@ -26,7 +29,7 @@ pub struct SignData {
     pub chain_id: String,
     pub fee: StdFee,
     pub memo: String,
-    pub msgs: Vec<Msg>,
+    pub msgs: Value,
     pub sequence: String,
 }
 
@@ -53,22 +56,16 @@ pub struct Msg {
 pub struct MsgValue {
     pub amount: Vec<Coin>,
     #[serde(flatten)]
-    pub extra: LinkedHashMap<String, String>,
+    pub extra: Map<String, Value>,
 }
 
-// #[derive(Debug, Serialize, Deserialize)]
-// pub struct MsgDelegateValue {
-//     pub amount: Vec<Coin>,
-//     pub delegator_address: String,
-//     pub validator_address: String,
-// }
-//
-// #[derive(Debug, Serialize, Deserialize)]
-// pub struct MsgSendValue {
-//     pub amount: Vec<Coin>,
-//     pub from_address: String,
-//     pub to_address: String,
-// }
+fn ordered_map<S>(value: &HashMap<String, String>, serializer: S) -> result::Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    let ordered: BTreeMap<_, _> = value.iter().collect();
+    ordered.serialize(serializer)
+}
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StdSignature {
@@ -90,7 +87,7 @@ pub struct StdTx {
     pub fee: StdFee,
     pub memo: String,
     pub signatures: Vec<StdSignature>,
-    pub msg: Vec<Msg>,
+    pub msg: Value,
 }
 
 impl CosmosTransaction {
@@ -200,6 +197,7 @@ mod tests {
     use common::utility::{hex_to_bytes, secp256k1_sign};
     use device::device_binding::{bind_test, DeviceManage};
     use linked_hash_map::LinkedHashMap;
+    use serde_json::{json, Map, Value};
     use std::collections::HashMap;
 
     #[test]
@@ -240,33 +238,46 @@ mod tests {
             gas: "21906".to_string(),
         };
 
-        let mut addresses = LinkedHashMap::new();
-        addresses.insert(
-            "delegator_address".to_string(),
-            "cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f".to_string(),
+        let mut msg = Map::new();
+        let mut msgValue = Map::new();
+        let mut msgAmountValue = Map::new();
+        msgAmountValue.insert("amount".to_string(), Value::String("10".to_string()));
+        msgAmountValue.insert("denom".to_string(), Value::String("atom".to_string()));
+
+        msgValue.insert(
+            "amount".to_string(),
+            Value::Array(vec![Value::Object(msgAmountValue)]),
         );
-        addresses.insert(
+        msgValue.insert(
+            "delegator_address".to_string(),
+            Value::String("cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f".to_string()),
+        );
+        msgValue.insert(
             "validator_address".to_string(),
-            "cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp".to_string(),
+            Value::String("cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp".to_string()),
         );
 
-        let msg = Msg {
-            ttype: "cosmos-sdk/MsgDelegate".to_string(),
-            value: MsgValue {
-                amount: vec![Coin {
-                    amount: "10".to_string(),
-                    denom: "atom".to_string(),
-                }],
-                extra: addresses,
-            },
-        };
+        msg.insert(
+            "type".to_string(),
+            Value::String("cosmos-sdk/MsgDelegate".to_string()),
+        );
+        msg.insert("value".to_string(), Value::Object(msgValue));
+
+        let msgs = json!([{
+            "type": "cosmos-sdk/MsgDelegate",
+            "value": {
+                "amount": [],
+                "delegator_address": "cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f",
+                "validator_address": "cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"
+            }
+        }]);
 
         let sign_data = SignData {
             account_number: "1".to_string(),
             chain_id: "tendermint_test".to_string(),
             fee: stdfee,
             memo: "".to_string(),
-            msgs: vec![msg],
+            msgs: msgs,
             sequence: "0".to_string(),
         };
 
@@ -294,30 +305,39 @@ mod tests {
             gas: "30000".to_string(),
         };
 
-        let mut addresses = LinkedHashMap::new();
-        addresses.insert(
-            "from_address".to_string(),
-            "cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992".to_string(),
-        );
-        addresses.insert(
-            "to_address".to_string(),
-            "cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt".to_string(),
-        );
+        // let mut addresses = Map::new();
+        // addresses.insert(
+        //     "from_address".to_string(),
+        //     Value::String("cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992".to_string()),
+        // );
+        // addresses.insert(
+        //     "to_address".to_string(),
+        //     Value::String("cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt".to_string()),
+        // );
+        //
+        // let msg = Msg {
+        //     ttype: "cosmos-sdk/MsgSend".to_string(),
+        //     value: MsgValue {
+        //         amount: vec![],
+        //         extra: addresses,
+        //     },
+        // };
 
-        let msg = Msg {
-            ttype: "cosmos-sdk/MsgSend".to_string(),
-            value: MsgValue {
-                amount: vec![],
-                extra: addresses,
-            },
-        };
+        let msg = json!([{
+            "type": "cosmos-sdk/MsgDelegate",
+            "value": {
+                "amount": [],
+                "delegator_address": "cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f",
+                "validator_address": "cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"
+            }
+        }]);
 
         let sign_data = SignData {
             account_number: "1234567890".to_string(),
             chain_id: "tendermint_test".to_string(),
             fee: stdfee,
             memo: "".to_string(),
-            msgs: vec![msg],
+            msgs: msg,
             sequence: "1234567890".to_string(),
         };
 

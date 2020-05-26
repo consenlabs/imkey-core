@@ -19,7 +19,7 @@ ring = "0.16.9"
 bech32 = { git = "https://github.com/sipa/bech32" }
 serde = { version = "1.0", features = ["derive"] }
 serde_derive = "1.0.101"
-serde_json = "1.0"
+serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
 num-bigint = "0.2"
 num-traits = "0.2"
 num-integer = "0.1"
@@ -29,3 +29,4 @@ bytes = "0.4.8"
 prost = "0.5.0"
 prost-types = "0.5.0"
 linked-hash-map = { version = "0.5", features = ["serde_impl"] }
+hyper-timeout = "0.3.1"
