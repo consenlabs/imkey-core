@@ -2,7 +2,6 @@ use crate::ServiceResponse;
 use crate::{Result, TsmService};
 use common::constants;
 use common::https;
-use mq::message;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -86,7 +85,7 @@ impl AppUpdateRequest {
 #[cfg(test)]
 mod test {
     use crate::app_update::AppUpdateRequest;
-    use crate::manager::{get_cert, get_se_id};
+    use crate::device_manager::{get_cert, get_se_id};
     use crate::TsmService;
     use mq::hid_api::hid_connect;
 

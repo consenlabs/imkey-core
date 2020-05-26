@@ -2,7 +2,6 @@ use crate::ServiceResponse;
 use crate::{Result, TsmService};
 use common::constants;
 use common::https;
-use mq::message;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -77,7 +76,7 @@ impl SeSecureCheckRequest {
 
 #[cfg(test)]
 mod test {
-    use crate::manager::{get_cert, get_se_id, get_sn};
+    use crate::device_manager::{get_cert, get_se_id, get_sn};
     use crate::se_secure_check::SeSecureCheckRequest;
     use crate::TsmService;
     use mq::hid_api::hid_connect;

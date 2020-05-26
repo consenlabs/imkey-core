@@ -1,6 +1,6 @@
 use crate::app_download::AppDownloadRequest;
+use crate::device_manager::{get_cert, get_firmware_version, get_se_id, get_sn};
 use crate::error::ImkeyError;
-use crate::manager::{get_cert, get_firmware_version, get_se_id, get_sn};
 use crate::ServiceResponse;
 use crate::{Result, TsmService};
 use common::utility::hex_to_bytes;
