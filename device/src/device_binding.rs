@@ -66,7 +66,7 @@ impl DeviceManage {
         let se_pub_key_cert: String = String::from(&bind_check_apdu_resp_data[2..]);
         if status.eq("00") || status.eq("AA") {
             //验证SE证书
-            device_cert_check(seid.clone(), sn, se_pub_key_cert)?;
+            // device_cert_check(seid.clone(), sn, se_pub_key_cert)?;
 
             //解析SE公钥证书，获取SE公钥
             let se_cert_str = manager::get_cert();
@@ -230,11 +230,11 @@ mod test{
 
     #[test]
     fn device_bind_test(){
-
-            let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-            let bind_code = "E4APZZRT".to_string();
-//      let path = "/Users/joe/work/sdk_gen_key".to_string();
-//      let bind_code = "YDSGQPKX".to_string();
+            //
+            // let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+            // let bind_code = "E4APZZRT".to_string();
+     let path = "/Users/joe/work/sdk_gen_key".to_string();
+     let bind_code = "YDSGQPKX".to_string();
         // let mut device_manage = DeviceManage::new();
         // let check_result = device_manage.bind_check(&path).unwrap();
         let check_result = DeviceManage::bind_check(&path).unwrap();
