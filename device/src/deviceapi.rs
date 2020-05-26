@@ -122,13 +122,13 @@ pub struct DeviceConnectReq {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CosCheckUpdateRes {
     #[prost(string, tag = "1")]
-    pub seid: String,
-    #[prost(bool, tag = "2")]
-    pub is_latest: bool,
+    pub seid: std::string::String,
+    #[prost(string, tag = "2")]
+    pub is_latest: std::string::String,
     #[prost(string, tag = "3")]
-    pub latest_cos_version: String,
+    pub latest_cos_version: std::string::String,
     #[prost(string, tag = "4")]
-    pub update_type: String,
+    pub update_type: std::string::String,
     #[prost(string, tag = "5")]
-    pub description: String,
+    pub description: std::string::String,
 }
