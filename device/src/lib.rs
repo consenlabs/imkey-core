@@ -12,7 +12,6 @@ pub mod cos_upgrade;
 pub mod device_manager;
 pub mod deviceapi;
 pub mod key_manager;
-pub mod manager;
 #[macro_use]
 extern crate lazy_static;
 extern crate mq;

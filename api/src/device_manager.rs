@@ -2,46 +2,46 @@ use crate::error_handling::Result;
 use crate::message_handler::encode_message;
 use common::applet;
 use common::constants;
+use device::device_manager;
 use device::deviceapi::{
     AppDeleteReq, AppDownloadReq, AppUpdateReq, AvailableAppBean, BindAcquireReq, BindAcquireRes,
     BindCheckReq, BindCheckRes, CheckUpdateRes, CosCheckUpdateRes, DeviceConnectReq, EmptyResponse,
     GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes, GetLifeTimeRes,
     GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, SetBleNameReq,
 };
-use device::manager;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use mq::hid_api::hid_connect;
 use prost::Message;
 
 pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppDownloadReq = AppDownloadReq::decode(data).expect("imkey_illegal_param");
-    manager::app_download(request.app_name.as_ref())?;
+    device_manager::app_download(request.app_name.as_ref())?;
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
 
 pub fn app_update(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppUpdateReq = AppUpdateReq::decode(data).expect("imkey_illegal_prarm");
-    manager::app_update(request.app_name.as_ref())?;
+    device_manager::app_update(request.app_name.as_ref())?;
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
 
 pub fn app_delete(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppDeleteReq = AppDeleteReq::decode(data).expect("imkey_illegal_param");
-    manager::app_delete(request.app_name.as_ref())?;
+    device_manager::app_delete(request.app_name.as_ref())?;
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
 
 pub fn se_activate() -> Result<Vec<u8>> {
-    manager::active_device()?;
+    device_manager::active_device()?;
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
 
 pub fn check_update() -> Result<Vec<u8>> {
-    let response = manager::check_update()?;
+    let response = device_manager::check_update()?;
 
     let mut available_bean_list: Vec<AvailableAppBean> = Vec::new();
     for (index, value) in response
@@ -88,14 +88,14 @@ pub fn check_update() -> Result<Vec<u8>> {
 }
 
 pub fn se_secure_check() -> Result<Vec<u8>> {
-    manager::check_device()?;
+    device_manager::check_device()?;
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
 
 pub fn bind_check(data: &[u8]) -> Result<Vec<u8>> {
     let bind_check: BindCheckReq = BindCheckReq::decode(data).expect("imkey_illegal_param");
-    let check_result = manager::bind_check(&bind_check.file_path)?;
+    let check_result = device_manager::bind_check(&bind_check.file_path)?;
     let response_msg = BindCheckRes {
         bind_status: check_result,
     };
@@ -103,38 +103,40 @@ pub fn bind_check(data: &[u8]) -> Result<Vec<u8>> {
 }
 
 pub fn bind_display_code() -> Result<Vec<u8>> {
-    manager::bind_display_code()?;
+    device_manager::bind_display_code()?;
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
 
 pub fn bind_acquire(data: &[u8]) -> Result<Vec<u8>> {
     let bind_acquire: BindAcquireReq = BindAcquireReq::decode(data).expect("imkey_illegal_param");
-    let bind_result = manager::bind_acquire(&bind_acquire.bind_code)?;
+    let bind_result = device_manager::bind_acquire(&bind_acquire.bind_code)?;
     let response_msg = BindAcquireRes { bind_result };
     encode_message(response_msg)
 }
 
 pub fn get_seid() -> Result<Vec<u8>> {
-    let seid = manager::get_se_id().ok().expect("get_seid_error");
+    let seid = device_manager::get_se_id().ok().expect("get_seid_error");
     let response_msg = GetSeidRes { seid };
     encode_message(response_msg)
 }
 
 pub fn get_sn() -> Result<Vec<u8>> {
-    let sn = manager::get_sn().ok().expect("get_sn_error");
+    let sn = device_manager::get_sn().ok().expect("get_sn_error");
     let response_msg = GetSnRes { sn };
     encode_message(response_msg)
 }
 
 pub fn get_ram_size() -> Result<Vec<u8>> {
-    let ram_size = manager::get_ram_size().ok().expect("get_ram_size_error");
+    let ram_size = device_manager::get_ram_size()
+        .ok()
+        .expect("get_ram_size_error");
     let response_msg = GetRamSizeRes { ram_size };
     encode_message(response_msg)
 }
 
 pub fn get_firmware_version() -> Result<Vec<u8>> {
-    let firmware_version = manager::get_firmware_version()
+    let firmware_version = device_manager::get_firmware_version()
         .ok()
         .expect("get_firmware_version_error");
 
@@ -143,7 +145,7 @@ pub fn get_firmware_version() -> Result<Vec<u8>> {
 }
 
 pub fn get_battery_power() -> Result<Vec<u8>> {
-    let battery_power = manager::get_battery_power()
+    let battery_power = device_manager::get_battery_power()
         .ok()
         .expect("get_battery_power_error");
     let response_msg = GetBatteryPowerRes { battery_power };
@@ -151,13 +153,17 @@ pub fn get_battery_power() -> Result<Vec<u8>> {
 }
 
 pub fn get_life_time() -> Result<Vec<u8>> {
-    let life_time = manager::get_life_time().ok().expect("get_life_time_error");
+    let life_time = device_manager::get_life_time()
+        .ok()
+        .expect("get_life_time_error");
     let response_msg = GetLifeTimeRes { life_time };
     encode_message(response_msg)
 }
 
 pub fn get_ble_name() -> Result<Vec<u8>> {
-    let ble_name = manager::get_ble_name().ok().expect("get_ble_name_error");
+    let ble_name = device_manager::get_ble_name()
+        .ok()
+        .expect("get_ble_name_error");
 
     let response_msg = GetBleNameRes { ble_name };
     encode_message(response_msg)
@@ -166,7 +172,7 @@ pub fn get_ble_name() -> Result<Vec<u8>> {
 pub fn set_ble_name(data: &[u8]) -> Result<Vec<u8>> {
     let request: SetBleNameReq = SetBleNameReq::decode(data).expect("ble_action");
 
-    manager::set_ble_name(request.ble_name)
+    device_manager::set_ble_name(request.ble_name)
         .ok()
         .expect("set_ble_name_error");
     let response_msg = EmptyResponse {};
@@ -174,7 +180,7 @@ pub fn set_ble_name(data: &[u8]) -> Result<Vec<u8>> {
 }
 
 pub fn get_ble_version() -> Result<Vec<u8>> {
-    let ble_version = manager::get_ble_version()
+    let ble_version = device_manager::get_ble_version()
         .ok()
         .expect("get_ble_version_error");
     let response_msg = GetBleVersionRes { ble_version };
@@ -190,7 +196,7 @@ pub fn get_sdk_info() -> Result<Vec<u8>> {
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 pub fn cos_update() -> Result<Vec<u8>> {
-    manager::cos_upgrade()?;
+    device_manager::cos_upgrade()?;
     let response_msg = EmptyResponse {};
     encode_message(response_msg)
 }
@@ -207,7 +213,7 @@ pub fn device_connect(data: &[u8]) -> Result<Vec<u8>> {
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 pub fn cos_check_update() -> Result<Vec<u8>> {
-    let cos_check_update = manager::cos_check_update()?;
+    let cos_check_update = device_manager::cos_check_update()?;
 
     encode_message(CosCheckUpdateRes {
         seid: cos_check_update._ReturnData.seid,

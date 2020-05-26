@@ -7,25 +7,22 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-reqwest = "0.9.22"
 hyper = "0.13.5"
 hyper-tls = "0.4.1"
-rustc-serialize = "0.3.18"
-serde = { version = "1.0", features = ["derive"] }
-serde_derive = "1.0.101"
-serde_json = "1.0"
-hex = "0.3"
-tokio = { version = "0.2.20", features = ["rt-core"] }
-http = "0.1.20"
-regex = "1"
+rustc-serialize = "0.3.24"
+serde = { version = "1.0.110", features = ["derive"] }
+serde_derive = "1.0.110"
+serde_json = "1.0.53"
+hex = "0.4.2"
+tokio = { version = "0.2.21", features = ["rt-core"] }
+regex = "1.3.7"
 ring = "0.16.9"
-#secp256k1 = "0.17.2"
-num-bigint = "0.2"
-num-traits = "0.2"
-num-integer = "0.1"
+num-bigint = "0.2.6"
+num-traits = "0.2.11"
+num-integer = "0.1.42"
 prost = "0.5.0"
 bytes = "0.4.12"
 prost-types = "0.5.0"
 secp256k1 = {version ="0.15", features = ["recovery"] }
-failure = "0.1.6"
-
+failure = "0.1.8"
+hyper-timeout = "0.3"

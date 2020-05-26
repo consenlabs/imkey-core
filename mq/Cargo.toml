@@ -8,12 +8,10 @@ edition = "2018"
 
 [dependencies]
 lazy_static = "1.4.0"
-hex = "0.3"
-failure = "0.1.6"
-
+hex = "0.4.2"
+failure = "0.1.8"
 [target.'cfg(any(target_os = "macos", target_os = "windows"))'.dependencies]
 hidapi = "1.2.1"
-
 [dev-dependencies.cargo-husky]
 version = "1"
 default-features = false
