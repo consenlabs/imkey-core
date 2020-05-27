@@ -66,7 +66,7 @@ fn read_device_response(device: &hidapi::HidDevice, timeout: i32) -> Result<Vec<
         data.extend_from_slice(&buf[5..64]);
     }
     data.truncate(msg_size as usize);
-    
+
     let mut receive_data_string = String::new();
     for u in &data[..data.len()] {
         receive_data_string.push_str((format!("{:02X}", u)).as_ref());
