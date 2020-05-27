@@ -11,7 +11,7 @@ use device::device_binding::KEY_MANAGER;
 use ethereum_types::{H256, U256};
 use keccak_hash::keccak;
 use lazy_static::lazy_static;
-use mq::message::{send_apdu, send_apdu_timeout};
+use transport::message::{send_apdu, send_apdu_timeout};
 use rlp::{self, DecoderError, Encodable, Rlp, RlpStream};
 use secp256k1::recovery::{RecoverableSignature, RecoveryId};
 use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};

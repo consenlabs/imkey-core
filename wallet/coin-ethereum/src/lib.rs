@@ -1,6 +1,5 @@
 pub mod address;
 pub mod ethapi;
-mod rlp;
 pub mod transaction;
 pub mod types;
 
