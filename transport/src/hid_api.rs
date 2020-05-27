@@ -56,11 +56,7 @@ fn first_write_read_device_response(device: &hidapi::HidDevice) -> Result<Vec<u8
 
 fn read_device_response(device: &hidapi::HidDevice, timeout: i32) -> Result<Vec<u8>> {
     let mut buf = vec![0; 64];
-
-    device.read_timeout(&mut buf, 300_000)?;
-    if buf == vec![0; 64] {
-        return Err(HidError::DeviceDataReadTimeOut.into()); //读数据超时
-    }
+    device.read(&mut buf)?;
 
     let msg_size = (buf[5] as u8 & 0xFF) + (buf[6] as u8 & 0xFF);
     let mut data = Vec::new();
@@ -71,7 +67,6 @@ fn read_device_response(device: &hidapi::HidDevice, timeout: i32) -> Result<Vec<
     }
     data.truncate(msg_size as usize);
 
-    //打印收到的数据
     let mut receive_data_string = String::new();
     for u in &data[..data.len()] {
         receive_data_string.push_str((format!("{:02X}", u)).as_ref());
@@ -185,10 +180,5 @@ mod test {
             }
             Err(err) => println!("{}", err),
         }
-        //================================================
-        //        match send_apdu("00A4040005695F62746300".to_string()) {
-        //            Ok(val) => (),
-        //            Err(e) => println!("{}", e),
-        //        }
     }
 }
