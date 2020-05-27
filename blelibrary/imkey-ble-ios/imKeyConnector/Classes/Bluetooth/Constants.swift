@@ -6,7 +6,6 @@
 //
 
 public struct Constants {
-  public static let sdkVersion = "1.2.10"
 
   //send apdu timeout
   public static let sendAPDUTimeout:UInt32 = 20 * 1000
