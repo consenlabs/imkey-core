@@ -1,5 +1,5 @@
 [package]
-name = "mq"
+name = "transport"
 version = "0.1.0"
 authors = ["wyoyw <wyoyw@126.com>"]
 edition = "2018"
