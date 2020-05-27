@@ -11,8 +11,7 @@ use common::utility::{retrieve_recid, secp256k1_sign, sha256_hash};
 use common::{constants, path, utility};
 use device::device_binding::KEY_MANAGER;
 use hex::FromHex;
-use mq::message;
-use mq::message::{send_apdu, send_apdu_timeout};
+use transport::message::{send_apdu, send_apdu_timeout};
 
 #[derive(Debug)]
 pub struct EosTransaction {}
@@ -22,7 +21,7 @@ impl EosTransaction {
         path::check_path_validity(&tx_input.path).unwrap();
 
         let select_apdu = EosApdu::select_applet();
-        let select_response = message::send_apdu(select_apdu)?;
+        let select_response = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_response)?;
 
         let mut trans_multi_signs: Vec<EosSignResult> = Vec::new();

@@ -4,7 +4,7 @@ use bitcoin::util::bip32::{ChainCode, ChildNumber, DerivationPath, ExtendedPubKe
 use bitcoin::{Address, Network, PublicKey};
 use common::apdu::{ApduCheck, BtcApdu, CoinCommonApdu};
 use common::path::check_path_validity;
-use mq::message::send_apdu;
+use transport::message::send_apdu;
 use std::str::FromStr;
 
 pub struct BtcAddress();

@@ -6,7 +6,7 @@ use common::apdu::{ApduCheck, CoinCommonApdu, CosmosApdu};
 use common::constants;
 use common::utility::{secp256k1_sign, sha256_hash};
 use device::device_binding::KEY_MANAGER;
-use mq::message::{send_apdu, send_apdu_timeout};
+use transport::message::{send_apdu, send_apdu_timeout};
 use secp256k1::{self, Signature as SecpSignature};
 use serde::{Deserialize, Serialize, Serializer};
 use serde_json::json;

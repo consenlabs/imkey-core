@@ -1,12 +1,12 @@
 [workspace]
 members = [
-    "proto",
     "api",
-    "device",
-    "wallet/coin-ethereum",
-    "mq",
     "common",
-    "testcase",
+    "device",
+    "proto",
+    "transport",
+    "wallet/coin-bitcoin",
+    "wallet/coin-ethereum",
     "wallet/coin-eos",
     "wallet/coin-cosmos",
 ]

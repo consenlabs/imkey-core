@@ -9,7 +9,7 @@ use common::path;
 use common::utility;
 use device::device_binding::KEY_MANAGER;
 use hex;
-use mq::message;
+use transport::message;
 
 #[derive(Debug)]
 pub struct CosmosAddress {}

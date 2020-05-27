@@ -9,7 +9,7 @@ edition = "2018"
 [dependencies]
 common = {path = "../../common"}
 device = {path = "../../device"}
-mq = {path = "../../mq"}
+transport = {path = "../../transport"}
 rlp = "0.4.0"
 secp256k1 = {version ="0.15", features = ["recovery"] }
 ethereum-types = "0.6.0"
