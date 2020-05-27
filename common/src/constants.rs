@@ -88,3 +88,7 @@ pub const APDU_RSP_SWITCH_BL_STATUS_SUCCESS: &str = "905A";
 
 pub const TIMEOUT_LONG: i32 = 120;
 pub const DEVICE_MODEL_NAME: &str = "imKey Pro";
+//network connect
+pub const NETWORK_CONN_TIMEOUT: u16 = 30;
+pub const NETWORK_WRITE_TIMEOUT: u16 = 30;
+pub const NETWORK_READ_TIMEOUT: u16 = 30;
