@@ -78,7 +78,7 @@ pub fn sign_usdt_segwit_transaction(data: &[u8]) -> Result<Vec<u8>> {
         network,
         &input.path_prefix,
         input.property_id as i32,
-    )?; //todo check
+    )?;
     let tx_sign_result = BtcSegwitTxRes {
         witness_tx_data: signed.signature,
         wtx_hash: signed.wtx_id,

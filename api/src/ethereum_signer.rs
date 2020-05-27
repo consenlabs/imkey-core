@@ -30,11 +30,8 @@ pub fn sign_eth_transaction(data: &[u8]) -> Result<Vec<u8>> {
         data: Vec::from(data_vec.as_slice()),
     };
 
-    println!("trans create ..");
-
     let chain_id = input.chain_id.parse::<u64>().unwrap();
     let tx_out = eth_tx.sign(Some(chain_id), &input.path, &input.payment, &input.fee)?;
-    println!("signed..");
     encode_message(tx_out)
 }
 

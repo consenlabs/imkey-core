@@ -24,7 +24,7 @@ extern crate lazy_static;
 extern crate failure;
 use crate::error_handling::{landingpad, LAST_BACKTRACE, LAST_ERROR};
 use crate::message_handler::encode_message;
-use mq::message;
+use transport::message;
 
 lazy_static! {
     pub static ref API_LOCK: Mutex<String> = Mutex::new("".to_string());
@@ -68,9 +68,7 @@ pub unsafe extern "C" fn free_const_string(s: *const c_char) {
 /// dispatch protobuf rpc call
 #[no_mangle]
 pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char {
-    println!("beforlock....");
     let mut _l = API_LOCK.lock().unwrap();
-    println!("afterlock....");
     let hex_c_str = CStr::from_ptr(hex_str);
     let hex_str = hex_c_str.to_str().expect("parse_arguments to_str");
 
