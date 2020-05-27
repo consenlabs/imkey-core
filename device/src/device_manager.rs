@@ -14,7 +14,7 @@ use app_update::AppUpdateRequest;
 use common::apdu::{Apdu, ApduCheck};
 use common::applet;
 use common::constants;
-use mq::message::send_apdu;
+use transport::message::send_apdu;
 use se_activate::SeActivateRequest;
 
 pub fn get_se_id() -> Result<String> {
