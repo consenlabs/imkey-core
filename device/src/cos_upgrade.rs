@@ -6,8 +6,8 @@ use crate::{Result, TsmService};
 use common::utility::hex_to_bytes;
 use common::{constants, https};
 #[cfg(any(target_os = "macos", target_os = "windows"))]
-use mq::hid_api::hid_connect;
-use mq::message::send_apdu;
+use transport::hid_api::hid_connect;
+use transport::message::send_apdu;
 use serde::{Deserialize, Serialize};
 use std::thread;
 use std::time::Duration;
@@ -180,8 +180,8 @@ fn reconnect() -> Result<()> {
 mod tests {
     use crate::cos_upgrade::CosUpgradeRequest;
     use crate::TsmService;
-    use mq::hid_api::hid_connect;
-    use mq::message::send_apdu;
+    use transport::hid_api::hid_connect;
+    use transport::message::send_apdu;
     use std::collections::HashMap;
 
     #[test]

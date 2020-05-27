@@ -87,7 +87,7 @@ mod test {
     use crate::app_update::AppUpdateRequest;
     use crate::device_manager::{get_cert, get_se_id};
     use crate::TsmService;
-    use mq::hid_api::hid_connect;
+    use transport::hid_api::hid_connect;
 
     #[test]
     pub fn app_update_test() {

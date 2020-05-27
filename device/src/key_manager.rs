@@ -19,7 +19,7 @@ use secp256k1::Secp256k1;
 
 pub struct KeyManager {
     pub pri_key: Vec<u8>,
-    //32 byte TODO
+    //32 byte
     pub pub_key: Vec<u8>,
     //65 byte
     pub se_pub_key: Vec<u8>,
