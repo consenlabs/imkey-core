@@ -10,7 +10,7 @@ use device::deviceapi::{
     GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, SetBleNameReq,
 };
 #[cfg(any(target_os = "macos", target_os = "windows"))]
-use mq::hid_api::hid_connect;
+use transport::hid_api::hid_connect;
 use prost::Message;
 
 pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {

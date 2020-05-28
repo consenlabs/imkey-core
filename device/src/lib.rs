@@ -14,7 +14,7 @@ pub mod deviceapi;
 pub mod key_manager;
 #[macro_use]
 extern crate lazy_static;
-extern crate mq;
+extern crate transport;
 pub mod error;
 #[macro_use]
 extern crate failure;
@@ -22,7 +22,7 @@ use core::result;
 pub type Result<T> = result::Result<T, failure::Error>;
 use crate::error::ImkeyError;
 use common::constants;
-use mq::message;
+use transport::message;
 use serde::{Deserialize, Serialize};
 
 pub mod cos_check_update;

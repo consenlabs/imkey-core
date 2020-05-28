@@ -41,15 +41,3 @@ pub unsafe fn landingpad<F: FnOnce() -> Result<T> + panic::UnwindSafe, T>(f: F) 
         }
     }
 }
-
-#[cfg(test)]
-mod test {
-    // use crate::error_handling::{landingpad, error_test};
-    // use crate::device_manager::get_seid;
-    // use device::device_binding::DeviceManage;
-    //
-    // #[test]
-    // fn exception_test(){
-    //     unsafe {error_test()};
-    // }
-}

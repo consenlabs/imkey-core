@@ -4,7 +4,6 @@ pub mod constants;
 pub mod error;
 pub mod https;
 pub mod path;
-pub mod sign_res;
 pub mod utility;
 
 #[macro_use]
