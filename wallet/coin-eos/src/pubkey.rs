@@ -4,7 +4,7 @@ use bitcoin_hashes::{ripemd160, Hash};
 use common::apdu::{ApduCheck, CoinCommonApdu, EosApdu};
 use common::{path, utility};
 use device::device_binding::KEY_MANAGER;
-use mq::message;
+use transport::message;
 
 #[derive(Debug)]
 pub struct EosPubkey {}

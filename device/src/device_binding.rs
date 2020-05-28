@@ -15,8 +15,8 @@ use common::constants::{
     BIND_STATUS_UNBOUND, IMK_AID,
 };
 #[cfg(any(target_os = "macos", target_os = "windows"))]
-use mq::hid_api::hid_connect;
-use mq::message::send_apdu;
+use transport::hid_api::hid_connect;
+use transport::message::send_apdu;
 use rand::rngs::OsRng;
 use regex::Regex;
 use ring::digest;
@@ -218,15 +218,13 @@ fn get_se_pubkey(se_pubkey_cert: String) -> Result<String> {
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 pub fn bind_test() {
     //binding device
-    // let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-    // let bind_code = "FRGB36FS".to_string();
     let path = "/Users/joe/work/sdk_gen_key".to_string();
     let bind_code = "YDSGQPKX".to_string();
 
     let _ = hid_connect("imKey Pro");
     let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
     if !"bound_this".eq(check_result.as_str()) {
-        //如果未和本设备绑定则进行绑定操作
+        //If it is not bound to this device, then perform the binding operation
         let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
         if "5A".eq(bind_result.as_str()) {
             println!("{:?}", "binding success");
@@ -244,12 +242,10 @@ mod test {
     use crate::device_binding::DeviceManage;
     use crate::device_manager::bind_display_code;
     use crate::key_manager::KeyManager;
-    use mq::hid_api::hid_connect;
+    use transport::hid_api::hid_connect;
 
     #[test]
     fn device_bind_test() {
-        // let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-        // let bind_code = "3KN379K4".to_string();
         let path = "/Users/joe/work/sdk_gen_key".to_string();
         let bind_code = "YDSGQPKX".to_string();
 

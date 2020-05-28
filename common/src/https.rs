@@ -28,9 +28,9 @@ async fn async_post(action: &str, req_data: Vec<u8>) -> Result<String> {
 
     let https = HttpsConnector::new();
     let mut connector = TimeoutConnector::new(https);
-    connector.set_connect_timeout(Some(Duration::from_secs(30)));
-    connector.set_read_timeout(Some(Duration::from_secs(30)));
-    connector.set_write_timeout(Some(Duration::from_secs(30)));
+    connector.set_connect_timeout(Some(Duration::from_secs(constants::NETWORK_CONN_TIMEOUT as u64)));
+    connector.set_read_timeout(Some(Duration::from_secs(constants::NETWORK_READ_TIMEOUT as u64)));
+    connector.set_write_timeout(Some(Duration::from_secs(constants::NETWORK_WRITE_TIMEOUT as u64)));
     let client = Client::builder().build::<_, hyper::Body>(connector);
 
     let resp = client.request(req).await?;

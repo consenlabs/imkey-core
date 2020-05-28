@@ -8,14 +8,10 @@ import im.imkey.imkeylibrary.BuildConfig;
 
 public class Constants {
 
-    //sdk version
-    public static final String version = "1.2.10";
-
     //Timeout period for sending APDUs
     public static final int SENT_APDU_TIMEOUT = 20;
     //Send signature prepare data timeout
     public static final int SEND_SIGN_PRE_APDU_TIMEOUT = 120;
-
 
     /**
      * apdu

@@ -69,7 +69,7 @@ mod test {
     use crate::device_cert_check::DeviceCertCheckRequest;
     use crate::device_manager::{get_cert, get_se_id, get_sn};
     use crate::TsmService;
-    use mq::hid_api::hid_connect;
+    use transport::hid_api::hid_connect;
 
     #[test]
     pub fn device_cert_check_test() {

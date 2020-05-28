@@ -1,6 +1,5 @@
+pub const VERSION: &str = "1.2.10";
 pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
-// pub const URL: &str = "https://imkey.online:1000/imkey/";
-// pub const URL: &str = "http://localhost:8080/imkey/";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
 pub const TSM_ACTION_APP_DOWNLOAD: &str = "/appDownload";
@@ -26,8 +25,6 @@ pub const IMK_AID: &str = "695F696D6B";
 pub const COSMOS_PATH: &str = "m/44'/118'/0'/0/0";
 pub const EOS_PATH: &str = "m/44'/194'/0'/0/0";
 pub const ETH_PATH: &str = "m/44'/60'/0'/0/0";
-
-pub const VERSION: &str = "1.2.10";
 
 pub const MAX_UTXO_NUMBER: usize = 252;
 pub const EACH_ROUND_NUMBER: usize = 5;
@@ -91,3 +88,7 @@ pub const APDU_RSP_SWITCH_BL_STATUS_SUCCESS: &str = "905A";
 
 pub const TIMEOUT_LONG: i32 = 120;
 pub const DEVICE_MODEL_NAME: &str = "imKey Pro";
+//network connect
+pub const NETWORK_CONN_TIMEOUT: u16 = 30;
+pub const NETWORK_WRITE_TIMEOUT: u16 = 30;
+pub const NETWORK_READ_TIMEOUT: u16 = 30;

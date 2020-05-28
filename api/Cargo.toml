@@ -10,10 +10,7 @@ edition = "2018"
 lazy_static = "1.4.0"
 
 log = {version = "0.4", features = ["std"]}
-# log-panics = {version = "2.0.0", features = ["with-backtrace"]}
-#[target.'cfg(target_os = "android")'.dependencies]
-#android_logger = "0.8.6"
-mq = {path = "../mq"}
+transport = {path = "../transport"}
 device = {path = "../device"}
 coin-ethereum = {path = "../wallet/coin-ethereum"}
 coin-bitcoin = {path = "../wallet/coin-bitcoin"}
