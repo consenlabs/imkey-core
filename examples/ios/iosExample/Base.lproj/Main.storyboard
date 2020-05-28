@@ -118,6 +118,9 @@
                                 <rect key="frame" x="278" y="406" width="56" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Cosmos"/>
+                                <connections>
+                                    <action selector="cosmosClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Abh-Xj-cHy"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w3R-f0-HYf" userLabel="bindCheck">
                                 <rect key="frame" x="25" y="356" width="78" height="20"/>

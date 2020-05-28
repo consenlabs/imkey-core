@@ -65,15 +65,15 @@ class CosmosViewController: UIViewController {
     msgCoin.amount = "10"
     msgCoin.denom = "atom"
     
-    var msgValue = Cosmosapi_MsgValue()
-    msgValue.amount = [msgCoin]
-    msgValue.addresses = ["delegator_address":"cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f",
-                          "validator_address":"cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"]
-    
-    
-    var msg = Cosmosapi_Msg()
-    msg.type = "cosmos-sdk/MsgDelegate"
-    msg.value = msgValue
+//    var msgValue = Cosmosapi_MsgValue()
+//    msgValue.amount = [msgCoin]
+//    msgValue.addresses = ["delegator_address":"cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f",
+//                          "validator_address":"cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"]
+//
+//
+//    var msg = Cosmosapi_Msg()
+//    msg.type = "cosmos-sdk/MsgDelegate"
+//    msg.value = msgValue
     
     //signData
     var signData = Cosmosapi_SignData()
@@ -81,7 +81,7 @@ class CosmosViewController: UIViewController {
     signData.chainID = "tendermint_test"
     signData.fee = fee
     signData.memo = ""
-    signData.msgs = [msg]
+//    signData.msgs = [msg]
     signData.sequence = "0"
     
     //cosmosInput

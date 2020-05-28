@@ -276,6 +276,38 @@ public struct Deviceapi_GetSdkInfoRes {
   public init() {}
 }
 
+public struct Deviceapi_DeviceConnectReq {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var deviceModelName: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Deviceapi_CosCheckUpdateRes {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var seid: String = String()
+
+  public var isLatest: Bool = false
+
+  public var latestCosVersion: String = String()
+
+  public var updateType: String = String()
+
+  public var description_p: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "deviceapi"
@@ -899,6 +931,88 @@ extension Deviceapi_GetSdkInfoRes: SwiftProtobuf.Message, SwiftProtobuf._Message
 
   public static func ==(lhs: Deviceapi_GetSdkInfoRes, rhs: Deviceapi_GetSdkInfoRes) -> Bool {
     if lhs.sdkVersion != rhs.sdkVersion {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_DeviceConnectReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeviceConnectReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "device_model_name"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.deviceModelName)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.deviceModelName.isEmpty {
+      try visitor.visitSingularStringField(value: self.deviceModelName, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Deviceapi_DeviceConnectReq, rhs: Deviceapi_DeviceConnectReq) -> Bool {
+    if lhs.deviceModelName != rhs.deviceModelName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Deviceapi_CosCheckUpdateRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CosCheckUpdateRes"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "seid"),
+    2: .standard(proto: "is_latest"),
+    3: .standard(proto: "latest_cos_version"),
+    4: .standard(proto: "update_type"),
+    5: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.seid)
+      case 2: try decoder.decodeSingularBoolField(value: &self.isLatest)
+      case 3: try decoder.decodeSingularStringField(value: &self.latestCosVersion)
+      case 4: try decoder.decodeSingularStringField(value: &self.updateType)
+      case 5: try decoder.decodeSingularStringField(value: &self.description_p)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.seid.isEmpty {
+      try visitor.visitSingularStringField(value: self.seid, fieldNumber: 1)
+    }
+    if self.isLatest != false {
+      try visitor.visitSingularBoolField(value: self.isLatest, fieldNumber: 2)
+    }
+    if !self.latestCosVersion.isEmpty {
+      try visitor.visitSingularStringField(value: self.latestCosVersion, fieldNumber: 3)
+    }
+    if !self.updateType.isEmpty {
+      try visitor.visitSingularStringField(value: self.updateType, fieldNumber: 4)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Deviceapi_CosCheckUpdateRes, rhs: Deviceapi_CosCheckUpdateRes) -> Bool {
+    if lhs.seid != rhs.seid {return false}
+    if lhs.isLatest != rhs.isLatest {return false}
+    if lhs.latestCosVersion != rhs.latestCosVersion {return false}
+    if lhs.updateType != rhs.updateType {return false}
+    if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

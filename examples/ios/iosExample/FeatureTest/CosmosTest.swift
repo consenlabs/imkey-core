@@ -40,45 +40,51 @@ class CosmosTest:FeatTest{
             fee.amount = feeAmount
             
             //msgs
-            var msgs = [Cosmosapi_Msg]()
-            let sourceMsg = dict["msg"] as! [[String: Any]]
-            for item in sourceMsg{
-              let type = item["type"] as! String
-              let value = item["value"] as! [String: Any]
-              let amount = value["amount"] as![[String: Any]]
-              var msgAmount = [Cosmosapi_Coin]()
-              for item in amount{
-                var msgCoin = Cosmosapi_Coin()
-//                let num = item["amount"] as! NSNumber
-//                msgCoin.amount = num.stringValue
-                msgCoin.amount = item["amount"] as! String
-                msgCoin.denom = item["denom"] as! String
-                msgAmount.append(msgCoin)
-              }
-              
-              var msgValue = Cosmosapi_MsgValue()
-              msgValue.amount = msgAmount
-              if type == "cosmos-sdk/MsgSend" {
-                msgValue.addresses = ["from_address":value["from_address"] as! String,
-                "to_address":value["to_address"] as! String]
-              }else{
-                msgValue.addresses = ["delegator_address":value["delegator_address"] as! String,
-                                      "validator_address":value["validator_address"] as! String]
-              }
-              
-              var msg = Cosmosapi_Msg()
-              msg.type = type
-              msg.value = msgValue
-              msgs.append(msg)
-            }
-            
+//            var msgs = [Cosmosapi_Msg]()
+//            let sourceMsg = dict["msg"] as! [[String: Any]]
+//            for item in sourceMsg{
+//              let type = item["type"] as! String
+//              let value = item["value"] as! [String: Any]
+//              let amount = value["amount"] as![[String: Any]]
+//              var msgAmount = [Cosmosapi_Coin]()
+//              for item in amount{
+//                var msgCoin = Cosmosapi_Coin()
+////                let num = item["amount"] as! NSNumber
+////                msgCoin.amount = num.stringValue
+//                msgCoin.amount = item["amount"] as! String
+//                msgCoin.denom = item["denom"] as! String
+//                msgAmount.append(msgCoin)
+//              }
+//              
+//              var msgValue = Cosmosapi_MsgValue()
+//              msgValue.amount = msgAmount
+//              if type == "cosmos-sdk/MsgSend" {
+//                msgValue.addresses = ["from_address":value["from_address"] as! String,
+//                "to_address":value["to_address"] as! String]
+//              }else{
+//                msgValue.addresses = ["delegator_address":value["delegator_address"] as! String,
+//                                      "validator_address":value["validator_address"] as! String]
+//              }
+//              
+//              var msg = Cosmosapi_Msg()
+//              msg.type = type
+//              msg.value = msgValue
+//              msgs.append(msg)
+//            }
+            let sourceMsg = dict["msg"] as! [JSONObject]
+//            let orderedJson = prepareSignBytes(Tx: sourceMsg as Any)
+            let msgData = try! JSONSerialization.data(withJSONObject: sourceMsg, options: .sortedKeys)
+            let msgJson = String(data: msgData, encoding: .utf8)!
+            print(msgJson)
             //signData
             var signData = Cosmosapi_SignData()
             signData.accountNumber = dict["accountNumber"] as! String
             signData.chainID = dict["chainId"] as! String
             signData.fee = fee
             signData.memo = dict["memo"] as! String
-            signData.msgs = msgs
+            signData.msgs = msgJson
+            print("msgs....")
+            print(signData.msgs)
             signData.sequence = dict["sequence"] as! String
             
             //cosmosInput
@@ -124,6 +130,24 @@ class CosmosTest:FeatTest{
     }
     return TestResult(totalCaseCount: jsonRoot.count, successCaseCount: sucessCount, failCaseCount: failCount, failCaseInfo: failCaseInfo)
   }
+  
+//  class func prepareSignBytes(Tx: Any) -> Any{
+//    if let arrayTx = Tx as? [JSONObject] {
+//      let sortedArrayTx = arrayTx.map{prepareSignBytes(Tx: $0)}
+//      return sortedArrayTx
+//    } else if let jsonTx = Tx as? JSONObject {
+//      let orderedJson = MutableOrderedDictionary<AnyObject, AnyObject>(dictionary: jsonTx)
+//      let orderedDictionary = jsonTx.sorted{$0.0.compare($1.0, options: .caseInsensitive) == .orderedAscending }
+//      orderedJson.removeAllObjects()
+//      for item in orderedDictionary {
+//        let sortedItem = prepareSignBytes(Tx: item.value)
+//        orderedJson.setObject(sortedItem as AnyObject, forKey: item.key as AnyObject)
+//      }
+//      return orderedJson
+//    } else {
+//      return Tx
+//    }
+//  }
   
   class func createCosmosRaw(dict:[String: Any]) -> [String: Any]{
     let cosmosTx: [String: Any] = [

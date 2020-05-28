@@ -4,6 +4,7 @@ use coin_cosmos::cosmosapi::CosmosTxReq;
 use coin_cosmos::transaction::{Coin, CosmosTransaction, Msg, MsgValue, SignData, StdFee};
 use linked_hash_map::LinkedHashMap;
 use prost::Message;
+use serde_json::{json, Value};
 
 pub fn sign_cosmos_transaction(data: &[u8]) -> Result<Vec<u8>> {
     // let input: CosmosTxReq = CosmosTxReq::decode(data).expect("imkey_illegal_param");
@@ -26,45 +27,12 @@ pub fn sign_cosmos_transaction(data: &[u8]) -> Result<Vec<u8>> {
         gas: input_fee.gas.clone(),
     };
 
-    //msgs
-    let mut msgs = Vec::new();
-    for item in &input_sign_data.msgs {
-        let mut coins = Vec::new();
-        let item_msg = item.value.as_ref().unwrap();
-        for item_coin in &item_msg.amount {
-            let coin = Coin {
-                amount: item_coin.amount.clone(),
-                denom: item_coin.denom.clone(),
-            };
-            coins.push(coin);
-        }
+    println!("rust_msg:{}", &input_sign_data.msgs);
+    let msg_witout_slash = input_sign_data.msgs.replace("\\", "");
+    println!("rust_msg:{}", &msg_witout_slash);
 
-        let mut addresses = LinkedHashMap::new();
-
-        let mut keys = Vec::new();
-        for (key, value) in &item_msg.addresses {
-            addresses.insert(key.to_string(), value.to_string());
-            keys.push(key);
-        }
-        keys.sort();
-        for key in keys {
-            addresses.insert(
-                key.to_string(),
-                item_msg.addresses.get(key).unwrap().to_string(),
-            );
-        }
-
-        let msg = Msg {
-            ttype: item.r#type.clone(),
-            value: MsgValue {
-                amount: coins,
-                // delegator_address: item.value.as_ref().unwrap().delegator_address.clone(),
-                // validator_address: item.value.as_ref().unwrap().validator_address.clone(),
-                extra: addresses,
-            },
-        };
-        msgs.push(msg);
-    }
+    let r = serde_json::from_str(&msg_witout_slash).unwrap();
+    let v = json!(msg_witout_slash);
 
     //SignData
     let sign_data = SignData {
@@ -72,7 +40,7 @@ pub fn sign_cosmos_transaction(data: &[u8]) -> Result<Vec<u8>> {
         chain_id: input_sign_data.chain_id,
         fee: stdfee,
         memo: input_sign_data.memo,
-        msgs: msgs,
+        msgs: r,
         sequence: input_sign_data.sequence,
     };
 
