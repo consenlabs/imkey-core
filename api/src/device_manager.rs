@@ -9,9 +9,9 @@ use device::deviceapi::{
     GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes, GetLifeTimeRes,
     GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, SetBleNameReq,
 };
+use prost::Message;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 use transport::hid_api::hid_connect;
-use prost::Message;
 
 pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppDownloadReq = AppDownloadReq::decode(data).expect("imkey_illegal_param");

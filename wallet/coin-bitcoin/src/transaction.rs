@@ -1,3 +1,4 @@
+use crate::address::BtcAddress;
 use crate::common::{
     address_verify, get_address_version, get_xpub_data, secp256k1_sign_verify, TransTypeFlg,
     TxSignResult,
@@ -23,9 +24,8 @@ use common::error::CoinError;
 use common::path::check_path_validity;
 use common::utility::{bigint_to_byte_vec, hex_to_bytes, secp256k1_sign};
 use device::device_binding::KEY_MANAGER;
-use transport::message::{send_apdu, send_apdu_timeout};
 use secp256k1::Signature;
-use crate::address::BtcAddress;
+use transport::message::{send_apdu, send_apdu_timeout};
 
 #[derive(Clone)]
 pub struct Utxo {

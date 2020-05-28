@@ -7,9 +7,9 @@ use bitcoin::{Address, Network, PublicKey};
 use common::apdu::{ApduCheck, BtcApdu, CoinCommonApdu};
 use common::error::CoinError;
 use common::utility::sha256_hash;
-use transport::message::send_apdu;
 use secp256k1::{Message, PublicKey as PublicKey2, Secp256k1, Signature};
 use std::str::FromStr;
+use transport::message::send_apdu;
 
 /**
 utxo address verify

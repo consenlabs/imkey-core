@@ -6,13 +6,13 @@ use common::apdu::{ApduCheck, CoinCommonApdu, CosmosApdu};
 use common::constants;
 use common::utility::{secp256k1_sign, sha256_hash};
 use device::device_binding::KEY_MANAGER;
-use transport::message::{send_apdu, send_apdu_timeout};
 use secp256k1::{self, Signature as SecpSignature};
 use serde::{Deserialize, Serialize, Serializer};
 use serde_json::json;
 use serde_json::{Map, Value};
 use std::collections::{BTreeMap, HashMap};
 use std::result;
+use transport::message::{send_apdu, send_apdu_timeout};
 
 #[derive(Debug)]
 pub struct CosmosTransaction {
@@ -94,20 +94,11 @@ impl CosmosTransaction {
     pub fn sign(self) -> Result<CosmosTxRes> {
         let json = serde_json::to_vec(&self.sign_data).unwrap();
         let json_str = String::from_utf8(json.to_owned()).unwrap();
-        println!("{}", &json_str);
-        let json_witout_slash = json_str.replace("\\", "");
-        let json_witout_space: String = json_witout_slash
-            .chars()
-            .filter(|c| !c.is_whitespace())
-            .collect();
-        println!("{}", &json_witout_space);
-        let json_hash = sha256_hash(&json_witout_space.as_bytes()).to_hex();
-        println!("hash:{}", &json_hash);
+        let json_hash = sha256_hash(&json_str.as_bytes()).to_hex();
 
         let mut sign_pack = "0120".to_string();
         sign_pack.push_str(&json_hash);
         if self.payment_dis == "" {
-            //todo check null?
             sign_pack.push_str("070008000900");
         } else {
             sign_pack.push_str("07");
@@ -120,7 +111,6 @@ impl CosmosTransaction {
             sign_pack.push_str(&format!("{:02x}", self.fee_dis.as_bytes().len()));
             sign_pack.push_str(&hex::encode(&self.fee_dis));
         }
-        println!("sign_pack:{}", &sign_pack);
 
         let sign_pack_vec = hex::decode(sign_pack).expect("Decoding failed");
 
@@ -128,12 +118,10 @@ impl CosmosTransaction {
         let mut prepare_data = secp256k1_sign(&key_manager_obj.pri_key, &sign_pack_vec.as_slice())?;
         std::mem::drop(key_manager_obj);
         let mut prepare_data_hex = hex::encode(&prepare_data);
-        println!("prepare_data_hex:{}", &prepare_data_hex);
         prepare_data.insert(0, prepare_data.len() as u8);
         prepare_data.insert(0, 0x00);
         prepare_data.extend(sign_pack_vec.iter());
         prepare_data_hex = hex::encode(&prepare_data);
-        println!("prepare_data_hex:{}", &prepare_data_hex);
 
         let select_apdu = CosmosApdu::select_applet();
         let select_response = send_apdu(select_apdu)?;
@@ -142,16 +130,13 @@ impl CosmosTransaction {
         let prepare_apdus = CosmosApdu::prepare_sign(prepare_data);
 
         for apdu in prepare_apdus {
-            println!("prepare_apdu:{}", &apdu);
             let response = send_apdu_timeout(apdu, constants::TIMEOUT_LONG)?;
             ApduCheck::checke_response(&response)?;
         }
 
         let sign_apdu = CosmosApdu::sign_digest(constants::COSMOS_PATH);
-        println!("sign_apdu:{}", &sign_apdu);
 
         let sign_result = send_apdu(sign_apdu)?;
-        println!("sign_result:{}", &sign_result);
         ApduCheck::checke_response(&sign_result)?;
 
         let sign_compact = hex::decode(&sign_result[2..130]).unwrap();
@@ -160,12 +145,10 @@ impl CosmosTransaction {
         let normalizes_sig_vec = signnture_obj.serialize_compact();
 
         let sign_base64 = base64::encode(&normalizes_sig_vec.as_ref());
-        println!("sign_base64:{}", &sign_base64);
 
         let pub_key = CosmosAddress::get_pub_key(&self.path).unwrap();
         let pub_key = hex::decode(pub_key).unwrap();
         let pub_key = base64::encode(&pub_key);
-        println!("pub_key:{}", &pub_key);
 
         let std_signature = StdSignature {
             account_number: self.sign_data.account_number.to_string(),
@@ -186,7 +169,6 @@ impl CosmosTransaction {
 
         let json = serde_json::to_vec(&std_tx).unwrap();
         let json = String::from_utf8(json.to_owned()).unwrap();
-        println!("{}", &json); //todo sort json
 
         let ouput = CosmosTxRes {
             tx_data: json.to_string(),

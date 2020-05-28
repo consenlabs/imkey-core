@@ -19,8 +19,8 @@ use common::error::CoinError;
 use common::path::check_path_validity;
 use common::utility::{bigint_to_byte_vec, hex_to_bytes, secp256k1_sign};
 use device::device_binding::KEY_MANAGER;
-use transport::message::{send_apdu, send_apdu_timeout};
 use secp256k1::Signature;
+use transport::message::{send_apdu, send_apdu_timeout};
 
 impl BtcTransaction {
     pub fn sign_omni_transaction(

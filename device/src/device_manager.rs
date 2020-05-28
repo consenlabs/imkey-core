@@ -14,8 +14,8 @@ use app_update::AppUpdateRequest;
 use common::apdu::{Apdu, ApduCheck};
 use common::applet;
 use common::constants;
-use transport::message::send_apdu;
 use se_activate::SeActivateRequest;
+use transport::message::send_apdu;
 
 pub fn get_se_id() -> Result<String> {
     send_apdu("00A4040000".to_string())?;
