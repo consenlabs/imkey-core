@@ -16,30 +16,8 @@ message SignData{
     string chain_id = 2;
     StdFee fee = 3;
     string memo = 4;
-    repeated Msg msgs = 5;
+    string msgs = 5;
     string sequence = 6;
-}
-
-message Msg {
-    string type = 1;
-    MsgValue value = 2;
-}
-
-message MsgValue{
-    repeated Coin amount = 1;
-    map<string, string> addresses = 2;
-}
-
-message MsgDelegateValue {
-     repeated Coin amount = 1;
-     string delegator_address = 2;
-     string validator_address = 3;
-}
-
-message MsgSendValue {
-    repeated Coin amount = 1;
-    string from_address = 2;
-    string to_address = 3;
 }
 
 message CosmosTxReq {

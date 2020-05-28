@@ -76,7 +76,7 @@ public struct Cosmosapi_SignData {
     set {_uniqueStorage()._memo = newValue}
   }
 
-  public var msgs: [Cosmosapi_Msg] {
+  public var msgs: String {
     get {return _storage._msgs}
     set {_uniqueStorage()._msgs = newValue}
   }
@@ -91,78 +91,6 @@ public struct Cosmosapi_SignData {
   public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Cosmosapi_Msg {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var type: String {
-    get {return _storage._type}
-    set {_uniqueStorage()._type = newValue}
-  }
-
-  public var value: Cosmosapi_MsgValue {
-    get {return _storage._value ?? Cosmosapi_MsgValue()}
-    set {_uniqueStorage()._value = newValue}
-  }
-  /// Returns true if `value` has been explicitly set.
-  public var hasValue: Bool {return _storage._value != nil}
-  /// Clears the value of `value`. Subsequent reads from it will return its default value.
-  public mutating func clearValue() {_uniqueStorage()._value = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct Cosmosapi_MsgValue {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var amount: [Cosmosapi_Coin] = []
-
-  public var addresses: Dictionary<String,String> = [:]
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Cosmosapi_MsgDelegateValue {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var amount: [Cosmosapi_Coin] = []
-
-  public var delegatorAddress: String = String()
-
-  public var validatorAddress: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Cosmosapi_MsgSendValue {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var amount: [Cosmosapi_Coin] = []
-
-  public var fromAddress: String = String()
-
-  public var toAddress: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
 }
 
 public struct Cosmosapi_CosmosTxReq {
@@ -339,7 +267,7 @@ extension Cosmosapi_SignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     var _chainID: String = String()
     var _fee: Cosmosapi_StdFee? = nil
     var _memo: String = String()
-    var _msgs: [Cosmosapi_Msg] = []
+    var _msgs: String = String()
     var _sequence: String = String()
 
     static let defaultInstance = _StorageClass()
@@ -372,7 +300,7 @@ extension Cosmosapi_SignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
         case 2: try decoder.decodeSingularStringField(value: &_storage._chainID)
         case 3: try decoder.decodeSingularMessageField(value: &_storage._fee)
         case 4: try decoder.decodeSingularStringField(value: &_storage._memo)
-        case 5: try decoder.decodeRepeatedMessageField(value: &_storage._msgs)
+        case 5: try decoder.decodeSingularStringField(value: &_storage._msgs)
         case 6: try decoder.decodeSingularStringField(value: &_storage._sequence)
         default: break
         }
@@ -395,7 +323,7 @@ extension Cosmosapi_SignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
         try visitor.visitSingularStringField(value: _storage._memo, fieldNumber: 4)
       }
       if !_storage._msgs.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._msgs, fieldNumber: 5)
+        try visitor.visitSingularStringField(value: _storage._msgs, fieldNumber: 5)
       }
       if !_storage._sequence.isEmpty {
         try visitor.visitSingularStringField(value: _storage._sequence, fieldNumber: 6)
@@ -419,192 +347,6 @@ extension Cosmosapi_SignData: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
       }
       if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Cosmosapi_Msg: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".Msg"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "type"),
-    2: .same(proto: "value"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _type: String = String()
-    var _value: Cosmosapi_MsgValue? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _type = source._type
-      _value = source._value
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularStringField(value: &_storage._type)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._value)
-        default: break
-        }
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._type.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._type, fieldNumber: 1)
-      }
-      if let v = _storage._value {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Cosmosapi_Msg, rhs: Cosmosapi_Msg) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._type != rhs_storage._type {return false}
-        if _storage._value != rhs_storage._value {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Cosmosapi_MsgValue: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".MsgValue"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "amount"),
-    2: .same(proto: "addresses"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.amount)
-      case 2: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: &self.addresses)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.amount.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.amount, fieldNumber: 1)
-    }
-    if !self.addresses.isEmpty {
-      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: self.addresses, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Cosmosapi_MsgValue, rhs: Cosmosapi_MsgValue) -> Bool {
-    if lhs.amount != rhs.amount {return false}
-    if lhs.addresses != rhs.addresses {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Cosmosapi_MsgDelegateValue: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".MsgDelegateValue"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "amount"),
-    2: .standard(proto: "delegator_address"),
-    3: .standard(proto: "validator_address"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.amount)
-      case 2: try decoder.decodeSingularStringField(value: &self.delegatorAddress)
-      case 3: try decoder.decodeSingularStringField(value: &self.validatorAddress)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.amount.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.amount, fieldNumber: 1)
-    }
-    if !self.delegatorAddress.isEmpty {
-      try visitor.visitSingularStringField(value: self.delegatorAddress, fieldNumber: 2)
-    }
-    if !self.validatorAddress.isEmpty {
-      try visitor.visitSingularStringField(value: self.validatorAddress, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Cosmosapi_MsgDelegateValue, rhs: Cosmosapi_MsgDelegateValue) -> Bool {
-    if lhs.amount != rhs.amount {return false}
-    if lhs.delegatorAddress != rhs.delegatorAddress {return false}
-    if lhs.validatorAddress != rhs.validatorAddress {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Cosmosapi_MsgSendValue: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".MsgSendValue"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "amount"),
-    2: .standard(proto: "from_address"),
-    3: .standard(proto: "to_address"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.amount)
-      case 2: try decoder.decodeSingularStringField(value: &self.fromAddress)
-      case 3: try decoder.decodeSingularStringField(value: &self.toAddress)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.amount.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.amount, fieldNumber: 1)
-    }
-    if !self.fromAddress.isEmpty {
-      try visitor.visitSingularStringField(value: self.fromAddress, fieldNumber: 2)
-    }
-    if !self.toAddress.isEmpty {
-      try visitor.visitSingularStringField(value: self.toAddress, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Cosmosapi_MsgSendValue, rhs: Cosmosapi_MsgSendValue) -> Bool {
-    if lhs.amount != rhs.amount {return false}
-    if lhs.fromAddress != rhs.fromAddress {return false}
-    if lhs.toAddress != rhs.toAddress {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

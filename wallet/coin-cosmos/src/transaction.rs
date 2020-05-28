@@ -93,9 +93,15 @@ pub struct StdTx {
 impl CosmosTransaction {
     pub fn sign(self) -> Result<CosmosTxRes> {
         let json = serde_json::to_vec(&self.sign_data).unwrap();
-        let json = String::from_utf8(json.to_owned()).unwrap();
-        println!("{}", &json); //todo sort json
-        let json_hash = sha256_hash(json.as_bytes()).to_hex();
+        let json_str = String::from_utf8(json.to_owned()).unwrap();
+        println!("{}", &json_str);
+        let json_witout_slash = json_str.replace("\\", "");
+        let json_witout_space: String = json_witout_slash
+            .chars()
+            .filter(|c| !c.is_whitespace())
+            .collect();
+        println!("{}", &json_witout_space);
+        let json_hash = sha256_hash(&json_witout_space.as_bytes()).to_hex();
         println!("hash:{}", &json_hash);
 
         let mut sign_pack = "0120".to_string();
@@ -173,9 +179,9 @@ impl CosmosTransaction {
 
         let std_tx = StdTx {
             fee: self.sign_data.fee,
+            memo: self.sign_data.memo,
             signatures: vec![std_signature],
             msg: self.sign_data.msgs,
-            memo: self.sign_data.memo,
         };
 
         let json = serde_json::to_vec(&std_tx).unwrap();
@@ -238,95 +244,13 @@ mod tests {
             gas: "21906".to_string(),
         };
 
-        let mut msg = Map::new();
-        let mut msgValue = Map::new();
-        let mut msgAmountValue = Map::new();
-        msgAmountValue.insert("amount".to_string(), Value::String("10".to_string()));
-        msgAmountValue.insert("denom".to_string(), Value::String("atom".to_string()));
-
-        msgValue.insert(
-            "amount".to_string(),
-            Value::Array(vec![Value::Object(msgAmountValue)]),
-        );
-        msgValue.insert(
-            "delegator_address".to_string(),
-            Value::String("cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f".to_string()),
-        );
-        msgValue.insert(
-            "validator_address".to_string(),
-            Value::String("cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp".to_string()),
-        );
-
-        msg.insert(
-            "type".to_string(),
-            Value::String("cosmos-sdk/MsgDelegate".to_string()),
-        );
-        msg.insert("value".to_string(), Value::Object(msgValue));
-
-        let msgs = json!([{
-            "type": "cosmos-sdk/MsgDelegate",
-            "value": {
-                "amount": [],
-                "delegator_address": "cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f",
-                "validator_address": "cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"
-            }
-        }]);
-
-        let sign_data = SignData {
-            account_number: "1".to_string(),
-            chain_id: "tendermint_test".to_string(),
-            fee: stdfee,
-            memo: "".to_string(),
-            msgs: msgs,
-            sequence: "0".to_string(),
-        };
-
-        let mut input = CosmosTransaction {
-            sign_data: sign_data,
-            path: constants::COSMOS_PATH.to_string(),
-            payment_dis: "".to_string(),
-            to_dis: "cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt".to_string(),
-            fee_dis: "0.00075 atom".to_string(),
-        };
-        let cosmosTxOutput = input.sign().unwrap();
-        let expect_result = r#"{"fee":{"amount":[{"amount":"0","denom":""}],"gas":"21906"},"signatures":[{"account_number":"1","pub_key":{"type":"tendermint/PubKeySecp256k1","value":"AjLB7yHXPBlTGwqk6GPPOXwrmCsvlY9gzbYpaYJMCW1l"},"sequence":"0","signature":"R3E1sN8ImA+SfRVpp4C0xNJNpQO7z5i4f2BsKdRxEPtlSousJyyAhgAY13A5VjZEIJARcX9KaWkfayfETEgALg=="}],"msg":[{"type":"cosmos-sdk/MsgDelegate","value":{"amount":[{"amount":"10","denom":"atom"}],"delegator_address":"cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f","validator_address":"cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"}}]}"#;
-        assert_eq!(&expect_result, &cosmosTxOutput.tx_data);
-    }
-
-    #[test]
-    fn test_sign_send() {
-        bind_test();
-
-        let stdfee = StdFee {
-            amount: vec![Coin {
-                amount: "750".to_string(),
-                denom: "muon".to_string(),
-            }],
-            gas: "30000".to_string(),
-        };
-
-        // let mut addresses = Map::new();
-        // addresses.insert(
-        //     "from_address".to_string(),
-        //     Value::String("cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992".to_string()),
-        // );
-        // addresses.insert(
-        //     "to_address".to_string(),
-        //     Value::String("cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt".to_string()),
-        // );
-        //
-        // let msg = Msg {
-        //     ttype: "cosmos-sdk/MsgSend".to_string(),
-        //     value: MsgValue {
-        //         amount: vec![],
-        //         extra: addresses,
-        //     },
-        // };
-
         let msg = json!([{
             "type": "cosmos-sdk/MsgDelegate",
             "value": {
-                "amount": [],
+                "amount": [{
+                    "amount": "10",
+                    "denom": "atom"
+                }],
                 "delegator_address": "cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f",
                 "validator_address": "cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"
             }
@@ -342,15 +266,60 @@ mod tests {
         };
 
         let mut input = CosmosTransaction {
-            sign_data: sign_data,
+            sign_data,
+            path: constants::COSMOS_PATH.to_string(),
+            payment_dis: "".to_string(),
+            to_dis: "cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt".to_string(),
+            fee_dis: "0.00075 atom".to_string(),
+        };
+        let cosmos_tx_output = input.sign().unwrap();
+        let expect_result = r#"{"fee":{"amount":[{"amount":"0","denom":""}],"gas":"21906"},"memo":"","signatures":[{"account_number":"1234567890","pub_key":{"type":"tendermint/PubKeySecp256k1","value":"AjLB7yHXPBlTGwqk6GPPOXwrmCsvlY9gzbYpaYJMCW1l"},"sequence":"1234567890","signature":"h4//cOYLTiDYbdw+1NVZufwppIAcEQ1xsWMYcCdcGtsu4xSnYStxyJgIa57445sHnXgWP84VvnQ5geoUZAKxlQ=="}],"msg":[{"type":"cosmos-sdk/MsgDelegate","value":{"amount":[{"amount":"10","denom":"atom"}],"delegator_address":"cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f","validator_address":"cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"}}]}"#;
+        assert_eq!(&expect_result, &cosmos_tx_output.tx_data);
+    }
+
+    #[test]
+    fn test_sign_send() {
+        bind_test();
+
+        let stdfee = StdFee {
+            amount: vec![Coin {
+                amount: "750".to_string(),
+                denom: "muon".to_string(),
+            }],
+            gas: "30000".to_string(),
+        };
+
+        let msg = json!([
+          {
+            "type": "cosmos-sdk/MsgSend",
+            "value": {
+              "amount": [
+              ],
+              "from_address": "cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992",
+              "to_address": "cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt"
+            }
+          }
+        ]);
+
+        let sign_data = SignData {
+            account_number: "1234567890".to_string(),
+            chain_id: "tendermint_test".to_string(),
+            fee: stdfee,
+            memo: "".to_string(),
+            msgs: msg,
+            sequence: "1234567890".to_string(),
+        };
+
+        let mut input = CosmosTransaction {
+            sign_data,
             path: constants::COSMOS_PATH.to_string(),
             payment_dis: "".to_string(),
             to_dis: "".to_string(),
             fee_dis: "0.00075 atom".to_string(),
         };
-        let cosmosTxOutput = input.sign().unwrap();
-        let expect_result = r#"{"fee":{"amount":[{"amount":"750","denom":"muon"}],"gas":"30000"},"signatures":[{"account_number":"1234567890","pub_key":{"type":"tendermint/PubKeySecp256k1","value":"AjLB7yHXPBlTGwqk6GPPOXwrmCsvlY9gzbYpaYJMCW1l"},"sequence":"1234567890","signature":"Tp8DYyOSghHF2S70I08fodPL0PWPmY6KNu9ZWN+mqoREdHs7UKIox3tZO2K7ytN4LVl9wBqaWstNOfp5Qa44tg=="}],"msg":[{"type":"cosmos-sdk/MsgSend","value":{"amount":[],"from_address":"cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992","to_address":"cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt"}}],"memo":""}"#;
-        assert_eq!(&expect_result, &cosmosTxOutput.tx_data);
+        let cosmos_tx_output = input.sign().unwrap();
+        let expect_result = r#"{"fee":{"amount":[{"amount":"750","denom":"muon"}],"gas":"30000"},"memo":"","signatures":[{"account_number":"1234567890","pub_key":{"type":"tendermint/PubKeySecp256k1","value":"AjLB7yHXPBlTGwqk6GPPOXwrmCsvlY9gzbYpaYJMCW1l"},"sequence":"1234567890","signature":"Tp8DYyOSghHF2S70I08fodPL0PWPmY6KNu9ZWN+mqoREdHs7UKIox3tZO2K7ytN4LVl9wBqaWstNOfp5Qa44tg=="}],"msg":[{"type":"cosmos-sdk/MsgSend","value":{"amount":[],"from_address":"cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992","to_address":"cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt"}}]}"#;
+        assert_eq!(&expect_result, &cosmos_tx_output.tx_data);
     }
 
     #[test]
