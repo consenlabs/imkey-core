@@ -22,8 +22,8 @@ use core::result;
 pub type Result<T> = result::Result<T, failure::Error>;
 use crate::error::ImkeyError;
 use common::constants;
-use transport::message;
 use serde::{Deserialize, Serialize};
+use transport::message;
 
 pub mod cos_check_update;
 

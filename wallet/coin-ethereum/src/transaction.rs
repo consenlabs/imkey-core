@@ -11,10 +11,10 @@ use device::device_binding::KEY_MANAGER;
 use ethereum_types::{H256, U256};
 use keccak_hash::keccak;
 use lazy_static::lazy_static;
-use transport::message::{send_apdu, send_apdu_timeout};
 use rlp::{self, DecoderError, Encodable, Rlp, RlpStream};
 use secp256k1::recovery::{RecoverableSignature, RecoveryId};
 use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
+use transport::message::{send_apdu, send_apdu_timeout};
 
 lazy_static! {
     pub static ref SECP256K1: secp256k1::Secp256k1<secp256k1::All> = secp256k1::Secp256k1::new();
@@ -39,8 +39,8 @@ impl Transaction {
         payment: &str,
         fee: &str,
     ) -> EthResult<EthTxRes> {
-        let receiver = "0x7c47ef93268a311f4cad0c750724299e9b72c268";
-        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b";
+        let receiver = "";
+        let sender = "";
         // ) {
         //check path
         check_path_validity(path)?;

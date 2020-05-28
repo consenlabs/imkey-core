@@ -14,9 +14,6 @@ use common::constants::{
     BIND_RESULT_ERROR, BIND_RESULT_SUCCESS, BIND_STATUS_BOUND_OTHER, BIND_STATUS_BOUND_THIS,
     BIND_STATUS_UNBOUND, IMK_AID,
 };
-#[cfg(any(target_os = "macos", target_os = "windows"))]
-use transport::hid_api::hid_connect;
-use transport::message::send_apdu;
 use rand::rngs::OsRng;
 use regex::Regex;
 use ring::digest;
@@ -26,6 +23,9 @@ use secp256k1::{PublicKey, SecretKey};
 use sha1::Sha1;
 use std::collections::HashMap;
 use std::sync::Mutex;
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+use transport::hid_api::hid_connect;
+use transport::message::send_apdu;
 
 lazy_static! {
     pub static ref KEY_MANAGER: Mutex<KeyManager> = Mutex::new(KeyManager::new());

@@ -27,9 +27,7 @@ pub fn sign_cosmos_transaction(data: &[u8]) -> Result<Vec<u8>> {
         gas: input_fee.gas.clone(),
     };
 
-    println!("rust_msg:{}", &input_sign_data.msgs);
     let msg_witout_slash = input_sign_data.msgs.replace("\\", "");
-    println!("rust_msg:{}", &msg_witout_slash);
 
     let r = serde_json::from_str(&msg_witout_slash).unwrap();
     let v = json!(msg_witout_slash);

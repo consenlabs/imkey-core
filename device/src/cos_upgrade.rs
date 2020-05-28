@@ -5,12 +5,12 @@ use crate::ServiceResponse;
 use crate::{Result, TsmService};
 use common::utility::hex_to_bytes;
 use common::{constants, https};
-#[cfg(any(target_os = "macos", target_os = "windows"))]
-use transport::hid_api::hid_connect;
-use transport::message::send_apdu;
 use serde::{Deserialize, Serialize};
 use std::thread;
 use std::time::Duration;
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+use transport::hid_api::hid_connect;
+use transport::message::send_apdu;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -180,9 +180,9 @@ fn reconnect() -> Result<()> {
 mod tests {
     use crate::cos_upgrade::CosUpgradeRequest;
     use crate::TsmService;
+    use std::collections::HashMap;
     use transport::hid_api::hid_connect;
     use transport::message::send_apdu;
-    use std::collections::HashMap;
 
     #[test]
     fn cos_upgrade_test() {

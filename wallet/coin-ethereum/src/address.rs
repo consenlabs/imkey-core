@@ -4,8 +4,8 @@ use common::path::check_path_validity;
 use common::utility::hex_to_bytes;
 use hex;
 use keccak_hash::keccak;
-use transport::message::send_apdu;
 use regex::Regex;
+use transport::message::send_apdu;
 
 #[derive(Debug)]
 pub struct EthAddress {}
