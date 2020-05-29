@@ -463,7 +463,7 @@ mod tests {
 
     use device::device_binding::DeviceManage;
     use device::key_manager::KeyManager;
-    use mq::hid_api::hid_connect;
+    use transport::hid_api::hid_connect;
 
     #[test]
     fn test_sign_transaction() {
