@@ -1,9 +1,6 @@
 syntax = "proto3";
 package deviceapi;
 
-message EmptyResponse {
-}
-
 message AppDownloadReq {
     string app_name = 1;
 }

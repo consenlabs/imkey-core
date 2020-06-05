@@ -1,3 +1,4 @@
+use crate::api::CommonResponse;
 use crate::error_handling::Result;
 use crate::message_handler::encode_message;
 use common::applet;
@@ -5,7 +6,7 @@ use common::constants;
 use device::device_manager;
 use device::deviceapi::{
     AppDeleteReq, AppDownloadReq, AppUpdateReq, AvailableAppBean, BindAcquireReq, BindAcquireRes,
-    BindCheckReq, BindCheckRes, CheckUpdateRes, CosCheckUpdateRes, DeviceConnectReq, EmptyResponse,
+    BindCheckReq, BindCheckRes, CheckUpdateRes, CosCheckUpdateRes, DeviceConnectReq,
     GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes, GetLifeTimeRes,
     GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, SetBleNameReq,
 };
@@ -16,28 +17,32 @@ use transport::hid_api::hid_connect;
 pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppDownloadReq = AppDownloadReq::decode(data).expect("imkey_illegal_param");
     device_manager::app_download(request.app_name.as_ref())?;
-    let response_msg = EmptyResponse {};
-    encode_message(response_msg)
+    encode_message(CommonResponse {
+        result: "success".to_string(),
+    })
 }
 
 pub fn app_update(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppUpdateReq = AppUpdateReq::decode(data).expect("imkey_illegal_prarm");
     device_manager::app_update(request.app_name.as_ref())?;
-    let response_msg = EmptyResponse {};
-    encode_message(response_msg)
+    encode_message(CommonResponse {
+        result: "success".to_string(),
+    })
 }
 
 pub fn app_delete(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppDeleteReq = AppDeleteReq::decode(data).expect("imkey_illegal_param");
     device_manager::app_delete(request.app_name.as_ref())?;
-    let response_msg = EmptyResponse {};
-    encode_message(response_msg)
+    encode_message(CommonResponse {
+        result: "success".to_string(),
+    })
 }
 
 pub fn se_activate() -> Result<Vec<u8>> {
     device_manager::active_device()?;
-    let response_msg = EmptyResponse {};
-    encode_message(response_msg)
+    encode_message(CommonResponse {
+        result: "success".to_string(),
+    })
 }
 
 pub fn check_update() -> Result<Vec<u8>> {
@@ -89,8 +94,9 @@ pub fn check_update() -> Result<Vec<u8>> {
 
 pub fn se_secure_check() -> Result<Vec<u8>> {
     device_manager::check_device()?;
-    let response_msg = EmptyResponse {};
-    encode_message(response_msg)
+    encode_message(CommonResponse {
+        result: "success".to_string(),
+    })
 }
 
 pub fn bind_check(data: &[u8]) -> Result<Vec<u8>> {
@@ -104,8 +110,9 @@ pub fn bind_check(data: &[u8]) -> Result<Vec<u8>> {
 
 pub fn bind_display_code() -> Result<Vec<u8>> {
     device_manager::bind_display_code()?;
-    let response_msg = EmptyResponse {};
-    encode_message(response_msg)
+    encode_message(CommonResponse {
+        result: "success".to_string(),
+    })
 }
 
 pub fn bind_acquire(data: &[u8]) -> Result<Vec<u8>> {
@@ -175,8 +182,9 @@ pub fn set_ble_name(data: &[u8]) -> Result<Vec<u8>> {
     device_manager::set_ble_name(request.ble_name)
         .ok()
         .expect("set_ble_name_error");
-    let response_msg = EmptyResponse {};
-    encode_message(response_msg)
+    encode_message(CommonResponse {
+        result: "success".to_string(),
+    })
 }
 
 pub fn get_ble_version() -> Result<Vec<u8>> {
@@ -197,8 +205,9 @@ pub fn get_sdk_info() -> Result<Vec<u8>> {
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 pub fn cos_update() -> Result<Vec<u8>> {
     device_manager::cos_upgrade()?;
-    let response_msg = EmptyResponse {};
-    encode_message(response_msg)
+    encode_message(CommonResponse {
+        result: "success".to_string(),
+    })
 }
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
@@ -208,7 +217,9 @@ pub fn device_connect(data: &[u8]) -> Result<Vec<u8>> {
 
     hid_connect(&device_connect_req.device_model_name)?;
 
-    encode_message(EmptyResponse {})
+    encode_message(CommonResponse {
+        result: "success".to_string(),
+    })
 }
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
