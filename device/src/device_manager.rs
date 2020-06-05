@@ -20,13 +20,14 @@ use transport::message::send_apdu;
 pub fn get_se_id() -> Result<String> {
     send_apdu("00A4040000".to_string())?;
     let res = send_apdu("80CB800005DFFF028101".to_string())?;
+    ApduCheck::checke_response(res.as_str())?;
     Ok(String::from(&res[0..res.len() - 4]))
-    //res.chars().take(res.len() - 4).collect()
 }
 
 pub fn get_sn() -> Result<String> {
     send_apdu("00A4040000".to_string())?;
     let res = send_apdu("80CA004400".to_string())?;
+    ApduCheck::checke_response(res.as_str())?;
     let hex_decode = hex::decode(String::from(&res[0..res.len() - 4]));
     match hex_decode {
         Ok(sn) => Ok(String::from_utf8(sn).unwrap()),
@@ -37,24 +38,28 @@ pub fn get_sn() -> Result<String> {
 pub fn get_ram_size() -> Result<String> {
     //send_apdu("00A4040000".to_string());
     let res = send_apdu("80CB800005DFFF02814600".to_string())?;
+    ApduCheck::checke_response(res.as_str())?;
     Ok(res.chars().take(res.len() - 4).collect())
 }
 
 pub fn get_firmware_version() -> Result<String> {
     send_apdu("00A4040000".to_string())?;
     let res = send_apdu("80CB800005DFFF02800300".to_string())?;
+    ApduCheck::checke_response(res.as_str())?;
     Ok(res.chars().take(res.len() - 4).collect())
 }
 
 pub fn get_battery_power() -> Result<String> {
     send_apdu("00A4040000".to_string())?;
     let res = send_apdu("00D6FEED01".to_string())?;
+    ApduCheck::checke_response(res.as_str())?;
     Ok(res.chars().take(res.len() - 4).collect())
 }
 
 pub fn get_life_time() -> Result<String> {
     //send_apdu("00A4040000".to_string());
     let res = send_apdu("FFDCFEED00".to_string())?;
+    ApduCheck::checke_response(res.as_str())?;
     Ok(res.chars().take(res.len() - 4).collect())
 }
 
