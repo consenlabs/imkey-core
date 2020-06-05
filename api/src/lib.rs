@@ -1,4 +1,4 @@
-use crate::api::{ImkeyAction, Response};
+use crate::api::{ErrorResponse, ImkeyAction};
 use prost::Message;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
@@ -189,7 +189,7 @@ pub unsafe extern "C" fn clear_err() {
 pub unsafe extern "C" fn get_last_err_message() -> *const c_char {
     LAST_ERROR.with(|e| {
         if let Some(ref err) = *e.borrow() {
-            let rsp = Response {
+            let rsp = ErrorResponse {
                 is_success: false,
                 error: err.to_string(),
             };

@@ -1,6 +1,4 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EmptyResponse {}
-#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AppDownloadReq {
     #[prost(string, tag = "1")]
     pub app_name: std::string::String,

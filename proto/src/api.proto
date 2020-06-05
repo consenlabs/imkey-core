@@ -14,7 +14,12 @@ message ImkeyAction {
 }
 
 // A common response when error occurred.
-message Response {
+message ErrorResponse {
     bool isSuccess = 1;
     string error = 2;
+}
+
+//A commonresponse when successfully ended.
+message CommonResponse{
+    string result = 1;
 }
