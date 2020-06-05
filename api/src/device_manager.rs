@@ -8,7 +8,7 @@ use device::deviceapi::{
     AppDeleteReq, AppDownloadReq, AppUpdateReq, AvailableAppBean, BindAcquireReq, BindAcquireRes,
     BindCheckReq, BindCheckRes, CheckUpdateRes, CosCheckUpdateRes, DeviceConnectReq,
     GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes, GetLifeTimeRes,
-    GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, SetBleNameReq,
+    GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes, SetBleNameReq,
 };
 use prost::Message;
 #[cfg(any(target_os = "macos", target_os = "windows"))]
@@ -233,4 +233,10 @@ pub fn cos_check_update() -> Result<Vec<u8>> {
         update_type: cos_check_update._ReturnData.update_type.unwrap(),
         description: cos_check_update._ReturnData.description.unwrap(),
     })
+}
+
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+pub fn is_bl_status() -> Result<Vec<u8>> {
+    let check_result = device_manager::is_bl_status()?;
+    encode_message(check_result)
 }

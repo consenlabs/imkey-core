@@ -164,3 +164,26 @@ pub fn cos_check_update() -> Result<ServiceResponse<CosCheckUpdateResponse>> {
     );
     CosCheckUpdateRequest::build_request_data(seid, cos_version).send_message()
 }
+#[cfg(any(target_os = "macos", target_os = "windows"))]
+pub fn is_bl_status() -> Result<bool> {
+    let res_data = send_apdu(Apdu::select_applet(constants::BL_AID))?;
+    let check_result = ApduCheck::checke_response(res_data.as_str());
+    if check_result.is_err() {
+        return Ok(false);
+    }
+    Ok(true)
+}
+
+#[cfg(test)]
+mod test {
+    use crate::device_manager::is_bl_status;
+    use common::constants;
+    use transport::hid_api::hid_connect;
+
+    #[test]
+    fn is_bl_status_test() {
+        hid_connect(constants::DEVICE_MODEL_NAME);
+        let result = is_bl_status();
+        assert!(result.is_ok());
+    }
+}

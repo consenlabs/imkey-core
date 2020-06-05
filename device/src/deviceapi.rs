@@ -130,3 +130,8 @@ pub struct CosCheckUpdateRes {
     #[prost(string, tag = "5")]
     pub description: std::string::String,
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct IsBlStatusRes {
+    #[prost(bool, tag = "1")]
+    pub check_result: bool,
+}

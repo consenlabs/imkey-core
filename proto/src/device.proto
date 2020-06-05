@@ -98,3 +98,7 @@ message CosCheckUpdateRes {
     string update_type = 4;
     string description = 5;
 }
+
+message IsBlStatusRes {
+    bool check_result = 1;
+}
