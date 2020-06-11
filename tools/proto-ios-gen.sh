@@ -9,13 +9,13 @@ pushd ../proto/src
 #protoc --swift_opt=Visibility=Public --swift_out=../../ios/imKeyConnector/Classes/Proto eos.proto
 #protoc --swift_opt=Visibility=Public --swift_out=../../ios/imKeyConnector/Classes/Proto cosmos.proto
 
-rm -rf ../../examples/ios/iosExample/Proto
-mkdir ../../examples/ios/iosExample/Proto
+rm -rf ../../wrapper/ios/imKeyConnector/Proto
+mkdir ../../wrapper/ios/imKeyConnector/Proto
 
-protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/Proto api.proto
-protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/Proto device.proto
-protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/Proto btc.proto
-protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/Proto eth.proto
-protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/Proto eos.proto
-protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/Proto cosmos.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../wrapper/ios/imKeyConnector/Proto api.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../wrapper/ios/imKeyConnector/Proto device.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../wrapper/ios/imKeyConnector/Proto btc.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../wrapper/ios/imKeyConnector/Proto eth.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../wrapper/ios/imKeyConnector/Proto eos.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../wrapper/ios/imKeyConnector/Proto cosmos.proto
 popd
