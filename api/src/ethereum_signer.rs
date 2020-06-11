@@ -31,7 +31,14 @@ pub fn sign_eth_transaction(data: &[u8]) -> Result<Vec<u8>> {
     };
 
     let chain_id = input.chain_id.parse::<u64>().unwrap();
-    let tx_out = eth_tx.sign(Some(chain_id), &input.path, &input.payment, &input.fee)?;
+    let tx_out = eth_tx.sign(
+        Some(chain_id),
+        &input.path,
+        &input.payment,
+        &input.receiver,
+        &input.sender,
+        &input.fee,
+    )?;
     encode_message(tx_out)
 }
 
