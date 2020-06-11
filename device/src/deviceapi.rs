@@ -1,6 +1,4 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EmptyResponse {}
-#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AppDownloadReq {
     #[prost(string, tag = "1")]
     pub app_name: std::string::String,
@@ -131,4 +129,9 @@ pub struct CosCheckUpdateRes {
     pub update_type: std::string::String,
     #[prost(string, tag = "5")]
     pub description: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct IsBlStatusRes {
+    #[prost(bool, tag = "1")]
+    pub check_result: bool,
 }

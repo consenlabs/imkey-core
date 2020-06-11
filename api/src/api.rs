@@ -12,9 +12,15 @@ pub struct ImkeyAction {
 }
 /// A common response when error occurred.
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Response {
+pub struct ErrorResponse {
     #[prost(bool, tag = "1")]
     pub is_success: bool,
     #[prost(string, tag = "2")]
     pub error: std::string::String,
+}
+///A commonresponse when successfully ended.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CommonResponse {
+    #[prost(string, tag = "1")]
+    pub result: std::string::String,
 }
