@@ -19,9 +19,9 @@ coin-cosmos = {path = "../wallet/coin-cosmos"}
 common = {path = "../common"}
 bitcoin = "0.21.0"
 ethereum-types = "0.6.0"
-prost = "0.5.0"
-bytes = "0.4.12"
-prost-types = "0.5.0"
+prost = "0.6.1"
+bytes = "0.5.4"
+prost-types = "0.6.1"
 hex = "0.4.2"
 failure = "0.1.8"
 linked-hash-map = { version = "0.5.3", features = ["serde_impl"] }
