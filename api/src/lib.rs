@@ -1,4 +1,4 @@
-use crate::api::{ImkeyAction, Response};
+use crate::api::{ErrorResponse, ImkeyAction};
 use prost::Message;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
@@ -103,6 +103,8 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
         "device_connect" => {
             landingpad(|| device_manager::device_connect(&action.param.unwrap().value))
         }
+        #[cfg(any(target_os = "macos", target_os = "windows"))]
+        "is_bl_status" => landingpad(|| device_manager::is_bl_status()),
 
         // btc
         "btc_tx_sign" => {
@@ -189,7 +191,7 @@ pub unsafe extern "C" fn clear_err() {
 pub unsafe extern "C" fn get_last_err_message() -> *const c_char {
     LAST_ERROR.with(|e| {
         if let Some(ref err) = *e.borrow() {
-            let rsp = Response {
+            let rsp = ErrorResponse {
                 is_success: false,
                 error: err.to_string(),
             };
