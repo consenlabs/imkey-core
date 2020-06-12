@@ -83,7 +83,7 @@ public class BtcApi{
     req.network = network
     
     var action = Api_ImkeyAction()
-    action.method = "btc_register_segwit_address"
+    action.method = "btc_get_xpub"
     action.param = Google_Protobuf_Any()
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
