@@ -89,28 +89,28 @@ pub fn get_cert() -> Result<String> {
 }
 
 pub fn check_device() -> Result<()> {
-    let seid: String = get_se_id().ok().unwrap();
-    let sn: String = get_sn().ok().unwrap();
+    let seid: String = get_se_id()?;
+    let sn: String = get_sn()?;
     let device_cert: String = get_cert()?;
     SeSecureCheckRequest::build_request_data(seid, sn, device_cert).send_message()
 }
 
 pub fn active_device() -> Result<()> {
-    let seid: String = get_se_id().ok().unwrap();
-    let sn: String = get_sn().ok().unwrap();
+    let seid: String = get_se_id()?;
+    let sn: String = get_sn()?;
     let device_cert: String = get_cert()?;
     SeActivateRequest::build_request_data(seid, sn, device_cert).send_message()
 }
 
 pub fn check_update() -> Result<ServiceResponse<SeQueryResponse>> {
-    let seid: String = get_se_id().ok().unwrap();
-    let sn: String = get_sn().ok().unwrap();
+    let seid: String = get_se_id()?;
+    let sn: String = get_sn()?;
     let sdk_version = Some(constants::VERSION.to_string());
     SeQueryRequest::build_request_data(seid, sn, sdk_version).send_message()
 }
 
 pub fn app_download(app_name: &str) -> Result<()> {
-    let seid: String = get_se_id().ok().unwrap();
+    let seid: String = get_se_id()?;
     let device_cert: String = get_cert()?;
     let sdk_version = Some(constants::VERSION.to_string());
     let instance_aid: String = applet::get_instid_by_appname(app_name)
@@ -121,7 +121,7 @@ pub fn app_download(app_name: &str) -> Result<()> {
 }
 
 pub fn app_update(app_name: &str) -> Result<()> {
-    let seid: String = get_se_id().ok().unwrap();
+    let seid: String = get_se_id()?;
     let device_cert: String = get_cert()?;
     let sdk_version = Some(constants::VERSION.to_string());
     let instance_aid: String = applet::get_instid_by_appname(app_name)
@@ -132,7 +132,7 @@ pub fn app_update(app_name: &str) -> Result<()> {
 }
 
 pub fn app_delete(app_name: &str) -> Result<()> {
-    let seid: String = get_se_id().ok().unwrap();
+    let seid: String = get_se_id()?;
     let device_cert: String = get_cert()?;
     let instance_aid: String = applet::get_instid_by_appname(app_name)
         .expect("imkey_app_name_not_exist")
