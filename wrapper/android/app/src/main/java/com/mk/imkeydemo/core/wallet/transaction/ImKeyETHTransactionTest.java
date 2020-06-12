@@ -18,10 +18,13 @@ import com.mk.imkeylibrary.common.Messages;
 import com.mk.imkeylibrary.common.Path;
 import com.mk.imkeylibrary.common.TransactionSignedResult;
 import com.mk.imkeylibrary.exception.ImkeyException;
+import com.mk.imkeylibrary.keycore.EthApi;
 import com.mk.imkeylibrary.keycore.RustApi;
 import com.mk.imkeylibrary.utils.ByteUtil;
 import com.mk.imkeylibrary.utils.LogUtil;
 import com.mk.imkeylibrary.utils.NumericUtil;
+
+import ethapi.Eth;
 
 public class ImKeyETHTransactionTest {
 
@@ -78,8 +81,8 @@ public class ImKeyETHTransactionTest {
 
                 Boolean retry = true;
                 int tryCount = 0;
-                while(retry) {
-                    tryCount ++;
+                while (retry) {
+                    tryCount++;
                     try {
 
                         LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
@@ -92,10 +95,10 @@ public class ImKeyETHTransactionTest {
 
                         //
                         String error = RustApi.INSTANCE.get_last_err_message();
-                        if(!"".equals(error) && null != error) {
+                        if (!"".equals(error) && null != error) {
                             api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
                             Boolean isSuccess = errorResponse.getIsSuccess();
-                            if(!isSuccess) {
+                            if (!isSuccess) {
                                 LogUtil.d("异常： " + errorResponse.getError());
                                 failedCaseName.add(key);
                                 failCount++;
@@ -110,16 +113,16 @@ public class ImKeyETHTransactionTest {
                         LogUtil.d("signature：" + signature);
                         LogUtil.d("txHash：" + txHash);
                         LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
-                        if(txHash.equals(testcase.getString("txHash"))) {
+                        if (txHash.equals(testcase.getString("txHash"))) {
                             LogUtil.e("×××××××××××××××××××××××××××××××××××成功×××××××××××××××××××××××××××××××××××××××××××××××");
-                            successCount ++;
+                            successCount++;
                         } else {
                             failedCaseName.add(key);
                             failCount++;
                         }
                         retry = false;
                     } catch (ImkeyException e) {
-                        if(!Messages.IMKEY_BLUETOOTH_CHANNEL_ERROR.equals(e.getMessage()) || tryCount >= 3) {
+                        if (!Messages.IMKEY_BLUETOOTH_CHANNEL_ERROR.equals(e.getMessage()) || tryCount >= 3) {
                             retry = false;
                             failedCaseName.add(key + ": " + e.getMessage());
                             failCount++;
@@ -210,66 +213,31 @@ public class ImKeyETHTransactionTest {
     }*/
 
 
-    public static TransactionSignedResult testEthTxSign() {
+    public static Eth.EthTxRes testEthTxSign() {
 
-        TransactionSignedResult signResults = null;
-
+        ethapi.Eth.EthTxReq ethTxReq = ethapi.Eth.EthTxReq.newBuilder()
+                .setPath(Path.ETH_LEDGER)
+                .setChainId("28")
+                .setNonce("8")
+                .setGasPrice("20000000008")
+                .setGasLimit("189000")
+                .setTo("0x3535353535353535353535353535353535353535")
+                .setValue("512")
+                .setData("")
+                .setPayment("0.01 ETH")
+                .setReceiver("0xE6F4142dfFA574D1d9f18770BF73814df07931F3")
+                .setSender("0x6031564e7b2F5cc33737807b2E58DaFF870B590b")
+                .setFee("0.0032 ether")
+                .build();
+        Eth.EthTxRes res = null;
         try {
-
-            ethapi.Eth.EthTxReq ethTxReq = ethapi.Eth.EthTxReq.newBuilder()
-                    .setPath(Path.ETH_LEDGER)
-                    .setChainId("28")
-                    .setNonce("8")
-                    .setGasPrice("20000000008")
-                    .setGasLimit("189000")
-                    .setTo("0x3535353535353535353535353535353535353535")
-                    .setValue("512")
-                    .setData("")
-                    .setPayment("0.01 ETH")
-                    .setReceiver("0xE6F4142dfFA574D1d9f18770BF73814df07931F3")
-                    .setSender("0x6031564e7b2F5cc33737807b2E58DaFF870B590b")
-                    .setFee("0.0032 ether")
-                    .build();
-
-            Any any = Any.newBuilder()
-                    .setValue(ethTxReq.toByteString())
-                    .build();
-
-            api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("eth_tx_sign")
-                    .setParam(any)
-                    .build();
-            String hex = NumericUtil.bytesToHex(action.toByteArray());
-
-            // clear_err
-            RustApi.INSTANCE.clear_err();
-
-            String result = RustApi.INSTANCE.call_imkey_api(hex);
-
-            String error = RustApi.INSTANCE.get_last_err_message();
-            if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
-                Boolean isSuccess = errorResponse.getIsSuccess();
-                if(!isSuccess) {
-                    LogUtil.d("异常： " + errorResponse.getError());
-
-                }
-            } else {
-                ethapi.Eth.EthTxRes response = ethapi.Eth.EthTxRes.parseFrom(ByteUtil.hexStringToByteArray(result));
-                String txHash = response.getTxHash();
-                String signature = response.getTxData();
-                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
-                LogUtil.d("signature：" + signature);
-                LogUtil.d("txHash：" + txHash);
-                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
-
-                signResults = new TransactionSignedResult(signature, txHash);
-            }
+            res = EthApi.signTx(ethTxReq);
         } catch (Exception e) {
             LogUtil.d("异常：" + e.getMessage());
             e.printStackTrace();
         }
-        return signResults;
+
+        return res;
     }
 
     /*public static TransactionSignedResult testEthTxSign() {
@@ -288,9 +256,6 @@ public class ImKeyETHTransactionTest {
     }*/
 
     public static String testEthMsgSign() {
-
-
-
         String signature = null;
 
         try {
@@ -304,35 +269,8 @@ public class ImKeyETHTransactionTest {
                     .setSender(sender)
                     .build();
 
-            Any any = Any.newBuilder()
-                    .setValue(ethMessageSignReq.toByteString())
-                    .build();
-
-            api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("eth_message_sign")
-                    .setParam(any)
-                    .build();
-            String hex = NumericUtil.bytesToHex(action.toByteArray());
-
-            // clear_err
-            RustApi.INSTANCE.clear_err();
-
-            String result = RustApi.INSTANCE.call_imkey_api(hex);
-
-            String error = RustApi.INSTANCE.get_last_err_message();
-            if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
-                Boolean isSuccess = errorResponse.getIsSuccess();
-                if(!isSuccess) {
-                    LogUtil.d("异常： " + errorResponse.getError());
-                }
-            } else {
-                ethapi.Eth.EthMessageSignRes response = ethapi.Eth.EthMessageSignRes.parseFrom(ByteUtil.hexStringToByteArray(result));
-                signature = response.getSignature();
-                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
-                LogUtil.d("signature：" + signature);
-                LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
-            }
+            Eth.EthMessageSignRes res = EthApi.signMessage(ethMessageSignReq);
+            signature = res.getSignature();
         } catch (Exception e) {
             LogUtil.d("异常：" + e.getMessage());
             e.printStackTrace();
