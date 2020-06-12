@@ -1,10 +1,8 @@
 use crate::error_handling::Result;
 use crate::message_handler::encode_message;
 use coin_cosmos::cosmosapi::CosmosTxReq;
-use coin_cosmos::transaction::{Coin, CosmosTransaction, Msg, MsgValue, SignData, StdFee};
-use linked_hash_map::LinkedHashMap;
+use coin_cosmos::transaction::{Coin, CosmosTransaction, SignData, StdFee};
 use prost::Message;
-use serde_json::{json, Value};
 
 pub fn sign_cosmos_transaction(data: &[u8]) -> Result<Vec<u8>> {
     // let input: CosmosTxReq = CosmosTxReq::decode(data).expect("imkey_illegal_param");
@@ -30,7 +28,6 @@ pub fn sign_cosmos_transaction(data: &[u8]) -> Result<Vec<u8>> {
     let msg_witout_slash = input_sign_data.msgs.replace("\\", "");
 
     let r = serde_json::from_str(&msg_witout_slash).unwrap();
-    let v = json!(msg_witout_slash);
 
     //SignData
     let sign_data = SignData {

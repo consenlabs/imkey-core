@@ -179,18 +179,11 @@ fn reconnect() -> Result<()> {
 #[cfg(test)]
 mod tests {
     use crate::cos_upgrade::CosUpgradeRequest;
-    use crate::TsmService;
-    use std::collections::HashMap;
     use transport::hid_api::hid_connect;
-    use transport::message::send_apdu;
 
     #[test]
     fn cos_upgrade_test() {
-        hid_connect("imKey Pro");
-        send_apdu("00a4040000".to_string());
-        match CosUpgradeRequest::cos_upgrade(None) {
-            Ok(()) => println!("COS upgrade success!"),
-            Err(e) => println!("{}", e),
-        };
+        assert!(hid_connect("imKey Pro").is_ok());
+        assert!(CosUpgradeRequest::cos_upgrade(None).is_ok());
     }
 }

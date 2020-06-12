@@ -221,7 +221,7 @@ pub fn bind_test() {
     let path = "/Users/joe/work/sdk_gen_key".to_string();
     let bind_code = "YDSGQPKX".to_string();
 
-    let _ = hid_connect("imKey Pro");
+    assert!(hid_connect("imKey Pro").is_ok());
     let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
     if !"bound_this".eq(check_result.as_str()) {
         //If it is not bound to this device, then perform the binding operation
@@ -241,24 +241,23 @@ pub fn bind_test() {
 mod test {
     use crate::device_binding::DeviceManage;
     use crate::device_manager::bind_display_code;
-    use crate::key_manager::KeyManager;
     use transport::hid_api::hid_connect;
 
     #[test]
     fn device_bind_test() {
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let bind_code = "YDSGQPKX".to_string();
+        let path = "/Users/caixiaoguang/workspace/myproject/imkey-core".to_string();
+        let bind_code = "6GB6M2SD".to_string();
 
-        hid_connect("imKey Pro");
+        assert!(hid_connect("imKey Pro").is_ok());
         let check_result = DeviceManage::bind_check(&path).unwrap();
         let mut bind_result = String::new();
         println!("result:{}", &check_result);
         if check_result.as_str().eq("unbound") {
-            //            bind_display_code();
-            //            let mut bind_code_temp = String::new();
-            //            println!("please input bind code:");
-            //            let bl = std::io::stdin().read_line(&mut bind_code_temp).unwrap();
-            bind_result = DeviceManage::bind_acquire(&bind_code).unwrap();
+            assert!(bind_display_code().is_ok());
+            let mut bind_code_temp = String::new();
+            println!("please input bind code:");
+            let _bl = std::io::stdin().read_line(&mut bind_code_temp).unwrap();
+            bind_result = DeviceManage::bind_acquire(&bind_code_temp).unwrap();
         } else if check_result.as_str().eq("bound_other") {
             bind_result = DeviceManage::bind_acquire(&bind_code).unwrap();
         } else {

@@ -83,10 +83,12 @@ mod test {
 
     #[test]
     pub fn se_activate_test() {
-        hid_connect("imKey Pro");
+        assert!(hid_connect("imKey Pro").is_ok());
         let seid = get_se_id().unwrap();
         let device_cert = get_cert().unwrap();
         let sn = get_sn().unwrap();
-        SeActivateRequest::build_request_data(seid, sn, device_cert).send_message();
+        assert!(SeActivateRequest::build_request_data(seid, sn, device_cert)
+            .send_message()
+            .is_ok());
     }
 }
