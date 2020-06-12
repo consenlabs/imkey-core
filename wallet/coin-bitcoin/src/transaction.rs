@@ -516,14 +516,12 @@ impl BtcTransaction {
 
 #[cfg(test)]
 mod tests {
-    use crate::transaction::{BtcTransaction, Transaction, Utxo};
+    use crate::transaction::{BtcTransaction, Utxo};
     use bitcoin::{Address, Network};
     use hex::FromHex;
-    use std::collections::HashMap;
     use std::str::FromStr;
 
     use device::device_binding::DeviceManage;
-    use device::key_manager::KeyManager;
     use transport::hid_api::hid_connect;
 
     #[test]
@@ -568,51 +566,11 @@ mod tests {
             derive_path: "0/0".to_string(),
             sequence: 4294967295,
         };
-        let utxo5 = Utxo {
-            txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
-            vout: 0,
-            amount: 200000000,
-            address: Address::from_str("mh7jj2ELSQUvRQELbn9qyA4q5nADhmJmUC").unwrap(),
-            script_pubkey: "76a914118c3123196e030a8a607c22bafc1577af61497d88ac".to_string(),
-            derive_path: "0/22".to_string(),
-            sequence: 4294967295,
-        };
-        let utxo6 = Utxo {
-            txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
-            vout: 1,
-            amount: 200000000,
-            address: Address::from_str("mkeNU5nVnozJiaACDELLCsVUc8Wxoh1rQN").unwrap(),
-            script_pubkey: "76a914383fb81cb0a3fc724b5e08cf8bbd404336d711f688ac".to_string(),
-            derive_path: "0/0".to_string(),
-            sequence: 4294967295,
-        };
-        let utxo7 = Utxo {
-            txhash: "14c67e92611dc33df31887bbc468fbbb6df4b77f551071d888a195d1df402ca9".to_string(),
-            vout: 0,
-            amount: 200000000,
-            address: Address::from_str("mkeNU5nVnozJiaACDELLCsVUc8Wxoh1rQN").unwrap(),
-            script_pubkey: "76a914383fb81cb0a3fc724b5e08cf8bbd404336d711f688ac".to_string(),
-            derive_path: "0/0".to_string(),
-            sequence: 4294967295,
-        };
-        let utxo8 = Utxo {
-            txhash: "117fb6b85ded92e87ee3b599fb0468f13aa0c24b4a442a0d334fb184883e9ab9".to_string(),
-            vout: 0,
-            amount: 200000000,
-            address: Address::from_str("mkeNU5nVnozJiaACDELLCsVUc8Wxoh1rQN").unwrap(),
-            script_pubkey: "76a914383fb81cb0a3fc724b5e08cf8bbd404336d711f688ac".to_string(),
-            derive_path: "0/0".to_string(),
-            sequence: 4294967295,
-        };
         let mut utxos = Vec::new();
         utxos.push(utxo);
         utxos.push(utxo2);
         utxos.push(utxo3);
         utxos.push(utxo4);
-        //        utxos.push(utxo5);
-        //        utxos.push(utxo6);
-        //        utxos.push(utxo7);
-        //        utxos.push(utxo8);
         let transaction_req_data = BtcTransaction {
             to: Address::from_str("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3").unwrap(),
             //            change_idx: 53,
@@ -638,7 +596,7 @@ mod tests {
                     val.wtx_id
                 );
             }
-            Err(e) => panic!("btc sign error!"),
+            Err(_e) => panic!("btc sign error!"),
         }
     }
 
@@ -692,36 +650,12 @@ mod tests {
                     val.wtx_id
                 );
             }
-            Err(e) => panic!("btc sign error!"),
+            Err(_e) => panic!("btc sign error!"),
         }
     }
 
     #[test]
-    fn device_binding_test() {
-        //binding device
-        let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-        let bind_code = "FRGB36FS".to_string();
-        //        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        //        let bind_code = "YDSGQPKX".to_string();
-
-        hid_connect("imKey Pro");
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
-        if !"bound_this".eq(check_result.as_str()) {
-            //如果未和本设备绑定则进行绑定操作
-            let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
-            if "5A".eq(bind_result.as_str()) {
-                println!("{:?}", "binding success");
-            } else {
-                println!("{:?}", "binding error");
-                return;
-            }
-        } else {
-            println!("bind this");
-        }
-    }
-
-    #[test]
-    fn test1() {
+    fn test_case() {
         //binding device
         device_binding_test();
 
@@ -762,12 +696,12 @@ mod tests {
                     val.wtx_id
                 );
             }
-            Err(e) => panic!("btc sign error!"),
+            Err(_e) => panic!("btc sign error!"),
         }
     }
 
     #[test]
-    fn test2() {
+    fn test_case2() {
         //binding device
         device_binding_test();
 
@@ -806,7 +740,31 @@ mod tests {
                     val.wtx_id
                 );
             }
-            Err(e) => panic!("btc sign error!"),
+            Err(_e) => panic!("btc sign error!"),
         }
+    }
+
+    #[test]
+    fn device_binding_test() {
+        //binding device
+        let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
+        let bind_code = "6GB6M2SD".to_string();
+        match hid_connect("imKey Pro") {
+            Ok(()) => {
+                let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+                if !"bound_this".eq(check_result.as_str()) {
+                    let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
+                    if "5A".eq(bind_result.as_str()) {
+                        println!("{:?}", "binding success");
+                    } else {
+                        println!("{:?}", "binding error");
+                        return;
+                    }
+                } else {
+                    println!("device not binding");
+                }
+            }
+            Err(e) => println!("{}", e),
+        };
     }
 }

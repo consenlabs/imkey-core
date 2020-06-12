@@ -7,11 +7,8 @@ use common::constants;
 use common::utility::{secp256k1_sign, sha256_hash};
 use device::device_binding::KEY_MANAGER;
 use secp256k1::{self, Signature as SecpSignature};
-use serde::{Deserialize, Serialize, Serializer};
-use serde_json::json;
+use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
-use std::collections::{BTreeMap, HashMap};
-use std::result;
 use transport::message::{send_apdu, send_apdu_timeout};
 
 #[derive(Debug)]
@@ -57,14 +54,6 @@ pub struct MsgValue {
     pub amount: Vec<Coin>,
     #[serde(flatten)]
     pub extra: Map<String, Value>,
-}
-
-fn ordered_map<S>(value: &HashMap<String, String>, serializer: S) -> result::Result<S::Ok, S::Error>
-where
-    S: Serializer,
-{
-    let ordered: BTreeMap<_, _> = value.iter().collect();
-    ordered.serialize(serializer)
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -117,11 +106,9 @@ impl CosmosTransaction {
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let mut prepare_data = secp256k1_sign(&key_manager_obj.pri_key, &sign_pack_vec.as_slice())?;
         std::mem::drop(key_manager_obj);
-        let mut prepare_data_hex = hex::encode(&prepare_data);
         prepare_data.insert(0, prepare_data.len() as u8);
         prepare_data.insert(0, 0x00);
         prepare_data.extend(sign_pack_vec.iter());
-        prepare_data_hex = hex::encode(&prepare_data);
 
         let select_apdu = CosmosApdu::select_applet();
         let select_response = send_apdu(select_apdu)?;
@@ -180,13 +167,11 @@ impl CosmosTransaction {
 
 #[cfg(test)]
 mod tests {
-    use crate::transaction::{Coin, CosmosTransaction, Msg, MsgValue, SignData, StdFee};
+    use crate::transaction::{Coin, CosmosTransaction, SignData, StdFee};
     use common::constants;
     use common::utility::{hex_to_bytes, secp256k1_sign};
-    use device::device_binding::{bind_test, DeviceManage};
-    use linked_hash_map::LinkedHashMap;
-    use serde_json::{json, Map, Value};
-    use std::collections::HashMap;
+    use device::device_binding::bind_test;
+    use serde_json::json;
 
     #[test]
     fn test_ecsign() {
@@ -197,7 +182,7 @@ mod tests {
         let private_key =
             hex_to_bytes("F85B222058BBEFFF888AAF7AD1D08B0C9C5FF719027F7DB69859B72A17B28749")
                 .unwrap();
-        let mut prepare_data = secp256k1_sign(&private_key, &sign_pack.as_slice()).unwrap();
+        let prepare_data = secp256k1_sign(&private_key, &sign_pack.as_slice()).unwrap();
         let prepare_data_hex = hex::encode(&prepare_data);
         assert_eq!(prepare_data_hex,
         "3045022100a773a750391978586598843f89921d33083f670049906dc68ad312867df2826d0220312d22dcc102d8ba2a86972c7c73f082c53b29ef0a04ac630def935ed996d9c2"
@@ -247,7 +232,7 @@ mod tests {
             sequence: "1234567890".to_string(),
         };
 
-        let mut input = CosmosTransaction {
+        let input = CosmosTransaction {
             sign_data,
             path: constants::COSMOS_PATH.to_string(),
             payment_dis: "".to_string(),
@@ -292,7 +277,7 @@ mod tests {
             sequence: "1234567890".to_string(),
         };
 
-        let mut input = CosmosTransaction {
+        let input = CosmosTransaction {
             sign_data,
             path: constants::COSMOS_PATH.to_string(),
             payment_dis: "".to_string(),

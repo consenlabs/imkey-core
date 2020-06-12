@@ -207,7 +207,7 @@ fn test_str() {
     *string = String::from("dereferenced22");
     //    std::mem::drop(string);
 
-    let mut str2 = STRING.lock().unwrap();
+    let str2 = STRING.lock().unwrap();
     // str2.push_str("hah");
     // println!("{}", str2);
 

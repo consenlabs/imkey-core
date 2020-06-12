@@ -58,6 +58,8 @@ mod test {
     pub fn cos_check_update_test() {
         let seid: String = "18080000000000860001010000000106".to_string();
         let cos_version: String = "1.0.10".to_string();
-        CosCheckUpdateRequest::build_request_data(seid, cos_version).send_message();
+        assert!(CosCheckUpdateRequest::build_request_data(seid, cos_version)
+            .send_message()
+            .is_ok());
     }
 }

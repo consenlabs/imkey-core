@@ -160,24 +160,17 @@ pub fn hid_connect(_device_model_name: &str) -> Result<()> {
 
 #[cfg(test)]
 mod test {
-    use crate::hid_api;
-    use crate::hid_api::{hid_connect, HID_DEVICE};
+    use crate::hid_api::hid_connect;
     use crate::message::send_apdu;
 
     #[test]
     fn hid_test() {
         let connect_result = hid_connect("imKey Pro");
         match connect_result {
-            Ok(()) => {
-                match send_apdu("00A4040000".to_string()) {
-                    Ok(val) => (),
-                    Err(e) => println!("{}", e),
-                }
-                match send_apdu("80CB800005DFFF028101".to_string()) {
-                    Ok(val) => (),
-                    Err(e) => println!("{}", e),
-                }
-            }
+            Ok(()) => match send_apdu("00A4040000".to_string()) {
+                Ok(_val) => println!("connect success"),
+                Err(e) => println!("{}", e),
+            },
             Err(err) => println!("{}", err),
         }
     }

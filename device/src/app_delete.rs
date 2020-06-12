@@ -84,10 +84,14 @@ mod test {
 
     #[test]
     pub fn app_delete_test() {
-        hid_connect("imKey Pro");
+        assert!(hid_connect("imKey Pro").is_ok());
         let seid = get_se_id().unwrap();
         let device_cert = get_cert().unwrap();
         let instance_aid = "695F627463".to_string();
-        AppDeleteRequest::build_request_data(seid, instance_aid, device_cert).send_message();
+        assert!(
+            AppDeleteRequest::build_request_data(seid, instance_aid, device_cert)
+                .send_message()
+                .is_ok()
+        );
     }
 }
