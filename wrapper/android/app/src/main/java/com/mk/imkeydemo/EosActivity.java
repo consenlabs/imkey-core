@@ -13,9 +13,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 import com.mk.imkeydemo.core.wallet.transaction.ImKeyEosTransactionTest;
-import com.mk.imkeylibrary.core.wallet.Eos;
-import com.mk.imkeylibrary.core.wallet.Path;
-import com.mk.imkeylibrary.core.wallet.transaction.TxMultiSignResult;
+import com.mk.imkeylibrary.common.Path;
+import com.mk.imkeylibrary.common.TxMultiSignResult;
 import com.mk.imkeylibrary.keycore.EosApi;
 import com.mk.imkeylibrary.utils.LogUtil;
 

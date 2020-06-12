@@ -17,21 +17,10 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.mk.imkeydemo.excepttest.devicemanger.ActiveDeviceTest;
-import com.mk.imkeydemo.excepttest.devicemanger.AppDeleteTest;
-import com.mk.imkeydemo.excepttest.devicemanger.AppUpdateTest;
-import com.mk.imkeydemo.excepttest.devicemanger.CheckDeviceTest;
-import com.mk.imkeydemo.excepttest.devicemanger.CheckUpdateTest;
-import com.mk.imkeylibrary.device.Applet;
-import com.mk.imkeylibrary.device.DeviceManager;
-import com.mk.imkeylibrary.device.model.AppDeleteRequest;
-import com.mk.imkeylibrary.device.model.AppUpdateResponse;
-import com.mk.imkeylibrary.device.model.ImKeyDevice;
+import com.mk.imkeylibrary.common.Applet;
 import com.mk.imkeylibrary.exception.ImkeyException;
 import com.mk.imkeylibrary.keycore.DeviceApi;
 import com.mk.imkeylibrary.utils.LogUtil;
-
-import com.mk.imkeydemo.excepttest.devicemanger.AppDownloadTest;
 
 
 public class DeviceManageActivity extends AppCompatActivity {
@@ -45,7 +34,6 @@ public class DeviceManageActivity extends AppCompatActivity {
     private ExecutorService es = Executors.newCachedThreadPool();
     private ProgressDialog pd;
     private Context mContext;
-    private DeviceManager mManager;
     private int type = TYPE_BTC;
     private String appletName = Applet.BTC_NAME;
     private EditText bleNameEdit;
@@ -57,7 +45,6 @@ public class DeviceManageActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         mContext = this;
-        mManager = new DeviceManager();
 
         bleNameEdit = findViewById(R.id.edit_ble_name);
 
@@ -247,7 +234,6 @@ public class DeviceManageActivity extends AppCompatActivity {
         es.execute(new Runnable() {
             @Override
             public void run() {
-                AppUpdateResponse response = null;
                 try {
 //                    new AppUpdateTest().appUpdateTest();
 //                    mManager.update(appletName);
@@ -306,7 +292,7 @@ public class DeviceManageActivity extends AppCompatActivity {
             public void run() {
             try {
                 String bleName = bleNameEdit.getText().toString();
-                mManager.setBleName(bleName);
+                DeviceApi.setBleName(bleName);
                 toast("蓝牙名设置完成");
             }catch (ImkeyException e) {
                 toast(e.getMessage());

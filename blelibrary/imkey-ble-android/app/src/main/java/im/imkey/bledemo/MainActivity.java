@@ -21,8 +21,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import im.imkey.imkeylibrary.bluetooth.Ble;
 import im.imkey.imkeylibrary.bluetooth.BleDevice;

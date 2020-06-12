@@ -17,9 +17,9 @@ import java.util.concurrent.CountDownLatch;
 
 import com.mk.imkeylibrary.bluetooth.Callback.ConnectCallback;
 import com.mk.imkeylibrary.bluetooth.Callback.ScanCallback;
+import com.mk.imkeylibrary.common.Apdu;
 import com.mk.imkeylibrary.common.Constants;
 import com.mk.imkeylibrary.common.Messages;
-import com.mk.imkeylibrary.core.Apdu;
 import com.mk.imkeylibrary.exception.ImkeyException;
 import com.mk.imkeylibrary.keycore.Api;
 import com.mk.imkeylibrary.utils.ByteUtil;
