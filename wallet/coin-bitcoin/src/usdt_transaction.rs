@@ -457,12 +457,9 @@ impl BtcTransaction {
 mod tests {
     use crate::transaction::{BtcTransaction, Utxo};
     use bitcoin::{Address, Network};
-    use hex::FromHex;
-    use std::collections::HashMap;
     use std::str::FromStr;
 
     use device::device_binding::DeviceManage;
-    use device::key_manager::KeyManager;
     use transport::hid_api::hid_connect;
 
     #[test]
@@ -504,7 +501,7 @@ mod tests {
                     val.wtx_id
                 );
             }
-            Err(e) => panic!("usdt sign error!"),
+            Err(_e) => panic!("usdt sign error!"),
         }
     }
 
@@ -513,7 +510,6 @@ mod tests {
         //binding device
         device_binding_test();
 
-        let extra_data = Vec::from_hex("1234").unwrap();
         let utxo = Utxo {
             txhash: "9baf6fd0e560f9f199f4879c23cb73b9c4affb54a1cfdbacb85687efa89f4c78".to_string(),
             vout: 1,
@@ -548,7 +544,7 @@ mod tests {
                     val.wtx_id
                 );
             }
-            Err(e) => panic!("usdt sign error!"),
+            Err(_e) => panic!("usdt sign error!"),
         }
     }
 
@@ -557,7 +553,6 @@ mod tests {
         //binding device
         device_binding_test();
 
-        let extra_data = Vec::from_hex("1234").unwrap();
         let utxo = Utxo {
             txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
             vout: 0,
@@ -662,16 +657,15 @@ mod tests {
                     val.wtx_id
                 );
             }
-            Err(e) => panic!("usdt sign error!"),
+            Err(_e) => panic!("usdt sign error!"),
         }
     }
 
     #[test]
-    fn test1() {
+    fn test_case1() {
         //binding device
         device_binding_test();
 
-        let extra_data = Vec::from_hex("1234").unwrap();
         let utxo = Utxo {
             txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
             vout: 0,
@@ -705,7 +699,7 @@ mod tests {
                     val.wtx_id
                 );
             }
-            Err(e) => panic!("usdt sign error!"),
+            Err(_e) => panic!("usdt sign error!"),
         }
     }
 
@@ -713,18 +707,23 @@ mod tests {
     fn device_binding_test() {
         //binding device
         let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-        let bind_code = "FRGB36FS".to_string();
-        hid_connect("imKey Pro");
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
-        if !"bound_this".eq(check_result.as_str()) {
-            //如果未和本设备绑定则进行绑定操作
-            let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
-            if "5A".eq(bind_result.as_str()) {
-                println!("{:?}", "binding success");
-            } else {
-                println!("{:?}", "binding error");
-                return;
+        let bind_code = "6GB6M2SD".to_string();
+        match hid_connect("imKey Pro") {
+            Ok(()) => {
+                let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
+                if !"bound_this".eq(check_result.as_str()) {
+                    let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
+                    if "5A".eq(bind_result.as_str()) {
+                        println!("{:?}", "binding success");
+                    } else {
+                        println!("{:?}", "binding error");
+                        return;
+                    }
+                } else {
+                    println!("device not binding");
+                }
             }
-        }
+            Err(e) => println!("{}", e),
+        };
     }
 }

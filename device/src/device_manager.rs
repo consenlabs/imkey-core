@@ -187,7 +187,7 @@ mod test {
 
     #[test]
     fn is_bl_status_test() {
-        hid_connect(constants::DEVICE_MODEL_NAME);
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
         let result = is_bl_status();
         assert!(result.is_ok());
     }

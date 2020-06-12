@@ -81,7 +81,7 @@ impl EosPubkey {
 mod tests {
     use crate::pubkey::EosPubkey;
     use common::constants;
-    use device::device_binding::{bind_test, DeviceManage};
+    use device::device_binding::bind_test;
 
     #[test]
     fn test_get_pubkey() {

@@ -102,7 +102,6 @@ impl EosTransaction {
 
                 //sign
                 let mut nonce = 0;
-                let mut sig_str = "".to_string();
                 loop {
                     let sign_apdu = EosApdu::sign_tx(nonce);
                     let sign_result = send_apdu(sign_apdu)?;
@@ -116,14 +115,11 @@ impl EosTransaction {
                     signature_obj.normalize_s();
                     let signatrue_der = signature_obj.serialize_der().to_vec();
                     let normalizes_sig_vec = signature_obj.serialize_compact();
-                    sig_str = hex::encode(&normalizes_sig_vec.as_ref());
+                    let sig_str = hex::encode(&normalizes_sig_vec.as_ref());
 
                     let len_r = signatrue_der[3];
                     let len_s = signatrue_der[5 + len_r as usize];
                     if len_r == 32 && len_s == 32 {
-                        let r = &sign_result[2..66];
-                        let s = &sign_result[66..130];
-
                         //calc v
                         let pub_key_raw = hex::decode(&uncomprs_pubkey).unwrap();
                         let sign_compact = hex::decode(&sign_result[2..130]).unwrap();
@@ -202,7 +198,6 @@ impl EosTransaction {
         }
         //sign
         let mut nonce = 0;
-        let mut sig_str = "".to_string();
         loop {
             let sign_apdu = EosApdu::sign_message(nonce);
             let sign_result = send_apdu(sign_apdu)?;
@@ -214,14 +209,11 @@ impl EosTransaction {
             signature_obj.normalize_s();
             let signatrue_der = signature_obj.serialize_der().to_vec();
             let normalizes_sig_vec = signature_obj.serialize_compact();
-            sig_str = hex::encode(&normalizes_sig_vec.as_ref());
+            let sig_str = hex::encode(&normalizes_sig_vec.as_ref());
 
             let len_r = signatrue_der[3];
             let len_s = signatrue_der[5 + len_r as usize];
             if len_r == 32 && len_s == 32 {
-                let r = &sign_result[2..66];
-                let s = &sign_result[66..130];
-
                 //calc v
                 let uncomprs_pubkey: String = prepare_response
                     .chars()
@@ -260,7 +252,7 @@ mod tests {
     use crate::eosapi::{EosMessageSignReq, EosSignData, EosTxReq};
     use crate::transaction::EosTransaction;
     use common::constants;
-    use device::device_binding::{bind_test, DeviceManage};
+    use device::device_binding::bind_test;
 
     #[test]
     fn test_sgin_tx() {
@@ -275,7 +267,7 @@ mod tests {
             payment: "undelegatebw 0.0100 EOS".to_string()
         };
 
-        let mut eox_tx_input = EosTxReq {
+        let eox_tx_input = EosTxReq {
             path: constants::EOS_PATH.to_string(),
             sign_datas: vec![eos_sign_data],
         };
