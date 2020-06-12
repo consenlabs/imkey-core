@@ -22,8 +22,10 @@ import com.mk.imkeylibrary.common.Constants;
 import com.mk.imkeylibrary.common.Messages;
 import com.mk.imkeylibrary.exception.ImkeyException;
 import com.mk.imkeylibrary.keycore.Api;
+import com.mk.imkeylibrary.keycore.RustApi;
 import com.mk.imkeylibrary.utils.ByteUtil;
 import com.mk.imkeylibrary.utils.LogUtil;
+import com.mk.imkeylibrary.utils.Sender;
 
 public class Ble {
     private static final String TAG = "Ble";
@@ -53,6 +55,7 @@ public class Ble {
             throw new ImkeyException(ErrorCode.toErrorCode(ftBtKeyErrCode).get_desc());
         }
         initialized = true;
+        setCallback();
     }
 
     public void finalize() {
@@ -123,7 +126,6 @@ public class Ble {
 
             @Override
             public void onFTBtConnected(FTBluetoothDevice ftBluetoothDevice) {
-                Api.setCallback();
                 connectedDevice = toDevice(ftBluetoothDevice);
                 keepConnect();
                 connectCallback.onConnected(connectedDevice);
@@ -283,5 +285,24 @@ public class Ble {
 
     public Context getContext() {
         return mContext;
+    }
+
+    public static Sender sender = new Sender() {
+        @Override
+        public String sendApdu(String apdu, int timeout) {
+            LogUtil.d("set call back sucess");
+            RustApi.INSTANCE.free_const_string(apdu);
+            String result = "";
+            try {
+                result = Ble.getInstance().sendApdu(apdu,timeout);
+            }catch (Exception e){
+                result = "communication_error_" + e.getMessage();
+            }
+            return result;
+        }
+    };
+
+    public void setCallback(){
+        RustApi.INSTANCE.set_callback(sender);
     }
 }

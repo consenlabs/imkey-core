@@ -16,6 +16,8 @@ import com.mk.imkeylibrary.common.Path;
 import com.mk.imkeylibrary.common.TransactionSignedResult;
 import com.mk.imkeylibrary.keycore.EthApi;
 
+import ethapi.Eth;
+
 public class EthActivity extends AppCompatActivity {
     private ExecutorService es = ImKeyApp.es;
     TextView tvSignResult;
@@ -80,7 +82,7 @@ public class EthActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    TransactionSignedResult result = ImKeyETHTransactionTest.testEthTxSign();
+                    Eth.EthTxRes result = ImKeyETHTransactionTest.testEthTxSign();
                     showResult(result.toString());
                 } catch (Exception e) {
                     showResult(e.getMessage());
