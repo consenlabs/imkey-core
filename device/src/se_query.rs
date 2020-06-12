@@ -89,6 +89,8 @@ mod tests {
     fn se_query_test() {
         let seid: String = "19060000000200860001010000000014".to_string();
         let sn: String = "imKey01191200001".to_string();
-        SeQueryRequest::build_request_data(seid, sn, None).send_message();
+        assert!(SeQueryRequest::build_request_data(seid, sn, None)
+            .send_message()
+            .is_ok());
     }
 }

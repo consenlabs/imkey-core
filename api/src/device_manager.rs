@@ -238,5 +238,5 @@ pub fn cos_check_update() -> Result<Vec<u8>> {
 #[cfg(any(target_os = "macos", target_os = "windows"))]
 pub fn is_bl_status() -> Result<Vec<u8>> {
     let check_result = device_manager::is_bl_status()?;
-    encode_message(check_result)
+    encode_message(IsBlStatusRes { check_result })
 }

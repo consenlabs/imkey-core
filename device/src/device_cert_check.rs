@@ -73,10 +73,14 @@ mod test {
 
     #[test]
     pub fn device_cert_check_test() {
-        hid_connect("imKey Pro");
+        assert!(hid_connect("imKey Pro").is_ok());
         let seid = get_se_id().unwrap();
         let device_cert = get_cert().unwrap();
         let sn = get_sn().unwrap();
-        DeviceCertCheckRequest::build_request_data(seid, sn, device_cert).send_message();
+        assert!(
+            DeviceCertCheckRequest::build_request_data(seid, sn, device_cert)
+                .send_message()
+                .is_ok()
+        );
     }
 }

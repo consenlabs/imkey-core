@@ -83,10 +83,14 @@ mod test {
 
     #[test]
     pub fn se_secure_check_test() {
-        hid_connect("imKey Pro");
+        assert!(hid_connect("imKey Pro").is_ok());
         let seid = get_se_id().unwrap();
         let sn: String = get_sn().unwrap();
         let device_cert = get_cert().unwrap();
-        SeSecureCheckRequest::build_request_data(seid, sn, device_cert).send_message();
+        assert!(
+            SeSecureCheckRequest::build_request_data(seid, sn, device_cert)
+                .send_message()
+                .is_ok()
+        );
     }
 }

@@ -91,11 +91,13 @@ mod test {
 
     #[test]
     pub fn app_download_test() {
-        hid_connect("imKey Pro");
+        assert!(hid_connect("imKey Pro").is_ok());
         let seid = get_se_id().unwrap();
         let device_cert = get_cert().unwrap();
         let instance_aid = "695F627463".to_string();
-        AppDownloadRequest::build_request_data(seid, instance_aid, device_cert, None)
-            .send_message();
+        let exe_result =
+            AppDownloadRequest::build_request_data(seid, instance_aid, device_cert, None)
+                .send_message();
+        assert!(exe_result.is_ok());
     }
 }

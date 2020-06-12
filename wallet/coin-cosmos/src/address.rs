@@ -85,7 +85,7 @@ mod tests {
     use crate::address::CosmosAddress;
     use bech32::bech32::Bech32;
     use common::constants;
-    use device::device_binding::{bind_test, DeviceManage};
+    use device::device_binding::bind_test;
 
     #[test]
     fn test_get_pub_key() {
@@ -114,14 +114,14 @@ mod tests {
     }
 
     #[test]
-    fn testBech32() {
+    fn test_bech32() {
         let b32 = Bech32 {
             hrp: "bech32".to_string(),
             data: vec![0x00, 0x01, 0x02],
         };
         let address = match b32.to_string() {
             Ok(s) => s,
-            Err(e) => return,
+            Err(_e) => return,
         };
         assert_eq!(address, "bech321qpz4nc4pe".to_string());
     }
