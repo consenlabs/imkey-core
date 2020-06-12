@@ -1,4 +1,4 @@
-package com.mk.imkeylibrary.device;
+package com.mk.imkeylibrary.common;
 
 public class Applet {
     public static final String BTC_NAME = "BTC";

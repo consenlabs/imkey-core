@@ -15,16 +15,14 @@ import com.google.protobuf.ByteString;
 import com.mk.imkeydemo.utils.ResourcesManager;
 import com.mk.imkeylibrary.common.Constants;
 import com.mk.imkeylibrary.common.Messages;
-import com.mk.imkeylibrary.core.wallet.Path;
-import com.mk.imkeylibrary.core.wallet.transaction.ImKeyBitcoinTransaction;
-import com.mk.imkeylibrary.core.wallet.transaction.TransactionSignedResult;
+import com.mk.imkeylibrary.common.Path;
+import com.mk.imkeylibrary.common.TransactionSignedResult;
 import com.mk.imkeylibrary.exception.ImkeyException;
 import com.mk.imkeylibrary.keycore.RustApi;
 import com.mk.imkeylibrary.utils.ByteUtil;
 import com.mk.imkeylibrary.utils.LogUtil;
 import com.mk.imkeylibrary.utils.NumericUtil;
 
-import deviceapi.Device;
 
 public class ImKeyBitcoinTransactionTest {
 

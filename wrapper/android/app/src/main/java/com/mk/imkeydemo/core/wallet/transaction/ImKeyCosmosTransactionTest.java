@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -15,13 +14,8 @@ import java.util.Map;
 import com.google.protobuf.Any;
 import com.mk.imkeydemo.utils.ResourcesManager;
 import com.mk.imkeylibrary.common.Messages;
-import com.mk.imkeylibrary.core.wallet.Path;
-import com.mk.imkeylibrary.core.wallet.transaction.ImKeyBitcoinTransaction;
-import com.mk.imkeylibrary.core.wallet.transaction.TransactionSignedResult;
-import com.mk.imkeylibrary.core.wallet.transaction.TxMultiSignResult;
-import com.mk.imkeylibrary.core.wallet.transaction.cosmos.Coin;
-import com.mk.imkeylibrary.core.wallet.transaction.cosmos.ImKeyCosmosTransaction;
-import com.mk.imkeylibrary.core.wallet.transaction.cosmos.StdFee;
+import com.mk.imkeylibrary.common.Path;
+import com.mk.imkeylibrary.common.TransactionSignedResult;
 import com.mk.imkeylibrary.exception.ImkeyException;
 import com.mk.imkeylibrary.keycore.RustApi;
 import com.mk.imkeylibrary.utils.ByteUtil;
@@ -43,8 +37,6 @@ public class ImKeyCosmosTransactionTest {
         try {
             while (keys.hasNext()) {
 
-
-                ArrayList<ImKeyBitcoinTransaction.UTXO> utxo = new ArrayList<>();
 
                 String key = keys.next();
                 JSONObject testcase = testcases.getJSONObject(key);

@@ -13,9 +13,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 import com.mk.imkeydemo.core.wallet.transaction.ImKeyCosmosTransactionTest;
-import com.mk.imkeylibrary.core.wallet.Cosmos;
-import com.mk.imkeylibrary.core.wallet.Path;
-import com.mk.imkeylibrary.core.wallet.transaction.TransactionSignedResult;
+import com.mk.imkeylibrary.common.Path;
+import com.mk.imkeylibrary.common.TransactionSignedResult;
 import com.mk.imkeylibrary.keycore.CosmosApi;
 import com.mk.imkeylibrary.utils.LogUtil;
 

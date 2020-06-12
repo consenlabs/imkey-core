@@ -31,12 +31,8 @@ import com.mk.imkeylibrary.bluetooth.Ble;
 import com.mk.imkeylibrary.bluetooth.BleDevice;
 import com.mk.imkeylibrary.bluetooth.Callback.ConnectCallback;
 import com.mk.imkeylibrary.bluetooth.ErrorCode;
-import com.mk.imkeylibrary.device.DeviceManager;
-import com.mk.imkeylibrary.device.model.SdkInfo;
 import com.mk.imkeylibrary.exception.ImkeyException;
-import com.mk.imkeylibrary.keycore.Api;
 import com.mk.imkeylibrary.keycore.DeviceApi;
-import com.mk.imkeylibrary.keycore.RustApi;
 import com.mk.imkeylibrary.utils.LogUtil;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
@@ -52,15 +48,11 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog pd;
     private Context mContext;
     private BleDevice mDevice;//current connect device
-    private DeviceManager mManager;
 
    static {
        System.loadLibrary("crypto");
        System.loadLibrary("ssl");
    }
-
-    public native String hello(String to);
-    public native String getXPub();
 
     public String sendApdu(String apdu) {
         LogUtil.d("sendadadada....");
@@ -272,7 +264,6 @@ public class MainActivity extends AppCompatActivity {
                 mTxtState.append("蓝牙名称：" + mDevice.getBluetoothDevice().getName());
                 mTxtState.append("\n蓝牙地址：" + mDevice.getBluetoothDevice().getAddress());
                 pd.dismiss();
-                mManager = new DeviceManager();
 
                 // ble status
                 BluetoothManager bm = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);

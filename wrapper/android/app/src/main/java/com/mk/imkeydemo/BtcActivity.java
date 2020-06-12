@@ -13,8 +13,7 @@ import java.util.concurrent.ExecutorService;
 
 import com.mk.imkeydemo.core.wallet.transaction.ImKeyBitcoinTransactionTest;
 import com.mk.imkeydemo.core.wallet.transaction.ImKeyOmniTransactionTest;
-import com.mk.imkeylibrary.core.wallet.Btc;
-import com.mk.imkeylibrary.core.wallet.transaction.TransactionSignedResult;
+import com.mk.imkeylibrary.common.TransactionSignedResult;
 import com.mk.imkeylibrary.keycore.BtcApi;
 
 public class BtcActivity extends AppCompatActivity {

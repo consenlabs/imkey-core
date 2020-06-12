@@ -4,7 +4,6 @@ package com.mk.imkeylibrary;
 import com.mk.imkeylibrary.core.Apdu;
 import com.mk.imkeylibrary.core.wallet.Path;
 import com.mk.imkeylibrary.device.Applet;
-import com.mk.imkeylibrary.utils.Bech32;
 
 import org.junit.Assert;
 import org.junit.Test;
