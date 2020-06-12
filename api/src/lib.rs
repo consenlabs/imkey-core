@@ -73,7 +73,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
     let hex_str = hex_c_str.to_str().expect("parse_arguments to_str");
 
     let data = hex::decode(hex_str).expect("imkey_illegal_prarm");
-    let action: ImkeyAction = ImkeyAction::decode(data).expect("decode imkey api");
+    let action: ImkeyAction = ImkeyAction::decode(data.as_slice()).expect("decode imkey api");
     let reply: Vec<u8> = match action.method.to_lowercase().as_str() {
         // imkey manager
         "app_download" => landingpad(|| device_manager::app_download(&action.param.unwrap().value)),
