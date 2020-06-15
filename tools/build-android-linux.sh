@@ -1,6 +1,7 @@
+#!/bin/bash
 #reference  https://medium.com/visly/rust-on-android-19f34a2fb43
 
-JNI_LIBS=../android/imkeylibrary/src/main/jniLibs
+JNI_LIBS=../examples/android/app/src/main/jniLibs
 if [ ! -d $JNI_LIBS ]; then
     mkdir $JNI_LIBS
     mkdir $JNI_LIBS/arm64-v8a
@@ -11,7 +12,8 @@ fi
 
 export ANDROID_NDK_TOOLCHAINS=~/.NDK
 cd ../api
-export OPENSSL_DIR=/d/github/imkey-core/imkey-core/depend/openssl
+path_pwd=`pwd`
+export OPENSSL_DIR=$path_pwd/../depend/openssl
 
 AR=$ANDROID_NDK_TOOLCHAINS/arm64/bin/aarch64-linux-android-ar CC=$ANDROID_NDK_TOOLCHAINS/arm64/bin/aarch64-linux-android29-clang LD=$ANDROID_NDK_TOOLCHAINS/arm64/bin/aarch64-linux-android-ld PKG_CONFIG_ALLOW_CROSS=1 OPENSSL_DIR=$OPENSSL_DIR/android-arm64 LDFLAGS=-L$OPENSSL_DIR/android-arm64/lib/ CPPFLAGS=-I$OPENSSL_DIR/android-arm64/include cargo build --target aarch64-linux-android --release
 AR=$ANDROID_NDK_TOOLCHAINS/arm/bin/arm-linux-androideabi-ar CC=$ANDROID_NDK_TOOLCHAINS/arm/bin/armv7a-linux-androideabi29-clang LD=$ANDROID_NDK_TOOLCHAINS/arm/bin/arm-linux-androideabi-ld PKG_CONFIG_ALLOW_CROSS=1 OPENSSL_DIR=$OPENSSL_DIR/android-arm LDFLAGS=-L$OPENSSL_DIR/android-arm/lib/ CPPFLAGS=-I$OPENSSL_DIR/android-arm/include cargo build --target armv7-linux-androideabi --release
