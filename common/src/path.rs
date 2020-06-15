@@ -16,3 +16,14 @@ pub fn check_path_validity(path: &str) -> Result<()> {
     }
     Ok(())
 }
+
+#[cfg(test)]
+mod test {
+    use crate::path::check_path_validity;
+
+    #[test]
+    fn check_path_validity_test() {
+        assert!(check_path_validity("m/44'/0'/0'").is_ok());
+        assert!(check_path_validity("m/44a'/0'/0'").is_err());
+    }
+}
