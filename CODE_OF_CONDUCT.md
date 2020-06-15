@@ -19,4 +19,4 @@ This code of conduct applies both within project spaces and in public spaces whe
 
 This Code of Conduct is adapted from the Contributor Covenant ([http://contributor-covenant.org](http://contributor-covenant.org/)), version 1.2.0, available at [http://contributor-covenant.org/version/1/2/0](http://contributor-covenant.org/version/1/2/0/)
 
-Instances of abusive, harassing, or otherwise unacceptable behavior in imKeyCore maybe reported by contacting maintainer via kai@token.im
+Instances of abusive, harassing, or otherwise unacceptable behavior in imKeyCore maybe reported by contacting maintainer via support@imkey.im
