@@ -410,7 +410,7 @@ impl ApduCheck {
 
 #[cfg(test)]
 mod tests {
-    use crate::apdu::{CoinCommonApdu, BtcApdu, EthApdu, EosApdu, CosmosApdu, Apdu, ImkApdu};
+    use crate::apdu::{Apdu, BtcApdu, CoinCommonApdu, CosmosApdu, EosApdu, EthApdu, ImkApdu};
     use hex::FromHex;
 
     #[test]
@@ -451,11 +451,15 @@ mod tests {
     fn register_address_test() {
         assert_eq!(
             BtcApdu::register_address("12z6UzsA3tjpaeuvA2Zr9jwx19Azz74D6g".as_bytes()),
-            String::from("803600002231327A36557A734133746A706165757641325A72396A77783139417A7A373444366700")
+            String::from(
+                "803600002231327A36557A734133746A706165757641325A72396A77783139417A7A373444366700"
+            )
         );
         assert_eq!(
             BtcApdu::register_address("37E2J9ViM4QFiewo7aw5L3drF2QKB99F9e".as_bytes()),
-            String::from("8036000022333745324A3956694D3451466965776F376177354C3364724632514B42393946396500")
+            String::from(
+                "8036000022333745324A3956694D3451466965776F376177354C3364724632514B42393946396500"
+            )
         );
         assert_eq!(
             EthApdu::register_address("0x6031564e7b2F5cc33737807b2E58DaFF870B590b".as_bytes()),
@@ -536,16 +540,16 @@ mod tests {
         let data = Vec::from_hex("11223344556677889900").unwrap();
         let apdu_vec = EthApdu::prepare_personal_sign(data);
         for apdu in apdu_vec {
-            assert_eq!(
-                apdu,
-                String::from("805400800a1122334455667788990000")
-            );
+            assert_eq!(apdu, String::from("805400800a1122334455667788990000"));
         }
     }
 
     #[test]
     fn eth_prepare_sign_test() {
-        let data = Vec::from_hex("E4088504A817C8088302E24894353535353535353535353535353535353535353582020080").unwrap();
+        let data = Vec::from_hex(
+            "E4088504A817C8088302E24894353535353535353535353535353535353535353582020080",
+        )
+        .unwrap();
         let apdu_vec = EthApdu::prepare_sign(data);
         for apdu in apdu_vec {
             assert_eq!(
@@ -588,19 +592,13 @@ mod tests {
         let data = Vec::from_hex("11223344556677889900").unwrap();
         let apdu_vec = EosApdu::prepare_message_sign(data);
         for apdu in apdu_vec {
-            assert_eq!(
-                apdu,
-                String::from("806400800a1122334455667788990000")
-            );
+            assert_eq!(apdu, String::from("806400800a1122334455667788990000"));
         }
     }
 
     #[test]
     fn eos_sign_message_test() {
-        assert_eq!(
-            EosApdu::sign_message(1),
-            String::from("8065000002000100")
-        );
+        assert_eq!(EosApdu::sign_message(1), String::from("8065000002000100"));
     }
 
     #[test]
@@ -634,10 +632,7 @@ mod tests {
 
     #[test]
     fn generate_auth_code_test() {
-        assert_eq!(
-            ImkApdu::generate_auth_code(),
-            String::from("8072000000")
-        );
+        assert_eq!(ImkApdu::generate_auth_code(), String::from("8072000000"));
     }
 
     #[test]
