@@ -2,10 +2,9 @@
 ImKey Core是基于imKey安全硬件的，旨在开发专为多链设计的跨平台的方案。
 
 ## 总体架构
-![](https://github.com/consenlabs/imkey-core/tree/dev/docs/imkey-tech.png)
-
+![avatar](./imkey-tech.png)
 ## 软件架构
-![](https://github.com/consenlabs/imkey-core/tree/dev/docs/imkey-core-tech.png)
+![avatar](./imkey-core-tech.png)
 
 ### 目录
 该项目除了必要的 Rust 代码还包含了部分示例以及多平台编译工具。各自分散在不同的目录下，如下描述了个目录的作用。    
