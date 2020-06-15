@@ -156,4 +156,3 @@ fastlane/test_output
 .DS_Store
 
 libconnector.a
-examples/ios/iosExample/EOSViewController.swift
