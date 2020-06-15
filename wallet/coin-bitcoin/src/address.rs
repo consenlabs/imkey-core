@@ -136,8 +136,8 @@ impl BtcAddress {
 mod test {
     use crate::address::BtcAddress;
     use bitcoin::Network;
-    use device::device_binding::DeviceManage;
     use device::device_binding::bind_test;
+    use device::device_binding::DeviceManage;
 
     #[test]
     fn get_xpub_test() {
@@ -189,10 +189,7 @@ mod test {
     #[test]
     fn get_parent_path_test() {
         let path = "m/44'/0'/0'/0/0";
-        assert_eq!(
-            BtcAddress::get_parent_path(path),
-            "m/44'/0'/0'/0"
-        );
+        assert_eq!(BtcAddress::get_parent_path(path), "m/44'/0'/0'/0");
     }
 
     #[test]

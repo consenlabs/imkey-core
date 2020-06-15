@@ -99,7 +99,6 @@ pub fn retrieve_recid(msg: &[u8], sign_compact: &[u8], pubkey: &Vec<u8>) -> Resu
     Ok(rec_id)
 }
 
-
 #[cfg(test)]
 mod tests {
     use crate::utility;
@@ -108,7 +107,7 @@ mod tests {
     #[test]
     fn hex_to_bytes_test() {
         assert_eq!(
-            vec![0x66, 0x6f, 0x6f, 0x62, 0x61, 0x72] ,
+            vec![0x66, 0x6f, 0x6f, 0x62, 0x61, 0x72],
             utility::hex_to_bytes("666f6f626172").unwrap_or_default(),
         );
     }
@@ -121,5 +120,4 @@ mod tests {
             "6fa6810c930ba44a979a1bdb029f56cc608eafa043cea7e1ed21050d7456b5d3",
         );
     }
-
 }
