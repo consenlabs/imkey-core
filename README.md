@@ -1,29 +1,40 @@
-# imkey-connector
+# ImKeyCore
+
+Next generation core inside imKey Wallet.
+
+WARNING: not production ready yet.
+
+## Goals
+* Unify interface for wallet common logic with multi blockchain support
+* Cross platform, on mobile, desktop, server side
+
+## Layout
+* `api` wallet interface wrapper
+* `wallet` packages contain particular chain logic(address & signer)
+* `common` | `transport` common interface
+* `common` imKey management function
 
 
+## Test Coverage
+We can use [tarpaulin](https://github.com/xd009642/tarpaulin) to know the coverage rate.
 
-# Build
+The easy way to run coverage test is using docker,
 
-### 安装 rust
+```
+docker run --security-opt seccomp=unconfined -v "${PWD}:/volume" xd009642/tarpaulin sh -c "cargo tarpaulin --out Html"
+```
 
-* 安装 rustup `$ curl https://sh.rustup.rs -sSf | sh`
-* 添加环境变量 `$ source $HOME/.cargo/env`
+After couple minutes, it will generate html report of project root directory named `tarpaulin-report.html`.
 
-### Android
+## Code Styles
+This project is using pre-commit. Please run `cargo clean && cargo test` to install the git pre-commit hooks on you clone.
 
-1. 安装 android target
+Every time you will try to commit, pre-commit will run checks on your files to make sure they follow our style standards
+and they aren't affected by some simple issues. If the checks fail, pre-commit won't let you commit.
 
-   `rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android` 
+## Read More
+* [How to build project](docs/BUILD.zh.md)
+* [Architecture design](docs/TECH.zh.md)
 
-2. 安装 android studio，安装NDK
-
-4. 编译
-   * 每次修改rust代码需要在connector 目录下执行 `./build-android.sh` 
-   * 用android studio 打开 android 目录运行 example
-
-### IOS
-1. 安装xcode
-
-2. 编译
-   * 每次修改rust代码需执行 `./build-ios.sh` 
-   * 双击打开 ios/Examples/ 下的 .xcworkspace 即可打开 example
+## License
+Apache Licence v2.0
