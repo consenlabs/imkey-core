@@ -1,3 +1,5 @@
+# Mobile-SDK
+Mobile SDK 对 imkey-core 做了封装，可以在android 和 ios 平台方便地接入 imkey-core。
 ## Android
 
 1. 初始化蓝牙 
