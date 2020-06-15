@@ -137,11 +137,11 @@ mod test {
     use crate::address::BtcAddress;
     use bitcoin::Network;
     use device::device_binding::DeviceManage;
+    use device::device_binding::bind_test;
 
     #[test]
     fn get_xpub_test() {
-        //device binding
-        device_binding_test();
+        bind_test();
 
         let version: Network = Network::Bitcoin;
         let path: &str = "m/44'/0'/0'/0/0";
@@ -157,8 +157,7 @@ mod test {
 
     #[test]
     fn get_address_test() {
-        //device binding
-        device_binding_test();
+        bind_test();
 
         let version: Network = Network::Bitcoin;
         let path: &str = "m/44'/0'/0'/0/0";
@@ -174,15 +173,13 @@ mod test {
 
     #[test]
     fn get_segwit_address_test() {
-        //device binding
-        device_binding_test();
+        bind_test();
 
         let version: Network = Network::Bitcoin;
         let path: &str = "m/49'/0'/0'/0/22";
         let segwit_address_result = BtcAddress::get_segwit_address(version, path);
         if segwit_address_result.is_ok() {
             let segwit_address = segwit_address_result.ok().unwrap();
-            println!("segwit address : {:?}", segwit_address);
             assert_eq!("37E2J9ViM4QFiewo7aw5L3drF2QKB99F9e", segwit_address);
         } else {
             panic!("get segwit address error");
@@ -190,31 +187,39 @@ mod test {
     }
 
     #[test]
-    fn device_binding_test() {
-        //device binding
-        // let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-        // let bind_code = "E4APZZRT".to_string();
+    fn get_parent_path_test() {
+        let path = "m/44'/0'/0'/0/0";
+        assert_eq!(
+            BtcAddress::get_parent_path(path),
+            "m/44'/0'/0'/0"
+        );
+    }
 
-        let path = "/Users/joe/work/sdk_gen_key".to_string();
-        let bind_code = "YDSGQPKX".to_string();
-        // let mut device_manage = DeviceManage::new();
-        let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
-        if !"bound_this".eq(check_result.as_str()) {
-            //如果未和本设备绑定则进行绑定操作
-            let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
-            if "5A".eq(bind_result.as_str()) {
-                println!("{:?}", "binding success");
-            } else {
-                println!("{:?}", "binding error");
-                return;
-            }
+    #[test]
+    fn display_address_test() {
+        bind_test();
+        let version: Network = Network::Bitcoin;
+        let path: &str = "m/44'/0'/0'/0/0";
+        let result = BtcAddress::display_address(version, path);
+        if result.is_ok() {
+            let btc_address = result.ok().unwrap();
+            assert_eq!("12z6UzsA3tjpaeuvA2Zr9jwx19Azz74D6g", btc_address);
+        } else {
+            panic!("get btc address error");
         }
     }
 
     #[test]
-    fn get_parent_path_test() {
-        let path = "m/44'/0'/0'/0/0";
-        let parent_path = BtcAddress::get_parent_path(path);
-        println!("parent path : {}", parent_path);
+    fn display_segwit_address_test() {
+        bind_test();
+        let network: Network = Network::Bitcoin;
+        let path: &str = "m/49'/0'/0'/0/22";
+        let result = BtcAddress::display_segwit_address(network, path);
+        if result.is_ok() {
+            let segwit_address = result.ok().unwrap();
+            assert_eq!("37E2J9ViM4QFiewo7aw5L3drF2QKB99F9e", segwit_address);
+        } else {
+            panic!("get segwit address error");
+        }
     }
 }
