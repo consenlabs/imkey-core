@@ -1,4 +1,4 @@
-# ImKeyCore
+# imKeyCore
 
 Next generation core inside imKey Wallet.
 
