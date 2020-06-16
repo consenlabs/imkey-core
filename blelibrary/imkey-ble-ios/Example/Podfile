@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'imKeyBleLib_Example' do
+  pod 'imKeyBleLib', :path => '../'
+
+  target 'imKeyBleLib_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
