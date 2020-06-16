@@ -23,7 +23,7 @@ class ViewController: UIViewController,BLEDelegate {
   
   // bluetooth delegate method
   func deviceDidFind(deviceName: String!, address: String!) {
-    Log.d("deviceName:\(String(describing: deviceName)) address:\(String(describing: address))")
+    LogBle.d("deviceName:\(String(describing: deviceName)) address:\(String(describing: address))")
     var device = Device.init()
     device.name = deviceName
     device.address = address
@@ -39,11 +39,11 @@ class ViewController: UIViewController,BLEDelegate {
   }
   
   func deviceDidConnect(address: String!, errorCode: Int) {
-    Log.d("deviceDidConnect... adress:\(String(describing: address)) errorCode:\(errorCode)")
+    LogBle.d("deviceDidConnect... adress:\(String(describing: address)) errorCode:\(errorCode)")
   }
   
   func deviceDidDisconnect(address: String!, errorCode: Int) {
-    Log.d("deviceDidDisconnect... adress:\(String(describing: address)) errorCode:\(errorCode)")
+    LogBle.d("deviceDidDisconnect... adress:\(String(describing: address)) errorCode:\(errorCode)")
   }
   
   
@@ -59,7 +59,7 @@ class ViewController: UIViewController,BLEDelegate {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     let initRes = BLE.shared().initialize()
-    Log.d("initRes \(initRes)")
+    LogBle.d("initRes \(initRes)")
     BLE.shared().setDelegate(bleDelegate: self)
     tbDevices.dataSource = self
     tbDevices.delegate = self
@@ -94,7 +94,7 @@ class ViewController: UIViewController,BLEDelegate {
   @IBAction func disconnect(_ sender: Any) {
     let res = BLE.shared().disConnect()
     if(res != 0){
-      let err = DeviceError(rawValue: Int64(res))!
+      let err = BleDeviceError(rawValue: Int64(res))!
       toastMsg(message: "断开连接失败\(err.message)")
     }
   }
@@ -140,14 +140,14 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate{
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    Log.d("select \(indexPath)")
+    LogBle.d("select \(indexPath)")
     let device = devices[indexPath.row]
     BLE.shared().stopScan()
     do {
 //      handle = 0
       let result = try BLE.shared().connect(address: device.address, timeout: 12*1000)
-      let err = DeviceError(rawValue: Int64(result))!
-      Log.d("connect result:\(err.message)")
+      let err = BleDeviceError(rawValue: Int64(result))!
+      LogBle.d("connect result:\(err.message)")
       if(result == 0){
         currentDevice = device
         tvDeviceInfo.text = ""
@@ -156,11 +156,11 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate{
       }else{
         toastMsg(message: "connect fail \(err.message)")
       }
-    }catch let e as ImkeyError {
-      Log.d("!!!error:\(e.message)")
+    }catch let e as ImkeyBleError {
+      LogBle.d("!!!error:\(e.message)")
       toastMsg(message: e.message)
     }catch{
-      Log.d(error)
+      LogBle.d(error)
     }
   }
 }

@@ -7,62 +7,38 @@
 
 import Foundation
 import SwiftProtobuf
+import imKeyBleLib
 
 public class API{
-  public class func startMessageDeamon(){
-    DispatchQueue.global().async {
-      while true{
-        Log.d("start while...")
-        
-        //get apdu
-        var apdu = ""
-        while true{
-          apdu = String(cString:get_apdu())
-          if apdu != ""{
-            let count = "".utf8CString.count
-            let result: UnsafeMutableBufferPointer<Int8> = UnsafeMutableBufferPointer<Int8>.allocate(capacity: count)
-            _ = result.initialize(from: "".utf8CString)
-            let p = UnsafePointer(result.baseAddress!)
-            set_apdu(p)
-            break
-          }
-          sleep(1)
-        }
-        
-        //send apdu
-        let res = try! BLE.shared().sendApdu(apdu: apdu)
-        
-        //set return
-        var apduRet = ""
-        while true{
-          apduRet = String(cString:get_apdu_return())
-          if apduRet == ""{
-            let count = res.utf8CString.count
-            let result: UnsafeMutableBufferPointer<Int8> = UnsafeMutableBufferPointer<Int8>.allocate(capacity: count)
-            _ = result.initialize(from: res.utf8CString)
-            let p = UnsafePointer(result.baseAddress!)
-            set_apdu_return(p)
-            break
-          }
-          sleep(1)
-        }
-      }
-    }
+  static let _shareManager = API()
+  
+  public class func shared() -> API {
+    return _shareManager
   }
   
-  public class func setCallback(){
-    let swiftCallback : @convention(c) (UnsafePointer<Int8>?,Int32) -> UnsafePointer<Int8>? = {
-      (apdu,timeout) -> UnsafePointer<Int8>? in
-      print("callback miaomiao v v timeout\(timeout)")
-      let swiftApdu = String(cString:apdu!)
-      let resApdu = try! BLE.shared().sendApdu(apdu: swiftApdu,timeout: UInt32(timeout * 1000))
-      let count = resApdu.utf8CString.count
-      let result: UnsafeMutableBufferPointer<Int8> = UnsafeMutableBufferPointer<Int8>.allocate(capacity: count)
-      _ = result.initialize(from: resApdu.utf8CString)
-      let p = UnsafePointer(result.baseAddress!)
-      return p
-    }
+  private init() {
+    Log.d("api init...")
     set_callback(swiftCallback)
+  }
+  
+  let swiftCallback : @convention(c) (UnsafePointer<Int8>?,Int32) -> UnsafePointer<Int8>? = {
+    (apdu,timeout) -> UnsafePointer<Int8>? in
+    print("callback miaomiao v v timeout\(timeout)")
+    let swiftApdu = String(cString:apdu!)
+    
+    var response = "";
+    do {
+      response = try BLE.shared().sendApdu(apdu: swiftApdu,timeout: UInt32(timeout * 1000))
+    }catch let e as ImkeyError {
+      response = "communication_error_" + e.message
+    }catch{
+      Log.d(error)
+    }
+    let count = response.utf8CString.count
+    let result: UnsafeMutableBufferPointer<Int8> = UnsafeMutableBufferPointer<Int8>.allocate(capacity: count)
+    _ = result.initialize(from: response.utf8CString)
+    let p = UnsafePointer(result.baseAddress!)
+    return p
   }
   
   public class func getSEID() ->String{
@@ -490,7 +466,7 @@ public class API{
   //  }
   
   @discardableResult
-  public class func callApi(paramHex:String)throws ->String{
+  public func callApi(paramHex:String)throws ->String{
     clear_err()
     let res = call_imkey_api(paramHex)
     

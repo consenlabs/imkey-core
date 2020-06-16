@@ -8,6 +8,7 @@
 
 import UIKit
 import imKeyConnector
+import imKeyBleLib
 
 
 class ViewController: UIViewController,BLEDelegate {
