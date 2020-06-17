@@ -1,23 +1,12 @@
 use_frameworks!
-install! 'cocoapods', :deterministic_uuids => false
-platform :ios, '9.3'
 
-target 'imKeyConnector_Example' do
-#  pod 'OpenSSL-Universal', '1.0.1.16'
-#  pod 'ISO8601DateFormatter'
-#  pod "CoreBitcoin", :path => '../../CoreBitcoin'
-#   pod "CoreBitcoin", :git => 'git@github.com:consenlabs/CoreBitcoin.git'
-#  pod "secp256k1.swift", :path => '../../secp256k1.swift'
-#  pod "secp256k1.swift", :git => 'git@github.com:consenlabs/secp256k1.swift.git', :submodules => true
-  
-  
-  pod 'imKeyConnector', :path => '../'
-  
+target 'imKeyBleLib_Example' do
+  pod 'imKeyBleLib', :path => '../'
 
-  target 'imKeyConnector_Tests' do
+  target 'imKeyBleLib_Tests' do
     inherit! :search_paths
 
-    pod 'FBSnapshotTestCase' , '~> 2.1.4'
+    
   end
 end
 

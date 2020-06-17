@@ -10,11 +10,8 @@
 #endif
 #endif
 
-//#import "imKeyConnector.h"
+#import "imKeyConnector.h"
 #import "connector.h"
-#import "ErrorCodesAndMacros.h"
-#import "FTBLEDelegate.h"
-#import "FTBLEInterface.h"
 
 FOUNDATION_EXPORT double imKeyConnectorVersionNumber;
 FOUNDATION_EXPORT const unsigned char imKeyConnectorVersionString[];

@@ -27,17 +27,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.mk.imkeydemo.excepttest.devicemanger.DeviceBindingTest;
-import com.mk.imkeylibrary.bluetooth.Ble;
-import com.mk.imkeylibrary.bluetooth.BleDevice;
-import com.mk.imkeylibrary.bluetooth.Callback.ConnectCallback;
-import com.mk.imkeylibrary.bluetooth.ErrorCode;
 import com.mk.imkeylibrary.exception.ImkeyException;
+import com.mk.imkeylibrary.keycore.Api;
 import com.mk.imkeylibrary.keycore.DeviceApi;
 import com.mk.imkeylibrary.utils.LogUtil;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 
 import deviceapi.Device;
+import im.imkey.imkeylibrary.bluetooth.Ble;
+import im.imkey.imkeylibrary.bluetooth.BleDevice;
+import im.imkey.imkeylibrary.bluetooth.Callback.ConnectCallback;
+import im.imkey.imkeylibrary.bluetooth.ErrorCode;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -126,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
 //        Api.startMessageDeamon();
 //        Api.check_update();
         //Api.setCallback();
-        
     }
 
     //android 6.0 以上需要动态申请权限
@@ -330,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    String status = DeviceApi.bindCheck();
+                    String status = DeviceApi.bindCheck(mContext);
                     if("unbound".equals(status)){
                         DeviceApi.displayBindCode();
                         bindDevice(status,deviceMac);

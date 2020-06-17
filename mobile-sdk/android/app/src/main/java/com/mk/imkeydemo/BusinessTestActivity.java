@@ -13,8 +13,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mk.imkeylibrary.bluetooth.Ble;
-import com.mk.imkeylibrary.bluetooth.BleDevice;
+import im.imkey.imkeylibrary.bluetooth.Ble;
+import im.imkey.imkeylibrary.bluetooth.BleDevice;
+
 
 public class BusinessTestActivity extends Activity implements AdapterView.OnItemClickListener {
     private static final String TAG = "ble";
