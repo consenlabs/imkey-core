@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.google.protobuf.Any;
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.mk.imkeylibrary.bluetooth.Ble;
 import com.mk.imkeylibrary.common.Messages;
 import com.mk.imkeylibrary.exception.ImkeyException;
 import com.mk.imkeylibrary.utils.NumericUtil;
@@ -19,7 +18,7 @@ public class DeviceApi {
                 .setMethod("check_update")
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
 
         Device.CheckUpdateRes result = null;
         try {
@@ -37,7 +36,7 @@ public class DeviceApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        Api.callApi(hex);
+        Api.getInstance().callApi(hex);
     }
 
     public static void activeDevice() {
@@ -46,7 +45,7 @@ public class DeviceApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        Api.callApi(hex);
+        Api.getInstance().callApi(hex);
     }
 
     public static void updateApplet(String appletName) {
@@ -62,7 +61,7 @@ public class DeviceApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        Api.callApi(hex);
+        Api.getInstance().callApi(hex);
     }
 
     public static void deleteApplet(String appletName) {
@@ -78,7 +77,7 @@ public class DeviceApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        Api.callApi(hex);
+        Api.getInstance().callApi(hex);
     }
 
     public static void downloadApplet(String appletName) {
@@ -94,11 +93,10 @@ public class DeviceApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        Api.callApi(hex);
+        Api.getInstance().callApi(hex);
     }
 
-    public static String bindCheck() {
-        Context context = Ble.getInstance().getContext();
+    public static String bindCheck(Context context) {
         if (null == context) {
             throw new ImkeyException(Messages.IMKEY_SDK_BLE_NOT_INITIALIZE);
         }
@@ -117,7 +115,7 @@ public class DeviceApi {
                 .setParam(any)
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Device.BindCheckRes result = null;
         try {
             result = Device.BindCheckRes.parseFrom(bytes);
@@ -143,7 +141,7 @@ public class DeviceApi {
                 .setParam(any)
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Device.BindAcquireRes result = null;
         try {
             result = Device.BindAcquireRes.parseFrom(bytes);
@@ -161,7 +159,7 @@ public class DeviceApi {
 
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        Api.callApi(hex);
+        Api.getInstance().callApi(hex);
     }
 
     public static String getSeId() {
@@ -171,7 +169,7 @@ public class DeviceApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Device.GetSeidRes result = null;
         try {
             result = Device.GetSeidRes.parseFrom(bytes);
@@ -189,7 +187,7 @@ public class DeviceApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Device.GetSnRes result = null;
         try {
             result = Device.GetSnRes.parseFrom(bytes);
@@ -207,7 +205,7 @@ public class DeviceApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Device.GetRamSizeRes result = null;
         try {
             result = Device.GetRamSizeRes.parseFrom(bytes);
@@ -225,7 +223,7 @@ public class DeviceApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Device.GetFirmwareVersionRes result = null;
         try {
             result = Device.GetFirmwareVersionRes.parseFrom(bytes);
@@ -243,7 +241,7 @@ public class DeviceApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Device.GetBatteryPowerRes result = null;
         try {
             result = Device.GetBatteryPowerRes.parseFrom(bytes);
@@ -261,7 +259,7 @@ public class DeviceApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Device.GetLifeTimeRes result = null;
         try {
             result = Device.GetLifeTimeRes.parseFrom(bytes);
@@ -279,7 +277,7 @@ public class DeviceApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Device.GetBleNameRes result = null;
         try {
             result = Device.GetBleNameRes.parseFrom(bytes);
@@ -304,7 +302,7 @@ public class DeviceApi {
                 .build();
 
         String hex = NumericUtil.bytesToHex(action.toByteArray());
-        Api.callApi(hex);
+        Api.getInstance().callApi(hex);
     }
 
     public static String getBleVersion() {
@@ -314,7 +312,7 @@ public class DeviceApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Device.GetBleVersionRes result = null;
         try {
             result = Device.GetBleVersionRes.parseFrom(bytes);
@@ -332,7 +330,7 @@ public class DeviceApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Device.GetSdkInfoRes result = null;
         try {
             result = Device.GetSdkInfoRes.parseFrom(bytes);

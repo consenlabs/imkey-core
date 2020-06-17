@@ -18,13 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.mk.imkeylibrary.bluetooth.Ble;
-import com.mk.imkeylibrary.bluetooth.BleDevice;
-import com.mk.imkeylibrary.bluetooth.Callback.ConnectCallback;
-import com.mk.imkeylibrary.bluetooth.Callback.ScanCallback;
-import com.mk.imkeylibrary.bluetooth.ErrorCode;
 import com.mk.imkeylibrary.exception.ImkeyException;
 import com.mk.imkeylibrary.utils.LogUtil;
+
+import im.imkey.imkeylibrary.bluetooth.Ble;
+import im.imkey.imkeylibrary.bluetooth.BleDevice;
+import im.imkey.imkeylibrary.bluetooth.Callback.ConnectCallback;
+import im.imkey.imkeylibrary.bluetooth.Callback.ScanCallback;
+import im.imkey.imkeylibrary.bluetooth.ErrorCode;
 
 public class BleTestActivity extends Activity implements AdapterView.OnItemClickListener {
     private static final String TAG = "ble";

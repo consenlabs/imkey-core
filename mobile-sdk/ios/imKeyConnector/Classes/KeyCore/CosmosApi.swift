@@ -19,7 +19,7 @@ public class CosmosApi{
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let eosPubkeyResponse = try! Cosmosapi_CosmosAddressRes(serializedData: dataRes)
     return eosPubkeyResponse.address
   }
@@ -34,7 +34,7 @@ public class CosmosApi{
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let eosPubkeyResponse = try! Cosmosapi_CosmosAddressRes(serializedData: dataRes)
     return eosPubkeyResponse.address
   }
@@ -46,7 +46,7 @@ public class CosmosApi{
     action.param.value = try! cosmosInput.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let cosmosOutput = try! Cosmosapi_CosmosTxRes(serializedData: dataRes)
     return cosmosOutput
   }

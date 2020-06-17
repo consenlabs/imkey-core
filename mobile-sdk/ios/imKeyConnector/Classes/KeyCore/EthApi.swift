@@ -19,7 +19,7 @@ public class EthApi{
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Ethapi_EthAddressRes(serializedData: dataRes)
     return result.address
   }
@@ -34,7 +34,7 @@ public class EthApi{
     action.param.value = try! req.serializedData()
     let paramHex = try action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Ethapi_EthAddressRes(serializedData: dataRes)
     return result.address
   }
@@ -46,7 +46,7 @@ public class EthApi{
     action.param.value = try! ethInput.serializedData()
     let paramHex = try action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let ouput = try! Ethapi_EthTxRes(serializedData: dataRes)
     return ouput
   }
@@ -58,7 +58,7 @@ public class EthApi{
     action.param.value = try! input.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let ouput = try! Ethapi_EthMessageSignRes(serializedData: dataRes)
     return ouput
   }

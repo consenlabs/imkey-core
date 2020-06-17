@@ -14,7 +14,7 @@ public class DeviceAPI{
     action.method = "check_update"
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let ouput = try! Deviceapi_CheckUpdateRes(serializedData: dataRes)
     return ouput
   }
@@ -23,14 +23,14 @@ public class DeviceAPI{
     var action = Api_ImkeyAction()
     action.method = "device_secure_check"
     let paramHex = try! action.serializedData().key_toHexString()
-    try API.callApi(paramHex:paramHex)
+    try API.shared().callApi(paramHex:paramHex)
   }
   
   public class func activeDevice()throws {
     var action = Api_ImkeyAction()
     action.method = "device_activate"
     let paramHex = try! action.serializedData().key_toHexString()
-    try API.callApi(paramHex:paramHex)
+    try API.shared().callApi(paramHex:paramHex)
   }
   
   public class func downloadApp(appletName:String)throws{
@@ -43,7 +43,7 @@ public class DeviceAPI{
     action.param.value = try! param.serializedData()
     
     let paramHex = try! action.serializedData().key_toHexString()
-    try API.callApi(paramHex:paramHex)
+    try API.shared().callApi(paramHex:paramHex)
   }
   
   public class func updateApp(appletName:String)throws{
@@ -56,7 +56,7 @@ public class DeviceAPI{
     action.param.value = try! param.serializedData()
     
     let paramHex = try! action.serializedData().key_toHexString()
-    try API.callApi(paramHex:paramHex)
+    try API.shared().callApi(paramHex:paramHex)
   }
   
   public class func deleteApp(appletName:String)throws{
@@ -69,7 +69,7 @@ public class DeviceAPI{
     action.param.value = try! param.serializedData()
     
     let paramHex = try! action.serializedData().key_toHexString()
-    try API.callApi(paramHex:paramHex)
+    try API.shared().callApi(paramHex:paramHex)
   }
   
   public class func bindCheck()throws ->String{
@@ -96,7 +96,7 @@ public class DeviceAPI{
     action.param.value = try! bindCheckParam.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let checkRes = try! Deviceapi_BindCheckRes(serializedData: dataRes)
     return checkRes.bindStatus
   }
@@ -105,7 +105,7 @@ public class DeviceAPI{
     var action = Api_ImkeyAction()
     action.method = "bind_display_code"
     let paramHex = try! action.serializedData().key_toHexString()
-    try API.callApi(paramHex:paramHex)
+    try API.shared().callApi(paramHex:paramHex)
   }
   
   public class func bindAcquire(bindCode:String)throws -> String{
@@ -118,7 +118,7 @@ public class DeviceAPI{
     action.param.value = try! bindAcquireParam.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let bindRes = try! Deviceapi_BindAcquireRes(serializedData: dataRes)
     return bindRes.bindResult
   }
@@ -127,7 +127,7 @@ public class DeviceAPI{
     var action = Api_ImkeyAction()
     action.method = "get_seid"
     let paramHex = try! action.serializedData().key_toHexString()
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Deviceapi_GetSeidRes(serializedData: dataRes)
     return result.seid
   }
@@ -136,7 +136,7 @@ public class DeviceAPI{
     var action = Api_ImkeyAction()
     action.method = "get_sn"
     let paramHex = try! action.serializedData().key_toHexString()
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Deviceapi_GetSnRes(serializedData: dataRes)
     return result.sn
   }
@@ -145,7 +145,7 @@ public class DeviceAPI{
     var action = Api_ImkeyAction()
     action.method = "get_ram_size"
     let paramHex = try! action.serializedData().key_toHexString()
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Deviceapi_GetRamSizeRes(serializedData: dataRes)
     return result.ramSize
   }
@@ -154,7 +154,7 @@ public class DeviceAPI{
     var action = Api_ImkeyAction()
     action.method = "get_firmware_version"
     let paramHex = try! action.serializedData().key_toHexString()
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Deviceapi_GetFirmwareVersionRes(serializedData: dataRes)
     return result.firmwareVersion
   }
@@ -163,7 +163,7 @@ public class DeviceAPI{
     var action = Api_ImkeyAction()
     action.method = "get_battery_power"
     let paramHex = try! action.serializedData().key_toHexString()
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Deviceapi_GetBatteryPowerRes(serializedData: dataRes)
     return result.batteryPower
   }
@@ -172,7 +172,7 @@ public class DeviceAPI{
     var action = Api_ImkeyAction()
     action.method = "get_life_time"
     let paramHex = try! action.serializedData().key_toHexString()
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Deviceapi_GetLifeTimeRes(serializedData: dataRes)
     return result.lifeTime
   }
@@ -181,7 +181,7 @@ public class DeviceAPI{
     var action = Api_ImkeyAction()
     action.method = "get_ble_name"
     let paramHex = try! action.serializedData().key_toHexString()
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Deviceapi_GetBleNameRes(serializedData: dataRes)
     return result.bleName
   }
@@ -195,14 +195,14 @@ public class DeviceAPI{
     action.param = Google_Protobuf_Any()
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
-    try API.callApi(paramHex:paramHex)
+    try API.shared().callApi(paramHex:paramHex)
   }
   
   public class func getBleVersion()throws -> String{
     var action = Api_ImkeyAction()
     action.method = "get_ble_version"
     let paramHex = try! action.serializedData().key_toHexString()
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Deviceapi_GetBleNameRes(serializedData: dataRes)
     return result.bleName
   }
@@ -211,7 +211,7 @@ public class DeviceAPI{
     var action = Api_ImkeyAction()
     action.method = "get_sdk_info"
     let paramHex = try! action.serializedData().key_toHexString()
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Deviceapi_GetSdkInfoRes(serializedData: dataRes)
     return result
   }

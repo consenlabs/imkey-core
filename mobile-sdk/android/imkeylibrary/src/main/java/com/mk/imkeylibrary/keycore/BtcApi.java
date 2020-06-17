@@ -26,7 +26,7 @@ public class BtcApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Btc.BtcAddressRes result = null;
         try {
             result = Btc.BtcAddressRes.parseFrom(bytes);
@@ -53,7 +53,7 @@ public class BtcApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Btc.BtcAddressRes result = null;
         try {
             result = Btc.BtcAddressRes.parseFrom(bytes);
@@ -80,7 +80,7 @@ public class BtcApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Btc.BtcAddressRes result = null;
         try {
             result = Btc.BtcAddressRes.parseFrom(bytes);
@@ -107,7 +107,7 @@ public class BtcApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Btc.BtcAddressRes result = null;
         try {
             result = Btc.BtcAddressRes.parseFrom(bytes);
@@ -134,7 +134,7 @@ public class BtcApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Btc.BtcXpubRes result = null;
         try {
             result = Btc.BtcXpubRes.parseFrom(bytes);
@@ -157,7 +157,7 @@ public class BtcApi {
 
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Btc.BtcTxRes result = null;
         try {
             result = Btc.BtcTxRes.parseFrom(bytes);
@@ -180,7 +180,7 @@ public class BtcApi {
 
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Btc.BtcSegwitTxRes result = null;
         try {
             result = Btc.BtcSegwitTxRes.parseFrom(bytes);
@@ -203,7 +203,7 @@ public class BtcApi {
 
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Btc.BtcTxRes result = null;
         try {
             result = Btc.BtcTxRes.parseFrom(bytes);
@@ -226,7 +226,7 @@ public class BtcApi {
 
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Btc.BtcSegwitTxRes result = null;
         try {
             result = Btc.BtcSegwitTxRes.parseFrom(bytes);

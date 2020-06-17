@@ -1,4 +1,4 @@
-# imKeyCore
+# ImKeyCore
 
 Next generation core inside imKey Wallet.
 
@@ -13,6 +13,7 @@ WARNING: not production ready yet.
 * `wallet` packages contain particular chain logic(address & signer)
 * `common` | `transport` common interface
 * `common` imKey management function
+* `mobile-sdk` mobile sdk 
 
 
 ## Test Coverage
@@ -31,6 +32,12 @@ This project is using pre-commit. Please run `cargo clean && cargo test` to inst
 
 Every time you will try to commit, pre-commit will run checks on your files to make sure they follow our style standards
 and they aren't affected by some simple issues. If the checks fail, pre-commit won't let you commit.
+
+## Mobile-SDK
+
+Mobile-SDK is built to provide an easy interface to the native imkey-core libraries on both iOS and Andoird.
+
+[Mobile-SDK](mobile-sdk/README.md)
 
 ## Read More
 * [How to build project](docs/BUILD.zh.md)

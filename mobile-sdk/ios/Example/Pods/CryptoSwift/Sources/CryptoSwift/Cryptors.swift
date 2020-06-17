@@ -13,34 +13,30 @@
 //  - This notice may not be removed or altered from any source or binary distribution.
 //
 
-#if os(Linux) || os(Android) || os(FreeBSD)
-    import Glibc
+#if canImport(Darwin)
+  import Darwin
 #else
-    import Darwin
+  import Glibc
 #endif
 
 /// Worker cryptor/decryptor of `Updatable` types
 public protocol Cryptors: class {
-    associatedtype EncryptorType: Updatable
-    associatedtype DecryptorType: Updatable
 
-    /// Cryptor suitable for encryption
-    func makeEncryptor() throws -> EncryptorType
+  /// Cryptor suitable for encryption
+  func makeEncryptor() throws -> Cryptor & Updatable
 
-    /// Cryptor suitable for decryption
-    func makeDecryptor() throws -> DecryptorType
+  /// Cryptor suitable for decryption
+  func makeDecryptor() throws -> Cryptor & Updatable
 
-    /// Generate array of random bytes. Helper function.
-    static func randomIV(_ blockSize: Int) -> Array<UInt8>
+  /// Generate array of random bytes. Helper function.
+  static func randomIV(_ blockSize: Int) -> Array<UInt8>
 }
 
 extension Cryptors {
-    public static func randomIV(_ blockSize: Int) -> Array<UInt8> {
-        var randomIV: Array<UInt8> = Array<UInt8>()
-        randomIV.reserveCapacity(blockSize)
-        for randomByte in RandomBytesSequence(size: blockSize) {
-            randomIV.append(randomByte)
-        }
-        return randomIV
-    }
+  /// Generate array of random values.
+  /// Convenience helper that uses `Swift.RandomNumberGenerator`.
+  /// - Parameter count: Length of array
+  public static func randomIV(_ count: Int) -> Array<UInt8> {
+    (0..<count).map({ _ in UInt8.random(in: 0...UInt8.max) })
+  }
 }
