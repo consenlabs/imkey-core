@@ -277,11 +277,100 @@ mod tests {
     }
 
     #[test]
+    fn test_sgin_tx_pubkey_error() {
+        bind_test();
+
+        let eos_sign_data = EosSignData{
+            tx_data: "c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00".to_string(),
+            pub_keys: vec!["ERROR PUBKEY".to_string()],
+            chain_id: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906".to_string(),
+            to: "bbbb5555bbbb".to_string(),
+            from: "liujianmin12".to_string(),
+            payment: "undelegatebw 0.0100 EOS".to_string()
+        };
+
+        let eox_tx_input = EosTxReq {
+            path: constants::EOS_PATH.to_string(),
+            sign_datas: vec![eos_sign_data],
+        };
+
+        let result = EosTransaction::sign_tx(eox_tx_input).unwrap();
+        println!("hash:{}", result.trans_multi_signs[0].hash);
+    }
+
+    #[test]
+    fn test_sgin_tx_chainid_is_null() {
+        bind_test();
+
+        let eos_sign_data = EosSignData{
+            tx_data: "c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00".to_string(),
+            pub_keys: vec!["EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string()],
+            chain_id: "".to_string(),
+            to: "bbbb5555bbbb".to_string(),
+            from: "liujianmin12".to_string(),
+            payment: "undelegatebw 0.0100 EOS".to_string()
+        };
+
+        let eox_tx_input = EosTxReq {
+            path: constants::EOS_PATH.to_string(),
+            sign_datas: vec![eos_sign_data],
+        };
+
+        let result = EosTransaction::sign_tx(eox_tx_input).unwrap();
+        println!("hash:{}", result.trans_multi_signs[0].hash);
+    }
+
+    #[test]
     fn test_sign_messgage() {
         bind_test();
 
         let input = EosMessageSignReq {
             path: constants::EOS_PATH.to_string(),
+            data: "imKey2019".to_string(),
+            is_hex: false,
+            pubkey: "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string(),
+        };
+
+        let output = EosTransaction::sign_message(input);
+        println!("output:{}", output.unwrap().signature);
+    }
+
+    #[test]
+    fn sign_messgage_wrong_pubkey_test() {
+        bind_test();
+
+        let input = EosMessageSignReq {
+            path: constants::EOS_PATH.to_string(),
+            data: "imKey2019".to_string(),
+            is_hex: false,
+            pubkey: "wrong pubkey".to_string(),
+        };
+
+        let output = EosTransaction::sign_message(input);
+        println!("{}", output.err().unwrap());
+    }
+
+    #[test]
+    fn sign_messgage_data_is_null_test() {
+        bind_test();
+
+        let input = EosMessageSignReq {
+            path: constants::EOS_PATH.to_string(),
+            data: "".to_string(),
+            is_hex: false,
+            pubkey: "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string(),
+        };
+
+        let output = EosTransaction::sign_message(input);
+        println!("output:{}", output.unwrap().signature);
+    }
+
+    #[test]
+    fn sign_messgage_wrong_path_test() {
+        bind_test();
+
+        let input = EosMessageSignReq {
+            path: "m/44'".to_string(),
             data: "imKey2019".to_string(),
             is_hex: false,
             pubkey: "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string(),

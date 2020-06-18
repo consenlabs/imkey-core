@@ -181,7 +181,9 @@ pub fn is_bl_status() -> Result<bool> {
 
 #[cfg(test)]
 mod test {
-    use crate::device_manager::is_bl_status;
+    use crate::device_manager::{
+        active_device, app_delete, app_download, app_update, bind_check, get_se_id, is_bl_status,
+    };
     use common::constants;
     use transport::hid_api::hid_connect;
 
@@ -189,6 +191,63 @@ mod test {
     fn is_bl_status_test() {
         assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
         let result = is_bl_status();
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn app_download_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        let result = app_download("BTC");
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn app_download_wrong_appname_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        //Enter the wrong app name
+        let result = app_download("TEST");
+        println!("{}", result.err().unwrap());
+    }
+
+    #[test]
+    fn app_update_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        let result = app_update("BTC");
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn app_update_wrong_app_name_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        let result = app_update("TEST");
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn app_delete_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        let result = app_delete("COSMOS");
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn app_delete_wrong_app_name_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        let result = app_delete("TEST");
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn bind_check_wrong_path_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        let result = bind_check("/test/");
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn active_device_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        let result = active_device();
         assert!(result.is_ok());
     }
 }
