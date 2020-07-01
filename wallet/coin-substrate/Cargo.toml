@@ -1,0 +1,30 @@
+[package]
+name = "coin-polkadot"
+version = "0.1.0"
+authors = ["xiaoguang <xiaoguang101010@163.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+common = {path = "../../common"}
+device = {path = "../../device"}
+transport = {path = "../../transport"}
+sp-core = "2.0.0-rc3"
+hex = "0.4.2"
+schnorrkel = "0.9.1"
+
+prost = "0.6.1"
+bytes = "0.5.4"
+prost-types = "0.6.1"
+
+base58 = "0.1.0"
+bs58 = "0.3.0"
+
+failure = "0.1.6"
+secp256k1 = {version ="0.17.2", features = ["rand"] }
+rand = "0.6"
+
+[dev-dependencies]
+sp-runtime = "2.0.0-rc3"
+sp-keyring = "2.0.0-rc3"
