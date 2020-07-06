@@ -152,12 +152,12 @@ pub fn bind_acquire(bind_code: &str) -> Result<String> {
     DeviceManage::bind_acquire(&bind_code.to_string())
 }
 
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn cos_upgrade() -> Result<()> {
     CosUpgradeRequest::cos_upgrade(None)
 }
 
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn cos_check_update() -> Result<ServiceResponse<CosCheckUpdateResponse>> {
     let seid = get_se_id()?;
     let mut cos_version = get_firmware_version()?;
@@ -169,7 +169,7 @@ pub fn cos_check_update() -> Result<ServiceResponse<CosCheckUpdateResponse>> {
     );
     CosCheckUpdateRequest::build_request_data(seid, cos_version).send_message()
 }
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn is_bl_status() -> Result<bool> {
     let res_data = send_apdu(Apdu::select_applet(constants::BL_AID))?;
     let check_result = ApduCheck::checke_response(res_data.as_str());

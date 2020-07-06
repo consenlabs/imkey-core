@@ -11,7 +11,7 @@ use device::deviceapi::{
     GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes, SetBleNameReq,
 };
 use prost::Message;
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 use transport::hid_api::hid_connect;
 
 pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {
@@ -202,7 +202,7 @@ pub fn get_sdk_info() -> Result<Vec<u8>> {
     encode_message(response_msg)
 }
 
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn cos_update() -> Result<Vec<u8>> {
     device_manager::cos_upgrade()?;
     encode_message(CommonResponse {
@@ -210,7 +210,7 @@ pub fn cos_update() -> Result<Vec<u8>> {
     })
 }
 
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn device_connect(data: &[u8]) -> Result<Vec<u8>> {
     let device_connect_req: DeviceConnectReq =
         DeviceConnectReq::decode(data).expect("imkey_illegal_param");
@@ -222,7 +222,7 @@ pub fn device_connect(data: &[u8]) -> Result<Vec<u8>> {
     })
 }
 
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn cos_check_update() -> Result<Vec<u8>> {
     let cos_check_update = device_manager::cos_check_update()?;
 
@@ -235,7 +235,7 @@ pub fn cos_check_update() -> Result<Vec<u8>> {
     })
 }
 
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn is_bl_status() -> Result<Vec<u8>> {
     let check_result = device_manager::is_bl_status()?;
     encode_message(IsBlStatusRes { check_result })

@@ -8,7 +8,7 @@ use common::{constants, https};
 use serde::{Deserialize, Serialize};
 use std::thread;
 use std::time::Duration;
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 use transport::hid_api::hid_connect;
 use transport::message::send_apdu;
 
@@ -38,7 +38,7 @@ pub struct CosUpgradeResponse {
 }
 
 impl CosUpgradeRequest {
-    #[cfg(any(target_os = "macos", target_os = "windows"))]
+    #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
     pub fn cos_upgrade(sdk_version: Option<String>) -> Result<()> {
         //read se device cert
         let mut device_cert = get_cert()?;
@@ -161,7 +161,7 @@ impl CosUpgradeRequest {
 /**
 reconnect device
 */
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 fn reconnect() -> Result<()> {
     thread::sleep(Duration::from_millis(1000));
 
