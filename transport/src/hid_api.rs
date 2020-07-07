@@ -167,11 +167,20 @@ mod test {
     fn hid_test() {
         let connect_result = hid_connect("imKey Pro");
         match connect_result {
-            Ok(()) => match send_apdu("00A4040000".to_string()) {
-                Ok(_val) => println!("connect success"),
-                Err(e) => println!("{}", e),
-            },
+            Ok(()) => {
+                assert!(send_apdu("00A4040000".to_string()).is_ok());
+                assert!(send_apdu("00A40400460000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100".to_string()).is_ok())
+            }
             Err(err) => println!("{}", err),
+        }
+    }
+
+    #[test]
+    fn hid_connect_test() {
+        //Test equipment has been connected and connected again
+        let connect_result = hid_connect("imKey Pro");
+        if connect_result.is_ok() {
+            assert!(hid_connect("imKey Pro").is_ok());
         }
     }
 }

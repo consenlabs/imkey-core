@@ -410,7 +410,9 @@ impl ApduCheck {
 
 #[cfg(test)]
 mod tests {
-    use crate::apdu::{Apdu, BtcApdu, CoinCommonApdu, CosmosApdu, EosApdu, EthApdu, ImkApdu};
+    use crate::apdu::{
+        Apdu, ApduCheck, ApduHeader, BtcApdu, CoinCommonApdu, CosmosApdu, EosApdu, EthApdu, ImkApdu,
+    };
     use hex::FromHex;
 
     #[test]
@@ -448,6 +450,7 @@ mod tests {
     }
 
     #[test]
+    #[should_panic]
     fn register_address_test() {
         assert_eq!(
             BtcApdu::register_address("12z6UzsA3tjpaeuvA2Zr9jwx19Azz74D6g".as_bytes()),
@@ -473,6 +476,8 @@ mod tests {
             CosmosApdu::register_address("cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992".as_bytes()),
             String::from("807600002D636F736D6F7331616A7A397930783377656B657A37747A327464326A366C326466746E3238763236646439393200")
         );
+        let long_address = hex::decode("7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff").unwrap();
+        Apdu::register_address(0x36, long_address.as_slice());
     }
 
     #[test]
@@ -485,12 +490,15 @@ mod tests {
     }
 
     #[test]
+    #[should_panic]
     fn btc_perpare_input_test() {
         let data = Vec::from_hex("7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff").unwrap();
         assert_eq!(
             BtcApdu::btc_perpare_input(0x80, &data),
             String::from("80418000427A222FB053B6E5339A9B6F9649F88A9481606CF3C64C4557802B3A819DDF3A98000000001976A914A189F2F7836812AA7A0E36E28A20A10E64010BF688ACFFFFFFFF00")
         );
+        let long_data = Vec::from_hex("7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff").unwrap();
+        BtcApdu::btc_perpare_input(0x80, &long_data);
     }
 
     #[test]
@@ -502,21 +510,27 @@ mod tests {
     }
 
     #[test]
+    #[should_panic]
     fn btc_segwit_sign_test() {
         let data = Vec::from_hex("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385c18cc692397a666560520577679bf38c08b5cec2000000001976a914654fbb08267f3d50d715a8f1abb55979b160dd5b88ac50c3000000000000ffffffffd622ad82d85a944f2c242762292e13462240fddd7d19791829e911d7885dec770000000001000000").unwrap();
         assert_eq!(
             BtcApdu::btc_segwit_sign(true, 01, data),
             String::from("80328001B60200000080A10BC28928F4C17A287318125115C3F098ED20A8237D1E8E4125BC25D1BE99752ADAD0A7B9CECA853768AEBB6965ECA126A62965F698A0C1BC43D83DB632AD7F717276057E6012AFA99385C18CC692397A666560520577679BF38C08B5CEC2000000001976A914654FBB08267F3D50D715A8F1ABB55979B160DD5B88AC50C3000000000000FFFFFFFFD622AD82D85A944F2C242762292E13462240FDDD7D19791829E911D7885DEC77000000000100000000")
         );
+        let long_data = Vec::from_hex("7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff").unwrap();
+        BtcApdu::btc_segwit_sign(true, 01, long_data);
     }
 
     #[test]
+    #[should_panic]
     fn omni_prepare_data_test() {
         let data = Vec::from_hex("7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff").unwrap();
         assert_eq!(
             BtcApdu::omni_prepare_data(0x00, data),
             String::from("80440000427A222FB053B6E5339A9B6F9649F88A9481606CF3C64C4557802B3A819DDF3A98000000001976A914A189F2F7836812AA7A0E36E28A20A10E64010BF688ACFFFFFFFF00")
         );
+        let long_data = Vec::from_hex("7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff7a222fb053b6e5339a9b6f9649f88a9481606cf3c64c4557802b3a819ddf3a98000000001976a914a189f2f7836812aa7a0e36e28a20a10e64010bf688acffffffff").unwrap();
+        BtcApdu::omni_prepare_data(0x00, long_data);
     }
 
     #[test]
@@ -524,6 +538,14 @@ mod tests {
         assert_eq!(
             EthApdu::personal_sign("m/44'/60'/0'/0/0"),
             String::from("80550000106d2f3434272f3630272f30272f302f3000")
+        );
+    }
+
+    #[test]
+    fn eth_get_xpub_test() {
+        assert_eq!(
+            EthApdu::get_xpub("m/44'/60'/0'/0/0", true),
+            "80530100106d2f3434272f3630272f30272f302f3000"
         );
     }
 
@@ -560,6 +582,14 @@ mod tests {
     }
 
     #[test]
+    fn eos_get_xpub_test() {
+        assert_eq!(
+            EthApdu::get_xpub("m/44'/194'/0'/0/0", true),
+            "80530100116d2f3434272f313934272f30272f302f3000"
+        );
+    }
+
+    #[test]
     fn eos_prepare_sign_test() {
         let data = Vec::from_hex("00044CABB9DB0704786D746F0806786D66726F6D09063132333435360120B998C88D8478E87E6DEE727ADECEC067A3201DA03EC8F8E8861C946559BE635505116D2F3434272F313934272F30272F302F30").unwrap();
         let apdu_vec = EosApdu::prepare_sign(data);
@@ -581,10 +611,7 @@ mod tests {
 
     #[test]
     fn eos_sign_tx_test() {
-        assert_eq!(
-            EosApdu::sign_digest("m/44'/194'/0'/0/0"),
-            String::from("80520000116d2f3434272f313934272f30272f302f3000")
-        );
+        assert_eq!(EosApdu::sign_tx(0101), "8062000002006500".to_string());
     }
 
     #[test]
@@ -599,6 +626,14 @@ mod tests {
     #[test]
     fn eos_sign_message_test() {
         assert_eq!(EosApdu::sign_message(1), String::from("8065000002000100"));
+    }
+
+    #[test]
+    fn cosmos_get_xpub_test() {
+        assert_eq!(
+            CosmosApdu::get_xpub("m/44'/118'/0'/0/0", true),
+            "80730100116d2f3434272f313138272f30272f302f3000"
+        );
     }
 
     #[test]
@@ -622,12 +657,15 @@ mod tests {
     }
 
     #[test]
+    #[should_panic]
     fn bind_check_test() {
         let data = Vec::from_hex("304402204C6301E02C4B37D7828D6F20CA6406EB0AFADBEBB1C563BAAA371982EAB8BE5E02204A12558FEA32093E7175FA022919F1067194E542A78F8C2FE1138A4A0750D866012090260FEA755E8CA08F6DF4506F64FDBB5B806A5706C51FF056C76F05111794AC070A302E3030312041544F4D082D636F736D6F73317965636B787A377461707A33346B6A776E6A78766D787A7572657271756874726D786D757874090C302E30303037352061746F6D").unwrap();
         assert_eq!(
             ImkApdu::bind_check(&data),
             String::from("80710000B1304402204C6301E02C4B37D7828D6F20CA6406EB0AFADBEBB1C563BAAA371982EAB8BE5E02204A12558FEA32093E7175FA022919F1067194E542A78F8C2FE1138A4A0750D866012090260FEA755E8CA08F6DF4506F64FDBB5B806A5706C51FF056C76F05111794AC070A302E3030312041544F4D082D636F736D6F73317965636B787A377461707A33346B6A776E6A78766D787A7572657271756874726D786D757874090C302E30303037352061746F6D00")
         );
+        let long_data = Vec::from_hex("304402204C6301E02C4B37D7828D6F20CA6406EB0AFADBEBB1C563BAAA371982EAB8BE5E02204A12558FEA32093E7175FA022919F1067194E542A78F8C2FE1138A4A0750D866012090260FEA755E8CA08F6DF4506F64FDBB5B806A5706C51FF056C76F05111794AC070A302E3030312041544F4D082D636F736D6F73317965636B787A377461707A33346B6A776E6A78766D787A7572657271756874726D786D757874090C302E30303037352061746F6DD082D636F736D6F73317965636B787A377461707A33346B6A776E6A78766D787A7572657271756874726D786D757874090C302E30303037352061746F6D74090C302E30303037352061746F6D74090C302E30303037352061746F6D").unwrap();
+        ImkApdu::bind_check(&long_data);
     }
 
     #[test]
@@ -636,11 +674,64 @@ mod tests {
     }
 
     #[test]
+    #[should_panic]
     fn identity_verify_test() {
         let data = Vec::from_hex("304402204C6301E02C4B37D7828D6F20CA6406EB0AFADBEBB1C563BAAA371982EAB8BE5E02204A12558FEA32093E7175FA022919F1067194E542A78F8C2FE1138A4A0750D866012090260FEA755E8CA08F6DF4506F64FDBB5B806A5706C51FF056C76F05111794AC070A302E3030312041544F4D082D636F736D6F73317965636B787A377461707A33346B6A776E6A78766D787A7572657271756874726D786D757874090C302E30303037352061746F6D").unwrap();
         assert_eq!(
             ImkApdu::identity_verify(&data),
             String::from("80738000B1304402204C6301E02C4B37D7828D6F20CA6406EB0AFADBEBB1C563BAAA371982EAB8BE5E02204A12558FEA32093E7175FA022919F1067194E542A78F8C2FE1138A4A0750D866012090260FEA755E8CA08F6DF4506F64FDBB5B806A5706C51FF056C76F05111794AC070A302E3030312041544F4D082D636F736D6F73317965636B787A377461707A33346B6A776E6A78766D787A7572657271756874726D786D757874090C302E30303037352061746F6D00")
         );
+        let long_data = Vec::from_hex("304402204C6301E02C4B37D7828D6F20CA6406EB0AFADBEBB1C563BAAA371982EAB8BE5E02204A12558FEA32093E7175FA022919F1067194E542A78F8C2FE1138A4A0750D866012090260FEA755E8CA08F6DF4506F64FDBB5B806A5706C51FF056C76F05111794AC070A302E3030312041544F4D082D636F736D6F73317965636B787A377461707A33346B6A776E6A78766D787A7572657271756874726D786D757874090C302E30303037352061746F6D304402204C6301E02C4B37D7828D6F20CA6406EB0AFADBEBB1C563BAAA371982EAB8BE5E02204A12558FEA32093E7175FA022919F1067194E542A78F8C2FE1138A4A0750D866012090260FEA755E8CA08F6DF4506F64FDBB5B806A5706C51FF056C76F05111794AC070A302E3030312041544F4D082D636F736D6F73317965636B787A377461707A33346B6A776E6A78766D787A7572657271756874726D786D757874090C302E30303037352061746F6D").unwrap();
+        ImkApdu::identity_verify(&long_data);
+    }
+
+    #[test]
+    fn apdu_header_test() {
+        assert_eq!(
+            ApduHeader::new(0x00, 0xA4, 0x04, 0x00, 0x00).to_array(),
+            vec![0x00, 0xA4, 0x04, 0x00, 0x00]
+        );
+    }
+
+    #[test]
+    #[should_panic]
+    fn apdu_get_xpub() {
+        let long_path = "m/44'/60'/0'/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0";
+        Apdu::get_pubkey(0x43, long_path, true);
+    }
+
+    #[test]
+    #[should_panic]
+    fn apdu_sign_digest_test() {
+        let long_path = "m/44'/60'/0'/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0/0";
+        Apdu::sign_digest(0x52, 0x00, 0x00, long_path);
+    }
+
+    #[test]
+    fn apdu_set_ble_name_test() {
+        assert_eq!(
+            Apdu::set_ble_name("helloimkey"),
+            "ffda46540a68656c6c6f696d6b657900"
+        );
+    }
+
+    #[test]
+    fn check_response_test() {
+        assert!(ApduCheck::checke_response("009000").is_ok());
+        assert!(ApduCheck::checke_response("006940").is_err());
+        assert!(ApduCheck::checke_response("006985").is_err());
+        assert!(ApduCheck::checke_response("006280").is_err());
+        assert!(ApduCheck::checke_response("006A86").is_err());
+        assert!(ApduCheck::checke_response("006E00").is_err());
+        assert!(ApduCheck::checke_response("006A80").is_err());
+        assert!(ApduCheck::checke_response("006700").is_err());
+        assert!(ApduCheck::checke_response("006942").is_err());
+        assert!(ApduCheck::checke_response("006D00").is_err());
+        assert!(ApduCheck::checke_response("006941").is_err());
+        assert!(ApduCheck::checke_response("00F000").is_err());
+        assert!(ApduCheck::checke_response("00F080").is_err());
+        assert!(ApduCheck::checke_response("00F081").is_err());
+        assert!(ApduCheck::checke_response("006F01").is_err());
+        assert!(ApduCheck::checke_response("000000").is_err());
     }
 }

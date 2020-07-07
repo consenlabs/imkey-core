@@ -102,6 +102,10 @@ pub fn retrieve_recid(msg: &[u8], sign_compact: &[u8], pubkey: &Vec<u8>) -> Resu
 #[cfg(test)]
 mod tests {
     use crate::utility;
+    use crate::utility::{
+        bigint_to_byte_vec, retrieve_recid, secp256k1_sign, secp256k1_sign_verify,
+        uncompress_pubkey_2_compress,
+    };
     use hex::FromHex;
 
     #[test]
@@ -109,6 +113,10 @@ mod tests {
         assert_eq!(
             vec![0x66, 0x6f, 0x6f, 0x62, 0x61, 0x72],
             utility::hex_to_bytes("666f6f626172").unwrap_or_default(),
+        );
+        assert_eq!(
+            vec![0x66, 0x6f, 0x6f, 0x62, 0x61, 0x72],
+            utility::hex_to_bytes("0x666f6f626172").unwrap_or_default()
         );
     }
 
@@ -119,5 +127,58 @@ mod tests {
             hex::encode(utility::sha256_hash(&data)),
             "6fa6810c930ba44a979a1bdb029f56cc608eafa043cea7e1ed21050d7456b5d3",
         );
+    }
+
+    #[test]
+    fn secp256k1_sign_and_verify_test() {
+        let private_key =
+            hex::decode("631e12677ef30f9b1a055b16bd9bf2d2a4f0795a484a9dc49683a05dc8328613")
+                .unwrap();
+        let public_key = hex::decode("04327a42790a3158d58bd68ee5763330b85b080c306534bf4d3c8fc711023db3090f302f9f7c8a2fc8ae81bfa22c9484b76326b1b2971eb7f7afea15cfd1996413").unwrap();
+        let data = hex::decode("11223344556677889900").unwrap();
+        let sign_result =
+            secp256k1_sign(private_key.as_slice(), data.as_slice()).unwrap_or_default();
+        assert_eq!(hex::encode(sign_result.clone()), "304402201b4197c869af37cea51e9ef34525c19f5e588ac5236b9e79dec3cdb1681498090220105d33d1217f76abd9a53ecab8beeb8de834ef5a5205a33288bb5bb4c3057742");
+        assert!(secp256k1_sign_verify(
+            public_key.as_slice(),
+            sign_result.as_slice(),
+            data.as_slice()
+        )
+        .ok()
+        .unwrap())
+    }
+
+    #[test]
+    fn bigint_to_byte_vec_test() {
+        assert_eq!(
+            hex::encode(bigint_to_byte_vec(1111111111111111111)),
+            "0f6b75ab2bc471c7"
+        );
+        assert_eq!(hex::encode(bigint_to_byte_vec(111111)), "000000000001b207");
+    }
+
+    #[test]
+    fn uncompress_pubkey_2_compress_test() {
+        let public_key_03 = "04327a42790a3158d58bd68ee5763330b85b080c306534bf4d3c8fc711023db3090f302f9f7c8a2fc8ae81bfa22c9484b76326b1b2971eb7f7afea15cfd1996413";
+        //        privatekey:631e12677ef30f9b1a055b16bd9bf2d2a4f0795a484a9dc49683a05dc8328613
+        assert_eq!(
+            uncompress_pubkey_2_compress(public_key_03),
+            "03327a42790a3158d58bd68ee5763330b85b080c306534bf4d3c8fc711023db309"
+        );
+        let public_key_02 = "04c390b4116d0f971c8f641f24346bd38377a22adb1426d27278e4cbb3e49e89986399de811e617faad763825e80af484e7fe16387929507baeaf633b03ce21f7e";
+        //      privatekey:ef715e7b3509b87c89db3e173515eebfe1936f6b1cf9fb8c4ba15e82f9034f07
+        assert_eq!(
+            uncompress_pubkey_2_compress(public_key_02),
+            "02c390b4116d0f971c8f641f24346bd38377a22adb1426d27278e4cbb3e49e8998"
+        );
+    }
+
+    #[test]
+    fn retrieve_recid_test() {
+        let msg = hex::decode("b998c88d8478e87e6dee727adecec067a3201da03ec8f8e8861c946559be6355")
+            .unwrap();
+        let sign_compact = hex::decode("73bcac6f18a619f047693afb17c1574fd22bb65d184888c13b5f2715304304b15919cbb66a8ae244ed8ac6dddbde8cc381a828961cfbad070d6c368941516ec5").unwrap();
+        let pubkey = hex::decode("04aaf80e479aac0813b17950c390a16438b307aee9a814689d6706be4fb4a4e30a4d2a7f75ef43344fa80580b5b1fbf9f233c378d99d5adb5cac9ae86f562803e1").unwrap();
+        assert!(retrieve_recid(msg.as_slice(), sign_compact.as_slice(), &pubkey).is_ok());
     }
 }
