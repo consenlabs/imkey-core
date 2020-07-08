@@ -103,7 +103,7 @@ pub fn retrieve_recid(msg: &[u8], sign_compact: &[u8], pubkey: &Vec<u8>) -> Resu
 mod tests {
     use crate::utility;
     use crate::utility::{
-        bigint_to_byte_vec, retrieve_recid, secp256k1_sign, secp256k1_sign_verify,
+        bigint_to_byte_vec, retrieve_recid, secp256k1_sign, secp256k1_sign_verify, sha256_hash,
         uncompress_pubkey_2_compress,
     };
     use hex::FromHex;
@@ -139,6 +139,7 @@ mod tests {
         let sign_result =
             secp256k1_sign(private_key.as_slice(), data.as_slice()).unwrap_or_default();
         assert_eq!(hex::encode(sign_result.clone()), "304402201b4197c869af37cea51e9ef34525c19f5e588ac5236b9e79dec3cdb1681498090220105d33d1217f76abd9a53ecab8beeb8de834ef5a5205a33288bb5bb4c3057742");
+        let data = sha256_hash(data.as_slice());
         assert!(secp256k1_sign_verify(
             public_key.as_slice(),
             sign_result.as_slice(),
