@@ -273,7 +273,10 @@ mod tests {
         };
 
         let result = EosTransaction::sign_tx(eox_tx_input).unwrap();
-        println!("hash:{}", result.trans_multi_signs[0].hash);
+        assert_eq!(
+            result.trans_multi_signs[0].hash,
+            "6af5b3ae9871c25e2de195168ed7423f455a68330955701e327f02276bb34088"
+        );
     }
 
     #[test]
@@ -294,8 +297,11 @@ mod tests {
             sign_datas: vec![eos_sign_data],
         };
 
-        let result = EosTransaction::sign_tx(eox_tx_input).unwrap();
-        println!("hash:{}", result.trans_multi_signs[0].hash);
+        let result = EosTransaction::sign_tx(eox_tx_input);
+        assert_eq!(
+            format!("{}", result.err().unwrap()),
+            "imkey_publickey_mismatch_with_path"
+        );
     }
 
     #[test]
@@ -317,7 +323,10 @@ mod tests {
         };
 
         let result = EosTransaction::sign_tx(eox_tx_input).unwrap();
-        println!("hash:{}", result.trans_multi_signs[0].hash);
+        assert_eq!(
+            result.trans_multi_signs[0].hash,
+            "6af5b3ae9871c25e2de195168ed7423f455a68330955701e327f02276bb34088"
+        );
     }
 
     #[test]
@@ -332,7 +341,28 @@ mod tests {
         };
 
         let output = EosTransaction::sign_message(input);
-        println!("output:{}", output.unwrap().signature);
+        assert_eq!(
+            output.unwrap().signature,
+            "SIG_K1_K2mrf6ASTK5TCJC6kzZzyQm9uRZm7Jx4fa6gsmWx2sEreokRWmnHQGTRNwKLNF6NVJtXmjmUvR96XYct1DjMJnwRZBbTYR"
+        );
+    }
+
+    #[test]
+    fn test_sign_messgage_hex() {
+        bind_test();
+
+        let input = EosMessageSignReq {
+            path: constants::EOS_PATH.to_string(),
+            data: "1122334455667788990011223344556677889900112233445566778899001122".to_string(),
+            is_hex: true,
+            pubkey: "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string(),
+        };
+
+        let output = EosTransaction::sign_message(input);
+        assert_eq!(
+            output.unwrap().signature,
+            "SIG_K1_Jy1w6cs58tXkFVVBoku9uAVUuiknttFtwQEjXzpZvXY85EsBi6dU27RPf8KQRRh25jewnpdeVgqZDrj6RiYkdJk5fktZyw"
+        );
     }
 
     #[test]
@@ -347,7 +377,10 @@ mod tests {
         };
 
         let output = EosTransaction::sign_message(input);
-        println!("{}", output.err().unwrap());
+        assert_eq!(
+            format!("{}", output.err().unwrap()),
+            "imkey_publickey_mismatch_with_path"
+        );
     }
 
     #[test]
@@ -362,7 +395,10 @@ mod tests {
         };
 
         let output = EosTransaction::sign_message(input);
-        println!("output:{}", output.unwrap().signature);
+        assert_eq!(
+            output.unwrap().signature,
+            "SIG_K1_Kij4tk3eM3UtB5Z1Gz6B5jC9JAtPDj7PQA8kkNPAX97U7JQWePVNCUg4WGso6m91Bz8rWzFoXo3SNhehpYrmJfYtNc4dxJ"
+        );
     }
 
     #[test]
@@ -377,6 +413,9 @@ mod tests {
         };
 
         let output = EosTransaction::sign_message(input);
-        println!("output:{}", output.unwrap().signature);
+        assert_eq!(
+            format!("{}", output.err().unwrap()),
+            "imkey_command_data_error"
+        );
     }
 }

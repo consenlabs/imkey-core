@@ -65,7 +65,6 @@ impl CosmosAddress {
         }; //todo use bitcoin_hash istead
         let address = match b32.to_string() {
             Ok(s) => s,
-            //            Err(e) => return Err(error::Error::AddressError),
             Err(_e) => return Err(format_err!("AddressError")),
         };
         Ok(address)
