@@ -72,6 +72,7 @@ mod test {
     use transport::hid_api::hid_connect;
 
     #[test]
+    #[cfg(not(tarpaulin))]
     pub fn device_cert_check_test() {
         assert!(hid_connect("imKey Pro").is_ok());
         let seid = get_se_id().unwrap();

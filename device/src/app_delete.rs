@@ -82,16 +82,17 @@ mod test {
     use crate::TsmService;
     use transport::hid_api::hid_connect;
 
-    //    #[test]
-    //    pub fn app_delete_test() {
-    //        assert!(hid_connect("imKey Pro").is_ok());
-    //        let seid = get_se_id().unwrap();
-    //        let device_cert = get_cert().unwrap();
-    //        let instance_aid = "695F627463".to_string();
-    //        assert!(
-    //            AppDeleteRequest::build_request_data(seid, instance_aid, device_cert)
-    //                .send_message()
-    //                .is_ok()
-    //        );
-    //    }
+    #[test]
+    #[should_panic]
+    pub fn app_delete_test() {
+        assert!(hid_connect("imKey Pro").is_ok());
+        let seid = get_se_id().unwrap();
+        let device_cert = get_cert().unwrap();
+        let instance_aid = "695F627463".to_string();
+        assert!(
+            AppDeleteRequest::build_request_data(seid, instance_aid, device_cert)
+                .send_message()
+                .is_ok()
+        );
+    }
 }

@@ -182,6 +182,7 @@ mod tests {
     use transport::hid_api::hid_connect;
 
     #[test]
+    #[cfg(not(tarpaulin))]
     fn cos_upgrade_test() {
         assert!(hid_connect("imKey Pro").is_ok());
         assert!(CosUpgradeRequest::cos_upgrade(None).is_ok());
