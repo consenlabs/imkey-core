@@ -120,8 +120,17 @@ impl<T> ServiceResponse<T> {
 
 #[cfg(test)]
 mod tests {
+    use crate::app_download::AppDownloadResponse;
+    use crate::ServiceResponse;
+    use transport::hid_api::hid_connect;
+
     #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
+    fn apdu_handle_test() {
+        assert!(hid_connect("imKey Pro").is_ok());
+        let apdu_list = vec![
+            "00a4040000".to_string(),
+            "00a404000600000000000100".to_string(),
+        ];
+        assert!(ServiceResponse::<AppDownloadResponse>::apdu_handle(apdu_list).is_ok());
     }
 }

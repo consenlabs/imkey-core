@@ -242,7 +242,7 @@ pub fn bind_test() {
 
 #[cfg(test)]
 mod test {
-    use crate::device_binding::DeviceManage;
+    use crate::device_binding::{auth_code_encrypt, gen_iv, DeviceManage};
     use crate::device_manager::bind_display_code;
     use transport::hid_api::hid_connect;
 
@@ -280,5 +280,20 @@ mod test {
         } else {
             println!("{:?}", "cert error");
         }
+    }
+
+    #[test]
+    fn gen_iv_test() {
+        let auth_code = "PVU3FY64".to_string();
+        assert_eq!(
+            hex::encode(gen_iv(&auth_code)),
+            "4cf3169c9feb3567bfa2710716a8c778"
+        );
+    }
+
+    #[test]
+    fn auth_code_encrypt_test() {
+        let auth_code = "PVU3FY64".to_string();
+        assert!(auth_code_encrypt(&auth_code).is_ok());
     }
 }

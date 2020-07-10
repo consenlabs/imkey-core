@@ -84,4 +84,16 @@ mod test {
                 .is_ok()
         );
     }
+
+    #[test]
+    pub fn device_cert_check_error_test() {
+        let seid = "00000000000000000000000000000000".to_string();
+        let device_cert = "00000000000000000000000000".to_string();
+        let sn = "000001".to_string();
+        assert!(
+            DeviceCertCheckRequest::build_request_data(seid, sn, device_cert)
+                .send_message()
+                .is_err()
+        );
+    }
 }

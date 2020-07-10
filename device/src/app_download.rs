@@ -100,4 +100,16 @@ mod test {
                 .send_message();
         assert!(exe_result.is_ok());
     }
+
+    #[test]
+    pub fn app_download_error_test() {
+        let seid = "00000000000000000000000000000000".to_string();
+        let device_cert = "00000000000000000000000000".to_string();
+        let instance_aid = "695F627463".to_string();
+        assert!(
+            AppDownloadRequest::build_request_data(seid, instance_aid, device_cert, None)
+                .send_message()
+                .is_err()
+        );
+    }
 }

@@ -9,7 +9,6 @@ use std::time::Duration;
 use tokio::runtime::Runtime;
 
 pub fn post(action: &str, req_data: Vec<u8>) -> Result<String> {
-    println!("{}", hex::encode(req_data.clone()));
     let f = async_post(action, req_data);
     Runtime::new().unwrap().block_on(f)
 }

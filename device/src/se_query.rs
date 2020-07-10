@@ -96,4 +96,13 @@ mod tests {
             .send_message()
             .is_ok());
     }
+
+    #[test]
+    pub fn se_query_error_test() {
+        let seid = "00000000000000000000000000000000".to_string();
+        let sn = "000001".to_string();
+        assert!(SeQueryRequest::build_request_data(seid, sn, None)
+            .send_message()
+            .is_err());
+    }
 }
