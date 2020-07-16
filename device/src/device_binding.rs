@@ -74,7 +74,8 @@ impl DeviceManage {
         ApduCheck::checke_response(bind_check_apdu_resp_data.as_str())?;
 
         let status = String::from(&bind_check_apdu_resp_data[..2]);
-        let se_pub_key_cert: String = String::from(&bind_check_apdu_resp_data[2..]);
+        let se_pub_key_cert: String =
+            String::from(&bind_check_apdu_resp_data[2..(bind_check_apdu_resp_data.len() - 4)]);
 
         if status.eq(BIND_STATUS_UNBOUND) || status.eq(BIND_STATUS_BOUND_OTHER) {
             //check se cert

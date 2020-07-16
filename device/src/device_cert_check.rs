@@ -76,24 +76,12 @@ mod test {
     pub fn device_cert_check_test() {
         assert!(hid_connect("imKey Pro").is_ok());
         let seid = get_se_id().unwrap();
-        let device_cert = get_cert().unwrap();
+        let device_cert = "7F2181C5931018080000000000860001010000000106420200015F200401020304950200805F2504201810145F2404FFFFFFFF53007F4947B0410403089D8A83A87F24D906303A49D39669D17B0F7AB76EB098A65AFEF31154E75DEE5B87B69CBF78F11E831A4961C8A8F031C2869EA0716C798F76F5E91338DC35F002DFFE5F37473045022100EB46DC605568CF8D5051CD67CEC234C66FC6E2561D2FE57D8DDF8D4D204695A6022009C246BE380DD2A8972807D2AE2A0FE22877408717E239AAA0C2530524714A48".to_string();
         let sn = get_sn().unwrap();
         assert!(
             DeviceCertCheckRequest::build_request_data(seid, sn, device_cert)
                 .send_message()
                 .is_ok()
-        );
-    }
-
-    #[test]
-    pub fn device_cert_check_error_test() {
-        let seid = "00000000000000000000000000000000".to_string();
-        let device_cert = "00000000000000000000000000".to_string();
-        let sn = "000001".to_string();
-        assert!(
-            DeviceCertCheckRequest::build_request_data(seid, sn, device_cert)
-                .send_message()
-                .is_err()
         );
     }
 }
