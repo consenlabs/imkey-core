@@ -20,6 +20,7 @@ pub struct CosCheckUpdateResponse {
     pub latest_cos_version: Option<String>,
     pub update_type: Option<String>,
     pub description: Option<String>,
+    pub is_update_success: bool,
 }
 
 impl TsmService for CosCheckUpdateRequest {

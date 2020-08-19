@@ -229,9 +229,13 @@ pub fn cos_check_update() -> Result<Vec<u8>> {
     encode_message(CosCheckUpdateRes {
         seid: cos_check_update._ReturnData.seid,
         is_latest: cos_check_update._ReturnData.is_latest,
-        latest_cos_version: cos_check_update._ReturnData.latest_cos_version.unwrap(),
-        update_type: cos_check_update._ReturnData.update_type.unwrap(),
-        description: cos_check_update._ReturnData.description.unwrap(),
+        latest_cos_version: cos_check_update
+            ._ReturnData
+            .latest_cos_version
+            .unwrap_or_default(),
+        update_type: cos_check_update._ReturnData.update_type.unwrap_or_default(),
+        description: cos_check_update._ReturnData.description.unwrap_or_default(),
+        is_update_success: cos_check_update._ReturnData.is_update_success,
     })
 }
 
