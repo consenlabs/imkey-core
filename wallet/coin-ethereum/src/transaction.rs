@@ -195,9 +195,9 @@ impl Transaction {
     pub fn sign_persional_message(input: EthMessageSignReq) -> EthResult<EthMessageSignRes> {
         check_path_validity(&input.path).unwrap();
 
-        let mut signe_message;
+        let signe_message;
         if is_valid_hex(&input.message){
-            let mut value = &input.message[2..];
+            let value = &input.message[2..];
             signe_message = hex::decode(value).unwrap();
         }else {
             signe_message = input.message.into_bytes();
