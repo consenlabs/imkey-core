@@ -5,7 +5,7 @@ use crate::Result as EthResult;
 use common::apdu::{ApduCheck, CoinCommonApdu, EthApdu};
 use common::error::CoinError;
 use common::path::check_path_validity;
-use common::utility::{hex_to_bytes, secp256k1_sign};
+use common::utility::{hex_to_bytes, secp256k1_sign, is_valid_hex};
 use common::{constants, utility};
 use device::device_binding::KEY_MANAGER;
 use ethereum_types::{H256, U256};
@@ -194,14 +194,23 @@ impl Transaction {
 
     pub fn sign_persional_message(input: EthMessageSignReq) -> EthResult<EthMessageSignRes> {
         check_path_validity(&input.path).unwrap();
+
+        let mut signe_message;
+        if is_valid_hex(&input.message){
+            let mut value = &input.message[2..];
+            signe_message = hex::decode(value).unwrap();
+        }else {
+            signe_message = input.message.into_bytes();
+        }
+
         let header = format!(
             "Ethereum Signed Message:\n{}",
-            &input.message.as_bytes().len()
+            &signe_message.len()
         );
 
         let mut data = Vec::new();
         data.extend(header.as_bytes());
-        data.extend(input.message.as_bytes());
+        data.extend(signe_message);
 
         let mut data_to_sign: Vec<u8> = Vec::new();
         data_to_sign.push(0x01);
@@ -516,6 +525,17 @@ mod tests {
         assert_eq!(
             output.signature,
             "d928f76ad80d63003c189b095078d94ae068dc2f18a5cafd97b3a630d7bc47465bd6f1e74de2e88c05b271e1c5a8b93564d9d8842c207482b20634d68f2d54e51b".to_string()
+        );
+
+        let input = EthMessageSignReq {
+            path: constants::ETH_PATH.to_string(),
+            message: "0x8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f".to_string(),
+            sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+        };
+        let output = Transaction::sign_persional_message(input).unwrap();
+        assert_eq!(
+            output.signature,
+            "35a94616ce12ddb79f6d351c2644c0fa2f496bd152b17102a5672359f583373b6dd5d2a60f5d9909cf84e6af7dc40176179c819a7cbd9b199f4c2e868530293f1b".to_string()
         );
     }
 
