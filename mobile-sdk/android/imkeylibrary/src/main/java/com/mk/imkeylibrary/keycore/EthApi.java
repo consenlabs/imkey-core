@@ -21,7 +21,7 @@ public class EthApi {
                 .build();
 
         String hex = NumericUtil.bytesToHex(action.toByteArray());
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Eth.EthAddressRes result = null;
         try {
             result = Eth.EthAddressRes.parseFrom(bytes);
@@ -47,7 +47,7 @@ public class EthApi {
                 .build();
 
         String hex = NumericUtil.bytesToHex(action.toByteArray());
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Eth.EthAddressRes result = null;
         try {
             result = Eth.EthAddressRes.parseFrom(bytes);
@@ -69,7 +69,7 @@ public class EthApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Eth.EthTxRes result = null;
         try {
             result = Eth.EthTxRes.parseFrom(bytes);
@@ -91,7 +91,7 @@ public class EthApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Eth.EthMessageSignRes result = null;
         try {
             result = Eth.EthMessageSignRes.parseFrom(bytes);

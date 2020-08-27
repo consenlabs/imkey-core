@@ -23,7 +23,7 @@ public class BtcApi{
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Btcapi_BtcAddressRes(serializedData: dataRes)
     return result.address
   }
@@ -39,7 +39,7 @@ public class BtcApi{
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Btcapi_BtcAddressRes(serializedData: dataRes)
     return result.address
   }
@@ -56,7 +56,7 @@ public class BtcApi{
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Btcapi_BtcAddressRes(serializedData: dataRes)
     return result.address
   }
@@ -72,7 +72,7 @@ public class BtcApi{
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Btcapi_BtcAddressRes(serializedData: dataRes)
     return result.address
   }
@@ -88,7 +88,7 @@ public class BtcApi{
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Btcapi_BtcXpubRes(serializedData: dataRes)
     return result.xpub
   }
@@ -100,7 +100,7 @@ public class BtcApi{
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Btcapi_BtcTxRes(serializedData: dataRes)
     return result
   }
@@ -112,7 +112,7 @@ public class BtcApi{
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Btcapi_BtcSegwitTxRes(serializedData: dataRes)
     return result
   }
@@ -124,7 +124,7 @@ public class BtcApi{
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Btcapi_BtcTxRes(serializedData: dataRes)
     return result
   }
@@ -136,7 +136,7 @@ public class BtcApi{
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Btcapi_BtcSegwitTxRes(serializedData: dataRes)
     return result
   }

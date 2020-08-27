@@ -11,8 +11,10 @@ target 'imKeyConnector_Example' do
 #  pod "secp256k1.swift", :git => 'git@github.com:consenlabs/secp256k1.swift.git', :submodules => true
   
 #  pod 'OrderedDictionary', '~> 1.4'
+
   
   pod 'imKeyConnector', :path => '../'
+  pod "imKeyBleLib", path: "../../../blelibrary/imkey-ble-ios"
   
   pod 'LTHRadioButton'
   pod 'SwiftProtobuf', '~> 1.0'

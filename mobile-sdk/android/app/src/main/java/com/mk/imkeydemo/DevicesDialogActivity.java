@@ -15,10 +15,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mk.imkeylibrary.bluetooth.Ble;
-import com.mk.imkeylibrary.bluetooth.BleDevice;
-import com.mk.imkeylibrary.bluetooth.Callback.ScanCallback;
-import com.mk.imkeylibrary.bluetooth.ErrorCode;
+import im.imkey.imkeylibrary.bluetooth.Ble;
+import im.imkey.imkeylibrary.bluetooth.BleDevice;
+import im.imkey.imkeylibrary.bluetooth.Callback.ScanCallback;
+import im.imkey.imkeylibrary.bluetooth.ErrorCode;
+
 
 public class DevicesDialogActivity extends Activity implements AdapterView.OnItemClickListener {
     private static final String TAG = "ble";
