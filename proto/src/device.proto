@@ -97,6 +97,7 @@ message CosCheckUpdateRes {
     string latest_cos_version = 3;
     string update_type = 4;
     string description = 5;
+    bool is_update_success = 6;
 }
 
 message IsBlStatusRes {

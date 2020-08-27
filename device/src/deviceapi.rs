@@ -129,6 +129,8 @@ pub struct CosCheckUpdateRes {
     pub update_type: std::string::String,
     #[prost(string, tag = "5")]
     pub description: std::string::String,
+    #[prost(bool, tag = "6")]
+    pub is_update_success: bool,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct IsBlStatusRes {

@@ -152,12 +152,12 @@ pub fn bind_acquire(bind_code: &str) -> Result<String> {
     DeviceManage::bind_acquire(&bind_code.to_string())
 }
 
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn cos_upgrade() -> Result<()> {
     CosUpgradeRequest::cos_upgrade(None)
 }
 
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn cos_check_update() -> Result<ServiceResponse<CosCheckUpdateResponse>> {
     let seid = get_se_id()?;
     let mut cos_version = get_firmware_version()?;
@@ -169,7 +169,7 @@ pub fn cos_check_update() -> Result<ServiceResponse<CosCheckUpdateResponse>> {
     );
     CosCheckUpdateRequest::build_request_data(seid, cos_version).send_message()
 }
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn is_bl_status() -> Result<bool> {
     let res_data = send_apdu(Apdu::select_applet(constants::BL_AID))?;
     let check_result = ApduCheck::checke_response(res_data.as_str());
@@ -181,7 +181,9 @@ pub fn is_bl_status() -> Result<bool> {
 
 #[cfg(test)]
 mod test {
-    use crate::device_manager::is_bl_status;
+    use crate::device_manager::{
+        active_device, app_delete, app_download, app_update, bind_check, is_bl_status,
+    };
     use common::constants;
     use transport::hid_api::hid_connect;
 
@@ -189,6 +191,64 @@ mod test {
     fn is_bl_status_test() {
         assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
         let result = is_bl_status();
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn app_delete_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        let result = app_delete("COSMOS");
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    #[should_panic(expected = "imkey_app_name_not_exist")]
+    fn app_delete_wrong_app_name_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        app_delete("TEST");
+    }
+
+    #[test]
+    fn app_download_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        let result = app_download("COSMOS");
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    #[should_panic(expected = "imkey_app_name_not_exist")]
+    fn app_download_wrong_appname_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        //Enter the wrong app name
+        let result = app_download("TEST");
+    }
+
+    #[test]
+    fn app_update_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        let result = app_update("COSMOS");
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    #[should_panic(expected = "imkey_app_name_not_exist")]
+    fn app_update_wrong_app_name_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        let result = app_update("TEST");
+    }
+
+    #[test]
+    #[should_panic(expected = "No such file or directory")]
+    fn bind_check_wrong_path_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        let result = bind_check("/test/");
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn active_device_test() {
+        assert!(hid_connect(constants::DEVICE_MODEL_NAME).is_ok());
+        let result = active_device();
         assert!(result.is_ok());
     }
 }

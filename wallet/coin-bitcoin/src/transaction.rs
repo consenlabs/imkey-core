@@ -521,13 +521,15 @@ mod tests {
     use hex::FromHex;
     use std::str::FromStr;
 
+    use common::error::CoinError;
+    use device::device_binding::bind_test;
     use device::device_binding::DeviceManage;
     use transport::hid_api::hid_connect;
 
     #[test]
     fn test_sign_transaction() {
         //binding device
-        device_binding_test();
+        bind_test();
 
         let extra_data = Vec::from_hex("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385").unwrap();
         let utxo = Utxo {
@@ -585,25 +587,20 @@ mod tests {
             53,
             &extra_data,
         );
-        match sign_result {
-            Ok(val) => {
-                assert_eq!(
-                    "d40ceeecbb1ad07e7a19d4c807808ad7b5c78854cfebd7f25e2f79fcc43055f4",
-                    val.tx_hash
-                );
-                assert_eq!(
-                    "aad80fe8069e77559d3f99602a2f10cc9d459a591a04684bdfba9595029055e5",
-                    val.wtx_id
-                );
-            }
-            Err(_e) => panic!("btc sign error!"),
-        }
+        assert_eq!(
+            "d40ceeecbb1ad07e7a19d4c807808ad7b5c78854cfebd7f25e2f79fcc43055f4",
+            sign_result.as_ref().unwrap().tx_hash
+        );
+        assert_eq!(
+            "aad80fe8069e77559d3f99602a2f10cc9d459a591a04684bdfba9595029055e5",
+            sign_result.as_ref().unwrap().wtx_id
+        );
     }
 
     #[test]
     fn test_sign_segwit_transaction() {
         //binding device
-        device_binding_test();
+        bind_test();
 
         let extra_data = Vec::from_hex("1234").unwrap();
         let utxo = Utxo {
@@ -639,27 +636,21 @@ mod tests {
             0,
             &extra_data,
         );
-        match sign_result {
-            Ok(val) => {
-                assert_eq!(
-                    "3b2178aa4d52377226dd394776680a91a05781fe93ce42666e307dc16aeaae99",
-                    val.tx_hash
-                );
-                assert_eq!(
-                    "92fa20346dc6a97d852db332beffb7d60d57d82207b63c6484d886541a924041",
-                    val.wtx_id
-                );
-            }
-            Err(_e) => panic!("btc sign error!"),
-        }
+        assert_eq!(
+            "3b2178aa4d52377226dd394776680a91a05781fe93ce42666e307dc16aeaae99",
+            sign_result.as_ref().unwrap().tx_hash
+        );
+        assert_eq!(
+            "92fa20346dc6a97d852db332beffb7d60d57d82207b63c6484d886541a924041",
+            sign_result.as_ref().unwrap().wtx_id
+        );
     }
 
     #[test]
-    fn test_case() {
+    fn sign_transaction_simple_test() {
         //binding device
-        device_binding_test();
+        bind_test();
 
-        //        let extra_data = Vec::from_hex("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385").unwrap();
         let extra_data = vec![];
         let utxo = Utxo {
             txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
@@ -685,25 +676,157 @@ mod tests {
             53,
             &extra_data,
         );
-        match sign_result {
-            Ok(val) => {
-                assert_eq!(
-                    "a80aa368b10c8bdf0d2b1866462f2b4bb6b767e9b2b45abe2d05fa4c8efb40e0",
-                    val.tx_hash
-                );
-                assert_eq!(
-                    "9129a31332f509a9d03b25cf598d11cf4eaa0f6dbd27957d1f0d8f1b3d00a05d",
-                    val.wtx_id
-                );
-            }
-            Err(_e) => panic!("btc sign error!"),
-        }
+        assert_eq!(
+            "a80aa368b10c8bdf0d2b1866462f2b4bb6b767e9b2b45abe2d05fa4c8efb40e0",
+            sign_result.as_ref().unwrap().tx_hash
+        );
+        assert_eq!(
+            "9129a31332f509a9d03b25cf598d11cf4eaa0f6dbd27957d1f0d8f1b3d00a05d",
+            sign_result.as_ref().unwrap().wtx_id
+        );
     }
 
     #[test]
-    fn test_case2() {
+    fn insufficient_funds_test() {
         //binding device
-        device_binding_test();
+        bind_test();
+
+        let extra_data = vec![];
+        let utxo = Utxo {
+            txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
+            vout: 0,
+            amount: 10000112345678,
+            address: Address::from_str("1Fj93kpLwM1KgTN6C75Z5Bokhays4MmJae").unwrap(),
+            script_pubkey: "76a914a189f2f7836812aa7a0e36e28a20a10e64010bf688ac".to_string(),
+            derive_path: "0/22".to_string(),
+            sequence: 0,
+        };
+        let mut utxos = Vec::new();
+        utxos.push(utxo);
+
+        let transaction_req_data = BtcTransaction {
+            to: Address::from_str("18pMkq6HK5HR36jr7bSd39MpkVCfnP68VV").unwrap(),
+            amount: 10000112345679,
+            unspents: utxos,
+            fee: 502130,
+        };
+        let sign_result = transaction_req_data.sign_transaction(
+            Network::Bitcoin,
+            &"m/44'/0'/0'/".to_string(),
+            53,
+            &extra_data,
+        );
+
+        assert!(sign_result.is_err());
+        assert_eq!(
+            format!("{}", sign_result.err().unwrap()),
+            "imkey_insufficient_funds"
+        );
+
+        let extra_data = vec![];
+        let utxo = Utxo {
+            txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
+            vout: 0,
+            amount: 10000000,
+            address: Address::from_str("37E2J9ViM4QFiewo7aw5L3drF2QKB99F9e").unwrap(),
+            script_pubkey: "a9142d2b1ef5ee4cf6c3ebc8cf66a602783798f7875987".to_string(),
+            derive_path: "0/22".to_string(),
+            sequence: 0,
+        };
+        let mut utxos = Vec::new();
+        utxos.push(utxo);
+        let transaction_req_data = BtcTransaction {
+            to: Address::from_str("18pMkq6HK5HR36jr7bSd39MpkVCfnP68VV").unwrap(),
+            amount: 11000000,
+            unspents: utxos,
+            fee: 502130,
+        };
+        let sign_result = transaction_req_data.sign_segwit_transaction(
+            Network::Bitcoin,
+            &"m/49'/0'/0'".to_string(),
+            53,
+            &extra_data,
+        );
+        assert!(sign_result.is_err());
+        assert_eq!(
+            format!("{}", sign_result.err().unwrap()),
+            "imkey_insufficient_funds"
+        );
+    }
+
+    #[test]
+    fn btc_extra_data_error() {
+        //binding device
+        bind_test();
+
+        let extra_data = Vec::from_hex("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa9938500").unwrap();
+        //        let extra_data = vec![];
+        let utxo = Utxo {
+            txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
+            vout: 0,
+            amount: 10000112345678,
+            address: Address::from_str("1Fj93kpLwM1KgTN6C75Z5Bokhays4MmJae").unwrap(),
+            script_pubkey: "76a914a189f2f7836812aa7a0e36e28a20a10e64010bf688ac".to_string(),
+            derive_path: "0/22".to_string(),
+            sequence: 0,
+        };
+        let mut utxos = Vec::new();
+        utxos.push(utxo);
+
+        let transaction_req_data = BtcTransaction {
+            to: Address::from_str("18pMkq6HK5HR36jr7bSd39MpkVCfnP68VV").unwrap(),
+            amount: 10000012345678,
+            unspents: utxos,
+            fee: 502130,
+        };
+        let sign_result = transaction_req_data.sign_transaction(
+            Network::Bitcoin,
+            &"m/44'/0'/0'/".to_string(),
+            53,
+            &extra_data,
+        );
+        assert!(sign_result.is_err());
+        assert_eq!(
+            format!("{}", sign_result.err().unwrap()),
+            "imkey_sdk_illegal_argument"
+        );
+
+        let utxo = Utxo {
+            txhash: "c2ceb5088cf39b677705526065667a3992c68cc18593a9af12607e057672717f".to_string(),
+            vout: 0,
+            amount: 500000,
+            address: Address::from_str("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB").unwrap(),
+            script_pubkey: "a9142d2b1ef5ee4cf6c3ebc8cf66a602783798f7875987".to_string(),
+            derive_path: "0/0".to_string(),
+            sequence: 0,
+        };
+
+        let mut utxos = Vec::new();
+        utxos.push(utxo);
+        let transaction_req_data = BtcTransaction {
+            to: Address::from_str("2N9wBy6f1KTUF5h2UUeqRdKnBT6oSMh4Whp").unwrap(),
+            amount: 88000,
+            unspents: utxos,
+            fee: 10000,
+        };
+        let sign_result = transaction_req_data.sign_segwit_transaction(
+            Network::Testnet,
+            &"m/49'/1'/0'/".to_string(),
+            0,
+            &extra_data,
+        );
+
+        assert!(sign_result.is_err());
+        assert_eq!(
+            format!("{}", sign_result.err().unwrap()),
+            "imkey_sdk_illegal_argument"
+        );
+    }
+
+    #[test]
+    fn sign_segwit_transaction_simple_test() {
+        //binding device
+        bind_test();
 
         let extra_data = vec![];
         let utxo = Utxo {
@@ -729,42 +852,48 @@ mod tests {
             53,
             &extra_data,
         );
-        match sign_result {
-            Ok(val) => {
-                assert_eq!(
-                    "bfa6137f3cdd4a9bc672380afc931bb89d4539d8c1a589316bedad30e4248a90",
-                    val.tx_hash
-                );
-                assert_eq!(
-                    "4694a01d72237fc066564fc807d9a2d7be9518151aabb32f3911526a4589109c",
-                    val.wtx_id
-                );
-            }
-            Err(_e) => panic!("btc sign error!"),
-        }
+        assert_eq!(
+            "bfa6137f3cdd4a9bc672380afc931bb89d4539d8c1a589316bedad30e4248a90",
+            sign_result.as_ref().unwrap().tx_hash
+        );
+        assert_eq!(
+            "4694a01d72237fc066564fc807d9a2d7be9518151aabb32f3911526a4589109c",
+            sign_result.as_ref().unwrap().wtx_id
+        );
     }
 
     #[test]
-    fn device_binding_test() {
-        //binding device
-        let path = "/Users/caixiaoguang/workspace/myproject/imkey-core/".to_string();
-        let bind_code = "6GB6M2SD".to_string();
-        match hid_connect("imKey Pro") {
-            Ok(()) => {
-                let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
-                if !"bound_this".eq(check_result.as_str()) {
-                    let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
-                    if "5A".eq(bind_result.as_str()) {
-                        println!("{:?}", "binding success");
-                    } else {
-                        println!("{:?}", "binding error");
-                        return;
-                    }
-                } else {
-                    println!("device not binding");
-                }
-            }
-            Err(e) => println!("{}", e),
+    fn address_error_test() {
+        bind_test();
+
+        let extra_data = vec![];
+        let utxo = Utxo {
+            txhash: "983adf9d813a2b8057454cc6f36c6081948af849966f9b9a33e5b653b02f227a".to_string(),
+            vout: 0,
+            amount: 1012345678,
+            address: Address::from_str("37E2J9ViM4QFiewo7aw5L3drF2QKB99F9e").unwrap(),
+            script_pubkey: "a9142d2b1ef5ee4cf6c3ebc8cf66a602783798f7875987".to_string(),
+            derive_path: "0/0".to_string(),
+            sequence: 0,
         };
+        let mut utxos = Vec::new();
+        utxos.push(utxo);
+        let transaction_req_data = BtcTransaction {
+            to: Address::from_str("18pMkq6HK5HR36jr7bSd39MpkVCfnP68VV").unwrap(),
+            amount: 112345678,
+            unspents: utxos,
+            fee: 502130,
+        };
+        let sign_result = transaction_req_data.sign_segwit_transaction(
+            Network::Bitcoin,
+            &"m/49'/0'/0'".to_string(),
+            53,
+            &extra_data,
+        );
+        assert!(sign_result.is_err());
+        assert_eq!(
+            format!("{}", sign_result.err().unwrap()),
+            "imkey_address_mismatch_with_path"
+        );
     }
 }

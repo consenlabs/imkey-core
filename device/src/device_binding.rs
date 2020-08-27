@@ -23,7 +23,7 @@ use secp256k1::{PublicKey, SecretKey};
 use sha1::Sha1;
 use std::collections::HashMap;
 use std::sync::Mutex;
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 use transport::hid_api::hid_connect;
 use transport::message::send_apdu;
 
@@ -74,7 +74,8 @@ impl DeviceManage {
         ApduCheck::checke_response(bind_check_apdu_resp_data.as_str())?;
 
         let status = String::from(&bind_check_apdu_resp_data[..2]);
-        let se_pub_key_cert: String = String::from(&bind_check_apdu_resp_data[2..]);
+        let se_pub_key_cert: String =
+            String::from(&bind_check_apdu_resp_data[2..(bind_check_apdu_resp_data.len() - 4)]);
 
         if status.eq(BIND_STATUS_UNBOUND) || status.eq(BIND_STATUS_BOUND_OTHER) {
             //check se cert
@@ -215,11 +216,14 @@ fn get_se_pubkey(se_pubkey_cert: String) -> Result<String> {
     Ok(se_pubkey_cert[index + 10..index + 130 + 10].to_string())
 }
 
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn bind_test() {
     //binding device
-    let path = "/Users/joe/work/sdk_gen_key".to_string();
-    let bind_code = "YDSGQPKX".to_string();
+    //    let path = "/Users/joe/work/sdk_gen_key".to_string();
+    //    let bind_code = "YDSGQPKX".to_string();
+
+    let path = "/tmp/".to_string();
+    let bind_code = "PVU3FY64".to_string();
 
     assert!(hid_connect("imKey Pro").is_ok());
     let check_result = DeviceManage::bind_check(&path).unwrap_or_default();
@@ -239,14 +243,14 @@ pub fn bind_test() {
 
 #[cfg(test)]
 mod test {
-    use crate::device_binding::DeviceManage;
+    use crate::device_binding::{auth_code_encrypt, gen_iv, DeviceManage};
     use crate::device_manager::bind_display_code;
     use transport::hid_api::hid_connect;
 
     #[test]
     fn device_bind_test() {
-        let path = "/Users/caixiaoguang/workspace/myproject/imkey-core".to_string();
-        let bind_code = "6GB6M2SD".to_string();
+        let path = "/tmp/".to_string();
+        let bind_code = "PVU3FY64".to_string();
 
         assert!(hid_connect("imKey Pro").is_ok());
         let check_result = DeviceManage::bind_check(&path).unwrap();
@@ -277,5 +281,20 @@ mod test {
         } else {
             println!("{:?}", "cert error");
         }
+    }
+
+    #[test]
+    fn gen_iv_test() {
+        let auth_code = "PVU3FY64".to_string();
+        assert_eq!(
+            hex::encode(gen_iv(&auth_code)),
+            "4cf3169c9feb3567bfa2710716a8c778"
+        );
+    }
+
+    #[test]
+    fn auth_code_encrypt_test() {
+        let auth_code = "PVU3FY64".to_string();
+        assert!(auth_code_encrypt(&auth_code).is_ok());
     }
 }

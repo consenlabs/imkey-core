@@ -136,16 +136,35 @@ pub struct TxSignResult {
 #[cfg(test)]
 mod test {
     use crate::common::get_address_version;
+    use crate::transaction::Utxo;
     use bitcoin::Network;
 
     #[test]
     fn get_address_version_test() {
         let address_version =
             get_address_version(Network::Bitcoin, "3CVD68V71no5jn2UZpLLq6hASpXu1jrByt");
-        if address_version.is_ok() {
-            println!("address version is : {}", address_version.ok().unwrap());
-        } else {
-            println!("get address version error");
-        }
+        assert!(address_version.is_ok());
+        assert_eq!(5, address_version.ok().unwrap());
+
+        let address_version =
+            get_address_version(Network::Bitcoin, "2CVD68V71no5jn2UZpLLq6hASpXu1jrByt");
+        assert_eq!(
+            format!("{}", address_version.err().unwrap()),
+            "address_type_mismatch"
+        );
+
+        let address_version =
+            get_address_version(Network::Testnet, "3CVD68V71no5jn2UZpLLq6hASpXu1jrByt");
+        assert_eq!(
+            format!("{}", address_version.err().unwrap()),
+            "address_type_mismatch"
+        );
+
+        let address_version =
+            get_address_version(Network::Regtest, "3CVD68V71no5jn2UZpLLq6hASpXu1jrByt");
+        assert_eq!(
+            format!("{}", address_version.err().unwrap()),
+            "imkey_sdk_illegal_argument"
+        );
     }
 }

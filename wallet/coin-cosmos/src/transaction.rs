@@ -245,6 +245,51 @@ mod tests {
     }
 
     #[test]
+    fn test_sign_payment_dis() {
+        bind_test();
+
+        let stdfee = StdFee {
+            amount: vec![Coin {
+                amount: "0".to_string(),
+                denom: "".to_string(),
+            }],
+            gas: "21906".to_string(),
+        };
+
+        let msg = json!([{
+            "type": "cosmos-sdk/MsgDelegate",
+            "value": {
+                "amount": [{
+                    "amount": "10",
+                    "denom": "atom"
+                }],
+                "delegator_address": "cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f",
+                "validator_address": "cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"
+            }
+        }]);
+
+        let sign_data = SignData {
+            account_number: "1234567890".to_string(),
+            chain_id: "tendermint_test".to_string(),
+            fee: stdfee,
+            memo: "".to_string(),
+            msgs: msg,
+            sequence: "1234567890".to_string(),
+        };
+
+        let input = CosmosTransaction {
+            sign_data,
+            path: constants::COSMOS_PATH.to_string(),
+            payment_dis: "0.001 ATOM".to_string(),
+            to_dis: "cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt".to_string(),
+            fee_dis: "0.00075 atom".to_string(),
+        };
+        let cosmos_tx_output = input.sign().unwrap();
+        let expect_result = r#"{"fee":{"amount":[{"amount":"0","denom":""}],"gas":"21906"},"memo":"","signatures":[{"account_number":"1234567890","pub_key":{"type":"tendermint/PubKeySecp256k1","value":"AjLB7yHXPBlTGwqk6GPPOXwrmCsvlY9gzbYpaYJMCW1l"},"sequence":"1234567890","signature":"h4//cOYLTiDYbdw+1NVZufwppIAcEQ1xsWMYcCdcGtsu4xSnYStxyJgIa57445sHnXgWP84VvnQ5geoUZAKxlQ=="}],"msg":[{"type":"cosmos-sdk/MsgDelegate","value":{"amount":[{"amount":"10","denom":"atom"}],"delegator_address":"cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f","validator_address":"cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"}}]}"#;
+        assert_eq!(&expect_result, &cosmos_tx_output.tx_data);
+    }
+
+    #[test]
     fn test_sign_send() {
         bind_test();
 
@@ -301,6 +346,9 @@ mod tests {
         vec.push("valide");
 
         vec.sort();
-        println!("{:?}", vec);
+        assert_eq!(
+            format!("{:?}", vec),
+            "[\"charles\", \"delegate\", \"from\", \"peter\", \"richard\", \"to\", \"valide\"]"
+        );
     }
 }

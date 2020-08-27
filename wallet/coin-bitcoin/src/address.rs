@@ -3,6 +3,7 @@ use crate::Result;
 use bitcoin::util::bip32::{ChainCode, ChildNumber, DerivationPath, ExtendedPubKey, Fingerprint};
 use bitcoin::{Address, Network, PublicKey};
 use common::apdu::{ApduCheck, BtcApdu, CoinCommonApdu};
+use common::error::CommonError;
 use common::path::check_path_validity;
 use std::str::FromStr;
 use transport::message::send_apdu;
@@ -26,7 +27,7 @@ impl BtcAddress {
         let chain_code = &xpub_data[130..];
 
         //build parent public key obj
-        let parent_xpub = get_xpub_data(Self::get_parent_path(path), true)?;
+        let parent_xpub = get_xpub_data(Self::get_parent_path(path)?, true)?;
         let parent_xpub = &parent_xpub[..130].to_string();
         let mut parent_pub_key_obj = PublicKey::from_str(parent_xpub)?;
         parent_pub_key_obj.compressed = true;
@@ -99,12 +100,17 @@ impl BtcAddress {
     /**
     get parent public key path
     */
-    pub fn get_parent_path(path: &str) -> &str {
-        if path.ends_with("/") {
-            return &path[..path.len() - 1];
+    pub fn get_parent_path(path: &str) -> Result<&str> {
+        if path.is_empty() {
+            return Err(CommonError::ImkeyPathIllegal.into());
         }
-        let end_flg = path.rfind("/").unwrap();
-        &path[..end_flg]
+
+        let mut end_flg = path.rfind("/").unwrap();
+        if path.ends_with("/") {
+            let path = &path[..path.len() - 1];
+            end_flg = path.rfind("/").unwrap();
+        }
+        Ok(&path[..end_flg])
     }
 
     pub fn display_address(network: Network, path: &str) -> Result<String> {
@@ -137,7 +143,6 @@ mod test {
     use crate::address::BtcAddress;
     use bitcoin::Network;
     use device::device_binding::bind_test;
-    use device::device_binding::DeviceManage;
 
     #[test]
     fn get_xpub_test() {
@@ -146,13 +151,29 @@ mod test {
         let version: Network = Network::Bitcoin;
         let path: &str = "m/44'/0'/0'/0/0";
         let get_xpub_result = BtcAddress::get_xpub(version, path);
-        if get_xpub_result.is_ok() {
-            let xpub = get_xpub_result.ok().unwrap();
-            println!("xpub : {:?}", xpub);
-            assert_eq!("xpub6FuzpGNBc46EfvmcvECyqXjrzGcKErQgpQcpvhw1tiC5yXvi1jUkzudMpdg5AaguiFstdVR5ASDbSceBswKRy6cAhpTgozmgxMUayPDrLLX", xpub);
-        } else {
-            panic!("get xpub error");
-        }
+        assert!(get_xpub_result.is_ok());
+        let xpub = get_xpub_result.ok().unwrap();
+        assert_eq!("xpub6FuzpGNBc46EfvmcvECyqXjrzGcKErQgpQcpvhw1tiC5yXvi1jUkzudMpdg5AaguiFstdVR5ASDbSceBswKRy6cAhpTgozmgxMUayPDrLLX", xpub);
+    }
+
+    #[test]
+    fn get_xpub_path_error_test() {
+        bind_test();
+
+        let version: Network = Network::Bitcoin;
+        let path: &str = "m/44'";
+        let get_xpub_result = BtcAddress::get_xpub(version, path);
+        assert!(get_xpub_result.is_err());
+    }
+
+    #[test]
+    fn get_xpub_path_is_null_test() {
+        bind_test();
+
+        let version: Network = Network::Bitcoin;
+        let path: &str = "";
+        let get_xpub_result = BtcAddress::get_xpub(version, path);
+        assert!(get_xpub_result.is_err());
     }
 
     #[test]
@@ -162,13 +183,10 @@ mod test {
         let version: Network = Network::Bitcoin;
         let path: &str = "m/44'/0'/0'/0/0";
         let get_btc_address_result = BtcAddress::get_address(version, path);
-        if get_btc_address_result.is_ok() {
-            let btc_address = get_btc_address_result.ok().unwrap();
-            println!("btc address : {:?}", btc_address);
-            assert_eq!("12z6UzsA3tjpaeuvA2Zr9jwx19Azz74D6g", btc_address);
-        } else {
-            panic!("get btc address error");
-        }
+
+        assert!(get_btc_address_result.is_ok());
+        let btc_address = get_btc_address_result.ok().unwrap();
+        assert_eq!("12z6UzsA3tjpaeuvA2Zr9jwx19Azz74D6g", btc_address);
     }
 
     #[test]
@@ -178,18 +196,31 @@ mod test {
         let version: Network = Network::Bitcoin;
         let path: &str = "m/49'/0'/0'/0/22";
         let segwit_address_result = BtcAddress::get_segwit_address(version, path);
-        if segwit_address_result.is_ok() {
-            let segwit_address = segwit_address_result.ok().unwrap();
-            assert_eq!("37E2J9ViM4QFiewo7aw5L3drF2QKB99F9e", segwit_address);
-        } else {
-            panic!("get segwit address error");
-        }
+
+        assert!(segwit_address_result.is_ok());
+        let segwit_address = segwit_address_result.ok().unwrap();
+        assert_eq!("37E2J9ViM4QFiewo7aw5L3drF2QKB99F9e", segwit_address);
     }
 
     #[test]
     fn get_parent_path_test() {
         let path = "m/44'/0'/0'/0/0";
-        assert_eq!(BtcAddress::get_parent_path(path), "m/44'/0'/0'/0");
+        assert_eq!(
+            BtcAddress::get_parent_path(path).ok().unwrap(),
+            "m/44'/0'/0'/0"
+        );
+
+        let path = "m/44'/0'/0'/0/";
+        assert_eq!(
+            BtcAddress::get_parent_path(path).ok().unwrap(),
+            "m/44'/0'/0'"
+        );
+    }
+
+    #[test]
+    fn get_parent_path_path_is_empty_test() {
+        let path = "";
+        assert!(BtcAddress::get_parent_path(path).is_err());
     }
 
     #[test]
@@ -198,12 +229,10 @@ mod test {
         let version: Network = Network::Bitcoin;
         let path: &str = "m/44'/0'/0'/0/0";
         let result = BtcAddress::display_address(version, path);
-        if result.is_ok() {
-            let btc_address = result.ok().unwrap();
-            assert_eq!("12z6UzsA3tjpaeuvA2Zr9jwx19Azz74D6g", btc_address);
-        } else {
-            panic!("get btc address error");
-        }
+
+        assert!(result.is_ok());
+        let btc_address = result.ok().unwrap();
+        assert_eq!("12z6UzsA3tjpaeuvA2Zr9jwx19Azz74D6g", btc_address);
     }
 
     #[test]
@@ -212,11 +241,9 @@ mod test {
         let network: Network = Network::Bitcoin;
         let path: &str = "m/49'/0'/0'/0/22";
         let result = BtcAddress::display_segwit_address(network, path);
-        if result.is_ok() {
-            let segwit_address = result.ok().unwrap();
-            assert_eq!("37E2J9ViM4QFiewo7aw5L3drF2QKB99F9e", segwit_address);
-        } else {
-            panic!("get segwit address error");
-        }
+
+        assert!(result.is_ok());
+        let segwit_address = result.ok().unwrap();
+        assert_eq!("37E2J9ViM4QFiewo7aw5L3drF2QKB99F9e", segwit_address);
     }
 }

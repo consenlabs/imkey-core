@@ -83,6 +83,7 @@ mod test {
     use transport::hid_api::hid_connect;
 
     #[test]
+    #[should_panic]
     pub fn app_delete_test() {
         assert!(hid_connect("imKey Pro").is_ok());
         let seid = get_se_id().unwrap();

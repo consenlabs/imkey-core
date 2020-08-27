@@ -88,14 +88,20 @@ mod tests {
         bind_test();
 
         let pubkey = EosPubkey::get_pubkey(constants::EOS_PATH);
-        println!("pubkey:{}", pubkey.unwrap());
+        assert_eq!(
+            format!("{}", pubkey.unwrap()),
+            "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF"
+        );
     }
 
     #[test]
     fn pubkey_from_response() {
         let response = "04AAF80E479AAC0813B17950C390A16438B307AEE9A814689D6706BE4FB4A4E30A4D2A7F75EF43344FA80580B5B1FBF9F233C378D99D5ADB5CAC9AE86F562803E13DC6BED90C9CE56BB58C24F200D64966E9553CCAAA731DD6B0B2C1C7708C55E53045022012B1393FAED0B88BD8FFC1333DC61F0D7FC862454339574A3A550D555F0ACCD2022100AF1C929FECB18F3226E0DB511731FA9D7016C23CB8E7AD30F5327B4CF681DD729000";
         let pubkey = EosPubkey::pubkey_from_response(response);
-        println!("pubkey:{}", pubkey.unwrap());
+        assert_eq!(
+            format!("{}", pubkey.unwrap()),
+            "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF"
+        );
     }
 
     #[test]
@@ -103,6 +109,9 @@ mod tests {
         bind_test();
 
         let pubkey = EosPubkey::display_pubkey(constants::EOS_PATH);
-        println!("pubkey:{}", pubkey.unwrap());
+        assert_eq!(
+            format!("{}", pubkey.unwrap()),
+            "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF"
+        );
     }
 }

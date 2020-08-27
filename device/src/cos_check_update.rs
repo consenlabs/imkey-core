@@ -20,6 +20,7 @@ pub struct CosCheckUpdateResponse {
     pub latest_cos_version: Option<String>,
     pub update_type: Option<String>,
     pub description: Option<String>,
+    pub is_update_success: bool,
 }
 
 impl TsmService for CosCheckUpdateRequest {
@@ -55,6 +56,7 @@ mod test {
     use crate::TsmService;
 
     #[test]
+    #[cfg(not(tarpaulin))]
     pub fn cos_check_update_test() {
         let seid: String = "18080000000000860001010000000106".to_string();
         let cos_version: String = "1.0.10".to_string();

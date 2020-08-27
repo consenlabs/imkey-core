@@ -2,11 +2,11 @@ use super::error::HidError;
 use crate::message::send_apdu;
 use crate::Result;
 use hex::FromHex;
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 use hidapi::{HidApi, HidDevice};
 use std::sync::Mutex;
 
-#[cfg(any(target_os = "macos", target_os = "windows"))]
+#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 lazy_static! {
     pub static ref HID_API: Mutex<HidApi> =
         Mutex::new(HidApi::new().expect("hid_initialization_error"));
@@ -167,11 +167,25 @@ mod test {
     fn hid_test() {
         let connect_result = hid_connect("imKey Pro");
         match connect_result {
-            Ok(()) => match send_apdu("00A4040000".to_string()) {
-                Ok(_val) => println!("connect success"),
-                Err(e) => println!("{}", e),
-            },
+            Ok(()) => {
+                assert!(send_apdu("00A4040000".to_string()).is_ok());
+                assert!(send_apdu("00A404007500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100".to_string()).is_ok())
+            }
             Err(err) => println!("{}", err),
         }
+    }
+
+    #[test]
+    fn hid_connect_test() {
+        //Test equipment has been connected and connected again
+        let connect_result = hid_connect("imKey Pro");
+        if connect_result.is_ok() {
+            assert!(hid_connect("imKey Pro").is_ok());
+        }
+    }
+
+    #[test]
+    fn hid_device_is_empty_test() {
+        assert!(send_apdu("00A4040000".to_string()).is_err());
     }
 }

@@ -17,20 +17,6 @@ impl Default for Action {
     }
 }
 
-impl rlp::Decodable for Action {
-    fn decode(rlp: &Rlp) -> Result<Self, DecoderError> {
-        if rlp.is_empty() {
-            if rlp.is_data() {
-                Ok(Action::Create)
-            } else {
-                Err(DecoderError::RlpExpectedToBeData)
-            }
-        } else {
-            Ok(Action::Call(rlp.as_val()?))
-        }
-    }
-}
-
 impl rlp::Encodable for Action {
     fn rlp_append(&self, s: &mut RlpStream) {
         match *self {

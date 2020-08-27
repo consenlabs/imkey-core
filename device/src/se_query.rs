@@ -82,15 +82,27 @@ impl SeQueryRequest {
 
 #[cfg(test)]
 mod tests {
+    use crate::device_manager::{get_se_id, get_sn};
     use crate::se_query::SeQueryRequest;
     use crate::TsmService;
+    use transport::hid_api::hid_connect;
 
     #[test]
     fn se_query_test() {
-        let seid: String = "19060000000200860001010000000014".to_string();
-        let sn: String = "imKey01191200001".to_string();
+        assert!(hid_connect("imKey Pro").is_ok());
+        let seid = get_se_id().unwrap();
+        let sn = get_sn().unwrap();
         assert!(SeQueryRequest::build_request_data(seid, sn, None)
             .send_message()
             .is_ok());
+    }
+
+    #[test]
+    pub fn se_query_error_test() {
+        let seid = "00000000000000000000000000000000".to_string();
+        let sn = "000001".to_string();
+        assert!(SeQueryRequest::build_request_data(seid, sn, None)
+            .send_message()
+            .is_err());
     }
 }
