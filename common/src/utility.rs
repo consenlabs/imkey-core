@@ -5,6 +5,7 @@ use num_traits::{FromPrimitive, Num, Zero};
 use ring::digest;
 use secp256k1::recovery::{RecoverableSignature, RecoveryId};
 use secp256k1::{Message, PublicKey as PublicKey2, Secp256k1, SecretKey, Signature};
+use regex::Regex;
 
 pub fn hex_to_bytes(value: &str) -> Result<Vec<u8>> {
     let ret_data;
@@ -75,6 +76,21 @@ pub fn uncompress_pubkey_2_compress(uncomprs_pubkey: &str) -> String {
     };
 }
 
+pub fn is_valid_hex(input: &str) -> bool {
+    let mut value = input;
+
+    if input.starts_with("0x") || input.starts_with("0X"){
+        value = input[2..].as_ref();
+    };
+
+    if value.len() == 0 || value.len() %2 != 0 {
+        return false;
+    }
+
+    let regex = Regex::new(r"[0-9a-fA-F]+").unwrap();
+    regex.is_match(value.as_ref())
+}
+
 pub fn retrieve_recid(msg: &[u8], sign_compact: &[u8], pubkey: &Vec<u8>) -> Result<RecoveryId> {
     let secp_context = secp256k1::Secp256k1::new();
 
@@ -103,6 +119,7 @@ pub fn retrieve_recid(msg: &[u8], sign_compact: &[u8], pubkey: &Vec<u8>) -> Resu
 mod tests {
     use crate::utility;
     use hex::FromHex;
+    use crate::utility::is_valid_hex;
 
     #[test]
     fn hex_to_bytes_test() {
@@ -118,6 +135,20 @@ mod tests {
         assert_eq!(
             hex::encode(utility::sha256_hash(&data)),
             "6fa6810c930ba44a979a1bdb029f56cc608eafa043cea7e1ed21050d7456b5d3",
+        );
+    }
+
+    #[test]
+    fn valid_hex_test() {
+        let input1 = "666f6f626172";
+        assert_eq!(
+            is_valid_hex(input1),
+            true,
+        );
+        let input1 = "Hello imKey";
+        assert_eq!(
+            is_valid_hex(input1),
+            false,
         );
     }
 }
