@@ -19,7 +19,7 @@ public class EosApi{
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Eosapi_EosPubkeyRes(serializedData: dataRes)
     return result.pubkey
   }
@@ -34,7 +34,7 @@ public class EosApi{
     action.param.value = try! req.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let result = try! Eosapi_EosPubkeyRes(serializedData: dataRes)
     return result.pubkey
   }
@@ -46,7 +46,7 @@ public class EosApi{
     action.param.value = try! input.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let ouput = try! Eosapi_EosMessageSignRes(serializedData: dataRes)
     return ouput
   }
@@ -58,7 +58,7 @@ public class EosApi{
     action.param.value = try! eosInput.serializedData()
     let paramHex = try! action.serializedData().key_toHexString()
     
-    let dataRes = try API.callApi(paramHex:paramHex).key_dataFromHexString()!
+    let dataRes = try API.shared().callApi(paramHex:paramHex).key_dataFromHexString()!
     let eosOutput = try! Eosapi_EosTxRes(serializedData: dataRes)
     return eosOutput
   }

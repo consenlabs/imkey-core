@@ -165,6 +165,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${PODS_ROOT}/GRKOpenSSLFramework/OpenSSL-iOS/bin/openssl.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/LTHRadioButton/LTHRadioButton.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/imKeyBleLib/imKeyBleLib.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/imKeyConnector/imKeyConnector.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -172,6 +173,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${PODS_ROOT}/GRKOpenSSLFramework/OpenSSL-iOS/bin/openssl.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/LTHRadioButton/LTHRadioButton.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/imKeyBleLib/imKeyBleLib.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/imKeyConnector/imKeyConnector.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

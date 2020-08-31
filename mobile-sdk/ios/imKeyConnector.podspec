@@ -50,11 +50,12 @@ TODO: Add long description of the pod here.
 #  s.default_subspec = 'CoreBitcoin'
 
 
-  s.dependency "CryptoSwift", "0.9.0"
+  s.dependency "CryptoSwift", "~> 1.3"
 #  s.dependency "BigInt", "3.0.0"
   s.dependency "GRKOpenSSLFramework"
 #  s.dependency "CoreBitcoin"
 #  s.dependency "secp256k1.swift"
 #  s.dependency "OrderedDictionary", "~> 1.4"
   s.dependency "SwiftProtobuf", "~> 1.0"
+  s.dependency "imKeyBleLib"
 end

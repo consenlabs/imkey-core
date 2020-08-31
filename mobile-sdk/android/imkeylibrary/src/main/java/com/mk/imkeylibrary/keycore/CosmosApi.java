@@ -22,7 +22,7 @@ public class CosmosApi {
                 .build();
 
         String hex = NumericUtil.bytesToHex(action.toByteArray());
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Cosmos.CosmosAddressRes result = null;
         try {
             result = Cosmos.CosmosAddressRes.parseFrom(bytes);
@@ -48,7 +48,7 @@ public class CosmosApi {
                 .build();
 
         String hex = NumericUtil.bytesToHex(action.toByteArray());
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Cosmos.CosmosAddressRes result = null;
         try {
             result = Cosmos.CosmosAddressRes.parseFrom(bytes);
@@ -70,7 +70,7 @@ public class CosmosApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Cosmos.CosmosTxRes result = null;
         try {
             result = Cosmos.CosmosTxRes.parseFrom(bytes);

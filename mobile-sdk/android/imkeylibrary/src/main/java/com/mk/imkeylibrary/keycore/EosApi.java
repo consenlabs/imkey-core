@@ -22,7 +22,7 @@ public class EosApi {
                 .build();
 
         String hex = NumericUtil.bytesToHex(action.toByteArray());
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Eos.EosPubkeyRes result = null;
         try {
             result = Eos.EosPubkeyRes.parseFrom(bytes);
@@ -48,7 +48,7 @@ public class EosApi {
                 .build();
 
         String hex = NumericUtil.bytesToHex(action.toByteArray());
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Eos.EosPubkeyRes result = null;
         try {
             result = Eos.EosPubkeyRes.parseFrom(bytes);
@@ -70,7 +70,7 @@ public class EosApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Eos.EosTxRes result = null;
         try {
             result = Eos.EosTxRes.parseFrom(bytes);
@@ -93,7 +93,7 @@ public class EosApi {
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
-        byte[] bytes = Api.callApi(hex);
+        byte[] bytes = Api.getInstance().callApi(hex);
         Eos.EosMessageSignRes result = null;
         try {
             result = Eos.EosMessageSignRes.parseFrom(bytes);
