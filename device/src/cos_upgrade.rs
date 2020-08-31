@@ -125,6 +125,14 @@ impl CosUpgradeRequest {
                                         || "05".eq(next_step_key.as_str()))
                                 {
                                     reconnect()?;
+                                    se_cos_version = get_firmware_version()?;
+                                    se_cos_version = format!(
+                                        "{}.{}.{}",
+                                        se_cos_version[0..1].to_string(),
+                                        se_cos_version[1..2].to_string(),
+                                        se_cos_version[2..].to_string()
+                                    );
+                                    request_data.se_cos_version = se_cos_version;
                                 }
                             }
                         }
