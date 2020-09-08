@@ -118,21 +118,23 @@ impl CosUpgradeRequest {
                             if index_val == apdu_list.len() - 1 {
                                 request_data.status_word =
                                     Some(String::from(&res[res.len() - 4..]));
-                                if (constants::APDU_RSP_SUCCESS.eq(&res[res.len() - 4..])
+                                if constants::APDU_RSP_SUCCESS.eq(&res[res.len() - 4..])
                                     || constants::APDU_RSP_SWITCH_BL_STATUS_SUCCESS
-                                        .eq(&res[res.len() - 4..]))
-                                    && ("03".eq(next_step_key.as_str())
-                                        || "05".eq(next_step_key.as_str()))
+                                        .eq(&res[res.len() - 4..])
                                 {
-                                    reconnect()?;
-                                    se_cos_version = get_firmware_version()?;
-                                    se_cos_version = format!(
-                                        "{}.{}.{}",
-                                        se_cos_version[0..1].to_string(),
-                                        se_cos_version[1..2].to_string(),
-                                        se_cos_version[2..].to_string()
-                                    );
-                                    request_data.se_cos_version = se_cos_version;
+                                    if "03".eq(next_step_key.as_str()) {
+                                        reconnect()?;
+                                    } else if "05".eq(next_step_key.as_str()) {
+                                        reconnect()?;
+                                        se_cos_version = get_firmware_version()?;
+                                        se_cos_version = format!(
+                                            "{}.{}.{}",
+                                            se_cos_version[0..1].to_string(),
+                                            se_cos_version[1..2].to_string(),
+                                            se_cos_version[2..].to_string()
+                                        );
+                                        request_data.se_cos_version = se_cos_version;
+                                    }
                                 }
                             }
                         }

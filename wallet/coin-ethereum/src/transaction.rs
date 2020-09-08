@@ -5,7 +5,7 @@ use crate::Result as EthResult;
 use common::apdu::{ApduCheck, CoinCommonApdu, EthApdu};
 use common::error::CoinError;
 use common::path::check_path_validity;
-use common::utility::{hex_to_bytes, secp256k1_sign, is_valid_hex};
+use common::utility::{hex_to_bytes, is_valid_hex, secp256k1_sign};
 use common::{constants, utility};
 use device::device_binding::KEY_MANAGER;
 use ethereum_types::{H256, U256};
@@ -196,17 +196,14 @@ impl Transaction {
         check_path_validity(&input.path).unwrap();
 
         let signe_message;
-        if is_valid_hex(&input.message){
+        if is_valid_hex(&input.message) {
             let value = &input.message[2..];
             signe_message = hex::decode(value).unwrap();
-        }else {
+        } else {
             signe_message = input.message.into_bytes();
         }
 
-        let header = format!(
-            "Ethereum Signed Message:\n{}",
-            &signe_message.len()
-        );
+        let header = format!("Ethereum Signed Message:\n{}", &signe_message.len());
 
         let mut data = Vec::new();
         data.extend(header.as_bytes());
