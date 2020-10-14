@@ -1,6 +1,6 @@
 export ANDROID_NDK_TOOLCHAINS=$HOME/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin
 
-JNI_LIBS=../examples/android/app/src/main/jniLibs
+JNI_LIBS=examples/android/app/src/main/jniLibs
 if [ ! -d $JNI_LIBS ]; then
     mkdir $JNI_LIBS
     mkdir $JNI_LIBS/arm64-v8a
@@ -9,7 +9,7 @@ if [ ! -d $JNI_LIBS ]; then
     mkdir $JNI_LIBS/x86_64
 fi
 
-pushd ../api
+pushd api
 
 export OPENSSL_INCLUDE_DIR=`brew --prefix openssl`/include
 export OPENSSL_LIB_DIR=`brew --prefix openssl`/lib
