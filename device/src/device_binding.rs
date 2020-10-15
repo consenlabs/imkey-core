@@ -95,7 +95,7 @@ impl DeviceManage {
                 x_out = x;
                 y_out = y;
                 expect_result.into()
-            })?;
+            });
             let sha1_result = Sha1::from(&x_out[..]).digest().bytes();
 
             //set the session key
@@ -230,7 +230,7 @@ pub fn bind_test() {
     if !"bound_this".eq(check_result.as_str()) {
         //If it is not bound to this device, then perform the binding operation
         let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
-        if "5A".eq(bind_result.as_str()) {
+        if "success".eq(bind_result.as_str()) {
             println!("{:?}", "binding success");
         } else {
             println!("{:?}", "binding error");

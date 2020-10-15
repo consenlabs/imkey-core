@@ -30,9 +30,6 @@
         <activity android:name=".BleTestActivity"
             android:theme="@style/Theme.AppCompat">
         </activity>
-        <activity android:name=".DevMngTestActivity"
-            android:theme="@style/Theme.AppCompat">
-        </activity>
         <activity android:name=".BusinessTestActivity"
             android:theme="@style/Theme.AppCompat">
         </activity>
@@ -41,6 +38,7 @@
         <activity android:name=".EosActivity"/>
         <activity android:name=".CosmosActivity"/>
         <activity android:name=".DeviceManageActivity"/>
+        <activity android:name=".FilecoinActivity"/>
 
     </application>
 

@@ -13,6 +13,8 @@ pub mod eos_signer;
 pub mod error_handling;
 pub mod ethereum_address;
 pub mod ethereum_signer;
+pub mod filecoin_address;
+pub mod filecoin_signer;
 pub mod message_handler;
 pub mod usdt_signer;
 use std::sync::Mutex;
@@ -168,6 +170,17 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
         }
         "cosmos_register_address" => {
             landingpad(|| cosmos_address::display_cosmos_address(&action.param.unwrap().value))
+        }
+
+        // filecoin
+        "filecoin_tx_sign" => {
+            landingpad(|| filecoin_signer::sign_filecoin_transaction(&action.param.unwrap().value))
+        }
+        "filecoin_get_address" => {
+            landingpad(|| filecoin_address::get_filecoin_address(&action.param.unwrap().value))
+        }
+        "filecoin_register_address" => {
+            landingpad(|| filecoin_address::display_filecoin_address(&action.param.unwrap().value))
         }
 
         _ => Vec::new(),
