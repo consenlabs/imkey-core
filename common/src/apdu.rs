@@ -358,9 +358,12 @@ impl Apdu {
 
         let mut apdu = Vec::new();
 
-        let apdu_header = ApduHeader::new(0x80, ins, index, hashtype, path_bytes.len() as u8);
+        // let apdu_header = ApduHeader::new(0x80, ins, index, hashtype, path_bytes.len() as u8);
+        let apdu_header = ApduHeader::new(0x80, ins, index, hashtype, 0x02);
         apdu.extend(apdu_header.to_array().iter());
-        apdu.extend(path_bytes.iter()); //payload
+        // apdu.extend(path_bytes.iter()); //payload
+        apdu.push(0x00);
+        apdu.push(0x00);
         apdu.push(0x00); //le
         hex::encode(apdu)
     }
