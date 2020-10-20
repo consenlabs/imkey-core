@@ -80,7 +80,7 @@ impl Transaction {
 
         //path
         data_pack.extend([2, tx_input.path.as_bytes().len() as u8].iter());
-                data_pack.extend(tx_input.path.as_bytes().iter());
+        data_pack.extend(tx_input.path.as_bytes().iter());
         //payment info in TLV format
         data_pack.extend([7, tx_input.payment_dis.as_bytes().len() as u8].iter());
         data_pack.extend(tx_input.payment_dis.as_bytes().iter());
@@ -155,8 +155,8 @@ mod tests {
     fn test_sign_trans() {
         bind_test();
         let message = UnsignedMessage {
-            to: "t17uoq6tp427uzv7fztkbsnn64iwotfrristwpryy".to_string(),
-            from: "t1d2xrzcslx7xlbbylc5c3d5lvandqw4iwl6epxba".to_string(),
+            to: "f1d2xrzcslx7xlbbylc5c3d5lvandqw4iwl6epxba".to_string(),
+            from: "f1o2ph66tg7o7obyrqa7eiwiinrltauzxitkuk4ay".to_string(),
             nonce: 1,
             value: "100000".to_string(),
             gas_limit: 1,
@@ -168,12 +168,11 @@ mod tests {
 
         let tx_input = FilecoinTxReq {
             message: Some(message),
-            path: "m/44'/461'/0'/0/0".to_string(),
-            network: "TESTNET".to_string(),
+            path: "m/44'/461'/0/0/0".to_string(),
+            network: "MAINNET".to_string(),
             payment_dis: "1 FILECION".to_string(),
-            to_dis: "t17uoq6tp427uzv7fztkbsnn64iwotfrristwpryy".to_string(),
-            // from_dis: "t1d2xrzcslx7xlbbylc5c3d5lvandqw4iwl6epxba".to_string(),
-            from_dis: "t1zx43cf6qb6rd5e4okl7lexnjumxe5toqj6vtr3i".to_string(),
+            to_dis: "f1d2xrzcslx7xlbbylc5c3d5lvandqw4iwl6epxba".to_string(),
+            from_dis: "f1o2ph66tg7o7obyrqa7eiwiinrltauzxitkuk4ay".to_string(),
             fee_dis: "0.1 FILECION".to_string(),
         };
 
@@ -181,6 +180,6 @@ mod tests {
         let signature = tx_result.signature.unwrap();
 
         assert_eq!(signature.r#type, 1);
-        assert_eq!(signature.data, "aTqtx4X5mjv53sgVCG8FRtt6jNcbnmCNQL28mHFgRooa024ARS6LmXXp9PJk0qIwEt52Xz1GV9yTN+SVSaqF2QE=");
+        assert_eq!(signature.data, "k/ODPDElcw/xCQ0WWO3r7H3GoKpJVX7j6x1lyNFZ4YNvoWx8/RVqn0/+GNUvFCj1EOEXKFNf2h5LsBmiHDllkgE=");
     }
 }
