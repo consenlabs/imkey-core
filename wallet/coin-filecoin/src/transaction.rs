@@ -5,7 +5,7 @@ use crate::Result;
 
 use common::apdu::{ApduCheck, CoinCommonApdu, FilecoinApdu};
 use common::error::CoinError;
-use common::utility::{hex_to_bytes, is_valid_hex, retrieve_recid, secp256k1_sign, sha256_hash};
+use common::utility::{hex_to_bytes, secp256k1_sign};
 use common::{constants, path, utility};
 use device::device_binding::KEY_MANAGER;
 
@@ -13,8 +13,7 @@ use forest_address::Address;
 use forest_message::UnsignedMessage as ForestUnsignedMessage;
 use forest_vm::Serialized;
 use num_bigint_chainsafe::BigInt;
-use secp256k1::recovery::{RecoverableSignature, RecoveryId};
-use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
+use secp256k1::{self, Signature as SecpSignature};
 use serde_cbor::to_vec;
 use std::str::FromStr;
 use transport::message::{send_apdu, send_apdu_timeout};
@@ -60,8 +59,6 @@ impl Transaction {
         let unsigned_message = Self::convert_message(&tx)?;
         let cbor_buffer = to_vec(&unsigned_message)?;
         let cid = message_digest(&cbor_buffer);
-
-        let signature_type = 2;
 
         //check address
         let address =

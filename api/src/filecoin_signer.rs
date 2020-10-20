@@ -1,6 +1,6 @@
 use crate::error_handling::Result;
 use crate::message_handler::encode_message;
-use coin_filecoin::filecoinapi::{FilecoinTxReq, FilecoinTxRes};
+use coin_filecoin::filecoinapi::FilecoinTxReq;
 use coin_filecoin::transaction::Transaction;
 use prost::Message;
 

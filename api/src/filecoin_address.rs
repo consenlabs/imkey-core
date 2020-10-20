@@ -1,6 +1,5 @@
 use crate::error_handling::Result;
 use crate::message_handler::encode_message;
-use bitcoin::Network;
 use coin_filecoin::address::FilecoinAddress;
 use coin_filecoin::filecoinapi::{FilecoinAddressReq, FilecoinAddressRes};
 use prost::Message;
