@@ -1,6 +1,0 @@
-framework module imKeyCoreX {
-  umbrella header "imKeyCoreX.h"
-
-  export *
-  module * { export * }
-}

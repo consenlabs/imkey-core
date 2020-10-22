@@ -11,7 +11,7 @@ common = {path = "../../common"}
 device = {path = "../../device"}
 transport = {path = "../../transport"}
 rlp = "0.4.0"
-secp256k1 = {version ="0.15", features = ["recovery"] }
+secp256k1 = {version ="0.19.0", features = ["rand", "recovery"] }
 ethereum-types = "0.6.0"
 keccak-hash = "0.2.0"
 lazy_static = "1.4.0"

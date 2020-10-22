@@ -58,7 +58,7 @@ pub extern "C" fn set_callback(
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn free_const_string(s: *const c_char) {
+pub unsafe extern "C" fn imkey_free_const_string(s: *const c_char) {
     if s.is_null() {
         return;
     }
@@ -178,7 +178,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn clear_err() {
+pub unsafe extern "C" fn imkey_clear_err() {
     LAST_ERROR.with(|e| {
         *e.borrow_mut() = None;
     });
@@ -188,7 +188,7 @@ pub unsafe extern "C" fn clear_err() {
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn get_last_err_message() -> *const c_char {
+pub unsafe extern "C" fn imkey_get_last_err_message() -> *const c_char {
     LAST_ERROR.with(|e| {
         if let Some(ref err) = *e.borrow() {
             let rsp = ErrorResponse {

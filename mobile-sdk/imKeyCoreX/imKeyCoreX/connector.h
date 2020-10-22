@@ -8,15 +8,15 @@
  */
 const char *call_imkey_api(const char *hex_str);
 
-void clear_err(void);
-
-void free_const_string(const char *s);
-
 const char *get_apdu(void);
 
 const char *get_apdu_return(void);
 
-const char *get_last_err_message(void);
+void imkey_clear_err(void);
+
+void imkey_free_const_string(const char *s);
+
+const char *imkey_get_last_err_message(void);
 
 void set_apdu(const char *apdu);
 

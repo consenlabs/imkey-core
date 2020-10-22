@@ -95,7 +95,7 @@ impl DeviceManage {
                 x_out = x;
                 y_out = y;
                 expect_result.into()
-            })?;
+            });
             let sha1_result = Sha1::from(&x_out[..]).digest().bytes();
 
             //set the session key
