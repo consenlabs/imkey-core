@@ -149,6 +149,15 @@
                     android:onClick="onClick"
                     android:text="COSMOS" />
 
+                <RadioButton
+                    android:id="@+id/radio_filecoin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="FILECOIN" />
+
             </com.mk.imkeydemo.widget.FlowRadioGroup>
 
         </LinearLayout>

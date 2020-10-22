@@ -1,4 +1,4 @@
-use crate::constants::{BTC_AID, COSMOS_AID, EOS_AID, ETH_AID, LC_MAX};
+use crate::constants::{BTC_AID, COSMOS_AID, EOS_AID, ETH_AID, FILECION_AID, LC_MAX};
 use crate::error::ApduError;
 use crate::Result;
 use hex;
@@ -228,6 +228,38 @@ impl CosmosApdu {
     }
 }
 
+pub struct FilecoinApdu();
+
+impl Default for FilecoinApdu {
+    fn default() -> Self {
+        FilecoinApdu()
+    }
+}
+
+impl CoinCommonApdu for FilecoinApdu {
+    fn select_applet() -> String {
+        Apdu::select_applet(FILECION_AID)
+    }
+
+    fn get_xpub(path: &str, verify_flag: bool) -> String {
+        Apdu::get_pubkey(0x83, path, verify_flag)
+    }
+
+    fn register_address(address: &[u8]) -> String {
+        Apdu::register_address(0x86, address)
+    }
+}
+
+impl FilecoinApdu {
+    pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
+        Apdu::prepare_sign(0x81, data)
+    }
+
+    pub fn sign_digest(path: &str) -> String {
+        Apdu::sign_digest(0x82, 0x00, 0x00, path)
+    }
+}
+
 pub struct Apdu {}
 
 struct ApduHeader {
@@ -326,9 +358,12 @@ impl Apdu {
 
         let mut apdu = Vec::new();
 
-        let apdu_header = ApduHeader::new(0x80, ins, index, hashtype, path_bytes.len() as u8);
+        // let apdu_header = ApduHeader::new(0x80, ins, index, hashtype, path_bytes.len() as u8);
+        let apdu_header = ApduHeader::new(0x80, ins, index, hashtype, 0x02);
         apdu.extend(apdu_header.to_array().iter());
-        apdu.extend(path_bytes.iter()); //payload
+        // apdu.extend(path_bytes.iter()); //payload
+        apdu.push(0x00);
+        apdu.push(0x00);
         apdu.push(0x00); //le
         hex::encode(apdu)
     }
@@ -435,6 +470,10 @@ mod tests {
         );
         assert_eq!(
             Apdu::select_applet("695F696D6B"),
+            String::from("00a4040005695f696d6b00")
+        );
+        assert_eq!(
+            Apdu::select_applet("695F66696C65636F696E"),
             String::from("00a4040005695f696d6b00")
         );
     }

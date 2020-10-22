@@ -19,6 +19,7 @@ pub const ETH_AID: &str = "695F657468";
 pub const EOS_AID: &str = "695F656F73";
 pub const BTC_AID: &str = "695F627463";
 pub const COSMOS_AID: &str = "695F636F736D6F73";
+pub const FILECION_AID: &str = "695F66696C65636F696E";
 pub const IMK_AID: &str = "695F696D6B";
 
 pub const BL_AID: &str = "D0426F6F746C6F61646572";
@@ -27,6 +28,7 @@ pub const BL_AID: &str = "D0426F6F746C6F61646572";
 pub const COSMOS_PATH: &str = "m/44'/118'/0'/0/0";
 pub const EOS_PATH: &str = "m/44'/194'/0'/0/0";
 pub const ETH_PATH: &str = "m/44'/60'/0'/0/0";
+pub const FILECOIN_PATH: &str = "m/44'/461'/0/0/0";
 
 pub const MAX_UTXO_NUMBER: usize = 252;
 pub const EACH_ROUND_NUMBER: usize = 5;

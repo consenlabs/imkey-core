@@ -171,6 +171,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_device_manage:
                 goDeviceManage();
                 break;
+            case R.id.btn_filecion:
+                goFilecoin();
+                break;
             default:
                 break;
         }
@@ -238,6 +241,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void goFilecoin(){
+        Intent intent = new Intent(mContext,FilecoinActivity.class);
+        startActivity(intent);
+    }
 
     private void showSearchDialog() {
         Intent intent = new Intent(mContext, DevicesDialogActivity.class);

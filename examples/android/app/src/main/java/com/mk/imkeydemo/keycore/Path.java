@@ -11,4 +11,6 @@ public class Path {
     public static final String ETH_LEDGER = "m/44'/60'/0'/0/0";
     public static final String EOS_LEDGER = "m/44'/194'/0'/0/0";
     public static final String COSMOS_LEDGER = "m/44'/118'/0'/0/0";
+    public static final String FILECOIN_LEDGER = "m/44'/461'/0/0/0";
+
 }
