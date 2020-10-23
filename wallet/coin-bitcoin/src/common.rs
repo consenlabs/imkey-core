@@ -54,7 +54,7 @@ pub fn address_verify(
             TransTypeFlg::SEGWIT => Ok(Address::p2shwpkh(
                 &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
                 network,
-            )
+            )?
             .to_string()),
         };
         let se_gen_address_str = se_gen_address?;

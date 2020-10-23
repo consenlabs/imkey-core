@@ -8,7 +8,7 @@ use bitcoin::blockdata::{opcodes, script::Builder};
 use bitcoin::consensus::serialize;
 use bitcoin::hashes::hex::FromHex;
 use bitcoin::util::psbt::serialize::Serialize;
-use bitcoin::{BitcoinHash, Network, OutPoint, Script, SigHashType, Transaction, TxIn, TxOut};
+use bitcoin::{Network, OutPoint, Script, SigHashType, Transaction, TxIn, TxOut};
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::sha256d::Hash as Hash256;
@@ -96,7 +96,7 @@ impl BtcTransaction {
 
         //output data serialize
         let mut tx_to_sign = Transaction {
-            version: 1u32,
+            version: 1i32,
             lock_time: 0u32,
             input: vec![],
             output: txouts,
@@ -143,7 +143,7 @@ impl BtcTransaction {
 
                 let mut temp_serialize_txin = TxIn {
                     previous_output: OutPoint {
-                        txid: Hash256::from_hex(temp_utxo.txhash.as_str())?,
+                        txid: bitcoin::hash_types::Txid::from_hex(temp_utxo.txhash.as_str())?,
                         vout: temp_utxo.vout as u32,
                     },
                     script_sig: Script::default(),
@@ -184,7 +184,7 @@ impl BtcTransaction {
         for (index, unspent) in self.unspents.iter().enumerate() {
             let txin = TxIn {
                 previous_output: OutPoint {
-                    txid: Hash256::from_hex(&unspent.txhash)?,
+                    txid: bitcoin::hash_types::Txid::from_hex(&unspent.txhash)?,
                     vout: unspent.vout as u32,
                 },
                 script_sig: lock_script_ver.get(index).unwrap().clone(),
@@ -276,7 +276,7 @@ impl BtcTransaction {
 
         //8.output data serialize
         let mut tx_to_sign = Transaction {
-            version: 2u32,
+            version: 2i32,
             lock_time: 0u32,
             input: vec![],
             output: txouts,
@@ -317,7 +317,7 @@ impl BtcTransaction {
         for (index, unspent) in self.unspents.iter().enumerate() {
             let txin = TxIn {
                 previous_output: OutPoint {
-                    txid: Hash256::from_hex(&unspent.txhash)?,
+                    txid: bitcoin::hash_types::Txid::from_hex(&unspent.txhash)?,
                     vout: unspent.vout as u32,
                 },
                 script_sig: Script::new(),
@@ -425,7 +425,7 @@ impl BtcTransaction {
         Ok(TxSignResult {
             signature: tx_bytes.to_hex(),
             tx_hash: tx_to_sign.txid().to_hex(),
-            wtx_id: tx_to_sign.bitcoin_hash().to_hex(),
+            wtx_id: tx_to_sign.wtxid().to_hex(),
         })
     }
 

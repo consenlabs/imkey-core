@@ -94,7 +94,7 @@ impl BtcAddress {
         let mut pub_key_obj = PublicKey::from_str(pub_key)?;
         pub_key_obj.compressed = true;
 
-        Ok(Address::p2shwpkh(&pub_key_obj, network).to_string())
+        Ok(Address::p2shwpkh(&pub_key_obj, network)?.to_string())
     }
 
     /**
