@@ -47,3 +47,9 @@ pub fn sign_eth_message(data: &[u8]) -> Result<Vec<u8>> {
     let signed = Transaction::sign_persional_message(input).unwrap();
     encode_message(signed)
 }
+
+pub fn ec_sign(data: &[u8]) -> Result<Vec<u8>> {
+    let input: EthMessageSignReq = EthMessageSignReq::decode(data).expect("imkey_illegal_param");
+    let signed = Transaction::sign_persional_message(input).unwrap();
+    encode_message(signed)
+}
