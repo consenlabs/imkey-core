@@ -105,7 +105,7 @@ impl Transaction {
         }
 
         //sign
-        let msg_sign = FilecoinApdu::sign_digest(tx_input.path.as_str());
+        let msg_sign = FilecoinApdu::sign_digest();
         let res_msg_sign = send_apdu(msg_sign)?;
         ApduCheck::checke_response(&res_msg_sign)?;
 
@@ -167,10 +167,10 @@ mod tests {
             message: Some(message),
             path: "m/44'/461'/0/0/0".to_string(),
             network: "MAINNET".to_string(),
-            payment_dis: "1 FILECION".to_string(),
+            payment_dis: "1 FILECOIN".to_string(),
             to_dis: "f1d2xrzcslx7xlbbylc5c3d5lvandqw4iwl6epxba".to_string(),
             from_dis: "f1o2ph66tg7o7obyrqa7eiwiinrltauzxitkuk4ay".to_string(),
-            fee_dis: "0.1 FILECION".to_string(),
+            fee_dis: "0.1 FILECOIN".to_string(),
         };
 
         let tx_result = Transaction::sign_tx(tx_input).unwrap();

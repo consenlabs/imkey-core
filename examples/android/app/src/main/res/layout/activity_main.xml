@@ -124,7 +124,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_filecion"
+                android:id="@+id/btn_filecoin"
                 style="@style/button"
                 android:layout_width="0dp"
                 android:layout_marginLeft="2dp"

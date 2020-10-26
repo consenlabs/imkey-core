@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_device_manage:
                 goDeviceManage();
                 break;
-            case R.id.btn_filecion:
+            case R.id.btn_filecoin:
                 goFilecoin();
                 break;
             default:
