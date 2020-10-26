@@ -43,10 +43,10 @@ public class ImKeyFilecoinTransactionTest {
                     .setMessage(message)
                     .setPath("m/44'/461'/0/0/0")
                     .setNetwork("MAINNET")
-                    .setPaymentDis("1 FILECION")
+                    .setPaymentDis("1 FILECOIN")
                     .setToDis("f1d2xrzcslx7xlbbylc5c3d5lvandqw4iwl6epxba")
                     .setFromDis("f1o2ph66tg7o7obyrqa7eiwiinrltauzxitkuk4ay")
-                    .setFeeDis("0.1 FILECION")
+                    .setFeeDis("0.1 FILECOIN")
                     .build();
 
 

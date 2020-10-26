@@ -37,7 +37,7 @@ public class DeviceManageActivity extends AppCompatActivity {
     private static final int TYPE_IMK = 4;
     private static final int TYPE_USDT = 5;
     private static final int TYPE_COSMOS = 6;
-    private static final int TYPE_FILECION = 7;
+    private static final int TYPE_FILECOIN = 7;
 
 
     private ExecutorService es = Executors.newCachedThreadPool();
@@ -137,7 +137,7 @@ public class DeviceManageActivity extends AppCompatActivity {
                 switchApplet();
                 break;
             case R.id.radio_filecoin:
-                type = TYPE_FILECION;
+                type = TYPE_FILECOIN;
                 switchApplet();
                 break;
             case R.id.btn_set_ble_name:
@@ -175,9 +175,9 @@ public class DeviceManageActivity extends AppCompatActivity {
                 LogUtil.d("cosmos..");
                 appletName = Applet.COSMOS_NAME;
                 break;
-            case TYPE_FILECION:
-                LogUtil.d("filecion..");
-                appletName = Applet.FILECION_NAME;
+            case TYPE_FILECOIN:
+                LogUtil.d("filecoin..");
+                appletName = Applet.FILECOIN_NAME;
                 break;
         }
     }
