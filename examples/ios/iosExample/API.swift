@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftProtobuf
-import imKeyConnector
+import imKeyBleLib
 
 public class API{
   public class func startMessageDeamon(){

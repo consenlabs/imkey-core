@@ -90,7 +90,7 @@ public class BLE:NSObject,FTBLEDelegate{
     }
     
     let resApdu = BleByteUtil.bytes2Hex(data: rcvData)
-    let bound = resApdu.index(resApdu.startIndex,offsetBy: len*2)
+    let bound = resApdu.index(resApdu.startIndex,offsetBy: String.IndexDistance(len*2))
     let trimApdu = String(resApdu[..<bound])
     LogBle.d("ble <<<< \(trimApdu)")
     if trimApdu == "F000"{
