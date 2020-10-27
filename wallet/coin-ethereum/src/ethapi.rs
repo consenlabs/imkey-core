@@ -33,16 +33,6 @@ pub struct EthTxRes {
     pub tx_hash: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EthAddressReq {
-    #[prost(string, tag = "1")]
-    pub path: std::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EthAddressRes {
-    #[prost(string, tag = "1")]
-    pub address: std::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EthMessageSignReq {
     #[prost(string, tag = "1")]
     pub path: std::string::String,

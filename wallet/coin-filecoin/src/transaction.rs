@@ -1,5 +1,5 @@
 use crate::address::FilecoinAddress;
-use crate::filecoinapi::{FilecoinTxReq, FilecoinTxRes, Signature, UnsignedMessage};
+use crate::filecoinapi::{FilecoinTxInput, FilecoinTxOutput, Signature, UnsignedMessage};
 use crate::utils::message_digest;
 use crate::Result;
 
@@ -52,7 +52,7 @@ impl Transaction {
         Ok(tmp)
     }
 
-    pub fn sign_tx(tx_input: FilecoinTxReq) -> Result<FilecoinTxRes> {
+    pub fn sign_tx(tx_input: FilecoinTxInput) -> Result<FilecoinTxOutput> {
         path::check_path_validity(&tx_input.path).unwrap();
 
         let tx = tx_input.message.unwrap();
@@ -131,7 +131,7 @@ impl Transaction {
 
         let signature_type = 1;
 
-        Ok(FilecoinTxRes {
+        Ok(FilecoinTxOutput {
             cid: base64::encode(&cid),
             message: Some(tx.clone()),
             signature: Some(Signature {

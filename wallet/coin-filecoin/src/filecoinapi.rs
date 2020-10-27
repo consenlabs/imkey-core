@@ -1,5 +1,5 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FilecoinTxReq {
+pub struct FilecoinTxInput {
     #[prost(message, optional, tag = "1")]
     pub message: ::std::option::Option<UnsignedMessage>,
     #[prost(string, tag = "2")]
@@ -37,7 +37,7 @@ pub struct UnsignedMessage {
     pub params: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FilecoinTxRes {
+pub struct FilecoinTxOutput {
     #[prost(string, tag = "1")]
     pub cid: std::string::String,
     #[prost(message, optional, tag = "2")]
@@ -51,16 +51,4 @@ pub struct Signature {
     pub r#type: u32,
     #[prost(string, tag = "2")]
     pub data: std::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FilecoinAddressReq {
-    #[prost(string, tag = "1")]
-    pub network: std::string::String,
-    #[prost(string, tag = "2")]
-    pub path: std::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FilecoinAddressRes {
-    #[prost(string, tag = "1")]
-    pub address: std::string::String,
 }

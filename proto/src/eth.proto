@@ -21,14 +21,6 @@ message EthTxRes {
     string tx_hash = 2;
 }
 
-message EthAddressReq {
-    string path = 1;
-}
-
-message EthAddressRes {
-    string address = 1;
-}
-
 message EthMessageSignReq {
     string path = 1;
     string message = 2;

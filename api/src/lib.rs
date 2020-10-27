@@ -1,4 +1,4 @@
-use crate::api::{ErrorResponse, ImkeyAction};
+use crate::api::{AddressParam, ErrorResponse, ImkeyAction, PubKeyParam, SignParam};
 use prost::Message;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
@@ -108,13 +108,70 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
         #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
         "is_bl_status" => landingpad(|| device_manager::is_bl_status()),
 
+        "get_address" => landingpad(|| {
+            let param: AddressParam = AddressParam::decode(action.param.unwrap().value.as_slice())
+                .expect("imkey_illegal_param");
+            match param.chain_type.as_str() {
+                "BITCOIN" => btc_address::get_address(&param),
+                "ETHEREUM" => ethereum_address::get_address(&param),
+                "COSMOS" => cosmos_address::get_address(&param),
+                "FILECOIN" => filecoin_address::get_address(&param),
+                _ => Err(format_err!("get_address unsupported_chain")),
+            }
+        }),
+
+        "get_pub_key" => landingpad(|| {
+            let param: PubKeyParam = PubKeyParam::decode(action.param.unwrap().value.as_slice())
+                .expect("imkey_illegal_param");
+            match param.chain_type.as_str() {
+                "EOS" => eos_pubkey::get_eos_pubkey(&param),
+                _ => Err(format_err!("get_pub_key unsupported_chain")),
+            }
+        }),
+
+        "register_pub_key" => landingpad(|| {
+            let param: PubKeyParam = PubKeyParam::decode(action.param.unwrap().value.as_slice())
+                .expect("imkey_illegal_param");
+            match param.chain_type.as_str() {
+                "EOS" => eos_pubkey::display_eos_pubkey(&param),
+                _ => Err(format_err!("register_pub_key unsupported_chain")),
+            }
+        }),
+
+        "register_address" => landingpad(|| {
+            let param: AddressParam = AddressParam::decode(action.param.unwrap().value.as_slice())
+                .expect("imkey_illegal_param");
+            match param.chain_type.as_str() {
+                "BITCOIN" => btc_address::register_btc_address(&param),
+                "ETHEREUM" => ethereum_address::register_address(&param),
+                "COSMOS" => cosmos_address::display_cosmos_address(&param),
+                "FILECOIN" => filecoin_address::display_filecoin_address(&param),
+                _ => Err(format_err!("register_address unsupported_chain")),
+            }
+        }),
+
+        "sign_tx" => landingpad(|| {
+            let param: SignParam = SignParam::decode(action.param.unwrap().value.as_slice())
+                .expect("sign_tx unpack error");
+            match param.chain_type.as_str() {
+                "BITCOIN" => btc_signer::sign_btc_transaction(&param.input.unwrap().value),
+                "ETHEREUM" => ethereum_signer::sign_eth_transaction(&param.input.unwrap().value),
+                "EOS" => eos_signer::sign_eos_transaction(&param.input.unwrap().value),
+                "COSMOS" => cosmos_signer::sign_cosmos_transaction(&param.input.unwrap().value),
+                "FILECOIN" => {
+                    filecoin_signer::sign_filecoin_transaction(&param.input.unwrap().value)
+                }
+                _ => Err(format_err!("register_address unsupported_chain")),
+            }
+        }),
+
         // btc
-        "btc_tx_sign" => {
-            landingpad(|| btc_signer::sign_btc_transaction(&action.param.unwrap().value))
-        }
-        "btc_segwit_tx_sign" => {
-            landingpad(|| btc_signer::sign_segwit_transaction(&action.param.unwrap().value))
-        }
+        // "btc_tx_sign" => {
+        //     landingpad(|| btc_signer::sign_btc_transaction(&action.param.unwrap().value))
+        // }
+        // "btc_segwit_tx_sign" => {
+        //     landingpad(|| btc_signer::sign_segwit_transaction(&action.param.unwrap().value))
+        // }
         "btc_usdt_tx_sign" => {
             landingpad(|| usdt_signer::sign_usdt_transaction(&action.param.unwrap().value))
         }
@@ -122,68 +179,32 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
             landingpad(|| usdt_signer::sign_usdt_segwit_transaction(&action.param.unwrap().value))
         }
         "btc_get_xpub" => landingpad(|| btc_address::get_btc_xpub(&action.param.unwrap().value)),
-        "btc_get_address" => {
-            landingpad(|| btc_address::get_btc_address(&action.param.unwrap().value))
-        }
-        "btc_get_setwit_address" => {
-            landingpad(|| btc_address::get_segwit_address(&action.param.unwrap().value))
-        }
-        "btc_register_address" => {
-            landingpad(|| btc_address::display_btc_address(&action.param.unwrap().value))
-        }
-        "btc_register_segwit_address" => {
-            landingpad(|| btc_address::display_segwit_address(&action.param.unwrap().value))
-        }
 
-        // eth
-        "eth_tx_sign" => {
-            landingpad(|| ethereum_signer::sign_eth_transaction(&action.param.unwrap().value))
-        }
+        // // eth
+        // "eth_tx_sign" => {
+        //     landingpad(|| ethereum_signer::sign_eth_transaction(&action.param.unwrap().value))
+        // }
         "eth_message_sign" => {
             landingpad(|| ethereum_signer::sign_eth_message(&action.param.unwrap().value))
         }
-        "eth_get_address" => {
-            landingpad(|| ethereum_address::get_eth_address(&action.param.unwrap().value))
-        }
-        "eth_register_address" => {
-            landingpad(|| ethereum_address::display_eth_address(&action.param.unwrap().value))
-        }
 
-        // eos
-        "eos_tx_sign" => {
-            landingpad(|| eos_signer::sign_eos_transaction(&action.param.unwrap().value))
-        }
+        // // eos
+        // "eos_tx_sign" => {
+        //     landingpad(|| eos_signer::sign_eos_transaction(&action.param.unwrap().value))
+        // }
         "eos_message_sign" => {
             landingpad(|| eos_signer::sign_eos_message(&action.param.unwrap().value))
         }
-        "eos_get_pubkey" => landingpad(|| eos_pubkey::get_eos_pubkey(&action.param.unwrap().value)),
-        "eos_register_pubkey" => {
-            landingpad(|| eos_pubkey::display_eos_pubkey(&action.param.unwrap().value))
-        }
 
-        // cosmos
-        "cosmos_tx_sign" => {
-            landingpad(|| cosmos_signer::sign_cosmos_transaction(&action.param.unwrap().value))
-        }
-        "cosmos_get_address" => {
-            landingpad(|| cosmos_address::get_cosmos_address(&action.param.unwrap().value))
-        }
-        "cosmos_register_address" => {
-            landingpad(|| cosmos_address::display_cosmos_address(&action.param.unwrap().value))
-        }
-
-        // filecoin
-        "filecoin_tx_sign" => {
-            landingpad(|| filecoin_signer::sign_filecoin_transaction(&action.param.unwrap().value))
-        }
-        "filecoin_get_address" => {
-            landingpad(|| filecoin_address::get_filecoin_address(&action.param.unwrap().value))
-        }
-        "filecoin_register_address" => {
-            landingpad(|| filecoin_address::display_filecoin_address(&action.param.unwrap().value))
-        }
-
-        _ => Vec::new(),
+        // // cosmos
+        // "cosmos_tx_sign" => {
+        //     landingpad(|| cosmos_signer::sign_cosmos_transaction(&action.param.unwrap().value))
+        // }
+        // // filecoin
+        // "filecoin_tx_sign" => {
+        //     landingpad(|| filecoin_signer::sign_filecoin_transaction(&action.param.unwrap().value))
+        // }
+        _ => landingpad(|| Err(format_err!("unsupported_method"))),
     };
 
     let ret_str = hex::encode(reply);
@@ -216,4 +237,90 @@ pub unsafe extern "C" fn imkey_get_last_err_message() -> *const c_char {
             CString::new("").unwrap().into_raw()
         }
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use error_handling::Result;
+    use std::ffi::{CStr, CString};
+    use std::fs::remove_file;
+    use std::os::raw::c_char;
+    use std::panic;
+    use std::path::Path;
+
+    use prost::Message;
+
+    use crate::api::CommonResponse;
+    use std::fs;
+
+    fn _to_c_char(str: &str) -> *const c_char {
+        CString::new(str).unwrap().into_raw()
+    }
+
+    fn _to_str(json_str: *const c_char) -> &'static str {
+        let json_c_str = unsafe { CStr::from_ptr(json_str) };
+        json_c_str.to_str().unwrap()
+    }
+
+    fn teardown() {
+        let p = Path::new("/tmp/imtoken/wallets");
+        let walk_dir = std::fs::read_dir(p).expect("read dir");
+        for entry in walk_dir {
+            let entry = entry.expect("DirEntry");
+            let fp = entry.path();
+            if !fp
+                .file_name()
+                .expect("file_name")
+                .to_str()
+                .expect("file_name str")
+                .ends_with(".json")
+            {
+                continue;
+            }
+
+            remove_file(fp.as_path()).expect("should remove file");
+        }
+    }
+
+    // fn run_test<T>(test: T) -> ()
+    //     where
+    //         T: FnOnce() -> () + panic::UnwindSafe,
+    // {
+    //     setup();
+    //     let result = panic::catch_unwind(|| test());
+    //     teardown();
+    //     assert!(result.is_ok())
+    // }
+
+    #[test]
+    fn call_api() {
+        // let param = TcxAction {
+        //     method: method.to_string(),
+        //     param: Some(::prost_types::Any {
+        //         type_url: "imtoken".to_string(),
+        //         value: encode_message(msg).unwrap(),
+        //     }),
+        // };
+
+        let err_bytes = hex::decode("1233e69caae883bde5ae8ce68890e6938de4bd9ce38082efbc88746f6b656e2e4170694572726f72e99499e8afaf31e38082efbc89").unwrap();
+        let err: ErrorResponse = ErrorResponse::decode(err_bytes.as_slice()).unwrap();
+        assert_eq!("err", err.error);
+        let _ = unsafe { imkey_clear_err() };
+        // let param_bytes = encode_message(param).unwrap();
+        let param_bytes = hex::decode("0a0c636865636b5f757064617465").unwrap();
+        let param_hex = hex::encode(param_bytes);
+        let ret_hex = unsafe { _to_str(call_imkey_api(_to_c_char(&param_hex))) };
+        let err = unsafe { _to_str(imkey_get_last_err_message()) };
+        if !err.is_empty() {
+            let err_bytes = hex::decode(err).unwrap();
+            let err_ret: ErrorResponse = ErrorResponse::decode(err_bytes.as_slice()).unwrap();
+            assert_eq!("err", err_ret.error)
+        } else {
+            let ret_bytes = hex::decode(ret_hex).unwrap();
+
+            let ret: CommonResponse = CommonResponse::decode(ret_bytes.as_slice()).unwrap();
+            assert_eq!("ret", ret.result)
+        }
+    }
 }

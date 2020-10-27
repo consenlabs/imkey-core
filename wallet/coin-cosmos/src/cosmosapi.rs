@@ -49,13 +49,3 @@ pub struct CosmosTxRes {
     #[prost(string, tag = "2")]
     pub tx_hash: std::string::String,
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CosmosAddressReq {
-    #[prost(string, tag = "1")]
-    pub path: std::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CosmosAddressRes {
-    #[prost(string, tag = "1")]
-    pub address: std::string::String,
-}

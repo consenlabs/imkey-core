@@ -33,11 +33,3 @@ message CosmosTxRes {
     string tx_data = 1;
     string tx_hash = 2;
 }
-
-message CosmosAddressReq {
-    string path = 1;
-}
-
-message CosmosAddressRes {
-    string address = 1;
-}

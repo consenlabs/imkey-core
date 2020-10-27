@@ -1,7 +1,7 @@
 syntax = "proto3";
 package filecoinapi;
 
-message FilecoinTxReq {
+message FilecoinTxInput {
     UnsignedMessage message = 1;
     string path = 2;
     string network = 3;
@@ -23,7 +23,7 @@ message UnsignedMessage {
     string params = 9;
 }
 
-message FilecoinTxRes {
+message FilecoinTxOutput {
     string cid = 1;
     UnsignedMessage message = 2;
     Signature signature = 3;
@@ -34,11 +34,3 @@ message Signature {
     string  data = 2;
 }
 
-message FilecoinAddressReq {
-    string network = 1;
-    string path = 2;
-}
-
-message FilecoinAddressRes {
-    string address = 1;
-}
