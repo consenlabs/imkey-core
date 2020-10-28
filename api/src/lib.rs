@@ -176,7 +176,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                     &param.clone().input.unwrap().value,
                     &param,
                 ),
-                _ => Err(format_err!("register_address unsupported_chain")),
+                _ => Err(format_err!("sign_tx unsupported_chain")),
             }
         }),
 
@@ -323,11 +323,11 @@ mod tests {
         // let err: ErrorResponse = ErrorResponse::decode(err_bytes.as_slice()).unwrap();
         // assert_eq!("err", err.error);
 
-        let param = hex::decode("0a0c62696e645f61637175697265121c0a186465766963656170692e42696e64416371756972655265711200").unwrap();
-        let action: ImkeyAction = ImkeyAction::decode(param.as_slice()).unwrap();
-        let param: BindAcquireReq =
-            BindAcquireReq::decode(action.param.unwrap().value.as_slice()).unwrap();
-        assert_eq!("action", param.bind_code);
+        // let param = hex::decode("0a077369676e5f747812c7020a10636f6d6d6f6e2e5369676e506172616d12b2020a0846494c45434f494e12116d2f3434272f343631272f30272f302f301a074d41494e4e45542295010a1b66696c65636f696e6170692e46696c65636f696e5478496e70757412760a29663166747464797a6d74626b3335376a6f64326c696b706e6478376c6b61673763626e637a7a717269122966317a6c6b6a776f35706e6d367065746d3475346c756a366762366536346565637277347434737471182522103130303030303030303030303030303028fe931d32033130303a01302a09302e3030312046494c3229663166747464797a6d74626b3335376a6f64326c696b706e6478376c6b61673763626e637a7a7172693a2966317a6c6b6a776f35706e6d367065746d3475346c756a3667623665363465656372773474347374714211302e30303030303030393532372046494c").unwrap();
+        // let action: ImkeyAction = ImkeyAction::decode(param.as_slice()).unwrap();
+        // let param: SignParam =
+        //     SignParam::decode(action.param.unwrap().value.as_slice()).unwrap();
+        // assert_eq!("action", action.method);
         // let param: AppDownloadReq = AppDownloadReq::decode(err.param.unwrap().value.as_slice()).unwrap();
         // assert_eq!("action", param.app_name);
         // let param: AppDownloadReq = AppDownloadReq {
@@ -346,7 +346,7 @@ mod tests {
         // let param_bytes = hex::decode("0a0c636865636b5f757064617465").unwrap();
         // let param_hex = hex::encode(param_bytes);
         let ret_hex = unsafe {
-            _to_str(call_imkey_api(_to_c_char(&"0a0b6765745f61646472657373123c0a106170692e41646472657373506172616d12280a0846494c45434f494e12116d2f3434272f343631272f30272f302f301a074d41494e4e45542000")))
+            _to_str(call_imkey_api(_to_c_char(&"0a077369676e5f747812c7020a10636f6d6d6f6e2e5369676e506172616d12b2020a0846494c45434f494e12116d2f3434272f343631272f30272f302f301a074d41494e4e45542295010a1b66696c65636f696e6170692e46696c65636f696e5478496e70757412760a29663166747464797a6d74626b3335376a6f64326c696b706e6478376c6b61673763626e637a7a717269122966317a6c6b6a776f35706e6d367065746d3475346c756a366762366536346565637277347434737471182522103130303030303030303030303030303028fe931d32033130303a01302a09302e3030312046494c3229663166747464797a6d74626b3335376a6f64326c696b706e6478376c6b61673763626e637a7a7172693a2966317a6c6b6a776f35706e6d367065746d3475346c756a3667623665363465656372773474347374714211302e30303030303030393532372046494c")))
         };
         let err = unsafe { _to_str(imkey_get_last_err_message()) };
         if !err.is_empty() {

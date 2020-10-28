@@ -106,6 +106,26 @@ pub struct BitcoinWallet {
     pub external_address: ::std::option::Option<ExternalAddress>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EosWallet {
+    #[prost(string, tag = "1")]
+    pub chain_type: std::string::String,
+    #[prost(string, tag = "2")]
+    pub address: std::string::String,
+    #[prost(message, repeated, tag = "3")]
+    pub public_keys: ::std::vec::Vec<eos_wallet::PubKeyInfo>,
+}
+pub mod eos_wallet {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct PubKeyInfo {
+        #[prost(string, tag = "1")]
+        pub path: std::string::String,
+        #[prost(string, tag = "2")]
+        pub derived_mode: std::string::String,
+        #[prost(string, tag = "3")]
+        pub public_key: std::string::String,
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InitImKeyCoreXParam {
     #[prost(string, tag = "1")]
     pub file_dir: std::string::String,

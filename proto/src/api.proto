@@ -77,6 +77,20 @@ message BitcoinWallet {
 }
 
 
+message EosWallet {
+    string chainType = 1;
+    string address = 2;
+    message PubKeyInfo {
+        string path = 1;
+        string derivedMode = 2;
+        string publicKey = 3;
+    }
+    repeated PubKeyInfo publicKeys = 3;
+}
+
+
+
+
 
 message InitImKeyCoreXParam {
     string fileDir = 1;
