@@ -2,7 +2,7 @@ syntax = "proto3";
 package deviceapi;
 
 message AppDownloadReq {
-    string app_name = 1;
+    string appName = 1;
 }
 
 message AppUpdateReq {

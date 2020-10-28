@@ -63,6 +63,8 @@ pub struct PubKeyResult {
     pub chain_type: std::string::String,
     #[prost(string, tag = "3")]
     pub pub_key: std::string::String,
+    #[prost(string, tag = "4")]
+    pub derived_mode: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SignParam {
@@ -74,4 +76,37 @@ pub struct SignParam {
     pub path: std::string::String,
     #[prost(message, optional, tag = "4")]
     pub input: ::std::option::Option<::prost_types::Any>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExternalAddress {
+    #[prost(string, tag = "1")]
+    pub address: std::string::String,
+    #[prost(string, tag = "2")]
+    pub derived_path: std::string::String,
+    #[prost(string, tag = "3")]
+    pub r#type: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BitcoinWallet {
+    #[prost(string, tag = "1")]
+    pub path: std::string::String,
+    #[prost(string, tag = "2")]
+    pub chain_type: std::string::String,
+    #[prost(string, tag = "3")]
+    pub address: std::string::String,
+    #[prost(string, tag = "4")]
+    pub enc_xpub: std::string::String,
+    #[prost(message, optional, tag = "5")]
+    pub external_address: ::std::option::Option<ExternalAddress>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InitImKeyCoreXParam {
+    #[prost(string, tag = "1")]
+    pub file_dir: std::string::String,
+    #[prost(string, tag = "2")]
+    pub xpub_common_key: std::string::String,
+    #[prost(string, tag = "3")]
+    pub xpub_common_iv: std::string::String,
+    #[prost(bool, tag = "4")]
+    pub is_debug: bool,
 }

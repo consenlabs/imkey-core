@@ -1,8 +1,9 @@
-use crate::api::CommonResponse;
+use crate::api::{CommonResponse, InitImKeyCoreXParam};
 use crate::error_handling::Result;
 use crate::message_handler::encode_message;
 use common::applet;
 use common::constants;
+use common::{XPUB_COMMON_IV, XPUB_COMMON_KEY_128};
 use device::device_manager;
 use device::deviceapi::{
     AppDeleteReq, AppDownloadReq, AppUpdateReq, AvailableAppBean, BindAcquireReq, BindAcquireRes,
@@ -10,9 +11,29 @@ use device::deviceapi::{
     GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes, GetLifeTimeRes,
     GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes, SetBleNameReq,
 };
+use parking_lot::RwLock;
 use prost::Message;
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 use transport::hid_api::hid_connect;
+
+lazy_static! {
+    pub static ref IS_DEBUG: RwLock<bool> = RwLock::new(false);
+    pub static ref WALLET_FILE_DIR: RwLock<String> = RwLock::new("../test-data".to_string());
+}
+
+pub fn init_imkey_core(data: &[u8]) -> Result<Vec<u8>> {
+    let InitImKeyCoreXParam {
+        file_dir,
+        xpub_common_key,
+        xpub_common_iv,
+        is_debug,
+    } = InitImKeyCoreXParam::decode(data).unwrap();
+    *WALLET_FILE_DIR.write() = file_dir.to_string();
+    *XPUB_COMMON_KEY_128.write() = xpub_common_key.to_string();
+    *XPUB_COMMON_IV.write() = xpub_common_iv.to_string();
+    *IS_DEBUG.write() = is_debug;
+    Ok(vec![])
+}
 
 pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppDownloadReq = AppDownloadReq::decode(data).expect("imkey_illegal_param");

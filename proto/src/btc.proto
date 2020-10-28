@@ -38,3 +38,5 @@ message BtcXpubReq {
 message BtcXpubRes {
     string xpub = 1;
 }
+
+

@@ -11,6 +11,7 @@ pub fn display_eos_pubkey(param: &PubKeyParam) -> Result<Vec<u8>> {
         path: param.path.to_string(),
         chain_type: param.chain_type.to_uppercase(),
         pub_key: eos_pubkey,
+        derived_mode: "PATH_DIRECTLY".to_string(),
     };
     encode_message(pubkey_message)
 }
@@ -21,6 +22,7 @@ pub fn get_eos_pubkey(param: &PubKeyParam) -> Result<Vec<u8>> {
         path: param.path.to_string(),
         chain_type: param.chain_type.to_uppercase(),
         pub_key: eos_pubkey,
+        derived_mode: "PATH_DIRECTLY".to_string(),
     };
     encode_message(pubkey_message)
 }

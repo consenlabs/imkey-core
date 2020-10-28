@@ -77,6 +77,9 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
     let data = hex::decode(hex_str).expect("imkey_illegal_prarm");
     let action: ImkeyAction = ImkeyAction::decode(data.as_slice()).expect("decode imkey api");
     let reply: Vec<u8> = match action.method.to_lowercase().as_str() {
+        "init_imkey_core_x" => {
+            landingpad(|| device_manager::init_imkey_core(&action.param.unwrap().value))
+        }
         // imkey manager
         "app_download" => landingpad(|| device_manager::app_download(&action.param.unwrap().value)),
         "app_update" => landingpad(|| device_manager::app_update(&action.param.unwrap().value)),
@@ -252,6 +255,7 @@ mod tests {
     use prost::Message;
 
     use crate::api::CommonResponse;
+    use device::deviceapi::{AppDownloadReq, BindAcquireReq};
     use std::fs;
 
     fn _to_c_char(str: &str) -> *const c_char {
@@ -303,14 +307,35 @@ mod tests {
         //     }),
         // };
 
-        let err_bytes = hex::decode("1233e69caae883bde5ae8ce68890e6938de4bd9ce38082efbc88746f6b656e2e4170694572726f72e99499e8afaf31e38082efbc89").unwrap();
-        let err: ErrorResponse = ErrorResponse::decode(err_bytes.as_slice()).unwrap();
-        assert_eq!("err", err.error);
+        // let err_bytes = hex::decode("1233e69caae883bde5ae8ce68890e6938de4bd9ce38082efbc88746f6b656e2e4170694572726f72e99499e8afaf31e38082efbc89").unwrap();
+        // let err: ErrorResponse = ErrorResponse::decode(err_bytes.as_slice()).unwrap();
+        // assert_eq!("err", err.error);
+
+        let param = hex::decode("0a0c62696e645f61637175697265121c0a186465766963656170692e42696e64416371756972655265711200").unwrap();
+        let action: ImkeyAction = ImkeyAction::decode(param.as_slice()).unwrap();
+        let param: BindAcquireReq =
+            BindAcquireReq::decode(action.param.unwrap().value.as_slice()).unwrap();
+        assert_eq!("action", param.bind_code);
+        // let param: AppDownloadReq = AppDownloadReq::decode(err.param.unwrap().value.as_slice()).unwrap();
+        // assert_eq!("action", param.app_name);
+        // let param: AppDownloadReq = AppDownloadReq {
+        //     app_name: "FILECOIN".to_string()
+        // };
+        // let action: ImkeyAction = ImkeyAction {
+        //     method: "app_download".to_string(),
+        //     param: Some(::prost_types::Any {
+        //         type_url: "deviceapi.AppDownloadReq".to_string(),
+        //         value: encode_message(param).unwrap(),
+        //     })
+        // };
+        // assert_eq!("", hex::encode(encode_message(action).unwrap()));
         let _ = unsafe { imkey_clear_err() };
         // let param_bytes = encode_message(param).unwrap();
-        let param_bytes = hex::decode("0a0c636865636b5f757064617465").unwrap();
-        let param_hex = hex::encode(param_bytes);
-        let ret_hex = unsafe { _to_str(call_imkey_api(_to_c_char(&param_hex))) };
+        // let param_bytes = hex::decode("0a0c636865636b5f757064617465").unwrap();
+        // let param_hex = hex::encode(param_bytes);
+        let ret_hex = unsafe {
+            _to_str(call_imkey_api(_to_c_char(&"0a0b6765745f61646472657373123c0a106170692e41646472657373506172616d12280a0846494c45434f494e12116d2f3434272f343631272f30272f302f301a074d41494e4e45542000")))
+        };
         let err = unsafe { _to_str(imkey_get_last_err_message()) };
         if !err.is_empty() {
             let err_bytes = hex::decode(err).unwrap();
