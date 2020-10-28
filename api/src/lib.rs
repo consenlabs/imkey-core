@@ -87,7 +87,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
         "device_activate" => landingpad(|| device_manager::se_activate()),
         "check_update" => landingpad(|| device_manager::check_update()),
         "device_secure_check" => landingpad(|| device_manager::se_secure_check()),
-        "bind_check" => landingpad(|| device_manager::bind_check(&action.param.unwrap().value)),
+        "bind_check" => landingpad(|| device_manager::bind_check()),
         "bind_display_code" => landingpad(|| device_manager::bind_display_code()),
         "bind_acquire" => landingpad(|| device_manager::bind_acquire(&action.param.unwrap().value)),
         "get_seid" => landingpad(|| device_manager::get_seid()),

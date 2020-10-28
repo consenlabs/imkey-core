@@ -61,52 +61,6 @@ pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
     encode_message(address_message)
 }
 
-// pub fn get_btc_legacy_address(param: &AddressParam) -> Result<Vec<u8>> {
-//     let network = match param.network.as_ref() {
-//         "MAINNET" => Network::Bitcoin,
-//         "TESTNET" => Network::Testnet,
-//         _ => Network::Testnet,
-//     };
-//
-//     let address = BtcAddress::get_address(network, param.path.as_ref())?;
-//
-//     let address_message = AddressResult {
-//         path: param.path.to_owned(),
-//         chain_type: param.chain_type.to_string(),
-//         address,
-//     };
-//     encode_message(address_message)
-// }
-//
-// pub fn get_segwit_address(param: &AddressParam) -> Result<Vec<u8>> {
-//     let network = match param.network.as_ref() {
-//         "MAINNET" => Network::Bitcoin,
-//         "TESTNET" => Network::Testnet,
-//         _ => Network::Testnet,
-//     };
-//
-//     let account_path = param.path.to_string();
-//     let main_address = BtcAddress::get_segwit_address(network, format!("{}/0/0", account_path).as_str())?;
-//     let receive_address = BtcAddress::get_segwit_address(network, format!("{}/0/1", account_path).as_str())?;
-//     let enc_xpub = get_enc_xpub(network, param.path.as_ref())?;
-//
-//
-//     let external_address = ExternalAddress {
-//         address: receive_address,
-//         derived_path: "0/1".to_string(),
-//         r#type: "EXTERNAL".to_string()
-//     };
-//
-//     let address_message = BitcoinWallet {
-//         path: param.path.to_owned(),
-//         chain_type: param.chain_type.to_string(),
-//         address: main_address,
-//         enc_xpub,
-//         external_address: Some(external_address)
-//     };
-//     encode_message(address_message)
-// }
-
 pub fn get_enc_xpub(network: Network, path: &str) -> Result<String> {
     let xpub = BtcAddress::get_xpub(network, path)?;
     let key = common::XPUB_COMMON_KEY_128.read();

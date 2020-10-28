@@ -7,9 +7,9 @@ use common::{XPUB_COMMON_IV, XPUB_COMMON_KEY_128};
 use device::device_manager;
 use device::deviceapi::{
     AppDeleteReq, AppDownloadReq, AppUpdateReq, AvailableAppBean, BindAcquireReq, BindAcquireRes,
-    BindCheckReq, BindCheckRes, CheckUpdateRes, CosCheckUpdateRes, DeviceConnectReq,
-    GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes, GetLifeTimeRes,
-    GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes, SetBleNameReq,
+    BindCheckRes, CheckUpdateRes, CosCheckUpdateRes, DeviceConnectReq, GetBatteryPowerRes,
+    GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes, GetLifeTimeRes, GetRamSizeRes,
+    GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes, SetBleNameReq,
 };
 use parking_lot::RwLock;
 use prost::Message;
@@ -120,9 +120,9 @@ pub fn se_secure_check() -> Result<Vec<u8>> {
     })
 }
 
-pub fn bind_check(data: &[u8]) -> Result<Vec<u8>> {
-    let bind_check: BindCheckReq = BindCheckReq::decode(data).expect("imkey_illegal_param");
-    let check_result = device_manager::bind_check(&bind_check.file_path)?;
+pub fn bind_check() -> Result<Vec<u8>> {
+    let file_path = WALLET_FILE_DIR.read();
+    let check_result = device_manager::bind_check(file_path.as_str())?;
     let response_msg = BindCheckRes {
         bind_status: check_result,
     };
