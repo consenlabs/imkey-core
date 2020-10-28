@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import imKeyConnector
+import imKeyBleLib
 
 class BTCTest:FeatTest{
   class func testBitcoinSign(handle:UInt) -> TestResult{

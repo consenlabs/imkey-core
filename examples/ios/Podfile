@@ -7,8 +7,9 @@ target 'iosExample' do
 
   # Pods for iosExample
   pod 'SwiftProtobuf', '~> 1.0'
-  pod "imKeyConnector", path: "../../blelibrary/imkey-ble-ios"
+  pod "imKeyBleLib", path: "../../blelibrary/imkey-ble-ios"
   pod 'LTHRadioButton'
+#  pod 'CryptoSwift', '~> 1.3'
 
 
   target 'iosExampleTests' do

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import imKeyConnector
+import imKeyBleLib
 
 class CosmosTest:FeatTest{
   class func testCosmosSign(handle:UInt) -> TestResult{

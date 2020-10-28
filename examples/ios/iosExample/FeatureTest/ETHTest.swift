@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import imKeyConnector
+import imKeyBleLib
 
 class ETHTest: FeatTest {
   class func testETHSign(handle:UInt) -> TestResult{
