@@ -1,4 +1,4 @@
-use crate::constants::{BTC_AID, COSMOS_AID, EOS_AID, ETH_AID, LC_MAX};
+use crate::constants::{BTC_AID, COSMOS_AID, EOS_AID, ETH_AID, LC_MAX, TRON_AID};
 use crate::error::ApduError;
 use crate::Result;
 use hex;
@@ -225,6 +225,35 @@ impl CosmosApdu {
 
     pub fn sign_digest(path: &str) -> String {
         Apdu::sign_digest(0x72, 0x00, 0x00, path)
+    }
+}
+
+//
+pub struct Secp256k1Apdu();
+
+impl Default for Secp256k1Apdu {
+    fn default() -> Self {
+        Secp256k1Apdu()
+    }
+}
+
+impl CoinCommonApdu for Secp256k1Apdu {
+    fn select_applet() -> String {
+        Apdu::select_applet(TRON_AID)
+    }
+
+    fn get_xpub(path: &str, verify_flag: bool) -> String {
+        Apdu::get_pubkey(0x81, path, verify_flag)
+    }
+
+    fn register_address(address: &[u8]) -> String {
+        Apdu::register_address(0x85, address)
+    }
+}
+
+impl Secp256k1Apdu {
+    pub fn sign(data: Vec<u8>) -> Vec<String> {
+        Apdu::prepare_sign(0x82, data)
     }
 }
 

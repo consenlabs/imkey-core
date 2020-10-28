@@ -1,0 +1,32 @@
+syntax = "proto3";
+package tronapi;
+
+message TronTxReq {
+    string path = 1;
+    string raw_data = 2;
+    string address = 3;
+}
+
+message TronTxRes {
+    string signature = 1;
+}
+
+message TronAddressReq {
+    string path = 1;
+}
+
+message TronAddressRes {
+    string address = 1;
+}
+
+message TronMessageSignReq {
+    string path = 1;
+    string message = 2;
+    string address = 3;
+    bool is_hex =4;
+    bool is_tron_header=5;
+}
+
+message TronMessageSignRes {
+    string signature = 1;
+}
