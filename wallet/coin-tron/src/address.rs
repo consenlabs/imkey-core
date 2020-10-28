@@ -1,81 +1,76 @@
+use crate::Result;
 use bitcoin::util::base58;
+use keccak_hash::keccak;
+use common::path::check_path_validity;
+use common::apdu::{Secp256k1Apdu, ApduCheck, CoinCommonApdu};
+use transport::message::send_apdu;
 
-use crate::keccak;
+pub struct TronAddress {}
 
-use tcx_chain::Address as TraitAddress;
-use tcx_chain::Result;
-use tcx_constants::CoinInfo;
-use tcx_primitive::TypedPublicKey;
-
-pub struct Address(pub String);
-
-impl TraitAddress for Address {
-    fn from_public_key(public_key: &TypedPublicKey, _coin: &CoinInfo) -> Result<String> {
-        let pk = public_key.as_secp256k1()?;
-        let bytes = pk.to_uncompressed();
-
-        let hash = keccak(&bytes[1..]);
-        let hex: Vec<u8> = [vec![0x41], hash[12..32].to_vec()].concat();
-        Ok(base58::check_encode_slice(&hex))
+impl TronAddress {
+    pub fn address_from_pubkey(pubkey: &[u8]) -> Result<String> {
+        let pubkey_hash = keccak(pubkey[1..].as_ref());
+        let address = [vec![0x41], pubkey_hash[12..].to_vec()].concat();
+        let base58_address = base58::check_encode_slice(&address);
+        Ok(base58_address)
     }
 
-    fn is_valid(address: &str, _coin: &CoinInfo) -> bool {
-        let decode_ret = base58::from_check(address);
-        if let Ok(data) = decode_ret {
-            data.len() == 21 && data[0] == 0x41
-        } else {
-            false
-        }
+    pub fn get_address(path: &str) -> Result<String> {
+        check_path_validity(path).unwrap();
+
+        let select_apdu = Secp256k1Apdu::select_applet();
+        let select_response = send_apdu(select_apdu)?;
+        ApduCheck::checke_response(&select_response)?;
+
+        //get public
+        let msg_pubkey = Secp256k1Apdu::get_xpub(&path, false);
+        let res_msg_pubkey = send_apdu(msg_pubkey)?;
+        ApduCheck::checke_response(&res_msg_pubkey)?;
+
+        let pubkey_raw = hex::decode(&res_msg_pubkey[..130]).unwrap();
+
+        let address = TronAddress::address_from_pubkey(pubkey_raw.as_slice())?;
+        Ok(address)
+    }
+
+    pub fn display_address(path: &str) -> Result<String> {
+        let address = TronAddress::get_address(path).unwrap();
+        let reg_apdu = Secp256k1Apdu::register_address(address.as_bytes());
+        let res_reg = send_apdu(reg_apdu)?;
+        ApduCheck::checke_response(&res_reg)?;
+        Ok(address)
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::Address;
-    use tcx_chain::Address as TraitAddress;
-    use tcx_constants::coin_info::coin_info_from_param;
-    use tcx_constants::{CoinInfo, CurveType};
-    use tcx_primitive::TypedPublicKey;
+    use crate::address::TronAddress;
+    use common::constants;
+    use device::device_binding::bind_test;
 
     #[test]
     fn tron_address() {
         let bytes = hex::decode("04DAAC763B1B3492720E404C53D323BAF29391996F7DD5FA27EF0D12F7D50D694700684A32AD97FF4C09BF9CF0B9D0AC7F0091D9C6CB8BE9BB6A1106DA557285D8").unwrap();
-        let coin_info = CoinInfo {
-            coin: "".to_string(),
-            derivation_path: "".to_string(),
-            curve: CurveType::SECP256k1,
-            network: "".to_string(),
-            seg_wit: "".to_string(),
-        };
 
         assert_eq!(
-            Address::from_public_key(
-                &TypedPublicKey::from_slice(CurveType::SECP256k1, &bytes).unwrap(),
-                &coin_info
-            )
-                .unwrap(),
+            TronAddress::address_from_pubkey(&bytes).unwrap(),
             "THfuSDVRvSsjNDPFdGjMU19Ha4Kf7acotq"
         );
     }
 
     #[test]
-    fn tron_address_validation() {
-        let coin_info = coin_info_from_param("TRON", "", "").unwrap();
-        assert!(Address::is_valid(
-            "THfuSDVRvSsjNDPFdGjMU19Ha4Kf7acotq",
-            &coin_info
-        ));
-        assert!(!Address::is_valid(
-            "THfuSDVRvSsjNDPFdGjMU19Ha4Kf7acot",
-            &coin_info
-        ));
-        assert!(!Address::is_valid(
-            "qq9j7zsvxxl7qsrtpnxp8q0ahcc3j3k6mss7mnlrj8",
-            &coin_info
-        ));
-        assert!(!Address::is_valid(
-            "mkeNU5nVnozJiaACDELLCsVUc8Wxoh1rQN",
-            &coin_info
-        ));
+    fn test_get_address() {
+        bind_test();
+        let address = TronAddress::get_address(constants::TRON_PATH).unwrap();
+        println!("address:{}", &address);
+        assert_eq!(&address, "");
+    }
+
+    #[test]
+    fn test_display_address() {
+        bind_test();
+        let address = TronAddress::display_address(constants::TRON_PATH).unwrap();
+        println!("address:{}", &address);
+        assert_eq!(&address, "");
     }
 }
