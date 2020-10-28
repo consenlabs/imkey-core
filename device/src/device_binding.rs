@@ -219,11 +219,11 @@ fn get_se_pubkey(se_pubkey_cert: String) -> Result<String> {
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn bind_test() {
     //binding device
-    //    let path = "/Users/joe/work/sdk_gen_key".to_string();
-    //    let bind_code = "YDSGQPKX".to_string();
+       let path = "/Users/joe/work/sdk_gen_key".to_string();
+       let bind_code = "YDSGQPKX".to_string();
 
-    let path = "/tmp/".to_string();
-    let bind_code = "PVU3FY64".to_string();
+    // let path = "/tmp/".to_string();
+    // let bind_code = "PVU3FY64".to_string();
 
     assert!(hid_connect("imKey Pro").is_ok());
     let check_result = DeviceManage::bind_check(&path).unwrap_or_default();

@@ -195,19 +195,34 @@ impl Transaction {
     pub fn sign_persional_message(input: EthMessageSignReq) -> EthResult<EthMessageSignRes> {
         check_path_validity(&input.path).unwrap();
 
-        let signe_message;
-        if is_valid_hex(&input.message) {
-            let value = &input.message[2..];
-            signe_message = hex::decode(value).unwrap();
-        } else {
-            signe_message = input.message.into_bytes();
-        }
+        let message = match is_valid_hex(&input.message){
+            true => {let value = &input.message[2..];
+                hex::decode(value).unwrap()}
+            false => input.message.into_bytes()
+        };
 
-        let header = format!("Ethereum Signed Message:\n{}", &signe_message.len());
+        let header = format!("Ethereum Signed Message:\n{}", &message.len());
 
         let mut data = Vec::new();
         data.extend(header.as_bytes());
-        data.extend(signe_message);
+        data.extend(message);
+
+        Transaction::sign_message(&input.path,&data,&input.sender)
+    }
+
+
+    pub fn ec_sign(input: EthMessageSignReq) -> EthResult<EthMessageSignRes> {
+        check_path_validity(&input.path).unwrap();
+        let message = match is_valid_hex(&input.message){
+            true => {let value = &input.message[2..];
+            hex::decode(value).unwrap()}
+            false => input.message.into_bytes()
+        };
+        Transaction::sign_message(&input.path,&message,&input.sender)
+    }
+
+    pub fn sign_message(path:&str,message:&[u8],sender:&str) -> EthResult<EthMessageSignRes> {
+        let mut data = message.to_vec();
 
         let mut data_to_sign: Vec<u8> = Vec::new();
         data_to_sign.push(0x01);
@@ -228,24 +243,23 @@ impl Transaction {
         let select_result = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_result)?;
 
-        let msg_pubkey = EthApdu::get_xpub(&input.path, false);
+        let msg_pubkey = EthApdu::get_xpub(path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
         let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone()).unwrap();
         let address_checksummed = EthAddress::address_checksummed(&address_main);
 
-        if &address_checksummed != &input.sender {
+        if &address_checksummed != sender {
             return Err(CoinError::ImkeyAddressMismatchWithPath.into());
         }
 
         let prepare_apdus = EthApdu::prepare_personal_sign(apdu_pack);
         for apdu in prepare_apdus {
-            println!("prepare apdu:{}", &apdu);
             let res = send_apdu_timeout(apdu, constants::TIMEOUT_LONG)?;
             ApduCheck::checke_response(&res)?;
         }
 
-        let sign_apdu = EthApdu::personal_sign(&input.path);
+        let sign_apdu = EthApdu::personal_sign(path);
         let sign_response = send_apdu(sign_apdu)?;
         ApduCheck::checke_response(&sign_response)?;
 
@@ -483,6 +497,52 @@ mod tests {
         assert_eq!(
             output.signature,
             "35a94616ce12ddb79f6d351c2644c0fa2f496bd152b17102a5672359f583373b6dd5d2a60f5d9909cf84e6af7dc40176179c819a7cbd9b199f4c2e868530293f1b".to_string()
+        );
+    }
+
+    #[test]
+    fn test_ec_sign() {
+        bind_test();
+
+        let input = EthMessageSignReq {
+            path: constants::ETH_PATH.to_string(),
+            message: "Hello imKey".to_string(),
+            sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+        };
+        let output = Transaction::ec_sign(input).unwrap();
+        assert_eq!(
+            output.signature,
+            "57c976d1fa15c7e833fd340bcb3a96974060ed555369d443449ac4429c1933433afa5304d1cfcb6799403f2b97a1e83309b98fae8ad5fade62335664d90e819f1b".to_string()
+        );
+
+        let input = EthMessageSignReq {
+            path: constants::ETH_PATH.to_string(),
+            message: "0x8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f".to_string(),
+            sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+        };
+        let output = Transaction::ec_sign(input).unwrap();
+        assert_eq!(
+            output.signature,
+            "3d8ba5e7375900476d715b479938e48a2e46e59f8e2e12673adb5e3df78a622050053ae0183f5e555e5db34ff43293de255f384709bd3fe6e00b8239c7f1a3561c".to_string()
+        );
+    }
+
+    #[test]
+    fn test_sign_message() {
+        bind_test();
+
+        let message = b"Hello imKey";
+        let output = Transaction::sign_message(constants::ETH_PATH,message,"0x6031564e7b2F5cc33737807b2E58DaFF870B590b").unwrap();
+        assert_eq!(
+            output.signature,
+            "57c976d1fa15c7e833fd340bcb3a96974060ed555369d443449ac4429c1933433afa5304d1cfcb6799403f2b97a1e83309b98fae8ad5fade62335664d90e819f1b".to_string()
+        );
+
+        let message = hex::decode("8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f").unwrap();
+        let output = Transaction::sign_message(constants::ETH_PATH,&message,"0x6031564e7b2F5cc33737807b2E58DaFF870B590b").unwrap();
+        assert_eq!(
+            output.signature,
+            "3d8ba5e7375900476d715b479938e48a2e46e59f8e2e12673adb5e3df78a622050053ae0183f5e555e5db34ff43293de255f384709bd3fe6e00b8239c7f1a3561c".to_string()
         );
     }
 

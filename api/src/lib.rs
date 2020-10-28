@@ -140,6 +140,9 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
         "eth_message_sign" => {
             landingpad(|| ethereum_signer::sign_eth_message(&action.param.unwrap().value))
         }
+        "eth_ec_sign" => {
+            landingpad(|| ethereum_signer::ec_sign(&action.param.unwrap().value))
+        }
         "eth_get_address" => {
             landingpad(|| ethereum_address::get_eth_address(&action.param.unwrap().value))
         }
