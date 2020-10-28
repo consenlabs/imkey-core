@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import imKeyConnector
+import imKeyBleLib
 
 class USDTTest:FeatTest{
   class func testUSDTSign(handle:UInt) -> TestResult{

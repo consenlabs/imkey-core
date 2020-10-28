@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import imKeyConnector
+import imKeyBleLib
 
 class EOSTest: FeatTest {
   class func testEOSign(handle:UInt) -> TestResult{

@@ -8,7 +8,7 @@
 
 import UIKit
 import LTHRadioButton
-import imKeyConnector
+import imKeyBleLib
 
 class DeviceManageViewController: UIViewController {
 

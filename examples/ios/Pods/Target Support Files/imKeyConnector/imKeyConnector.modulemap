@@ -1,6 +1,0 @@
-framework module imKeyConnector {
-  umbrella header "imKeyConnector-umbrella.h"
-
-  export *
-  module * { export * }
-}

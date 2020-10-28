@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import imKeyConnector
+import imKeyBleLib
 
 class EOSViewController: UIViewController {
 
