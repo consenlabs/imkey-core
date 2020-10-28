@@ -1,17 +1,17 @@
 syntax = "proto3";
 package filecoinapi;
+//
+//message FilecoinTxInput {
+//    UnsignedMessage message = 1;
+//    string path = 2;
+//    string network = 3;
+//    string payment_dis = 4;
+//    string to_dis = 5;
+//    string from_dis = 6;
+//    string fee_dis = 7;
+//}
 
 message FilecoinTxInput {
-    UnsignedMessage message = 1;
-    string path = 2;
-    string network = 3;
-    string payment_dis = 4;
-    string to_dis = 5;
-    string from_dis = 6;
-    string fee_dis = 7;
-}
-
-message UnsignedMessage {
     string to = 1;
     string from = 2;
     uint64 nonce = 3;
@@ -25,7 +25,7 @@ message UnsignedMessage {
 
 message FilecoinTxOutput {
     string cid = 1;
-    UnsignedMessage message = 2;
+    FilecoinTxInput message = 2;
     Signature signature = 3;
 }
 

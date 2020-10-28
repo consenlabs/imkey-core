@@ -1,22 +1,5 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FilecoinTxInput {
-    #[prost(message, optional, tag = "1")]
-    pub message: ::std::option::Option<UnsignedMessage>,
-    #[prost(string, tag = "2")]
-    pub path: std::string::String,
-    #[prost(string, tag = "3")]
-    pub network: std::string::String,
-    #[prost(string, tag = "4")]
-    pub payment_dis: std::string::String,
-    #[prost(string, tag = "5")]
-    pub to_dis: std::string::String,
-    #[prost(string, tag = "6")]
-    pub from_dis: std::string::String,
-    #[prost(string, tag = "7")]
-    pub fee_dis: std::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UnsignedMessage {
     #[prost(string, tag = "1")]
     pub to: std::string::String,
     #[prost(string, tag = "2")]
@@ -41,7 +24,7 @@ pub struct FilecoinTxOutput {
     #[prost(string, tag = "1")]
     pub cid: std::string::String,
     #[prost(message, optional, tag = "2")]
-    pub message: ::std::option::Option<UnsignedMessage>,
+    pub message: ::std::option::Option<FilecoinTxInput>,
     #[prost(message, optional, tag = "3")]
     pub signature: ::std::option::Option<Signature>,
 }

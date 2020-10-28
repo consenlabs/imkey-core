@@ -1,5 +1,5 @@
 use crate::address::EthAddress;
-use crate::ethapi::{EthMessageSignReq, EthMessageSignRes, EthTxRes};
+use crate::ethapi::{EthMessageSignParam, EthMessageSignResult, EthTxOutput};
 use crate::types::{Action, Signature};
 use crate::Result as EthResult;
 use common::apdu::{ApduCheck, CoinCommonApdu, EthApdu};
@@ -40,7 +40,7 @@ impl Transaction {
         receiver: &str,
         sender: &str,
         fee: &str,
-    ) -> EthResult<EthTxRes> {
+    ) -> EthResult<EthTxOutput> {
         // ) {
         //check path
         check_path_validity(path)?;
@@ -132,7 +132,7 @@ impl Transaction {
             tx_hash.insert_str(0, "0x");
         }
 
-        let tx_sign_result = EthTxRes {
+        let tx_sign_result = EthTxOutput {
             tx_data: hex::encode(signed.0),
             tx_hash,
         };
@@ -192,7 +192,7 @@ impl Transaction {
         }
     }
 
-    pub fn sign_persional_message(input: EthMessageSignReq) -> EthResult<EthMessageSignRes> {
+    pub fn sign_persional_message(input: EthMessageSignParam) -> EthResult<EthMessageSignResult> {
         check_path_validity(&input.path).unwrap();
 
         let signe_message;
@@ -262,7 +262,7 @@ impl Transaction {
         let mut signature = hex::encode(&normalizes_sig_vec.as_ref());
         signature.push_str(&format!("{:02x}", &v));
 
-        Ok(EthMessageSignRes { signature })
+        Ok(EthMessageSignResult { signature })
     }
 }
 

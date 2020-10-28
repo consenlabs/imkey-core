@@ -31,12 +31,10 @@ pub struct BtcTxInput {
     pub extra_data: std::vec::Vec<u8>,
     #[prost(int32, tag = "7")]
     pub property_id: i32,
-    #[prost(string, tag = "8")]
-    pub network: std::string::String,
-    #[prost(string, tag = "9")]
-    pub path_prefix: std::string::String,
-    #[prost(bool, tag = "10")]
+    #[prost(bool, tag = "8")]
     pub is_seg_wit: bool,
+    #[prost(string, tag = "9")]
+    pub protocol: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BtcTxOutput {

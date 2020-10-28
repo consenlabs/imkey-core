@@ -1,7 +1,7 @@
 syntax = "proto3";
 package ethapi;
 
-message EthTxReq {
+message EthTxInput {
     string nonce = 1;
     string gas_price = 2;
     string gas_limit = 3;
@@ -9,24 +9,19 @@ message EthTxReq {
     string value = 5;
     string data = 6;
     string chain_id = 7;
-    string path = 8;
-    string payment = 9;
-    string receiver = 10;
-    string sender = 11;
-    string fee = 12;
 }
 
-message EthTxRes {
+message EthTxOutput {
     string tx_data = 1;
     string tx_hash = 2;
 }
 
-message EthMessageSignReq {
+message EthMessageSignParam {
     string path = 1;
     string message = 2;
     string sender = 3;
 }
 
-message EthMessageSignRes {
+message EthMessageSignResult {
     string signature = 1;
 }

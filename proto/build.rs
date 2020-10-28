@@ -6,6 +6,10 @@ fn main() {
     env::set_var("OUT_DIR", "../api/src");
     prost_build::compile_protos(&["src/api.proto"], &["src/"]).unwrap();
 
+    // common
+    env::set_var("OUT_DIR", "../common/src");
+    prost_build::compile_protos(&["src/common.proto"], &["src/"]).unwrap();
+
     // tcx-eth
     env::set_var("OUT_DIR", "../wallet/coin-ethereum/src");
     prost_build::compile_protos(&["src/eth.proto"], &["src/"]).unwrap();

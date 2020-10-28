@@ -13,7 +13,7 @@ pub struct StdFee {
     pub gas: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SignData {
+pub struct CosmosTxInput {
     #[prost(string, tag = "1")]
     pub account_number: std::string::String,
     #[prost(string, tag = "2")]
@@ -28,22 +28,7 @@ pub struct SignData {
     pub sequence: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CosmosTxReq {
-    #[prost(message, optional, tag = "1")]
-    pub sign_data: ::std::option::Option<SignData>,
-    #[prost(string, tag = "2")]
-    pub path: std::string::String,
-    #[prost(string, tag = "3")]
-    pub payment_dis: std::string::String,
-    #[prost(string, tag = "4")]
-    pub to_dis: std::string::String,
-    #[prost(string, tag = "5")]
-    pub from_dis: std::string::String,
-    #[prost(string, tag = "6")]
-    pub fee_dis: std::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CosmosTxRes {
+pub struct CosmosTxOutput {
     #[prost(string, tag = "1")]
     pub tx_data: std::string::String,
     #[prost(string, tag = "2")]

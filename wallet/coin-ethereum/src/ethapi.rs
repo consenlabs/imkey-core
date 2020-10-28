@@ -1,5 +1,5 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EthTxReq {
+pub struct EthTxInput {
     #[prost(string, tag = "1")]
     pub nonce: std::string::String,
     #[prost(string, tag = "2")]
@@ -14,26 +14,16 @@ pub struct EthTxReq {
     pub data: std::string::String,
     #[prost(string, tag = "7")]
     pub chain_id: std::string::String,
-    #[prost(string, tag = "8")]
-    pub path: std::string::String,
-    #[prost(string, tag = "9")]
-    pub payment: std::string::String,
-    #[prost(string, tag = "10")]
-    pub receiver: std::string::String,
-    #[prost(string, tag = "11")]
-    pub sender: std::string::String,
-    #[prost(string, tag = "12")]
-    pub fee: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EthTxRes {
+pub struct EthTxOutput {
     #[prost(string, tag = "1")]
     pub tx_data: std::string::String,
     #[prost(string, tag = "2")]
     pub tx_hash: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EthMessageSignReq {
+pub struct EthMessageSignParam {
     #[prost(string, tag = "1")]
     pub path: std::string::String,
     #[prost(string, tag = "2")]
@@ -42,7 +32,7 @@ pub struct EthMessageSignReq {
     pub sender: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EthMessageSignRes {
+pub struct EthMessageSignResult {
     #[prost(string, tag = "1")]
     pub signature: std::string::String,
 }

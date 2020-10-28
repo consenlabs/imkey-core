@@ -1,7 +1,6 @@
 use crate::api::{PubKeyParam, PubKeyResult};
 use crate::error_handling::Result;
 use crate::message_handler::encode_message;
-use coin_eos::eosapi::{EosPubkeyReq, EosPubkeyRes};
 use coin_eos::pubkey::EosPubkey;
 use prost::Message;
 

@@ -1,4 +1,5 @@
-use crate::api::{AddressParam, ErrorResponse, ImkeyAction, PubKeyParam, SignParam};
+use crate::api::{AddressParam, ErrorResponse, ImkeyAction, PubKeyParam};
+use common::SignParam;
 use prost::Message;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
@@ -157,13 +158,24 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
             let param: SignParam = SignParam::decode(action.param.unwrap().value.as_slice())
                 .expect("sign_tx unpack error");
             match param.chain_type.as_str() {
-                "BITCOIN" => btc_signer::sign_btc_transaction(&param.input.unwrap().value),
-                "ETHEREUM" => ethereum_signer::sign_eth_transaction(&param.input.unwrap().value),
-                "EOS" => eos_signer::sign_eos_transaction(&param.input.unwrap().value),
-                "COSMOS" => cosmos_signer::sign_cosmos_transaction(&param.input.unwrap().value),
-                "FILECOIN" => {
-                    filecoin_signer::sign_filecoin_transaction(&param.input.unwrap().value)
+                "BITCOIN" => {
+                    btc_signer::sign_btc_transaction(&param.clone().input.unwrap().value, &param)
                 }
+                "ETHEREUM" => ethereum_signer::sign_eth_transaction(
+                    &param.clone().input.unwrap().value,
+                    &param,
+                ),
+                "EOS" => {
+                    eos_signer::sign_eos_transaction(&param.clone().input.unwrap().value, &param)
+                }
+                "COSMOS" => cosmos_signer::sign_cosmos_transaction(
+                    &param.clone().clone().input.unwrap().value,
+                    &param,
+                ),
+                "FILECOIN" => filecoin_signer::sign_filecoin_transaction(
+                    &param.clone().input.unwrap().value,
+                    &param,
+                ),
                 _ => Err(format_err!("register_address unsupported_chain")),
             }
         }),
@@ -175,12 +187,12 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
         // "btc_segwit_tx_sign" => {
         //     landingpad(|| btc_signer::sign_segwit_transaction(&action.param.unwrap().value))
         // }
-        "btc_usdt_tx_sign" => {
-            landingpad(|| usdt_signer::sign_usdt_transaction(&action.param.unwrap().value))
-        }
-        "btc_usdt_segwit_tx_sign" => {
-            landingpad(|| usdt_signer::sign_usdt_segwit_transaction(&action.param.unwrap().value))
-        }
+        // "btc_usdt_tx_sign" => {
+        //     landingpad(|| usdt_signer::sign_usdt_transaction(&action.param.unwrap().value))
+        // }
+        // "btc_usdt_segwit_tx_sign" => {
+        //     landingpad(|| usdt_signer::sign_usdt_segwit_transaction(&action.param.unwrap().value))
+        // }
         "btc_get_xpub" => landingpad(|| btc_address::get_btc_xpub(&action.param.unwrap().value)),
 
         // // eth

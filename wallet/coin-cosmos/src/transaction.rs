@@ -1,5 +1,5 @@
 use crate::address::CosmosAddress;
-use crate::cosmosapi::CosmosTxRes;
+use crate::cosmosapi::CosmosTxOutput;
 use crate::Result;
 use bitcoin_hashes::hex::ToHex;
 use common::apdu::{ApduCheck, CoinCommonApdu, CosmosApdu};
@@ -80,7 +80,7 @@ pub struct StdTx {
 }
 
 impl CosmosTransaction {
-    pub fn sign(self) -> Result<CosmosTxRes> {
+    pub fn sign(self) -> Result<CosmosTxOutput> {
         let json = serde_json::to_vec(&self.sign_data).unwrap();
         let json_str = String::from_utf8(json.to_owned()).unwrap();
         let json_hash = sha256_hash(&json_str.as_bytes()).to_hex();
@@ -157,7 +157,7 @@ impl CosmosTransaction {
         let json = serde_json::to_vec(&std_tx).unwrap();
         let json = String::from_utf8(json.to_owned()).unwrap();
 
-        let ouput = CosmosTxRes {
+        let ouput = CosmosTxOutput {
             tx_data: json.to_string(),
             tx_hash: "".to_string(),
         };

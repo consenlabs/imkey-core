@@ -1,4 +1,6 @@
-use crate::eosapi::{EosMessageSignReq, EosMessageSignRes, EosSignResult, EosTxReq, EosTxRes};
+use crate::eosapi::{
+    EosMessageSignParam, EosMessageSignResult, EosSignResult, EosTxInput, EosTxOutput,
+};
 use crate::pubkey::EosPubkey;
 use crate::Result;
 use bitcoin::secp256k1::Signature;
@@ -8,7 +10,7 @@ use bitcoin_hashes::{ripemd160, Hash};
 use bytes::BufMut;
 use common::apdu::{ApduCheck, CoinCommonApdu, EosApdu};
 use common::utility::{retrieve_recid, secp256k1_sign, sha256_hash};
-use common::{constants, path, utility};
+use common::{constants, path, utility, SignParam};
 use device::device_binding::KEY_MANAGER;
 use hex::FromHex;
 use transport::message::{send_apdu, send_apdu_timeout};
@@ -17,8 +19,8 @@ use transport::message::{send_apdu, send_apdu_timeout};
 pub struct EosTransaction {}
 
 impl EosTransaction {
-    pub fn sign_tx(tx_input: EosTxReq) -> Result<EosTxRes> {
-        path::check_path_validity(&tx_input.path).unwrap();
+    pub fn sign_tx(tx_input: EosTxInput, sign_param: &SignParam) -> Result<EosTxOutput> {
+        path::check_path_validity(&sign_param.path).unwrap();
 
         let select_apdu = EosApdu::select_applet();
         let select_response = send_apdu(select_apdu)?;
@@ -52,8 +54,8 @@ impl EosTransaction {
             view_info.push_str(&format!("{:02x}", &sign_data.payment.as_bytes().len()));
             view_info.push_str(&hex::encode(&sign_data.payment));
             view_info.push_str("08");
-            view_info.push_str(&format!("{:02x}", &sign_data.to.as_bytes().len()));
-            view_info.push_str(&hex::encode(&sign_data.to));
+            view_info.push_str(&format!("{:02x}", &sign_data.receiver.as_bytes().len()));
+            view_info.push_str(&hex::encode(&sign_data.receiver));
 
             //sign
             for pub_key in &sign_data.pub_keys {
@@ -62,8 +64,8 @@ impl EosTransaction {
                 sign_data_pack.push(tx_data_hash.len() as u8); //hash len
                 sign_data_pack.extend(tx_data_hash.iter());
                 sign_data_pack.push(0x02);
-                sign_data_pack.push(tx_input.path.len() as u8); //hash len
-                sign_data_pack.extend(tx_input.path.as_bytes());
+                sign_data_pack.push(sign_param.path.len() as u8); //hash len
+                sign_data_pack.extend(sign_param.path.as_bytes());
                 sign_data_pack.extend(hex::decode(&view_info).unwrap().as_slice());
 
                 //bind signature
@@ -150,11 +152,11 @@ impl EosTransaction {
             }
         }
 
-        let tx_output = EosTxRes { trans_multi_signs };
+        let tx_output = EosTxOutput { trans_multi_signs };
         Ok(tx_output)
     }
 
-    pub fn sign_message(input: EosMessageSignReq) -> Result<EosMessageSignRes> {
+    pub fn sign_message(input: EosMessageSignParam) -> Result<EosMessageSignResult> {
         let hash = if input.is_hex {
             hex::decode(input.data).unwrap()
         } else {
@@ -242,7 +244,7 @@ impl EosTransaction {
         signature_slice.extend(check_sum);
         let signature = "SIG_K1_".to_owned() + base58::encode_slice(&signature_slice).as_ref();
 
-        let output = EosMessageSignRes { signature };
+        let output = EosMessageSignResult { signature };
         Ok(output)
     }
 }
@@ -262,8 +264,8 @@ mod tests {
             tx_data: "c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00".to_string(),
             pub_keys: vec!["EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string()],
             chain_id: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906".to_string(),
-            to: "bbbb5555bbbb".to_string(),
-            from: "liujianmin12".to_string(),
+            receiver: "bbbb5555bbbb".to_string(),
+            sender: "liujianmin12".to_string(),
             payment: "undelegatebw 0.0100 EOS".to_string()
         };
 

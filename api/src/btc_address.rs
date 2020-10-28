@@ -55,7 +55,7 @@ pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
         path: param.path.to_owned(),
         chain_type: param.chain_type.to_string(),
         address: main_address,
-        enc_xpub,
+        enc_x_pub: enc_xpub,
         external_address: Some(external_address),
     };
     encode_message(address_message)

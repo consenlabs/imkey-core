@@ -1,12 +1,12 @@
 use crate::address::FilecoinAddress;
-use crate::filecoinapi::{FilecoinTxInput, FilecoinTxOutput, Signature, UnsignedMessage};
+use crate::filecoinapi::{FilecoinTxInput, FilecoinTxOutput, Signature};
 use crate::utils::message_digest;
 use crate::Result;
 
 use common::apdu::{ApduCheck, CoinCommonApdu, FilecoinApdu};
 use common::error::CoinError;
 use common::utility::{hex_to_bytes, secp256k1_sign};
-use common::{constants, path, utility};
+use common::{constants, path, utility, SignParam};
 use device::device_binding::KEY_MANAGER;
 
 use forest_address::Address;
@@ -22,7 +22,7 @@ use transport::message::{send_apdu, send_apdu_timeout};
 pub struct Transaction {}
 
 impl Transaction {
-    fn convert_message(message: &UnsignedMessage) -> Result<ForestUnsignedMessage> {
+    fn convert_message(message: &FilecoinTxInput) -> Result<ForestUnsignedMessage> {
         let to = Address::from_str(&message.to).map_err(|_| CoinError::InvalidAddress)?;
         let from = Address::from_str(&message.from).map_err(|_| CoinError::InvalidAddress)?;
         let value = BigInt::from_str(&message.value).map_err(|_| CoinError::InvalidNumber)?;
@@ -52,20 +52,20 @@ impl Transaction {
         Ok(tmp)
     }
 
-    pub fn sign_tx(tx_input: FilecoinTxInput) -> Result<FilecoinTxOutput> {
-        path::check_path_validity(&tx_input.path).unwrap();
+    pub fn sign_tx(tx_input: FilecoinTxInput, sign_param: &SignParam) -> Result<FilecoinTxOutput> {
+        path::check_path_validity(&sign_param.path).unwrap();
 
-        let tx = tx_input.message.unwrap();
-        let unsigned_message = Self::convert_message(&tx)?;
+        // let tx = tx_input.message.unwrap();
+        let unsigned_message = Self::convert_message(&tx_input)?;
         let cbor_buffer = to_vec(&unsigned_message)?;
         let cid = message_digest(&cbor_buffer);
 
         //check address
         let address =
-            FilecoinAddress::get_address(tx_input.path.as_str(), tx_input.network.as_str())?;
+            FilecoinAddress::get_address(sign_param.path.as_str(), sign_param.network.as_str())?;
 
         //compare address
-        if address != tx_input.from_dis {
+        if address != sign_param.sender {
             return Err(CoinError::ImkeyAddressMismatchWithPath.into());
         }
 
@@ -76,17 +76,17 @@ impl Transaction {
         data_pack.extend(cid.iter());
 
         //path
-        data_pack.extend([2, tx_input.path.as_bytes().len() as u8].iter());
-        data_pack.extend(tx_input.path.as_bytes().iter());
+        data_pack.extend([2, sign_param.path.as_bytes().len() as u8].iter());
+        data_pack.extend(sign_param.path.as_bytes().iter());
         //payment info in TLV format
-        data_pack.extend([7, tx_input.payment_dis.as_bytes().len() as u8].iter());
-        data_pack.extend(tx_input.payment_dis.as_bytes().iter());
+        data_pack.extend([7, sign_param.payment.as_bytes().len() as u8].iter());
+        data_pack.extend(sign_param.payment.as_bytes().iter());
         //receiver info in TLV format
-        data_pack.extend([8, tx_input.to_dis.as_bytes().len() as u8].iter());
-        data_pack.extend(tx_input.to_dis.as_bytes().iter());
+        data_pack.extend([8, sign_param.receiver.as_bytes().len() as u8].iter());
+        data_pack.extend(sign_param.receiver.as_bytes().iter());
         //fee info in TLV format
-        data_pack.extend([9, tx_input.fee_dis.as_bytes().len() as u8].iter());
-        data_pack.extend(tx_input.fee_dis.as_bytes().iter());
+        data_pack.extend([9, sign_param.fee.as_bytes().len() as u8].iter());
+        data_pack.extend(sign_param.receiver.as_bytes().iter());
 
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap();
@@ -117,7 +117,7 @@ impl Transaction {
         let normalizes_sig_vec = signnture_obj.serialize_compact();
 
         //get public
-        let msg_pubkey = FilecoinApdu::get_xpub(&tx_input.path, false);
+        let msg_pubkey = FilecoinApdu::get_xpub(&sign_param.path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
@@ -133,7 +133,7 @@ impl Transaction {
 
         Ok(FilecoinTxOutput {
             cid: base64::encode(&cid),
-            message: Some(tx.clone()),
+            message: Some(tx_input.clone()),
             signature: Some(Signature {
                 r#type: signature_type,
                 data: base64::encode(&data_arr.to_vec()),

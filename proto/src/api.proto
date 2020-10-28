@@ -52,10 +52,13 @@ message PubKeyResult {
 }
 
 message SignParam {
-    string id = 1;
-    string chainType = 2;
-    string path = 3;
-    google.protobuf.Any input = 4;
+    string chainType = 1;
+    string path = 2;
+    google.protobuf.Any input = 3;
+    string payment = 4;
+    string receiver = 5;
+    string sender = 6;
+    string fee = 7;
 }
 
 message ExternalAddress {
@@ -69,7 +72,7 @@ message BitcoinWallet {
     string path = 1;
     string chainType = 2;
     string address = 3;
-    string encXpub = 4;
+    string encXPub = 4;
     ExternalAddress externalAddress = 5;
 }
 

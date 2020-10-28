@@ -19,9 +19,8 @@ message BtcTxInput {
     repeated Utxo unspents = 5;
     bytes extra_data = 6;
     int32 property_id = 7;
-    string network = 8;
-    string path_prefix = 9;
-    bool is_seg_wit = 10;
+    bool is_seg_wit = 8;
+    string protocol = 9;
 }
 
 message BtcTxOutput {

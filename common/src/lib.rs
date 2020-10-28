@@ -1,12 +1,15 @@
 pub mod aes;
 pub mod apdu;
 pub mod applet;
+pub mod common;
 pub mod constants;
 pub mod error;
 pub mod https;
 pub mod path;
 pub mod utility;
 use parking_lot::RwLock;
+
+pub use common::SignParam;
 
 #[macro_use]
 extern crate lazy_static;

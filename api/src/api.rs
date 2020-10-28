@@ -69,13 +69,19 @@ pub struct PubKeyResult {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SignParam {
     #[prost(string, tag = "1")]
-    pub id: std::string::String,
-    #[prost(string, tag = "2")]
     pub chain_type: std::string::String,
-    #[prost(string, tag = "3")]
+    #[prost(string, tag = "2")]
     pub path: std::string::String,
-    #[prost(message, optional, tag = "4")]
+    #[prost(message, optional, tag = "3")]
     pub input: ::std::option::Option<::prost_types::Any>,
+    #[prost(string, tag = "4")]
+    pub payment: std::string::String,
+    #[prost(string, tag = "5")]
+    pub receiver: std::string::String,
+    #[prost(string, tag = "6")]
+    pub sender: std::string::String,
+    #[prost(string, tag = "7")]
+    pub fee: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ExternalAddress {
@@ -95,7 +101,7 @@ pub struct BitcoinWallet {
     #[prost(string, tag = "3")]
     pub address: std::string::String,
     #[prost(string, tag = "4")]
-    pub enc_xpub: std::string::String,
+    pub enc_x_pub: std::string::String,
     #[prost(message, optional, tag = "5")]
     pub external_address: ::std::option::Option<ExternalAddress>,
 }
