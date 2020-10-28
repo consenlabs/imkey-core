@@ -1,6 +1,6 @@
 pub mod address;
-pub mod tronapi;
 pub mod signer;
+pub mod tronapi;
 
 #[macro_use]
 extern crate failure;

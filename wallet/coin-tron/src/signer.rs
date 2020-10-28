@@ -1,14 +1,14 @@
-use crate::tronapi::{TronMessageSignReq, TronMessageSignRes, TronTxReq, TronTxRes};
-use common::path::check_path_validity;
-use common::utility::{is_valid_hex, secp256k1_sign, hex_to_bytes};
-use common::apdu::{Secp256k1Apdu, CoinCommonApdu, ApduCheck};
-use transport::message::{send_apdu, send_apdu_timeout};
-use common::error::CoinError;
-use common::{constants, utility};
 use crate::address::TronAddress;
-use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
+use crate::tronapi::{TronMessageSignReq, TronMessageSignRes, TronTxReq, TronTxRes};
 use crate::Result;
+use common::apdu::{ApduCheck, CoinCommonApdu, Secp256k1Apdu};
+use common::error::CoinError;
+use common::path::check_path_validity;
+use common::utility::{hex_to_bytes, is_valid_hex, secp256k1_sign};
+use common::{constants, utility};
 use device::device_binding::KEY_MANAGER;
+use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
+use transport::message::{send_apdu, send_apdu_timeout};
 
 #[derive(Debug)]
 pub struct TronSigner {}
@@ -25,7 +25,7 @@ impl TronSigner {
                 }
                 hex::decode(&raw_hex)?
             }
-            false => input.message.into_bytes()
+            false => input.message.into_bytes(),
         };
 
         let header = match input.is_tron_header {
@@ -37,7 +37,7 @@ impl TronSigner {
         data.extend(header);
         data.extend(signe_message);
 
-        let mut signature = TronSigner::sign(&input.path,&data,&input.address)?;
+        let mut signature = TronSigner::sign(&input.path, &data, &input.address)?;
         Ok(TronMessageSignRes { signature })
     }
 
@@ -48,11 +48,11 @@ impl TronSigner {
         let mut data = Vec::new();
         data.extend(signe_message);
 
-        let mut signature = TronSigner::sign(&input.path,&data,&input.address)?;
+        let mut signature = TronSigner::sign(&input.path, &data, &input.address)?;
         Ok(TronTxRes { signature })
     }
 
-    pub fn sign(path:&str,data: &[u8],sender:&str) -> Result<String> {
+    pub fn sign(path: &str, data: &[u8], sender: &str) -> Result<String> {
         let mut data_to_sign: Vec<u8> = Vec::new();
         data_to_sign.push(0x01);
         data_to_sign.push(((data.len() & 0xFF00) >> 8) as u8);
@@ -108,22 +108,22 @@ impl TronSigner {
 
 #[cfg(test)]
 mod tests {
-    use bitcoin::util::misc::hex_bytes;
-    use crate::tronapi::{TronMessageSignReq, TronTxReq};
-    use common::constants;
     use crate::signer::TronSigner;
+    use crate::tronapi::{TronMessageSignReq, TronTxReq};
+    use bitcoin::util::misc::hex_bytes;
+    use common::constants;
     use device::device_binding::bind_test;
 
     #[test]
     fn sign_message() {
         bind_test();
 
-        let input = TronMessageSignReq{
+        let input = TronMessageSignReq {
             path: constants::TRON_PATH.to_string(),
             message: "645c0b7b58158babbfa6c6cd5a48aa7340a8749176b120e8516216787a13dc76".to_string(),
             address: "".to_string(),
             is_hex: true,
-            is_tron_header: true
+            is_tron_header: true,
         };
         let res = TronSigner::sign_message(input).unwrap();
         assert_eq!("7209610445e867cf2a36ea301bb5d1fbc3da597fd2ce4bb7fa64796fbf0620a4175e9f841cbf60d12c26737797217c0082fdb3caa8e44079e04ec3f93e86bbea1c", hex::encode(&res.signature))

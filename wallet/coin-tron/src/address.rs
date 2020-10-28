@@ -1,8 +1,8 @@
 use crate::Result;
 use bitcoin::util::base58;
-use keccak_hash::keccak;
+use common::apdu::{ApduCheck, CoinCommonApdu, Secp256k1Apdu};
 use common::path::check_path_validity;
-use common::apdu::{Secp256k1Apdu, ApduCheck, CoinCommonApdu};
+use keccak_hash::keccak;
 use transport::message::send_apdu;
 
 pub struct TronAddress {}
