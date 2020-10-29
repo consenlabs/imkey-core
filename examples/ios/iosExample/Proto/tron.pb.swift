@@ -30,6 +30,10 @@ public struct Tronapi_TronTxReq {
 
   public var address: String = String()
 
+  public var payment: String = String()
+
+  public var to: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -113,6 +117,8 @@ extension Tronapi_TronTxReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     1: .same(proto: "path"),
     2: .standard(proto: "raw_data"),
     3: .same(proto: "address"),
+    4: .same(proto: "payment"),
+    5: .same(proto: "to"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -121,6 +127,8 @@ extension Tronapi_TronTxReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
       case 1: try decoder.decodeSingularStringField(value: &self.path)
       case 2: try decoder.decodeSingularStringField(value: &self.rawData)
       case 3: try decoder.decodeSingularStringField(value: &self.address)
+      case 4: try decoder.decodeSingularStringField(value: &self.payment)
+      case 5: try decoder.decodeSingularStringField(value: &self.to)
       default: break
       }
     }
@@ -136,6 +144,12 @@ extension Tronapi_TronTxReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     if !self.address.isEmpty {
       try visitor.visitSingularStringField(value: self.address, fieldNumber: 3)
     }
+    if !self.payment.isEmpty {
+      try visitor.visitSingularStringField(value: self.payment, fieldNumber: 4)
+    }
+    if !self.to.isEmpty {
+      try visitor.visitSingularStringField(value: self.to, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -143,6 +157,8 @@ extension Tronapi_TronTxReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     if lhs.path != rhs.path {return false}
     if lhs.rawData != rhs.rawData {return false}
     if lhs.address != rhs.address {return false}
+    if lhs.payment != rhs.payment {return false}
+    if lhs.to != rhs.to {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

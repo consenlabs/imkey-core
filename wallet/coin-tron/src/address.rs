@@ -2,11 +2,10 @@ use crate::Result;
 use bitcoin::util::base58;
 use common::apdu::{ApduCheck, CoinCommonApdu, Secp256k1Apdu};
 use common::path::check_path_validity;
-use keccak_hash::keccak;
-use transport::message::send_apdu;
 use common::utility::secp256k1_sign;
 use device::device_binding::KEY_MANAGER;
-
+use keccak_hash::keccak;
+use transport::message::send_apdu;
 
 pub struct TronAddress {}
 
@@ -25,11 +24,6 @@ impl TronAddress {
         let select_response = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_response)?;
 
-        // let mut path_pack: Vec<u8> = vec![];
-        // path_pack.push(0x01);
-        // path_pack.push(path.as_bytes().len() as u8);
-        // path_pack.extend(path.as_bytes());
-
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &path.as_bytes())?;
 
@@ -42,7 +36,7 @@ impl TronAddress {
         apdu_pack.extend(path.as_bytes());
 
         //get public
-        let msg_pubkey = Secp256k1Apdu::get_xpub2(&apdu_pack, false);
+        let msg_pubkey = Secp256k1Apdu::get_xpub(&apdu_pack);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
@@ -54,7 +48,8 @@ impl TronAddress {
 
     pub fn display_address(path: &str) -> Result<String> {
         let address = TronAddress::get_address(path).unwrap();
-        let reg_apdu = Secp256k1Apdu::register_address(address.as_bytes());
+        let tron_menu_name = "TRON".as_bytes();
+        let reg_apdu = Secp256k1Apdu::register_address(tron_menu_name, address.as_bytes());
         let res_reg = send_apdu(reg_apdu)?;
         ApduCheck::checke_response(&res_reg)?;
         Ok(address)

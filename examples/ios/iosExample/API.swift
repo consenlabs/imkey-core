@@ -273,6 +273,36 @@ public class API{
     return cosmosOutput
   }
   
+  public class func tronSignTx(input:Tronapi_TronTxReq) -> Tronapi_TronTxRes{
+    var action = Api_ImkeyAction()
+    action.method = "tron_tx_sign"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! input.serializedData()
+    let paramHex = try! action.serializedData().toHexString()
+    
+    //response
+    Log.d("cosmos param ready..")
+    let res = call_imkey_api(paramHex)
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let output = try! Tronapi_TronTxRes(serializedData: dataRes)
+    return output
+  }
+  
+  public class func tronSignMessage(input:Tronapi_TronTxReq) -> Tronapi_TronTxRes{
+    var action = Api_ImkeyAction()
+    action.method = "tron_message_sign"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! input.serializedData()
+    let paramHex = try! action.serializedData().toHexString()
+    
+    let res = call_imkey_api(paramHex)
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let output = try! Tronapi_TronTxRes(serializedData: dataRes)
+    return output
+  }
+  
   public class func eosPubkey(path:String) -> String{
     var req = Eosapi_EosPubkeyReq()
     req.path = path
@@ -345,12 +375,30 @@ public class API{
     return eosPubkeyResponse.address
   }
   
-  public class func TronAddress(path:String) -> String{
-    var req = Tronapi_TronTxReq()
+  public class func tronAddress(path:String) -> String{
+    var req = Tronapi_TronAddressReq()
     req.path = path
     
     var action = Api_ImkeyAction()
     action.method = "tron_get_address"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! req.serializedData()
+    
+    let paramHex = try! action.serializedData().toHexString()
+    let res = call_imkey_api(paramHex)
+    
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let response = try! Tronapi_TronAddressRes(serializedData: dataRes)
+    return response.address
+  }
+  
+  public class func tronReginAddress(path:String) -> String{
+    var req = Tronapi_TronAddressReq()
+    req.path = path
+    
+    var action = Api_ImkeyAction()
+    action.method = "tron_register_address"
     action.param = Google_Protobuf_Any()
     action.param.value = try! req.serializedData()
     

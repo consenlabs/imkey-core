@@ -32,30 +32,45 @@ class TronViewController: UIViewController {
   
   @IBAction func signClick(_ sender: Any) {
     txtResult.text = ""
-//    let cosmosTx = createCosmosTX()
-//    do {
-////      let cosmosSigner = try CosmosTransaction(raw: cosmosTx)
-////
-////      let to = "cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt";
-////      let fee = "0.00075 atom";
-////      let signResult = try cosmosSigner.sign(handle: handle, path: BIP44.cosmos, paymentDis: nil, toDis: to, feeDis: fee)
-////      Log.d(signResult)
-//      let comsosInput = createCosmosInput()
-//      let comsosOutput = API.cosmosSignTx(cosmosInput: comsosInput)
-//      txtResult.text = "cosmos sign result:\n\(comsosOutput)"
-//    } catch let e as ImkeyError {
-//      Log.d("!!!error:\(e.message)")
-//      toastMsg(message: e.message)
-//    }catch{
-//      Log.d(error)
-//    }
+    do {
+      var input = Tronapi_TronTxReq()
+      input.path = BIP44.tron
+      input.rawData = "0a0208312208b02efdc02638b61e40f083c3a7c92d5a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541a1e81654258bf14f63feb2e8d1380075d45b0dac1215410b3e84ec677b3e63c99affcadb91a6b4e086798f186470a0bfbfa7c92d"
+      input.address = "TDQqJsFsStSy5fjG52KuiWW7HhJGAKGJLb"
+      input.payment = "100 TRX"
+      input.to = "TDQqJsFsStSy5fjG52KuiWW7HhJGAKGJLb"
+      let comsosOutput = API.tronSignTx(input: input)
+      txtResult.text = "cosmos sign result:\n\(comsosOutput)"
+    } catch let e as ImkeyError {
+      Log.d("!!!error:\(e.message)")
+      toastMsg(message: e.message)
+    }catch{
+      Log.d(error)
+    }
+  }
+  
+  @IBAction func signMessageClick(_ sender: Any) {
+    txtResult.text = ""
+    do {
+      var input = Tronapi_TronTxReq()
+      input.path = BIP44.tron
+      input.rawData = "0a0208312208b02efdc02638b61e40f083c3a7c92d5a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541a1e81654258bf14f63feb2e8d1380075d45b0dac1215410b3e84ec677b3e63c99affcadb91a6b4e086798f186470a0bfbfa7c92d"
+      input.address = "TDQqJsFsStSy5fjG52KuiWW7HhJGAKGJLb"
+      let comsosOutput = API.tronSignTx(input: input)
+      txtResult.text = "cosmos sign result:\n\(comsosOutput)"
+    } catch let e as ImkeyError {
+      Log.d("!!!error:\(e.message)")
+      toastMsg(message: e.message)
+    }catch{
+      Log.d(error)
+    }
   }
   
   @IBAction func addressBtnClick(_ sender: Any) {
     txtResult.text = ""
     do {
 //      let address = try CosmosKey.getCosmosAddress(handle: handle, path: BIP44.cosmos)
-      let address = API.TronAddress(path: BIP44.tron)
+      let address = API.tronAddress(path: BIP44.tron)
       Log.d(address)
       txtResult.text = address
     } catch let e as ImkeyError {
@@ -70,7 +85,7 @@ class TronViewController: UIViewController {
       txtResult.text = ""
       do {
   //      let address = try CosmosKey.getCosmosAddress(handle: handle, path: BIP44.cosmos)
-        let address = API.cosmosReginAddress(path: BIP44.cosmos)
+        let address = API.tronReginAddress(path: BIP44.tron)
         Log.d(address)
         txtResult.text = address
       } catch let e as ImkeyError {

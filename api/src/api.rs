@@ -5,22 +5,22 @@
 /// which cause the error.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ImkeyAction {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub method: std::string::String,
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag="2")]
     pub param: ::std::option::Option<::prost_types::Any>,
 }
 /// A common response when error occurred.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ErrorResponse {
-    #[prost(bool, tag = "1")]
+    #[prost(bool, tag="1")]
     pub is_success: bool,
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub error: std::string::String,
 }
 ///A commonresponse when successfully ended.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CommonResponse {
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub result: std::string::String,
 }
