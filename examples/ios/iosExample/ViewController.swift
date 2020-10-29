@@ -111,7 +111,7 @@ class ViewController: UIViewController,BLEDelegate {
   @IBAction func bindCheck(_ sender: Any) {
     let status = API.bindCheck()
     print("status:\(status)")
-    let bindResult = API.bindAcquire(bindCode: "ydsgqpkx")
+    let bindResult = API.bindAcquire(bindCode: "qx2vmuty")
     print("bind result:\(bindResult)")
   }
   
@@ -132,6 +132,12 @@ class ViewController: UIViewController,BLEDelegate {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     guard let cosmosVC = storyboard.instantiateViewController(withIdentifier: "CosmosViewController") as? CosmosViewController else {  return }
     self.present(cosmosVC, animated: true, completion: nil)
+  }
+  
+  @IBAction func TronClick(_ sender: Any) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    guard let tronVC = storyboard.instantiateViewController(withIdentifier: "TronViewController") as? TronViewController else {  return }
+    self.present(tronVC, animated: true, completion: nil)
   }
 }
 

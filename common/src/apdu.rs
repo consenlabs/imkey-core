@@ -243,17 +243,28 @@ impl CoinCommonApdu for Secp256k1Apdu {
     }
 
     fn get_xpub(path: &str, verify_flag: bool) -> String {
-        Apdu::get_pubkey(0x81, path, verify_flag)
+        Apdu::get_pubkey(0x82, path, verify_flag)
     }
 
     fn register_address(address: &[u8]) -> String {
-        Apdu::register_address(0x85, address)
+        Apdu::register_address(0x83, address)
     }
 }
 
 impl Secp256k1Apdu {
     pub fn sign(data: Vec<u8>) -> Vec<String> {
-        Apdu::prepare_sign(0x82, data)
+        Apdu::prepare_sign(0x81, data)
+    }
+
+    pub fn get_xpub2(data: &[u8], verify_flag: bool) -> String {
+        if data.len() as u32 > LC_MAX {
+            panic!("data to long");
+        }
+        let p1 = if verify_flag { 0x01 } else { 0x00 };
+        let mut apdu = ApduHeader::new(0x80, 0x82, p1, 0x00, data.len() as u8).to_array();
+        apdu.extend(data);
+        apdu.push(0x00); //Le
+        hex::encode(apdu)
     }
 }
 

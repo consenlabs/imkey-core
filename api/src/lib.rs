@@ -7,6 +7,7 @@ pub mod btc_address;
 pub mod btc_signer;
 pub mod cosmos_address;
 pub mod cosmos_signer;
+pub mod tron_address;
 pub mod device_manager;
 pub mod eos_pubkey;
 pub mod eos_signer;
@@ -171,6 +172,12 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
         }
         "cosmos_register_address" => {
             landingpad(|| cosmos_address::display_cosmos_address(&action.param.unwrap().value))
+        }
+        "tron_get_address" => {
+            landingpad(|| tron_address::get_tron_address(&action.param.unwrap().value))
+        }
+        "tron_register_address" => {
+            landingpad(|| tron_address::display_tron_address(&action.param.unwrap().value))
         }
 
         _ => Vec::new(),

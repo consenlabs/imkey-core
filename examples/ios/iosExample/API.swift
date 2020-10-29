@@ -212,7 +212,7 @@ public class API{
     let error = get_last_err_message()
     if error != nil{
       let dataError = String(cString:error!).key_dataFromHexString()!
-      let response = try! Api_Response(serializedData: dataError)
+      let response = try! Api_ErrorResponse(serializedData: dataError)
       if !response.isSuccess {
         print(response.error)
       }
@@ -343,6 +343,24 @@ public class API{
     let dataRes = strRes.key_dataFromHexString()!
     let eosPubkeyResponse = try! Cosmosapi_CosmosAddressRes(serializedData: dataRes)
     return eosPubkeyResponse.address
+  }
+  
+  public class func TronAddress(path:String) -> String{
+    var req = Tronapi_TronTxReq()
+    req.path = path
+    
+    var action = Api_ImkeyAction()
+    action.method = "tron_get_address"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! req.serializedData()
+    
+    let paramHex = try! action.serializedData().toHexString()
+    let res = call_imkey_api(paramHex)
+    
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let response = try! Tronapi_TronAddressRes(serializedData: dataRes)
+    return response.address
   }
   
   public class func ethAddress(path:String) -> String{
