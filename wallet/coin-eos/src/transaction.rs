@@ -26,20 +26,20 @@ impl EosTransaction {
 
         let mut trans_multi_signs: Vec<EosSignResult> = Vec::new();
 
-        for sign_data in &tx_input.sign_datas {
+        for sign_data in &tx_input.transactions {
             let mut sign_result = EosSignResult {
                 hash: "".to_string(),
                 signs: vec![],
             };
             //tx hash
-            let tx_data_bytes = hex::decode(&sign_data.tx_data).unwrap();
+            let tx_data_bytes = hex::decode(&sign_data.tx_hex).unwrap();
             let tx_hash = sha256_hash(&tx_data_bytes).to_hex();
             sign_result.hash = tx_hash;
 
             //pack tx data
             let mut tx_data_pack: Vec<u8> = Vec::new();
             tx_data_pack.put_slice(hex::decode(&sign_data.chain_id).unwrap().as_slice());
-            tx_data_pack.put_slice(hex::decode(&sign_data.tx_data).unwrap().as_slice());
+            tx_data_pack.put_slice(hex::decode(&sign_data.tx_hex).unwrap().as_slice());
             let context_free_actions = [0; 32];
             tx_data_pack.put_slice(&context_free_actions);
 
@@ -56,7 +56,7 @@ impl EosTransaction {
             view_info.push_str(&hex::encode(&sign_data.receiver));
 
             //sign
-            for pub_key in &sign_data.pub_keys {
+            for pub_key in &sign_data.public_keys {
                 let mut sign_data_pack: Vec<u8> = Vec::new();
                 sign_data_pack.push(0x01);
                 sign_data_pack.push(tx_data_hash.len() as u8); //hash len

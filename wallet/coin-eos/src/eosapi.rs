@@ -1,20 +1,22 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EosTxInput {
     #[prost(message, repeated, tag = "1")]
-    pub sign_datas: ::std::vec::Vec<EosSignData>,
+    pub transactions: ::std::vec::Vec<EosSignData>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EosSignData {
     #[prost(string, tag = "1")]
-    pub tx_data: std::string::String,
+    pub tx_hex: std::string::String,
     #[prost(string, repeated, tag = "2")]
-    pub pub_keys: ::std::vec::Vec<std::string::String>,
+    pub public_keys: ::std::vec::Vec<std::string::String>,
     #[prost(string, tag = "3")]
     pub chain_id: std::string::String,
     #[prost(string, tag = "4")]
     pub receiver: std::string::String,
     #[prost(string, tag = "5")]
     pub payment: std::string::String,
+    #[prost(string, tag = "6")]
+    pub sender: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EosTxOutput {

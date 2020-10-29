@@ -2,15 +2,16 @@ syntax = "proto3";
 package eosapi;
 
 message EosTxInput {
-    repeated EosSignData sign_datas = 1;
+    repeated EosSignData transactions = 1;
 }
 
 message EosSignData {
-    string tx_data = 1;
-    repeated string pub_keys = 2;
-    string chain_id = 3;
+    string txHex = 1;
+    repeated string publicKeys = 2;
+    string chainId = 3;
     string receiver = 4;
     string payment = 5;
+    string sender = 6;
 }
 
 message EosTxOutput {

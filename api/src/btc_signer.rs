@@ -55,11 +55,17 @@ pub fn sign_legacy_transaction(param: &BtcTxInput, sign_param: &SignParam) -> Re
     } else {
         Network::Bitcoin
     };
+    let op_return: Vec<u8>;
+    if let Some(extra) = param.extra.clone() {
+        op_return = hex::decode(extra.op_return).expect("decode btc extra op_return");
+    } else {
+        op_return = vec![];
+    }
     let signed = btc_tx.sign_transaction(
         network,
         &sign_param.path,
         param.change_address_index as i32,
-        &param.extra_data,
+        &op_return,
     )?;
     let tx_sign_result = BtcTxOutput {
         signature: signed.signature,
@@ -97,11 +103,19 @@ pub fn sign_segwit_transaction(param: &BtcTxInput, sign_param: &SignParam) -> Re
     } else {
         Network::Bitcoin
     };
+
+    let op_return: Vec<u8>;
+    if let Some(extra) = param.extra.clone() {
+        op_return = hex::decode(extra.op_return).expect("decode btc extra op_return");
+    } else {
+        op_return = vec![];
+    }
+
     let signed = btc_tx.sign_segwit_transaction(
         network,
         &sign_param.path,
         param.change_address_index as i32,
-        &param.extra_data,
+        &op_return,
     )?;
     let tx_sign_result = BtcTxOutput {
         signature: signed.signature,
@@ -138,8 +152,12 @@ pub fn sign_usdt_transaction(input: &BtcTxInput, sign_param: &SignParam) -> Resu
     } else {
         Network::Bitcoin
     };
-    let signed =
-        btc_tx.sign_omni_transaction(network, &sign_param.path, input.property_id as i32)?;
+    let extra = input
+        .extra
+        .clone()
+        .expect("sign usdt tx must contains extra");
+
+    let signed = btc_tx.sign_omni_transaction(network, &sign_param.path, extra.property_id)?;
     let tx_sign_result = BtcTxOutput {
         signature: signed.signature,
         tx_hash: signed.tx_hash,
@@ -176,8 +194,14 @@ pub fn sign_usdt_segwit_transaction(input: &BtcTxInput, sign_param: &SignParam) 
     } else {
         Network::Bitcoin
     };
+
+    let extra = input
+        .extra
+        .clone()
+        .expect("sign usdt tx must contains extra");
+
     let signed =
-        btc_tx.sign_omni_segwit_transaction(network, &sign_param.path, input.property_id as i32)?;
+        btc_tx.sign_omni_segwit_transaction(network, &sign_param.path, extra.property_id as i32)?;
     let tx_sign_result = BtcTxOutput {
         signature: signed.signature,
         wtx_hash: signed.wtx_id,
