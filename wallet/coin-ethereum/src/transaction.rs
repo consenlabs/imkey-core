@@ -133,7 +133,7 @@ impl Transaction {
         }
 
         let tx_sign_result = EthTxOutput {
-            tx_data: hex::encode(signed.0),
+            signature: hex::encode(signed.0),
             tx_hash,
         };
 

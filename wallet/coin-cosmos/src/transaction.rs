@@ -157,11 +157,11 @@ impl CosmosTransaction {
         let json = serde_json::to_vec(&std_tx).unwrap();
         let json = String::from_utf8(json.to_owned()).unwrap();
 
-        let ouput = CosmosTxOutput {
-            tx_data: json.to_string(),
+        let output = CosmosTxOutput {
+            signature: json.to_string(),
             tx_hash: "".to_string(),
         };
-        Ok(ouput)
+        Ok(output)
     }
 }
 

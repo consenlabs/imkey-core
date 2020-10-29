@@ -18,7 +18,7 @@ pub struct EthTxInput {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EthTxOutput {
     #[prost(string, tag = "1")]
-    pub tx_data: std::string::String,
+    pub signature: std::string::String,
     #[prost(string, tag = "2")]
     pub tx_hash: std::string::String,
 }

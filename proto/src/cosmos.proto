@@ -22,6 +22,6 @@ message CosmosTxInput {
 }
 
 message CosmosTxOutput {
-    string tx_data = 1;
-    string tx_hash = 2;
+    string signature = 1;
+    string txHash = 2;
 }
