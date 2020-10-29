@@ -23,16 +23,14 @@ pub struct EthTxOutput {
     pub tx_hash: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EthMessageSignParam {
+pub struct EthMessageInput {
     #[prost(string, tag = "1")]
-    pub path: std::string::String,
-    #[prost(string, tag = "2")]
     pub message: std::string::String,
-    #[prost(string, tag = "3")]
-    pub sender: std::string::String,
+    #[prost(bool, tag = "2")]
+    pub is_personal_sign: bool,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EthMessageSignResult {
+pub struct EthMessageOutput {
     #[prost(string, tag = "1")]
     pub signature: std::string::String,
 }

@@ -1,4 +1,4 @@
-use crate::api::{AddressParam, ErrorResponse, ImkeyAction, PubKeyParam};
+use crate::api::{AddressParam, ErrorResponse, ExternalAddressParam, ImkeyAction, PubKeyParam};
 use common::SignParam;
 use prost::Message;
 use std::ffi::{CStr, CString};
@@ -17,7 +17,6 @@ pub mod ethereum_signer;
 pub mod filecoin_address;
 pub mod filecoin_signer;
 pub mod message_handler;
-pub mod usdt_signer;
 use std::sync::Mutex;
 
 #[macro_use]
@@ -180,45 +179,38 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
             }
         }),
 
+        "sign_message" => landingpad(|| {
+            let param: SignParam = SignParam::decode(action.param.unwrap().value.as_slice())
+                .expect("unpack sign_message param error");
+            match param.chain_type.as_str() {
+                "ETHEREUM" => ethereum_signer::sign_eth_message(
+                    param.clone().input.unwrap().value.as_slice(),
+                    &param,
+                ),
+                "EOS" => eos_signer::sign_eos_message(
+                    param.clone().input.unwrap().value.as_slice(),
+                    &param,
+                ),
+                _ => Err(format_err!(
+                    "sign message is not supported the chain {}",
+                    param.chain_type
+                )),
+            }
+        }),
+
         // btc
-        // "btc_tx_sign" => {
-        //     landingpad(|| btc_signer::sign_btc_transaction(&action.param.unwrap().value))
-        // }
-        // "btc_segwit_tx_sign" => {
-        //     landingpad(|| btc_signer::sign_segwit_transaction(&action.param.unwrap().value))
-        // }
-        // "btc_usdt_tx_sign" => {
-        //     landingpad(|| usdt_signer::sign_usdt_transaction(&action.param.unwrap().value))
-        // }
-        // "btc_usdt_segwit_tx_sign" => {
-        //     landingpad(|| usdt_signer::sign_usdt_segwit_transaction(&action.param.unwrap().value))
-        // }
+        "calc_external_address" => landingpad(|| {
+            let param: ExternalAddressParam =
+                ExternalAddressParam::decode(action.param.unwrap().value.as_slice())
+                    .expect("calc external address unpack error");
+            match param.chain_type.as_str() {
+                "BITCOIN" => btc_address::calc_external_address(&param),
+                _ => Err(format_err!("only support calc bitcoin external address")),
+            }
+        }),
+
         "btc_get_xpub" => landingpad(|| btc_address::get_btc_xpub(&action.param.unwrap().value)),
 
-        // // eth
-        // "eth_tx_sign" => {
-        //     landingpad(|| ethereum_signer::sign_eth_transaction(&action.param.unwrap().value))
-        // }
-        "eth_message_sign" => {
-            landingpad(|| ethereum_signer::sign_eth_message(&action.param.unwrap().value))
-        }
-
-        // // eos
-        // "eos_tx_sign" => {
-        //     landingpad(|| eos_signer::sign_eos_transaction(&action.param.unwrap().value))
-        // }
-        "eos_message_sign" => {
-            landingpad(|| eos_signer::sign_eos_message(&action.param.unwrap().value))
-        }
-
-        // // cosmos
-        // "cosmos_tx_sign" => {
-        //     landingpad(|| cosmos_signer::sign_cosmos_transaction(&action.param.unwrap().value))
-        // }
-        // // filecoin
-        // "filecoin_tx_sign" => {
-        //     landingpad(|| filecoin_signer::sign_filecoin_transaction(&action.param.unwrap().value))
-        // }
         _ => landingpad(|| Err(format_err!("unsupported_method"))),
     };
 

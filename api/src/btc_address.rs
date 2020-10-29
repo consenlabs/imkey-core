@@ -1,4 +1,6 @@
-use crate::api::{AddressParam, AddressResult, BitcoinWallet, ExternalAddress};
+use crate::api::{
+    AddressParam, AddressResult, BitcoinWallet, ExternalAddress, ExternalAddressParam,
+};
 use crate::error_handling::Result;
 use crate::message_handler::encode_message;
 use bitcoin::Network;
@@ -59,6 +61,32 @@ pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
         external_address: Some(external_address),
     };
     encode_message(address_message)
+}
+
+pub fn calc_external_address(param: &ExternalAddressParam) -> Result<Vec<u8>> {
+    let network = match param.network.as_ref() {
+        "MAINNET" => Network::Bitcoin,
+        "TESTNET" => Network::Testnet,
+        _ => Network::Testnet,
+    };
+
+    let account_path = param.path.to_string();
+    let external_path = format!("{}/0/{}", account_path, param.external_idx);
+    let receive_address: String;
+
+    if param.seg_wit.to_uppercase() == "P2WPKH" {
+        receive_address = BtcAddress::get_segwit_address(network, external_path.as_str())?;
+    } else {
+        receive_address = BtcAddress::get_address(network, external_path.as_str())?;
+    }
+
+    let external_address = ExternalAddress {
+        address: receive_address,
+        derived_path: format!("0/{}", param.external_idx),
+        r#type: "EXTERNAL".to_string(),
+    };
+
+    encode_message(external_address)
 }
 
 pub fn get_enc_xpub(network: Network, path: &str) -> Result<String> {

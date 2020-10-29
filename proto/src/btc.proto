@@ -19,7 +19,7 @@ message BtcTxInput {
     repeated Utxo unspents = 5;
     bytes extra_data = 6;
     int32 property_id = 7;
-    bool is_seg_wit = 8;
+    string segWit = 8;
     string protocol = 9;
 }
 

@@ -1,12 +1,12 @@
 use crate::address::EthAddress;
-use crate::ethapi::{EthMessageSignParam, EthMessageSignResult, EthTxOutput};
+use crate::ethapi::{EthMessageInput, EthMessageOutput, EthTxOutput};
 use crate::types::{Action, Signature};
 use crate::Result as EthResult;
 use common::apdu::{ApduCheck, CoinCommonApdu, EthApdu};
 use common::error::CoinError;
 use common::path::check_path_validity;
 use common::utility::{hex_to_bytes, is_valid_hex, secp256k1_sign};
-use common::{constants, utility};
+use common::{constants, utility, SignParam};
 use device::device_binding::KEY_MANAGER;
 use ethereum_types::{H256, U256};
 use keccak_hash::keccak;
@@ -192,22 +192,26 @@ impl Transaction {
         }
     }
 
-    pub fn sign_persional_message(input: EthMessageSignParam) -> EthResult<EthMessageSignResult> {
-        check_path_validity(&input.path).unwrap();
+    pub fn sign_message(
+        input: EthMessageInput,
+        sign_param: &SignParam,
+    ) -> EthResult<EthMessageOutput> {
+        check_path_validity(&sign_param.path).unwrap();
 
-        let signe_message;
+        let message_to_sign;
         if is_valid_hex(&input.message) {
             let value = &input.message[2..];
-            signe_message = hex::decode(value).unwrap();
+            message_to_sign = hex::decode(value).unwrap();
         } else {
-            signe_message = input.message.into_bytes();
+            message_to_sign = input.message.into_bytes();
         }
 
-        let header = format!("Ethereum Signed Message:\n{}", &signe_message.len());
-
         let mut data = Vec::new();
-        data.extend(header.as_bytes());
-        data.extend(signe_message);
+        if input.is_personal_sign {
+            let header = format!("Ethereum Signed Message:\n{}", &message_to_sign.len());
+            data.extend(header.as_bytes());
+        }
+        data.extend(message_to_sign);
 
         let mut data_to_sign: Vec<u8> = Vec::new();
         data_to_sign.push(0x01);
@@ -228,13 +232,13 @@ impl Transaction {
         let select_result = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_result)?;
 
-        let msg_pubkey = EthApdu::get_xpub(&input.path, false);
+        let msg_pubkey = EthApdu::get_xpub(&sign_param.path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
         let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone()).unwrap();
         let address_checksummed = EthAddress::address_checksummed(&address_main);
 
-        if &address_checksummed != &input.sender {
+        if &address_checksummed != &sign_param.sender {
             return Err(CoinError::ImkeyAddressMismatchWithPath.into());
         }
 
@@ -245,7 +249,7 @@ impl Transaction {
             ApduCheck::checke_response(&res)?;
         }
 
-        let sign_apdu = EthApdu::personal_sign(&input.path);
+        let sign_apdu = EthApdu::personal_sign(&sign_param.path);
         let sign_response = send_apdu(sign_apdu)?;
         ApduCheck::checke_response(&sign_response)?;
 
@@ -262,7 +266,7 @@ impl Transaction {
         let mut signature = hex::encode(&normalizes_sig_vec.as_ref());
         signature.push_str(&format!("{:02x}", &v));
 
-        Ok(EthMessageSignResult { signature })
+        Ok(EthMessageOutput { signature })
     }
 }
 
@@ -468,7 +472,7 @@ mod tests {
             message: "Hello imKey".to_string(),
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
         };
-        let output = Transaction::sign_persional_message(input).unwrap();
+        let output = Transaction::sign_message(input).unwrap();
         assert_eq!(
             output.signature,
             "d928f76ad80d63003c189b095078d94ae068dc2f18a5cafd97b3a630d7bc47465bd6f1e74de2e88c05b271e1c5a8b93564d9d8842c207482b20634d68f2d54e51b".to_string()
@@ -479,7 +483,7 @@ mod tests {
             message: "0x8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f".to_string(),
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
         };
-        let output = Transaction::sign_persional_message(input).unwrap();
+        let output = Transaction::sign_message(input).unwrap();
         assert_eq!(
             output.signature,
             "35a94616ce12ddb79f6d351c2644c0fa2f496bd152b17102a5672359f583373b6dd5d2a60f5d9909cf84e6af7dc40176179c819a7cbd9b199f4c2e868530293f1b".to_string()
@@ -533,7 +537,7 @@ mod tests {
             message: "Hello imKey".to_string(),
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
         };
-        let output = Transaction::sign_persional_message(input);
+        let output = Transaction::sign_message(input);
         assert_eq!(
             format!("{}", output.err().unwrap()),
             "imkey_address_mismatch_with_path"

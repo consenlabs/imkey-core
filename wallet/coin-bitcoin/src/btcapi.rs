@@ -31,8 +31,8 @@ pub struct BtcTxInput {
     pub extra_data: std::vec::Vec<u8>,
     #[prost(int32, tag = "7")]
     pub property_id: i32,
-    #[prost(bool, tag = "8")]
-    pub is_seg_wit: bool,
+    #[prost(string, tag = "8")]
+    pub seg_wit: std::string::String,
     #[prost(string, tag = "9")]
     pub protocol: std::string::String,
 }

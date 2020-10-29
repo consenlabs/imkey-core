@@ -67,23 +67,6 @@ pub struct PubKeyResult {
     pub derived_mode: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SignParam {
-    #[prost(string, tag = "1")]
-    pub chain_type: std::string::String,
-    #[prost(string, tag = "2")]
-    pub path: std::string::String,
-    #[prost(message, optional, tag = "3")]
-    pub input: ::std::option::Option<::prost_types::Any>,
-    #[prost(string, tag = "4")]
-    pub payment: std::string::String,
-    #[prost(string, tag = "5")]
-    pub receiver: std::string::String,
-    #[prost(string, tag = "6")]
-    pub sender: std::string::String,
-    #[prost(string, tag = "7")]
-    pub fee: std::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ExternalAddress {
     #[prost(string, tag = "1")]
     pub address: std::string::String,
@@ -124,6 +107,19 @@ pub mod eos_wallet {
         #[prost(string, tag = "3")]
         pub public_key: std::string::String,
     }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExternalAddressParam {
+    #[prost(string, tag = "1")]
+    pub path: std::string::String,
+    #[prost(string, tag = "2")]
+    pub chain_type: std::string::String,
+    #[prost(string, tag = "3")]
+    pub network: std::string::String,
+    #[prost(string, tag = "4")]
+    pub seg_wit: std::string::String,
+    #[prost(int32, tag = "5")]
+    pub external_idx: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InitImKeyCoreXParam {

@@ -12,13 +12,13 @@ pub fn sign_btc_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u
     let input: BtcTxInput = BtcTxInput::decode(data).expect("BtcTxInput");
 
     if (input.protocol.to_uppercase() == "OMNI") {
-        if input.is_seg_wit {
+        if input.seg_wit.to_uppercase() == "P2WPKH" {
             sign_usdt_segwit_transaction(&input, sign_param)
         } else {
             sign_usdt_transaction(&input, sign_param)
         }
     } else {
-        if input.is_seg_wit {
+        if input.seg_wit.to_uppercase() == "P2WPKH" {
             sign_segwit_transaction(&input, sign_param)
         } else {
             sign_legacy_transaction(&input, sign_param)

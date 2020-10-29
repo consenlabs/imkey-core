@@ -29,18 +29,16 @@ pub struct EosSignResult {
     pub signs: ::std::vec::Vec<std::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EosMessageSignParam {
+pub struct EosMessageInput {
     #[prost(string, tag = "1")]
-    pub path: std::string::String,
-    #[prost(string, tag = "2")]
     pub data: std::string::String,
+    #[prost(string, tag = "2")]
+    pub pubkey: std::string::String,
     #[prost(bool, tag = "3")]
     pub is_hex: bool,
-    #[prost(string, tag = "4")]
-    pub pubkey: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EosMessageSignResult {
+pub struct EosMessageOutput {
     #[prost(string, tag = "1")]
     pub signature: std::string::String,
 }

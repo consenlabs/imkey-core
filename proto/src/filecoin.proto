@@ -1,15 +1,5 @@
 syntax = "proto3";
 package filecoinapi;
-//
-//message FilecoinTxInput {
-//    UnsignedMessage message = 1;
-//    string path = 2;
-//    string network = 3;
-//    string payment_dis = 4;
-//    string to_dis = 5;
-//    string from_dis = 6;
-//    string fee_dis = 7;
-//}
 
 message FilecoinTxInput {
     string to = 1;

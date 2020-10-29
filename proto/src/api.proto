@@ -51,16 +51,6 @@ message PubKeyResult {
     string derivedMode = 4;
 }
 
-message SignParam {
-    string chainType = 1;
-    string path = 2;
-    google.protobuf.Any input = 3;
-    string payment = 4;
-    string receiver = 5;
-    string sender = 6;
-    string fee = 7;
-}
-
 message ExternalAddress {
     string address = 1;
     string derivedPath = 2;
@@ -89,8 +79,13 @@ message EosWallet {
 }
 
 
-
-
+message ExternalAddressParam {
+    string path = 1;
+    string chainType = 2;
+    string network = 3;
+    string segWit = 4;
+    int32 externalIdx = 5;
+}
 
 message InitImKeyCoreXParam {
     string fileDir = 1;

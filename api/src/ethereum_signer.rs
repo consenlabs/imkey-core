@@ -1,6 +1,6 @@
 use crate::error_handling::Result;
 use crate::message_handler::encode_message;
-use coin_ethereum::ethapi::{EthMessageSignParam, EthTxInput};
+use coin_ethereum::ethapi::{EthMessageInput, EthTxInput};
 use coin_ethereum::transaction::Transaction;
 use coin_ethereum::types::Action;
 use common::SignParam;
@@ -43,9 +43,8 @@ pub fn sign_eth_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u
     encode_message(tx_out)
 }
 
-pub fn sign_eth_message(data: &[u8]) -> Result<Vec<u8>> {
-    let input: EthMessageSignParam =
-        EthMessageSignParam::decode(data).expect("imkey_illegal_param");
-    let signed = Transaction::sign_persional_message(input).unwrap();
+pub fn sign_eth_message(data: &[u8], sign_param: &SignParam) -> Result<Vec<u8>> {
+    let input: EthMessageInput = EthMessageInput::decode(data).expect("imkey_illegal_param");
+    let signed = Transaction::sign_message(input, sign_param).unwrap();
     encode_message(signed)
 }

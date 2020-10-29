@@ -16,12 +16,11 @@ message EthTxOutput {
     string tx_hash = 2;
 }
 
-message EthMessageSignParam {
-    string path = 1;
-    string message = 2;
-    string sender = 3;
+message EthMessageInput {
+    string message = 1;
+    bool isPersonalSign = 2;
 }
 
-message EthMessageSignResult {
+message EthMessageOutput {
     string signature = 1;
 }

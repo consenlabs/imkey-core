@@ -1,6 +1,4 @@
-use crate::eosapi::{
-    EosMessageSignParam, EosMessageSignResult, EosSignResult, EosTxInput, EosTxOutput,
-};
+use crate::eosapi::{EosMessageInput, EosMessageOutput, EosSignResult, EosTxInput, EosTxOutput};
 use crate::pubkey::EosPubkey;
 use crate::Result;
 use bitcoin::secp256k1::Signature;
@@ -156,7 +154,10 @@ impl EosTransaction {
         Ok(tx_output)
     }
 
-    pub fn sign_message(input: EosMessageSignParam) -> Result<EosMessageSignResult> {
+    pub fn sign_message(
+        input: EosMessageInput,
+        sign_param: &SignParam,
+    ) -> Result<EosMessageOutput> {
         let hash = if input.is_hex {
             hex::decode(input.data).unwrap()
         } else {
@@ -168,8 +169,8 @@ impl EosTransaction {
         data_pack.push(0x20);
         data_pack.extend(hash.as_slice());
         data_pack.push(0x02);
-        data_pack.push(input.path.as_bytes().len() as u8);
-        data_pack.extend(input.path.as_bytes());
+        data_pack.push(sign_param.path.as_bytes().len() as u8);
+        data_pack.extend(sign_param.path.as_bytes());
 
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap();
@@ -244,7 +245,7 @@ impl EosTransaction {
         signature_slice.extend(check_sum);
         let signature = "SIG_K1_".to_owned() + base58::encode_slice(&signature_slice).as_ref();
 
-        let output = EosMessageSignResult { signature };
+        let output = EosMessageOutput { signature };
         Ok(output)
     }
 }
