@@ -37,7 +37,9 @@ impl TronAddress {
 
         //get public
         let msg_pubkey = Secp256k1Apdu::get_xpub(&apdu_pack);
+        println!("msg_pubkey:{}",&msg_pubkey);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
+        println!("res_msg_pubkey:{}",&res_msg_pubkey);
         ApduCheck::checke_response(&res_msg_pubkey)?;
 
         let pubkey_raw = hex::decode(&res_msg_pubkey[..130]).unwrap();
@@ -76,8 +78,7 @@ mod tests {
     fn test_get_address() {
         bind_test();
         let address = TronAddress::get_address(constants::TRON_PATH).unwrap();
-        println!("address:{}", &address);
-        assert_eq!(&address, "");
+        assert_eq!(&address, "TY2uroBeZ5trA9QT96aEWj32XLkAAhQ9R2");
     }
 
     #[test]
@@ -85,6 +86,6 @@ mod tests {
         bind_test();
         let address = TronAddress::display_address(constants::TRON_PATH).unwrap();
         println!("address:{}", &address);
-        assert_eq!(&address, "");
+        assert_eq!(&address, "TY2uroBeZ5trA9QT96aEWj32XLkAAhQ9R2");
     }
 }

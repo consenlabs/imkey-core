@@ -135,6 +135,11 @@
                                     <action selector="TronClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bdu-yn-gs0"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gvS-G7-GhR">
+                                <rect key="frame" x="69" y="443" width="55" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="FileCoin"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -403,6 +408,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FileCoin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSc-EB-VmX">
+                                <rect key="frame" x="182" y="194" width="62" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="prv-Mw-T0C"/>
@@ -412,6 +424,7 @@
                         <outlet property="labelCosmsos" destination="Lwb-Ux-iNj" id="hct-vU-sMv"/>
                         <outlet property="labelEOS" destination="cK1-CB-sM6" id="xgD-j2-ntZ"/>
                         <outlet property="labelETH" destination="Fn3-bf-cbe" id="0VD-Uv-knX"/>
+                        <outlet property="labelFileCoin" destination="HSc-EB-VmX" id="lQn-xp-K5H"/>
                         <outlet property="labelIMK" destination="7Ex-cr-K65" id="ftc-s9-Rsf"/>
                         <outlet property="labelTron" destination="KEY-77-nqf" id="gHv-GM-K6Z"/>
                     </connections>
@@ -662,9 +675,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtN-cB-lIY">
-                                <rect key="frame" x="209" y="66" width="62" height="30"/>
+                                <rect key="frame" x="184" y="66" width="31" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="签名测试"/>
+                                <state key="normal" title="签名"/>
                                 <connections>
                                     <action selector="signClick:" destination="qgF-F8-KW8" eventType="touchUpInside" id="ga3-NM-2ON"/>
                                 </connections>
@@ -690,6 +703,14 @@
                                 <state key="normal" title="获取地址"/>
                                 <connections>
                                     <action selector="addressBtnClick:" destination="qgF-F8-KW8" eventType="touchUpInside" id="d0h-6g-1Uh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cva-sS-5uM">
+                                <rect key="frame" x="271" y="66" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="消息签名"/>
+                                <connections>
+                                    <action selector="signMessageClick:" destination="qgF-F8-KW8" eventType="touchUpInside" id="5Pj-Oo-Z8e"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -289,7 +289,7 @@ public class API{
     return output
   }
   
-  public class func tronSignMessage(input:Tronapi_TronTxReq) -> Tronapi_TronTxRes{
+  public class func tronSignMessage(input:Tronapi_TronMessageSignReq) -> Tronapi_TronMessageSignRes{
     var action = Api_ImkeyAction()
     action.method = "tron_message_sign"
     action.param = Google_Protobuf_Any()
@@ -299,7 +299,7 @@ public class API{
     let res = call_imkey_api(paramHex)
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
-    let output = try! Tronapi_TronTxRes(serializedData: dataRes)
+    let output = try! Tronapi_TronMessageSignRes(serializedData: dataRes)
     return output
   }
   
