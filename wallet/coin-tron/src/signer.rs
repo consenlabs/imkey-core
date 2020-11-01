@@ -182,7 +182,7 @@ mod tests {
             is_tron_header: true,
         };
         let res = TronSigner::sign_message(input).unwrap();
-        assert_eq!("7209610445e867cf2a36ea301bb5d1fbc3da597fd2ce4bb7fa64796fbf0620a4175e9f841cbf60d12c26737797217c0082fdb3caa8e44079e04ec3f93e86bbea1c", hex::encode(&res.signature))
+        assert_eq!("16417c6489da3a88ef980bf0a42551b9e76181d03e7334548ab3cb36e7622a484482722882a29e2fe4587b95c739a68624ebf9ada5f013a9340d883f03fcf9af1b", hex::encode(&res.signature))
     }
 
     #[test]
@@ -197,6 +197,6 @@ mod tests {
             to: "TDQqJsFsStSy5fjG52KuiWW7HhJGAKGJLb".to_string()
         };
         let res = TronSigner::sign_transaction(input).unwrap();
-        assert_eq!("beac4045c3ea5136b541a3d5ec2a3e5836d94f28a1371440a01258808612bc161b5417e6f5a342451303cda840f7e21bfaba1011fad5f63538cb8cc132a9768800", hex::encode(&res.signature))
+        assert_eq!("c65b4bde808f7fcfab7b0ef9c1e3946c83311f8ac0a5e95be2d8b6d2400cfe8b5e24dc8f0883132513e422f2aaad8a4ecc14438eae84b2683eefa626e3adffc61c", hex::encode(&res.signature))
     }
 }
