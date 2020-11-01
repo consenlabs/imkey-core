@@ -38,12 +38,6 @@ impl TronSigner {
 
         let mut data_pack = Vec::new();
 
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
-        let msg_sig = secp256k1_sign(&key_manager_obj.pri_key, &msg_with_header)?;
-        data_pack.push(0x00);
-        data_pack.push(msg_sig.len() as u8);
-        data_pack.extend(msg_sig);
-
         let hash = tiny_keccak::keccak256(&msg_with_header);
         data_pack.push(0x01);
         data_pack.push(hash.len() as u8);
@@ -54,10 +48,18 @@ impl TronSigner {
         data_pack.push(path.len() as u8);
         data_pack.extend(path);
 
-        data_pack.push(0x00);
+        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let msg_sig = secp256k1_sign(&key_manager_obj.pri_key, &data_pack)?;
+        let mut data_pack_with_sig = Vec::new();
+        data_pack_with_sig.push(0x00);
+        data_pack_with_sig.push(msg_sig.len() as u8);
+        data_pack_with_sig.extend(msg_sig);
+        data_pack_with_sig.extend(&data_pack);
+        data_pack_with_sig.push(0 as u8);
+        // data_pack_with_sig.push(0 as u8);
 
         drop(key_manager_obj);
-        let signature = TronSigner::sign(&input.path, &data_pack, &hash, &input.address)?;
+        let signature = TronSigner::sign(&input.path, &data_pack_with_sig, &hash, &input.address)?;
         Ok(TronMessageSignRes { signature })
     }
 
@@ -71,6 +73,7 @@ impl TronSigner {
         data_pack.push(0x01);
         data_pack.push(hash.len() as u8);
         data_pack.extend(&hash);
+        println!("hash:{}",hex::encode(&hash));
 
         let path = input.path.as_bytes();
         data_pack.push(0x02);

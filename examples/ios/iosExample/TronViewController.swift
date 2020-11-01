@@ -41,6 +41,7 @@ class TronViewController: UIViewController {
       input.to = "TDQqJsFsStSy5fjG52KuiWW7HhJGAKGJLb"
       let output = API.tronSignTx(input: input)
       txtResult.text = "tron sign result:\n\(output)"
+      Log.d(output)
     } catch let e as ImkeyError {
       Log.d("!!!error:\(e.message)")
       toastMsg(message: e.message)
@@ -54,10 +55,13 @@ class TronViewController: UIViewController {
     do {
       var input = Tronapi_TronMessageSignReq()
       input.path = BIP44.tron
-      input.message = "0a0208312208b02efdc02638b61e40f083c3a7c92d5a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541a1e81654258bf14f63feb2e8d1380075d45b0dac1215410b3e84ec677b3e63c99affcadb91a6b4e086798f186470a0bfbfa7c92d"
+      input.message = "645c0b7b58158babbfa6c6cd5a48aa7340a8749176b120e8516216787a13dc76"
+      input.isHex = true
+      input.isTronHeader = true
       input.address = "TY2uroBeZ5trA9QT96aEWj32XLkAAhQ9R2"
-      let comsosOutput = API.tronSignMessage(input: input)
-      txtResult.text = "tron sign message result:\n\(comsosOutput)"
+      let output = API.tronSignMessage(input: input)
+      txtResult.text = "tron sign message result:\n\(output)"
+      Log.d(output)
     } catch let e as ImkeyError {
       Log.d("!!!error:\(e.message)")
       toastMsg(message: e.message)
