@@ -71,7 +71,6 @@ impl TronSigner {
         data_pack.push(0x01);
         data_pack.push(hash.len() as u8);
         data_pack.extend(&hash);
-        println!("hash:{}",hex::encode(&hash));
 
         let path = input.path.as_bytes();
         data_pack.push(0x02);
@@ -88,25 +87,21 @@ impl TronSigner {
         data_pack.push(to.len() as u8);
         data_pack.extend(to);
 
-        println!("pack data");
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let data_pack_sig = secp256k1_sign(&key_manager_obj.pri_key, &data_pack)?;
         drop(key_manager_obj);
 
-        println!("pack data signed..");
         let mut data_pack_with_sig = Vec::new();
         data_pack_with_sig.push(0x00);
         data_pack_with_sig.push(data_pack_sig.len() as u8);
         data_pack_with_sig.extend(&data_pack_sig);
         data_pack_with_sig.extend(&data_pack);
 
-        println!("pack data with sig");
         let signature = TronSigner::sign(&input.path, &data_pack_with_sig, &hash, &input.address)?;
         Ok(TronTxRes { signature })
     }
 
     pub fn sign(path: &str, data_pack: &[u8], hash: &[u8], sender: &str) -> Result<String> {
-        println!("slect tron applet....");
         let select_apdu = Secp256k1Apdu::select_applet();
         let select_result = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_result)?;
@@ -123,26 +118,19 @@ impl TronSigner {
         path_pack.extend(path.as_bytes());
 
         let msg_pubkey = Secp256k1Apdu::get_xpub(&path_pack);
-        println!("msg_pubkey:{}",&msg_pubkey);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
-        println!("res_msg_pubkey:{}",&res_msg_pubkey);
         let pubkey_raw = hex::decode(&res_msg_pubkey[..130]).unwrap();
         let address = TronAddress::address_from_pubkey(pubkey_raw.as_slice()).unwrap();
-        println!("address y...");
         if &address != sender {
-            println!("mismatch...");
             return Err(CoinError::ImkeyAddressMismatchWithPath.into());
         }
 
-        println!("address checked...");
         let mut sign_response = "".to_string();
         let sign_apdus = Secp256k1Apdu::sign(data_pack);
         for apdu in sign_apdus {
-            println!("apdu aaaaaaa:{}",apdu);
             sign_response = send_apdu_timeout(apdu, constants::TIMEOUT_LONG)?;
             ApduCheck::checke_response(&sign_response)?;
         }
-        println!("signed...");
 
         let sign_compact = hex::decode(&sign_response[2..130]).unwrap();
         let mut signnture_obj = SecpSignature::from_compact(sign_compact.as_slice()).unwrap();
@@ -181,6 +169,16 @@ mod tests {
         };
         let res = TronSigner::sign_message(input).unwrap();
         assert_eq!("16417c6489da3a88ef980bf0a42551b9e76181d03e7334548ab3cb36e7622a484482722882a29e2fe4587b95c739a68624ebf9ada5f013a9340d883f03fcf9af1b", hex::encode(&res.signature))
+
+        let input2 = TronMessageSignReq {
+            path: constants::TRON_PATH.to_string(),
+            message: "645c0b7b58158babbfa6c6cd5a48aa7340a8749176b120e8516216787a13dc76".to_string(),
+            address: "TY2uroBeZ5trA9QT96aEWj32XLkAAhQ9R2".to_string(),
+            is_hex: true,
+            is_tron_header: false,
+        };
+        let res = TronSigner::sign_message(input2).unwrap();
+        assert_eq!("7209610445e867cf2a36ea301bb5d1fbc3da597fd2ce4bb7fa64796fbf0620a4175e9f841cbf60d12c26737797217c0082fdb3caa8e44079e04ec3f93e86bbea1c", hex::encode(&res.signature))
     }
 
     #[test]
