@@ -42,6 +42,8 @@ pub enum ImkeyError {
     ImkeyTsmCosCheckUpdateFail,
     #[fail(display = "imkey_auth_code_ciphertext_storage_fail")]
     ImkeyTsmAuthCodeCiphertextStorageFail,
+    #[fail(display = "imkey_tsm_cos_version_unsupport_applet")]
+    ImkeyTsmCosVersionUnsupport_applet,
 }
 
 #[derive(Fail, Debug, PartialOrd, PartialEq)]

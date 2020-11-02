@@ -49,31 +49,24 @@ pub fn check_update() -> Result<Vec<u8>> {
     let response = device_manager::check_update()?;
 
     let mut available_bean_list: Vec<AvailableAppBean> = Vec::new();
-    for (index, value) in response
-        ._ReturnData
-        .available_app_bean_list
-        .unwrap()
-        .iter()
-        .enumerate()
-    {
+    for value in response._ReturnData.available_app_bean_list.unwrap() {
         let version = match value.installed_version.as_ref() {
             Some(version) => version,
             None => "none",
         };
+        let app_name = applet::get_appname_by_instid(value.instance_aid.as_ref().unwrap());
+        if app_name.is_none() {
+            continue;
+        }
 
-        available_bean_list.insert(
-            index,
-            AvailableAppBean {
-                app_name: applet::get_appname_by_instid(value.instance_aid.as_ref().unwrap())
-                    .unwrap()
-                    .to_string(),
-                app_logo: value.app_logo.as_ref().unwrap().to_string(),
-                installed_version: version.to_string(),
-                last_updated: value.last_updated.as_ref().unwrap().to_string(),
-                latest_version: value.latest_version.as_ref().unwrap().to_string(),
-                install_mode: value.install_mode.as_ref().unwrap().to_string(),
-            },
-        );
+        available_bean_list.push(AvailableAppBean {
+            app_name: app_name.unwrap().to_string(),
+            app_logo: value.app_logo.as_ref().unwrap().to_string(),
+            installed_version: version.to_string(),
+            last_updated: value.last_updated.as_ref().unwrap().to_string(),
+            latest_version: value.latest_version.as_ref().unwrap().to_string(),
+            install_mode: value.install_mode.as_ref().unwrap().to_string(),
+        });
     }
 
     let return_code = response._ReturnCode;
