@@ -315,11 +315,12 @@ mod tests {
         // let err: ErrorResponse = ErrorResponse::decode(err_bytes.as_slice()).unwrap();
         // assert_eq!("err", err.error);
 
-        // let param = hex::decode("0a077369676e5f747812c7020a10636f6d6d6f6e2e5369676e506172616d12b2020a0846494c45434f494e12116d2f3434272f343631272f30272f302f301a074d41494e4e45542295010a1b66696c65636f696e6170692e46696c65636f696e5478496e70757412760a29663166747464797a6d74626b3335376a6f64326c696b706e6478376c6b61673763626e637a7a717269122966317a6c6b6a776f35706e6d367065746d3475346c756a366762366536346565637277347434737471182522103130303030303030303030303030303028fe931d32033130303a01302a09302e3030312046494c3229663166747464797a6d74626b3335376a6f64326c696b706e6478376c6b61673763626e637a7a7172693a2966317a6c6b6a776f35706e6d367065746d3475346c756a3667623665363465656372773474347374714211302e30303030303030393532372046494c").unwrap();
-        // let action: ImkeyAction = ImkeyAction::decode(param.as_slice()).unwrap();
-        // let param: SignParam =
-        //     SignParam::decode(action.param.unwrap().value.as_slice()).unwrap();
-        // assert_eq!("action", action.method);
+        let param = hex::decode("0a0c62696e645f6163717569726512260a186465766963656170692e42696e6441637175697265526571120a0a087437757738676d32").unwrap();
+        let action: ImkeyAction = ImkeyAction::decode(param.as_slice()).unwrap();
+        let param: BindAcquireReq =
+            BindAcquireReq::decode(action.param.unwrap().value.as_slice()).unwrap();
+        assert_eq!("action", param.bind_code);
+
         // let param: AppDownloadReq = AppDownloadReq::decode(err.param.unwrap().value.as_slice()).unwrap();
         // assert_eq!("action", param.app_name);
         // let param: AppDownloadReq = AppDownloadReq {
