@@ -13,7 +13,8 @@ pub fn sign_eos_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u
 }
 
 pub fn sign_eos_message(data: &[u8], sign_param: &SignParam) -> Result<Vec<u8>> {
-    let input: EosMessageInput = EosMessageInput::decode(data).expect("imkey_illegal_param");
+    let input: EosMessageInput =
+        EosMessageInput::decode(data).expect("EosMessageInput unpack error");
 
     let signed = EosTransaction::sign_message(input, sign_param)?;
     let mes_sign_result = EosMessageOutput {
