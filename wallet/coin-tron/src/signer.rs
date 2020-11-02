@@ -168,7 +168,7 @@ mod tests {
             is_tron_header: true,
         };
         let res = TronSigner::sign_message(input).unwrap();
-        assert_eq!("16417c6489da3a88ef980bf0a42551b9e76181d03e7334548ab3cb36e7622a484482722882a29e2fe4587b95c739a68624ebf9ada5f013a9340d883f03fcf9af1b", hex::encode(&res.signature))
+        assert_eq!("16417c6489da3a88ef980bf0a42551b9e76181d03e7334548ab3cb36e7622a484482722882a29e2fe4587b95c739a68624ebf9ada5f013a9340d883f03fcf9af1b", hex::encode(&res.signature));
 
         let input2 = TronMessageSignReq {
             path: constants::TRON_PATH.to_string(),
@@ -178,7 +178,7 @@ mod tests {
             is_tron_header: false,
         };
         let res = TronSigner::sign_message(input2).unwrap();
-        assert_eq!("7209610445e867cf2a36ea301bb5d1fbc3da597fd2ce4bb7fa64796fbf0620a4175e9f841cbf60d12c26737797217c0082fdb3caa8e44079e04ec3f93e86bbea1c", hex::encode(&res.signature))
+        assert_eq!("7209610445e867cf2a36ea301bb5d1fbc3da597fd2ce4bb7fa64796fbf0620a4175e9f841cbf60d12c26737797217c0082fdb3caa8e44079e04ec3f93e86bbea1c", hex::encode(&res.signature));
     }
 
     #[test]
