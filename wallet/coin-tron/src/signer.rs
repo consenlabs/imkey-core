@@ -55,8 +55,6 @@ impl TronSigner {
         data_pack_with_sig.push(msg_sig.len() as u8);
         data_pack_with_sig.extend(msg_sig);
         data_pack_with_sig.extend(&data_pack);
-        data_pack_with_sig.push(0 as u8);
-        // data_pack_with_sig.push(0 as u8);
 
         drop(key_manager_obj);
         let signature = TronSigner::sign(&input.path, &data_pack_with_sig, &hash, &input.address)?;
