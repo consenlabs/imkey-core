@@ -3,7 +3,7 @@ use crate::filecoinapi::{FilecoinTxInput, FilecoinTxOutput, Signature};
 use crate::utils::message_digest;
 use crate::Result;
 
-use common::apdu::{ApduCheck, CoinCommonApdu, FilecoinApdu};
+use common::apdu::{ApduCheck, Secp256k1Apdu};
 use common::error::CoinError;
 use common::utility::{hex_to_bytes, secp256k1_sign};
 use common::{constants, path, utility, SignParam};
@@ -16,7 +16,7 @@ use num_bigint_chainsafe::BigInt;
 use secp256k1::{self, Signature as SecpSignature};
 use serde_cbor::to_vec;
 use std::str::FromStr;
-use transport::message::{send_apdu, send_apdu_timeout};
+use transport::message::send_apdu_timeout;
 
 #[derive(Default, Debug, Clone, PartialEq, Eq)]
 pub struct Transaction {}
@@ -69,6 +69,10 @@ impl Transaction {
             return Err(CoinError::ImkeyAddressMismatchWithPath.into());
         }
 
+        // get public key
+        let res_msg_pubkey = FilecoinAddress::get_pub_key(sign_param.path.as_str())?;
+        let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
+
         //organize data
         let mut data_pack: Vec<u8> = Vec::new();
 
@@ -86,7 +90,7 @@ impl Transaction {
         data_pack.extend(sign_param.receiver.as_bytes().iter());
         //fee info in TLV format
         data_pack.extend([9, sign_param.fee.as_bytes().len() as u8].iter());
-        data_pack.extend(sign_param.receiver.as_bytes().iter());
+        data_pack.extend(sign_param.fee.as_bytes().iter());
 
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap();
@@ -97,31 +101,33 @@ impl Transaction {
         apdu_pack.extend(bind_signature.as_slice());
         apdu_pack.extend(data_pack.as_slice());
 
-        //prepare apdu
-        let msg_prepare = FilecoinApdu::prepare_sign(apdu_pack);
-        for msg in msg_prepare {
-            let res = send_apdu_timeout(msg, constants::TIMEOUT_LONG)?;
-            ApduCheck::checke_response(&res)?;
+        //sign
+        let mut sign_response = "".to_string();
+        let sign_apdus = Secp256k1Apdu::sign(&apdu_pack);
+        for apdu in sign_apdus {
+            sign_response = send_apdu_timeout(apdu, constants::TIMEOUT_LONG)?;
+            ApduCheck::checke_response(&sign_response)?;
         }
 
-        //sign
-        let msg_sign = FilecoinApdu::sign_digest();
-        let res_msg_sign = send_apdu(msg_sign)?;
-        ApduCheck::checke_response(&res_msg_sign)?;
+        // verify
+        let sign_source_val = &sign_response[..132];
+        let sign_result = &sign_response[132..sign_response.len() - 4];
+        let sign_verify_result = utility::secp256k1_sign_verify(
+            &key_manager_obj.se_pub_key,
+            hex::decode(sign_result).unwrap().as_slice(),
+            hex::decode(sign_source_val).unwrap().as_slice(),
+        )?;
 
-        let sign_compact = &res_msg_sign[2..130];
+        if !sign_verify_result {
+            return Err(CoinError::ImkeySignatureVerifyFail.into());
+        }
+
+        let sign_compact = &sign_response[2..130];
         let sign_compact_vec = hex_to_bytes(sign_compact).unwrap();
 
         let mut signnture_obj = SecpSignature::from_compact(sign_compact_vec.as_slice()).unwrap();
         signnture_obj.normalize_s();
         let normalizes_sig_vec = signnture_obj.serialize_compact();
-
-        //get public
-        let msg_pubkey = FilecoinApdu::get_xpub(&sign_param.path, false);
-        let res_msg_pubkey = send_apdu(msg_pubkey)?;
-        ApduCheck::checke_response(&res_msg_pubkey)?;
-
-        let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
 
         let rec_id = utility::retrieve_recid(&cid, &normalizes_sig_vec, &pubkey_raw).unwrap();
 
@@ -146,12 +152,11 @@ impl Transaction {
 mod tests {
     use super::*;
     use device::device_binding::bind_test;
-    use hex;
 
     #[test]
     fn test_sign_trans() {
         bind_test();
-        let message = UnsignedMessage {
+        let tx_input = FilecoinTxInput {
             to: "f1d2xrzcslx7xlbbylc5c3d5lvandqw4iwl6epxba".to_string(),
             from: "f1o2ph66tg7o7obyrqa7eiwiinrltauzxitkuk4ay".to_string(),
             nonce: 1,
@@ -163,17 +168,18 @@ mod tests {
             params: "".to_string(),
         };
 
-        let tx_input = FilecoinTxReq {
-            message: Some(message),
+        let sign_param = SignParam {
+            chain_type: "FILECOIN".to_string(),
             path: "m/44'/461'/0/0/0".to_string(),
             network: "MAINNET".to_string(),
-            payment_dis: "1 FILECOIN".to_string(),
-            to_dis: "f1d2xrzcslx7xlbbylc5c3d5lvandqw4iwl6epxba".to_string(),
-            from_dis: "f1o2ph66tg7o7obyrqa7eiwiinrltauzxitkuk4ay".to_string(),
-            fee_dis: "0.1 FILECOIN".to_string(),
+            input: None,
+            payment: "1 FILECOIN".to_string(),
+            receiver: "f1d2xrzcslx7xlbbylc5c3d5lvandqw4iwl6epxba".to_string(),
+            sender: "f1o2ph66tg7o7obyrqa7eiwiinrltauzxitkuk4ay".to_string(),
+            fee: "0.1 FILECOIN".to_string(),
         };
 
-        let tx_result = Transaction::sign_tx(tx_input).unwrap();
+        let tx_result = Transaction::sign_tx(tx_input, &sign_param).unwrap();
         let signature = tx_result.signature.unwrap();
 
         assert_eq!(signature.r#type, 1);

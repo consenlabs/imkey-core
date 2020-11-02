@@ -1,4 +1,4 @@
-use crate::constants::{BTC_AID, COSMOS_AID, EOS_AID, ETH_AID, FILECOIN_AID, LC_MAX};
+use crate::constants::{BTC_AID, COSMOS_AID, EOS_AID, ETH_AID, LC_MAX};
 use crate::error::ApduError;
 use crate::Result;
 use hex;
@@ -228,39 +228,36 @@ impl CosmosApdu {
     }
 }
 
-pub struct FilecoinApdu();
+pub struct Secp256k1Apdu();
 
-impl Default for FilecoinApdu {
+impl Default for Secp256k1Apdu {
     fn default() -> Self {
-        FilecoinApdu()
+        Secp256k1Apdu()
     }
 }
 
-impl CoinCommonApdu for FilecoinApdu {
-    fn select_applet() -> String {
-        Apdu::select_applet(FILECOIN_AID)
+impl Secp256k1Apdu {
+    pub fn sign(data: &[u8]) -> Vec<String> {
+        Apdu::prepare_sign(0x81, data.to_vec())
     }
 
-    fn get_xpub(path: &str, verify_flag: bool) -> String {
-        Apdu::get_pubkey(0x83, path, verify_flag)
+    pub fn get_xpub(data: &[u8]) -> String {
+        if data.len() as u32 > LC_MAX {
+            panic!("data to long");
+        }
+        let mut apdu = ApduHeader::new(0x80, 0x82, 0x00, 0x00, data.len() as u8).to_array();
+        apdu.extend(data);
+        apdu.push(0x00); //Le
+        hex::encode(apdu)
     }
 
-    fn register_address(address: &[u8]) -> String {
-        Apdu::register_address(0x86, address)
-    }
-}
-
-impl FilecoinApdu {
-    pub fn prepare_sign(data: Vec<u8>) -> Vec<String> {
-        Apdu::prepare_sign(0x81, data)
-    }
-
-    pub fn sign_digest() -> String {
-        let mut apdu = ApduHeader::new(0x80, 0x82, 0x00, 0x00, 0x02).to_array();
-        apdu.push(0x00);
-        apdu.push(0x00);
-        apdu.push(0x00);
-        apdu.to_hex().to_uppercase()
+    pub fn register_address(name: &[u8], address: &[u8]) -> String {
+        let mut data: Vec<u8> = vec![];
+        data.push(address.len() as u8);
+        data.extend(address);
+        data.push(name.len() as u8);
+        data.extend(name);
+        Apdu::register_address(0x83, &data)
     }
 }
 
