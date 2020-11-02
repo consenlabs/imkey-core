@@ -13,7 +13,7 @@ public class Applet {
     public static final String EOS_AID = "695F656F73";
     public static final String IMK_AID = "695F696D6B";
     public static final String COSMOS_AID = "695F636F736D6F73";
-    public static final String FILECOIN_AID = "695F66696C65636F696E";
+    public static final String FILECOIN_AID = "695F6B315F66696C";
 
     public static String instanceAid2AppletName(String aid) {
         switch (aid) {
