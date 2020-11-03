@@ -1,11 +1,14 @@
 use crate::Result;
 use bitcoin::util::base58;
-use common::apdu::{ApduCheck, CoinCommonApdu, Secp256k1Apdu};
+use common::apdu::{ApduCheck, CoinCommonApdu, Secp256k1Apdu, Apdu};
 use common::path::check_path_validity;
 use common::utility::secp256k1_sign;
 use device::device_binding::KEY_MANAGER;
 use keccak_hash::keccak;
 use transport::message::send_apdu;
+use common::constants::TRON_AID;
+use common::utility;
+use common::error::CoinError;
 
 pub struct TronAddress {}
 
@@ -20,7 +23,7 @@ impl TronAddress {
     pub fn get_address(path: &str) -> Result<String> {
         check_path_validity(path).unwrap();
 
-        let select_apdu = Secp256k1Apdu::select_applet();
+        let select_apdu = Apdu::select_applet(TRON_AID);
         let select_response = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_response)?;
 
@@ -39,6 +42,19 @@ impl TronAddress {
         let msg_pubkey = Secp256k1Apdu::get_xpub(&apdu_pack);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
         ApduCheck::checke_response(&res_msg_pubkey)?;
+
+        let sign_source_val = &res_msg_pubkey[..194];
+        let sign_result = &res_msg_pubkey[194..res_msg_pubkey.len() - 4];
+
+        //verify
+        let sign_verify_result = utility::secp256k1_sign_verify(
+            &key_manager_obj.se_pub_key,
+            hex::decode(sign_result).unwrap().as_slice(),
+            hex::decode(sign_source_val).unwrap().as_slice(),
+        )?;
+        if !sign_verify_result {
+            return Err(CoinError::ImkeySignatureVerifyFail.into());
+        }
 
         let pubkey_raw = hex::decode(&res_msg_pubkey[..130]).unwrap();
 

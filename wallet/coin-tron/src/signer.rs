@@ -1,7 +1,7 @@
 use crate::address::TronAddress;
 use crate::tronapi::{TronMessageSignReq, TronMessageSignRes, TronTxReq, TronTxRes};
 use crate::Result;
-use common::apdu::{ApduCheck, CoinCommonApdu, Secp256k1Apdu};
+use common::apdu::{ApduCheck, CoinCommonApdu, Secp256k1Apdu, Apdu};
 use common::error::CoinError;
 use common::path::check_path_validity;
 use common::utility::{is_valid_hex, secp256k1_sign, sha256_hash};
@@ -10,6 +10,7 @@ use device::device_binding::KEY_MANAGER;
 use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
 use transport::message::{send_apdu, send_apdu_timeout};
 use device::key_manager::KeyManager;
+use common::constants::TRON_AID;
 
 #[derive(Debug)]
 pub struct TronSigner {}
@@ -102,7 +103,7 @@ impl TronSigner {
     }
 
     pub fn sign(path: &str, data_pack: &[u8], hash: &[u8], sender: &str) -> Result<String> {
-        let select_apdu = Secp256k1Apdu::select_applet();
+        let select_apdu = Apdu::select_applet(TRON_AID);
         let select_result = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_result)?;
 
@@ -130,6 +131,19 @@ impl TronSigner {
         for apdu in sign_apdus {
             sign_response = send_apdu_timeout(apdu, constants::TIMEOUT_LONG)?;
             ApduCheck::checke_response(&sign_response)?;
+        }
+
+        // verify
+        let sign_source_val = &sign_response[..132];
+        let sign_result = &sign_response[132..sign_response.len() - 4];
+        let sign_verify_result = utility::secp256k1_sign_verify(
+            &key_manager_obj.se_pub_key,
+            hex::decode(sign_result).unwrap().as_slice(),
+            hex::decode(sign_source_val).unwrap().as_slice(),
+        )?;
+
+        if !sign_verify_result {
+            return Err(CoinError::ImkeySignatureVerifyFail.into());
         }
 
         let sign_compact = hex::decode(&sign_response[2..130]).unwrap();

@@ -238,10 +238,6 @@ impl Default for Secp256k1Apdu {
 }
 
 impl Secp256k1Apdu {
-    pub fn select_applet() -> String {
-        Apdu::select_applet(TRON_AID)
-    }
-
     pub fn sign(data: &[u8]) -> Vec<String> {
         Apdu::prepare_sign(0x81, data.to_vec())
     }
