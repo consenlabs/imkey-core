@@ -95,7 +95,8 @@ impl KeyManager {
     */
     pub fn get_key_file_data(path: &String, seid: &String) -> Result<String> {
         let mut return_data = String::new();
-        let file = File::open(format!("{}/key{}{}", path, seid, ".txt").as_str());
+        let file =
+            File::open(format!("{}/keys{}", path, seid[seid.len() - 8..].to_string()).as_str());
         match file {
             Ok(mut f) => {
                 f.read_to_string(&mut return_data)
@@ -171,7 +172,7 @@ impl KeyManager {
             .write(true)
             .create(true)
             .open(Path::new(
-                format!("{}/key{}{}", path, seid, ".txt").as_str(),
+                format!("{}/keys{}", path, seid[seid.len() - 8..].to_string()).as_str(),
             ))
             .expect("imkey_keyfile_opertion_error");
         match file.write_all(keys.as_bytes()) {
