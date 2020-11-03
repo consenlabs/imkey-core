@@ -244,7 +244,6 @@ impl Transaction {
 
         let prepare_apdus = EthApdu::prepare_personal_sign(apdu_pack);
         for apdu in prepare_apdus {
-            println!("prepare apdu:{}", &apdu);
             let res = send_apdu_timeout(apdu, constants::TIMEOUT_LONG)?;
             ApduCheck::checke_response(&res)?;
         }
@@ -487,6 +486,62 @@ mod tests {
         assert_eq!(
             output.signature,
             "35a94616ce12ddb79f6d351c2644c0fa2f496bd152b17102a5672359f583373b6dd5d2a60f5d9909cf84e6af7dc40176179c819a7cbd9b199f4c2e868530293f1b".to_string()
+        );
+    }
+
+    #[test]
+    fn test_ec_sign() {
+        bind_test();
+
+        let input = EthMessageSignReq {
+            path: constants::ETH_PATH.to_string(),
+            message: "Hello imKey".to_string(),
+            sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+        };
+        let output = Transaction::ec_sign(input).unwrap();
+        assert_eq!(
+            output.signature,
+            "57c976d1fa15c7e833fd340bcb3a96974060ed555369d443449ac4429c1933433afa5304d1cfcb6799403f2b97a1e83309b98fae8ad5fade62335664d90e819f1b".to_string()
+        );
+
+        let input = EthMessageSignReq {
+            path: constants::ETH_PATH.to_string(),
+            message: "0x8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f".to_string(),
+            sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+        };
+        let output = Transaction::ec_sign(input).unwrap();
+        assert_eq!(
+            output.signature,
+            "3d8ba5e7375900476d715b479938e48a2e46e59f8e2e12673adb5e3df78a622050053ae0183f5e555e5db34ff43293de255f384709bd3fe6e00b8239c7f1a3561c".to_string()
+        );
+    }
+
+    #[test]
+    fn test_sign_message() {
+        bind_test();
+
+        let message = b"Hello imKey";
+        let output = Transaction::sign_message(
+            constants::ETH_PATH,
+            message,
+            "0x6031564e7b2F5cc33737807b2E58DaFF870B590b",
+        )
+        .unwrap();
+        assert_eq!(
+            output.signature,
+            "57c976d1fa15c7e833fd340bcb3a96974060ed555369d443449ac4429c1933433afa5304d1cfcb6799403f2b97a1e83309b98fae8ad5fade62335664d90e819f1b".to_string()
+        );
+
+        let message = hex::decode("8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f").unwrap();
+        let output = Transaction::sign_message(
+            constants::ETH_PATH,
+            &message,
+            "0x6031564e7b2F5cc33737807b2E58DaFF870B590b",
+        )
+        .unwrap();
+        assert_eq!(
+            output.signature,
+            "3d8ba5e7375900476d715b479938e48a2e46e59f8e2e12673adb5e3df78a622050053ae0183f5e555e5db34ff43293de255f384709bd3fe6e00b8239c7f1a3561c".to_string()
         );
     }
 
