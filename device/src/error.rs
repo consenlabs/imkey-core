@@ -56,4 +56,6 @@ pub enum BindError {
     ImkeyEncryptAuthcodeFail,
     #[fail(display = "imkey_save_key_file_fail")]
     ImkeySaveKeyFileFail,
+    #[fail(display = "imkey_authcode_error")]
+    ImkeyAuthcodeError,
 }

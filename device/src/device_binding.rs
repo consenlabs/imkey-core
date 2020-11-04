@@ -152,10 +152,12 @@ impl DeviceManage {
         //send command to device
         let bind_result = send_apdu(identity_verify_apdu)?;
         ApduCheck::checke_response(&bind_result)?;
-        Ok(BIND_STATUS_MAP
-            .get(&bind_result[..bind_result.len() - 4])
-            .unwrap()
-            .to_string())
+        let result_code = &bind_result[..bind_result.len() - 4];
+
+        match result_code {
+            BIND_RESULT_ERROR => Err(BindError::ImkeyAuthcodeError.into()),
+            _ => Ok(BIND_STATUS_MAP.get(result_code).unwrap().to_string()),
+        }
     }
 
     pub fn display_bind_code() -> Result<()> {
@@ -250,7 +252,7 @@ mod test {
     #[test]
     fn device_bind_test() {
         let path = "/tmp/".to_string();
-        let bind_code = "PVU3FY64".to_string();
+        let bind_code = "MCYNK5AH".to_string();
 
         assert!(hid_connect("imKey Pro").is_ok());
         let check_result = DeviceManage::bind_check(&path).unwrap();
