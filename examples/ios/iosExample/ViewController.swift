@@ -108,6 +108,19 @@ class ViewController: UIViewController,BLEDelegate {
     }
   }
   
+  @IBAction func deviceInfo(_ sender: Any) {
+    let bleVersion = API.getBleVersion()
+    let seid = API.getSEID()
+    let ramSize = API.getRamSize()
+    let power = API.getBatteryPower()
+    let lifeTime = API.getLifeTime()
+    print("bleVersion:\(bleVersion)")
+    print("seid:\(seid)")
+    print("ramSize:\(ramSize)")
+    print("power:\(power)")
+    print("lifeTime:\(lifeTime)")
+  }
+  
   @IBAction func bindCheck(_ sender: Any) {
     let status = API.bindCheck()
     print("status:\(status)")

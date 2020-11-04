@@ -90,6 +90,62 @@ public class API{
     return ouput.seid
   }
   
+  public class func getBleVersion() ->String{
+    var action = Api_ImkeyAction()
+    action.method = "get_ble_version"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! action.serializedData()
+    let paramHex = try! action.serializedData().toHexString()
+    call_imkey_api(paramHex)
+    let res = call_imkey_api(paramHex)
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let ouput = try! Deviceapi_GetSeidRes(serializedData: dataRes)
+    return ouput.seid
+  }
+  
+  public class func getRamSize() ->String{
+    var action = Api_ImkeyAction()
+    action.method = "get_ram_size"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! action.serializedData()
+    let paramHex = try! action.serializedData().toHexString()
+    call_imkey_api(paramHex)
+    let res = call_imkey_api(paramHex)
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let ouput = try! Deviceapi_GetSeidRes(serializedData: dataRes)
+    return ouput.seid
+  }
+  
+  public class func getBatteryPower() ->String{
+    var action = Api_ImkeyAction()
+    action.method = "get_battery_power"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! action.serializedData()
+    let paramHex = try! action.serializedData().toHexString()
+    call_imkey_api(paramHex)
+    let res = call_imkey_api(paramHex)
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let ouput = try! Deviceapi_GetSeidRes(serializedData: dataRes)
+    return ouput.seid
+  }
+  
+  public class func getLifeTime() ->String{
+    var action = Api_ImkeyAction()
+    action.method = "get_life_time"
+    action.param = Google_Protobuf_Any()
+    action.param.value = try! action.serializedData()
+    let paramHex = try! action.serializedData().toHexString()
+    call_imkey_api(paramHex)
+    let res = call_imkey_api(paramHex)
+    let strRes = String(cString:res!)
+    let dataRes = strRes.key_dataFromHexString()!
+    let ouput = try! Deviceapi_GetSeidRes(serializedData: dataRes)
+    return ouput.seid
+  }
+  
   public class func checkDevice(){
 //    Log.d("check device ......")
 //    var deviceParam = Api_DeviceParam()

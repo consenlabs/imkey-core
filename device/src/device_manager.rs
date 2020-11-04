@@ -17,15 +17,21 @@ use common::constants;
 use se_activate::SeActivateRequest;
 use transport::message::send_apdu;
 
+pub fn select_isd() -> Result<String>{
+    let res = send_apdu("00A4040000".to_string())?;
+    ApduCheck::checke_response(res.as_str())?;
+    Ok(res)
+}
+
 pub fn get_se_id() -> Result<String> {
-    send_apdu("00A4040000".to_string())?;
+    select_isd();
     let res = send_apdu("80CB800005DFFF028101".to_string())?;
     ApduCheck::checke_response(res.as_str())?;
     Ok(String::from(&res[0..res.len() - 4]))
 }
 
 pub fn get_sn() -> Result<String> {
-    send_apdu("00A4040000".to_string())?;
+    select_isd();
     let res = send_apdu("80CA004400".to_string())?;
     ApduCheck::checke_response(res.as_str())?;
     let hex_decode = hex::decode(String::from(&res[0..res.len() - 4]));
@@ -36,37 +42,56 @@ pub fn get_sn() -> Result<String> {
 }
 
 pub fn get_ram_size() -> Result<String> {
-    //send_apdu("00A4040000".to_string());
     let res = send_apdu("80CB800005DFFF02814600".to_string())?;
     ApduCheck::checke_response(res.as_str())?;
-    Ok(res.chars().take(res.len() - 4).collect())
+    let hex_ram_size:String = res[4..8].to_string();
+    let ram_size = i64::from_str_radix(&hex_ram_size, 16)?;
+    Ok(ram_size.to_string())
 }
 
 pub fn get_firmware_version() -> Result<String> {
-    send_apdu("00A4040000".to_string())?;
+    select_isd();
     let res = send_apdu("80CB800005DFFF02800300".to_string())?;
     ApduCheck::checke_response(res.as_str())?;
-    Ok(res.chars().take(res.len() - 4).collect())
+    let firmware_version = format!(
+        "{}.{}.{}",
+        res[0..1].to_string(),
+        res[1..2].to_string(),
+        res[2..].to_string()
+    );
+    Ok(firmware_version)
 }
 
 pub fn get_battery_power() -> Result<String> {
-    send_apdu("00A4040000".to_string())?;
+    select_isd();
     let res = send_apdu("00D6FEED01".to_string())?;
     ApduCheck::checke_response(res.as_str())?;
-    Ok(res.chars().take(res.len() - 4).collect())
+    let hex_power:String = res[0..res.len()-4].to_string();
+    let power = i64::from_str_radix(&hex_power, 16)?;
+    Ok(power.to_string())
 }
 
 pub fn get_life_time() -> Result<String> {
-    //send_apdu("00A4040000".to_string());
     let res = send_apdu("FFDCFEED00".to_string())?;
     ApduCheck::checke_response(res.as_str())?;
-    Ok(res.chars().take(res.len() - 4).collect())
+    let hex_life_time = &res[0..res.len()-4];
+    let life_time = match hex_life_time {
+        "80" => "life_time_device_inited",
+        "89" => "life_time_device_activated",
+        "81" => "life_time_unset_pin",
+        "83" => "life_time_wallet_unready",
+        "84" => "life_time_wallet_creatting",
+        "85" => "life_time_wallet_recovering",
+        "86" => "life_time_wallet_ready",
+        _ => "error",
+    };
+    Ok(life_time.to_string())
 }
 
 pub fn get_ble_name() -> Result<String> {
-    //send_apdu("00A4040000".to_string());
     let res = send_apdu("FFDB465400".to_string())?;
-    Ok(res.chars().collect())
+    let hex = hex::decode(&res[0..res.len() - 4].to_string())?;
+    Ok(String::from_utf8(hex)?)
 }
 
 pub fn set_ble_name(ble_name: String) -> Result<String> {
@@ -76,13 +101,15 @@ pub fn set_ble_name(ble_name: String) -> Result<String> {
 }
 
 pub fn get_ble_version() -> Result<String> {
-    send_apdu("00A4040000".to_string())?;
+    select_isd();
     let res = send_apdu("80CB800005DFFF02810000".to_string())?;
-    Ok(res.chars().take(res.len() - 4).collect())
+    let chars:Vec<char> = res.chars().collect();
+    let format_version = format!("{}.{}.{}{}", chars[0], chars[1],chars[2],chars[3]);
+    Ok(format_version)
 }
 
 pub fn get_cert() -> Result<String> {
-    send_apdu("00A4040000".to_string())?;
+    select_isd();
     let res = send_apdu("80CABF2106A6048302151800".to_string())?;
     ApduCheck::checke_response(&res)?;
     Ok(res.chars().take(res.len() - 4).collect())
