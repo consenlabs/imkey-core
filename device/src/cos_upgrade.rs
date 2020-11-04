@@ -56,12 +56,6 @@ impl CosUpgradeRequest {
             is_bl_status = false;
             //read se cos version
             se_cos_version = get_firmware_version()?;
-            se_cos_version = format!(
-                "{}.{}.{}",
-                se_cos_version[0..1].to_string(),
-                se_cos_version[1..2].to_string(),
-                se_cos_version[2..].to_string()
-            );
         } else if device_cert.starts_with("7f21") || device_cert.starts_with("7F21") {
             seid = device_cert[12..44].to_string();
             sn = "0000000000000000".to_string();
@@ -127,12 +121,6 @@ impl CosUpgradeRequest {
                                     } else if "05".eq(next_step_key.as_str()) {
                                         reconnect()?;
                                         se_cos_version = get_firmware_version()?;
-                                        se_cos_version = format!(
-                                            "{}.{}.{}",
-                                            se_cos_version[0..1].to_string(),
-                                            se_cos_version[1..2].to_string(),
-                                            se_cos_version[2..].to_string()
-                                        );
                                         request_data.se_cos_version = se_cos_version;
                                     }
                                 }

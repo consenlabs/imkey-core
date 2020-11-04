@@ -188,12 +188,6 @@ pub fn cos_upgrade() -> Result<()> {
 pub fn cos_check_update() -> Result<ServiceResponse<CosCheckUpdateResponse>> {
     let seid = get_se_id()?;
     let mut cos_version = get_firmware_version()?;
-    cos_version = format!(
-        "{}.{}.{}",
-        cos_version[0..1].to_string(),
-        cos_version[1..2].to_string(),
-        cos_version[2..].to_string()
-    );
     CosCheckUpdateRequest::build_request_data(seid, cos_version).send_message()
 }
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
