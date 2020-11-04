@@ -14,10 +14,11 @@ use app_update::AppUpdateRequest;
 use common::apdu::{Apdu, ApduCheck};
 use common::applet;
 use common::constants;
+use regex::Regex;
 use se_activate::SeActivateRequest;
 use transport::message::send_apdu;
 
-pub fn select_isd() -> Result<String>{
+pub fn select_isd() -> Result<String> {
     let res = send_apdu("00A4040000".to_string())?;
     ApduCheck::checke_response(res.as_str())?;
     Ok(res)
@@ -44,7 +45,7 @@ pub fn get_sn() -> Result<String> {
 pub fn get_ram_size() -> Result<String> {
     let res = send_apdu("80CB800005DFFF02814600".to_string())?;
     ApduCheck::checke_response(res.as_str())?;
-    let hex_ram_size:String = res[4..8].to_string();
+    let hex_ram_size: String = res[4..8].to_string();
     let ram_size = i64::from_str_radix(&hex_ram_size, 16)?;
     Ok(ram_size.to_string())
 }
@@ -66,15 +67,19 @@ pub fn get_battery_power() -> Result<String> {
     select_isd();
     let res = send_apdu("00D6FEED01".to_string())?;
     ApduCheck::checke_response(res.as_str())?;
-    let hex_power:String = res[0..res.len()-4].to_string();
-    let power = i64::from_str_radix(&hex_power, 16)?;
-    Ok(power.to_string())
+    let hex_power: String = res[0..res.len() - 4].to_string();
+    let charging_flag = "FF";
+    let power = match &hex_power == charging_flag {
+        true => hex_power,
+        false => i64::from_str_radix(&hex_power, 16)?.to_string(),
+    };
+    Ok(power)
 }
 
 pub fn get_life_time() -> Result<String> {
     let res = send_apdu("FFDCFEED00".to_string())?;
     ApduCheck::checke_response(res.as_str())?;
-    let hex_life_time = &res[0..res.len()-4];
+    let hex_life_time = &res[0..res.len() - 4];
     let life_time = match hex_life_time {
         "80" => "life_time_device_inited",
         "89" => "life_time_device_activated",
@@ -83,7 +88,7 @@ pub fn get_life_time() -> Result<String> {
         "84" => "life_time_wallet_creatting",
         "85" => "life_time_wallet_recovering",
         "86" => "life_time_wallet_ready",
-        _ => "error",
+        _ => "life_time_unknown",
     };
     Ok(life_time.to_string())
 }
@@ -95,6 +100,10 @@ pub fn get_ble_name() -> Result<String> {
 }
 
 pub fn set_ble_name(ble_name: String) -> Result<String> {
+    let name_verify_regex = Regex::new(r"[0-9A-Za-z]{1,12}").unwrap();
+    if !name_verify_regex.is_match(ble_name.as_ref()) {
+        return Err(format_err!("imkey_device_name_invalid"));
+    }
     let apdu = Apdu::set_ble_name(ble_name.as_ref());
     let res = send_apdu(apdu)?;
     Ok(res.chars().take(res.len() - 4).collect())
@@ -103,8 +112,8 @@ pub fn set_ble_name(ble_name: String) -> Result<String> {
 pub fn get_ble_version() -> Result<String> {
     select_isd();
     let res = send_apdu("80CB800005DFFF02810000".to_string())?;
-    let chars:Vec<char> = res.chars().collect();
-    let format_version = format!("{}.{}.{}{}", chars[0], chars[1],chars[2],chars[3]);
+    let chars: Vec<char> = res.chars().collect();
+    let format_version = format!("{}.{}.{}{}", chars[0], chars[1], chars[2], chars[3]);
     Ok(format_version)
 }
 
