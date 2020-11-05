@@ -58,7 +58,7 @@ pub fn get_firmware_version() -> Result<String> {
         "{}.{}.{}",
         res[0..1].to_string(),
         res[1..2].to_string(),
-        res[2..].to_string()
+        res[2..res.len() - 4].to_string()
     );
     Ok(firmware_version)
 }
