@@ -5,6 +5,8 @@ pub fn get_appname_by_instid(instid: &str) -> Option<&str> {
         "695F656F73" => Some("EOS"),
         "695F636F736D6F73" => Some("COSMOS"),
         "695F6B315F66696C" => Some("FILECOIN"),
+        "695F6B315F66696C02" => Some("FILECOIN2"),
+        "695F6B315F66696C03" => Some("FILECOIN3"),
         "695F696D6B" => Some("IMK"),
         _ => None,
     }
@@ -16,6 +18,8 @@ pub fn get_instid_by_appname(appname: &str) -> Option<&str> {
         "EOS" => Some("695F656F73"),
         "COSMOS" => Some("695F636F736D6F73"),
         "FILECOIN" => Some("695F6B315F66696C"),
+        "FILECOIN2" => Some("695F6B315F66696C02"),
+        "FILECOIN3" => Some("695F6B315F66696C03"),
         "IMK" => Some("695F696D6B"),
         _ => None,
     }
