@@ -4,6 +4,7 @@ use bitcoin::{Address, Network};
 
 use coin_bitcoin::btcapi::{BtcTxInput, BtcTxOutput};
 use coin_bitcoin::transaction::{BtcTransaction, Utxo};
+use common::utility::hex_to_bytes;
 use common::SignParam;
 use prost::Message;
 use std::str::FromStr;
@@ -106,7 +107,7 @@ pub fn sign_segwit_transaction(param: &BtcTxInput, sign_param: &SignParam) -> Re
 
     let op_return: Vec<u8>;
     if let Some(extra) = param.extra.clone() {
-        op_return = hex::decode(extra.op_return).expect("decode btc extra op_return");
+        op_return = hex_to_bytes(&extra.op_return).expect("decode btc extra op_return");
     } else {
         op_return = vec![];
     }

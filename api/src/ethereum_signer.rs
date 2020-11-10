@@ -23,11 +23,11 @@ pub fn sign_eth_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u
     }
 
     let eth_tx = Transaction {
-        nonce: U256::from_dec_str(&input.nonce).unwrap(),
-        gas_price: U256::from_dec_str(&input.gas_price).unwrap(),
-        gas_limit: U256::from_dec_str(&input.gas_limit).unwrap(),
+        nonce: parse_eth_argument(&input.nonce)?,
+        gas_price: parse_eth_argument(&input.gas_price)?,
+        gas_limit: parse_eth_argument(&input.gas_limit)?,
         to: Action::Call(Address::from_str(&to).unwrap()),
-        value: U256::from_dec_str(&input.value).unwrap(),
+        value: parse_eth_argument(&input.value)?,
         data: Vec::from(data_vec.as_slice()),
     };
 
@@ -43,8 +43,30 @@ pub fn sign_eth_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u
     encode_message(tx_out)
 }
 
+fn parse_eth_argument(str: &str) -> Result<U256> {
+    if str.to_lowercase().starts_with("0x") {
+        U256::from_str(&str[2..].to_string())
+            .map_err(|_err| format_err!("unpack eth argument error"))
+    } else {
+        U256::from_dec_str(str).map_err(|_err| format_err!("unpack eth argument dec error"))
+    }
+}
+
 pub fn sign_eth_message(data: &[u8], sign_param: &SignParam) -> Result<Vec<u8>> {
     let input: EthMessageInput = EthMessageInput::decode(data).expect("imkey_illegal_param");
     let signed = Transaction::sign_message(input, sign_param).unwrap();
     encode_message(signed)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use ethereum_types::{Address, U256};
+    use std::str::FromStr;
+
+    #[test]
+    fn u256_from_str() {
+        let ret = U256::from_str("18").unwrap();
+        assert_eq!(U256::from(24i128), ret);
+    }
 }
