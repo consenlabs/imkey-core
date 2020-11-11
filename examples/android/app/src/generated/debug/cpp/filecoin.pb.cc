@@ -21,24 +21,15 @@ namespace filecoinapi {
 
 namespace {
 
-const ::google::protobuf::Descriptor* FilecoinTxReq_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* FilecoinTxInput_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  FilecoinTxReq_reflection_ = NULL;
-const ::google::protobuf::Descriptor* UnsignedMessage_descriptor_ = NULL;
+  FilecoinTxInput_reflection_ = NULL;
+const ::google::protobuf::Descriptor* FilecoinTxOutput_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  UnsignedMessage_reflection_ = NULL;
-const ::google::protobuf::Descriptor* FilecoinTxRes_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  FilecoinTxRes_reflection_ = NULL;
+  FilecoinTxOutput_reflection_ = NULL;
 const ::google::protobuf::Descriptor* Signature_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Signature_reflection_ = NULL;
-const ::google::protobuf::Descriptor* FilecoinAddressReq_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  FilecoinAddressReq_reflection_ = NULL;
-const ::google::protobuf::Descriptor* FilecoinAddressRes_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  FilecoinAddressRes_reflection_ = NULL;
 
 }  // namespace
 
@@ -50,65 +41,45 @@ void protobuf_AssignDesc_filecoin_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "filecoin.proto");
   GOOGLE_CHECK(file != NULL);
-  FilecoinTxReq_descriptor_ = file->message_type(0);
-  static const int FilecoinTxReq_offsets_[7] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxReq, message_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxReq, path_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxReq, network_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxReq, payment_dis_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxReq, to_dis_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxReq, from_dis_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxReq, fee_dis_),
+  FilecoinTxInput_descriptor_ = file->message_type(0);
+  static const int FilecoinTxInput_offsets_[9] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxInput, to_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxInput, from_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxInput, nonce_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxInput, value_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxInput, gaslimit_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxInput, gasfeecap_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxInput, gaspremium_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxInput, method_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxInput, params_),
   };
-  FilecoinTxReq_reflection_ =
+  FilecoinTxInput_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      FilecoinTxReq_descriptor_,
-      FilecoinTxReq::internal_default_instance(),
-      FilecoinTxReq_offsets_,
+      FilecoinTxInput_descriptor_,
+      FilecoinTxInput::internal_default_instance(),
+      FilecoinTxInput_offsets_,
       -1,
       -1,
       -1,
-      sizeof(FilecoinTxReq),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxReq, _internal_metadata_));
-  UnsignedMessage_descriptor_ = file->message_type(1);
-  static const int UnsignedMessage_offsets_[9] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UnsignedMessage, to_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UnsignedMessage, from_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UnsignedMessage, nonce_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UnsignedMessage, value_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UnsignedMessage, gaslimit_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UnsignedMessage, gasfeecap_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UnsignedMessage, gaspremium_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UnsignedMessage, method_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UnsignedMessage, params_),
+      sizeof(FilecoinTxInput),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxInput, _internal_metadata_));
+  FilecoinTxOutput_descriptor_ = file->message_type(1);
+  static const int FilecoinTxOutput_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxOutput, cid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxOutput, message_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxOutput, signature_),
   };
-  UnsignedMessage_reflection_ =
+  FilecoinTxOutput_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      UnsignedMessage_descriptor_,
-      UnsignedMessage::internal_default_instance(),
-      UnsignedMessage_offsets_,
+      FilecoinTxOutput_descriptor_,
+      FilecoinTxOutput::internal_default_instance(),
+      FilecoinTxOutput_offsets_,
       -1,
       -1,
       -1,
-      sizeof(UnsignedMessage),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(UnsignedMessage, _internal_metadata_));
-  FilecoinTxRes_descriptor_ = file->message_type(2);
-  static const int FilecoinTxRes_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxRes, cid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxRes, message_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxRes, signature_),
-  };
-  FilecoinTxRes_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      FilecoinTxRes_descriptor_,
-      FilecoinTxRes::internal_default_instance(),
-      FilecoinTxRes_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(FilecoinTxRes),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxRes, _internal_metadata_));
-  Signature_descriptor_ = file->message_type(3);
+      sizeof(FilecoinTxOutput),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinTxOutput, _internal_metadata_));
+  Signature_descriptor_ = file->message_type(2);
   static const int Signature_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Signature, type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Signature, data_),
@@ -123,35 +94,6 @@ void protobuf_AssignDesc_filecoin_2eproto() {
       -1,
       sizeof(Signature),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Signature, _internal_metadata_));
-  FilecoinAddressReq_descriptor_ = file->message_type(4);
-  static const int FilecoinAddressReq_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinAddressReq, network_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinAddressReq, path_),
-  };
-  FilecoinAddressReq_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      FilecoinAddressReq_descriptor_,
-      FilecoinAddressReq::internal_default_instance(),
-      FilecoinAddressReq_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(FilecoinAddressReq),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinAddressReq, _internal_metadata_));
-  FilecoinAddressRes_descriptor_ = file->message_type(5);
-  static const int FilecoinAddressRes_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinAddressRes, address_),
-  };
-  FilecoinAddressRes_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      FilecoinAddressRes_descriptor_,
-      FilecoinAddressRes::internal_default_instance(),
-      FilecoinAddressRes_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(FilecoinAddressRes),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FilecoinAddressRes, _internal_metadata_));
 }
 
 namespace {
@@ -166,57 +108,36 @@ void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      FilecoinTxReq_descriptor_, FilecoinTxReq::internal_default_instance());
+      FilecoinTxInput_descriptor_, FilecoinTxInput::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      UnsignedMessage_descriptor_, UnsignedMessage::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      FilecoinTxRes_descriptor_, FilecoinTxRes::internal_default_instance());
+      FilecoinTxOutput_descriptor_, FilecoinTxOutput::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       Signature_descriptor_, Signature::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      FilecoinAddressReq_descriptor_, FilecoinAddressReq::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      FilecoinAddressRes_descriptor_, FilecoinAddressRes::internal_default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_filecoin_2eproto() {
-  FilecoinTxReq_default_instance_.Shutdown();
-  delete FilecoinTxReq_reflection_;
-  UnsignedMessage_default_instance_.Shutdown();
-  delete UnsignedMessage_reflection_;
-  FilecoinTxRes_default_instance_.Shutdown();
-  delete FilecoinTxRes_reflection_;
+  FilecoinTxInput_default_instance_.Shutdown();
+  delete FilecoinTxInput_reflection_;
+  FilecoinTxOutput_default_instance_.Shutdown();
+  delete FilecoinTxOutput_reflection_;
   Signature_default_instance_.Shutdown();
   delete Signature_reflection_;
-  FilecoinAddressReq_default_instance_.Shutdown();
-  delete FilecoinAddressReq_reflection_;
-  FilecoinAddressRes_default_instance_.Shutdown();
-  delete FilecoinAddressRes_reflection_;
 }
 
 void protobuf_InitDefaults_filecoin_2eproto_impl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::internal::GetEmptyString();
-  FilecoinTxReq_default_instance_.DefaultConstruct();
+  FilecoinTxInput_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
-  UnsignedMessage_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  FilecoinTxRes_default_instance_.DefaultConstruct();
+  FilecoinTxOutput_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
   Signature_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  FilecoinAddressReq_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  FilecoinAddressRes_default_instance_.DefaultConstruct();
-  FilecoinTxReq_default_instance_.get_mutable()->InitAsDefaultInstance();
-  UnsignedMessage_default_instance_.get_mutable()->InitAsDefaultInstance();
-  FilecoinTxRes_default_instance_.get_mutable()->InitAsDefaultInstance();
+  FilecoinTxInput_default_instance_.get_mutable()->InitAsDefaultInstance();
+  FilecoinTxOutput_default_instance_.get_mutable()->InitAsDefaultInstance();
   Signature_default_instance_.get_mutable()->InitAsDefaultInstance();
-  FilecoinAddressReq_default_instance_.get_mutable()->InitAsDefaultInstance();
-  FilecoinAddressRes_default_instance_.get_mutable()->InitAsDefaultInstance();
 }
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_filecoin_2eproto_once_);
@@ -229,22 +150,16 @@ void protobuf_AddDesc_filecoin_2eproto_impl() {
 
   protobuf_InitDefaults_filecoin_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\016filecoin.proto\022\013filecoinapi\"\245\001\n\rFileco"
-    "inTxReq\022-\n\007message\030\001 \001(\0132\034.filecoinapi.U"
-    "nsignedMessage\022\014\n\004path\030\002 \001(\t\022\017\n\007network\030"
-    "\003 \001(\t\022\023\n\013payment_dis\030\004 \001(\t\022\016\n\006to_dis\030\005 \001"
-    "(\t\022\020\n\010from_dis\030\006 \001(\t\022\017\n\007fee_dis\030\007 \001(\t\"\242\001"
-    "\n\017UnsignedMessage\022\n\n\002to\030\001 \001(\t\022\014\n\004from\030\002 "
-    "\001(\t\022\r\n\005nonce\030\003 \001(\004\022\r\n\005value\030\004 \001(\t\022\020\n\010gas"
-    "Limit\030\005 \001(\003\022\021\n\tgasFeeCap\030\006 \001(\t\022\022\n\ngasPre"
-    "mium\030\007 \001(\t\022\016\n\006method\030\010 \001(\004\022\016\n\006params\030\t \001"
-    "(\t\"v\n\rFilecoinTxRes\022\013\n\003cid\030\001 \001(\t\022-\n\007mess"
-    "age\030\002 \001(\0132\034.filecoinapi.UnsignedMessage\022"
-    ")\n\tsignature\030\003 \001(\0132\026.filecoinapi.Signatu"
-    "re\"\'\n\tSignature\022\014\n\004type\030\001 \001(\r\022\014\n\004data\030\002 "
-    "\001(\t\"3\n\022FilecoinAddressReq\022\017\n\007network\030\001 \001"
-    "(\t\022\014\n\004path\030\002 \001(\t\"%\n\022FilecoinAddressRes\022\017"
-    "\n\007address\030\001 \001(\tb\006proto3", 623);
+    "\n\016filecoin.proto\022\013filecoinapi\"\242\001\n\017Fileco"
+    "inTxInput\022\n\n\002to\030\001 \001(\t\022\014\n\004from\030\002 \001(\t\022\r\n\005n"
+    "once\030\003 \001(\004\022\r\n\005value\030\004 \001(\t\022\020\n\010gasLimit\030\005 "
+    "\001(\003\022\021\n\tgasFeeCap\030\006 \001(\t\022\022\n\ngasPremium\030\007 \001"
+    "(\t\022\016\n\006method\030\010 \001(\004\022\016\n\006params\030\t \001(\t\"y\n\020Fi"
+    "lecoinTxOutput\022\013\n\003cid\030\001 \001(\t\022-\n\007message\030\002"
+    " \001(\0132\034.filecoinapi.FilecoinTxInput\022)\n\tsi"
+    "gnature\030\003 \001(\0132\026.filecoinapi.Signature\"\'\n"
+    "\tSignature\022\014\n\004type\030\001 \001(\r\022\014\n\004data\030\002 \001(\tb\006"
+    "proto3", 366);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "filecoin.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_filecoin_2eproto);
@@ -275,900 +190,36 @@ static void MergeFromFail(int line) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int FilecoinTxReq::kMessageFieldNumber;
-const int FilecoinTxReq::kPathFieldNumber;
-const int FilecoinTxReq::kNetworkFieldNumber;
-const int FilecoinTxReq::kPaymentDisFieldNumber;
-const int FilecoinTxReq::kToDisFieldNumber;
-const int FilecoinTxReq::kFromDisFieldNumber;
-const int FilecoinTxReq::kFeeDisFieldNumber;
+const int FilecoinTxInput::kToFieldNumber;
+const int FilecoinTxInput::kFromFieldNumber;
+const int FilecoinTxInput::kNonceFieldNumber;
+const int FilecoinTxInput::kValueFieldNumber;
+const int FilecoinTxInput::kGasLimitFieldNumber;
+const int FilecoinTxInput::kGasFeeCapFieldNumber;
+const int FilecoinTxInput::kGasPremiumFieldNumber;
+const int FilecoinTxInput::kMethodFieldNumber;
+const int FilecoinTxInput::kParamsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-FilecoinTxReq::FilecoinTxReq()
+FilecoinTxInput::FilecoinTxInput()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (this != internal_default_instance()) protobuf_InitDefaults_filecoin_2eproto();
   SharedCtor();
-  // @@protoc_insertion_point(constructor:filecoinapi.FilecoinTxReq)
+  // @@protoc_insertion_point(constructor:filecoinapi.FilecoinTxInput)
 }
 
-void FilecoinTxReq::InitAsDefaultInstance() {
-  message_ = const_cast< ::filecoinapi::UnsignedMessage*>(
-      ::filecoinapi::UnsignedMessage::internal_default_instance());
+void FilecoinTxInput::InitAsDefaultInstance() {
 }
 
-FilecoinTxReq::FilecoinTxReq(const FilecoinTxReq& from)
+FilecoinTxInput::FilecoinTxInput(const FilecoinTxInput& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
   UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:filecoinapi.FilecoinTxReq)
+  // @@protoc_insertion_point(copy_constructor:filecoinapi.FilecoinTxInput)
 }
 
-void FilecoinTxReq::SharedCtor() {
-  path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  network_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  payment_dis_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  to_dis_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  from_dis_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  fee_dis_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  message_ = NULL;
-  _cached_size_ = 0;
-}
-
-FilecoinTxReq::~FilecoinTxReq() {
-  // @@protoc_insertion_point(destructor:filecoinapi.FilecoinTxReq)
-  SharedDtor();
-}
-
-void FilecoinTxReq::SharedDtor() {
-  path_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  network_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  payment_dis_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  to_dis_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  from_dis_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  fee_dis_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != &FilecoinTxReq_default_instance_.get()) {
-    delete message_;
-  }
-}
-
-void FilecoinTxReq::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* FilecoinTxReq::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return FilecoinTxReq_descriptor_;
-}
-
-const FilecoinTxReq& FilecoinTxReq::default_instance() {
-  protobuf_InitDefaults_filecoin_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<FilecoinTxReq> FilecoinTxReq_default_instance_;
-
-FilecoinTxReq* FilecoinTxReq::New(::google::protobuf::Arena* arena) const {
-  FilecoinTxReq* n = new FilecoinTxReq;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void FilecoinTxReq::Clear() {
-// @@protoc_insertion_point(message_clear_start:filecoinapi.FilecoinTxReq)
-  if (GetArenaNoVirtual() == NULL && message_ != NULL) delete message_;
-  message_ = NULL;
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  network_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  payment_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  to_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  from_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  fee_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool FilecoinTxReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:filecoinapi.FilecoinTxReq)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .filecoinapi.UnsignedMessage message = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_message()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_path;
-        break;
-      }
-
-      // optional string path = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_path:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_path()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->path().data(), this->path().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.FilecoinTxReq.path"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_network;
-        break;
-      }
-
-      // optional string network = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_network:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_network()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->network().data(), this->network().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.FilecoinTxReq.network"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_payment_dis;
-        break;
-      }
-
-      // optional string payment_dis = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_payment_dis:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_payment_dis()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->payment_dis().data(), this->payment_dis().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.FilecoinTxReq.payment_dis"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(42)) goto parse_to_dis;
-        break;
-      }
-
-      // optional string to_dis = 5;
-      case 5: {
-        if (tag == 42) {
-         parse_to_dis:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_to_dis()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->to_dis().data(), this->to_dis().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.FilecoinTxReq.to_dis"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_from_dis;
-        break;
-      }
-
-      // optional string from_dis = 6;
-      case 6: {
-        if (tag == 50) {
-         parse_from_dis:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_from_dis()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->from_dis().data(), this->from_dis().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.FilecoinTxReq.from_dis"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(58)) goto parse_fee_dis;
-        break;
-      }
-
-      // optional string fee_dis = 7;
-      case 7: {
-        if (tag == 58) {
-         parse_fee_dis:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_fee_dis()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->fee_dis().data(), this->fee_dis().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.FilecoinTxReq.fee_dis"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:filecoinapi.FilecoinTxReq)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:filecoinapi.FilecoinTxReq)
-  return false;
-#undef DO_
-}
-
-void FilecoinTxReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:filecoinapi.FilecoinTxReq)
-  // optional .filecoinapi.UnsignedMessage message = 1;
-  if (this->has_message()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->message_, output);
-  }
-
-  // optional string path = 2;
-  if (this->path().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinTxReq.path");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->path(), output);
-  }
-
-  // optional string network = 3;
-  if (this->network().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->network().data(), this->network().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinTxReq.network");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->network(), output);
-  }
-
-  // optional string payment_dis = 4;
-  if (this->payment_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->payment_dis().data(), this->payment_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinTxReq.payment_dis");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      4, this->payment_dis(), output);
-  }
-
-  // optional string to_dis = 5;
-  if (this->to_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->to_dis().data(), this->to_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinTxReq.to_dis");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      5, this->to_dis(), output);
-  }
-
-  // optional string from_dis = 6;
-  if (this->from_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->from_dis().data(), this->from_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinTxReq.from_dis");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      6, this->from_dis(), output);
-  }
-
-  // optional string fee_dis = 7;
-  if (this->fee_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->fee_dis().data(), this->fee_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinTxReq.fee_dis");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      7, this->fee_dis(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:filecoinapi.FilecoinTxReq)
-}
-
-::google::protobuf::uint8* FilecoinTxReq::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:filecoinapi.FilecoinTxReq)
-  // optional .filecoinapi.UnsignedMessage message = 1;
-  if (this->has_message()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        1, *this->message_, false, target);
-  }
-
-  // optional string path = 2;
-  if (this->path().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinTxReq.path");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->path(), target);
-  }
-
-  // optional string network = 3;
-  if (this->network().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->network().data(), this->network().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinTxReq.network");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->network(), target);
-  }
-
-  // optional string payment_dis = 4;
-  if (this->payment_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->payment_dis().data(), this->payment_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinTxReq.payment_dis");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        4, this->payment_dis(), target);
-  }
-
-  // optional string to_dis = 5;
-  if (this->to_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->to_dis().data(), this->to_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinTxReq.to_dis");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        5, this->to_dis(), target);
-  }
-
-  // optional string from_dis = 6;
-  if (this->from_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->from_dis().data(), this->from_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinTxReq.from_dis");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        6, this->from_dis(), target);
-  }
-
-  // optional string fee_dis = 7;
-  if (this->fee_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->fee_dis().data(), this->fee_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinTxReq.fee_dis");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        7, this->fee_dis(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:filecoinapi.FilecoinTxReq)
-  return target;
-}
-
-size_t FilecoinTxReq::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:filecoinapi.FilecoinTxReq)
-  size_t total_size = 0;
-
-  // optional .filecoinapi.UnsignedMessage message = 1;
-  if (this->has_message()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->message_);
-  }
-
-  // optional string path = 2;
-  if (this->path().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->path());
-  }
-
-  // optional string network = 3;
-  if (this->network().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->network());
-  }
-
-  // optional string payment_dis = 4;
-  if (this->payment_dis().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->payment_dis());
-  }
-
-  // optional string to_dis = 5;
-  if (this->to_dis().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->to_dis());
-  }
-
-  // optional string from_dis = 6;
-  if (this->from_dis().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->from_dis());
-  }
-
-  // optional string fee_dis = 7;
-  if (this->fee_dis().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->fee_dis());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void FilecoinTxReq::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:filecoinapi.FilecoinTxReq)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const FilecoinTxReq* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const FilecoinTxReq>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:filecoinapi.FilecoinTxReq)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:filecoinapi.FilecoinTxReq)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void FilecoinTxReq::MergeFrom(const FilecoinTxReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:filecoinapi.FilecoinTxReq)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void FilecoinTxReq::UnsafeMergeFrom(const FilecoinTxReq& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.has_message()) {
-    mutable_message()->::filecoinapi::UnsignedMessage::MergeFrom(from.message());
-  }
-  if (from.path().size() > 0) {
-
-    path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_);
-  }
-  if (from.network().size() > 0) {
-
-    network_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.network_);
-  }
-  if (from.payment_dis().size() > 0) {
-
-    payment_dis_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.payment_dis_);
-  }
-  if (from.to_dis().size() > 0) {
-
-    to_dis_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.to_dis_);
-  }
-  if (from.from_dis().size() > 0) {
-
-    from_dis_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.from_dis_);
-  }
-  if (from.fee_dis().size() > 0) {
-
-    fee_dis_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.fee_dis_);
-  }
-}
-
-void FilecoinTxReq::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:filecoinapi.FilecoinTxReq)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void FilecoinTxReq::CopyFrom(const FilecoinTxReq& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:filecoinapi.FilecoinTxReq)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool FilecoinTxReq::IsInitialized() const {
-
-  return true;
-}
-
-void FilecoinTxReq::Swap(FilecoinTxReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void FilecoinTxReq::InternalSwap(FilecoinTxReq* other) {
-  std::swap(message_, other->message_);
-  path_.Swap(&other->path_);
-  network_.Swap(&other->network_);
-  payment_dis_.Swap(&other->payment_dis_);
-  to_dis_.Swap(&other->to_dis_);
-  from_dis_.Swap(&other->from_dis_);
-  fee_dis_.Swap(&other->fee_dis_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata FilecoinTxReq::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = FilecoinTxReq_descriptor_;
-  metadata.reflection = FilecoinTxReq_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// FilecoinTxReq
-
-// optional .filecoinapi.UnsignedMessage message = 1;
-bool FilecoinTxReq::has_message() const {
-  return this != internal_default_instance() && message_ != NULL;
-}
-void FilecoinTxReq::clear_message() {
-  if (GetArenaNoVirtual() == NULL && message_ != NULL) delete message_;
-  message_ = NULL;
-}
-const ::filecoinapi::UnsignedMessage& FilecoinTxReq::message() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxReq.message)
-  return message_ != NULL ? *message_
-                         : *::filecoinapi::UnsignedMessage::internal_default_instance();
-}
-::filecoinapi::UnsignedMessage* FilecoinTxReq::mutable_message() {
-  
-  if (message_ == NULL) {
-    message_ = new ::filecoinapi::UnsignedMessage;
-  }
-  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxReq.message)
-  return message_;
-}
-::filecoinapi::UnsignedMessage* FilecoinTxReq::release_message() {
-  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxReq.message)
-  
-  ::filecoinapi::UnsignedMessage* temp = message_;
-  message_ = NULL;
-  return temp;
-}
-void FilecoinTxReq::set_allocated_message(::filecoinapi::UnsignedMessage* message) {
-  delete message_;
-  message_ = message;
-  if (message) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxReq.message)
-}
-
-// optional string path = 2;
-void FilecoinTxReq::clear_path() {
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& FilecoinTxReq::path() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxReq.path)
-  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinTxReq::set_path(const ::std::string& value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxReq.path)
-}
-void FilecoinTxReq::set_path(const char* value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinTxReq.path)
-}
-void FilecoinTxReq::set_path(const char* value, size_t size) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinTxReq.path)
-}
-::std::string* FilecoinTxReq::mutable_path() {
-  
-  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxReq.path)
-  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* FilecoinTxReq::release_path() {
-  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxReq.path)
-  
-  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinTxReq::set_allocated_path(::std::string* path) {
-  if (path != NULL) {
-    
-  } else {
-    
-  }
-  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxReq.path)
-}
-
-// optional string network = 3;
-void FilecoinTxReq::clear_network() {
-  network_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& FilecoinTxReq::network() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxReq.network)
-  return network_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinTxReq::set_network(const ::std::string& value) {
-  
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxReq.network)
-}
-void FilecoinTxReq::set_network(const char* value) {
-  
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinTxReq.network)
-}
-void FilecoinTxReq::set_network(const char* value, size_t size) {
-  
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinTxReq.network)
-}
-::std::string* FilecoinTxReq::mutable_network() {
-  
-  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxReq.network)
-  return network_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* FilecoinTxReq::release_network() {
-  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxReq.network)
-  
-  return network_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinTxReq::set_allocated_network(::std::string* network) {
-  if (network != NULL) {
-    
-  } else {
-    
-  }
-  network_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), network);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxReq.network)
-}
-
-// optional string payment_dis = 4;
-void FilecoinTxReq::clear_payment_dis() {
-  payment_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& FilecoinTxReq::payment_dis() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxReq.payment_dis)
-  return payment_dis_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinTxReq::set_payment_dis(const ::std::string& value) {
-  
-  payment_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxReq.payment_dis)
-}
-void FilecoinTxReq::set_payment_dis(const char* value) {
-  
-  payment_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinTxReq.payment_dis)
-}
-void FilecoinTxReq::set_payment_dis(const char* value, size_t size) {
-  
-  payment_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinTxReq.payment_dis)
-}
-::std::string* FilecoinTxReq::mutable_payment_dis() {
-  
-  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxReq.payment_dis)
-  return payment_dis_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* FilecoinTxReq::release_payment_dis() {
-  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxReq.payment_dis)
-  
-  return payment_dis_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinTxReq::set_allocated_payment_dis(::std::string* payment_dis) {
-  if (payment_dis != NULL) {
-    
-  } else {
-    
-  }
-  payment_dis_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), payment_dis);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxReq.payment_dis)
-}
-
-// optional string to_dis = 5;
-void FilecoinTxReq::clear_to_dis() {
-  to_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& FilecoinTxReq::to_dis() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxReq.to_dis)
-  return to_dis_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinTxReq::set_to_dis(const ::std::string& value) {
-  
-  to_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxReq.to_dis)
-}
-void FilecoinTxReq::set_to_dis(const char* value) {
-  
-  to_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinTxReq.to_dis)
-}
-void FilecoinTxReq::set_to_dis(const char* value, size_t size) {
-  
-  to_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinTxReq.to_dis)
-}
-::std::string* FilecoinTxReq::mutable_to_dis() {
-  
-  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxReq.to_dis)
-  return to_dis_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* FilecoinTxReq::release_to_dis() {
-  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxReq.to_dis)
-  
-  return to_dis_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinTxReq::set_allocated_to_dis(::std::string* to_dis) {
-  if (to_dis != NULL) {
-    
-  } else {
-    
-  }
-  to_dis_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), to_dis);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxReq.to_dis)
-}
-
-// optional string from_dis = 6;
-void FilecoinTxReq::clear_from_dis() {
-  from_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& FilecoinTxReq::from_dis() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxReq.from_dis)
-  return from_dis_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinTxReq::set_from_dis(const ::std::string& value) {
-  
-  from_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxReq.from_dis)
-}
-void FilecoinTxReq::set_from_dis(const char* value) {
-  
-  from_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinTxReq.from_dis)
-}
-void FilecoinTxReq::set_from_dis(const char* value, size_t size) {
-  
-  from_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinTxReq.from_dis)
-}
-::std::string* FilecoinTxReq::mutable_from_dis() {
-  
-  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxReq.from_dis)
-  return from_dis_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* FilecoinTxReq::release_from_dis() {
-  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxReq.from_dis)
-  
-  return from_dis_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinTxReq::set_allocated_from_dis(::std::string* from_dis) {
-  if (from_dis != NULL) {
-    
-  } else {
-    
-  }
-  from_dis_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from_dis);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxReq.from_dis)
-}
-
-// optional string fee_dis = 7;
-void FilecoinTxReq::clear_fee_dis() {
-  fee_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& FilecoinTxReq::fee_dis() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxReq.fee_dis)
-  return fee_dis_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinTxReq::set_fee_dis(const ::std::string& value) {
-  
-  fee_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxReq.fee_dis)
-}
-void FilecoinTxReq::set_fee_dis(const char* value) {
-  
-  fee_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinTxReq.fee_dis)
-}
-void FilecoinTxReq::set_fee_dis(const char* value, size_t size) {
-  
-  fee_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinTxReq.fee_dis)
-}
-::std::string* FilecoinTxReq::mutable_fee_dis() {
-  
-  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxReq.fee_dis)
-  return fee_dis_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* FilecoinTxReq::release_fee_dis() {
-  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxReq.fee_dis)
-  
-  return fee_dis_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinTxReq::set_allocated_fee_dis(::std::string* fee_dis) {
-  if (fee_dis != NULL) {
-    
-  } else {
-    
-  }
-  fee_dis_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), fee_dis);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxReq.fee_dis)
-}
-
-inline const FilecoinTxReq* FilecoinTxReq::internal_default_instance() {
-  return &FilecoinTxReq_default_instance_.get();
-}
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int UnsignedMessage::kToFieldNumber;
-const int UnsignedMessage::kFromFieldNumber;
-const int UnsignedMessage::kNonceFieldNumber;
-const int UnsignedMessage::kValueFieldNumber;
-const int UnsignedMessage::kGasLimitFieldNumber;
-const int UnsignedMessage::kGasFeeCapFieldNumber;
-const int UnsignedMessage::kGasPremiumFieldNumber;
-const int UnsignedMessage::kMethodFieldNumber;
-const int UnsignedMessage::kParamsFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-UnsignedMessage::UnsignedMessage()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_filecoin_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:filecoinapi.UnsignedMessage)
-}
-
-void UnsignedMessage::InitAsDefaultInstance() {
-}
-
-UnsignedMessage::UnsignedMessage(const UnsignedMessage& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:filecoinapi.UnsignedMessage)
-}
-
-void UnsignedMessage::SharedCtor() {
+void FilecoinTxInput::SharedCtor() {
   to_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   from_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   value_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -1180,12 +231,12 @@ void UnsignedMessage::SharedCtor() {
   _cached_size_ = 0;
 }
 
-UnsignedMessage::~UnsignedMessage() {
-  // @@protoc_insertion_point(destructor:filecoinapi.UnsignedMessage)
+FilecoinTxInput::~FilecoinTxInput() {
+  // @@protoc_insertion_point(destructor:filecoinapi.FilecoinTxInput)
   SharedDtor();
 }
 
-void UnsignedMessage::SharedDtor() {
+void FilecoinTxInput::SharedDtor() {
   to_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   from_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   value_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -1194,42 +245,42 @@ void UnsignedMessage::SharedDtor() {
   params_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-void UnsignedMessage::SetCachedSize(int size) const {
+void FilecoinTxInput::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* UnsignedMessage::descriptor() {
+const ::google::protobuf::Descriptor* FilecoinTxInput::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return UnsignedMessage_descriptor_;
+  return FilecoinTxInput_descriptor_;
 }
 
-const UnsignedMessage& UnsignedMessage::default_instance() {
+const FilecoinTxInput& FilecoinTxInput::default_instance() {
   protobuf_InitDefaults_filecoin_2eproto();
   return *internal_default_instance();
 }
 
-::google::protobuf::internal::ExplicitlyConstructed<UnsignedMessage> UnsignedMessage_default_instance_;
+::google::protobuf::internal::ExplicitlyConstructed<FilecoinTxInput> FilecoinTxInput_default_instance_;
 
-UnsignedMessage* UnsignedMessage::New(::google::protobuf::Arena* arena) const {
-  UnsignedMessage* n = new UnsignedMessage;
+FilecoinTxInput* FilecoinTxInput::New(::google::protobuf::Arena* arena) const {
+  FilecoinTxInput* n = new FilecoinTxInput;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void UnsignedMessage::Clear() {
-// @@protoc_insertion_point(message_clear_start:filecoinapi.UnsignedMessage)
+void FilecoinTxInput::Clear() {
+// @@protoc_insertion_point(message_clear_start:filecoinapi.FilecoinTxInput)
 #if defined(__clang__)
 #define ZR_HELPER_(f) \
   _Pragma("clang diagnostic push") \
   _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(UnsignedMessage, f) \
+  __builtin_offsetof(FilecoinTxInput, f) \
   _Pragma("clang diagnostic pop")
 #else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<UnsignedMessage*>(16)->f)
+  &reinterpret_cast<FilecoinTxInput*>(16)->f)
 #endif
 
 #define ZR_(first, last) do {\
@@ -1250,11 +301,11 @@ void UnsignedMessage::Clear() {
 
 }
 
-bool UnsignedMessage::MergePartialFromCodedStream(
+bool FilecoinTxInput::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:filecoinapi.UnsignedMessage)
+  // @@protoc_insertion_point(parse_start:filecoinapi.FilecoinTxInput)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -1268,7 +319,7 @@ bool UnsignedMessage::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->to().data(), this->to().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.UnsignedMessage.to"));
+            "filecoinapi.FilecoinTxInput.to"));
         } else {
           goto handle_unusual;
         }
@@ -1285,7 +336,7 @@ bool UnsignedMessage::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->from().data(), this->from().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.UnsignedMessage.from"));
+            "filecoinapi.FilecoinTxInput.from"));
         } else {
           goto handle_unusual;
         }
@@ -1317,7 +368,7 @@ bool UnsignedMessage::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->value().data(), this->value().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.UnsignedMessage.value"));
+            "filecoinapi.FilecoinTxInput.value"));
         } else {
           goto handle_unusual;
         }
@@ -1349,7 +400,7 @@ bool UnsignedMessage::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->gasfeecap().data(), this->gasfeecap().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.UnsignedMessage.gasFeeCap"));
+            "filecoinapi.FilecoinTxInput.gasFeeCap"));
         } else {
           goto handle_unusual;
         }
@@ -1366,7 +417,7 @@ bool UnsignedMessage::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->gaspremium().data(), this->gaspremium().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.UnsignedMessage.gasPremium"));
+            "filecoinapi.FilecoinTxInput.gasPremium"));
         } else {
           goto handle_unusual;
         }
@@ -1398,7 +449,7 @@ bool UnsignedMessage::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->params().data(), this->params().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.UnsignedMessage.params"));
+            "filecoinapi.FilecoinTxInput.params"));
         } else {
           goto handle_unusual;
         }
@@ -1419,23 +470,23 @@ bool UnsignedMessage::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:filecoinapi.UnsignedMessage)
+  // @@protoc_insertion_point(parse_success:filecoinapi.FilecoinTxInput)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:filecoinapi.UnsignedMessage)
+  // @@protoc_insertion_point(parse_failure:filecoinapi.FilecoinTxInput)
   return false;
 #undef DO_
 }
 
-void UnsignedMessage::SerializeWithCachedSizes(
+void FilecoinTxInput::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:filecoinapi.UnsignedMessage)
+  // @@protoc_insertion_point(serialize_start:filecoinapi.FilecoinTxInput)
   // optional string to = 1;
   if (this->to().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->to().data(), this->to().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.UnsignedMessage.to");
+      "filecoinapi.FilecoinTxInput.to");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->to(), output);
   }
@@ -1445,7 +496,7 @@ void UnsignedMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->from().data(), this->from().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.UnsignedMessage.from");
+      "filecoinapi.FilecoinTxInput.from");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->from(), output);
   }
@@ -1460,7 +511,7 @@ void UnsignedMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->value().data(), this->value().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.UnsignedMessage.value");
+      "filecoinapi.FilecoinTxInput.value");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->value(), output);
   }
@@ -1475,7 +526,7 @@ void UnsignedMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->gasfeecap().data(), this->gasfeecap().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.UnsignedMessage.gasFeeCap");
+      "filecoinapi.FilecoinTxInput.gasFeeCap");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       6, this->gasfeecap(), output);
   }
@@ -1485,7 +536,7 @@ void UnsignedMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->gaspremium().data(), this->gaspremium().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.UnsignedMessage.gasPremium");
+      "filecoinapi.FilecoinTxInput.gasPremium");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       7, this->gaspremium(), output);
   }
@@ -1500,24 +551,24 @@ void UnsignedMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->params().data(), this->params().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.UnsignedMessage.params");
+      "filecoinapi.FilecoinTxInput.params");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       9, this->params(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:filecoinapi.UnsignedMessage)
+  // @@protoc_insertion_point(serialize_end:filecoinapi.FilecoinTxInput)
 }
 
-::google::protobuf::uint8* UnsignedMessage::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* FilecoinTxInput::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:filecoinapi.UnsignedMessage)
+  // @@protoc_insertion_point(serialize_to_array_start:filecoinapi.FilecoinTxInput)
   // optional string to = 1;
   if (this->to().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->to().data(), this->to().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.UnsignedMessage.to");
+      "filecoinapi.FilecoinTxInput.to");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->to(), target);
@@ -1528,7 +579,7 @@ void UnsignedMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->from().data(), this->from().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.UnsignedMessage.from");
+      "filecoinapi.FilecoinTxInput.from");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->from(), target);
@@ -1544,7 +595,7 @@ void UnsignedMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->value().data(), this->value().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.UnsignedMessage.value");
+      "filecoinapi.FilecoinTxInput.value");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         4, this->value(), target);
@@ -1560,7 +611,7 @@ void UnsignedMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->gasfeecap().data(), this->gasfeecap().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.UnsignedMessage.gasFeeCap");
+      "filecoinapi.FilecoinTxInput.gasFeeCap");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         6, this->gasfeecap(), target);
@@ -1571,7 +622,7 @@ void UnsignedMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->gaspremium().data(), this->gaspremium().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.UnsignedMessage.gasPremium");
+      "filecoinapi.FilecoinTxInput.gasPremium");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         7, this->gaspremium(), target);
@@ -1587,18 +638,18 @@ void UnsignedMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->params().data(), this->params().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.UnsignedMessage.params");
+      "filecoinapi.FilecoinTxInput.params");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         9, this->params(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:filecoinapi.UnsignedMessage)
+  // @@protoc_insertion_point(serialize_to_array_end:filecoinapi.FilecoinTxInput)
   return target;
 }
 
-size_t UnsignedMessage::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:filecoinapi.UnsignedMessage)
+size_t FilecoinTxInput::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:filecoinapi.FilecoinTxInput)
   size_t total_size = 0;
 
   // optional string to = 1;
@@ -1671,23 +722,23 @@ size_t UnsignedMessage::ByteSizeLong() const {
   return total_size;
 }
 
-void UnsignedMessage::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:filecoinapi.UnsignedMessage)
+void FilecoinTxInput::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:filecoinapi.FilecoinTxInput)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const UnsignedMessage* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const UnsignedMessage>(
+  const FilecoinTxInput* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const FilecoinTxInput>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:filecoinapi.UnsignedMessage)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:filecoinapi.FilecoinTxInput)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:filecoinapi.UnsignedMessage)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:filecoinapi.FilecoinTxInput)
     UnsafeMergeFrom(*source);
   }
 }
 
-void UnsignedMessage::MergeFrom(const UnsignedMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:filecoinapi.UnsignedMessage)
+void FilecoinTxInput::MergeFrom(const FilecoinTxInput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:filecoinapi.FilecoinTxInput)
   if (GOOGLE_PREDICT_TRUE(&from != this)) {
     UnsafeMergeFrom(from);
   } else {
@@ -1695,7 +746,7 @@ void UnsignedMessage::MergeFrom(const UnsignedMessage& from) {
   }
 }
 
-void UnsignedMessage::UnsafeMergeFrom(const UnsignedMessage& from) {
+void FilecoinTxInput::UnsafeMergeFrom(const FilecoinTxInput& from) {
   GOOGLE_DCHECK(&from != this);
   if (from.to().size() > 0) {
 
@@ -1732,30 +783,30 @@ void UnsignedMessage::UnsafeMergeFrom(const UnsignedMessage& from) {
   }
 }
 
-void UnsignedMessage::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:filecoinapi.UnsignedMessage)
+void FilecoinTxInput::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:filecoinapi.FilecoinTxInput)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void UnsignedMessage::CopyFrom(const UnsignedMessage& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:filecoinapi.UnsignedMessage)
+void FilecoinTxInput::CopyFrom(const FilecoinTxInput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:filecoinapi.FilecoinTxInput)
   if (&from == this) return;
   Clear();
   UnsafeMergeFrom(from);
 }
 
-bool UnsignedMessage::IsInitialized() const {
+bool FilecoinTxInput::IsInitialized() const {
 
   return true;
 }
 
-void UnsignedMessage::Swap(UnsignedMessage* other) {
+void FilecoinTxInput::Swap(FilecoinTxInput* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void UnsignedMessage::InternalSwap(UnsignedMessage* other) {
+void FilecoinTxInput::InternalSwap(FilecoinTxInput* other) {
   to_.Swap(&other->to_);
   from_.Swap(&other->from_);
   std::swap(nonce_, other->nonce_);
@@ -1769,405 +820,405 @@ void UnsignedMessage::InternalSwap(UnsignedMessage* other) {
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata UnsignedMessage::GetMetadata() const {
+::google::protobuf::Metadata FilecoinTxInput::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = UnsignedMessage_descriptor_;
-  metadata.reflection = UnsignedMessage_reflection_;
+  metadata.descriptor = FilecoinTxInput_descriptor_;
+  metadata.reflection = FilecoinTxInput_reflection_;
   return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// UnsignedMessage
+// FilecoinTxInput
 
 // optional string to = 1;
-void UnsignedMessage::clear_to() {
+void FilecoinTxInput::clear_to() {
   to_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& UnsignedMessage::to() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.UnsignedMessage.to)
+const ::std::string& FilecoinTxInput::to() const {
+  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxInput.to)
   return to_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void UnsignedMessage::set_to(const ::std::string& value) {
+void FilecoinTxInput::set_to(const ::std::string& value) {
   
   to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.UnsignedMessage.to)
+  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxInput.to)
 }
-void UnsignedMessage::set_to(const char* value) {
+void FilecoinTxInput::set_to(const char* value) {
   
   to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.UnsignedMessage.to)
+  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinTxInput.to)
 }
-void UnsignedMessage::set_to(const char* value, size_t size) {
+void FilecoinTxInput::set_to(const char* value, size_t size) {
   
   to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.UnsignedMessage.to)
+  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinTxInput.to)
 }
-::std::string* UnsignedMessage::mutable_to() {
+::std::string* FilecoinTxInput::mutable_to() {
   
-  // @@protoc_insertion_point(field_mutable:filecoinapi.UnsignedMessage.to)
+  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxInput.to)
   return to_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* UnsignedMessage::release_to() {
-  // @@protoc_insertion_point(field_release:filecoinapi.UnsignedMessage.to)
+::std::string* FilecoinTxInput::release_to() {
+  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxInput.to)
   
   return to_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void UnsignedMessage::set_allocated_to(::std::string* to) {
+void FilecoinTxInput::set_allocated_to(::std::string* to) {
   if (to != NULL) {
     
   } else {
     
   }
   to_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), to);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.UnsignedMessage.to)
+  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxInput.to)
 }
 
 // optional string from = 2;
-void UnsignedMessage::clear_from() {
+void FilecoinTxInput::clear_from() {
   from_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& UnsignedMessage::from() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.UnsignedMessage.from)
+const ::std::string& FilecoinTxInput::from() const {
+  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxInput.from)
   return from_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void UnsignedMessage::set_from(const ::std::string& value) {
+void FilecoinTxInput::set_from(const ::std::string& value) {
   
   from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.UnsignedMessage.from)
+  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxInput.from)
 }
-void UnsignedMessage::set_from(const char* value) {
+void FilecoinTxInput::set_from(const char* value) {
   
   from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.UnsignedMessage.from)
+  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinTxInput.from)
 }
-void UnsignedMessage::set_from(const char* value, size_t size) {
+void FilecoinTxInput::set_from(const char* value, size_t size) {
   
   from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.UnsignedMessage.from)
+  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinTxInput.from)
 }
-::std::string* UnsignedMessage::mutable_from() {
+::std::string* FilecoinTxInput::mutable_from() {
   
-  // @@protoc_insertion_point(field_mutable:filecoinapi.UnsignedMessage.from)
+  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxInput.from)
   return from_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* UnsignedMessage::release_from() {
-  // @@protoc_insertion_point(field_release:filecoinapi.UnsignedMessage.from)
+::std::string* FilecoinTxInput::release_from() {
+  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxInput.from)
   
   return from_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void UnsignedMessage::set_allocated_from(::std::string* from) {
+void FilecoinTxInput::set_allocated_from(::std::string* from) {
   if (from != NULL) {
     
   } else {
     
   }
   from_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.UnsignedMessage.from)
+  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxInput.from)
 }
 
 // optional uint64 nonce = 3;
-void UnsignedMessage::clear_nonce() {
+void FilecoinTxInput::clear_nonce() {
   nonce_ = GOOGLE_ULONGLONG(0);
 }
-::google::protobuf::uint64 UnsignedMessage::nonce() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.UnsignedMessage.nonce)
+::google::protobuf::uint64 FilecoinTxInput::nonce() const {
+  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxInput.nonce)
   return nonce_;
 }
-void UnsignedMessage::set_nonce(::google::protobuf::uint64 value) {
+void FilecoinTxInput::set_nonce(::google::protobuf::uint64 value) {
   
   nonce_ = value;
-  // @@protoc_insertion_point(field_set:filecoinapi.UnsignedMessage.nonce)
+  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxInput.nonce)
 }
 
 // optional string value = 4;
-void UnsignedMessage::clear_value() {
+void FilecoinTxInput::clear_value() {
   value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& UnsignedMessage::value() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.UnsignedMessage.value)
+const ::std::string& FilecoinTxInput::value() const {
+  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxInput.value)
   return value_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void UnsignedMessage::set_value(const ::std::string& value) {
+void FilecoinTxInput::set_value(const ::std::string& value) {
   
   value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.UnsignedMessage.value)
+  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxInput.value)
 }
-void UnsignedMessage::set_value(const char* value) {
+void FilecoinTxInput::set_value(const char* value) {
   
   value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.UnsignedMessage.value)
+  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinTxInput.value)
 }
-void UnsignedMessage::set_value(const char* value, size_t size) {
+void FilecoinTxInput::set_value(const char* value, size_t size) {
   
   value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.UnsignedMessage.value)
+  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinTxInput.value)
 }
-::std::string* UnsignedMessage::mutable_value() {
+::std::string* FilecoinTxInput::mutable_value() {
   
-  // @@protoc_insertion_point(field_mutable:filecoinapi.UnsignedMessage.value)
+  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxInput.value)
   return value_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* UnsignedMessage::release_value() {
-  // @@protoc_insertion_point(field_release:filecoinapi.UnsignedMessage.value)
+::std::string* FilecoinTxInput::release_value() {
+  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxInput.value)
   
   return value_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void UnsignedMessage::set_allocated_value(::std::string* value) {
+void FilecoinTxInput::set_allocated_value(::std::string* value) {
   if (value != NULL) {
     
   } else {
     
   }
   value_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.UnsignedMessage.value)
+  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxInput.value)
 }
 
 // optional int64 gasLimit = 5;
-void UnsignedMessage::clear_gaslimit() {
+void FilecoinTxInput::clear_gaslimit() {
   gaslimit_ = GOOGLE_LONGLONG(0);
 }
-::google::protobuf::int64 UnsignedMessage::gaslimit() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.UnsignedMessage.gasLimit)
+::google::protobuf::int64 FilecoinTxInput::gaslimit() const {
+  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxInput.gasLimit)
   return gaslimit_;
 }
-void UnsignedMessage::set_gaslimit(::google::protobuf::int64 value) {
+void FilecoinTxInput::set_gaslimit(::google::protobuf::int64 value) {
   
   gaslimit_ = value;
-  // @@protoc_insertion_point(field_set:filecoinapi.UnsignedMessage.gasLimit)
+  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxInput.gasLimit)
 }
 
 // optional string gasFeeCap = 6;
-void UnsignedMessage::clear_gasfeecap() {
+void FilecoinTxInput::clear_gasfeecap() {
   gasfeecap_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& UnsignedMessage::gasfeecap() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.UnsignedMessage.gasFeeCap)
+const ::std::string& FilecoinTxInput::gasfeecap() const {
+  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxInput.gasFeeCap)
   return gasfeecap_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void UnsignedMessage::set_gasfeecap(const ::std::string& value) {
+void FilecoinTxInput::set_gasfeecap(const ::std::string& value) {
   
   gasfeecap_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.UnsignedMessage.gasFeeCap)
+  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxInput.gasFeeCap)
 }
-void UnsignedMessage::set_gasfeecap(const char* value) {
+void FilecoinTxInput::set_gasfeecap(const char* value) {
   
   gasfeecap_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.UnsignedMessage.gasFeeCap)
+  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinTxInput.gasFeeCap)
 }
-void UnsignedMessage::set_gasfeecap(const char* value, size_t size) {
+void FilecoinTxInput::set_gasfeecap(const char* value, size_t size) {
   
   gasfeecap_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.UnsignedMessage.gasFeeCap)
+  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinTxInput.gasFeeCap)
 }
-::std::string* UnsignedMessage::mutable_gasfeecap() {
+::std::string* FilecoinTxInput::mutable_gasfeecap() {
   
-  // @@protoc_insertion_point(field_mutable:filecoinapi.UnsignedMessage.gasFeeCap)
+  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxInput.gasFeeCap)
   return gasfeecap_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* UnsignedMessage::release_gasfeecap() {
-  // @@protoc_insertion_point(field_release:filecoinapi.UnsignedMessage.gasFeeCap)
+::std::string* FilecoinTxInput::release_gasfeecap() {
+  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxInput.gasFeeCap)
   
   return gasfeecap_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void UnsignedMessage::set_allocated_gasfeecap(::std::string* gasfeecap) {
+void FilecoinTxInput::set_allocated_gasfeecap(::std::string* gasfeecap) {
   if (gasfeecap != NULL) {
     
   } else {
     
   }
   gasfeecap_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), gasfeecap);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.UnsignedMessage.gasFeeCap)
+  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxInput.gasFeeCap)
 }
 
 // optional string gasPremium = 7;
-void UnsignedMessage::clear_gaspremium() {
+void FilecoinTxInput::clear_gaspremium() {
   gaspremium_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& UnsignedMessage::gaspremium() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.UnsignedMessage.gasPremium)
+const ::std::string& FilecoinTxInput::gaspremium() const {
+  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxInput.gasPremium)
   return gaspremium_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void UnsignedMessage::set_gaspremium(const ::std::string& value) {
+void FilecoinTxInput::set_gaspremium(const ::std::string& value) {
   
   gaspremium_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.UnsignedMessage.gasPremium)
+  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxInput.gasPremium)
 }
-void UnsignedMessage::set_gaspremium(const char* value) {
+void FilecoinTxInput::set_gaspremium(const char* value) {
   
   gaspremium_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.UnsignedMessage.gasPremium)
+  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinTxInput.gasPremium)
 }
-void UnsignedMessage::set_gaspremium(const char* value, size_t size) {
+void FilecoinTxInput::set_gaspremium(const char* value, size_t size) {
   
   gaspremium_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.UnsignedMessage.gasPremium)
+  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinTxInput.gasPremium)
 }
-::std::string* UnsignedMessage::mutable_gaspremium() {
+::std::string* FilecoinTxInput::mutable_gaspremium() {
   
-  // @@protoc_insertion_point(field_mutable:filecoinapi.UnsignedMessage.gasPremium)
+  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxInput.gasPremium)
   return gaspremium_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* UnsignedMessage::release_gaspremium() {
-  // @@protoc_insertion_point(field_release:filecoinapi.UnsignedMessage.gasPremium)
+::std::string* FilecoinTxInput::release_gaspremium() {
+  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxInput.gasPremium)
   
   return gaspremium_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void UnsignedMessage::set_allocated_gaspremium(::std::string* gaspremium) {
+void FilecoinTxInput::set_allocated_gaspremium(::std::string* gaspremium) {
   if (gaspremium != NULL) {
     
   } else {
     
   }
   gaspremium_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), gaspremium);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.UnsignedMessage.gasPremium)
+  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxInput.gasPremium)
 }
 
 // optional uint64 method = 8;
-void UnsignedMessage::clear_method() {
+void FilecoinTxInput::clear_method() {
   method_ = GOOGLE_ULONGLONG(0);
 }
-::google::protobuf::uint64 UnsignedMessage::method() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.UnsignedMessage.method)
+::google::protobuf::uint64 FilecoinTxInput::method() const {
+  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxInput.method)
   return method_;
 }
-void UnsignedMessage::set_method(::google::protobuf::uint64 value) {
+void FilecoinTxInput::set_method(::google::protobuf::uint64 value) {
   
   method_ = value;
-  // @@protoc_insertion_point(field_set:filecoinapi.UnsignedMessage.method)
+  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxInput.method)
 }
 
 // optional string params = 9;
-void UnsignedMessage::clear_params() {
+void FilecoinTxInput::clear_params() {
   params_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& UnsignedMessage::params() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.UnsignedMessage.params)
+const ::std::string& FilecoinTxInput::params() const {
+  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxInput.params)
   return params_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void UnsignedMessage::set_params(const ::std::string& value) {
+void FilecoinTxInput::set_params(const ::std::string& value) {
   
   params_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.UnsignedMessage.params)
+  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxInput.params)
 }
-void UnsignedMessage::set_params(const char* value) {
+void FilecoinTxInput::set_params(const char* value) {
   
   params_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.UnsignedMessage.params)
+  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinTxInput.params)
 }
-void UnsignedMessage::set_params(const char* value, size_t size) {
+void FilecoinTxInput::set_params(const char* value, size_t size) {
   
   params_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.UnsignedMessage.params)
+  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinTxInput.params)
 }
-::std::string* UnsignedMessage::mutable_params() {
+::std::string* FilecoinTxInput::mutable_params() {
   
-  // @@protoc_insertion_point(field_mutable:filecoinapi.UnsignedMessage.params)
+  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxInput.params)
   return params_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* UnsignedMessage::release_params() {
-  // @@protoc_insertion_point(field_release:filecoinapi.UnsignedMessage.params)
+::std::string* FilecoinTxInput::release_params() {
+  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxInput.params)
   
   return params_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void UnsignedMessage::set_allocated_params(::std::string* params) {
+void FilecoinTxInput::set_allocated_params(::std::string* params) {
   if (params != NULL) {
     
   } else {
     
   }
   params_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), params);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.UnsignedMessage.params)
+  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxInput.params)
 }
 
-inline const UnsignedMessage* UnsignedMessage::internal_default_instance() {
-  return &UnsignedMessage_default_instance_.get();
+inline const FilecoinTxInput* FilecoinTxInput::internal_default_instance() {
+  return &FilecoinTxInput_default_instance_.get();
 }
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int FilecoinTxRes::kCidFieldNumber;
-const int FilecoinTxRes::kMessageFieldNumber;
-const int FilecoinTxRes::kSignatureFieldNumber;
+const int FilecoinTxOutput::kCidFieldNumber;
+const int FilecoinTxOutput::kMessageFieldNumber;
+const int FilecoinTxOutput::kSignatureFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-FilecoinTxRes::FilecoinTxRes()
+FilecoinTxOutput::FilecoinTxOutput()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (this != internal_default_instance()) protobuf_InitDefaults_filecoin_2eproto();
   SharedCtor();
-  // @@protoc_insertion_point(constructor:filecoinapi.FilecoinTxRes)
+  // @@protoc_insertion_point(constructor:filecoinapi.FilecoinTxOutput)
 }
 
-void FilecoinTxRes::InitAsDefaultInstance() {
-  message_ = const_cast< ::filecoinapi::UnsignedMessage*>(
-      ::filecoinapi::UnsignedMessage::internal_default_instance());
+void FilecoinTxOutput::InitAsDefaultInstance() {
+  message_ = const_cast< ::filecoinapi::FilecoinTxInput*>(
+      ::filecoinapi::FilecoinTxInput::internal_default_instance());
   signature_ = const_cast< ::filecoinapi::Signature*>(
       ::filecoinapi::Signature::internal_default_instance());
 }
 
-FilecoinTxRes::FilecoinTxRes(const FilecoinTxRes& from)
+FilecoinTxOutput::FilecoinTxOutput(const FilecoinTxOutput& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
   UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:filecoinapi.FilecoinTxRes)
+  // @@protoc_insertion_point(copy_constructor:filecoinapi.FilecoinTxOutput)
 }
 
-void FilecoinTxRes::SharedCtor() {
+void FilecoinTxOutput::SharedCtor() {
   cid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   message_ = NULL;
   signature_ = NULL;
   _cached_size_ = 0;
 }
 
-FilecoinTxRes::~FilecoinTxRes() {
-  // @@protoc_insertion_point(destructor:filecoinapi.FilecoinTxRes)
+FilecoinTxOutput::~FilecoinTxOutput() {
+  // @@protoc_insertion_point(destructor:filecoinapi.FilecoinTxOutput)
   SharedDtor();
 }
 
-void FilecoinTxRes::SharedDtor() {
+void FilecoinTxOutput::SharedDtor() {
   cid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != &FilecoinTxRes_default_instance_.get()) {
+  if (this != &FilecoinTxOutput_default_instance_.get()) {
     delete message_;
     delete signature_;
   }
 }
 
-void FilecoinTxRes::SetCachedSize(int size) const {
+void FilecoinTxOutput::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* FilecoinTxRes::descriptor() {
+const ::google::protobuf::Descriptor* FilecoinTxOutput::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return FilecoinTxRes_descriptor_;
+  return FilecoinTxOutput_descriptor_;
 }
 
-const FilecoinTxRes& FilecoinTxRes::default_instance() {
+const FilecoinTxOutput& FilecoinTxOutput::default_instance() {
   protobuf_InitDefaults_filecoin_2eproto();
   return *internal_default_instance();
 }
 
-::google::protobuf::internal::ExplicitlyConstructed<FilecoinTxRes> FilecoinTxRes_default_instance_;
+::google::protobuf::internal::ExplicitlyConstructed<FilecoinTxOutput> FilecoinTxOutput_default_instance_;
 
-FilecoinTxRes* FilecoinTxRes::New(::google::protobuf::Arena* arena) const {
-  FilecoinTxRes* n = new FilecoinTxRes;
+FilecoinTxOutput* FilecoinTxOutput::New(::google::protobuf::Arena* arena) const {
+  FilecoinTxOutput* n = new FilecoinTxOutput;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void FilecoinTxRes::Clear() {
-// @@protoc_insertion_point(message_clear_start:filecoinapi.FilecoinTxRes)
+void FilecoinTxOutput::Clear() {
+// @@protoc_insertion_point(message_clear_start:filecoinapi.FilecoinTxOutput)
   cid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (GetArenaNoVirtual() == NULL && message_ != NULL) delete message_;
   message_ = NULL;
@@ -2175,11 +1226,11 @@ void FilecoinTxRes::Clear() {
   signature_ = NULL;
 }
 
-bool FilecoinTxRes::MergePartialFromCodedStream(
+bool FilecoinTxOutput::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:filecoinapi.FilecoinTxRes)
+  // @@protoc_insertion_point(parse_start:filecoinapi.FilecoinTxOutput)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -2193,7 +1244,7 @@ bool FilecoinTxRes::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->cid().data(), this->cid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.FilecoinTxRes.cid"));
+            "filecoinapi.FilecoinTxOutput.cid"));
         } else {
           goto handle_unusual;
         }
@@ -2201,7 +1252,7 @@ bool FilecoinTxRes::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .filecoinapi.UnsignedMessage message = 2;
+      // optional .filecoinapi.FilecoinTxInput message = 2;
       case 2: {
         if (tag == 18) {
          parse_message:
@@ -2240,28 +1291,28 @@ bool FilecoinTxRes::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:filecoinapi.FilecoinTxRes)
+  // @@protoc_insertion_point(parse_success:filecoinapi.FilecoinTxOutput)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:filecoinapi.FilecoinTxRes)
+  // @@protoc_insertion_point(parse_failure:filecoinapi.FilecoinTxOutput)
   return false;
 #undef DO_
 }
 
-void FilecoinTxRes::SerializeWithCachedSizes(
+void FilecoinTxOutput::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:filecoinapi.FilecoinTxRes)
+  // @@protoc_insertion_point(serialize_start:filecoinapi.FilecoinTxOutput)
   // optional string cid = 1;
   if (this->cid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->cid().data(), this->cid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinTxRes.cid");
+      "filecoinapi.FilecoinTxOutput.cid");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->cid(), output);
   }
 
-  // optional .filecoinapi.UnsignedMessage message = 2;
+  // optional .filecoinapi.FilecoinTxInput message = 2;
   if (this->has_message()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->message_, output);
@@ -2273,25 +1324,25 @@ void FilecoinTxRes::SerializeWithCachedSizes(
       3, *this->signature_, output);
   }
 
-  // @@protoc_insertion_point(serialize_end:filecoinapi.FilecoinTxRes)
+  // @@protoc_insertion_point(serialize_end:filecoinapi.FilecoinTxOutput)
 }
 
-::google::protobuf::uint8* FilecoinTxRes::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* FilecoinTxOutput::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:filecoinapi.FilecoinTxRes)
+  // @@protoc_insertion_point(serialize_to_array_start:filecoinapi.FilecoinTxOutput)
   // optional string cid = 1;
   if (this->cid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->cid().data(), this->cid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinTxRes.cid");
+      "filecoinapi.FilecoinTxOutput.cid");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->cid(), target);
   }
 
-  // optional .filecoinapi.UnsignedMessage message = 2;
+  // optional .filecoinapi.FilecoinTxInput message = 2;
   if (this->has_message()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
@@ -2305,12 +1356,12 @@ void FilecoinTxRes::SerializeWithCachedSizes(
         3, *this->signature_, false, target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:filecoinapi.FilecoinTxRes)
+  // @@protoc_insertion_point(serialize_to_array_end:filecoinapi.FilecoinTxOutput)
   return target;
 }
 
-size_t FilecoinTxRes::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:filecoinapi.FilecoinTxRes)
+size_t FilecoinTxOutput::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:filecoinapi.FilecoinTxOutput)
   size_t total_size = 0;
 
   // optional string cid = 1;
@@ -2320,7 +1371,7 @@ size_t FilecoinTxRes::ByteSizeLong() const {
         this->cid());
   }
 
-  // optional .filecoinapi.UnsignedMessage message = 2;
+  // optional .filecoinapi.FilecoinTxInput message = 2;
   if (this->has_message()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -2341,23 +1392,23 @@ size_t FilecoinTxRes::ByteSizeLong() const {
   return total_size;
 }
 
-void FilecoinTxRes::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:filecoinapi.FilecoinTxRes)
+void FilecoinTxOutput::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:filecoinapi.FilecoinTxOutput)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const FilecoinTxRes* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const FilecoinTxRes>(
+  const FilecoinTxOutput* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const FilecoinTxOutput>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:filecoinapi.FilecoinTxRes)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:filecoinapi.FilecoinTxOutput)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:filecoinapi.FilecoinTxRes)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:filecoinapi.FilecoinTxOutput)
     UnsafeMergeFrom(*source);
   }
 }
 
-void FilecoinTxRes::MergeFrom(const FilecoinTxRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:filecoinapi.FilecoinTxRes)
+void FilecoinTxOutput::MergeFrom(const FilecoinTxOutput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:filecoinapi.FilecoinTxOutput)
   if (GOOGLE_PREDICT_TRUE(&from != this)) {
     UnsafeMergeFrom(from);
   } else {
@@ -2365,44 +1416,44 @@ void FilecoinTxRes::MergeFrom(const FilecoinTxRes& from) {
   }
 }
 
-void FilecoinTxRes::UnsafeMergeFrom(const FilecoinTxRes& from) {
+void FilecoinTxOutput::UnsafeMergeFrom(const FilecoinTxOutput& from) {
   GOOGLE_DCHECK(&from != this);
   if (from.cid().size() > 0) {
 
     cid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.cid_);
   }
   if (from.has_message()) {
-    mutable_message()->::filecoinapi::UnsignedMessage::MergeFrom(from.message());
+    mutable_message()->::filecoinapi::FilecoinTxInput::MergeFrom(from.message());
   }
   if (from.has_signature()) {
     mutable_signature()->::filecoinapi::Signature::MergeFrom(from.signature());
   }
 }
 
-void FilecoinTxRes::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:filecoinapi.FilecoinTxRes)
+void FilecoinTxOutput::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:filecoinapi.FilecoinTxOutput)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void FilecoinTxRes::CopyFrom(const FilecoinTxRes& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:filecoinapi.FilecoinTxRes)
+void FilecoinTxOutput::CopyFrom(const FilecoinTxOutput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:filecoinapi.FilecoinTxOutput)
   if (&from == this) return;
   Clear();
   UnsafeMergeFrom(from);
 }
 
-bool FilecoinTxRes::IsInitialized() const {
+bool FilecoinTxOutput::IsInitialized() const {
 
   return true;
 }
 
-void FilecoinTxRes::Swap(FilecoinTxRes* other) {
+void FilecoinTxOutput::Swap(FilecoinTxOutput* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void FilecoinTxRes::InternalSwap(FilecoinTxRes* other) {
+void FilecoinTxOutput::InternalSwap(FilecoinTxOutput* other) {
   cid_.Swap(&other->cid_);
   std::swap(message_, other->message_);
   std::swap(signature_, other->signature_);
@@ -2410,90 +1461,90 @@ void FilecoinTxRes::InternalSwap(FilecoinTxRes* other) {
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata FilecoinTxRes::GetMetadata() const {
+::google::protobuf::Metadata FilecoinTxOutput::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = FilecoinTxRes_descriptor_;
-  metadata.reflection = FilecoinTxRes_reflection_;
+  metadata.descriptor = FilecoinTxOutput_descriptor_;
+  metadata.reflection = FilecoinTxOutput_reflection_;
   return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// FilecoinTxRes
+// FilecoinTxOutput
 
 // optional string cid = 1;
-void FilecoinTxRes::clear_cid() {
+void FilecoinTxOutput::clear_cid() {
   cid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& FilecoinTxRes::cid() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxRes.cid)
+const ::std::string& FilecoinTxOutput::cid() const {
+  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxOutput.cid)
   return cid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void FilecoinTxRes::set_cid(const ::std::string& value) {
+void FilecoinTxOutput::set_cid(const ::std::string& value) {
   
   cid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxRes.cid)
+  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinTxOutput.cid)
 }
-void FilecoinTxRes::set_cid(const char* value) {
+void FilecoinTxOutput::set_cid(const char* value) {
   
   cid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinTxRes.cid)
+  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinTxOutput.cid)
 }
-void FilecoinTxRes::set_cid(const char* value, size_t size) {
+void FilecoinTxOutput::set_cid(const char* value, size_t size) {
   
   cid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinTxRes.cid)
+  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinTxOutput.cid)
 }
-::std::string* FilecoinTxRes::mutable_cid() {
+::std::string* FilecoinTxOutput::mutable_cid() {
   
-  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxRes.cid)
+  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxOutput.cid)
   return cid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* FilecoinTxRes::release_cid() {
-  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxRes.cid)
+::std::string* FilecoinTxOutput::release_cid() {
+  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxOutput.cid)
   
   return cid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void FilecoinTxRes::set_allocated_cid(::std::string* cid) {
+void FilecoinTxOutput::set_allocated_cid(::std::string* cid) {
   if (cid != NULL) {
     
   } else {
     
   }
   cid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), cid);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxRes.cid)
+  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxOutput.cid)
 }
 
-// optional .filecoinapi.UnsignedMessage message = 2;
-bool FilecoinTxRes::has_message() const {
+// optional .filecoinapi.FilecoinTxInput message = 2;
+bool FilecoinTxOutput::has_message() const {
   return this != internal_default_instance() && message_ != NULL;
 }
-void FilecoinTxRes::clear_message() {
+void FilecoinTxOutput::clear_message() {
   if (GetArenaNoVirtual() == NULL && message_ != NULL) delete message_;
   message_ = NULL;
 }
-const ::filecoinapi::UnsignedMessage& FilecoinTxRes::message() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxRes.message)
+const ::filecoinapi::FilecoinTxInput& FilecoinTxOutput::message() const {
+  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxOutput.message)
   return message_ != NULL ? *message_
-                         : *::filecoinapi::UnsignedMessage::internal_default_instance();
+                         : *::filecoinapi::FilecoinTxInput::internal_default_instance();
 }
-::filecoinapi::UnsignedMessage* FilecoinTxRes::mutable_message() {
+::filecoinapi::FilecoinTxInput* FilecoinTxOutput::mutable_message() {
   
   if (message_ == NULL) {
-    message_ = new ::filecoinapi::UnsignedMessage;
+    message_ = new ::filecoinapi::FilecoinTxInput;
   }
-  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxRes.message)
+  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxOutput.message)
   return message_;
 }
-::filecoinapi::UnsignedMessage* FilecoinTxRes::release_message() {
-  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxRes.message)
+::filecoinapi::FilecoinTxInput* FilecoinTxOutput::release_message() {
+  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxOutput.message)
   
-  ::filecoinapi::UnsignedMessage* temp = message_;
+  ::filecoinapi::FilecoinTxInput* temp = message_;
   message_ = NULL;
   return temp;
 }
-void FilecoinTxRes::set_allocated_message(::filecoinapi::UnsignedMessage* message) {
+void FilecoinTxOutput::set_allocated_message(::filecoinapi::FilecoinTxInput* message) {
   delete message_;
   message_ = message;
   if (message) {
@@ -2501,38 +1552,38 @@ void FilecoinTxRes::set_allocated_message(::filecoinapi::UnsignedMessage* messag
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxRes.message)
+  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxOutput.message)
 }
 
 // optional .filecoinapi.Signature signature = 3;
-bool FilecoinTxRes::has_signature() const {
+bool FilecoinTxOutput::has_signature() const {
   return this != internal_default_instance() && signature_ != NULL;
 }
-void FilecoinTxRes::clear_signature() {
+void FilecoinTxOutput::clear_signature() {
   if (GetArenaNoVirtual() == NULL && signature_ != NULL) delete signature_;
   signature_ = NULL;
 }
-const ::filecoinapi::Signature& FilecoinTxRes::signature() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxRes.signature)
+const ::filecoinapi::Signature& FilecoinTxOutput::signature() const {
+  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinTxOutput.signature)
   return signature_ != NULL ? *signature_
                          : *::filecoinapi::Signature::internal_default_instance();
 }
-::filecoinapi::Signature* FilecoinTxRes::mutable_signature() {
+::filecoinapi::Signature* FilecoinTxOutput::mutable_signature() {
   
   if (signature_ == NULL) {
     signature_ = new ::filecoinapi::Signature;
   }
-  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxRes.signature)
+  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinTxOutput.signature)
   return signature_;
 }
-::filecoinapi::Signature* FilecoinTxRes::release_signature() {
-  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxRes.signature)
+::filecoinapi::Signature* FilecoinTxOutput::release_signature() {
+  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinTxOutput.signature)
   
   ::filecoinapi::Signature* temp = signature_;
   signature_ = NULL;
   return temp;
 }
-void FilecoinTxRes::set_allocated_signature(::filecoinapi::Signature* signature) {
+void FilecoinTxOutput::set_allocated_signature(::filecoinapi::Signature* signature) {
   delete signature_;
   signature_ = signature;
   if (signature) {
@@ -2540,11 +1591,11 @@ void FilecoinTxRes::set_allocated_signature(::filecoinapi::Signature* signature)
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxRes.signature)
+  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinTxOutput.signature)
 }
 
-inline const FilecoinTxRes* FilecoinTxRes::internal_default_instance() {
-  return &FilecoinTxRes_default_instance_.get();
+inline const FilecoinTxOutput* FilecoinTxOutput::internal_default_instance() {
+  return &FilecoinTxOutput_default_instance_.get();
 }
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
@@ -2887,682 +1938,6 @@ void Signature::set_allocated_data(::std::string* data) {
 
 inline const Signature* Signature::internal_default_instance() {
   return &Signature_default_instance_.get();
-}
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int FilecoinAddressReq::kNetworkFieldNumber;
-const int FilecoinAddressReq::kPathFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-FilecoinAddressReq::FilecoinAddressReq()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_filecoin_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:filecoinapi.FilecoinAddressReq)
-}
-
-void FilecoinAddressReq::InitAsDefaultInstance() {
-}
-
-FilecoinAddressReq::FilecoinAddressReq(const FilecoinAddressReq& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:filecoinapi.FilecoinAddressReq)
-}
-
-void FilecoinAddressReq::SharedCtor() {
-  network_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _cached_size_ = 0;
-}
-
-FilecoinAddressReq::~FilecoinAddressReq() {
-  // @@protoc_insertion_point(destructor:filecoinapi.FilecoinAddressReq)
-  SharedDtor();
-}
-
-void FilecoinAddressReq::SharedDtor() {
-  network_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  path_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-void FilecoinAddressReq::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* FilecoinAddressReq::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return FilecoinAddressReq_descriptor_;
-}
-
-const FilecoinAddressReq& FilecoinAddressReq::default_instance() {
-  protobuf_InitDefaults_filecoin_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<FilecoinAddressReq> FilecoinAddressReq_default_instance_;
-
-FilecoinAddressReq* FilecoinAddressReq::New(::google::protobuf::Arena* arena) const {
-  FilecoinAddressReq* n = new FilecoinAddressReq;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void FilecoinAddressReq::Clear() {
-// @@protoc_insertion_point(message_clear_start:filecoinapi.FilecoinAddressReq)
-  network_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool FilecoinAddressReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:filecoinapi.FilecoinAddressReq)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string network = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_network()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->network().data(), this->network().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.FilecoinAddressReq.network"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_path;
-        break;
-      }
-
-      // optional string path = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_path:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_path()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->path().data(), this->path().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.FilecoinAddressReq.path"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:filecoinapi.FilecoinAddressReq)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:filecoinapi.FilecoinAddressReq)
-  return false;
-#undef DO_
-}
-
-void FilecoinAddressReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:filecoinapi.FilecoinAddressReq)
-  // optional string network = 1;
-  if (this->network().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->network().data(), this->network().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinAddressReq.network");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->network(), output);
-  }
-
-  // optional string path = 2;
-  if (this->path().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinAddressReq.path");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->path(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:filecoinapi.FilecoinAddressReq)
-}
-
-::google::protobuf::uint8* FilecoinAddressReq::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:filecoinapi.FilecoinAddressReq)
-  // optional string network = 1;
-  if (this->network().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->network().data(), this->network().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinAddressReq.network");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->network(), target);
-  }
-
-  // optional string path = 2;
-  if (this->path().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinAddressReq.path");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->path(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:filecoinapi.FilecoinAddressReq)
-  return target;
-}
-
-size_t FilecoinAddressReq::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:filecoinapi.FilecoinAddressReq)
-  size_t total_size = 0;
-
-  // optional string network = 1;
-  if (this->network().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->network());
-  }
-
-  // optional string path = 2;
-  if (this->path().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->path());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void FilecoinAddressReq::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:filecoinapi.FilecoinAddressReq)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const FilecoinAddressReq* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const FilecoinAddressReq>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:filecoinapi.FilecoinAddressReq)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:filecoinapi.FilecoinAddressReq)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void FilecoinAddressReq::MergeFrom(const FilecoinAddressReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:filecoinapi.FilecoinAddressReq)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void FilecoinAddressReq::UnsafeMergeFrom(const FilecoinAddressReq& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.network().size() > 0) {
-
-    network_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.network_);
-  }
-  if (from.path().size() > 0) {
-
-    path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_);
-  }
-}
-
-void FilecoinAddressReq::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:filecoinapi.FilecoinAddressReq)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void FilecoinAddressReq::CopyFrom(const FilecoinAddressReq& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:filecoinapi.FilecoinAddressReq)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool FilecoinAddressReq::IsInitialized() const {
-
-  return true;
-}
-
-void FilecoinAddressReq::Swap(FilecoinAddressReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void FilecoinAddressReq::InternalSwap(FilecoinAddressReq* other) {
-  network_.Swap(&other->network_);
-  path_.Swap(&other->path_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata FilecoinAddressReq::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = FilecoinAddressReq_descriptor_;
-  metadata.reflection = FilecoinAddressReq_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// FilecoinAddressReq
-
-// optional string network = 1;
-void FilecoinAddressReq::clear_network() {
-  network_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& FilecoinAddressReq::network() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinAddressReq.network)
-  return network_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinAddressReq::set_network(const ::std::string& value) {
-  
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinAddressReq.network)
-}
-void FilecoinAddressReq::set_network(const char* value) {
-  
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinAddressReq.network)
-}
-void FilecoinAddressReq::set_network(const char* value, size_t size) {
-  
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinAddressReq.network)
-}
-::std::string* FilecoinAddressReq::mutable_network() {
-  
-  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinAddressReq.network)
-  return network_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* FilecoinAddressReq::release_network() {
-  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinAddressReq.network)
-  
-  return network_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinAddressReq::set_allocated_network(::std::string* network) {
-  if (network != NULL) {
-    
-  } else {
-    
-  }
-  network_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), network);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinAddressReq.network)
-}
-
-// optional string path = 2;
-void FilecoinAddressReq::clear_path() {
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& FilecoinAddressReq::path() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinAddressReq.path)
-  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinAddressReq::set_path(const ::std::string& value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinAddressReq.path)
-}
-void FilecoinAddressReq::set_path(const char* value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinAddressReq.path)
-}
-void FilecoinAddressReq::set_path(const char* value, size_t size) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinAddressReq.path)
-}
-::std::string* FilecoinAddressReq::mutable_path() {
-  
-  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinAddressReq.path)
-  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* FilecoinAddressReq::release_path() {
-  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinAddressReq.path)
-  
-  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinAddressReq::set_allocated_path(::std::string* path) {
-  if (path != NULL) {
-    
-  } else {
-    
-  }
-  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinAddressReq.path)
-}
-
-inline const FilecoinAddressReq* FilecoinAddressReq::internal_default_instance() {
-  return &FilecoinAddressReq_default_instance_.get();
-}
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int FilecoinAddressRes::kAddressFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-FilecoinAddressRes::FilecoinAddressRes()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_filecoin_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:filecoinapi.FilecoinAddressRes)
-}
-
-void FilecoinAddressRes::InitAsDefaultInstance() {
-}
-
-FilecoinAddressRes::FilecoinAddressRes(const FilecoinAddressRes& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:filecoinapi.FilecoinAddressRes)
-}
-
-void FilecoinAddressRes::SharedCtor() {
-  address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _cached_size_ = 0;
-}
-
-FilecoinAddressRes::~FilecoinAddressRes() {
-  // @@protoc_insertion_point(destructor:filecoinapi.FilecoinAddressRes)
-  SharedDtor();
-}
-
-void FilecoinAddressRes::SharedDtor() {
-  address_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-void FilecoinAddressRes::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* FilecoinAddressRes::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return FilecoinAddressRes_descriptor_;
-}
-
-const FilecoinAddressRes& FilecoinAddressRes::default_instance() {
-  protobuf_InitDefaults_filecoin_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<FilecoinAddressRes> FilecoinAddressRes_default_instance_;
-
-FilecoinAddressRes* FilecoinAddressRes::New(::google::protobuf::Arena* arena) const {
-  FilecoinAddressRes* n = new FilecoinAddressRes;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void FilecoinAddressRes::Clear() {
-// @@protoc_insertion_point(message_clear_start:filecoinapi.FilecoinAddressRes)
-  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool FilecoinAddressRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:filecoinapi.FilecoinAddressRes)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string address = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_address()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->address().data(), this->address().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "filecoinapi.FilecoinAddressRes.address"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:filecoinapi.FilecoinAddressRes)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:filecoinapi.FilecoinAddressRes)
-  return false;
-#undef DO_
-}
-
-void FilecoinAddressRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:filecoinapi.FilecoinAddressRes)
-  // optional string address = 1;
-  if (this->address().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->address().data(), this->address().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinAddressRes.address");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->address(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:filecoinapi.FilecoinAddressRes)
-}
-
-::google::protobuf::uint8* FilecoinAddressRes::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:filecoinapi.FilecoinAddressRes)
-  // optional string address = 1;
-  if (this->address().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->address().data(), this->address().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "filecoinapi.FilecoinAddressRes.address");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->address(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:filecoinapi.FilecoinAddressRes)
-  return target;
-}
-
-size_t FilecoinAddressRes::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:filecoinapi.FilecoinAddressRes)
-  size_t total_size = 0;
-
-  // optional string address = 1;
-  if (this->address().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->address());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void FilecoinAddressRes::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:filecoinapi.FilecoinAddressRes)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const FilecoinAddressRes* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const FilecoinAddressRes>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:filecoinapi.FilecoinAddressRes)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:filecoinapi.FilecoinAddressRes)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void FilecoinAddressRes::MergeFrom(const FilecoinAddressRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:filecoinapi.FilecoinAddressRes)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void FilecoinAddressRes::UnsafeMergeFrom(const FilecoinAddressRes& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.address().size() > 0) {
-
-    address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
-  }
-}
-
-void FilecoinAddressRes::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:filecoinapi.FilecoinAddressRes)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void FilecoinAddressRes::CopyFrom(const FilecoinAddressRes& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:filecoinapi.FilecoinAddressRes)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool FilecoinAddressRes::IsInitialized() const {
-
-  return true;
-}
-
-void FilecoinAddressRes::Swap(FilecoinAddressRes* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void FilecoinAddressRes::InternalSwap(FilecoinAddressRes* other) {
-  address_.Swap(&other->address_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata FilecoinAddressRes::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = FilecoinAddressRes_descriptor_;
-  metadata.reflection = FilecoinAddressRes_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// FilecoinAddressRes
-
-// optional string address = 1;
-void FilecoinAddressRes::clear_address() {
-  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& FilecoinAddressRes::address() const {
-  // @@protoc_insertion_point(field_get:filecoinapi.FilecoinAddressRes.address)
-  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinAddressRes::set_address(const ::std::string& value) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:filecoinapi.FilecoinAddressRes.address)
-}
-void FilecoinAddressRes::set_address(const char* value) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:filecoinapi.FilecoinAddressRes.address)
-}
-void FilecoinAddressRes::set_address(const char* value, size_t size) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:filecoinapi.FilecoinAddressRes.address)
-}
-::std::string* FilecoinAddressRes::mutable_address() {
-  
-  // @@protoc_insertion_point(field_mutable:filecoinapi.FilecoinAddressRes.address)
-  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* FilecoinAddressRes::release_address() {
-  // @@protoc_insertion_point(field_release:filecoinapi.FilecoinAddressRes.address)
-  
-  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void FilecoinAddressRes::set_allocated_address(::std::string* address) {
-  if (address != NULL) {
-    
-  } else {
-    
-  }
-  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
-  // @@protoc_insertion_point(field_set_allocated:filecoinapi.FilecoinAddressRes.address)
-}
-
-inline const FilecoinAddressRes* FilecoinAddressRes::internal_default_instance() {
-  return &FilecoinAddressRes_default_instance_.get();
 }
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 

@@ -1,21 +1,20 @@
 syntax = "proto3";
 package eosapi;
 
-message EosTxReq {
-    string path = 1;
-    repeated EosSignData sign_datas = 2;
+message EosTxInput {
+    repeated EosSignData transactions = 1;
 }
 
 message EosSignData {
-    string tx_data = 1;
-    repeated string pub_keys = 2;
-    string chain_id = 3;
-    string to = 4;
-    string from = 5;
-    string payment = 6;
+    string txHex = 1;
+    repeated string publicKeys = 2;
+    string chainId = 3;
+    string receiver = 4;
+    string payment = 5;
+    string sender = 6;
 }
 
-message EosTxRes {
+message EosTxOutput {
     repeated EosSignResult trans_multi_signs = 1;
 }
 
@@ -24,21 +23,13 @@ message EosSignResult {
     repeated string signs = 2;
 }
 
-message EosPubkeyReq {
-    string path = 1;
+
+message EosMessageInput {
+    string data = 1;
+    string pubkey = 2;
+    bool isHex = 3;
 }
 
-message EosPubkeyRes {
-    string pubkey = 1;
-}
-
-message EosMessageSignReq{
-    string path = 1;
-    string data = 2;
-    bool is_hex = 3;
-    string pubkey = 4;
-}
-
-message EosMessageSignRes{
+message EosMessageOutput {
     string signature = 1;
 }

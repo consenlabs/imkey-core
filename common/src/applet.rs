@@ -34,6 +34,10 @@ mod tests {
         assert_eq!(get_appname_by_instid("695F657468").unwrap(), "ETH");
         assert_eq!(get_appname_by_instid("695F656F73").unwrap(), "EOS");
         assert_eq!(get_appname_by_instid("695F636F736D6F73").unwrap(), "COSMOS");
+        assert_eq!(
+            get_appname_by_instid("695F6B315F66696C").unwrap(),
+            "FILECOIN"
+        );
         assert_eq!(get_appname_by_instid("695F696D6B").unwrap(), "IMK");
         assert!(get_appname_by_instid("1111111111").is_none());
     }
@@ -45,6 +49,10 @@ mod tests {
         assert_eq!(get_instid_by_appname("EOS").unwrap(), "695F656F73");
         assert_eq!(get_instid_by_appname("COSMOS").unwrap(), "695F636F736D6F73");
         assert_eq!(get_instid_by_appname("IMK").unwrap(), "695F696D6B");
+        assert_eq!(
+            get_instid_by_appname("FILECOIN").unwrap(),
+            "695F6B315F66696C"
+        );
         assert!(get_instid_by_appname("APPLET").is_none());
     }
 }

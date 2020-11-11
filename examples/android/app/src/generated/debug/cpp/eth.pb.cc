@@ -21,24 +21,18 @@ namespace ethapi {
 
 namespace {
 
-const ::google::protobuf::Descriptor* EthTxReq_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* EthTxInput_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  EthTxReq_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EthTxRes_descriptor_ = NULL;
+  EthTxInput_reflection_ = NULL;
+const ::google::protobuf::Descriptor* EthTxOutput_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  EthTxRes_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EthAddressReq_descriptor_ = NULL;
+  EthTxOutput_reflection_ = NULL;
+const ::google::protobuf::Descriptor* EthMessageInput_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  EthAddressReq_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EthAddressRes_descriptor_ = NULL;
+  EthMessageInput_reflection_ = NULL;
+const ::google::protobuf::Descriptor* EthMessageOutput_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  EthAddressRes_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EthMessageSignReq_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EthMessageSignReq_reflection_ = NULL;
-const ::google::protobuf::Descriptor* EthMessageSignRes_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  EthMessageSignRes_reflection_ = NULL;
+  EthMessageOutput_reflection_ = NULL;
 
 }  // namespace
 
@@ -50,104 +44,70 @@ void protobuf_AssignDesc_eth_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "eth.proto");
   GOOGLE_CHECK(file != NULL);
-  EthTxReq_descriptor_ = file->message_type(0);
-  static const int EthTxReq_offsets_[12] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxReq, nonce_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxReq, gas_price_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxReq, gas_limit_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxReq, to_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxReq, value_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxReq, data_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxReq, chain_id_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxReq, path_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxReq, payment_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxReq, receiver_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxReq, sender_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxReq, fee_),
+  EthTxInput_descriptor_ = file->message_type(0);
+  static const int EthTxInput_offsets_[7] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxInput, nonce_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxInput, gas_price_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxInput, gas_limit_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxInput, to_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxInput, value_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxInput, data_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxInput, chain_id_),
   };
-  EthTxReq_reflection_ =
+  EthTxInput_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EthTxReq_descriptor_,
-      EthTxReq::internal_default_instance(),
-      EthTxReq_offsets_,
+      EthTxInput_descriptor_,
+      EthTxInput::internal_default_instance(),
+      EthTxInput_offsets_,
       -1,
       -1,
       -1,
-      sizeof(EthTxReq),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxReq, _internal_metadata_));
-  EthTxRes_descriptor_ = file->message_type(1);
-  static const int EthTxRes_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxRes, tx_data_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxRes, tx_hash_),
+      sizeof(EthTxInput),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxInput, _internal_metadata_));
+  EthTxOutput_descriptor_ = file->message_type(1);
+  static const int EthTxOutput_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxOutput, signature_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxOutput, txhash_),
   };
-  EthTxRes_reflection_ =
+  EthTxOutput_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EthTxRes_descriptor_,
-      EthTxRes::internal_default_instance(),
-      EthTxRes_offsets_,
+      EthTxOutput_descriptor_,
+      EthTxOutput::internal_default_instance(),
+      EthTxOutput_offsets_,
       -1,
       -1,
       -1,
-      sizeof(EthTxRes),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxRes, _internal_metadata_));
-  EthAddressReq_descriptor_ = file->message_type(2);
-  static const int EthAddressReq_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthAddressReq, path_),
+      sizeof(EthTxOutput),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthTxOutput, _internal_metadata_));
+  EthMessageInput_descriptor_ = file->message_type(2);
+  static const int EthMessageInput_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthMessageInput, message_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthMessageInput, ispersonalsign_),
   };
-  EthAddressReq_reflection_ =
+  EthMessageInput_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EthAddressReq_descriptor_,
-      EthAddressReq::internal_default_instance(),
-      EthAddressReq_offsets_,
+      EthMessageInput_descriptor_,
+      EthMessageInput::internal_default_instance(),
+      EthMessageInput_offsets_,
       -1,
       -1,
       -1,
-      sizeof(EthAddressReq),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthAddressReq, _internal_metadata_));
-  EthAddressRes_descriptor_ = file->message_type(3);
-  static const int EthAddressRes_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthAddressRes, address_),
+      sizeof(EthMessageInput),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthMessageInput, _internal_metadata_));
+  EthMessageOutput_descriptor_ = file->message_type(3);
+  static const int EthMessageOutput_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthMessageOutput, signature_),
   };
-  EthAddressRes_reflection_ =
+  EthMessageOutput_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EthAddressRes_descriptor_,
-      EthAddressRes::internal_default_instance(),
-      EthAddressRes_offsets_,
+      EthMessageOutput_descriptor_,
+      EthMessageOutput::internal_default_instance(),
+      EthMessageOutput_offsets_,
       -1,
       -1,
       -1,
-      sizeof(EthAddressRes),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthAddressRes, _internal_metadata_));
-  EthMessageSignReq_descriptor_ = file->message_type(4);
-  static const int EthMessageSignReq_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthMessageSignReq, path_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthMessageSignReq, message_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthMessageSignReq, sender_),
-  };
-  EthMessageSignReq_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EthMessageSignReq_descriptor_,
-      EthMessageSignReq::internal_default_instance(),
-      EthMessageSignReq_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(EthMessageSignReq),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthMessageSignReq, _internal_metadata_));
-  EthMessageSignRes_descriptor_ = file->message_type(5);
-  static const int EthMessageSignRes_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthMessageSignRes, signature_),
-  };
-  EthMessageSignRes_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      EthMessageSignRes_descriptor_,
-      EthMessageSignRes::internal_default_instance(),
-      EthMessageSignRes_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(EthMessageSignRes),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthMessageSignRes, _internal_metadata_));
+      sizeof(EthMessageOutput),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EthMessageOutput, _internal_metadata_));
 }
 
 namespace {
@@ -162,57 +122,43 @@ void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EthTxReq_descriptor_, EthTxReq::internal_default_instance());
+      EthTxInput_descriptor_, EthTxInput::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EthTxRes_descriptor_, EthTxRes::internal_default_instance());
+      EthTxOutput_descriptor_, EthTxOutput::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EthAddressReq_descriptor_, EthAddressReq::internal_default_instance());
+      EthMessageInput_descriptor_, EthMessageInput::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EthAddressRes_descriptor_, EthAddressRes::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EthMessageSignReq_descriptor_, EthMessageSignReq::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      EthMessageSignRes_descriptor_, EthMessageSignRes::internal_default_instance());
+      EthMessageOutput_descriptor_, EthMessageOutput::internal_default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_eth_2eproto() {
-  EthTxReq_default_instance_.Shutdown();
-  delete EthTxReq_reflection_;
-  EthTxRes_default_instance_.Shutdown();
-  delete EthTxRes_reflection_;
-  EthAddressReq_default_instance_.Shutdown();
-  delete EthAddressReq_reflection_;
-  EthAddressRes_default_instance_.Shutdown();
-  delete EthAddressRes_reflection_;
-  EthMessageSignReq_default_instance_.Shutdown();
-  delete EthMessageSignReq_reflection_;
-  EthMessageSignRes_default_instance_.Shutdown();
-  delete EthMessageSignRes_reflection_;
+  EthTxInput_default_instance_.Shutdown();
+  delete EthTxInput_reflection_;
+  EthTxOutput_default_instance_.Shutdown();
+  delete EthTxOutput_reflection_;
+  EthMessageInput_default_instance_.Shutdown();
+  delete EthMessageInput_reflection_;
+  EthMessageOutput_default_instance_.Shutdown();
+  delete EthMessageOutput_reflection_;
 }
 
 void protobuf_InitDefaults_eth_2eproto_impl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::internal::GetEmptyString();
-  EthTxReq_default_instance_.DefaultConstruct();
+  EthTxInput_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
-  EthTxRes_default_instance_.DefaultConstruct();
+  EthTxOutput_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
-  EthAddressReq_default_instance_.DefaultConstruct();
+  EthMessageInput_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
-  EthAddressRes_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  EthMessageSignReq_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  EthMessageSignRes_default_instance_.DefaultConstruct();
-  EthTxReq_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EthTxRes_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EthAddressReq_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EthAddressRes_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EthMessageSignReq_default_instance_.get_mutable()->InitAsDefaultInstance();
-  EthMessageSignRes_default_instance_.get_mutable()->InitAsDefaultInstance();
+  EthMessageOutput_default_instance_.DefaultConstruct();
+  EthTxInput_default_instance_.get_mutable()->InitAsDefaultInstance();
+  EthTxOutput_default_instance_.get_mutable()->InitAsDefaultInstance();
+  EthMessageInput_default_instance_.get_mutable()->InitAsDefaultInstance();
+  EthMessageOutput_default_instance_.get_mutable()->InitAsDefaultInstance();
 }
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_eth_2eproto_once_);
@@ -225,18 +171,14 @@ void protobuf_AddDesc_eth_2eproto_impl() {
 
   protobuf_InitDefaults_eth_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\teth.proto\022\006ethapi\"\310\001\n\010EthTxReq\022\r\n\005nonc"
-    "e\030\001 \001(\t\022\021\n\tgas_price\030\002 \001(\t\022\021\n\tgas_limit\030"
-    "\003 \001(\t\022\n\n\002to\030\004 \001(\t\022\r\n\005value\030\005 \001(\t\022\014\n\004data"
-    "\030\006 \001(\t\022\020\n\010chain_id\030\007 \001(\t\022\014\n\004path\030\010 \001(\t\022\017"
-    "\n\007payment\030\t \001(\t\022\020\n\010receiver\030\n \001(\t\022\016\n\006sen"
-    "der\030\013 \001(\t\022\013\n\003fee\030\014 \001(\t\",\n\010EthTxRes\022\017\n\007tx"
-    "_data\030\001 \001(\t\022\017\n\007tx_hash\030\002 \001(\t\"\035\n\rEthAddre"
-    "ssReq\022\014\n\004path\030\001 \001(\t\" \n\rEthAddressRes\022\017\n\007"
-    "address\030\001 \001(\t\"B\n\021EthMessageSignReq\022\014\n\004pa"
-    "th\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\022\016\n\006sender\030\003 \001("
-    "\t\"&\n\021EthMessageSignRes\022\021\n\tsignature\030\001 \001("
-    "\tb\006proto3", 449);
+    "\n\teth.proto\022\006ethapi\"|\n\nEthTxInput\022\r\n\005non"
+    "ce\030\001 \001(\t\022\021\n\tgas_price\030\002 \001(\t\022\021\n\tgas_limit"
+    "\030\003 \001(\t\022\n\n\002to\030\004 \001(\t\022\r\n\005value\030\005 \001(\t\022\014\n\004dat"
+    "a\030\006 \001(\t\022\020\n\010chain_id\030\007 \001(\t\"0\n\013EthTxOutput"
+    "\022\021\n\tsignature\030\001 \001(\t\022\016\n\006txHash\030\002 \001(\t\":\n\017E"
+    "thMessageInput\022\017\n\007message\030\001 \001(\t\022\026\n\016isPer"
+    "sonalSign\030\002 \001(\010\"%\n\020EthMessageOutput\022\021\n\ts"
+    "ignature\030\001 \001(\tb\006proto3", 302);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "eth.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_eth_2eproto);
@@ -267,39 +209,34 @@ static void MergeFromFail(int line) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int EthTxReq::kNonceFieldNumber;
-const int EthTxReq::kGasPriceFieldNumber;
-const int EthTxReq::kGasLimitFieldNumber;
-const int EthTxReq::kToFieldNumber;
-const int EthTxReq::kValueFieldNumber;
-const int EthTxReq::kDataFieldNumber;
-const int EthTxReq::kChainIdFieldNumber;
-const int EthTxReq::kPathFieldNumber;
-const int EthTxReq::kPaymentFieldNumber;
-const int EthTxReq::kReceiverFieldNumber;
-const int EthTxReq::kSenderFieldNumber;
-const int EthTxReq::kFeeFieldNumber;
+const int EthTxInput::kNonceFieldNumber;
+const int EthTxInput::kGasPriceFieldNumber;
+const int EthTxInput::kGasLimitFieldNumber;
+const int EthTxInput::kToFieldNumber;
+const int EthTxInput::kValueFieldNumber;
+const int EthTxInput::kDataFieldNumber;
+const int EthTxInput::kChainIdFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-EthTxReq::EthTxReq()
+EthTxInput::EthTxInput()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (this != internal_default_instance()) protobuf_InitDefaults_eth_2eproto();
   SharedCtor();
-  // @@protoc_insertion_point(constructor:ethapi.EthTxReq)
+  // @@protoc_insertion_point(constructor:ethapi.EthTxInput)
 }
 
-void EthTxReq::InitAsDefaultInstance() {
+void EthTxInput::InitAsDefaultInstance() {
 }
 
-EthTxReq::EthTxReq(const EthTxReq& from)
+EthTxInput::EthTxInput(const EthTxInput& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
   UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:ethapi.EthTxReq)
+  // @@protoc_insertion_point(copy_constructor:ethapi.EthTxInput)
 }
 
-void EthTxReq::SharedCtor() {
+void EthTxInput::SharedCtor() {
   nonce_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   gas_price_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   gas_limit_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -307,20 +244,15 @@ void EthTxReq::SharedCtor() {
   value_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   chain_id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  payment_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  receiver_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  sender_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  fee_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _cached_size_ = 0;
 }
 
-EthTxReq::~EthTxReq() {
-  // @@protoc_insertion_point(destructor:ethapi.EthTxReq)
+EthTxInput::~EthTxInput() {
+  // @@protoc_insertion_point(destructor:ethapi.EthTxInput)
   SharedDtor();
 }
 
-void EthTxReq::SharedDtor() {
+void EthTxInput::SharedDtor() {
   nonce_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   gas_price_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   gas_limit_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -328,40 +260,35 @@ void EthTxReq::SharedDtor() {
   value_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   chain_id_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  path_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  payment_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  receiver_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  sender_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  fee_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-void EthTxReq::SetCachedSize(int size) const {
+void EthTxInput::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* EthTxReq::descriptor() {
+const ::google::protobuf::Descriptor* EthTxInput::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return EthTxReq_descriptor_;
+  return EthTxInput_descriptor_;
 }
 
-const EthTxReq& EthTxReq::default_instance() {
+const EthTxInput& EthTxInput::default_instance() {
   protobuf_InitDefaults_eth_2eproto();
   return *internal_default_instance();
 }
 
-::google::protobuf::internal::ExplicitlyConstructed<EthTxReq> EthTxReq_default_instance_;
+::google::protobuf::internal::ExplicitlyConstructed<EthTxInput> EthTxInput_default_instance_;
 
-EthTxReq* EthTxReq::New(::google::protobuf::Arena* arena) const {
-  EthTxReq* n = new EthTxReq;
+EthTxInput* EthTxInput::New(::google::protobuf::Arena* arena) const {
+  EthTxInput* n = new EthTxInput;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void EthTxReq::Clear() {
-// @@protoc_insertion_point(message_clear_start:ethapi.EthTxReq)
+void EthTxInput::Clear() {
+// @@protoc_insertion_point(message_clear_start:ethapi.EthTxInput)
   nonce_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   gas_price_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   gas_limit_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -369,18 +296,13 @@ void EthTxReq::Clear() {
   value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   chain_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  payment_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  receiver_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  sender_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  fee_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-bool EthTxReq::MergePartialFromCodedStream(
+bool EthTxInput::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ethapi.EthTxReq)
+  // @@protoc_insertion_point(parse_start:ethapi.EthTxInput)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -394,7 +316,7 @@ bool EthTxReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->nonce().data(), this->nonce().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthTxReq.nonce"));
+            "ethapi.EthTxInput.nonce"));
         } else {
           goto handle_unusual;
         }
@@ -411,7 +333,7 @@ bool EthTxReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->gas_price().data(), this->gas_price().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthTxReq.gas_price"));
+            "ethapi.EthTxInput.gas_price"));
         } else {
           goto handle_unusual;
         }
@@ -428,7 +350,7 @@ bool EthTxReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->gas_limit().data(), this->gas_limit().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthTxReq.gas_limit"));
+            "ethapi.EthTxInput.gas_limit"));
         } else {
           goto handle_unusual;
         }
@@ -445,7 +367,7 @@ bool EthTxReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->to().data(), this->to().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthTxReq.to"));
+            "ethapi.EthTxInput.to"));
         } else {
           goto handle_unusual;
         }
@@ -462,7 +384,7 @@ bool EthTxReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->value().data(), this->value().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthTxReq.value"));
+            "ethapi.EthTxInput.value"));
         } else {
           goto handle_unusual;
         }
@@ -479,7 +401,7 @@ bool EthTxReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->data().data(), this->data().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthTxReq.data"));
+            "ethapi.EthTxInput.data"));
         } else {
           goto handle_unusual;
         }
@@ -496,92 +418,7 @@ bool EthTxReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->chain_id().data(), this->chain_id().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthTxReq.chain_id"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(66)) goto parse_path;
-        break;
-      }
-
-      // optional string path = 8;
-      case 8: {
-        if (tag == 66) {
-         parse_path:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_path()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->path().data(), this->path().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthTxReq.path"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(74)) goto parse_payment;
-        break;
-      }
-
-      // optional string payment = 9;
-      case 9: {
-        if (tag == 74) {
-         parse_payment:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_payment()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->payment().data(), this->payment().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthTxReq.payment"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(82)) goto parse_receiver;
-        break;
-      }
-
-      // optional string receiver = 10;
-      case 10: {
-        if (tag == 82) {
-         parse_receiver:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_receiver()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->receiver().data(), this->receiver().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthTxReq.receiver"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(90)) goto parse_sender;
-        break;
-      }
-
-      // optional string sender = 11;
-      case 11: {
-        if (tag == 90) {
-         parse_sender:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_sender()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->sender().data(), this->sender().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthTxReq.sender"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(98)) goto parse_fee;
-        break;
-      }
-
-      // optional string fee = 12;
-      case 12: {
-        if (tag == 98) {
-         parse_fee:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_fee()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->fee().data(), this->fee().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthTxReq.fee"));
+            "ethapi.EthTxInput.chain_id"));
         } else {
           goto handle_unusual;
         }
@@ -602,23 +439,23 @@ bool EthTxReq::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:ethapi.EthTxReq)
+  // @@protoc_insertion_point(parse_success:ethapi.EthTxInput)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:ethapi.EthTxReq)
+  // @@protoc_insertion_point(parse_failure:ethapi.EthTxInput)
   return false;
 #undef DO_
 }
 
-void EthTxReq::SerializeWithCachedSizes(
+void EthTxInput::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ethapi.EthTxReq)
+  // @@protoc_insertion_point(serialize_start:ethapi.EthTxInput)
   // optional string nonce = 1;
   if (this->nonce().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->nonce().data(), this->nonce().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.nonce");
+      "ethapi.EthTxInput.nonce");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->nonce(), output);
   }
@@ -628,7 +465,7 @@ void EthTxReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->gas_price().data(), this->gas_price().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.gas_price");
+      "ethapi.EthTxInput.gas_price");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->gas_price(), output);
   }
@@ -638,7 +475,7 @@ void EthTxReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->gas_limit().data(), this->gas_limit().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.gas_limit");
+      "ethapi.EthTxInput.gas_limit");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->gas_limit(), output);
   }
@@ -648,7 +485,7 @@ void EthTxReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->to().data(), this->to().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.to");
+      "ethapi.EthTxInput.to");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->to(), output);
   }
@@ -658,7 +495,7 @@ void EthTxReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->value().data(), this->value().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.value");
+      "ethapi.EthTxInput.value");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       5, this->value(), output);
   }
@@ -668,7 +505,7 @@ void EthTxReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->data().data(), this->data().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.data");
+      "ethapi.EthTxInput.data");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       6, this->data(), output);
   }
@@ -678,74 +515,24 @@ void EthTxReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->chain_id().data(), this->chain_id().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.chain_id");
+      "ethapi.EthTxInput.chain_id");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       7, this->chain_id(), output);
   }
 
-  // optional string path = 8;
-  if (this->path().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.path");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      8, this->path(), output);
-  }
-
-  // optional string payment = 9;
-  if (this->payment().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->payment().data(), this->payment().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.payment");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      9, this->payment(), output);
-  }
-
-  // optional string receiver = 10;
-  if (this->receiver().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->receiver().data(), this->receiver().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.receiver");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      10, this->receiver(), output);
-  }
-
-  // optional string sender = 11;
-  if (this->sender().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->sender().data(), this->sender().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.sender");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      11, this->sender(), output);
-  }
-
-  // optional string fee = 12;
-  if (this->fee().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->fee().data(), this->fee().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.fee");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      12, this->fee(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:ethapi.EthTxReq)
+  // @@protoc_insertion_point(serialize_end:ethapi.EthTxInput)
 }
 
-::google::protobuf::uint8* EthTxReq::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* EthTxInput::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:ethapi.EthTxReq)
+  // @@protoc_insertion_point(serialize_to_array_start:ethapi.EthTxInput)
   // optional string nonce = 1;
   if (this->nonce().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->nonce().data(), this->nonce().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.nonce");
+      "ethapi.EthTxInput.nonce");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->nonce(), target);
@@ -756,7 +543,7 @@ void EthTxReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->gas_price().data(), this->gas_price().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.gas_price");
+      "ethapi.EthTxInput.gas_price");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->gas_price(), target);
@@ -767,7 +554,7 @@ void EthTxReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->gas_limit().data(), this->gas_limit().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.gas_limit");
+      "ethapi.EthTxInput.gas_limit");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->gas_limit(), target);
@@ -778,7 +565,7 @@ void EthTxReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->to().data(), this->to().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.to");
+      "ethapi.EthTxInput.to");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         4, this->to(), target);
@@ -789,7 +576,7 @@ void EthTxReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->value().data(), this->value().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.value");
+      "ethapi.EthTxInput.value");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         5, this->value(), target);
@@ -800,7 +587,7 @@ void EthTxReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->data().data(), this->data().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.data");
+      "ethapi.EthTxInput.data");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         6, this->data(), target);
@@ -811,73 +598,18 @@ void EthTxReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->chain_id().data(), this->chain_id().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.chain_id");
+      "ethapi.EthTxInput.chain_id");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         7, this->chain_id(), target);
   }
 
-  // optional string path = 8;
-  if (this->path().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.path");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        8, this->path(), target);
-  }
-
-  // optional string payment = 9;
-  if (this->payment().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->payment().data(), this->payment().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.payment");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        9, this->payment(), target);
-  }
-
-  // optional string receiver = 10;
-  if (this->receiver().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->receiver().data(), this->receiver().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.receiver");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        10, this->receiver(), target);
-  }
-
-  // optional string sender = 11;
-  if (this->sender().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->sender().data(), this->sender().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.sender");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        11, this->sender(), target);
-  }
-
-  // optional string fee = 12;
-  if (this->fee().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->fee().data(), this->fee().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxReq.fee");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        12, this->fee(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:ethapi.EthTxReq)
+  // @@protoc_insertion_point(serialize_to_array_end:ethapi.EthTxInput)
   return target;
 }
 
-size_t EthTxReq::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ethapi.EthTxReq)
+size_t EthTxInput::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ethapi.EthTxInput)
   size_t total_size = 0;
 
   // optional string nonce = 1;
@@ -929,41 +661,6 @@ size_t EthTxReq::ByteSizeLong() const {
         this->chain_id());
   }
 
-  // optional string path = 8;
-  if (this->path().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->path());
-  }
-
-  // optional string payment = 9;
-  if (this->payment().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->payment());
-  }
-
-  // optional string receiver = 10;
-  if (this->receiver().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->receiver());
-  }
-
-  // optional string sender = 11;
-  if (this->sender().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->sender());
-  }
-
-  // optional string fee = 12;
-  if (this->fee().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->fee());
-  }
-
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -971,23 +668,23 @@ size_t EthTxReq::ByteSizeLong() const {
   return total_size;
 }
 
-void EthTxReq::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:ethapi.EthTxReq)
+void EthTxInput::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ethapi.EthTxInput)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const EthTxReq* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const EthTxReq>(
+  const EthTxInput* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const EthTxInput>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ethapi.EthTxReq)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ethapi.EthTxInput)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:ethapi.EthTxReq)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ethapi.EthTxInput)
     UnsafeMergeFrom(*source);
   }
 }
 
-void EthTxReq::MergeFrom(const EthTxReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:ethapi.EthTxReq)
+void EthTxInput::MergeFrom(const EthTxInput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ethapi.EthTxInput)
   if (GOOGLE_PREDICT_TRUE(&from != this)) {
     UnsafeMergeFrom(from);
   } else {
@@ -995,7 +692,7 @@ void EthTxReq::MergeFrom(const EthTxReq& from) {
   }
 }
 
-void EthTxReq::UnsafeMergeFrom(const EthTxReq& from) {
+void EthTxInput::UnsafeMergeFrom(const EthTxInput& from) {
   GOOGLE_DCHECK(&from != this);
   if (from.nonce().size() > 0) {
 
@@ -1025,52 +722,32 @@ void EthTxReq::UnsafeMergeFrom(const EthTxReq& from) {
 
     chain_id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.chain_id_);
   }
-  if (from.path().size() > 0) {
-
-    path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_);
-  }
-  if (from.payment().size() > 0) {
-
-    payment_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.payment_);
-  }
-  if (from.receiver().size() > 0) {
-
-    receiver_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.receiver_);
-  }
-  if (from.sender().size() > 0) {
-
-    sender_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sender_);
-  }
-  if (from.fee().size() > 0) {
-
-    fee_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.fee_);
-  }
 }
 
-void EthTxReq::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:ethapi.EthTxReq)
+void EthTxInput::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ethapi.EthTxInput)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void EthTxReq::CopyFrom(const EthTxReq& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ethapi.EthTxReq)
+void EthTxInput::CopyFrom(const EthTxInput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ethapi.EthTxInput)
   if (&from == this) return;
   Clear();
   UnsafeMergeFrom(from);
 }
 
-bool EthTxReq::IsInitialized() const {
+bool EthTxInput::IsInitialized() const {
 
   return true;
 }
 
-void EthTxReq::Swap(EthTxReq* other) {
+void EthTxInput::Swap(EthTxInput* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void EthTxReq::InternalSwap(EthTxReq* other) {
+void EthTxInput::InternalSwap(EthTxInput* other) {
   nonce_.Swap(&other->nonce_);
   gas_price_.Swap(&other->gas_price_);
   gas_limit_.Swap(&other->gas_limit_);
@@ -1078,2082 +755,411 @@ void EthTxReq::InternalSwap(EthTxReq* other) {
   value_.Swap(&other->value_);
   data_.Swap(&other->data_);
   chain_id_.Swap(&other->chain_id_);
-  path_.Swap(&other->path_);
-  payment_.Swap(&other->payment_);
-  receiver_.Swap(&other->receiver_);
-  sender_.Swap(&other->sender_);
-  fee_.Swap(&other->fee_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata EthTxReq::GetMetadata() const {
+::google::protobuf::Metadata EthTxInput::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EthTxReq_descriptor_;
-  metadata.reflection = EthTxReq_reflection_;
+  metadata.descriptor = EthTxInput_descriptor_;
+  metadata.reflection = EthTxInput_reflection_;
   return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// EthTxReq
+// EthTxInput
 
 // optional string nonce = 1;
-void EthTxReq::clear_nonce() {
+void EthTxInput::clear_nonce() {
   nonce_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& EthTxReq::nonce() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxReq.nonce)
+const ::std::string& EthTxInput::nonce() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthTxInput.nonce)
   return nonce_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthTxReq::set_nonce(const ::std::string& value) {
+void EthTxInput::set_nonce(const ::std::string& value) {
   
   nonce_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxReq.nonce)
+  // @@protoc_insertion_point(field_set:ethapi.EthTxInput.nonce)
 }
-void EthTxReq::set_nonce(const char* value) {
+void EthTxInput::set_nonce(const char* value) {
   
   nonce_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxReq.nonce)
+  // @@protoc_insertion_point(field_set_char:ethapi.EthTxInput.nonce)
 }
-void EthTxReq::set_nonce(const char* value, size_t size) {
+void EthTxInput::set_nonce(const char* value, size_t size) {
   
   nonce_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxReq.nonce)
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxInput.nonce)
 }
-::std::string* EthTxReq::mutable_nonce() {
+::std::string* EthTxInput::mutable_nonce() {
   
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxReq.nonce)
+  // @@protoc_insertion_point(field_mutable:ethapi.EthTxInput.nonce)
   return nonce_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* EthTxReq::release_nonce() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxReq.nonce)
+::std::string* EthTxInput::release_nonce() {
+  // @@protoc_insertion_point(field_release:ethapi.EthTxInput.nonce)
   
   return nonce_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthTxReq::set_allocated_nonce(::std::string* nonce) {
+void EthTxInput::set_allocated_nonce(::std::string* nonce) {
   if (nonce != NULL) {
     
   } else {
     
   }
   nonce_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), nonce);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxReq.nonce)
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.nonce)
 }
 
 // optional string gas_price = 2;
-void EthTxReq::clear_gas_price() {
+void EthTxInput::clear_gas_price() {
   gas_price_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& EthTxReq::gas_price() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxReq.gas_price)
+const ::std::string& EthTxInput::gas_price() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthTxInput.gas_price)
   return gas_price_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthTxReq::set_gas_price(const ::std::string& value) {
+void EthTxInput::set_gas_price(const ::std::string& value) {
   
   gas_price_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxReq.gas_price)
+  // @@protoc_insertion_point(field_set:ethapi.EthTxInput.gas_price)
 }
-void EthTxReq::set_gas_price(const char* value) {
+void EthTxInput::set_gas_price(const char* value) {
   
   gas_price_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxReq.gas_price)
+  // @@protoc_insertion_point(field_set_char:ethapi.EthTxInput.gas_price)
 }
-void EthTxReq::set_gas_price(const char* value, size_t size) {
+void EthTxInput::set_gas_price(const char* value, size_t size) {
   
   gas_price_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxReq.gas_price)
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxInput.gas_price)
 }
-::std::string* EthTxReq::mutable_gas_price() {
+::std::string* EthTxInput::mutable_gas_price() {
   
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxReq.gas_price)
+  // @@protoc_insertion_point(field_mutable:ethapi.EthTxInput.gas_price)
   return gas_price_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* EthTxReq::release_gas_price() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxReq.gas_price)
+::std::string* EthTxInput::release_gas_price() {
+  // @@protoc_insertion_point(field_release:ethapi.EthTxInput.gas_price)
   
   return gas_price_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthTxReq::set_allocated_gas_price(::std::string* gas_price) {
+void EthTxInput::set_allocated_gas_price(::std::string* gas_price) {
   if (gas_price != NULL) {
     
   } else {
     
   }
   gas_price_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), gas_price);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxReq.gas_price)
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.gas_price)
 }
 
 // optional string gas_limit = 3;
-void EthTxReq::clear_gas_limit() {
+void EthTxInput::clear_gas_limit() {
   gas_limit_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& EthTxReq::gas_limit() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxReq.gas_limit)
+const ::std::string& EthTxInput::gas_limit() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthTxInput.gas_limit)
   return gas_limit_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthTxReq::set_gas_limit(const ::std::string& value) {
+void EthTxInput::set_gas_limit(const ::std::string& value) {
   
   gas_limit_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxReq.gas_limit)
+  // @@protoc_insertion_point(field_set:ethapi.EthTxInput.gas_limit)
 }
-void EthTxReq::set_gas_limit(const char* value) {
+void EthTxInput::set_gas_limit(const char* value) {
   
   gas_limit_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxReq.gas_limit)
+  // @@protoc_insertion_point(field_set_char:ethapi.EthTxInput.gas_limit)
 }
-void EthTxReq::set_gas_limit(const char* value, size_t size) {
+void EthTxInput::set_gas_limit(const char* value, size_t size) {
   
   gas_limit_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxReq.gas_limit)
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxInput.gas_limit)
 }
-::std::string* EthTxReq::mutable_gas_limit() {
+::std::string* EthTxInput::mutable_gas_limit() {
   
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxReq.gas_limit)
+  // @@protoc_insertion_point(field_mutable:ethapi.EthTxInput.gas_limit)
   return gas_limit_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* EthTxReq::release_gas_limit() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxReq.gas_limit)
+::std::string* EthTxInput::release_gas_limit() {
+  // @@protoc_insertion_point(field_release:ethapi.EthTxInput.gas_limit)
   
   return gas_limit_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthTxReq::set_allocated_gas_limit(::std::string* gas_limit) {
+void EthTxInput::set_allocated_gas_limit(::std::string* gas_limit) {
   if (gas_limit != NULL) {
     
   } else {
     
   }
   gas_limit_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), gas_limit);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxReq.gas_limit)
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.gas_limit)
 }
 
 // optional string to = 4;
-void EthTxReq::clear_to() {
+void EthTxInput::clear_to() {
   to_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& EthTxReq::to() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxReq.to)
+const ::std::string& EthTxInput::to() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthTxInput.to)
   return to_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthTxReq::set_to(const ::std::string& value) {
+void EthTxInput::set_to(const ::std::string& value) {
   
   to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxReq.to)
+  // @@protoc_insertion_point(field_set:ethapi.EthTxInput.to)
 }
-void EthTxReq::set_to(const char* value) {
+void EthTxInput::set_to(const char* value) {
   
   to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxReq.to)
+  // @@protoc_insertion_point(field_set_char:ethapi.EthTxInput.to)
 }
-void EthTxReq::set_to(const char* value, size_t size) {
+void EthTxInput::set_to(const char* value, size_t size) {
   
   to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxReq.to)
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxInput.to)
 }
-::std::string* EthTxReq::mutable_to() {
+::std::string* EthTxInput::mutable_to() {
   
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxReq.to)
+  // @@protoc_insertion_point(field_mutable:ethapi.EthTxInput.to)
   return to_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* EthTxReq::release_to() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxReq.to)
+::std::string* EthTxInput::release_to() {
+  // @@protoc_insertion_point(field_release:ethapi.EthTxInput.to)
   
   return to_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthTxReq::set_allocated_to(::std::string* to) {
+void EthTxInput::set_allocated_to(::std::string* to) {
   if (to != NULL) {
     
   } else {
     
   }
   to_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), to);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxReq.to)
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.to)
 }
 
 // optional string value = 5;
-void EthTxReq::clear_value() {
+void EthTxInput::clear_value() {
   value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& EthTxReq::value() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxReq.value)
+const ::std::string& EthTxInput::value() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthTxInput.value)
   return value_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthTxReq::set_value(const ::std::string& value) {
+void EthTxInput::set_value(const ::std::string& value) {
   
   value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxReq.value)
+  // @@protoc_insertion_point(field_set:ethapi.EthTxInput.value)
 }
-void EthTxReq::set_value(const char* value) {
+void EthTxInput::set_value(const char* value) {
   
   value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxReq.value)
+  // @@protoc_insertion_point(field_set_char:ethapi.EthTxInput.value)
 }
-void EthTxReq::set_value(const char* value, size_t size) {
+void EthTxInput::set_value(const char* value, size_t size) {
   
   value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxReq.value)
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxInput.value)
 }
-::std::string* EthTxReq::mutable_value() {
+::std::string* EthTxInput::mutable_value() {
   
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxReq.value)
+  // @@protoc_insertion_point(field_mutable:ethapi.EthTxInput.value)
   return value_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* EthTxReq::release_value() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxReq.value)
+::std::string* EthTxInput::release_value() {
+  // @@protoc_insertion_point(field_release:ethapi.EthTxInput.value)
   
   return value_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthTxReq::set_allocated_value(::std::string* value) {
+void EthTxInput::set_allocated_value(::std::string* value) {
   if (value != NULL) {
     
   } else {
     
   }
   value_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxReq.value)
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.value)
 }
 
 // optional string data = 6;
-void EthTxReq::clear_data() {
+void EthTxInput::clear_data() {
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& EthTxReq::data() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxReq.data)
+const ::std::string& EthTxInput::data() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthTxInput.data)
   return data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthTxReq::set_data(const ::std::string& value) {
+void EthTxInput::set_data(const ::std::string& value) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxReq.data)
+  // @@protoc_insertion_point(field_set:ethapi.EthTxInput.data)
 }
-void EthTxReq::set_data(const char* value) {
+void EthTxInput::set_data(const char* value) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxReq.data)
+  // @@protoc_insertion_point(field_set_char:ethapi.EthTxInput.data)
 }
-void EthTxReq::set_data(const char* value, size_t size) {
+void EthTxInput::set_data(const char* value, size_t size) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxReq.data)
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxInput.data)
 }
-::std::string* EthTxReq::mutable_data() {
+::std::string* EthTxInput::mutable_data() {
   
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxReq.data)
+  // @@protoc_insertion_point(field_mutable:ethapi.EthTxInput.data)
   return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* EthTxReq::release_data() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxReq.data)
+::std::string* EthTxInput::release_data() {
+  // @@protoc_insertion_point(field_release:ethapi.EthTxInput.data)
   
   return data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthTxReq::set_allocated_data(::std::string* data) {
+void EthTxInput::set_allocated_data(::std::string* data) {
   if (data != NULL) {
     
   } else {
     
   }
   data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), data);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxReq.data)
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.data)
 }
 
 // optional string chain_id = 7;
-void EthTxReq::clear_chain_id() {
+void EthTxInput::clear_chain_id() {
   chain_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& EthTxReq::chain_id() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxReq.chain_id)
+const ::std::string& EthTxInput::chain_id() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthTxInput.chain_id)
   return chain_id_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthTxReq::set_chain_id(const ::std::string& value) {
+void EthTxInput::set_chain_id(const ::std::string& value) {
   
   chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxReq.chain_id)
+  // @@protoc_insertion_point(field_set:ethapi.EthTxInput.chain_id)
 }
-void EthTxReq::set_chain_id(const char* value) {
+void EthTxInput::set_chain_id(const char* value) {
   
   chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxReq.chain_id)
+  // @@protoc_insertion_point(field_set_char:ethapi.EthTxInput.chain_id)
 }
-void EthTxReq::set_chain_id(const char* value, size_t size) {
+void EthTxInput::set_chain_id(const char* value, size_t size) {
   
   chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxReq.chain_id)
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxInput.chain_id)
 }
-::std::string* EthTxReq::mutable_chain_id() {
+::std::string* EthTxInput::mutable_chain_id() {
   
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxReq.chain_id)
+  // @@protoc_insertion_point(field_mutable:ethapi.EthTxInput.chain_id)
   return chain_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* EthTxReq::release_chain_id() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxReq.chain_id)
+::std::string* EthTxInput::release_chain_id() {
+  // @@protoc_insertion_point(field_release:ethapi.EthTxInput.chain_id)
   
   return chain_id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthTxReq::set_allocated_chain_id(::std::string* chain_id) {
+void EthTxInput::set_allocated_chain_id(::std::string* chain_id) {
   if (chain_id != NULL) {
     
   } else {
     
   }
   chain_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chain_id);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxReq.chain_id)
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.chain_id)
 }
 
-// optional string path = 8;
-void EthTxReq::clear_path() {
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& EthTxReq::path() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxReq.path)
-  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthTxReq::set_path(const ::std::string& value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxReq.path)
-}
-void EthTxReq::set_path(const char* value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxReq.path)
-}
-void EthTxReq::set_path(const char* value, size_t size) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxReq.path)
-}
-::std::string* EthTxReq::mutable_path() {
-  
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxReq.path)
-  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* EthTxReq::release_path() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxReq.path)
-  
-  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthTxReq::set_allocated_path(::std::string* path) {
-  if (path != NULL) {
-    
-  } else {
-    
-  }
-  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxReq.path)
-}
-
-// optional string payment = 9;
-void EthTxReq::clear_payment() {
-  payment_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& EthTxReq::payment() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxReq.payment)
-  return payment_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthTxReq::set_payment(const ::std::string& value) {
-  
-  payment_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxReq.payment)
-}
-void EthTxReq::set_payment(const char* value) {
-  
-  payment_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxReq.payment)
-}
-void EthTxReq::set_payment(const char* value, size_t size) {
-  
-  payment_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxReq.payment)
-}
-::std::string* EthTxReq::mutable_payment() {
-  
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxReq.payment)
-  return payment_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* EthTxReq::release_payment() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxReq.payment)
-  
-  return payment_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthTxReq::set_allocated_payment(::std::string* payment) {
-  if (payment != NULL) {
-    
-  } else {
-    
-  }
-  payment_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), payment);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxReq.payment)
-}
-
-// optional string receiver = 10;
-void EthTxReq::clear_receiver() {
-  receiver_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& EthTxReq::receiver() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxReq.receiver)
-  return receiver_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthTxReq::set_receiver(const ::std::string& value) {
-  
-  receiver_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxReq.receiver)
-}
-void EthTxReq::set_receiver(const char* value) {
-  
-  receiver_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxReq.receiver)
-}
-void EthTxReq::set_receiver(const char* value, size_t size) {
-  
-  receiver_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxReq.receiver)
-}
-::std::string* EthTxReq::mutable_receiver() {
-  
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxReq.receiver)
-  return receiver_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* EthTxReq::release_receiver() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxReq.receiver)
-  
-  return receiver_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthTxReq::set_allocated_receiver(::std::string* receiver) {
-  if (receiver != NULL) {
-    
-  } else {
-    
-  }
-  receiver_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), receiver);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxReq.receiver)
-}
-
-// optional string sender = 11;
-void EthTxReq::clear_sender() {
-  sender_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& EthTxReq::sender() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxReq.sender)
-  return sender_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthTxReq::set_sender(const ::std::string& value) {
-  
-  sender_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxReq.sender)
-}
-void EthTxReq::set_sender(const char* value) {
-  
-  sender_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxReq.sender)
-}
-void EthTxReq::set_sender(const char* value, size_t size) {
-  
-  sender_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxReq.sender)
-}
-::std::string* EthTxReq::mutable_sender() {
-  
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxReq.sender)
-  return sender_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* EthTxReq::release_sender() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxReq.sender)
-  
-  return sender_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthTxReq::set_allocated_sender(::std::string* sender) {
-  if (sender != NULL) {
-    
-  } else {
-    
-  }
-  sender_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sender);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxReq.sender)
-}
-
-// optional string fee = 12;
-void EthTxReq::clear_fee() {
-  fee_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& EthTxReq::fee() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxReq.fee)
-  return fee_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthTxReq::set_fee(const ::std::string& value) {
-  
-  fee_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxReq.fee)
-}
-void EthTxReq::set_fee(const char* value) {
-  
-  fee_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxReq.fee)
-}
-void EthTxReq::set_fee(const char* value, size_t size) {
-  
-  fee_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxReq.fee)
-}
-::std::string* EthTxReq::mutable_fee() {
-  
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxReq.fee)
-  return fee_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* EthTxReq::release_fee() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxReq.fee)
-  
-  return fee_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthTxReq::set_allocated_fee(::std::string* fee) {
-  if (fee != NULL) {
-    
-  } else {
-    
-  }
-  fee_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), fee);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxReq.fee)
-}
-
-inline const EthTxReq* EthTxReq::internal_default_instance() {
-  return &EthTxReq_default_instance_.get();
+inline const EthTxInput* EthTxInput::internal_default_instance() {
+  return &EthTxInput_default_instance_.get();
 }
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int EthTxRes::kTxDataFieldNumber;
-const int EthTxRes::kTxHashFieldNumber;
+const int EthTxOutput::kSignatureFieldNumber;
+const int EthTxOutput::kTxHashFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-EthTxRes::EthTxRes()
+EthTxOutput::EthTxOutput()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (this != internal_default_instance()) protobuf_InitDefaults_eth_2eproto();
   SharedCtor();
-  // @@protoc_insertion_point(constructor:ethapi.EthTxRes)
+  // @@protoc_insertion_point(constructor:ethapi.EthTxOutput)
 }
 
-void EthTxRes::InitAsDefaultInstance() {
+void EthTxOutput::InitAsDefaultInstance() {
 }
 
-EthTxRes::EthTxRes(const EthTxRes& from)
+EthTxOutput::EthTxOutput(const EthTxOutput& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
   UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:ethapi.EthTxRes)
+  // @@protoc_insertion_point(copy_constructor:ethapi.EthTxOutput)
 }
 
-void EthTxRes::SharedCtor() {
-  tx_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  tx_hash_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _cached_size_ = 0;
-}
-
-EthTxRes::~EthTxRes() {
-  // @@protoc_insertion_point(destructor:ethapi.EthTxRes)
-  SharedDtor();
-}
-
-void EthTxRes::SharedDtor() {
-  tx_data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  tx_hash_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-void EthTxRes::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* EthTxRes::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EthTxRes_descriptor_;
-}
-
-const EthTxRes& EthTxRes::default_instance() {
-  protobuf_InitDefaults_eth_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<EthTxRes> EthTxRes_default_instance_;
-
-EthTxRes* EthTxRes::New(::google::protobuf::Arena* arena) const {
-  EthTxRes* n = new EthTxRes;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void EthTxRes::Clear() {
-// @@protoc_insertion_point(message_clear_start:ethapi.EthTxRes)
-  tx_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  tx_hash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool EthTxRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ethapi.EthTxRes)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string tx_data = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_tx_data()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->tx_data().data(), this->tx_data().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthTxRes.tx_data"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_tx_hash;
-        break;
-      }
-
-      // optional string tx_hash = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_tx_hash:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_tx_hash()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->tx_hash().data(), this->tx_hash().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthTxRes.tx_hash"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:ethapi.EthTxRes)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:ethapi.EthTxRes)
-  return false;
-#undef DO_
-}
-
-void EthTxRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ethapi.EthTxRes)
-  // optional string tx_data = 1;
-  if (this->tx_data().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->tx_data().data(), this->tx_data().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxRes.tx_data");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->tx_data(), output);
-  }
-
-  // optional string tx_hash = 2;
-  if (this->tx_hash().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->tx_hash().data(), this->tx_hash().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxRes.tx_hash");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->tx_hash(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:ethapi.EthTxRes)
-}
-
-::google::protobuf::uint8* EthTxRes::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:ethapi.EthTxRes)
-  // optional string tx_data = 1;
-  if (this->tx_data().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->tx_data().data(), this->tx_data().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxRes.tx_data");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->tx_data(), target);
-  }
-
-  // optional string tx_hash = 2;
-  if (this->tx_hash().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->tx_hash().data(), this->tx_hash().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthTxRes.tx_hash");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->tx_hash(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:ethapi.EthTxRes)
-  return target;
-}
-
-size_t EthTxRes::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ethapi.EthTxRes)
-  size_t total_size = 0;
-
-  // optional string tx_data = 1;
-  if (this->tx_data().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->tx_data());
-  }
-
-  // optional string tx_hash = 2;
-  if (this->tx_hash().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->tx_hash());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void EthTxRes::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:ethapi.EthTxRes)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const EthTxRes* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const EthTxRes>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ethapi.EthTxRes)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:ethapi.EthTxRes)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void EthTxRes::MergeFrom(const EthTxRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:ethapi.EthTxRes)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void EthTxRes::UnsafeMergeFrom(const EthTxRes& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.tx_data().size() > 0) {
-
-    tx_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.tx_data_);
-  }
-  if (from.tx_hash().size() > 0) {
-
-    tx_hash_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.tx_hash_);
-  }
-}
-
-void EthTxRes::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:ethapi.EthTxRes)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void EthTxRes::CopyFrom(const EthTxRes& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ethapi.EthTxRes)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool EthTxRes::IsInitialized() const {
-
-  return true;
-}
-
-void EthTxRes::Swap(EthTxRes* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void EthTxRes::InternalSwap(EthTxRes* other) {
-  tx_data_.Swap(&other->tx_data_);
-  tx_hash_.Swap(&other->tx_hash_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata EthTxRes::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EthTxRes_descriptor_;
-  metadata.reflection = EthTxRes_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// EthTxRes
-
-// optional string tx_data = 1;
-void EthTxRes::clear_tx_data() {
-  tx_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& EthTxRes::tx_data() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxRes.tx_data)
-  return tx_data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthTxRes::set_tx_data(const ::std::string& value) {
-  
-  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxRes.tx_data)
-}
-void EthTxRes::set_tx_data(const char* value) {
-  
-  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxRes.tx_data)
-}
-void EthTxRes::set_tx_data(const char* value, size_t size) {
-  
-  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxRes.tx_data)
-}
-::std::string* EthTxRes::mutable_tx_data() {
-  
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxRes.tx_data)
-  return tx_data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* EthTxRes::release_tx_data() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxRes.tx_data)
-  
-  return tx_data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthTxRes::set_allocated_tx_data(::std::string* tx_data) {
-  if (tx_data != NULL) {
-    
-  } else {
-    
-  }
-  tx_data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tx_data);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxRes.tx_data)
-}
-
-// optional string tx_hash = 2;
-void EthTxRes::clear_tx_hash() {
-  tx_hash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& EthTxRes::tx_hash() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthTxRes.tx_hash)
-  return tx_hash_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthTxRes::set_tx_hash(const ::std::string& value) {
-  
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthTxRes.tx_hash)
-}
-void EthTxRes::set_tx_hash(const char* value) {
-  
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthTxRes.tx_hash)
-}
-void EthTxRes::set_tx_hash(const char* value, size_t size) {
-  
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxRes.tx_hash)
-}
-::std::string* EthTxRes::mutable_tx_hash() {
-  
-  // @@protoc_insertion_point(field_mutable:ethapi.EthTxRes.tx_hash)
-  return tx_hash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* EthTxRes::release_tx_hash() {
-  // @@protoc_insertion_point(field_release:ethapi.EthTxRes.tx_hash)
-  
-  return tx_hash_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthTxRes::set_allocated_tx_hash(::std::string* tx_hash) {
-  if (tx_hash != NULL) {
-    
-  } else {
-    
-  }
-  tx_hash_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tx_hash);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxRes.tx_hash)
-}
-
-inline const EthTxRes* EthTxRes::internal_default_instance() {
-  return &EthTxRes_default_instance_.get();
-}
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int EthAddressReq::kPathFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-EthAddressReq::EthAddressReq()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_eth_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:ethapi.EthAddressReq)
-}
-
-void EthAddressReq::InitAsDefaultInstance() {
-}
-
-EthAddressReq::EthAddressReq(const EthAddressReq& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:ethapi.EthAddressReq)
-}
-
-void EthAddressReq::SharedCtor() {
-  path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _cached_size_ = 0;
-}
-
-EthAddressReq::~EthAddressReq() {
-  // @@protoc_insertion_point(destructor:ethapi.EthAddressReq)
-  SharedDtor();
-}
-
-void EthAddressReq::SharedDtor() {
-  path_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-void EthAddressReq::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* EthAddressReq::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EthAddressReq_descriptor_;
-}
-
-const EthAddressReq& EthAddressReq::default_instance() {
-  protobuf_InitDefaults_eth_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<EthAddressReq> EthAddressReq_default_instance_;
-
-EthAddressReq* EthAddressReq::New(::google::protobuf::Arena* arena) const {
-  EthAddressReq* n = new EthAddressReq;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void EthAddressReq::Clear() {
-// @@protoc_insertion_point(message_clear_start:ethapi.EthAddressReq)
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool EthAddressReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ethapi.EthAddressReq)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string path = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_path()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->path().data(), this->path().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthAddressReq.path"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:ethapi.EthAddressReq)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:ethapi.EthAddressReq)
-  return false;
-#undef DO_
-}
-
-void EthAddressReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ethapi.EthAddressReq)
-  // optional string path = 1;
-  if (this->path().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthAddressReq.path");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->path(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:ethapi.EthAddressReq)
-}
-
-::google::protobuf::uint8* EthAddressReq::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:ethapi.EthAddressReq)
-  // optional string path = 1;
-  if (this->path().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthAddressReq.path");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->path(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:ethapi.EthAddressReq)
-  return target;
-}
-
-size_t EthAddressReq::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ethapi.EthAddressReq)
-  size_t total_size = 0;
-
-  // optional string path = 1;
-  if (this->path().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->path());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void EthAddressReq::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:ethapi.EthAddressReq)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const EthAddressReq* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const EthAddressReq>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ethapi.EthAddressReq)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:ethapi.EthAddressReq)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void EthAddressReq::MergeFrom(const EthAddressReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:ethapi.EthAddressReq)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void EthAddressReq::UnsafeMergeFrom(const EthAddressReq& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.path().size() > 0) {
-
-    path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_);
-  }
-}
-
-void EthAddressReq::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:ethapi.EthAddressReq)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void EthAddressReq::CopyFrom(const EthAddressReq& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ethapi.EthAddressReq)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool EthAddressReq::IsInitialized() const {
-
-  return true;
-}
-
-void EthAddressReq::Swap(EthAddressReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void EthAddressReq::InternalSwap(EthAddressReq* other) {
-  path_.Swap(&other->path_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata EthAddressReq::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EthAddressReq_descriptor_;
-  metadata.reflection = EthAddressReq_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// EthAddressReq
-
-// optional string path = 1;
-void EthAddressReq::clear_path() {
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& EthAddressReq::path() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthAddressReq.path)
-  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthAddressReq::set_path(const ::std::string& value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthAddressReq.path)
-}
-void EthAddressReq::set_path(const char* value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthAddressReq.path)
-}
-void EthAddressReq::set_path(const char* value, size_t size) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthAddressReq.path)
-}
-::std::string* EthAddressReq::mutable_path() {
-  
-  // @@protoc_insertion_point(field_mutable:ethapi.EthAddressReq.path)
-  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* EthAddressReq::release_path() {
-  // @@protoc_insertion_point(field_release:ethapi.EthAddressReq.path)
-  
-  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthAddressReq::set_allocated_path(::std::string* path) {
-  if (path != NULL) {
-    
-  } else {
-    
-  }
-  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthAddressReq.path)
-}
-
-inline const EthAddressReq* EthAddressReq::internal_default_instance() {
-  return &EthAddressReq_default_instance_.get();
-}
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int EthAddressRes::kAddressFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-EthAddressRes::EthAddressRes()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_eth_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:ethapi.EthAddressRes)
-}
-
-void EthAddressRes::InitAsDefaultInstance() {
-}
-
-EthAddressRes::EthAddressRes(const EthAddressRes& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:ethapi.EthAddressRes)
-}
-
-void EthAddressRes::SharedCtor() {
-  address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _cached_size_ = 0;
-}
-
-EthAddressRes::~EthAddressRes() {
-  // @@protoc_insertion_point(destructor:ethapi.EthAddressRes)
-  SharedDtor();
-}
-
-void EthAddressRes::SharedDtor() {
-  address_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-void EthAddressRes::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* EthAddressRes::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EthAddressRes_descriptor_;
-}
-
-const EthAddressRes& EthAddressRes::default_instance() {
-  protobuf_InitDefaults_eth_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<EthAddressRes> EthAddressRes_default_instance_;
-
-EthAddressRes* EthAddressRes::New(::google::protobuf::Arena* arena) const {
-  EthAddressRes* n = new EthAddressRes;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void EthAddressRes::Clear() {
-// @@protoc_insertion_point(message_clear_start:ethapi.EthAddressRes)
-  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool EthAddressRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ethapi.EthAddressRes)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string address = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_address()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->address().data(), this->address().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthAddressRes.address"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:ethapi.EthAddressRes)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:ethapi.EthAddressRes)
-  return false;
-#undef DO_
-}
-
-void EthAddressRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ethapi.EthAddressRes)
-  // optional string address = 1;
-  if (this->address().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->address().data(), this->address().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthAddressRes.address");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->address(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:ethapi.EthAddressRes)
-}
-
-::google::protobuf::uint8* EthAddressRes::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:ethapi.EthAddressRes)
-  // optional string address = 1;
-  if (this->address().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->address().data(), this->address().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthAddressRes.address");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->address(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:ethapi.EthAddressRes)
-  return target;
-}
-
-size_t EthAddressRes::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ethapi.EthAddressRes)
-  size_t total_size = 0;
-
-  // optional string address = 1;
-  if (this->address().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->address());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void EthAddressRes::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:ethapi.EthAddressRes)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const EthAddressRes* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const EthAddressRes>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ethapi.EthAddressRes)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:ethapi.EthAddressRes)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void EthAddressRes::MergeFrom(const EthAddressRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:ethapi.EthAddressRes)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void EthAddressRes::UnsafeMergeFrom(const EthAddressRes& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.address().size() > 0) {
-
-    address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
-  }
-}
-
-void EthAddressRes::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:ethapi.EthAddressRes)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void EthAddressRes::CopyFrom(const EthAddressRes& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ethapi.EthAddressRes)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool EthAddressRes::IsInitialized() const {
-
-  return true;
-}
-
-void EthAddressRes::Swap(EthAddressRes* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void EthAddressRes::InternalSwap(EthAddressRes* other) {
-  address_.Swap(&other->address_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata EthAddressRes::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EthAddressRes_descriptor_;
-  metadata.reflection = EthAddressRes_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// EthAddressRes
-
-// optional string address = 1;
-void EthAddressRes::clear_address() {
-  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& EthAddressRes::address() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthAddressRes.address)
-  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthAddressRes::set_address(const ::std::string& value) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthAddressRes.address)
-}
-void EthAddressRes::set_address(const char* value) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthAddressRes.address)
-}
-void EthAddressRes::set_address(const char* value, size_t size) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthAddressRes.address)
-}
-::std::string* EthAddressRes::mutable_address() {
-  
-  // @@protoc_insertion_point(field_mutable:ethapi.EthAddressRes.address)
-  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* EthAddressRes::release_address() {
-  // @@protoc_insertion_point(field_release:ethapi.EthAddressRes.address)
-  
-  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthAddressRes::set_allocated_address(::std::string* address) {
-  if (address != NULL) {
-    
-  } else {
-    
-  }
-  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthAddressRes.address)
-}
-
-inline const EthAddressRes* EthAddressRes::internal_default_instance() {
-  return &EthAddressRes_default_instance_.get();
-}
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int EthMessageSignReq::kPathFieldNumber;
-const int EthMessageSignReq::kMessageFieldNumber;
-const int EthMessageSignReq::kSenderFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-EthMessageSignReq::EthMessageSignReq()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_eth_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:ethapi.EthMessageSignReq)
-}
-
-void EthMessageSignReq::InitAsDefaultInstance() {
-}
-
-EthMessageSignReq::EthMessageSignReq(const EthMessageSignReq& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:ethapi.EthMessageSignReq)
-}
-
-void EthMessageSignReq::SharedCtor() {
-  path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  sender_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _cached_size_ = 0;
-}
-
-EthMessageSignReq::~EthMessageSignReq() {
-  // @@protoc_insertion_point(destructor:ethapi.EthMessageSignReq)
-  SharedDtor();
-}
-
-void EthMessageSignReq::SharedDtor() {
-  path_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  message_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  sender_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-void EthMessageSignReq::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* EthMessageSignReq::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return EthMessageSignReq_descriptor_;
-}
-
-const EthMessageSignReq& EthMessageSignReq::default_instance() {
-  protobuf_InitDefaults_eth_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<EthMessageSignReq> EthMessageSignReq_default_instance_;
-
-EthMessageSignReq* EthMessageSignReq::New(::google::protobuf::Arena* arena) const {
-  EthMessageSignReq* n = new EthMessageSignReq;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void EthMessageSignReq::Clear() {
-// @@protoc_insertion_point(message_clear_start:ethapi.EthMessageSignReq)
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  sender_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool EthMessageSignReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ethapi.EthMessageSignReq)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string path = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_path()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->path().data(), this->path().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthMessageSignReq.path"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_message;
-        break;
-      }
-
-      // optional string message = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_message:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_message()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->message().data(), this->message().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthMessageSignReq.message"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_sender;
-        break;
-      }
-
-      // optional string sender = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_sender:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_sender()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->sender().data(), this->sender().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthMessageSignReq.sender"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:ethapi.EthMessageSignReq)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:ethapi.EthMessageSignReq)
-  return false;
-#undef DO_
-}
-
-void EthMessageSignReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ethapi.EthMessageSignReq)
-  // optional string path = 1;
-  if (this->path().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthMessageSignReq.path");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->path(), output);
-  }
-
-  // optional string message = 2;
-  if (this->message().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->message().data(), this->message().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthMessageSignReq.message");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->message(), output);
-  }
-
-  // optional string sender = 3;
-  if (this->sender().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->sender().data(), this->sender().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthMessageSignReq.sender");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->sender(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:ethapi.EthMessageSignReq)
-}
-
-::google::protobuf::uint8* EthMessageSignReq::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:ethapi.EthMessageSignReq)
-  // optional string path = 1;
-  if (this->path().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthMessageSignReq.path");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->path(), target);
-  }
-
-  // optional string message = 2;
-  if (this->message().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->message().data(), this->message().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthMessageSignReq.message");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->message(), target);
-  }
-
-  // optional string sender = 3;
-  if (this->sender().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->sender().data(), this->sender().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthMessageSignReq.sender");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->sender(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:ethapi.EthMessageSignReq)
-  return target;
-}
-
-size_t EthMessageSignReq::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ethapi.EthMessageSignReq)
-  size_t total_size = 0;
-
-  // optional string path = 1;
-  if (this->path().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->path());
-  }
-
-  // optional string message = 2;
-  if (this->message().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->message());
-  }
-
-  // optional string sender = 3;
-  if (this->sender().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->sender());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void EthMessageSignReq::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:ethapi.EthMessageSignReq)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const EthMessageSignReq* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const EthMessageSignReq>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ethapi.EthMessageSignReq)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:ethapi.EthMessageSignReq)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void EthMessageSignReq::MergeFrom(const EthMessageSignReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:ethapi.EthMessageSignReq)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void EthMessageSignReq::UnsafeMergeFrom(const EthMessageSignReq& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.path().size() > 0) {
-
-    path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_);
-  }
-  if (from.message().size() > 0) {
-
-    message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
-  }
-  if (from.sender().size() > 0) {
-
-    sender_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sender_);
-  }
-}
-
-void EthMessageSignReq::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:ethapi.EthMessageSignReq)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void EthMessageSignReq::CopyFrom(const EthMessageSignReq& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ethapi.EthMessageSignReq)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool EthMessageSignReq::IsInitialized() const {
-
-  return true;
-}
-
-void EthMessageSignReq::Swap(EthMessageSignReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void EthMessageSignReq::InternalSwap(EthMessageSignReq* other) {
-  path_.Swap(&other->path_);
-  message_.Swap(&other->message_);
-  sender_.Swap(&other->sender_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata EthMessageSignReq::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EthMessageSignReq_descriptor_;
-  metadata.reflection = EthMessageSignReq_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// EthMessageSignReq
-
-// optional string path = 1;
-void EthMessageSignReq::clear_path() {
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& EthMessageSignReq::path() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthMessageSignReq.path)
-  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthMessageSignReq::set_path(const ::std::string& value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthMessageSignReq.path)
-}
-void EthMessageSignReq::set_path(const char* value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthMessageSignReq.path)
-}
-void EthMessageSignReq::set_path(const char* value, size_t size) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthMessageSignReq.path)
-}
-::std::string* EthMessageSignReq::mutable_path() {
-  
-  // @@protoc_insertion_point(field_mutable:ethapi.EthMessageSignReq.path)
-  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* EthMessageSignReq::release_path() {
-  // @@protoc_insertion_point(field_release:ethapi.EthMessageSignReq.path)
-  
-  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthMessageSignReq::set_allocated_path(::std::string* path) {
-  if (path != NULL) {
-    
-  } else {
-    
-  }
-  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthMessageSignReq.path)
-}
-
-// optional string message = 2;
-void EthMessageSignReq::clear_message() {
-  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& EthMessageSignReq::message() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthMessageSignReq.message)
-  return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthMessageSignReq::set_message(const ::std::string& value) {
-  
-  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthMessageSignReq.message)
-}
-void EthMessageSignReq::set_message(const char* value) {
-  
-  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthMessageSignReq.message)
-}
-void EthMessageSignReq::set_message(const char* value, size_t size) {
-  
-  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthMessageSignReq.message)
-}
-::std::string* EthMessageSignReq::mutable_message() {
-  
-  // @@protoc_insertion_point(field_mutable:ethapi.EthMessageSignReq.message)
-  return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* EthMessageSignReq::release_message() {
-  // @@protoc_insertion_point(field_release:ethapi.EthMessageSignReq.message)
-  
-  return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthMessageSignReq::set_allocated_message(::std::string* message) {
-  if (message != NULL) {
-    
-  } else {
-    
-  }
-  message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthMessageSignReq.message)
-}
-
-// optional string sender = 3;
-void EthMessageSignReq::clear_sender() {
-  sender_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& EthMessageSignReq::sender() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthMessageSignReq.sender)
-  return sender_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthMessageSignReq::set_sender(const ::std::string& value) {
-  
-  sender_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthMessageSignReq.sender)
-}
-void EthMessageSignReq::set_sender(const char* value) {
-  
-  sender_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthMessageSignReq.sender)
-}
-void EthMessageSignReq::set_sender(const char* value, size_t size) {
-  
-  sender_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthMessageSignReq.sender)
-}
-::std::string* EthMessageSignReq::mutable_sender() {
-  
-  // @@protoc_insertion_point(field_mutable:ethapi.EthMessageSignReq.sender)
-  return sender_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* EthMessageSignReq::release_sender() {
-  // @@protoc_insertion_point(field_release:ethapi.EthMessageSignReq.sender)
-  
-  return sender_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void EthMessageSignReq::set_allocated_sender(::std::string* sender) {
-  if (sender != NULL) {
-    
-  } else {
-    
-  }
-  sender_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sender);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthMessageSignReq.sender)
-}
-
-inline const EthMessageSignReq* EthMessageSignReq::internal_default_instance() {
-  return &EthMessageSignReq_default_instance_.get();
-}
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int EthMessageSignRes::kSignatureFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-EthMessageSignRes::EthMessageSignRes()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_eth_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:ethapi.EthMessageSignRes)
-}
-
-void EthMessageSignRes::InitAsDefaultInstance() {
-}
-
-EthMessageSignRes::EthMessageSignRes(const EthMessageSignRes& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:ethapi.EthMessageSignRes)
-}
-
-void EthMessageSignRes::SharedCtor() {
+void EthTxOutput::SharedCtor() {
   signature_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  txhash_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _cached_size_ = 0;
 }
 
-EthMessageSignRes::~EthMessageSignRes() {
-  // @@protoc_insertion_point(destructor:ethapi.EthMessageSignRes)
+EthTxOutput::~EthTxOutput() {
+  // @@protoc_insertion_point(destructor:ethapi.EthTxOutput)
   SharedDtor();
 }
 
-void EthMessageSignRes::SharedDtor() {
+void EthTxOutput::SharedDtor() {
   signature_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  txhash_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-void EthMessageSignRes::SetCachedSize(int size) const {
+void EthTxOutput::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* EthMessageSignRes::descriptor() {
+const ::google::protobuf::Descriptor* EthTxOutput::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return EthMessageSignRes_descriptor_;
+  return EthTxOutput_descriptor_;
 }
 
-const EthMessageSignRes& EthMessageSignRes::default_instance() {
+const EthTxOutput& EthTxOutput::default_instance() {
   protobuf_InitDefaults_eth_2eproto();
   return *internal_default_instance();
 }
 
-::google::protobuf::internal::ExplicitlyConstructed<EthMessageSignRes> EthMessageSignRes_default_instance_;
+::google::protobuf::internal::ExplicitlyConstructed<EthTxOutput> EthTxOutput_default_instance_;
 
-EthMessageSignRes* EthMessageSignRes::New(::google::protobuf::Arena* arena) const {
-  EthMessageSignRes* n = new EthMessageSignRes;
+EthTxOutput* EthTxOutput::New(::google::protobuf::Arena* arena) const {
+  EthTxOutput* n = new EthTxOutput;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void EthMessageSignRes::Clear() {
-// @@protoc_insertion_point(message_clear_start:ethapi.EthMessageSignRes)
+void EthTxOutput::Clear() {
+// @@protoc_insertion_point(message_clear_start:ethapi.EthTxOutput)
   signature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  txhash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-bool EthMessageSignRes::MergePartialFromCodedStream(
+bool EthTxOutput::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ethapi.EthMessageSignRes)
+  // @@protoc_insertion_point(parse_start:ethapi.EthTxOutput)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -3167,7 +1173,24 @@ bool EthMessageSignRes::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->signature().data(), this->signature().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "ethapi.EthMessageSignRes.signature"));
+            "ethapi.EthTxOutput.signature"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_txHash;
+        break;
+      }
+
+      // optional string txHash = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_txHash:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_txhash()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->txhash().data(), this->txhash().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "ethapi.EthTxOutput.txHash"));
         } else {
           goto handle_unusual;
         }
@@ -3188,51 +1211,757 @@ bool EthMessageSignRes::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:ethapi.EthMessageSignRes)
+  // @@protoc_insertion_point(parse_success:ethapi.EthTxOutput)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:ethapi.EthMessageSignRes)
+  // @@protoc_insertion_point(parse_failure:ethapi.EthTxOutput)
   return false;
 #undef DO_
 }
 
-void EthMessageSignRes::SerializeWithCachedSizes(
+void EthTxOutput::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ethapi.EthMessageSignRes)
+  // @@protoc_insertion_point(serialize_start:ethapi.EthTxOutput)
   // optional string signature = 1;
   if (this->signature().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->signature().data(), this->signature().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthMessageSignRes.signature");
+      "ethapi.EthTxOutput.signature");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->signature(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:ethapi.EthMessageSignRes)
+  // optional string txHash = 2;
+  if (this->txhash().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->txhash().data(), this->txhash().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "ethapi.EthTxOutput.txHash");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->txhash(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:ethapi.EthTxOutput)
 }
 
-::google::protobuf::uint8* EthMessageSignRes::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* EthTxOutput::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:ethapi.EthMessageSignRes)
+  // @@protoc_insertion_point(serialize_to_array_start:ethapi.EthTxOutput)
   // optional string signature = 1;
   if (this->signature().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->signature().data(), this->signature().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "ethapi.EthMessageSignRes.signature");
+      "ethapi.EthTxOutput.signature");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->signature(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:ethapi.EthMessageSignRes)
+  // optional string txHash = 2;
+  if (this->txhash().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->txhash().data(), this->txhash().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "ethapi.EthTxOutput.txHash");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->txhash(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:ethapi.EthTxOutput)
   return target;
 }
 
-size_t EthMessageSignRes::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ethapi.EthMessageSignRes)
+size_t EthTxOutput::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ethapi.EthTxOutput)
+  size_t total_size = 0;
+
+  // optional string signature = 1;
+  if (this->signature().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->signature());
+  }
+
+  // optional string txHash = 2;
+  if (this->txhash().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->txhash());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void EthTxOutput::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ethapi.EthTxOutput)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const EthTxOutput* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const EthTxOutput>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ethapi.EthTxOutput)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ethapi.EthTxOutput)
+    UnsafeMergeFrom(*source);
+  }
+}
+
+void EthTxOutput::MergeFrom(const EthTxOutput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ethapi.EthTxOutput)
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void EthTxOutput::UnsafeMergeFrom(const EthTxOutput& from) {
+  GOOGLE_DCHECK(&from != this);
+  if (from.signature().size() > 0) {
+
+    signature_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.signature_);
+  }
+  if (from.txhash().size() > 0) {
+
+    txhash_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.txhash_);
+  }
+}
+
+void EthTxOutput::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ethapi.EthTxOutput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void EthTxOutput::CopyFrom(const EthTxOutput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ethapi.EthTxOutput)
+  if (&from == this) return;
+  Clear();
+  UnsafeMergeFrom(from);
+}
+
+bool EthTxOutput::IsInitialized() const {
+
+  return true;
+}
+
+void EthTxOutput::Swap(EthTxOutput* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void EthTxOutput::InternalSwap(EthTxOutput* other) {
+  signature_.Swap(&other->signature_);
+  txhash_.Swap(&other->txhash_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata EthTxOutput::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = EthTxOutput_descriptor_;
+  metadata.reflection = EthTxOutput_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// EthTxOutput
+
+// optional string signature = 1;
+void EthTxOutput::clear_signature() {
+  signature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& EthTxOutput::signature() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthTxOutput.signature)
+  return signature_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EthTxOutput::set_signature(const ::std::string& value) {
+  
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ethapi.EthTxOutput.signature)
+}
+void EthTxOutput::set_signature(const char* value) {
+  
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ethapi.EthTxOutput.signature)
+}
+void EthTxOutput::set_signature(const char* value, size_t size) {
+  
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxOutput.signature)
+}
+::std::string* EthTxOutput::mutable_signature() {
+  
+  // @@protoc_insertion_point(field_mutable:ethapi.EthTxOutput.signature)
+  return signature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* EthTxOutput::release_signature() {
+  // @@protoc_insertion_point(field_release:ethapi.EthTxOutput.signature)
+  
+  return signature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EthTxOutput::set_allocated_signature(::std::string* signature) {
+  if (signature != NULL) {
+    
+  } else {
+    
+  }
+  signature_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), signature);
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxOutput.signature)
+}
+
+// optional string txHash = 2;
+void EthTxOutput::clear_txhash() {
+  txhash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& EthTxOutput::txhash() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthTxOutput.txHash)
+  return txhash_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EthTxOutput::set_txhash(const ::std::string& value) {
+  
+  txhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ethapi.EthTxOutput.txHash)
+}
+void EthTxOutput::set_txhash(const char* value) {
+  
+  txhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ethapi.EthTxOutput.txHash)
+}
+void EthTxOutput::set_txhash(const char* value, size_t size) {
+  
+  txhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxOutput.txHash)
+}
+::std::string* EthTxOutput::mutable_txhash() {
+  
+  // @@protoc_insertion_point(field_mutable:ethapi.EthTxOutput.txHash)
+  return txhash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* EthTxOutput::release_txhash() {
+  // @@protoc_insertion_point(field_release:ethapi.EthTxOutput.txHash)
+  
+  return txhash_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EthTxOutput::set_allocated_txhash(::std::string* txhash) {
+  if (txhash != NULL) {
+    
+  } else {
+    
+  }
+  txhash_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), txhash);
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxOutput.txHash)
+}
+
+inline const EthTxOutput* EthTxOutput::internal_default_instance() {
+  return &EthTxOutput_default_instance_.get();
+}
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int EthMessageInput::kMessageFieldNumber;
+const int EthMessageInput::kIsPersonalSignFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+EthMessageInput::EthMessageInput()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_eth_2eproto();
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:ethapi.EthMessageInput)
+}
+
+void EthMessageInput::InitAsDefaultInstance() {
+}
+
+EthMessageInput::EthMessageInput(const EthMessageInput& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  UnsafeMergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:ethapi.EthMessageInput)
+}
+
+void EthMessageInput::SharedCtor() {
+  message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ispersonalsign_ = false;
+  _cached_size_ = 0;
+}
+
+EthMessageInput::~EthMessageInput() {
+  // @@protoc_insertion_point(destructor:ethapi.EthMessageInput)
+  SharedDtor();
+}
+
+void EthMessageInput::SharedDtor() {
+  message_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void EthMessageInput::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* EthMessageInput::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return EthMessageInput_descriptor_;
+}
+
+const EthMessageInput& EthMessageInput::default_instance() {
+  protobuf_InitDefaults_eth_2eproto();
+  return *internal_default_instance();
+}
+
+::google::protobuf::internal::ExplicitlyConstructed<EthMessageInput> EthMessageInput_default_instance_;
+
+EthMessageInput* EthMessageInput::New(::google::protobuf::Arena* arena) const {
+  EthMessageInput* n = new EthMessageInput;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void EthMessageInput::Clear() {
+// @@protoc_insertion_point(message_clear_start:ethapi.EthMessageInput)
+  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ispersonalsign_ = false;
+}
+
+bool EthMessageInput::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:ethapi.EthMessageInput)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string message = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_message()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->message().data(), this->message().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "ethapi.EthMessageInput.message"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_isPersonalSign;
+        break;
+      }
+
+      // optional bool isPersonalSign = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_isPersonalSign:
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &ispersonalsign_)));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:ethapi.EthMessageInput)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:ethapi.EthMessageInput)
+  return false;
+#undef DO_
+}
+
+void EthMessageInput::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:ethapi.EthMessageInput)
+  // optional string message = 1;
+  if (this->message().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->message().data(), this->message().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "ethapi.EthMessageInput.message");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->message(), output);
+  }
+
+  // optional bool isPersonalSign = 2;
+  if (this->ispersonalsign() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->ispersonalsign(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:ethapi.EthMessageInput)
+}
+
+::google::protobuf::uint8* EthMessageInput::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:ethapi.EthMessageInput)
+  // optional string message = 1;
+  if (this->message().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->message().data(), this->message().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "ethapi.EthMessageInput.message");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->message(), target);
+  }
+
+  // optional bool isPersonalSign = 2;
+  if (this->ispersonalsign() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->ispersonalsign(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:ethapi.EthMessageInput)
+  return target;
+}
+
+size_t EthMessageInput::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ethapi.EthMessageInput)
+  size_t total_size = 0;
+
+  // optional string message = 1;
+  if (this->message().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->message());
+  }
+
+  // optional bool isPersonalSign = 2;
+  if (this->ispersonalsign() != 0) {
+    total_size += 1 + 1;
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void EthMessageInput::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ethapi.EthMessageInput)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const EthMessageInput* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const EthMessageInput>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ethapi.EthMessageInput)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ethapi.EthMessageInput)
+    UnsafeMergeFrom(*source);
+  }
+}
+
+void EthMessageInput::MergeFrom(const EthMessageInput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ethapi.EthMessageInput)
+  if (GOOGLE_PREDICT_TRUE(&from != this)) {
+    UnsafeMergeFrom(from);
+  } else {
+    MergeFromFail(__LINE__);
+  }
+}
+
+void EthMessageInput::UnsafeMergeFrom(const EthMessageInput& from) {
+  GOOGLE_DCHECK(&from != this);
+  if (from.message().size() > 0) {
+
+    message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
+  }
+  if (from.ispersonalsign() != 0) {
+    set_ispersonalsign(from.ispersonalsign());
+  }
+}
+
+void EthMessageInput::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ethapi.EthMessageInput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void EthMessageInput::CopyFrom(const EthMessageInput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ethapi.EthMessageInput)
+  if (&from == this) return;
+  Clear();
+  UnsafeMergeFrom(from);
+}
+
+bool EthMessageInput::IsInitialized() const {
+
+  return true;
+}
+
+void EthMessageInput::Swap(EthMessageInput* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void EthMessageInput::InternalSwap(EthMessageInput* other) {
+  message_.Swap(&other->message_);
+  std::swap(ispersonalsign_, other->ispersonalsign_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata EthMessageInput::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = EthMessageInput_descriptor_;
+  metadata.reflection = EthMessageInput_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// EthMessageInput
+
+// optional string message = 1;
+void EthMessageInput::clear_message() {
+  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& EthMessageInput::message() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthMessageInput.message)
+  return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EthMessageInput::set_message(const ::std::string& value) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ethapi.EthMessageInput.message)
+}
+void EthMessageInput::set_message(const char* value) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ethapi.EthMessageInput.message)
+}
+void EthMessageInput::set_message(const char* value, size_t size) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthMessageInput.message)
+}
+::std::string* EthMessageInput::mutable_message() {
+  
+  // @@protoc_insertion_point(field_mutable:ethapi.EthMessageInput.message)
+  return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* EthMessageInput::release_message() {
+  // @@protoc_insertion_point(field_release:ethapi.EthMessageInput.message)
+  
+  return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void EthMessageInput::set_allocated_message(::std::string* message) {
+  if (message != NULL) {
+    
+  } else {
+    
+  }
+  message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthMessageInput.message)
+}
+
+// optional bool isPersonalSign = 2;
+void EthMessageInput::clear_ispersonalsign() {
+  ispersonalsign_ = false;
+}
+bool EthMessageInput::ispersonalsign() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthMessageInput.isPersonalSign)
+  return ispersonalsign_;
+}
+void EthMessageInput::set_ispersonalsign(bool value) {
+  
+  ispersonalsign_ = value;
+  // @@protoc_insertion_point(field_set:ethapi.EthMessageInput.isPersonalSign)
+}
+
+inline const EthMessageInput* EthMessageInput::internal_default_instance() {
+  return &EthMessageInput_default_instance_.get();
+}
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int EthMessageOutput::kSignatureFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+EthMessageOutput::EthMessageOutput()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (this != internal_default_instance()) protobuf_InitDefaults_eth_2eproto();
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:ethapi.EthMessageOutput)
+}
+
+void EthMessageOutput::InitAsDefaultInstance() {
+}
+
+EthMessageOutput::EthMessageOutput(const EthMessageOutput& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  UnsafeMergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:ethapi.EthMessageOutput)
+}
+
+void EthMessageOutput::SharedCtor() {
+  signature_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _cached_size_ = 0;
+}
+
+EthMessageOutput::~EthMessageOutput() {
+  // @@protoc_insertion_point(destructor:ethapi.EthMessageOutput)
+  SharedDtor();
+}
+
+void EthMessageOutput::SharedDtor() {
+  signature_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void EthMessageOutput::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* EthMessageOutput::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return EthMessageOutput_descriptor_;
+}
+
+const EthMessageOutput& EthMessageOutput::default_instance() {
+  protobuf_InitDefaults_eth_2eproto();
+  return *internal_default_instance();
+}
+
+::google::protobuf::internal::ExplicitlyConstructed<EthMessageOutput> EthMessageOutput_default_instance_;
+
+EthMessageOutput* EthMessageOutput::New(::google::protobuf::Arena* arena) const {
+  EthMessageOutput* n = new EthMessageOutput;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void EthMessageOutput::Clear() {
+// @@protoc_insertion_point(message_clear_start:ethapi.EthMessageOutput)
+  signature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool EthMessageOutput::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:ethapi.EthMessageOutput)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string signature = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_signature()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->signature().data(), this->signature().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "ethapi.EthMessageOutput.signature"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:ethapi.EthMessageOutput)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:ethapi.EthMessageOutput)
+  return false;
+#undef DO_
+}
+
+void EthMessageOutput::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:ethapi.EthMessageOutput)
+  // optional string signature = 1;
+  if (this->signature().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->signature().data(), this->signature().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "ethapi.EthMessageOutput.signature");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->signature(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:ethapi.EthMessageOutput)
+}
+
+::google::protobuf::uint8* EthMessageOutput::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:ethapi.EthMessageOutput)
+  // optional string signature = 1;
+  if (this->signature().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->signature().data(), this->signature().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "ethapi.EthMessageOutput.signature");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->signature(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:ethapi.EthMessageOutput)
+  return target;
+}
+
+size_t EthMessageOutput::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ethapi.EthMessageOutput)
   size_t total_size = 0;
 
   // optional string signature = 1;
@@ -3249,23 +1978,23 @@ size_t EthMessageSignRes::ByteSizeLong() const {
   return total_size;
 }
 
-void EthMessageSignRes::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:ethapi.EthMessageSignRes)
+void EthMessageOutput::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ethapi.EthMessageOutput)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const EthMessageSignRes* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const EthMessageSignRes>(
+  const EthMessageOutput* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const EthMessageOutput>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ethapi.EthMessageSignRes)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ethapi.EthMessageOutput)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:ethapi.EthMessageSignRes)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ethapi.EthMessageOutput)
     UnsafeMergeFrom(*source);
   }
 }
 
-void EthMessageSignRes::MergeFrom(const EthMessageSignRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:ethapi.EthMessageSignRes)
+void EthMessageOutput::MergeFrom(const EthMessageOutput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ethapi.EthMessageOutput)
   if (GOOGLE_PREDICT_TRUE(&from != this)) {
     UnsafeMergeFrom(from);
   } else {
@@ -3273,7 +2002,7 @@ void EthMessageSignRes::MergeFrom(const EthMessageSignRes& from) {
   }
 }
 
-void EthMessageSignRes::UnsafeMergeFrom(const EthMessageSignRes& from) {
+void EthMessageOutput::UnsafeMergeFrom(const EthMessageOutput& from) {
   GOOGLE_DCHECK(&from != this);
   if (from.signature().size() > 0) {
 
@@ -3281,92 +2010,92 @@ void EthMessageSignRes::UnsafeMergeFrom(const EthMessageSignRes& from) {
   }
 }
 
-void EthMessageSignRes::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:ethapi.EthMessageSignRes)
+void EthMessageOutput::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ethapi.EthMessageOutput)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void EthMessageSignRes::CopyFrom(const EthMessageSignRes& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ethapi.EthMessageSignRes)
+void EthMessageOutput::CopyFrom(const EthMessageOutput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ethapi.EthMessageOutput)
   if (&from == this) return;
   Clear();
   UnsafeMergeFrom(from);
 }
 
-bool EthMessageSignRes::IsInitialized() const {
+bool EthMessageOutput::IsInitialized() const {
 
   return true;
 }
 
-void EthMessageSignRes::Swap(EthMessageSignRes* other) {
+void EthMessageOutput::Swap(EthMessageOutput* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void EthMessageSignRes::InternalSwap(EthMessageSignRes* other) {
+void EthMessageOutput::InternalSwap(EthMessageOutput* other) {
   signature_.Swap(&other->signature_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata EthMessageSignRes::GetMetadata() const {
+::google::protobuf::Metadata EthMessageOutput::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = EthMessageSignRes_descriptor_;
-  metadata.reflection = EthMessageSignRes_reflection_;
+  metadata.descriptor = EthMessageOutput_descriptor_;
+  metadata.reflection = EthMessageOutput_reflection_;
   return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// EthMessageSignRes
+// EthMessageOutput
 
 // optional string signature = 1;
-void EthMessageSignRes::clear_signature() {
+void EthMessageOutput::clear_signature() {
   signature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& EthMessageSignRes::signature() const {
-  // @@protoc_insertion_point(field_get:ethapi.EthMessageSignRes.signature)
+const ::std::string& EthMessageOutput::signature() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthMessageOutput.signature)
   return signature_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthMessageSignRes::set_signature(const ::std::string& value) {
+void EthMessageOutput::set_signature(const ::std::string& value) {
   
   signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ethapi.EthMessageSignRes.signature)
+  // @@protoc_insertion_point(field_set:ethapi.EthMessageOutput.signature)
 }
-void EthMessageSignRes::set_signature(const char* value) {
+void EthMessageOutput::set_signature(const char* value) {
   
   signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ethapi.EthMessageSignRes.signature)
+  // @@protoc_insertion_point(field_set_char:ethapi.EthMessageOutput.signature)
 }
-void EthMessageSignRes::set_signature(const char* value, size_t size) {
+void EthMessageOutput::set_signature(const char* value, size_t size) {
   
   signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ethapi.EthMessageSignRes.signature)
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthMessageOutput.signature)
 }
-::std::string* EthMessageSignRes::mutable_signature() {
+::std::string* EthMessageOutput::mutable_signature() {
   
-  // @@protoc_insertion_point(field_mutable:ethapi.EthMessageSignRes.signature)
+  // @@protoc_insertion_point(field_mutable:ethapi.EthMessageOutput.signature)
   return signature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* EthMessageSignRes::release_signature() {
-  // @@protoc_insertion_point(field_release:ethapi.EthMessageSignRes.signature)
+::std::string* EthMessageOutput::release_signature() {
+  // @@protoc_insertion_point(field_release:ethapi.EthMessageOutput.signature)
   
   return signature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void EthMessageSignRes::set_allocated_signature(::std::string* signature) {
+void EthMessageOutput::set_allocated_signature(::std::string* signature) {
   if (signature != NULL) {
     
   } else {
     
   }
   signature_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), signature);
-  // @@protoc_insertion_point(field_set_allocated:ethapi.EthMessageSignRes.signature)
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthMessageOutput.signature)
 }
 
-inline const EthMessageSignRes* EthMessageSignRes::internal_default_instance() {
-  return &EthMessageSignRes_default_instance_.get();
+inline const EthMessageOutput* EthMessageOutput::internal_default_instance() {
+  return &EthMessageOutput_default_instance_.get();
 }
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 

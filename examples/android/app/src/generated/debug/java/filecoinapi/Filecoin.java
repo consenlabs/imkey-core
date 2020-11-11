@@ -14,1390 +14,8 @@ public final class Filecoin {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface FilecoinTxReqOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:filecoinapi.FilecoinTxReq)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-     */
-    boolean hasMessage();
-    /**
-     * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-     */
-    filecoinapi.Filecoin.UnsignedMessage getMessage();
-    /**
-     * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-     */
-    filecoinapi.Filecoin.UnsignedMessageOrBuilder getMessageOrBuilder();
-
-    /**
-     * <code>optional string path = 2;</code>
-     */
-    java.lang.String getPath();
-    /**
-     * <code>optional string path = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getPathBytes();
-
-    /**
-     * <code>optional string network = 3;</code>
-     */
-    java.lang.String getNetwork();
-    /**
-     * <code>optional string network = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getNetworkBytes();
-
-    /**
-     * <code>optional string payment_dis = 4;</code>
-     */
-    java.lang.String getPaymentDis();
-    /**
-     * <code>optional string payment_dis = 4;</code>
-     */
-    com.google.protobuf.ByteString
-        getPaymentDisBytes();
-
-    /**
-     * <code>optional string to_dis = 5;</code>
-     */
-    java.lang.String getToDis();
-    /**
-     * <code>optional string to_dis = 5;</code>
-     */
-    com.google.protobuf.ByteString
-        getToDisBytes();
-
-    /**
-     * <code>optional string from_dis = 6;</code>
-     */
-    java.lang.String getFromDis();
-    /**
-     * <code>optional string from_dis = 6;</code>
-     */
-    com.google.protobuf.ByteString
-        getFromDisBytes();
-
-    /**
-     * <code>optional string fee_dis = 7;</code>
-     */
-    java.lang.String getFeeDis();
-    /**
-     * <code>optional string fee_dis = 7;</code>
-     */
-    com.google.protobuf.ByteString
-        getFeeDisBytes();
-  }
-  /**
-   * Protobuf type {@code filecoinapi.FilecoinTxReq}
-   */
-  public  static final class FilecoinTxReq extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:filecoinapi.FilecoinTxReq)
-      FilecoinTxReqOrBuilder {
-    // Use FilecoinTxReq.newBuilder() to construct.
-    private FilecoinTxReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private FilecoinTxReq() {
-      path_ = "";
-      network_ = "";
-      paymentDis_ = "";
-      toDis_ = "";
-      fromDis_ = "";
-      feeDis_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private FilecoinTxReq(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              filecoinapi.Filecoin.UnsignedMessage.Builder subBuilder = null;
-              if (message_ != null) {
-                subBuilder = message_.toBuilder();
-              }
-              message_ = input.readMessage(filecoinapi.Filecoin.UnsignedMessage.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(message_);
-                message_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              path_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              network_ = s;
-              break;
-            }
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              paymentDis_ = s;
-              break;
-            }
-            case 42: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              toDis_ = s;
-              break;
-            }
-            case 50: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              fromDis_ = s;
-              break;
-            }
-            case 58: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              feeDis_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxReq_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxReq_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              filecoinapi.Filecoin.FilecoinTxReq.class, filecoinapi.Filecoin.FilecoinTxReq.Builder.class);
-    }
-
-    public static final int MESSAGE_FIELD_NUMBER = 1;
-    private filecoinapi.Filecoin.UnsignedMessage message_;
-    /**
-     * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-     */
-    public boolean hasMessage() {
-      return message_ != null;
-    }
-    /**
-     * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-     */
-    public filecoinapi.Filecoin.UnsignedMessage getMessage() {
-      return message_ == null ? filecoinapi.Filecoin.UnsignedMessage.getDefaultInstance() : message_;
-    }
-    /**
-     * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-     */
-    public filecoinapi.Filecoin.UnsignedMessageOrBuilder getMessageOrBuilder() {
-      return getMessage();
-    }
-
-    public static final int PATH_FIELD_NUMBER = 2;
-    private volatile java.lang.Object path_;
-    /**
-     * <code>optional string path = 2;</code>
-     */
-    public java.lang.String getPath() {
-      java.lang.Object ref = path_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        path_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string path = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getPathBytes() {
-      java.lang.Object ref = path_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        path_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int NETWORK_FIELD_NUMBER = 3;
-    private volatile java.lang.Object network_;
-    /**
-     * <code>optional string network = 3;</code>
-     */
-    public java.lang.String getNetwork() {
-      java.lang.Object ref = network_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        network_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string network = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNetworkBytes() {
-      java.lang.Object ref = network_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        network_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PAYMENT_DIS_FIELD_NUMBER = 4;
-    private volatile java.lang.Object paymentDis_;
-    /**
-     * <code>optional string payment_dis = 4;</code>
-     */
-    public java.lang.String getPaymentDis() {
-      java.lang.Object ref = paymentDis_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        paymentDis_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string payment_dis = 4;</code>
-     */
-    public com.google.protobuf.ByteString
-        getPaymentDisBytes() {
-      java.lang.Object ref = paymentDis_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        paymentDis_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TO_DIS_FIELD_NUMBER = 5;
-    private volatile java.lang.Object toDis_;
-    /**
-     * <code>optional string to_dis = 5;</code>
-     */
-    public java.lang.String getToDis() {
-      java.lang.Object ref = toDis_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        toDis_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string to_dis = 5;</code>
-     */
-    public com.google.protobuf.ByteString
-        getToDisBytes() {
-      java.lang.Object ref = toDis_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        toDis_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FROM_DIS_FIELD_NUMBER = 6;
-    private volatile java.lang.Object fromDis_;
-    /**
-     * <code>optional string from_dis = 6;</code>
-     */
-    public java.lang.String getFromDis() {
-      java.lang.Object ref = fromDis_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        fromDis_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string from_dis = 6;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFromDisBytes() {
-      java.lang.Object ref = fromDis_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        fromDis_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FEE_DIS_FIELD_NUMBER = 7;
-    private volatile java.lang.Object feeDis_;
-    /**
-     * <code>optional string fee_dis = 7;</code>
-     */
-    public java.lang.String getFeeDis() {
-      java.lang.Object ref = feeDis_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        feeDis_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string fee_dis = 7;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFeeDisBytes() {
-      java.lang.Object ref = feeDis_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        feeDis_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (message_ != null) {
-        output.writeMessage(1, getMessage());
-      }
-      if (!getPathBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, path_);
-      }
-      if (!getNetworkBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, network_);
-      }
-      if (!getPaymentDisBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, paymentDis_);
-      }
-      if (!getToDisBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, toDis_);
-      }
-      if (!getFromDisBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, fromDis_);
-      }
-      if (!getFeeDisBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, feeDis_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (message_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getMessage());
-      }
-      if (!getPathBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, path_);
-      }
-      if (!getNetworkBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, network_);
-      }
-      if (!getPaymentDisBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, paymentDis_);
-      }
-      if (!getToDisBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, toDis_);
-      }
-      if (!getFromDisBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, fromDis_);
-      }
-      if (!getFeeDisBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, feeDis_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof filecoinapi.Filecoin.FilecoinTxReq)) {
-        return super.equals(obj);
-      }
-      filecoinapi.Filecoin.FilecoinTxReq other = (filecoinapi.Filecoin.FilecoinTxReq) obj;
-
-      boolean result = true;
-      result = result && (hasMessage() == other.hasMessage());
-      if (hasMessage()) {
-        result = result && getMessage()
-            .equals(other.getMessage());
-      }
-      result = result && getPath()
-          .equals(other.getPath());
-      result = result && getNetwork()
-          .equals(other.getNetwork());
-      result = result && getPaymentDis()
-          .equals(other.getPaymentDis());
-      result = result && getToDis()
-          .equals(other.getToDis());
-      result = result && getFromDis()
-          .equals(other.getFromDis());
-      result = result && getFeeDis()
-          .equals(other.getFeeDis());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      if (hasMessage()) {
-        hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
-        hash = (53 * hash) + getMessage().hashCode();
-      }
-      hash = (37 * hash) + PATH_FIELD_NUMBER;
-      hash = (53 * hash) + getPath().hashCode();
-      hash = (37 * hash) + NETWORK_FIELD_NUMBER;
-      hash = (53 * hash) + getNetwork().hashCode();
-      hash = (37 * hash) + PAYMENT_DIS_FIELD_NUMBER;
-      hash = (53 * hash) + getPaymentDis().hashCode();
-      hash = (37 * hash) + TO_DIS_FIELD_NUMBER;
-      hash = (53 * hash) + getToDis().hashCode();
-      hash = (37 * hash) + FROM_DIS_FIELD_NUMBER;
-      hash = (53 * hash) + getFromDis().hashCode();
-      hash = (37 * hash) + FEE_DIS_FIELD_NUMBER;
-      hash = (53 * hash) + getFeeDis().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static filecoinapi.Filecoin.FilecoinTxReq parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static filecoinapi.Filecoin.FilecoinTxReq parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static filecoinapi.Filecoin.FilecoinTxReq parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static filecoinapi.Filecoin.FilecoinTxReq parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static filecoinapi.Filecoin.FilecoinTxReq parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static filecoinapi.Filecoin.FilecoinTxReq parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static filecoinapi.Filecoin.FilecoinTxReq parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static filecoinapi.Filecoin.FilecoinTxReq parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static filecoinapi.Filecoin.FilecoinTxReq parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static filecoinapi.Filecoin.FilecoinTxReq parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(filecoinapi.Filecoin.FilecoinTxReq prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code filecoinapi.FilecoinTxReq}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:filecoinapi.FilecoinTxReq)
-        filecoinapi.Filecoin.FilecoinTxReqOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxReq_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxReq_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                filecoinapi.Filecoin.FilecoinTxReq.class, filecoinapi.Filecoin.FilecoinTxReq.Builder.class);
-      }
-
-      // Construct using filecoinapi.Filecoin.FilecoinTxReq.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        if (messageBuilder_ == null) {
-          message_ = null;
-        } else {
-          message_ = null;
-          messageBuilder_ = null;
-        }
-        path_ = "";
-
-        network_ = "";
-
-        paymentDis_ = "";
-
-        toDis_ = "";
-
-        fromDis_ = "";
-
-        feeDis_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxReq_descriptor;
-      }
-
-      public filecoinapi.Filecoin.FilecoinTxReq getDefaultInstanceForType() {
-        return filecoinapi.Filecoin.FilecoinTxReq.getDefaultInstance();
-      }
-
-      public filecoinapi.Filecoin.FilecoinTxReq build() {
-        filecoinapi.Filecoin.FilecoinTxReq result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public filecoinapi.Filecoin.FilecoinTxReq buildPartial() {
-        filecoinapi.Filecoin.FilecoinTxReq result = new filecoinapi.Filecoin.FilecoinTxReq(this);
-        if (messageBuilder_ == null) {
-          result.message_ = message_;
-        } else {
-          result.message_ = messageBuilder_.build();
-        }
-        result.path_ = path_;
-        result.network_ = network_;
-        result.paymentDis_ = paymentDis_;
-        result.toDis_ = toDis_;
-        result.fromDis_ = fromDis_;
-        result.feeDis_ = feeDis_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof filecoinapi.Filecoin.FilecoinTxReq) {
-          return mergeFrom((filecoinapi.Filecoin.FilecoinTxReq)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(filecoinapi.Filecoin.FilecoinTxReq other) {
-        if (other == filecoinapi.Filecoin.FilecoinTxReq.getDefaultInstance()) return this;
-        if (other.hasMessage()) {
-          mergeMessage(other.getMessage());
-        }
-        if (!other.getPath().isEmpty()) {
-          path_ = other.path_;
-          onChanged();
-        }
-        if (!other.getNetwork().isEmpty()) {
-          network_ = other.network_;
-          onChanged();
-        }
-        if (!other.getPaymentDis().isEmpty()) {
-          paymentDis_ = other.paymentDis_;
-          onChanged();
-        }
-        if (!other.getToDis().isEmpty()) {
-          toDis_ = other.toDis_;
-          onChanged();
-        }
-        if (!other.getFromDis().isEmpty()) {
-          fromDis_ = other.fromDis_;
-          onChanged();
-        }
-        if (!other.getFeeDis().isEmpty()) {
-          feeDis_ = other.feeDis_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        filecoinapi.Filecoin.FilecoinTxReq parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (filecoinapi.Filecoin.FilecoinTxReq) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private filecoinapi.Filecoin.UnsignedMessage message_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          filecoinapi.Filecoin.UnsignedMessage, filecoinapi.Filecoin.UnsignedMessage.Builder, filecoinapi.Filecoin.UnsignedMessageOrBuilder> messageBuilder_;
-      /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-       */
-      public boolean hasMessage() {
-        return messageBuilder_ != null || message_ != null;
-      }
-      /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-       */
-      public filecoinapi.Filecoin.UnsignedMessage getMessage() {
-        if (messageBuilder_ == null) {
-          return message_ == null ? filecoinapi.Filecoin.UnsignedMessage.getDefaultInstance() : message_;
-        } else {
-          return messageBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-       */
-      public Builder setMessage(filecoinapi.Filecoin.UnsignedMessage value) {
-        if (messageBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          message_ = value;
-          onChanged();
-        } else {
-          messageBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-       */
-      public Builder setMessage(
-          filecoinapi.Filecoin.UnsignedMessage.Builder builderForValue) {
-        if (messageBuilder_ == null) {
-          message_ = builderForValue.build();
-          onChanged();
-        } else {
-          messageBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-       */
-      public Builder mergeMessage(filecoinapi.Filecoin.UnsignedMessage value) {
-        if (messageBuilder_ == null) {
-          if (message_ != null) {
-            message_ =
-              filecoinapi.Filecoin.UnsignedMessage.newBuilder(message_).mergeFrom(value).buildPartial();
-          } else {
-            message_ = value;
-          }
-          onChanged();
-        } else {
-          messageBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-       */
-      public Builder clearMessage() {
-        if (messageBuilder_ == null) {
-          message_ = null;
-          onChanged();
-        } else {
-          message_ = null;
-          messageBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-       */
-      public filecoinapi.Filecoin.UnsignedMessage.Builder getMessageBuilder() {
-        
-        onChanged();
-        return getMessageFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-       */
-      public filecoinapi.Filecoin.UnsignedMessageOrBuilder getMessageOrBuilder() {
-        if (messageBuilder_ != null) {
-          return messageBuilder_.getMessageOrBuilder();
-        } else {
-          return message_ == null ?
-              filecoinapi.Filecoin.UnsignedMessage.getDefaultInstance() : message_;
-        }
-      }
-      /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          filecoinapi.Filecoin.UnsignedMessage, filecoinapi.Filecoin.UnsignedMessage.Builder, filecoinapi.Filecoin.UnsignedMessageOrBuilder> 
-          getMessageFieldBuilder() {
-        if (messageBuilder_ == null) {
-          messageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              filecoinapi.Filecoin.UnsignedMessage, filecoinapi.Filecoin.UnsignedMessage.Builder, filecoinapi.Filecoin.UnsignedMessageOrBuilder>(
-                  getMessage(),
-                  getParentForChildren(),
-                  isClean());
-          message_ = null;
-        }
-        return messageBuilder_;
-      }
-
-      private java.lang.Object path_ = "";
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public java.lang.String getPath() {
-        java.lang.Object ref = path_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          path_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPathBytes() {
-        java.lang.Object ref = path_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          path_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public Builder setPath(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        path_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public Builder clearPath() {
-        
-        path_ = getDefaultInstance().getPath();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public Builder setPathBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        path_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object network_ = "";
-      /**
-       * <code>optional string network = 3;</code>
-       */
-      public java.lang.String getNetwork() {
-        java.lang.Object ref = network_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          network_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string network = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNetworkBytes() {
-        java.lang.Object ref = network_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          network_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string network = 3;</code>
-       */
-      public Builder setNetwork(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        network_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string network = 3;</code>
-       */
-      public Builder clearNetwork() {
-        
-        network_ = getDefaultInstance().getNetwork();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string network = 3;</code>
-       */
-      public Builder setNetworkBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        network_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object paymentDis_ = "";
-      /**
-       * <code>optional string payment_dis = 4;</code>
-       */
-      public java.lang.String getPaymentDis() {
-        java.lang.Object ref = paymentDis_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          paymentDis_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string payment_dis = 4;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPaymentDisBytes() {
-        java.lang.Object ref = paymentDis_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          paymentDis_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string payment_dis = 4;</code>
-       */
-      public Builder setPaymentDis(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        paymentDis_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string payment_dis = 4;</code>
-       */
-      public Builder clearPaymentDis() {
-        
-        paymentDis_ = getDefaultInstance().getPaymentDis();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string payment_dis = 4;</code>
-       */
-      public Builder setPaymentDisBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        paymentDis_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object toDis_ = "";
-      /**
-       * <code>optional string to_dis = 5;</code>
-       */
-      public java.lang.String getToDis() {
-        java.lang.Object ref = toDis_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          toDis_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string to_dis = 5;</code>
-       */
-      public com.google.protobuf.ByteString
-          getToDisBytes() {
-        java.lang.Object ref = toDis_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          toDis_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string to_dis = 5;</code>
-       */
-      public Builder setToDis(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        toDis_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string to_dis = 5;</code>
-       */
-      public Builder clearToDis() {
-        
-        toDis_ = getDefaultInstance().getToDis();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string to_dis = 5;</code>
-       */
-      public Builder setToDisBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        toDis_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object fromDis_ = "";
-      /**
-       * <code>optional string from_dis = 6;</code>
-       */
-      public java.lang.String getFromDis() {
-        java.lang.Object ref = fromDis_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          fromDis_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string from_dis = 6;</code>
-       */
-      public com.google.protobuf.ByteString
-          getFromDisBytes() {
-        java.lang.Object ref = fromDis_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          fromDis_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string from_dis = 6;</code>
-       */
-      public Builder setFromDis(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        fromDis_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string from_dis = 6;</code>
-       */
-      public Builder clearFromDis() {
-        
-        fromDis_ = getDefaultInstance().getFromDis();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string from_dis = 6;</code>
-       */
-      public Builder setFromDisBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        fromDis_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object feeDis_ = "";
-      /**
-       * <code>optional string fee_dis = 7;</code>
-       */
-      public java.lang.String getFeeDis() {
-        java.lang.Object ref = feeDis_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          feeDis_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string fee_dis = 7;</code>
-       */
-      public com.google.protobuf.ByteString
-          getFeeDisBytes() {
-        java.lang.Object ref = feeDis_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          feeDis_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string fee_dis = 7;</code>
-       */
-      public Builder setFeeDis(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        feeDis_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string fee_dis = 7;</code>
-       */
-      public Builder clearFeeDis() {
-        
-        feeDis_ = getDefaultInstance().getFeeDis();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string fee_dis = 7;</code>
-       */
-      public Builder setFeeDisBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        feeDis_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:filecoinapi.FilecoinTxReq)
-    }
-
-    // @@protoc_insertion_point(class_scope:filecoinapi.FilecoinTxReq)
-    private static final filecoinapi.Filecoin.FilecoinTxReq DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new filecoinapi.Filecoin.FilecoinTxReq();
-    }
-
-    public static filecoinapi.Filecoin.FilecoinTxReq getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<FilecoinTxReq>
-        PARSER = new com.google.protobuf.AbstractParser<FilecoinTxReq>() {
-      public FilecoinTxReq parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new FilecoinTxReq(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<FilecoinTxReq> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FilecoinTxReq> getParserForType() {
-      return PARSER;
-    }
-
-    public filecoinapi.Filecoin.FilecoinTxReq getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface UnsignedMessageOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:filecoinapi.UnsignedMessage)
+  public interface FilecoinTxInputOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:filecoinapi.FilecoinTxInput)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1476,17 +94,17 @@ public final class Filecoin {
         getParamsBytes();
   }
   /**
-   * Protobuf type {@code filecoinapi.UnsignedMessage}
+   * Protobuf type {@code filecoinapi.FilecoinTxInput}
    */
-  public  static final class UnsignedMessage extends
+  public  static final class FilecoinTxInput extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:filecoinapi.UnsignedMessage)
-      UnsignedMessageOrBuilder {
-    // Use UnsignedMessage.newBuilder() to construct.
-    private UnsignedMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:filecoinapi.FilecoinTxInput)
+      FilecoinTxInputOrBuilder {
+    // Use FilecoinTxInput.newBuilder() to construct.
+    private FilecoinTxInput(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private UnsignedMessage() {
+    private FilecoinTxInput() {
       to_ = "";
       from_ = "";
       nonce_ = 0L;
@@ -1503,7 +121,7 @@ public final class Filecoin {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private UnsignedMessage(
+    private FilecoinTxInput(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1587,14 +205,14 @@ public final class Filecoin {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return filecoinapi.Filecoin.internal_static_filecoinapi_UnsignedMessage_descriptor;
+      return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxInput_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return filecoinapi.Filecoin.internal_static_filecoinapi_UnsignedMessage_fieldAccessorTable
+      return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxInput_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              filecoinapi.Filecoin.UnsignedMessage.class, filecoinapi.Filecoin.UnsignedMessage.Builder.class);
+              filecoinapi.Filecoin.FilecoinTxInput.class, filecoinapi.Filecoin.FilecoinTxInput.Builder.class);
     }
 
     public static final int TO_FIELD_NUMBER = 1;
@@ -1914,10 +532,10 @@ public final class Filecoin {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof filecoinapi.Filecoin.UnsignedMessage)) {
+      if (!(obj instanceof filecoinapi.Filecoin.FilecoinTxInput)) {
         return super.equals(obj);
       }
-      filecoinapi.Filecoin.UnsignedMessage other = (filecoinapi.Filecoin.UnsignedMessage) obj;
+      filecoinapi.Filecoin.FilecoinTxInput other = (filecoinapi.Filecoin.FilecoinTxInput) obj;
 
       boolean result = true;
       result = result && getTo()
@@ -1974,58 +592,58 @@ public final class Filecoin {
       return hash;
     }
 
-    public static filecoinapi.Filecoin.UnsignedMessage parseFrom(
+    public static filecoinapi.Filecoin.FilecoinTxInput parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static filecoinapi.Filecoin.UnsignedMessage parseFrom(
+    public static filecoinapi.Filecoin.FilecoinTxInput parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static filecoinapi.Filecoin.UnsignedMessage parseFrom(byte[] data)
+    public static filecoinapi.Filecoin.FilecoinTxInput parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static filecoinapi.Filecoin.UnsignedMessage parseFrom(
+    public static filecoinapi.Filecoin.FilecoinTxInput parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static filecoinapi.Filecoin.UnsignedMessage parseFrom(java.io.InputStream input)
+    public static filecoinapi.Filecoin.FilecoinTxInput parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static filecoinapi.Filecoin.UnsignedMessage parseFrom(
+    public static filecoinapi.Filecoin.FilecoinTxInput parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static filecoinapi.Filecoin.UnsignedMessage parseDelimitedFrom(java.io.InputStream input)
+    public static filecoinapi.Filecoin.FilecoinTxInput parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static filecoinapi.Filecoin.UnsignedMessage parseDelimitedFrom(
+    public static filecoinapi.Filecoin.FilecoinTxInput parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static filecoinapi.Filecoin.UnsignedMessage parseFrom(
+    public static filecoinapi.Filecoin.FilecoinTxInput parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static filecoinapi.Filecoin.UnsignedMessage parseFrom(
+    public static filecoinapi.Filecoin.FilecoinTxInput parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2037,7 +655,7 @@ public final class Filecoin {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(filecoinapi.Filecoin.UnsignedMessage prototype) {
+    public static Builder newBuilder(filecoinapi.Filecoin.FilecoinTxInput prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -2052,25 +670,25 @@ public final class Filecoin {
       return builder;
     }
     /**
-     * Protobuf type {@code filecoinapi.UnsignedMessage}
+     * Protobuf type {@code filecoinapi.FilecoinTxInput}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:filecoinapi.UnsignedMessage)
-        filecoinapi.Filecoin.UnsignedMessageOrBuilder {
+        // @@protoc_insertion_point(builder_implements:filecoinapi.FilecoinTxInput)
+        filecoinapi.Filecoin.FilecoinTxInputOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_UnsignedMessage_descriptor;
+        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxInput_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_UnsignedMessage_fieldAccessorTable
+        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxInput_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                filecoinapi.Filecoin.UnsignedMessage.class, filecoinapi.Filecoin.UnsignedMessage.Builder.class);
+                filecoinapi.Filecoin.FilecoinTxInput.class, filecoinapi.Filecoin.FilecoinTxInput.Builder.class);
       }
 
-      // Construct using filecoinapi.Filecoin.UnsignedMessage.newBuilder()
+      // Construct using filecoinapi.Filecoin.FilecoinTxInput.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2110,23 +728,23 @@ public final class Filecoin {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_UnsignedMessage_descriptor;
+        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxInput_descriptor;
       }
 
-      public filecoinapi.Filecoin.UnsignedMessage getDefaultInstanceForType() {
-        return filecoinapi.Filecoin.UnsignedMessage.getDefaultInstance();
+      public filecoinapi.Filecoin.FilecoinTxInput getDefaultInstanceForType() {
+        return filecoinapi.Filecoin.FilecoinTxInput.getDefaultInstance();
       }
 
-      public filecoinapi.Filecoin.UnsignedMessage build() {
-        filecoinapi.Filecoin.UnsignedMessage result = buildPartial();
+      public filecoinapi.Filecoin.FilecoinTxInput build() {
+        filecoinapi.Filecoin.FilecoinTxInput result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public filecoinapi.Filecoin.UnsignedMessage buildPartial() {
-        filecoinapi.Filecoin.UnsignedMessage result = new filecoinapi.Filecoin.UnsignedMessage(this);
+      public filecoinapi.Filecoin.FilecoinTxInput buildPartial() {
+        filecoinapi.Filecoin.FilecoinTxInput result = new filecoinapi.Filecoin.FilecoinTxInput(this);
         result.to_ = to_;
         result.from_ = from_;
         result.nonce_ = nonce_;
@@ -2167,16 +785,16 @@ public final class Filecoin {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof filecoinapi.Filecoin.UnsignedMessage) {
-          return mergeFrom((filecoinapi.Filecoin.UnsignedMessage)other);
+        if (other instanceof filecoinapi.Filecoin.FilecoinTxInput) {
+          return mergeFrom((filecoinapi.Filecoin.FilecoinTxInput)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(filecoinapi.Filecoin.UnsignedMessage other) {
-        if (other == filecoinapi.Filecoin.UnsignedMessage.getDefaultInstance()) return this;
+      public Builder mergeFrom(filecoinapi.Filecoin.FilecoinTxInput other) {
+        if (other == filecoinapi.Filecoin.FilecoinTxInput.getDefaultInstance()) return this;
         if (!other.getTo().isEmpty()) {
           to_ = other.to_;
           onChanged();
@@ -2222,11 +840,11 @@ public final class Filecoin {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        filecoinapi.Filecoin.UnsignedMessage parsedMessage = null;
+        filecoinapi.Filecoin.FilecoinTxInput parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (filecoinapi.Filecoin.UnsignedMessage) e.getUnfinishedMessage();
+          parsedMessage = (filecoinapi.Filecoin.FilecoinTxInput) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2738,46 +1356,46 @@ public final class Filecoin {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:filecoinapi.UnsignedMessage)
+      // @@protoc_insertion_point(builder_scope:filecoinapi.FilecoinTxInput)
     }
 
-    // @@protoc_insertion_point(class_scope:filecoinapi.UnsignedMessage)
-    private static final filecoinapi.Filecoin.UnsignedMessage DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:filecoinapi.FilecoinTxInput)
+    private static final filecoinapi.Filecoin.FilecoinTxInput DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new filecoinapi.Filecoin.UnsignedMessage();
+      DEFAULT_INSTANCE = new filecoinapi.Filecoin.FilecoinTxInput();
     }
 
-    public static filecoinapi.Filecoin.UnsignedMessage getDefaultInstance() {
+    public static filecoinapi.Filecoin.FilecoinTxInput getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<UnsignedMessage>
-        PARSER = new com.google.protobuf.AbstractParser<UnsignedMessage>() {
-      public UnsignedMessage parsePartialFrom(
+    private static final com.google.protobuf.Parser<FilecoinTxInput>
+        PARSER = new com.google.protobuf.AbstractParser<FilecoinTxInput>() {
+      public FilecoinTxInput parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new UnsignedMessage(input, extensionRegistry);
+          return new FilecoinTxInput(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<UnsignedMessage> parser() {
+    public static com.google.protobuf.Parser<FilecoinTxInput> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<UnsignedMessage> getParserForType() {
+    public com.google.protobuf.Parser<FilecoinTxInput> getParserForType() {
       return PARSER;
     }
 
-    public filecoinapi.Filecoin.UnsignedMessage getDefaultInstanceForType() {
+    public filecoinapi.Filecoin.FilecoinTxInput getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface FilecoinTxResOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:filecoinapi.FilecoinTxRes)
+  public interface FilecoinTxOutputOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:filecoinapi.FilecoinTxOutput)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -2791,17 +1409,17 @@ public final class Filecoin {
         getCidBytes();
 
     /**
-     * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+     * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
      */
     boolean hasMessage();
     /**
-     * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+     * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
      */
-    filecoinapi.Filecoin.UnsignedMessage getMessage();
+    filecoinapi.Filecoin.FilecoinTxInput getMessage();
     /**
-     * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+     * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
      */
-    filecoinapi.Filecoin.UnsignedMessageOrBuilder getMessageOrBuilder();
+    filecoinapi.Filecoin.FilecoinTxInputOrBuilder getMessageOrBuilder();
 
     /**
      * <code>optional .filecoinapi.Signature signature = 3;</code>
@@ -2817,17 +1435,17 @@ public final class Filecoin {
     filecoinapi.Filecoin.SignatureOrBuilder getSignatureOrBuilder();
   }
   /**
-   * Protobuf type {@code filecoinapi.FilecoinTxRes}
+   * Protobuf type {@code filecoinapi.FilecoinTxOutput}
    */
-  public  static final class FilecoinTxRes extends
+  public  static final class FilecoinTxOutput extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:filecoinapi.FilecoinTxRes)
-      FilecoinTxResOrBuilder {
-    // Use FilecoinTxRes.newBuilder() to construct.
-    private FilecoinTxRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:filecoinapi.FilecoinTxOutput)
+      FilecoinTxOutputOrBuilder {
+    // Use FilecoinTxOutput.newBuilder() to construct.
+    private FilecoinTxOutput(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private FilecoinTxRes() {
+    private FilecoinTxOutput() {
       cid_ = "";
     }
 
@@ -2836,7 +1454,7 @@ public final class Filecoin {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private FilecoinTxRes(
+    private FilecoinTxOutput(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2863,11 +1481,11 @@ public final class Filecoin {
               break;
             }
             case 18: {
-              filecoinapi.Filecoin.UnsignedMessage.Builder subBuilder = null;
+              filecoinapi.Filecoin.FilecoinTxInput.Builder subBuilder = null;
               if (message_ != null) {
                 subBuilder = message_.toBuilder();
               }
-              message_ = input.readMessage(filecoinapi.Filecoin.UnsignedMessage.parser(), extensionRegistry);
+              message_ = input.readMessage(filecoinapi.Filecoin.FilecoinTxInput.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(message_);
                 message_ = subBuilder.buildPartial();
@@ -2901,14 +1519,14 @@ public final class Filecoin {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxRes_descriptor;
+      return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxOutput_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxRes_fieldAccessorTable
+      return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxOutput_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              filecoinapi.Filecoin.FilecoinTxRes.class, filecoinapi.Filecoin.FilecoinTxRes.Builder.class);
+              filecoinapi.Filecoin.FilecoinTxOutput.class, filecoinapi.Filecoin.FilecoinTxOutput.Builder.class);
     }
 
     public static final int CID_FIELD_NUMBER = 1;
@@ -2946,23 +1564,23 @@ public final class Filecoin {
     }
 
     public static final int MESSAGE_FIELD_NUMBER = 2;
-    private filecoinapi.Filecoin.UnsignedMessage message_;
+    private filecoinapi.Filecoin.FilecoinTxInput message_;
     /**
-     * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+     * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
      */
     public boolean hasMessage() {
       return message_ != null;
     }
     /**
-     * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+     * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
      */
-    public filecoinapi.Filecoin.UnsignedMessage getMessage() {
-      return message_ == null ? filecoinapi.Filecoin.UnsignedMessage.getDefaultInstance() : message_;
+    public filecoinapi.Filecoin.FilecoinTxInput getMessage() {
+      return message_ == null ? filecoinapi.Filecoin.FilecoinTxInput.getDefaultInstance() : message_;
     }
     /**
-     * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+     * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
      */
-    public filecoinapi.Filecoin.UnsignedMessageOrBuilder getMessageOrBuilder() {
+    public filecoinapi.Filecoin.FilecoinTxInputOrBuilder getMessageOrBuilder() {
       return getMessage();
     }
 
@@ -3036,10 +1654,10 @@ public final class Filecoin {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof filecoinapi.Filecoin.FilecoinTxRes)) {
+      if (!(obj instanceof filecoinapi.Filecoin.FilecoinTxOutput)) {
         return super.equals(obj);
       }
-      filecoinapi.Filecoin.FilecoinTxRes other = (filecoinapi.Filecoin.FilecoinTxRes) obj;
+      filecoinapi.Filecoin.FilecoinTxOutput other = (filecoinapi.Filecoin.FilecoinTxOutput) obj;
 
       boolean result = true;
       result = result && getCid()
@@ -3079,58 +1697,58 @@ public final class Filecoin {
       return hash;
     }
 
-    public static filecoinapi.Filecoin.FilecoinTxRes parseFrom(
+    public static filecoinapi.Filecoin.FilecoinTxOutput parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static filecoinapi.Filecoin.FilecoinTxRes parseFrom(
+    public static filecoinapi.Filecoin.FilecoinTxOutput parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static filecoinapi.Filecoin.FilecoinTxRes parseFrom(byte[] data)
+    public static filecoinapi.Filecoin.FilecoinTxOutput parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static filecoinapi.Filecoin.FilecoinTxRes parseFrom(
+    public static filecoinapi.Filecoin.FilecoinTxOutput parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static filecoinapi.Filecoin.FilecoinTxRes parseFrom(java.io.InputStream input)
+    public static filecoinapi.Filecoin.FilecoinTxOutput parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static filecoinapi.Filecoin.FilecoinTxRes parseFrom(
+    public static filecoinapi.Filecoin.FilecoinTxOutput parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static filecoinapi.Filecoin.FilecoinTxRes parseDelimitedFrom(java.io.InputStream input)
+    public static filecoinapi.Filecoin.FilecoinTxOutput parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static filecoinapi.Filecoin.FilecoinTxRes parseDelimitedFrom(
+    public static filecoinapi.Filecoin.FilecoinTxOutput parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static filecoinapi.Filecoin.FilecoinTxRes parseFrom(
+    public static filecoinapi.Filecoin.FilecoinTxOutput parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static filecoinapi.Filecoin.FilecoinTxRes parseFrom(
+    public static filecoinapi.Filecoin.FilecoinTxOutput parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3142,7 +1760,7 @@ public final class Filecoin {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(filecoinapi.Filecoin.FilecoinTxRes prototype) {
+    public static Builder newBuilder(filecoinapi.Filecoin.FilecoinTxOutput prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -3157,25 +1775,25 @@ public final class Filecoin {
       return builder;
     }
     /**
-     * Protobuf type {@code filecoinapi.FilecoinTxRes}
+     * Protobuf type {@code filecoinapi.FilecoinTxOutput}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:filecoinapi.FilecoinTxRes)
-        filecoinapi.Filecoin.FilecoinTxResOrBuilder {
+        // @@protoc_insertion_point(builder_implements:filecoinapi.FilecoinTxOutput)
+        filecoinapi.Filecoin.FilecoinTxOutputOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxRes_descriptor;
+        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxOutput_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxRes_fieldAccessorTable
+        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxOutput_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                filecoinapi.Filecoin.FilecoinTxRes.class, filecoinapi.Filecoin.FilecoinTxRes.Builder.class);
+                filecoinapi.Filecoin.FilecoinTxOutput.class, filecoinapi.Filecoin.FilecoinTxOutput.Builder.class);
       }
 
-      // Construct using filecoinapi.Filecoin.FilecoinTxRes.newBuilder()
+      // Construct using filecoinapi.Filecoin.FilecoinTxOutput.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -3211,23 +1829,23 @@ public final class Filecoin {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxRes_descriptor;
+        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinTxOutput_descriptor;
       }
 
-      public filecoinapi.Filecoin.FilecoinTxRes getDefaultInstanceForType() {
-        return filecoinapi.Filecoin.FilecoinTxRes.getDefaultInstance();
+      public filecoinapi.Filecoin.FilecoinTxOutput getDefaultInstanceForType() {
+        return filecoinapi.Filecoin.FilecoinTxOutput.getDefaultInstance();
       }
 
-      public filecoinapi.Filecoin.FilecoinTxRes build() {
-        filecoinapi.Filecoin.FilecoinTxRes result = buildPartial();
+      public filecoinapi.Filecoin.FilecoinTxOutput build() {
+        filecoinapi.Filecoin.FilecoinTxOutput result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public filecoinapi.Filecoin.FilecoinTxRes buildPartial() {
-        filecoinapi.Filecoin.FilecoinTxRes result = new filecoinapi.Filecoin.FilecoinTxRes(this);
+      public filecoinapi.Filecoin.FilecoinTxOutput buildPartial() {
+        filecoinapi.Filecoin.FilecoinTxOutput result = new filecoinapi.Filecoin.FilecoinTxOutput(this);
         result.cid_ = cid_;
         if (messageBuilder_ == null) {
           result.message_ = message_;
@@ -3270,16 +1888,16 @@ public final class Filecoin {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof filecoinapi.Filecoin.FilecoinTxRes) {
-          return mergeFrom((filecoinapi.Filecoin.FilecoinTxRes)other);
+        if (other instanceof filecoinapi.Filecoin.FilecoinTxOutput) {
+          return mergeFrom((filecoinapi.Filecoin.FilecoinTxOutput)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(filecoinapi.Filecoin.FilecoinTxRes other) {
-        if (other == filecoinapi.Filecoin.FilecoinTxRes.getDefaultInstance()) return this;
+      public Builder mergeFrom(filecoinapi.Filecoin.FilecoinTxOutput other) {
+        if (other == filecoinapi.Filecoin.FilecoinTxOutput.getDefaultInstance()) return this;
         if (!other.getCid().isEmpty()) {
           cid_ = other.cid_;
           onChanged();
@@ -3302,11 +1920,11 @@ public final class Filecoin {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        filecoinapi.Filecoin.FilecoinTxRes parsedMessage = null;
+        filecoinapi.Filecoin.FilecoinTxOutput parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (filecoinapi.Filecoin.FilecoinTxRes) e.getUnfinishedMessage();
+          parsedMessage = (filecoinapi.Filecoin.FilecoinTxOutput) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3385,29 +2003,29 @@ public final class Filecoin {
         return this;
       }
 
-      private filecoinapi.Filecoin.UnsignedMessage message_ = null;
+      private filecoinapi.Filecoin.FilecoinTxInput message_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
-          filecoinapi.Filecoin.UnsignedMessage, filecoinapi.Filecoin.UnsignedMessage.Builder, filecoinapi.Filecoin.UnsignedMessageOrBuilder> messageBuilder_;
+          filecoinapi.Filecoin.FilecoinTxInput, filecoinapi.Filecoin.FilecoinTxInput.Builder, filecoinapi.Filecoin.FilecoinTxInputOrBuilder> messageBuilder_;
       /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+       * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
        */
       public boolean hasMessage() {
         return messageBuilder_ != null || message_ != null;
       }
       /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+       * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
        */
-      public filecoinapi.Filecoin.UnsignedMessage getMessage() {
+      public filecoinapi.Filecoin.FilecoinTxInput getMessage() {
         if (messageBuilder_ == null) {
-          return message_ == null ? filecoinapi.Filecoin.UnsignedMessage.getDefaultInstance() : message_;
+          return message_ == null ? filecoinapi.Filecoin.FilecoinTxInput.getDefaultInstance() : message_;
         } else {
           return messageBuilder_.getMessage();
         }
       }
       /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+       * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
        */
-      public Builder setMessage(filecoinapi.Filecoin.UnsignedMessage value) {
+      public Builder setMessage(filecoinapi.Filecoin.FilecoinTxInput value) {
         if (messageBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3421,10 +2039,10 @@ public final class Filecoin {
         return this;
       }
       /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+       * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
        */
       public Builder setMessage(
-          filecoinapi.Filecoin.UnsignedMessage.Builder builderForValue) {
+          filecoinapi.Filecoin.FilecoinTxInput.Builder builderForValue) {
         if (messageBuilder_ == null) {
           message_ = builderForValue.build();
           onChanged();
@@ -3435,13 +2053,13 @@ public final class Filecoin {
         return this;
       }
       /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+       * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
        */
-      public Builder mergeMessage(filecoinapi.Filecoin.UnsignedMessage value) {
+      public Builder mergeMessage(filecoinapi.Filecoin.FilecoinTxInput value) {
         if (messageBuilder_ == null) {
           if (message_ != null) {
             message_ =
-              filecoinapi.Filecoin.UnsignedMessage.newBuilder(message_).mergeFrom(value).buildPartial();
+              filecoinapi.Filecoin.FilecoinTxInput.newBuilder(message_).mergeFrom(value).buildPartial();
           } else {
             message_ = value;
           }
@@ -3453,7 +2071,7 @@ public final class Filecoin {
         return this;
       }
       /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+       * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
        */
       public Builder clearMessage() {
         if (messageBuilder_ == null) {
@@ -3467,33 +2085,33 @@ public final class Filecoin {
         return this;
       }
       /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+       * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
        */
-      public filecoinapi.Filecoin.UnsignedMessage.Builder getMessageBuilder() {
+      public filecoinapi.Filecoin.FilecoinTxInput.Builder getMessageBuilder() {
         
         onChanged();
         return getMessageFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+       * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
        */
-      public filecoinapi.Filecoin.UnsignedMessageOrBuilder getMessageOrBuilder() {
+      public filecoinapi.Filecoin.FilecoinTxInputOrBuilder getMessageOrBuilder() {
         if (messageBuilder_ != null) {
           return messageBuilder_.getMessageOrBuilder();
         } else {
           return message_ == null ?
-              filecoinapi.Filecoin.UnsignedMessage.getDefaultInstance() : message_;
+              filecoinapi.Filecoin.FilecoinTxInput.getDefaultInstance() : message_;
         }
       }
       /**
-       * <code>optional .filecoinapi.UnsignedMessage message = 2;</code>
+       * <code>optional .filecoinapi.FilecoinTxInput message = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          filecoinapi.Filecoin.UnsignedMessage, filecoinapi.Filecoin.UnsignedMessage.Builder, filecoinapi.Filecoin.UnsignedMessageOrBuilder> 
+          filecoinapi.Filecoin.FilecoinTxInput, filecoinapi.Filecoin.FilecoinTxInput.Builder, filecoinapi.Filecoin.FilecoinTxInputOrBuilder> 
           getMessageFieldBuilder() {
         if (messageBuilder_ == null) {
           messageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              filecoinapi.Filecoin.UnsignedMessage, filecoinapi.Filecoin.UnsignedMessage.Builder, filecoinapi.Filecoin.UnsignedMessageOrBuilder>(
+              filecoinapi.Filecoin.FilecoinTxInput, filecoinapi.Filecoin.FilecoinTxInput.Builder, filecoinapi.Filecoin.FilecoinTxInputOrBuilder>(
                   getMessage(),
                   getParentForChildren(),
                   isClean());
@@ -3629,39 +2247,39 @@ public final class Filecoin {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:filecoinapi.FilecoinTxRes)
+      // @@protoc_insertion_point(builder_scope:filecoinapi.FilecoinTxOutput)
     }
 
-    // @@protoc_insertion_point(class_scope:filecoinapi.FilecoinTxRes)
-    private static final filecoinapi.Filecoin.FilecoinTxRes DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:filecoinapi.FilecoinTxOutput)
+    private static final filecoinapi.Filecoin.FilecoinTxOutput DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new filecoinapi.Filecoin.FilecoinTxRes();
+      DEFAULT_INSTANCE = new filecoinapi.Filecoin.FilecoinTxOutput();
     }
 
-    public static filecoinapi.Filecoin.FilecoinTxRes getDefaultInstance() {
+    public static filecoinapi.Filecoin.FilecoinTxOutput getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<FilecoinTxRes>
-        PARSER = new com.google.protobuf.AbstractParser<FilecoinTxRes>() {
-      public FilecoinTxRes parsePartialFrom(
+    private static final com.google.protobuf.Parser<FilecoinTxOutput>
+        PARSER = new com.google.protobuf.AbstractParser<FilecoinTxOutput>() {
+      public FilecoinTxOutput parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new FilecoinTxRes(input, extensionRegistry);
+          return new FilecoinTxOutput(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<FilecoinTxRes> parser() {
+    public static com.google.protobuf.Parser<FilecoinTxOutput> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<FilecoinTxRes> getParserForType() {
+    public com.google.protobuf.Parser<FilecoinTxOutput> getParserForType() {
       return PARSER;
     }
 
-    public filecoinapi.Filecoin.FilecoinTxRes getDefaultInstanceForType() {
+    public filecoinapi.Filecoin.FilecoinTxOutput getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4233,1179 +2851,21 @@ public final class Filecoin {
 
   }
 
-  public interface FilecoinAddressReqOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:filecoinapi.FilecoinAddressReq)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string network = 1;</code>
-     */
-    java.lang.String getNetwork();
-    /**
-     * <code>optional string network = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getNetworkBytes();
-
-    /**
-     * <code>optional string path = 2;</code>
-     */
-    java.lang.String getPath();
-    /**
-     * <code>optional string path = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getPathBytes();
-  }
-  /**
-   * Protobuf type {@code filecoinapi.FilecoinAddressReq}
-   */
-  public  static final class FilecoinAddressReq extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:filecoinapi.FilecoinAddressReq)
-      FilecoinAddressReqOrBuilder {
-    // Use FilecoinAddressReq.newBuilder() to construct.
-    private FilecoinAddressReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private FilecoinAddressReq() {
-      network_ = "";
-      path_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private FilecoinAddressReq(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              network_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              path_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinAddressReq_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinAddressReq_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              filecoinapi.Filecoin.FilecoinAddressReq.class, filecoinapi.Filecoin.FilecoinAddressReq.Builder.class);
-    }
-
-    public static final int NETWORK_FIELD_NUMBER = 1;
-    private volatile java.lang.Object network_;
-    /**
-     * <code>optional string network = 1;</code>
-     */
-    public java.lang.String getNetwork() {
-      java.lang.Object ref = network_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        network_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string network = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNetworkBytes() {
-      java.lang.Object ref = network_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        network_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PATH_FIELD_NUMBER = 2;
-    private volatile java.lang.Object path_;
-    /**
-     * <code>optional string path = 2;</code>
-     */
-    public java.lang.String getPath() {
-      java.lang.Object ref = path_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        path_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string path = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getPathBytes() {
-      java.lang.Object ref = path_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        path_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getNetworkBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, network_);
-      }
-      if (!getPathBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, path_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getNetworkBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, network_);
-      }
-      if (!getPathBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, path_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof filecoinapi.Filecoin.FilecoinAddressReq)) {
-        return super.equals(obj);
-      }
-      filecoinapi.Filecoin.FilecoinAddressReq other = (filecoinapi.Filecoin.FilecoinAddressReq) obj;
-
-      boolean result = true;
-      result = result && getNetwork()
-          .equals(other.getNetwork());
-      result = result && getPath()
-          .equals(other.getPath());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + NETWORK_FIELD_NUMBER;
-      hash = (53 * hash) + getNetwork().hashCode();
-      hash = (37 * hash) + PATH_FIELD_NUMBER;
-      hash = (53 * hash) + getPath().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static filecoinapi.Filecoin.FilecoinAddressReq parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressReq parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressReq parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressReq parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressReq parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressReq parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressReq parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressReq parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressReq parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressReq parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(filecoinapi.Filecoin.FilecoinAddressReq prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code filecoinapi.FilecoinAddressReq}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:filecoinapi.FilecoinAddressReq)
-        filecoinapi.Filecoin.FilecoinAddressReqOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinAddressReq_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinAddressReq_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                filecoinapi.Filecoin.FilecoinAddressReq.class, filecoinapi.Filecoin.FilecoinAddressReq.Builder.class);
-      }
-
-      // Construct using filecoinapi.Filecoin.FilecoinAddressReq.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        network_ = "";
-
-        path_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinAddressReq_descriptor;
-      }
-
-      public filecoinapi.Filecoin.FilecoinAddressReq getDefaultInstanceForType() {
-        return filecoinapi.Filecoin.FilecoinAddressReq.getDefaultInstance();
-      }
-
-      public filecoinapi.Filecoin.FilecoinAddressReq build() {
-        filecoinapi.Filecoin.FilecoinAddressReq result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public filecoinapi.Filecoin.FilecoinAddressReq buildPartial() {
-        filecoinapi.Filecoin.FilecoinAddressReq result = new filecoinapi.Filecoin.FilecoinAddressReq(this);
-        result.network_ = network_;
-        result.path_ = path_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof filecoinapi.Filecoin.FilecoinAddressReq) {
-          return mergeFrom((filecoinapi.Filecoin.FilecoinAddressReq)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(filecoinapi.Filecoin.FilecoinAddressReq other) {
-        if (other == filecoinapi.Filecoin.FilecoinAddressReq.getDefaultInstance()) return this;
-        if (!other.getNetwork().isEmpty()) {
-          network_ = other.network_;
-          onChanged();
-        }
-        if (!other.getPath().isEmpty()) {
-          path_ = other.path_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        filecoinapi.Filecoin.FilecoinAddressReq parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (filecoinapi.Filecoin.FilecoinAddressReq) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object network_ = "";
-      /**
-       * <code>optional string network = 1;</code>
-       */
-      public java.lang.String getNetwork() {
-        java.lang.Object ref = network_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          network_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string network = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNetworkBytes() {
-        java.lang.Object ref = network_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          network_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string network = 1;</code>
-       */
-      public Builder setNetwork(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        network_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string network = 1;</code>
-       */
-      public Builder clearNetwork() {
-        
-        network_ = getDefaultInstance().getNetwork();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string network = 1;</code>
-       */
-      public Builder setNetworkBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        network_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object path_ = "";
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public java.lang.String getPath() {
-        java.lang.Object ref = path_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          path_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPathBytes() {
-        java.lang.Object ref = path_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          path_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public Builder setPath(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        path_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public Builder clearPath() {
-        
-        path_ = getDefaultInstance().getPath();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public Builder setPathBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        path_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:filecoinapi.FilecoinAddressReq)
-    }
-
-    // @@protoc_insertion_point(class_scope:filecoinapi.FilecoinAddressReq)
-    private static final filecoinapi.Filecoin.FilecoinAddressReq DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new filecoinapi.Filecoin.FilecoinAddressReq();
-    }
-
-    public static filecoinapi.Filecoin.FilecoinAddressReq getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<FilecoinAddressReq>
-        PARSER = new com.google.protobuf.AbstractParser<FilecoinAddressReq>() {
-      public FilecoinAddressReq parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new FilecoinAddressReq(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<FilecoinAddressReq> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FilecoinAddressReq> getParserForType() {
-      return PARSER;
-    }
-
-    public filecoinapi.Filecoin.FilecoinAddressReq getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface FilecoinAddressResOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:filecoinapi.FilecoinAddressRes)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string address = 1;</code>
-     */
-    java.lang.String getAddress();
-    /**
-     * <code>optional string address = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getAddressBytes();
-  }
-  /**
-   * Protobuf type {@code filecoinapi.FilecoinAddressRes}
-   */
-  public  static final class FilecoinAddressRes extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:filecoinapi.FilecoinAddressRes)
-      FilecoinAddressResOrBuilder {
-    // Use FilecoinAddressRes.newBuilder() to construct.
-    private FilecoinAddressRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private FilecoinAddressRes() {
-      address_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private FilecoinAddressRes(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              address_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinAddressRes_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinAddressRes_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              filecoinapi.Filecoin.FilecoinAddressRes.class, filecoinapi.Filecoin.FilecoinAddressRes.Builder.class);
-    }
-
-    public static final int ADDRESS_FIELD_NUMBER = 1;
-    private volatile java.lang.Object address_;
-    /**
-     * <code>optional string address = 1;</code>
-     */
-    public java.lang.String getAddress() {
-      java.lang.Object ref = address_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        address_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string address = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getAddressBytes() {
-      java.lang.Object ref = address_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        address_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getAddressBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, address_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getAddressBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, address_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof filecoinapi.Filecoin.FilecoinAddressRes)) {
-        return super.equals(obj);
-      }
-      filecoinapi.Filecoin.FilecoinAddressRes other = (filecoinapi.Filecoin.FilecoinAddressRes) obj;
-
-      boolean result = true;
-      result = result && getAddress()
-          .equals(other.getAddress());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
-      hash = (53 * hash) + getAddress().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static filecoinapi.Filecoin.FilecoinAddressRes parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressRes parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressRes parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressRes parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressRes parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressRes parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressRes parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressRes parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressRes parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static filecoinapi.Filecoin.FilecoinAddressRes parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(filecoinapi.Filecoin.FilecoinAddressRes prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code filecoinapi.FilecoinAddressRes}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:filecoinapi.FilecoinAddressRes)
-        filecoinapi.Filecoin.FilecoinAddressResOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinAddressRes_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinAddressRes_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                filecoinapi.Filecoin.FilecoinAddressRes.class, filecoinapi.Filecoin.FilecoinAddressRes.Builder.class);
-      }
-
-      // Construct using filecoinapi.Filecoin.FilecoinAddressRes.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        address_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return filecoinapi.Filecoin.internal_static_filecoinapi_FilecoinAddressRes_descriptor;
-      }
-
-      public filecoinapi.Filecoin.FilecoinAddressRes getDefaultInstanceForType() {
-        return filecoinapi.Filecoin.FilecoinAddressRes.getDefaultInstance();
-      }
-
-      public filecoinapi.Filecoin.FilecoinAddressRes build() {
-        filecoinapi.Filecoin.FilecoinAddressRes result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public filecoinapi.Filecoin.FilecoinAddressRes buildPartial() {
-        filecoinapi.Filecoin.FilecoinAddressRes result = new filecoinapi.Filecoin.FilecoinAddressRes(this);
-        result.address_ = address_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof filecoinapi.Filecoin.FilecoinAddressRes) {
-          return mergeFrom((filecoinapi.Filecoin.FilecoinAddressRes)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(filecoinapi.Filecoin.FilecoinAddressRes other) {
-        if (other == filecoinapi.Filecoin.FilecoinAddressRes.getDefaultInstance()) return this;
-        if (!other.getAddress().isEmpty()) {
-          address_ = other.address_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        filecoinapi.Filecoin.FilecoinAddressRes parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (filecoinapi.Filecoin.FilecoinAddressRes) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object address_ = "";
-      /**
-       * <code>optional string address = 1;</code>
-       */
-      public java.lang.String getAddress() {
-        java.lang.Object ref = address_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          address_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string address = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getAddressBytes() {
-        java.lang.Object ref = address_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          address_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string address = 1;</code>
-       */
-      public Builder setAddress(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        address_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string address = 1;</code>
-       */
-      public Builder clearAddress() {
-        
-        address_ = getDefaultInstance().getAddress();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string address = 1;</code>
-       */
-      public Builder setAddressBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        address_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:filecoinapi.FilecoinAddressRes)
-    }
-
-    // @@protoc_insertion_point(class_scope:filecoinapi.FilecoinAddressRes)
-    private static final filecoinapi.Filecoin.FilecoinAddressRes DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new filecoinapi.Filecoin.FilecoinAddressRes();
-    }
-
-    public static filecoinapi.Filecoin.FilecoinAddressRes getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<FilecoinAddressRes>
-        PARSER = new com.google.protobuf.AbstractParser<FilecoinAddressRes>() {
-      public FilecoinAddressRes parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new FilecoinAddressRes(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<FilecoinAddressRes> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FilecoinAddressRes> getParserForType() {
-      return PARSER;
-    }
-
-    public filecoinapi.Filecoin.FilecoinAddressRes getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_filecoinapi_FilecoinTxReq_descriptor;
+    internal_static_filecoinapi_FilecoinTxInput_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_filecoinapi_FilecoinTxReq_fieldAccessorTable;
+      internal_static_filecoinapi_FilecoinTxInput_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_filecoinapi_UnsignedMessage_descriptor;
+    internal_static_filecoinapi_FilecoinTxOutput_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_filecoinapi_UnsignedMessage_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_filecoinapi_FilecoinTxRes_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_filecoinapi_FilecoinTxRes_fieldAccessorTable;
+      internal_static_filecoinapi_FilecoinTxOutput_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_filecoinapi_Signature_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_filecoinapi_Signature_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_filecoinapi_FilecoinAddressReq_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_filecoinapi_FilecoinAddressReq_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_filecoinapi_FilecoinAddressRes_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_filecoinapi_FilecoinAddressRes_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -5415,22 +2875,16 @@ public final class Filecoin {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016filecoin.proto\022\013filecoinapi\"\245\001\n\rFileco" +
-      "inTxReq\022-\n\007message\030\001 \001(\0132\034.filecoinapi.U" +
-      "nsignedMessage\022\014\n\004path\030\002 \001(\t\022\017\n\007network\030" +
-      "\003 \001(\t\022\023\n\013payment_dis\030\004 \001(\t\022\016\n\006to_dis\030\005 \001" +
-      "(\t\022\020\n\010from_dis\030\006 \001(\t\022\017\n\007fee_dis\030\007 \001(\t\"\242\001" +
-      "\n\017UnsignedMessage\022\n\n\002to\030\001 \001(\t\022\014\n\004from\030\002 " +
-      "\001(\t\022\r\n\005nonce\030\003 \001(\004\022\r\n\005value\030\004 \001(\t\022\020\n\010gas" +
-      "Limit\030\005 \001(\003\022\021\n\tgasFeeCap\030\006 \001(\t\022\022\n\ngasPre" +
-      "mium\030\007 \001(\t\022\016\n\006method\030\010 \001(\004\022\016\n\006params\030\t \001" +
-      "(\t\"v\n\rFilecoinTxRes\022\013\n\003cid\030\001 \001(\t\022-\n\007mess",
-      "age\030\002 \001(\0132\034.filecoinapi.UnsignedMessage\022" +
-      ")\n\tsignature\030\003 \001(\0132\026.filecoinapi.Signatu" +
-      "re\"\'\n\tSignature\022\014\n\004type\030\001 \001(\r\022\014\n\004data\030\002 " +
-      "\001(\t\"3\n\022FilecoinAddressReq\022\017\n\007network\030\001 \001" +
-      "(\t\022\014\n\004path\030\002 \001(\t\"%\n\022FilecoinAddressRes\022\017" +
-      "\n\007address\030\001 \001(\tb\006proto3"
+      "\n\016filecoin.proto\022\013filecoinapi\"\242\001\n\017Fileco" +
+      "inTxInput\022\n\n\002to\030\001 \001(\t\022\014\n\004from\030\002 \001(\t\022\r\n\005n" +
+      "once\030\003 \001(\004\022\r\n\005value\030\004 \001(\t\022\020\n\010gasLimit\030\005 " +
+      "\001(\003\022\021\n\tgasFeeCap\030\006 \001(\t\022\022\n\ngasPremium\030\007 \001" +
+      "(\t\022\016\n\006method\030\010 \001(\004\022\016\n\006params\030\t \001(\t\"y\n\020Fi" +
+      "lecoinTxOutput\022\013\n\003cid\030\001 \001(\t\022-\n\007message\030\002" +
+      " \001(\0132\034.filecoinapi.FilecoinTxInput\022)\n\tsi" +
+      "gnature\030\003 \001(\0132\026.filecoinapi.Signature\"\'\n" +
+      "\tSignature\022\014\n\004type\030\001 \001(\r\022\014\n\004data\030\002 \001(\tb\006" +
+      "proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5444,42 +2898,24 @@ public final class Filecoin {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_filecoinapi_FilecoinTxReq_descriptor =
+    internal_static_filecoinapi_FilecoinTxInput_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_filecoinapi_FilecoinTxReq_fieldAccessorTable = new
+    internal_static_filecoinapi_FilecoinTxInput_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_filecoinapi_FilecoinTxReq_descriptor,
-        new java.lang.String[] { "Message", "Path", "Network", "PaymentDis", "ToDis", "FromDis", "FeeDis", });
-    internal_static_filecoinapi_UnsignedMessage_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_filecoinapi_UnsignedMessage_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_filecoinapi_UnsignedMessage_descriptor,
+        internal_static_filecoinapi_FilecoinTxInput_descriptor,
         new java.lang.String[] { "To", "From", "Nonce", "Value", "GasLimit", "GasFeeCap", "GasPremium", "Method", "Params", });
-    internal_static_filecoinapi_FilecoinTxRes_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_filecoinapi_FilecoinTxRes_fieldAccessorTable = new
+    internal_static_filecoinapi_FilecoinTxOutput_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_filecoinapi_FilecoinTxOutput_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_filecoinapi_FilecoinTxRes_descriptor,
+        internal_static_filecoinapi_FilecoinTxOutput_descriptor,
         new java.lang.String[] { "Cid", "Message", "Signature", });
     internal_static_filecoinapi_Signature_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_filecoinapi_Signature_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_filecoinapi_Signature_descriptor,
         new java.lang.String[] { "Type", "Data", });
-    internal_static_filecoinapi_FilecoinAddressReq_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_filecoinapi_FilecoinAddressReq_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_filecoinapi_FilecoinAddressReq_descriptor,
-        new java.lang.String[] { "Network", "Path", });
-    internal_static_filecoinapi_FilecoinAddressRes_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_filecoinapi_FilecoinAddressRes_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_filecoinapi_FilecoinAddressRes_descriptor,
-        new java.lang.String[] { "Address", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -472,7 +472,7 @@ mod tests {
         );
         assert_eq!(
             Apdu::select_applet("695F66696C65636F696E"),
-            String::from("00a4040005695f696d6b00")
+            String::from("00a404000a695f66696c65636f696e00")
         );
     }
 
