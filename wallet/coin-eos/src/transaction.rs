@@ -252,9 +252,9 @@ impl EosTransaction {
 
 #[cfg(test)]
 mod tests {
-    use crate::eosapi::{EosMessageSignReq, EosSignData, EosTxReq};
+    use crate::eosapi::{EosSignData, EosTxInput, EosMessageInput};
     use crate::transaction::EosTransaction;
-    use common::constants;
+    use common::{constants, SignParam};
     use device::device_binding::bind_test;
 
     #[test]
@@ -262,20 +262,28 @@ mod tests {
         bind_test();
 
         let eos_sign_data = EosSignData{
-            tx_data: "c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00".to_string(),
-            pub_keys: vec!["EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string()],
+            tx_hex: "c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00".to_string(),
             chain_id: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906".to_string(),
             receiver: "bbbb5555bbbb".to_string(),
             sender: "liujianmin12".to_string(),
-            payment: "undelegatebw 0.0100 EOS".to_string()
+            payment: "undelegatebw 0.0100 EOS".to_string(),
+            public_keys: vec!["EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string()]
         };
-
-        let eox_tx_input = EosTxReq {
+        let eox_tx_input = EosTxInput {
+            transactions: vec![eos_sign_data],
+        };
+        let sign_param = SignParam{
+            chain_type: "EOS".to_string(),
             path: constants::EOS_PATH.to_string(),
-            sign_datas: vec![eos_sign_data],
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
+            sender: "".to_string(),
+            fee: "".to_string()
         };
 
-        let result = EosTransaction::sign_tx(eox_tx_input).unwrap();
+        let result = EosTransaction::sign_tx(eox_tx_input,&sign_param).unwrap();
         assert_eq!(
             result.trans_multi_signs[0].hash,
             "6af5b3ae9871c25e2de195168ed7423f455a68330955701e327f02276bb34088"
@@ -287,20 +295,28 @@ mod tests {
         bind_test();
 
         let eos_sign_data = EosSignData{
-            tx_data: "c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00".to_string(),
-            pub_keys: vec!["ERROR PUBKEY".to_string()],
+            tx_hex: "c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00".to_string(),
             chain_id: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906".to_string(),
-            to: "bbbb5555bbbb".to_string(),
-            from: "liujianmin12".to_string(),
-            payment: "undelegatebw 0.0100 EOS".to_string()
+            payment: "undelegatebw 0.0100 EOS".to_string(),
+            public_keys: vec!["ERROR PUBKEY".to_string()],
+            receiver: "bbbb5555bbbb".to_string(),
+            sender: "liujianmin12".to_string()
         };
-
-        let eox_tx_input = EosTxReq {
+        let eox_tx_input = EosTxInput {
+            transactions: vec![eos_sign_data],
+        };
+        let sign_param = SignParam{
+            chain_type: "EOS".to_string(),
             path: constants::EOS_PATH.to_string(),
-            sign_datas: vec![eos_sign_data],
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
+            sender: "".to_string(),
+            fee: "".to_string()
         };
 
-        let result = EosTransaction::sign_tx(eox_tx_input);
+        let result = EosTransaction::sign_tx(eox_tx_input,&sign_param);
         assert_eq!(
             format!("{}", result.err().unwrap()),
             "imkey_publickey_mismatch_with_path"
@@ -312,20 +328,28 @@ mod tests {
         bind_test();
 
         let eos_sign_data = EosSignData{
-            tx_data: "c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00".to_string(),
-            pub_keys: vec!["EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string()],
+            tx_hex: "c578065b93aec6a7c811000000000100a6823403ea3055000000572d3ccdcd01000000602a48b37400000000a8ed323225000000602a48b374208410425c95b1ca80969800000000000453595300000000046d656d6f00".to_string(),
             chain_id: "".to_string(),
-            to: "bbbb5555bbbb".to_string(),
-            from: "liujianmin12".to_string(),
-            payment: "undelegatebw 0.0100 EOS".to_string()
+            payment: "undelegatebw 0.0100 EOS".to_string(),
+            public_keys: vec!["EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string()],
+            receiver: "bbbb5555bbbb".to_string(),
+            sender: "liujianmin12".to_string()
         };
-
-        let eox_tx_input = EosTxReq {
+        let eox_tx_input = EosTxInput {
+            transactions: vec![eos_sign_data],
+        };
+        let sign_param = SignParam{
+            chain_type: "EOS".to_string(),
             path: constants::EOS_PATH.to_string(),
-            sign_datas: vec![eos_sign_data],
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
+            sender: "".to_string(),
+            fee: "".to_string()
         };
 
-        let result = EosTransaction::sign_tx(eox_tx_input).unwrap();
+        let result = EosTransaction::sign_tx(eox_tx_input,&sign_param).unwrap();
         assert_eq!(
             result.trans_multi_signs[0].hash,
             "6af5b3ae9871c25e2de195168ed7423f455a68330955701e327f02276bb34088"
@@ -336,14 +360,23 @@ mod tests {
     fn test_sign_messgage() {
         bind_test();
 
-        let input = EosMessageSignReq {
-            path: constants::EOS_PATH.to_string(),
+        let input = EosMessageInput {
             data: "imKey2019".to_string(),
             is_hex: false,
             pubkey: "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string(),
         };
+        let sign_param = SignParam{
+            chain_type: "EOS".to_string(),
+            path: constants::EOS_PATH.to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
+            sender: "".to_string(),
+            fee: "".to_string()
+        };
 
-        let output = EosTransaction::sign_message(input);
+        let output = EosTransaction::sign_message(input,&sign_param);
         assert_eq!(
             output.unwrap().signature,
             "SIG_K1_K2mrf6ASTK5TCJC6kzZzyQm9uRZm7Jx4fa6gsmWx2sEreokRWmnHQGTRNwKLNF6NVJtXmjmUvR96XYct1DjMJnwRZBbTYR"
@@ -354,14 +387,23 @@ mod tests {
     fn test_sign_messgage_hex() {
         bind_test();
 
-        let input = EosMessageSignReq {
-            path: constants::EOS_PATH.to_string(),
+        let input = EosMessageInput {
             data: "1122334455667788990011223344556677889900112233445566778899001122".to_string(),
             is_hex: true,
             pubkey: "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string(),
         };
+        let sign_param = SignParam{
+            chain_type: "EOS".to_string(),
+            path: constants::EOS_PATH.to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
+            sender: "".to_string(),
+            fee: "".to_string()
+        };
 
-        let output = EosTransaction::sign_message(input);
+        let output = EosTransaction::sign_message(input,&sign_param);
         assert_eq!(
             output.unwrap().signature,
             "SIG_K1_Jy1w6cs58tXkFVVBoku9uAVUuiknttFtwQEjXzpZvXY85EsBi6dU27RPf8KQRRh25jewnpdeVgqZDrj6RiYkdJk5fktZyw"
@@ -372,14 +414,23 @@ mod tests {
     fn sign_messgage_wrong_pubkey_test() {
         bind_test();
 
-        let input = EosMessageSignReq {
-            path: constants::EOS_PATH.to_string(),
+        let input = EosMessageInput {
             data: "imKey2019".to_string(),
             is_hex: false,
             pubkey: "wrong pubkey".to_string(),
         };
+        let sign_param = SignParam{
+            chain_type: "EOS".to_string(),
+            path: constants::EOS_PATH.to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
+            sender: "".to_string(),
+            fee: "".to_string()
+        };
 
-        let output = EosTransaction::sign_message(input);
+        let output = EosTransaction::sign_message(input,&sign_param);
         assert_eq!(
             format!("{}", output.err().unwrap()),
             "imkey_publickey_mismatch_with_path"
@@ -390,14 +441,23 @@ mod tests {
     fn sign_messgage_data_is_null_test() {
         bind_test();
 
-        let input = EosMessageSignReq {
-            path: constants::EOS_PATH.to_string(),
+        let input = EosMessageInput {
             data: "".to_string(),
             is_hex: false,
             pubkey: "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string(),
         };
+        let sign_param = SignParam{
+            chain_type: "EOS".to_string(),
+            path: constants::EOS_PATH.to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
+            sender: "".to_string(),
+            fee: "".to_string()
+        };
 
-        let output = EosTransaction::sign_message(input);
+        let output = EosTransaction::sign_message(input,&sign_param);
         assert_eq!(
             output.unwrap().signature,
             "SIG_K1_Kij4tk3eM3UtB5Z1Gz6B5jC9JAtPDj7PQA8kkNPAX97U7JQWePVNCUg4WGso6m91Bz8rWzFoXo3SNhehpYrmJfYtNc4dxJ"
@@ -408,14 +468,23 @@ mod tests {
     fn sign_messgage_wrong_path_test() {
         bind_test();
 
-        let input = EosMessageSignReq {
-            path: "m/44'".to_string(),
+        let input = EosMessageInput {
             data: "imKey2019".to_string(),
             is_hex: false,
             pubkey: "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string(),
         };
+        let sign_param = SignParam{
+            chain_type: "EOS".to_string(),
+            path: "m/44'".to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
+            sender: "".to_string(),
+            fee: "".to_string()
+        };
 
-        let output = EosTransaction::sign_message(input);
+        let output = EosTransaction::sign_message(input,&sign_param);
         assert_eq!(
             format!("{}", output.err().unwrap()),
             "imkey_command_data_error"

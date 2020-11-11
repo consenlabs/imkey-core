@@ -348,7 +348,7 @@ mod tests {
             .sign(Some(28), &path, &payment, &receiver, &sender, &fee)
             .unwrap();
         assert_eq!(
-            tx_result.tx_data,
+            tx_result.signature,
             "f867088504a817c8088302e248943535353535353535353535353535353535353535820200805ba03aa62abb45b77418caf139dda0179aea802c99967b3d690b87d586a87bc805afa02b5ce94f40dc865ca63403e0e5e723e1523884f001573677cd8cec11c7ca332f".to_string()
         );
         assert_eq!(
@@ -466,23 +466,42 @@ mod tests {
     fn test_sign_personal_message() {
         bind_test();
 
-        let input = EthMessageSignReq {
+        let sign_param = SignParam{
+            chain_type: "ETHEREUM".to_string(),
             path: constants::ETH_PATH.to_string(),
-            message: "Hello imKey".to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+            fee: "".to_string()
         };
-        let output = Transaction::sign_message(input).unwrap();
+        let input = EthMessageInput {
+            message: "Hello imKey".to_string(),
+            is_personal_sign: true
+        };
+        let output = Transaction::sign_message(input,&sign_param).unwrap();
         assert_eq!(
             output.signature,
             "d928f76ad80d63003c189b095078d94ae068dc2f18a5cafd97b3a630d7bc47465bd6f1e74de2e88c05b271e1c5a8b93564d9d8842c207482b20634d68f2d54e51b".to_string()
         );
 
-        let input = EthMessageSignReq {
+        let sign_param = SignParam{
+            chain_type: "ETHEREUM".to_string(),
             path: constants::ETH_PATH.to_string(),
-            message: "0x8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f".to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+            fee: "".to_string()
         };
-        let output = Transaction::sign_message(input).unwrap();
+        let input = EthMessageInput {
+            message: "0x8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f".to_string(),
+            is_personal_sign: true
+        };
+
+        let output = Transaction::sign_message(input,&sign_param).unwrap();
         assert_eq!(
             output.signature,
             "35a94616ce12ddb79f6d351c2644c0fa2f496bd152b17102a5672359f583373b6dd5d2a60f5d9909cf84e6af7dc40176179c819a7cbd9b199f4c2e868530293f1b".to_string()
@@ -493,52 +512,41 @@ mod tests {
     fn test_ec_sign() {
         bind_test();
 
-        let input = EthMessageSignReq {
+        let sign_param = SignParam{
+            chain_type: "ETHEREUM".to_string(),
             path: constants::ETH_PATH.to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
+            sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+            fee: "".to_string()
+        };
+        let input = EthMessageInput {
             message: "Hello imKey".to_string(),
-            sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+            is_personal_sign: false
         };
-        let output = Transaction::ec_sign(input).unwrap();
+        let output = Transaction::sign_message(input,&sign_param).unwrap();
         assert_eq!(
             output.signature,
             "57c976d1fa15c7e833fd340bcb3a96974060ed555369d443449ac4429c1933433afa5304d1cfcb6799403f2b97a1e83309b98fae8ad5fade62335664d90e819f1b".to_string()
         );
 
-        let input = EthMessageSignReq {
+        let sign_param = SignParam{
+            chain_type: "ETHEREUM".to_string(),
             path: constants::ETH_PATH.to_string(),
-            message: "0x8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f".to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+            fee: "".to_string()
         };
-        let output = Transaction::ec_sign(input).unwrap();
-        assert_eq!(
-            output.signature,
-            "3d8ba5e7375900476d715b479938e48a2e46e59f8e2e12673adb5e3df78a622050053ae0183f5e555e5db34ff43293de255f384709bd3fe6e00b8239c7f1a3561c".to_string()
-        );
-    }
-
-    #[test]
-    fn test_sign_message() {
-        bind_test();
-
-        let message = b"Hello imKey";
-        let output = Transaction::sign_message(
-            constants::ETH_PATH,
-            message,
-            "0x6031564e7b2F5cc33737807b2E58DaFF870B590b",
-        )
-        .unwrap();
-        assert_eq!(
-            output.signature,
-            "57c976d1fa15c7e833fd340bcb3a96974060ed555369d443449ac4429c1933433afa5304d1cfcb6799403f2b97a1e83309b98fae8ad5fade62335664d90e819f1b".to_string()
-        );
-
-        let message = hex::decode("8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f").unwrap();
-        let output = Transaction::sign_message(
-            constants::ETH_PATH,
-            &message,
-            "0x6031564e7b2F5cc33737807b2E58DaFF870B590b",
-        )
-        .unwrap();
+        let input = EthMessageInput {
+            message: "0x8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f".to_string(),
+            is_personal_sign: false
+        };
+        let output = Transaction::sign_message(input,&sign_param).unwrap();
         assert_eq!(
             output.signature,
             "3d8ba5e7375900476d715b479938e48a2e46e59f8e2e12673adb5e3df78a622050053ae0183f5e555e5db34ff43293de255f384709bd3fe6e00b8239c7f1a3561c".to_string()
@@ -587,12 +595,21 @@ mod tests {
             "imkey_address_mismatch_with_path"
         );
 
-        let input = EthMessageSignReq {
-            path: path,
-            message: "Hello imKey".to_string(),
+        let sign_param = SignParam{
+            chain_type: "ETHEREUM".to_string(),
+            path,
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+            fee: "".to_string()
         };
-        let output = Transaction::sign_message(input);
+        let input = EthMessageInput {
+            message: "Hello imKey".to_string(),
+            is_personal_sign: true
+        };
+        let output = Transaction::sign_message(input,&sign_param);
         assert_eq!(
             format!("{}", output.err().unwrap()),
             "imkey_address_mismatch_with_path"
