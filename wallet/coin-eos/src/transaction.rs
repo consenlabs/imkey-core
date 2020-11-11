@@ -252,7 +252,7 @@ impl EosTransaction {
 
 #[cfg(test)]
 mod tests {
-    use crate::eosapi::{EosSignData, EosTxInput, EosMessageInput};
+    use crate::eosapi::{EosMessageInput, EosSignData, EosTxInput};
     use crate::transaction::EosTransaction;
     use common::{constants, SignParam};
     use device::device_binding::bind_test;
@@ -272,7 +272,7 @@ mod tests {
         let eox_tx_input = EosTxInput {
             transactions: vec![eos_sign_data],
         };
-        let sign_param = SignParam{
+        let sign_param = SignParam {
             chain_type: "EOS".to_string(),
             path: constants::EOS_PATH.to_string(),
             network: "".to_string(),
@@ -280,10 +280,10 @@ mod tests {
             payment: "".to_string(),
             receiver: "".to_string(),
             sender: "".to_string(),
-            fee: "".to_string()
+            fee: "".to_string(),
         };
 
-        let result = EosTransaction::sign_tx(eox_tx_input,&sign_param).unwrap();
+        let result = EosTransaction::sign_tx(eox_tx_input, &sign_param).unwrap();
         assert_eq!(
             result.trans_multi_signs[0].hash,
             "6af5b3ae9871c25e2de195168ed7423f455a68330955701e327f02276bb34088"
@@ -305,7 +305,7 @@ mod tests {
         let eox_tx_input = EosTxInput {
             transactions: vec![eos_sign_data],
         };
-        let sign_param = SignParam{
+        let sign_param = SignParam {
             chain_type: "EOS".to_string(),
             path: constants::EOS_PATH.to_string(),
             network: "".to_string(),
@@ -313,10 +313,10 @@ mod tests {
             payment: "".to_string(),
             receiver: "".to_string(),
             sender: "".to_string(),
-            fee: "".to_string()
+            fee: "".to_string(),
         };
 
-        let result = EosTransaction::sign_tx(eox_tx_input,&sign_param);
+        let result = EosTransaction::sign_tx(eox_tx_input, &sign_param);
         assert_eq!(
             format!("{}", result.err().unwrap()),
             "imkey_publickey_mismatch_with_path"
@@ -338,7 +338,7 @@ mod tests {
         let eox_tx_input = EosTxInput {
             transactions: vec![eos_sign_data],
         };
-        let sign_param = SignParam{
+        let sign_param = SignParam {
             chain_type: "EOS".to_string(),
             path: constants::EOS_PATH.to_string(),
             network: "".to_string(),
@@ -346,10 +346,10 @@ mod tests {
             payment: "".to_string(),
             receiver: "".to_string(),
             sender: "".to_string(),
-            fee: "".to_string()
+            fee: "".to_string(),
         };
 
-        let result = EosTransaction::sign_tx(eox_tx_input,&sign_param).unwrap();
+        let result = EosTransaction::sign_tx(eox_tx_input, &sign_param).unwrap();
         assert_eq!(
             result.trans_multi_signs[0].hash,
             "6af5b3ae9871c25e2de195168ed7423f455a68330955701e327f02276bb34088"
@@ -365,7 +365,7 @@ mod tests {
             is_hex: false,
             pubkey: "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string(),
         };
-        let sign_param = SignParam{
+        let sign_param = SignParam {
             chain_type: "EOS".to_string(),
             path: constants::EOS_PATH.to_string(),
             network: "".to_string(),
@@ -373,10 +373,10 @@ mod tests {
             payment: "".to_string(),
             receiver: "".to_string(),
             sender: "".to_string(),
-            fee: "".to_string()
+            fee: "".to_string(),
         };
 
-        let output = EosTransaction::sign_message(input,&sign_param);
+        let output = EosTransaction::sign_message(input, &sign_param);
         assert_eq!(
             output.unwrap().signature,
             "SIG_K1_K2mrf6ASTK5TCJC6kzZzyQm9uRZm7Jx4fa6gsmWx2sEreokRWmnHQGTRNwKLNF6NVJtXmjmUvR96XYct1DjMJnwRZBbTYR"
@@ -392,7 +392,7 @@ mod tests {
             is_hex: true,
             pubkey: "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string(),
         };
-        let sign_param = SignParam{
+        let sign_param = SignParam {
             chain_type: "EOS".to_string(),
             path: constants::EOS_PATH.to_string(),
             network: "".to_string(),
@@ -400,10 +400,10 @@ mod tests {
             payment: "".to_string(),
             receiver: "".to_string(),
             sender: "".to_string(),
-            fee: "".to_string()
+            fee: "".to_string(),
         };
 
-        let output = EosTransaction::sign_message(input,&sign_param);
+        let output = EosTransaction::sign_message(input, &sign_param);
         assert_eq!(
             output.unwrap().signature,
             "SIG_K1_Jy1w6cs58tXkFVVBoku9uAVUuiknttFtwQEjXzpZvXY85EsBi6dU27RPf8KQRRh25jewnpdeVgqZDrj6RiYkdJk5fktZyw"
@@ -419,7 +419,7 @@ mod tests {
             is_hex: false,
             pubkey: "wrong pubkey".to_string(),
         };
-        let sign_param = SignParam{
+        let sign_param = SignParam {
             chain_type: "EOS".to_string(),
             path: constants::EOS_PATH.to_string(),
             network: "".to_string(),
@@ -427,10 +427,10 @@ mod tests {
             payment: "".to_string(),
             receiver: "".to_string(),
             sender: "".to_string(),
-            fee: "".to_string()
+            fee: "".to_string(),
         };
 
-        let output = EosTransaction::sign_message(input,&sign_param);
+        let output = EosTransaction::sign_message(input, &sign_param);
         assert_eq!(
             format!("{}", output.err().unwrap()),
             "imkey_publickey_mismatch_with_path"
@@ -446,7 +446,7 @@ mod tests {
             is_hex: false,
             pubkey: "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string(),
         };
-        let sign_param = SignParam{
+        let sign_param = SignParam {
             chain_type: "EOS".to_string(),
             path: constants::EOS_PATH.to_string(),
             network: "".to_string(),
@@ -454,10 +454,10 @@ mod tests {
             payment: "".to_string(),
             receiver: "".to_string(),
             sender: "".to_string(),
-            fee: "".to_string()
+            fee: "".to_string(),
         };
 
-        let output = EosTransaction::sign_message(input,&sign_param);
+        let output = EosTransaction::sign_message(input, &sign_param);
         assert_eq!(
             output.unwrap().signature,
             "SIG_K1_Kij4tk3eM3UtB5Z1Gz6B5jC9JAtPDj7PQA8kkNPAX97U7JQWePVNCUg4WGso6m91Bz8rWzFoXo3SNhehpYrmJfYtNc4dxJ"
@@ -473,7 +473,7 @@ mod tests {
             is_hex: false,
             pubkey: "EOS88XhiiP7Cu5TmAUJqHbyuhyYgd6sei68AU266PyetDDAtjmYWF".to_string(),
         };
-        let sign_param = SignParam{
+        let sign_param = SignParam {
             chain_type: "EOS".to_string(),
             path: "m/44'".to_string(),
             network: "".to_string(),
@@ -481,10 +481,10 @@ mod tests {
             payment: "".to_string(),
             receiver: "".to_string(),
             sender: "".to_string(),
-            fee: "".to_string()
+            fee: "".to_string(),
         };
 
-        let output = EosTransaction::sign_message(input,&sign_param);
+        let output = EosTransaction::sign_message(input, &sign_param);
         assert_eq!(
             format!("{}", output.err().unwrap()),
             "imkey_command_data_error"
