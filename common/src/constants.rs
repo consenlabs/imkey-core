@@ -1,5 +1,5 @@
 pub const VERSION: &str = "1.2.10";
-pub const URL: &str = "https://imkey.online:1000/imkey/";
+pub const URL: &str = "https://imkeyserver.com:10444/imkey";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
 pub const TSM_ACTION_APP_DOWNLOAD: &str = "/appDownload";
