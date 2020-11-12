@@ -302,6 +302,7 @@ mod tests {
     // }
 
     #[test]
+    #[ignore]
     fn call_api() {
         // let param = TcxAction {
         //     method: method.to_string(),

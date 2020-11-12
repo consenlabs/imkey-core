@@ -221,8 +221,8 @@ fn get_se_pubkey(se_pubkey_cert: String) -> Result<String> {
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn bind_test() {
     //binding device
-    let path = "/Users/joe/work/sdk_gen_key".to_string();
-    let bind_code = "YDSGQPKX".to_string();
+    let path = TEST_KEY_PATH.to_string();
+    let bind_code = TEST_BIND_CODE.to_string();
 
     // let path = "/tmp/".to_string();
     // let bind_code = "PVU3FY64".to_string();
@@ -243,16 +243,23 @@ pub fn bind_test() {
     }
 }
 
+// pub const TEST_KEY_PATH: &str = "/tmp/";
+// pub const TEST_BIND_CODE: &str = "MCYNK5AH";
+pub const TEST_KEY_PATH: &str = "/Users/joe/work/sdk_gen_key";
+pub const TEST_BIND_CODE: &str = "YDSGQPKX";
+
 #[cfg(test)]
 mod test {
-    use crate::device_binding::{auth_code_encrypt, gen_iv, DeviceManage};
+    use crate::device_binding::{
+        auth_code_encrypt, gen_iv, DeviceManage, TEST_BIND_CODE, TEST_KEY_PATH,
+    };
     use crate::device_manager::bind_display_code;
     use transport::hid_api::hid_connect;
 
     #[test]
     fn device_bind_test() {
-        let path = "/tmp/".to_string();
-        let bind_code = "MCYNK5AH".to_string();
+        let path = TEST_KEY_PATH.to_string();
+        let bind_code = TEST_BIND_CODE.to_string();
 
         assert!(hid_connect("imKey Pro").is_ok());
         let check_result = DeviceManage::bind_check(&path).unwrap();
