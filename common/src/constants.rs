@@ -1,4 +1,4 @@
-pub const VERSION: &str = "1.2.10";
+pub const VERSION: &str = "2.0.0";
 pub const URL: &str = "https://imkeyserver.com:10444/imkey";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
