@@ -54,7 +54,7 @@ fn parse_eth_argument(str: &str) -> Result<U256> {
 
 pub fn sign_eth_message(data: &[u8], sign_param: &SignParam) -> Result<Vec<u8>> {
     let input: EthMessageInput = EthMessageInput::decode(data).expect("imkey_illegal_param");
-    let signed = Transaction::sign_message(input, sign_param).unwrap();
+    let signed = Transaction::sign_message(input, sign_param)?;
     encode_message(signed)
 }
 

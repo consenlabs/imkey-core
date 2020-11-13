@@ -87,7 +87,7 @@ pub fn is_valid_hex(input: &str) -> bool {
         return false;
     }
 
-    let regex = Regex::new(r"[0-9a-fA-F]+").unwrap();
+    let regex = Regex::new(r"^[0-9a-fA-F]+$").unwrap();
     regex.is_match(value.as_ref())
 }
 
