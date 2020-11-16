@@ -29,6 +29,7 @@ pub const COSMOS_PATH: &str = "m/44'/118'/0'/0/0";
 pub const EOS_PATH: &str = "m/44'/194'/0'/0/0";
 pub const ETH_PATH: &str = "m/44'/60'/0'/0/0";
 pub const FILECOIN_PATH: &str = "m/44'/461'/0/0/0";
+pub const CKB_PATH: &str = "m/44'/309'/0'/0/0";
 
 pub const MAX_UTXO_NUMBER: usize = 252;
 pub const EACH_ROUND_NUMBER: usize = 5;
