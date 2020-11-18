@@ -6,7 +6,7 @@ use crate::api::{AddressParam, AddressResult};
 use prost::Message;
 
 pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
-    let address = EthAddress::get_address(&param.path).unwrap();
+    let address = EthAddress::get_address(&param.path)?;
     let address_message = AddressResult {
         path: param.path.to_owned(),
         chain_type: param.chain_type.to_string(),
@@ -16,7 +16,7 @@ pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
 }
 
 pub fn register_address(param: &AddressParam) -> Result<Vec<u8>> {
-    let address = EthAddress::display_address(&param.path).unwrap();
+    let address = EthAddress::display_address(&param.path)?;
     let address_message = AddressResult {
         path: param.path.to_owned(),
         chain_type: param.chain_type.to_string(),

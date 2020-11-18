@@ -20,21 +20,21 @@ use transport::message::send_apdu;
 
 pub fn select_isd() -> Result<String> {
     let res = send_apdu("00A4040000".to_string())?;
-    ApduCheck::checke_response(res.as_str())?;
+    ApduCheck::check_response(res.as_str())?;
     Ok(res)
 }
 
 pub fn get_se_id() -> Result<String> {
     select_isd();
     let res = send_apdu("80CB800005DFFF028101".to_string())?;
-    ApduCheck::checke_response(res.as_str())?;
+    ApduCheck::check_response(res.as_str())?;
     Ok(String::from(&res[0..res.len() - 4]))
 }
 
 pub fn get_sn() -> Result<String> {
     select_isd();
     let res = send_apdu("80CA004400".to_string())?;
-    ApduCheck::checke_response(res.as_str())?;
+    ApduCheck::check_response(res.as_str())?;
     let hex_decode = hex::decode(String::from(&res[0..res.len() - 4]));
     match hex_decode {
         Ok(sn) => Ok(String::from_utf8(sn).unwrap()),
@@ -44,7 +44,7 @@ pub fn get_sn() -> Result<String> {
 
 pub fn get_ram_size() -> Result<String> {
     let res = send_apdu("80CB800005DFFF02814600".to_string())?;
-    ApduCheck::checke_response(res.as_str())?;
+    ApduCheck::check_response(res.as_str())?;
     let hex_ram_size: String = res[4..8].to_string();
     let ram_size = i64::from_str_radix(&hex_ram_size, 16)?;
     Ok(ram_size.to_string())
@@ -53,7 +53,7 @@ pub fn get_ram_size() -> Result<String> {
 pub fn get_firmware_version() -> Result<String> {
     select_isd();
     let res = send_apdu("80CB800005DFFF02800300".to_string())?;
-    ApduCheck::checke_response(res.as_str())?;
+    ApduCheck::check_response(res.as_str())?;
     let firmware_version = format!(
         "{}.{}.{}",
         res[0..1].to_string(),
@@ -66,7 +66,7 @@ pub fn get_firmware_version() -> Result<String> {
 pub fn get_battery_power() -> Result<String> {
     select_isd();
     let res = send_apdu("00D6FEED01".to_string())?;
-    ApduCheck::checke_response(res.as_str())?;
+    ApduCheck::check_response(res.as_str())?;
     let hex_power: String = res[0..res.len() - 4].to_string();
     let charging_flag = "FF";
     let power = match &hex_power == charging_flag {
@@ -78,7 +78,7 @@ pub fn get_battery_power() -> Result<String> {
 
 pub fn get_life_time() -> Result<String> {
     let res = send_apdu("FFDCFEED00".to_string())?;
-    ApduCheck::checke_response(res.as_str())?;
+    ApduCheck::check_response(res.as_str())?;
     let hex_life_time = &res[0..res.len() - 4];
     let life_time = match hex_life_time {
         "80" => "life_time_device_inited",
@@ -120,7 +120,7 @@ pub fn get_ble_version() -> Result<String> {
 pub fn get_cert() -> Result<String> {
     select_isd();
     let res = send_apdu("80CABF2106A6048302151800".to_string())?;
-    ApduCheck::checke_response(&res)?;
+    ApduCheck::check_response(&res)?;
     Ok(res.chars().take(res.len() - 4).collect())
 }
 
@@ -202,7 +202,7 @@ pub fn cos_check_update() -> Result<ServiceResponse<CosCheckUpdateResponse>> {
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn is_bl_status() -> Result<bool> {
     let res_data = send_apdu(Apdu::select_applet(constants::BL_AID))?;
-    let check_result = ApduCheck::checke_response(res_data.as_str());
+    let check_result = ApduCheck::check_response(res_data.as_str());
     if check_result.is_err() {
         return Ok(false);
     }

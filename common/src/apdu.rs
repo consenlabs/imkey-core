@@ -418,7 +418,7 @@ impl ImkApdu {
 pub struct ApduCheck {}
 
 impl ApduCheck {
-    pub fn checke_response(response_data: &str) -> Result<()> {
+    pub fn check_response(response_data: &str) -> Result<()> {
         let response_data: &str = &response_data[response_data.len() - 4..];
         match response_data {
             "9000" => Ok(()),
@@ -754,21 +754,21 @@ mod tests {
 
     #[test]
     fn check_response_test() {
-        assert!(ApduCheck::checke_response("009000").is_ok());
-        assert!(ApduCheck::checke_response("006940").is_err());
-        assert!(ApduCheck::checke_response("006985").is_err());
-        assert!(ApduCheck::checke_response("006280").is_err());
-        assert!(ApduCheck::checke_response("006A86").is_err());
-        assert!(ApduCheck::checke_response("006E00").is_err());
-        assert!(ApduCheck::checke_response("006A80").is_err());
-        assert!(ApduCheck::checke_response("006700").is_err());
-        assert!(ApduCheck::checke_response("006942").is_err());
-        assert!(ApduCheck::checke_response("006D00").is_err());
-        assert!(ApduCheck::checke_response("006941").is_err());
-        assert!(ApduCheck::checke_response("00F000").is_err());
-        assert!(ApduCheck::checke_response("00F080").is_err());
-        assert!(ApduCheck::checke_response("00F081").is_err());
-        assert!(ApduCheck::checke_response("006F01").is_err());
-        assert!(ApduCheck::checke_response("000000").is_err());
+        assert!(ApduCheck::check_response("009000").is_ok());
+        assert!(ApduCheck::check_response("006940").is_err());
+        assert!(ApduCheck::check_response("006985").is_err());
+        assert!(ApduCheck::check_response("006280").is_err());
+        assert!(ApduCheck::check_response("006A86").is_err());
+        assert!(ApduCheck::check_response("006E00").is_err());
+        assert!(ApduCheck::check_response("006A80").is_err());
+        assert!(ApduCheck::check_response("006700").is_err());
+        assert!(ApduCheck::check_response("006942").is_err());
+        assert!(ApduCheck::check_response("006D00").is_err());
+        assert!(ApduCheck::check_response("006941").is_err());
+        assert!(ApduCheck::check_response("00F000").is_err());
+        assert!(ApduCheck::check_response("00F080").is_err());
+        assert!(ApduCheck::check_response("00F081").is_err());
+        assert!(ApduCheck::check_response("006F01").is_err());
+        assert!(ApduCheck::check_response("000000").is_err());
     }
 }

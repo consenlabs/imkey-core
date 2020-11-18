@@ -54,7 +54,7 @@ impl Transaction {
     }
 
     pub fn sign_tx(tx_input: FilecoinTxInput, sign_param: &SignParam) -> Result<FilecoinTxOutput> {
-        path::check_path_validity(&sign_param.path).unwrap();
+        path::check_path_validity(&sign_param.path)?;
 
         // let tx = tx_input.message.unwrap();
         let unsigned_message = Self::convert_message(&tx_input)?;
@@ -108,7 +108,7 @@ impl Transaction {
         let sign_apdus = Secp256k1Apdu::sign(&apdu_pack);
         for apdu in sign_apdus {
             sign_response = send_apdu_timeout(apdu, constants::TIMEOUT_LONG)?;
-            ApduCheck::checke_response(&sign_response)?;
+            ApduCheck::check_response(&sign_response)?;
         }
 
         // verify
@@ -127,9 +127,9 @@ impl Transaction {
         let sign_compact = &sign_response[2..130];
         let sign_compact_vec = hex_to_bytes(sign_compact).unwrap();
 
-        let mut signnture_obj = SecpSignature::from_compact(sign_compact_vec.as_slice()).unwrap();
-        signnture_obj.normalize_s();
-        let normalizes_sig_vec = signnture_obj.serialize_compact();
+        let mut signature_obj = SecpSignature::from_compact(sign_compact_vec.as_slice()).unwrap();
+        signature_obj.normalize_s();
+        let normalizes_sig_vec = signature_obj.serialize_compact();
 
         let rec_id = utility::retrieve_recid(&data, &normalizes_sig_vec, &pubkey_raw).unwrap();
 
