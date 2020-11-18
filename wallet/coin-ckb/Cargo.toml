@@ -7,3 +7,10 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+common = {path = "../../common"}
+device = {path = "../../device"}
+transport = {path = "../../transport"}
+blake2b-rs = "0.1.5"
+failure = "0.1.6"
+bech32 = "0.7.1"
+hex = "0.3.2"

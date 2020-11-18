@@ -1,22 +1,42 @@
+use crate::hash::blake2b_160;
+use crate::Result;
+use bech32::ToBase32;
+use common::path::check_path_validity;
+use common::apdu::{Apdu, ApduCheck, Secp256k1Apdu};
+use transport::message::send_apdu;
+use common::utility::{secp256k1_sign, secp256k1_sign_verify, uncompress_pubkey_2_compress};
+use common::error::CoinError;
+use device::device_binding::KEY_MANAGER;
+use common::constants::FILECOIN_AID;
+use common::constants;
+
 pub struct CkbAddress {}
 
 impl CkbAddress {
-    pub fn from_public_key(pubkey: &[u8]) -> Result<String> {
-        let pubkey_hash = keccak(pubkey[1..].as_ref());
-        let address = [vec![0x41], pubkey_hash[12..].to_vec()].concat();
-        let base58_address = base58::check_encode_slice(&address);
-        Ok(base58_address)
+    pub fn from_public_key(network: &str, pubkey: &[u8]) -> Result<String> {
+        let prefix = match network {
+            "TESTNET" => "ckt",
+            _ => "ckb",
+        };
+
+        let pub_key_hash = blake2b_160(pubkey);
+
+        let mut buf = vec![];
+        buf.extend(vec![0x1, 0x00]); // append short version for locks with popular codehash and default code hash index
+        buf.extend(pub_key_hash);
+
+        Ok(bech32::encode(prefix, buf.to_base32())?)
     }
 
-    pub fn get_address(path: &str) -> Result<String> {
-        check_path_validity(path).unwrap();
+    pub fn get_address(network: &str, path: &str) -> Result<String> {
+        check_path_validity(path).expect("check path error");
 
-        let select_apdu = Apdu::select_applet(TRON_AID);
+        let select_apdu = Apdu::select_applet(FILECOIN_AID);
         let select_response = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_response)?;
 
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
-        let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &path.as_bytes())?;
+        let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, path.as_bytes())?;
 
         let mut apdu_pack: Vec<u8> = vec![];
         apdu_pack.push(0x00);
@@ -35,7 +55,7 @@ impl CkbAddress {
         let sign_result = &res_msg_pubkey[194..res_msg_pubkey.len() - 4];
 
         //verify
-        let sign_verify_result = utility::secp256k1_sign_verify(
+        let sign_verify_result = secp256k1_sign_verify(
             &key_manager_obj.se_pub_key,
             hex::decode(sign_result).unwrap().as_slice(),
             hex::decode(sign_source_val).unwrap().as_slice(),
@@ -44,15 +64,16 @@ impl CkbAddress {
             return Err(CoinError::ImkeySignatureVerifyFail.into());
         }
 
-        let pubkey_raw = hex::decode(&res_msg_pubkey[..130]).unwrap();
+        //compressed key
+        let comprs_pubkey = uncompress_pubkey_2_compress(&res_msg_pubkey[..res_msg_pubkey.len()-4]);
 
-        let address = TronAddress::address_from_pubkey(pubkey_raw.as_slice())?;
+        let address = CkbAddress::from_public_key(network,&comprs_pubkey.as_bytes())?;
         Ok(address)
     }
 
-    pub fn display_address(path: &str) -> Result<String> {
-        let address = CkbAddress::get_address(path)?;
-        let menu_name = "TRON".as_bytes();
+    pub fn display_address(network: &str, path: &str) -> Result<String> {
+        let address = CkbAddress::get_address(network,path)?;
+        let menu_name = "CKB".as_bytes();
         let reg_apdu = Secp256k1Apdu::register_address(menu_name, address.as_bytes());
         let res_reg = send_apdu(reg_apdu)?;
         ApduCheck::checke_response(&res_reg)?;
@@ -62,32 +83,46 @@ impl CkbAddress {
 
 #[cfg(test)]
 mod tests {
-    use crate::address::TronAddress;
-    use common::constants;
+    use crate::address::CkbAddress;
     use device::device_binding::bind_test;
+    use common::constants;
+
 
     #[test]
-    fn test_address_pubkey() {
-        let bytes = hex::decode("04DAAC763B1B3492720E404C53D323BAF29391996F7DD5FA27EF0D12F7D50D694700684A32AD97FF4C09BF9CF0B9D0AC7F0091D9C6CB8BE9BB6A1106DA557285D8").unwrap();
-
+    fn test_from_public_key() {
+        let bytes = hex::decode("024a501efd328e062c8675f2365970728c859c592beeefd6be8ead3d901330bc01")
+            .expect("hex decode error");
+        let network = "TESTNET";
         assert_eq!(
-            TronAddress::address_from_pubkey(&bytes).unwrap(),
-            "THfuSDVRvSsjNDPFdGjMU19Ha4Kf7acotq"
+            CkbAddress::from_public_key(network,&bytes).expect("invalid public key"),
+            "ckt1qyqrdsefa43s6m882pcj53m4gdnj4k440axqswmu83"
+        );
+
+        let bytes = hex::decode("024a501efd328e062c8675f2365970728c859c592beeefd6be8ead3d901330bc01")
+            .expect("hex decode error");
+        let network = "MAINNET";
+        assert_eq!(
+            CkbAddress::from_public_key(network,&bytes).expect("invalid public key"),
+            "ckb1qyqrdsefa43s6m882pcj53m4gdnj4k440axqdt9rtd"
         );
     }
 
     #[test]
     fn test_get_address() {
         bind_test();
-        let address = TronAddress::get_address(constants::TRON_PATH).unwrap();
-        assert_eq!(&address, "TY2uroBeZ5trA9QT96aEWj32XLkAAhQ9R2");
+
+        let network = "TESTNET";
+        let address = CkbAddress::get_address(network,constants::CKB_PATH).expect("get address fail");
+        assert_eq!(&address, "ckt1qyqtr684u76tu7r8efkd24hw8922xfvhnazskzdzy6");
     }
 
     #[test]
     fn test_display_address() {
         bind_test();
-        let address = TronAddress::display_address(constants::TRON_PATH).unwrap();
+
+        let network = "TESTNET";
+        let address = CkbAddress::display_address(network,constants::CKB_PATH).expect("get address fail");
         println!("address:{}", &address);
-        assert_eq!(&address, "TY2uroBeZ5trA9QT96aEWj32XLkAAhQ9R2");
+        assert_eq!(&address, "ckt1qyqtr684u76tu7r8efkd24hw8922xfvhnazskzdzy6");
     }
 }
