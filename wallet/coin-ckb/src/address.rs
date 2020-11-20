@@ -64,10 +64,9 @@ impl CkbAddress {
             return Err(CoinError::ImkeySignatureVerifyFail.into());
         }
 
-        //compressed key
         let comprs_pubkey = uncompress_pubkey_2_compress(&res_msg_pubkey[..res_msg_pubkey.len()-4]);
-
-        let address = CkbAddress::from_public_key(network,&comprs_pubkey.as_bytes())?;
+        let comprs_pubkey_bytes = hex::decode(&comprs_pubkey).expect("decode ckb pubkey error");
+        let address = CkbAddress::from_public_key(network,&comprs_pubkey_bytes)?;
         Ok(address)
     }
 
@@ -112,8 +111,8 @@ mod tests {
         bind_test();
 
         let network = "TESTNET";
-        let address = CkbAddress::get_address(network,constants::CKB_PATH).expect("get address fail");
-        assert_eq!(&address, "ckt1qyqtr684u76tu7r8efkd24hw8922xfvhnazskzdzy6");
+        let address = CkbAddress::get_address(network,constants::FILECOIN_PATH).expect("get address fail");
+        assert_eq!(&address, "ckt1qyqxsfdw2g6eueze54nga0k4ty67yg43ltcqgzewhc");
     }
 
     #[test]
@@ -121,8 +120,8 @@ mod tests {
         bind_test();
 
         let network = "TESTNET";
-        let address = CkbAddress::display_address(network,constants::CKB_PATH).expect("get address fail");
+        let address = CkbAddress::display_address(network,constants::FILECOIN_PATH).expect("get address fail");
         println!("address:{}", &address);
-        assert_eq!(&address, "ckt1qyqtr684u76tu7r8efkd24hw8922xfvhnazskzdzy6");
+        assert_eq!(&address, "ckt1qyqxsfdw2g6eueze54nga0k4ty67yg43ltcqgzewhc");
     }
 }
