@@ -9,7 +9,7 @@ pub mod path;
 pub mod utility;
 use parking_lot::RwLock;
 
-pub use common::SignParam;
+pub use crate::common::SignParam;
 
 #[macro_use]
 extern crate lazy_static;

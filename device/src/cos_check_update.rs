@@ -53,12 +53,17 @@ impl CosCheckUpdateRequest {
 #[cfg(test)]
 mod test {
     use crate::cos_check_update::CosCheckUpdateRequest;
+    use crate::device_manager::get_se_id;
     use crate::TsmService;
+    use transport::hid_api::hid_connect;
 
     #[test]
     #[cfg(not(tarpaulin))]
     pub fn cos_check_update_test() {
-        let seid: String = "18080000000000860001010000000106".to_string();
+        // let seid: String = "18080000000000860001010000000106".to_string();
+        assert!(hid_connect("imKey Pro").is_ok());
+        let seid = get_se_id().unwrap();
+
         let cos_version: String = "1.0.10".to_string();
         assert!(CosCheckUpdateRequest::build_request_data(seid, cos_version)
             .send_message()
