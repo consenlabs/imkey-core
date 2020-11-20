@@ -1,6 +1,6 @@
 use crate::address::FilecoinAddress;
 use crate::filecoinapi::{FilecoinTxInput, FilecoinTxOutput, Signature};
-use crate::utils::message_digest;
+use crate::utils::{digest, HashSize};
 use crate::Result;
 
 use common::apdu::{ApduCheck, Secp256k1Apdu};
@@ -10,11 +10,12 @@ use common::{constants, path, utility, SignParam};
 use device::device_binding::KEY_MANAGER;
 
 use forest_address::Address;
+use forest_cid::Cid;
+use forest_encoding::Cbor;
 use forest_message::UnsignedMessage as ForestUnsignedMessage;
 use forest_vm::Serialized;
 use num_bigint_chainsafe::BigInt;
 use secp256k1::{self, Signature as SecpSignature};
-use serde_cbor::to_vec;
 use std::str::FromStr;
 use transport::message::send_apdu_timeout;
 
@@ -57,8 +58,6 @@ impl Transaction {
 
         // let tx = tx_input.message.unwrap();
         let unsigned_message = Self::convert_message(&tx_input)?;
-        let cbor_buffer = to_vec(&unsigned_message)?;
-        let cid = message_digest(&cbor_buffer);
 
         //check address
         let address =
@@ -73,11 +72,14 @@ impl Transaction {
         let res_msg_pubkey = FilecoinAddress::get_pub_key(sign_param.path.as_str())?;
         let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
 
+        let mut cid: Cid = unsigned_message.cid()?;
+        let data = &digest(&cid.to_bytes(), HashSize::Default);
+
         //organize data
         let mut data_pack: Vec<u8> = Vec::new();
 
-        data_pack.extend([1, cid.len() as u8].iter());
-        data_pack.extend(cid.iter());
+        data_pack.extend([1, data.len() as u8].iter());
+        data_pack.extend(data.iter());
 
         //path
         data_pack.extend([2, sign_param.path.as_bytes().len() as u8].iter());
@@ -129,16 +131,25 @@ impl Transaction {
         signnture_obj.normalize_s();
         let normalizes_sig_vec = signnture_obj.serialize_compact();
 
-        let rec_id = utility::retrieve_recid(&cid, &normalizes_sig_vec, &pubkey_raw).unwrap();
+        let rec_id = utility::retrieve_recid(&data, &normalizes_sig_vec, &pubkey_raw).unwrap();
 
         let mut data_arr = [0; 65];
         data_arr[0..64].copy_from_slice(&normalizes_sig_vec[0..64]);
         data_arr[64] = rec_id.to_i32() as u8;
 
+        let forest_sig = forest_crypto::Signature::new_secp256k1(data_arr.to_vec());
+        let forest_signed_msg = forest_message::SignedMessage {
+            message: unsigned_message,
+            signature: forest_sig,
+        };
+        cid = forest_signed_msg
+            .cid()
+            .map_err(|_e| format_err!("{}", "forest_message cid error"))?;
+
         let signature_type = 1;
 
         Ok(FilecoinTxOutput {
-            cid: base64::encode(&cid),
+            cid: cid.to_string(),
             message: Some(tx_input.clone()),
             signature: Some(Signature {
                 r#type: signature_type,
@@ -182,6 +193,10 @@ mod tests {
         let tx_result = Transaction::sign_tx(tx_input, &sign_param).unwrap();
         let signature = tx_result.signature.unwrap();
 
+        assert_eq!(
+            "bafy2bzaceawarox6h5my5vk2gqe5v3qzzcsccoet4a5mrtg6xw7haeg7rd5ce",
+            tx_result.cid
+        );
         assert_eq!(signature.r#type, 1);
         assert_eq!(signature.data, "k/ODPDElcw/xCQ0WWO3r7H3GoKpJVX7j6x1lyNFZ4YNvoWx8/RVqn0/+GNUvFCj1EOEXKFNf2h5LsBmiHDllkgE=");
     }
