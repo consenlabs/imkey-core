@@ -81,19 +81,19 @@ impl Transaction {
         //select applet
         let select_apdu = EthApdu::select_applet();
         let select_result = send_apdu(select_apdu)?;
-        ApduCheck::checke_response(&select_result)?;
+        ApduCheck::check_response(&select_result)?;
 
         //prepare apdu
         let msg_prepare = EthApdu::prepare_sign(apdu_pack);
         for msg in msg_prepare {
             let res = send_apdu_timeout(msg, constants::TIMEOUT_LONG)?;
-            ApduCheck::checke_response(&res)?;
+            ApduCheck::check_response(&res)?;
         }
 
         //get public
         let msg_pubkey = EthApdu::get_xpub(path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
-        ApduCheck::checke_response(&res_msg_pubkey)?;
+        ApduCheck::check_response(&res_msg_pubkey)?;
 
         let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
 
@@ -106,14 +106,14 @@ impl Transaction {
         //sign
         let msg_sign = EthApdu::sign_digest(path);
         let res_msg_sign = send_apdu(msg_sign)?;
-        ApduCheck::checke_response(&res_msg_sign)?;
+        ApduCheck::check_response(&res_msg_sign)?;
 
         let sign_compact = &res_msg_sign[2..130];
         let sign_compact_vec = hex_to_bytes(sign_compact).unwrap(); //todo error
 
-        let mut signnture_obj = SecpSignature::from_compact(sign_compact_vec.as_slice()).unwrap();
-        signnture_obj.normalize_s();
-        let normalizes_sig_vec = signnture_obj.serialize_compact();
+        let mut signature_obj = SecpSignature::from_compact(sign_compact_vec.as_slice()).unwrap();
+        signature_obj.normalize_s();
+        let normalizes_sig_vec = signature_obj.serialize_compact();
 
         let msg_hash = self.hash(chain_id);
 
@@ -196,7 +196,7 @@ impl Transaction {
         input: EthMessageInput,
         sign_param: &SignParam,
     ) -> EthResult<EthMessageOutput> {
-        check_path_validity(&sign_param.path).unwrap();
+        check_path_validity(&sign_param.path)?;
 
         let message_to_sign;
         if is_valid_hex(&input.message) {
@@ -230,7 +230,7 @@ impl Transaction {
 
         let select_apdu = EthApdu::select_applet();
         let select_result = send_apdu(select_apdu)?;
-        ApduCheck::checke_response(&select_result)?;
+        ApduCheck::check_response(&select_result)?;
 
         let msg_pubkey = EthApdu::get_xpub(&sign_param.path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
@@ -245,17 +245,17 @@ impl Transaction {
         let prepare_apdus = EthApdu::prepare_personal_sign(apdu_pack);
         for apdu in prepare_apdus {
             let res = send_apdu_timeout(apdu, constants::TIMEOUT_LONG)?;
-            ApduCheck::checke_response(&res)?;
+            ApduCheck::check_response(&res)?;
         }
 
         let sign_apdu = EthApdu::personal_sign(&sign_param.path);
         let sign_response = send_apdu(sign_apdu)?;
-        ApduCheck::checke_response(&sign_response)?;
+        ApduCheck::check_response(&sign_response)?;
 
         let sign_compact = hex::decode(&sign_response[2..130]).unwrap();
-        let mut signnture_obj = SecpSignature::from_compact(sign_compact.as_slice()).unwrap();
-        signnture_obj.normalize_s();
-        let normalizes_sig_vec = signnture_obj.serialize_compact();
+        let mut signature_obj = SecpSignature::from_compact(sign_compact.as_slice()).unwrap();
+        signature_obj.normalize_s();
+        let normalizes_sig_vec = signature_obj.serialize_compact();
 
         let data_hash = tiny_keccak::keccak256(&data);
         let rec_id = utility::retrieve_recid(&data_hash, &normalizes_sig_vec, &pubkey_raw).unwrap();

@@ -18,7 +18,7 @@ impl EthAddress {
     }
 
     pub fn address_checksummed(address: &str) -> String {
-        let re = Regex::new(r"^0x").unwrap();
+        let re = Regex::new(r"^0x").expect("address_checksummed");
         let address = address.to_lowercase();
         let address = re.replace_all(&address, "").to_string();
 
@@ -43,16 +43,16 @@ impl EthAddress {
     }
 
     pub fn get_address(path: &str) -> Result<String> {
-        check_path_validity(path).unwrap();
+        check_path_validity(path)?;
 
         let select_apdu = EthApdu::select_applet();
         let select_response = send_apdu(select_apdu)?;
-        ApduCheck::checke_response(&select_response)?;
+        ApduCheck::check_response(&select_response)?;
 
         //get public
         let msg_pubkey = EthApdu::get_xpub(&path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
-        ApduCheck::checke_response(&res_msg_pubkey)?;
+        ApduCheck::check_response(&res_msg_pubkey)?;
 
         let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
 
@@ -65,7 +65,7 @@ impl EthAddress {
         let address = EthAddress::get_address(path).unwrap();
         let reg_apdu = EthApdu::register_address(address.as_bytes());
         let res_reg = send_apdu(reg_apdu)?;
-        ApduCheck::checke_response(&res_reg)?;
+        ApduCheck::check_response(&res_reg)?;
         Ok(address)
     }
 }

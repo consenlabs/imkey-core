@@ -133,7 +133,7 @@ impl BtcTransaction {
 
         //send output prepare command
         let omni_prepare_apdu_str = BtcApdu::omni_prepare_data(0x00, output_pareper_data);
-        ApduCheck::checke_response(&send_apdu_timeout(omni_prepare_apdu_str, TIMEOUT_LONG)?)?;
+        ApduCheck::check_response(&send_apdu_timeout(omni_prepare_apdu_str, TIMEOUT_LONG)?)?;
         let mut lock_script_ver: Vec<Script> = vec![];
         let count = (self.unspents.len() - 1) / EACH_ROUND_NUMBER + 1;
         for i in 0..count {
@@ -157,7 +157,7 @@ impl BtcTransaction {
                 input_data_vec.extend_from_slice(serialize(&temp_serialize_txin).as_slice());
                 let btc_perpare_apdu = BtcApdu::btc_perpare_input(0x80, &input_data_vec);
                 //send perpare apdu
-                ApduCheck::checke_response(&send_apdu(btc_perpare_apdu)?)?;
+                ApduCheck::check_response(&send_apdu(btc_perpare_apdu)?)?;
             }
             for y in i * EACH_ROUND_NUMBER..(i + 1) * EACH_ROUND_NUMBER {
                 if y >= utxo_pub_key_vec.len() {
@@ -170,7 +170,7 @@ impl BtcTransaction {
                 );
                 //send sign apdu
                 let btc_sign_apdu_return = send_apdu(btc_sign_apdu)?;
-                ApduCheck::checke_response(&btc_sign_apdu_return)?;
+                ApduCheck::check_response(&btc_sign_apdu_return)?;
                 let sign_result_str =
                     btc_sign_apdu_return[2..btc_sign_apdu_return.len() - 6].to_string();
 
@@ -307,7 +307,7 @@ impl BtcTransaction {
 
         let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x34, 0x00, &output_pareper_data);
         for temp_str in btc_prepare_apdu_vec {
-            ApduCheck::checke_response(&send_apdu_timeout(temp_str, TIMEOUT_LONG)?)?;
+            ApduCheck::check_response(&send_apdu_timeout(temp_str, TIMEOUT_LONG)?)?;
         }
 
         let mut txinputs: Vec<TxIn> = vec![];
@@ -375,7 +375,7 @@ impl BtcTransaction {
         let mut sequence_prepare_apdu_vec = BtcApdu::btc_prepare(0x34, 0x80, &sequence_vec);
         txhash_vout_prepare_apdu_vec.append(&mut sequence_prepare_apdu_vec);
         for prepare_apdu in txhash_vout_prepare_apdu_vec {
-            ApduCheck::checke_response(&send_apdu(prepare_apdu)?)?;
+            ApduCheck::check_response(&send_apdu(prepare_apdu)?)?;
         }
 
         //send sign apdu
@@ -383,14 +383,14 @@ impl BtcTransaction {
         for (index, segwit_sign_apdu) in sign_apdu_vec.iter().enumerate() {
             //send sign apdu
             let sign_apdu_return_data = send_apdu(segwit_sign_apdu.clone())?;
-            ApduCheck::checke_response(&sign_apdu_return_data)?;
+            ApduCheck::check_response(&sign_apdu_return_data)?;
             //build signature obj
             let sign_result_vec =
                 Vec::from_hex(&sign_apdu_return_data[2..sign_apdu_return_data.len() - 6]).unwrap();
-            let mut temp_signnture_obj = Signature::from_compact(sign_result_vec.as_slice())?;
-            temp_signnture_obj.normalize_s();
+            let mut temp_signature_obj = Signature::from_compact(sign_result_vec.as_slice())?;
+            temp_signature_obj.normalize_s();
             //generator der sign data
-            let mut sign_result_vec = temp_signnture_obj.serialize_der().to_vec();
+            let mut sign_result_vec = temp_signature_obj.serialize_der().to_vec();
             //add hash type
             sign_result_vec.push(SigHashType::All.as_u32() as u8);
             witnesses.push((
