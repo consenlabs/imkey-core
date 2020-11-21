@@ -86,8 +86,12 @@ impl KeyManager {
             .expect("aes_128cbc_encrypt_error");
         let ciphertext = cipher.encrypt_vec(data.as_ref());
 
-        //base64 coding
-        Ok(encode(&ciphertext))
+        let os = common::OPERATING_SYSTEM.read();
+        let encrypt_data = match &*os == "iOS" {
+            true => hex::encode(&ciphertext),
+            false => encode(&ciphertext), //base64 encode
+        };
+        Ok(encrypt_data)
     }
 
     /**
@@ -113,9 +117,12 @@ impl KeyManager {
     /**
     Decrypt key file data
     */
-    pub fn decrypt_keys(&mut self, ciphertext: &[u8]) -> Result<bool> {
-        //base64 decoding
-        let ciphertext_bytes = decode(ciphertext)?;
+    pub fn decrypt_keys(&mut self, ciphertext: &str) -> Result<bool> {
+        let os = common::OPERATING_SYSTEM.read();
+        let ciphertext_bytes = match &*os == "iOS" {
+            true => hex::decode(ciphertext).expect("invalid keys"),
+            false => decode(ciphertext.as_bytes()).expect("invalid keys"), //base64 decode
+        };
 
         //AES-CBC Decrypt
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;

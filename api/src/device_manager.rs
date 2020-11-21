@@ -3,7 +3,7 @@ use crate::error_handling::Result;
 use crate::message_handler::encode_message;
 use common::applet;
 use common::constants;
-use common::{XPUB_COMMON_IV, XPUB_COMMON_KEY_128};
+use common::{OPERATING_SYSTEM, XPUB_COMMON_IV, XPUB_COMMON_KEY_128};
 use device::device_manager;
 use device::deviceapi::{
     AppDeleteReq, AppDownloadReq, AppUpdateReq, AvailableAppBean, BindAcquireReq, BindAcquireRes,
@@ -27,11 +27,13 @@ pub fn init_imkey_core(data: &[u8]) -> Result<Vec<u8>> {
         xpub_common_key,
         xpub_common_iv,
         is_debug,
+        system,
     } = InitImKeyCoreXParam::decode(data).unwrap();
     *WALLET_FILE_DIR.write() = file_dir.to_string();
     *XPUB_COMMON_KEY_128.write() = xpub_common_key.to_string();
     *XPUB_COMMON_IV.write() = xpub_common_iv.to_string();
     *IS_DEBUG.write() = is_debug;
+    *OPERATING_SYSTEM.write() = system;
     Ok(vec![])
 }
 

@@ -57,7 +57,7 @@ impl DeviceManage {
         let mut key_flag = false;
         if !ciphertext.is_empty() {
             //Decrypt and parse the ciphertext
-            key_flag = !key_manager_obj.decrypt_keys(ciphertext.as_bytes())?;
+            key_flag = !key_manager_obj.decrypt_keys(&ciphertext)?;
         }
 
         //If the key file does not exist or is empty then regenerate

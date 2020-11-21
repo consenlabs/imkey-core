@@ -236,7 +236,7 @@ public class API{
 //    return sign_transaction()
 //  }
   
-  public class func ethSignTx(ethInput:Ethapi_EthTxReq) -> Ethapi_EthTxRes{
+  public class func ethSignTx(ethInput:Ethapi_EthTxInput) -> Ethapi_EthTxOutput{
     var action = Api_ImkeyAction()
     action.method = "eth_tx_sign"
     action.param = Google_Protobuf_Any()
@@ -248,11 +248,11 @@ public class API{
     let res = call_imkey_api(paramHex)
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
-    let ouput = try! Ethapi_EthTxRes(serializedData: dataRes)
+    let ouput = try! Ethapi_EthTxOutput(serializedData: dataRes)
     return ouput
   }
   
-  public class func ethSignMessage(input:Ethapi_EthMessageSignReq) -> Ethapi_EthMessageSignRes{
+  public class func ethSignMessage(input:Ethapi_EthMessageInput) -> Ethapi_EthMessageOutput{
     var action = Api_ImkeyAction()
     action.method = "eth_message_sign"
     action.param = Google_Protobuf_Any()
@@ -260,15 +260,15 @@ public class API{
 
     let paramHex = try! action.serializedData().toHexString()
     
-    clear_err()
+    imkey_clear_err()
     Log.d("eth param ready..")
     let res = call_imkey_api(paramHex)
     
     //error
-    let error = get_last_err_message()
+    let error = imkey_get_last_err_message()
     if error != nil{
       let dataError = String(cString:error!).key_dataFromHexString()!
-      let response = try! Api_Response(serializedData: dataError)
+      let response = try! Api_ErrorResponse(serializedData: dataError)
       if !response.isSuccess {
         print(response.error)
       }
@@ -277,11 +277,11 @@ public class API{
     //success
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
-    let ouput = try! Ethapi_EthMessageSignRes(serializedData: dataRes)
+    let ouput = try! Ethapi_EthMessageOutput(serializedData: dataRes)
     return ouput
   }
   
-  public class func eosSignMessage(input:Eosapi_EosMessageSignReq) -> Eosapi_EosMessageSignRes{
+  public class func eosSignMessage(input:Eosapi_EosMessageInput) -> Eosapi_EosMessageOutput{
     var action = Api_ImkeyAction()
     action.method = "eos_message_sign"
     action.param = Google_Protobuf_Any()
@@ -293,11 +293,11 @@ public class API{
     let res = call_imkey_api(paramHex)
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
-    let ouput = try! Eosapi_EosMessageSignRes(serializedData: dataRes)
+    let ouput = try! Eosapi_EosMessageOutput(serializedData: dataRes)
     return ouput
   }
   
-  public class func eosSignTx(eosInput:Eosapi_EosTxReq) -> Eosapi_EosTxRes{
+  public class func eosSignTx(eosInput:Eosapi_EosTxInput) -> Eosapi_EosTxOutput{
     var action = Api_ImkeyAction()
     action.method = "eos_tx_sign"
     action.param = Google_Protobuf_Any()
@@ -309,11 +309,11 @@ public class API{
     let res = call_imkey_api(paramHex)
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
-    let eosOutput = try! Eosapi_EosTxRes(serializedData: dataRes)
+    let eosOutput = try! Eosapi_EosTxOutput(serializedData: dataRes)
     return eosOutput
   }
   
-  public class func cosmosSignTx(cosmosInput:Cosmosapi_CosmosTxReq) -> Cosmosapi_CosmosTxRes{
+  public class func cosmosSignTx(cosmosInput:Cosmosapi_CosmosTxInput) -> Cosmosapi_CosmosTxOutput{
     var action = Api_ImkeyAction()
     action.method = "cosmos_tx_sign"
     action.param = Google_Protobuf_Any()
@@ -325,12 +325,12 @@ public class API{
     let res = call_imkey_api(paramHex)
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
-    let cosmosOutput = try! Cosmosapi_CosmosTxRes(serializedData: dataRes)
+    let cosmosOutput = try! Cosmosapi_CosmosTxOutput(serializedData: dataRes)
     return cosmosOutput
   }
   
   public class func eosPubkey(path:String) -> String{
-    var req = Eosapi_EosPubkeyReq()
+    var req = Api_PubKeyParam()
     req.path = path
     
     var action = Api_ImkeyAction()
@@ -343,12 +343,12 @@ public class API{
     
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
-    let eosPubkeyResponse = try! Eosapi_EosPubkeyRes(serializedData: dataRes)
-    return eosPubkeyResponse.pubkey
+    let eosPubkeyResponse = try! Api_EosWallet(serializedData: dataRes)
+    return eosPubkeyResponse.publicKeys[0].publicKey
   }
   
   public class func eosReginPubkey(path:String) -> String{
-    var req = Eosapi_EosPubkeyReq()
+    var req = Api_PubKeyParam()
     req.path = path
     
     var action = Api_ImkeyAction()
@@ -361,12 +361,12 @@ public class API{
     
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
-    let eosPubkeyResponse = try! Eosapi_EosPubkeyRes(serializedData: dataRes)
-    return eosPubkeyResponse.pubkey
+    let eosPubkeyResponse = try! Api_EosWallet(serializedData: dataRes)
+    return eosPubkeyResponse.publicKeys[0].publicKey
   }
   
   public class func cosmosAddress(path:String) -> String{
-    var req = Cosmosapi_CosmosAddressReq()
+    var req = Api_AddressParam()
     req.path = path
     
     var action = Api_ImkeyAction()
@@ -379,12 +379,12 @@ public class API{
     
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
-    let eosPubkeyResponse = try! Cosmosapi_CosmosAddressRes(serializedData: dataRes)
+    let eosPubkeyResponse = try! Api_AddressResult(serializedData: dataRes)
     return eosPubkeyResponse.address
   }
   
   public class func cosmosReginAddress(path:String) -> String{
-    var req = Cosmosapi_CosmosAddressReq()
+    var req = Api_AddressParam()
     req.path = path
     
     var action = Api_ImkeyAction()
@@ -397,12 +397,12 @@ public class API{
     
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
-    let eosPubkeyResponse = try! Cosmosapi_CosmosAddressRes(serializedData: dataRes)
+    let eosPubkeyResponse = try! Api_AddressResult(serializedData: dataRes)
     return eosPubkeyResponse.address
   }
   
   public class func ethAddress(path:String) -> String{
-    var req = Ethapi_EthAddressReq()
+    var req = Api_AddressParam()
     req.path = path
     
     var action = Api_ImkeyAction()
@@ -415,12 +415,12 @@ public class API{
     
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
-    let ethAddressResponse = try! Ethapi_EthAddressRes(serializedData: dataRes)
+    let ethAddressResponse = try! Api_AddressResult(serializedData: dataRes)
     return ethAddressResponse.address
   }
   
   public class func ethReginAddress(path:String) -> String{
-    var req = Ethapi_EthAddressReq()
+    var req = Api_AddressParam()
     req.path = path
     
     var action = Api_ImkeyAction()
@@ -433,8 +433,31 @@ public class API{
     
     let strRes = String(cString:res!)
     let dataRes = strRes.key_dataFromHexString()!
-    let ethAddressResponse = try! Ethapi_EthAddressRes(serializedData: dataRes)
+    let ethAddressResponse = try! Api_AddressResult(serializedData: dataRes)
     return ethAddressResponse.address
+  }
+  
+  public class func initImkeyCoreX(xpubKey: String, xpubIv: String, dir: String) throws {
+    #if DEBUG
+    let isDebug = true
+    #else
+    let isDebug = false
+    #endif
+    
+    var param = Api_InitImKeyCoreXParam()
+    param.fileDir = dir
+    param.xpubCommonKey = xpubKey
+    param.xpubCommonIv = xpubIv
+    param.system = "iOS"
+    
+    var action = Api_ImkeyAction()
+    action.method = "init_imkey_core_x"
+    action.param.typeURL = "tcx.init_imkey_core_x"
+    action.param.value = try param.serializedData()
+    
+    let actionBytes = try action.serializedData()
+    let hex = actionBytes.toHexString()
+    _ = call_imkey_api(hex)
   }
   
   public class func bindCheck() -> String{
@@ -452,18 +475,15 @@ public class API{
       Log.d(err)
     }
     
-    var bindCheckParam = Deviceapi_BindCheckReq()
-    bindCheckParam.filePath = path
+    try! initImkeyCoreX(xpubKey: "String", xpubIv: "String", dir: path)
     
     var action = Api_ImkeyAction()
     action.method = "bind_check"
-    action.param = Google_Protobuf_Any()
-    action.param.value = try! bindCheckParam.serializedData()
     
-    clear_err()
+    imkey_clear_err()
     let paramHex = try! action.serializedData().toHexString()
     let res = call_imkey_api(paramHex)
-    let error = get_last_err_message()
+    let error = imkey_get_last_err_message()
     print(error!)
     
     let strRes = String(cString:res!)
@@ -481,10 +501,10 @@ public class API{
     action.param = Google_Protobuf_Any()
     action.param.value = try! bindAcquireParam.serializedData()
     
-    //    clear_err()
+    //    imkey_clear_err()
     let paramHex = try! action.serializedData().toHexString()
     let res = call_imkey_api(paramHex)
-    //    let error = get_last_err_message()
+    //    let error = imkey_get_last_err_message()
     //    print(error)
     
     let strRes = String(cString:res!)
@@ -495,7 +515,7 @@ public class API{
   
   public class func btcSignTX(){
     Log.d("btc sign ...")
-    var btcInput = Btcapi_BtcTxReq()
+    var btcInput = Btcapi_BtcTxInput()
     btcInput.amount = Int64(799988000)
     btcInput.to = "moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3"
     btcInput.fee = Int64(10000)
@@ -503,9 +523,9 @@ public class API{
 //    btcInput.toDis = "3CVD68V71no5jn2UZpLLq6hASpXu1jrByt"
 //    btcInput.from = "3GrvKsZWbb9ocBaNF7XosFZEKuCVBRSoiy"
 //    btcInput.feeDis = "0.00007945 BTC"
-    btcInput.pathPrefix = "btccpath.."
-    btcInput.changeAddressIndex = 1
-    btcInput.network = "TESTNET"
+//    btcInput.pathPrefix = "btccpath.."
+//    btcInput.changeAddressIndex = 1
+//    btcInput.network = "TESTNET"
     
     let utxos = [
     [

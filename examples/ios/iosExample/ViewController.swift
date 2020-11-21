@@ -124,7 +124,7 @@ class ViewController: UIViewController,BLEDelegate {
   @IBAction func bindCheck(_ sender: Any) {
     let status = API.bindCheck()
     print("status:\(status)")
-    let bindResult = API.bindAcquire(bindCode: "ydsgqpkx")
+    let bindResult = API.bindAcquire(bindCode: "du2he2et")
     print("bind result:\(bindResult)")
   }
   

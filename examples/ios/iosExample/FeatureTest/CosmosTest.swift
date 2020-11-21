@@ -77,32 +77,33 @@ class CosmosTest:FeatTest{
             let msgJson = String(data: msgData, encoding: .utf8)!
             print(msgJson)
             //signData
-            var signData = Cosmosapi_SignData()
-            signData.accountNumber = dict["accountNumber"] as! String
-            signData.chainID = dict["chainId"] as! String
-            signData.fee = fee
-            signData.memo = dict["memo"] as! String
-            signData.msgs = msgJson
-            print("msgs....")
-            print(signData.msgs)
-            signData.sequence = dict["sequence"] as! String
+//            var signData = Signparam()
+//            signData.accountNumber = dict["accountNumber"] as! String
+//            signData.chainID = dict["chainId"] as! String
+//            signData.fee = fee
+//            signData.memo = dict["memo"] as! String
+//            signData.msgs = msgJson
+//            print("msgs....")
+//            print(signData.msgs)
+//            signData.sequence = dict["sequence"] as! String
             
             //cosmosInput
-            var cosmosInput = Cosmosapi_CosmosTxReq()
-            cosmosInput.signData = signData
-            cosmosInput.path = BIP44.cosmos
-            cosmosInput.paymentDis = preview["payment"] as! String
-            cosmosInput.toDis = preview["receiver"] as! String
-            cosmosInput.feeDis = preview["fee"] as! String
-            let comsosOutput = API.cosmosSignTx(cosmosInput: cosmosInput)
-
+//            var cosmosInput = Cosmosapi_CosmosTxReq()
+//            cosmosInput.signData = signData
+//            cosmosInput.path = BIP44.cosmos
+//            cosmosInput.paymentDis = preview["payment"] as! String
+//            cosmosInput.toDis = preview["receiver"] as! String
+//            cosmosInput.feeDis = preview["fee"] as! String
+//            let comsosOutput = API.cosmosSignTx(cosmosInput: cosmosInput)
+//
+//
+////            let cosmosSigner = try CosmosTransaction(raw: raw)
+////            let signResult = try cosmosSigner.sign(handle: handle, path: BIP44.cosmos, paymentDis: preview["payment"] as? String, toDis: preview["receiver"] as! String, feeDis: preview["fee"] as! String)
+//
+//            let data = comsosOutput.txData.data(using: .utf8)!
+//            let jsonObject = try! JSONSerialization.jsonObject(with: data, options : .allowFragments) as? Dictionary<String,Any>
             
-//            let cosmosSigner = try CosmosTransaction(raw: raw)
-//            let signResult = try cosmosSigner.sign(handle: handle, path: BIP44.cosmos, paymentDis: preview["payment"] as? String, toDis: preview["receiver"] as! String, feeDis: preview["fee"] as! String)
-            
-            let data = comsosOutput.txData.data(using: .utf8)!
-            let jsonObject = try! JSONSerialization.jsonObject(with: data, options : .allowFragments) as? Dictionary<String,Any>
-            
+            let jsonObject = JSONObject()
             let expSig = sigs[0]["signature"] as! String
             let sigTx = jsonObject as!  [String: Any]
             let resSigs = sigTx["signatures"] as! [[String: Any]]
