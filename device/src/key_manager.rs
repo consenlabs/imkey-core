@@ -87,7 +87,7 @@ impl KeyManager {
         let ciphertext = cipher.encrypt_vec(data.as_ref());
 
         let os = common::OPERATING_SYSTEM.read();
-        let encrypt_data = match &*os == "iOS" {
+        let encrypt_data = match &*os.to_lowercase() == "ios" {
             true => hex::encode(&ciphertext),
             false => encode(&ciphertext), //base64 encode
         };
