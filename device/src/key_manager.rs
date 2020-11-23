@@ -13,6 +13,7 @@ use crate::Result;
 use aes_soft::Aes128;
 use block_modes::block_padding::Pkcs7;
 use block_modes::{BlockMode, Cbc};
+use common::utility::is_valid_hex;
 use hex::FromHex;
 use rand::thread_rng;
 use secp256k1::Secp256k1;
@@ -86,12 +87,8 @@ impl KeyManager {
             .expect("aes_128cbc_encrypt_error");
         let ciphertext = cipher.encrypt_vec(data.as_ref());
 
-        let os = common::OPERATING_SYSTEM.read();
-        let encrypt_data = match &*os.to_lowercase() == "ios" {
-            true => hex::encode(&ciphertext),
-            false => encode(&ciphertext), //base64 encode
-        };
-        Ok(encrypt_data)
+        //base64 coding
+        Ok(encode(&ciphertext))
     }
 
     /**
@@ -125,8 +122,7 @@ impl KeyManager {
     Decrypt key file data
     */
     pub fn decrypt_keys(&mut self, ciphertext: &str) -> Result<bool> {
-        let os = common::OPERATING_SYSTEM.read();
-        let ciphertext_bytes = match &*os == "iOS" {
+        let ciphertext_bytes = match is_valid_hex(ciphertext) {
             true => hex::decode(ciphertext).expect("invalid keys"),
             false => decode(ciphertext.as_bytes()).expect("invalid keys"), //base64 decode
         };

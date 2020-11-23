@@ -448,7 +448,7 @@ public class API{
     param.fileDir = dir
     param.xpubCommonKey = xpubKey
     param.xpubCommonIv = xpubIv
-    param.system = "iOS"
+    param.system = "ios"
     
     var action = Api_ImkeyAction()
     action.method = "init_imkey_core_x"
