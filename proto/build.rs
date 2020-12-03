@@ -24,7 +24,11 @@ fn main() {
 
     // device
     env::set_var("OUT_DIR", "../device/src");
-    prost_build::compile_protos(&["src/device.proto"], &["src/"]).unwrap()
+    prost_build::compile_protos(&["src/device.proto"], &["src/"]).unwrap();
+
+    //substrate
+    env::set_var("OUT_DIR", "../wallet/coin-substrate/src");
+    prost_build::compile_protos(&["src/substrate.proto"], &["src/"]).unwrap();
 }
 
 #[cfg(test)]
