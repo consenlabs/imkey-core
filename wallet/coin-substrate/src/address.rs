@@ -31,7 +31,7 @@ impl SubstrateAddress {
     pub fn get_address(path: &str, address_type: AddressType) -> Result<String> {
         // check_path_validity(path).expect("check path error");
 
-        let select_apdu = Apdu::select_applet("695F656473725F646F74");
+        let select_apdu = Apdu::select_applet("695F627463");
         let select_response = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_response)?;
 
@@ -109,6 +109,7 @@ mod test {
     use sp_core::sr25519::{Pair, Public};
     use sp_core::Pair as TraitPair;
     use crate::address::{AddressType, SubstrateAddress};
+    use device::device_binding::bind_test;
 
     #[test]
     fn key_test() {
@@ -149,6 +150,13 @@ mod test {
         let pub_key = hex::decode("50780547322a1ceba67ea8c552c9bc6c686f8698ac9a8cafab7cd15a1db19859")
             .expect("hex decode error");
         let address = SubstrateAddress::from_public_key(&pub_key, AddressType::Kusama).expect("invalid public key");
+        assert_eq!("EPq15Rj2eTcyVdBBXgyWKVta7Zj4FTo7beB3YHPwtPjxEkr", address);
+    }
+
+    #[test]
+    fn test_get_address() {
+        bind_test();
+        let address = SubstrateAddress::get_address("m/44'/434'/0’/0’/0’",AddressType::Kusama).expect("get address error");
         assert_eq!("EPq15Rj2eTcyVdBBXgyWKVta7Zj4FTo7beB3YHPwtPjxEkr", address);
     }
 }
