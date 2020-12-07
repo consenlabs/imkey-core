@@ -1,5 +1,5 @@
 pub const VERSION: &str = "2.0.0";
-pub const URL: &str = "https://imkey.online:1000/imkey";
+pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
 pub const TSM_ACTION_APP_DOWNLOAD: &str = "/appDownload";
@@ -29,6 +29,8 @@ pub const COSMOS_PATH: &str = "m/44'/118'/0'/0/0";
 pub const EOS_PATH: &str = "m/44'/194'/0'/0/0";
 pub const ETH_PATH: &str = "m/44'/60'/0'/0/0";
 pub const FILECOIN_PATH: &str = "m/44'/461'/0/0/0";
+pub const POLKADOT_PATH: &str = "m/44'/354'/0'/0'/0'";
+pub const KUSAMA_PATH: &str = "m/44'/434'/0'/0'/0'";
 
 pub const MAX_UTXO_NUMBER: usize = 252;
 pub const EACH_ROUND_NUMBER: usize = 5;
