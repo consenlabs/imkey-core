@@ -43,30 +43,28 @@ impl SubstrateAddress {
         apdu_pack.push(0x01);
         apdu_pack.push(path.as_bytes().len() as u8);
         apdu_pack.extend(path.as_bytes());
-        let path_hex = hex::encode(path.as_bytes());
-        println!("{}", path_hex);
 
         //get public
         let msg_pubkey = Ed25519Apdu::get_xpub(&apdu_pack);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
         ApduCheck::check_response(&res_msg_pubkey)?;
 
-        let sign_source_val = &res_msg_pubkey[..64];
+        let pubkey = &res_msg_pubkey[..64];
         let sign_result = &res_msg_pubkey[64..res_msg_pubkey.len() - 4];
+
+        println!("pubkey: {}",pubkey);
 
         //verify
         let sign_verify_result = secp256k1_sign_verify(
             &key_manager_obj.se_pub_key,
             hex::decode(sign_result).unwrap().as_slice(),
-            hex::decode(sign_source_val).unwrap().as_slice(),
+            hex::decode(pubkey).unwrap().as_slice(),
         )?;
         if !sign_verify_result {
             return Err(CoinError::ImkeySignatureVerifyFail.into());
         }
-        // let comprs_pubkey = uncompress_pubkey_2_compress(&res_msg_pubkey[..res_msg_pubkey.len()-4]);
-        // let comprs_pubkey_bytes = hex::decode(&comprs_pubkey).expect("decode ckb pubkey error");
         let address = SubstrateAddress::from_public_key(
-            &hex::decode(sign_source_val).expect("invalid pubkey"),
+            &hex::decode(pubkey).expect("invalid pubkey"),
             address_type,
         )?;
         Ok(address)
@@ -117,7 +115,7 @@ mod test {
     #[test]
     fn test_address_from_public() {
         let pub_key =
-            hex::decode("50780547322a1ceba67ea8c552c9bc6c686f8698ac9a8cafab7cd15a1db19859")
+            hex::decode("EDB9955556C8E07287DF95AD77FAD826168F8A50488CCE0D738DF3769E24613A")
                 .expect("hex decode error");
         let address = SubstrateAddress::from_public_key(&pub_key, AddressType::Polkadot)
             .expect("invalid public key");
@@ -136,7 +134,7 @@ mod test {
         bind_test();
         let address = SubstrateAddress::get_address(POLKADOT_PATH, AddressType::Polkadot)
             .expect("get address error");
-        assert_eq!("13uHFKh5zEGnfpoQ11eMRhNFX28vctXVnrYVPd5MC8EpYqec", address);
+        assert_eq!("147mvrDYhFpZzvFASKBDNVcxoyz8XCVNyyFKSZcpbQxN33TT", address);
         // let address = SubstrateAddress::get_address(KUSAMA_PATH, AddressType::Kusama)
         //     .expect("get address error");
         // assert_eq!("DXQbtNdVTDL5CDFW4DoGL8v14A5zaGWukRdQsY1xT1vCJgH", address);
@@ -147,7 +145,7 @@ mod test {
         bind_test();
         let address = SubstrateAddress::display_address(POLKADOT_PATH, AddressType::Polkadot)
             .expect("get address error");
-        assert_eq!("13uHFKh5zEGnfpoQ11eMRhNFX28vctXVnrYVPd5MC8EpYqec", address);
+        assert_eq!("147mvrDYhFpZzvFASKBDNVcxoyz8XCVNyyFKSZcpbQxN33TT", address);
         let address = SubstrateAddress::display_address(KUSAMA_PATH, AddressType::Kusama)
             .expect("get address error");
         assert_eq!("DXQbtNdVTDL5CDFW4DoGL8v14A5zaGWukRdQsY1xT1vCJgH", address);
