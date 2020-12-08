@@ -1,7 +1,6 @@
 #### rust
 /target
 **/*.rs.bk
-Cargo.lock
 
 #### Android
 # Built application files
