@@ -1,13 +1,13 @@
 use crate::substrateapi::{SubstrateRawTxIn, SubstrateTxOut};
-use crate::{Result, SIGNATURE_TYPE_ED25519,PAYLOAD_HASH_THRESHOLD};
-use common::{SignParam, constants, utility};
-use sp_core::blake2_256;
-use common::apdu::{Ed25519Apdu, ApduCheck, Apdu};
-use transport::message::{send_apdu_timeout, send_apdu};
-use common::utility::secp256k1_sign;
-use common::error::CoinError;
-use device::device_binding::KEY_MANAGER;
+use crate::{Result, PAYLOAD_HASH_THRESHOLD, SIGNATURE_TYPE_ED25519};
+use common::apdu::{Apdu, ApduCheck, Ed25519Apdu};
 use common::constants::POLKADOT_AID;
+use common::error::CoinError;
+use common::utility::secp256k1_sign;
+use common::{constants, utility, SignParam};
+use device::device_binding::KEY_MANAGER;
+use sp_core::blake2_256;
+use transport::message::{send_apdu, send_apdu_timeout};
 
 #[derive(Debug)]
 pub struct Transaction {}
@@ -74,8 +74,8 @@ impl Transaction {
         }
 
         // verify
-        let sign_source_val = &sign_response[..132];
-        let sign_result = &sign_response[132..sign_response.len() - 4];
+        let sign_source_val = &sign_response[..130];
+        let sign_result = &sign_response[130..sign_response.len() - 4];
         let sign_verify_result = utility::secp256k1_sign_verify(
             &key_manager_obj.se_pub_key,
             hex::decode(sign_result).unwrap().as_slice(),
@@ -98,10 +98,10 @@ impl Transaction {
 
 #[cfg(test)]
 mod test {
-    use common::SignParam;
-    use common::constants::POLKADOT_PATH;
-    use crate::transaction::Transaction;
     use crate::substrateapi::SubstrateRawTxIn;
+    use crate::transaction::Transaction;
+    use common::constants::POLKADOT_PATH;
+    use common::SignParam;
     use device::device_binding::bind_test;
 
     #[test]
@@ -121,8 +121,8 @@ mod test {
         let input = SubstrateRawTxIn{
             raw_data: "0x0600ffd7568e5f0a7eda67a82691ff379ac4bba4f9c9b859fe779b5d46363b61ad2db9e56c0703d148e25901007b000000dcd1346701ca8396496e52aa2785b1748deb6db09551b72159dcb3e08991025bde8f69eeb5e065e18c6950ff708d7e551f68dc9bf59a07c52367c0280f805ec7".to_string()
         };
-        let ret = Transaction::sign_transaction(&input,&sign_param).expect("sign error");
+        let ret = Transaction::sign_transaction(&input, &sign_param).expect("sign error");
 
-        assert_eq!("sig",ret.signature);
+        assert_eq!("sig", ret.signature);
     }
 }

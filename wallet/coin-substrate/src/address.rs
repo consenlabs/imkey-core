@@ -52,7 +52,7 @@ impl SubstrateAddress {
         let pubkey = &res_msg_pubkey[..64];
         let sign_result = &res_msg_pubkey[64..res_msg_pubkey.len() - 4];
 
-        println!("pubkey: {}",pubkey);
+        println!("pubkey: {}", pubkey);
 
         //verify
         let sign_verify_result = secp256k1_sign_verify(
@@ -135,9 +135,9 @@ mod test {
         let address = SubstrateAddress::get_address(POLKADOT_PATH, AddressType::Polkadot)
             .expect("get address error");
         assert_eq!("147mvrDYhFpZzvFASKBDNVcxoyz8XCVNyyFKSZcpbQxN33TT", address);
-        // let address = SubstrateAddress::get_address(KUSAMA_PATH, AddressType::Kusama)
-        //     .expect("get address error");
-        // assert_eq!("DXQbtNdVTDL5CDFW4DoGL8v14A5zaGWukRdQsY1xT1vCJgH", address);
+        let address = SubstrateAddress::get_address(KUSAMA_PATH, AddressType::Kusama)
+            .expect("get address error");
+        assert_eq!("DXQbtNdVTDL5CDFW4DoGL8v14A5zaGWukRdQsY1xT1vCJgH", address);
     }
 
     #[test]
