@@ -2,11 +2,12 @@ use crate::substrateapi::{SubstrateRawTxIn, SubstrateTxOut};
 use crate::{Result, SIGNATURE_TYPE_ED25519,PAYLOAD_HASH_THRESHOLD};
 use common::{SignParam, constants, utility};
 use sp_core::blake2_256;
-use common::apdu::{Ed25519Apdu, ApduCheck};
-use transport::message::send_apdu_timeout;
+use common::apdu::{Ed25519Apdu, ApduCheck, Apdu};
+use transport::message::{send_apdu_timeout, send_apdu};
 use common::utility::secp256k1_sign;
 use common::error::CoinError;
 use device::device_binding::KEY_MANAGER;
+use common::constants::POLKADOT_AID;
 
 #[derive(Debug)]
 pub struct Transaction {}
@@ -24,6 +25,10 @@ impl Transaction {
         tx: &SubstrateRawTxIn,
         sign_param: &SignParam,
     ) -> Result<SubstrateTxOut> {
+        let select_apdu = Apdu::select_applet(POLKADOT_AID);
+        let select_result = send_apdu(select_apdu)?;
+        ApduCheck::check_response(&select_result)?;
+
         let raw_data_bytes = if tx.raw_data.starts_with("0x") {
             tx.raw_data[2..].to_string()
         } else {
@@ -97,9 +102,11 @@ mod test {
     use common::constants::POLKADOT_PATH;
     use crate::transaction::Transaction;
     use crate::substrateapi::SubstrateRawTxIn;
+    use device::device_binding::bind_test;
 
     #[test]
     fn test_sign_transaction() {
+        bind_test();
         let sign_param = SignParam {
             chain_type: "POLKADOT".to_string(),
             path: POLKADOT_PATH.to_string(),
