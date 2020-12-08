@@ -26,8 +26,9 @@ impl SubstrateAddress {
 
         Ok(address)
     }
-    pub fn get_address(path: &str, address_type: AddressType) -> Result<String> {
-        // check_path_validity(path).expect("check path error");
+
+    pub fn get_public_key(path: &str) -> Result<String>{
+        check_path_validity(path).expect("check path error");
 
         let select_apdu = Apdu::select_applet("695F656473725F646F74");
         let select_response = send_apdu(select_apdu)?;
@@ -63,8 +64,14 @@ impl SubstrateAddress {
         if !sign_verify_result {
             return Err(CoinError::ImkeySignatureVerifyFail.into());
         }
+
+        Ok(pubkey.to_string())
+    }
+
+    pub fn get_address(path: &str, address_type: AddressType) -> Result<String> {
+        let public_key = SubstrateAddress::get_public_key(path)?;
         let address = SubstrateAddress::from_public_key(
-            &hex::decode(pubkey).expect("invalid pubkey"),
+            &hex::decode(&public_key)?,
             address_type,
         )?;
         Ok(address)
@@ -134,7 +141,7 @@ mod test {
         bind_test();
         let address = SubstrateAddress::get_address(POLKADOT_PATH, AddressType::Polkadot)
             .expect("get address error");
-        assert_eq!("147mvrDYhFpZzvFASKBDNVcxoyz8XCVNyyFKSZcpbQxN33TT", address);
+        assert_eq!("16NhUkUTkYsYRjMD22Sop2DF8MAXUsjPcYtgHF3t1ccmohx1", address);
         let address = SubstrateAddress::get_address(KUSAMA_PATH, AddressType::Kusama)
             .expect("get address error");
         assert_eq!("DXQbtNdVTDL5CDFW4DoGL8v14A5zaGWukRdQsY1xT1vCJgH", address);

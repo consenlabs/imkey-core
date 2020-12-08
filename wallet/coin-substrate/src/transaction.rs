@@ -103,6 +103,10 @@ mod test {
     use common::constants::POLKADOT_PATH;
     use common::SignParam;
     use device::device_binding::bind_test;
+    use crate::address::SubstrateAddress;
+    use sp_core::crypto::Ss58Codec;
+    use sp_runtime::traits::Verify;
+    use sp_core::Public;
 
     #[test]
     fn test_sign_transaction() {
@@ -119,10 +123,17 @@ mod test {
         };
 
         let input = SubstrateRawTxIn{
-            raw_data: "0x0600ffd7568e5f0a7eda67a82691ff379ac4bba4f9c9b859fe779b5d46363b61ad2db9e56c0703d148e25901007b000000dcd1346701ca8396496e52aa2785b1748deb6db09551b72159dcb3e08991025bde8f69eeb5e065e18c6950ff708d7e551f68dc9bf59a07c52367c0280f805ec7".to_string()
+            raw_data: "0600ffd7568e5f0a7eda67a82691ff379ac4bba4f9c9b859fe779b5d46363b61ad2db9e56c0703d148e25901007b000000dcd1346701ca8396496e52aa2785b1748deb6db09551b72159dcb3e08991025bde8f69eeb5e065e18c6950ff708d7e551f68dc9bf59a07c52367c0280f805ec7".to_string()
         };
-        let ret = Transaction::sign_transaction(&input, &sign_param).expect("sign error");
+        let ret = Transaction::sign_transaction(&input, &sign_param).expect("sign transaction error");
 
-        assert_eq!("sig", ret.signature);
+        let public_key = SubstrateAddress::get_public_key(POLKADOT_PATH).expect("get pub key error");
+        let msg = hex::decode(input.raw_data).unwrap();
+        let pk = sp_core::ed25519::Public::from_slice(&hex::decode(public_key).unwrap());
+        let sig = sp_core::ed25519::Signature::from_slice(&hex::decode(&ret.signature[4..]).unwrap());
+        assert!(
+            sp_core::ed25519::Signature::verify(&sig, msg.as_slice(), &pk),
+            "assert sig"
+        );
     }
 }
