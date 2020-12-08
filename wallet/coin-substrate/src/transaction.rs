@@ -1,8 +1,10 @@
+use crate::address::AddressType;
 use crate::substrateapi::{SubstrateRawTxIn, SubstrateTxOut};
 use crate::{Result, PAYLOAD_HASH_THRESHOLD, SIGNATURE_TYPE_ED25519};
 use common::apdu::{Apdu, ApduCheck, Ed25519Apdu};
-use common::constants::POLKADOT_AID;
+use common::constants::{KUSAMA_AID, POLKADOT_AID};
 use common::error::CoinError;
+use common::path::check_path_validity;
 use common::utility::secp256k1_sign;
 use common::{constants, utility, SignParam};
 use device::device_binding::KEY_MANAGER;
@@ -25,7 +27,14 @@ impl Transaction {
         tx: &SubstrateRawTxIn,
         sign_param: &SignParam,
     ) -> Result<SubstrateTxOut> {
-        let select_apdu = Apdu::select_applet(POLKADOT_AID);
+        check_path_validity(&sign_param.path).expect("check path error");
+
+        let aid = match sign_param.chain_type.as_str() {
+            "POLKADOT" => POLKADOT_AID,
+            "KUSAMA" => KUSAMA_AID,
+            _ => panic!("chain type not support"),
+        };
+        let select_apdu = Apdu::select_applet(aid);
         let select_result = send_apdu(select_apdu)?;
         ApduCheck::check_response(&select_result)?;
 
@@ -98,15 +107,15 @@ impl Transaction {
 
 #[cfg(test)]
 mod test {
+    use crate::address::{AddressType, SubstrateAddress};
     use crate::substrateapi::SubstrateRawTxIn;
     use crate::transaction::Transaction;
-    use common::constants::POLKADOT_PATH;
+    use common::constants::{KUSAMA_PATH, POLKADOT_PATH};
     use common::SignParam;
     use device::device_binding::bind_test;
-    use crate::address::SubstrateAddress;
     use sp_core::crypto::Ss58Codec;
-    use sp_runtime::traits::Verify;
     use sp_core::Public;
+    use sp_runtime::traits::Verify;
 
     #[test]
     fn test_sign_transaction() {
@@ -125,12 +134,47 @@ mod test {
         let input = SubstrateRawTxIn{
             raw_data: "0600ffd7568e5f0a7eda67a82691ff379ac4bba4f9c9b859fe779b5d46363b61ad2db9e56c0703d148e25901007b000000dcd1346701ca8396496e52aa2785b1748deb6db09551b72159dcb3e08991025bde8f69eeb5e065e18c6950ff708d7e551f68dc9bf59a07c52367c0280f805ec7".to_string()
         };
-        let ret = Transaction::sign_transaction(&input, &sign_param).expect("sign transaction error");
+        let ret =
+            Transaction::sign_transaction(&input, &sign_param).expect("sign transaction error");
 
-        let public_key = SubstrateAddress::get_public_key(POLKADOT_PATH).expect("get pub key error");
+        let public_key = SubstrateAddress::get_public_key(POLKADOT_PATH, &AddressType::Polkadot)
+            .expect("get pub key error");
         let msg = hex::decode(input.raw_data).unwrap();
         let pk = sp_core::ed25519::Public::from_slice(&hex::decode(public_key).unwrap());
-        let sig = sp_core::ed25519::Signature::from_slice(&hex::decode(&ret.signature[4..]).unwrap());
+        let sig =
+            sp_core::ed25519::Signature::from_slice(&hex::decode(&ret.signature[4..]).unwrap());
+        assert!(
+            sp_core::ed25519::Signature::verify(&sig, msg.as_slice(), &pk),
+            "assert sig"
+        );
+    }
+
+    #[test]
+    fn test_sign_kusama() {
+        bind_test();
+        let sign_param = SignParam {
+            chain_type: "KUSAMA".to_string(),
+            path: KUSAMA_PATH.to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "25 DOT".to_string(),
+            receiver: "12pWV6LvG4iAfNpFNTvvkWy3H9H8wtCkjiXupAzo2BCmPViM".to_string(),
+            sender: "147mvrDYhFpZzvFASKBDNVcxoyz8XCVNyyFKSZcpbQxN33TT".to_string(),
+            fee: "15.4000 milli DOT".to_string(),
+        };
+
+        let input = SubstrateRawTxIn{
+            raw_data: "0600ffd7568e5f0a7eda67a82691ff379ac4bba4f9c9b859fe779b5d46363b61ad2db9e56c0703d148e25901007b000000dcd1346701ca8396496e52aa2785b1748deb6db09551b72159dcb3e08991025bde8f69eeb5e065e18c6950ff708d7e551f68dc9bf59a07c52367c0280f805ec7".to_string()
+        };
+        let ret =
+            Transaction::sign_transaction(&input, &sign_param).expect("sign transaction error");
+
+        let public_key = SubstrateAddress::get_public_key(KUSAMA_PATH, &AddressType::Kusama)
+            .expect("get pub key error");
+        let msg = hex::decode(input.raw_data).unwrap();
+        let pk = sp_core::ed25519::Public::from_slice(&hex::decode(public_key).unwrap());
+        let sig =
+            sp_core::ed25519::Signature::from_slice(&hex::decode(&ret.signature[4..]).unwrap());
         assert!(
             sp_core::ed25519::Signature::verify(&sig, msg.as_slice(), &pk),
             "assert sig"
