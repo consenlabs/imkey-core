@@ -14,6 +14,8 @@ pub mod error_handling;
 pub mod ethereum_address;
 pub mod ethereum_signer;
 pub mod message_handler;
+pub mod tron_address;
+pub mod tron_signer;
 pub mod usdt_signer;
 use std::sync::Mutex;
 
@@ -140,9 +142,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
         "eth_message_sign" => {
             landingpad(|| ethereum_signer::sign_eth_message(&action.param.unwrap().value))
         }
-        "eth_ec_sign" => {
-            landingpad(|| ethereum_signer::ec_sign(&action.param.unwrap().value))
-        }
+        "eth_ec_sign" => landingpad(|| ethereum_signer::ec_sign(&action.param.unwrap().value)),
         "eth_get_address" => {
             landingpad(|| ethereum_address::get_eth_address(&action.param.unwrap().value))
         }
@@ -171,6 +171,18 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
         }
         "cosmos_register_address" => {
             landingpad(|| cosmos_address::display_cosmos_address(&action.param.unwrap().value))
+        }
+        "tron_get_address" => {
+            landingpad(|| tron_address::get_tron_address(&action.param.unwrap().value))
+        }
+        "tron_register_address" => {
+            landingpad(|| tron_address::display_tron_address(&action.param.unwrap().value))
+        }
+        "tron_tx_sign" => {
+            landingpad(|| tron_signer::sign_tron_transaction(&action.param.unwrap().value))
+        }
+        "tron_message_sign" => {
+            landingpad(|| tron_signer::sign_tron_message(&action.param.unwrap().value))
         }
 
         _ => Vec::new(),

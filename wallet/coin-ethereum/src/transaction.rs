@@ -195,10 +195,12 @@ impl Transaction {
     pub fn sign_persional_message(input: EthMessageSignReq) -> EthResult<EthMessageSignRes> {
         check_path_validity(&input.path).unwrap();
 
-        let message = match is_valid_hex(&input.message){
-            true => {let value = &input.message[2..];
-                hex::decode(value).unwrap()}
-            false => input.message.into_bytes()
+        let message = match is_valid_hex(&input.message) {
+            true => {
+                let value = &input.message[2..];
+                hex::decode(value).unwrap()
+            }
+            false => input.message.into_bytes(),
         };
 
         let header = format!("Ethereum Signed Message:\n{}", &message.len());
@@ -207,21 +209,22 @@ impl Transaction {
         data.extend(header.as_bytes());
         data.extend(message);
 
-        Transaction::sign_message(&input.path,&data,&input.sender)
+        Transaction::sign_message(&input.path, &data, &input.sender)
     }
-
 
     pub fn ec_sign(input: EthMessageSignReq) -> EthResult<EthMessageSignRes> {
         check_path_validity(&input.path).unwrap();
-        let message = match is_valid_hex(&input.message){
-            true => {let value = &input.message[2..];
-            hex::decode(value).unwrap()}
-            false => input.message.into_bytes()
+        let message = match is_valid_hex(&input.message) {
+            true => {
+                let value = &input.message[2..];
+                hex::decode(value).unwrap()
+            }
+            false => input.message.into_bytes(),
         };
-        Transaction::sign_message(&input.path,&message,&input.sender)
+        Transaction::sign_message(&input.path, &message, &input.sender)
     }
 
-    pub fn sign_message(path:&str,message:&[u8],sender:&str) -> EthResult<EthMessageSignRes> {
+    pub fn sign_message(path: &str, message: &[u8], sender: &str) -> EthResult<EthMessageSignRes> {
         let mut data = message.to_vec();
 
         let mut data_to_sign: Vec<u8> = Vec::new();
@@ -532,14 +535,24 @@ mod tests {
         bind_test();
 
         let message = b"Hello imKey";
-        let output = Transaction::sign_message(constants::ETH_PATH,message,"0x6031564e7b2F5cc33737807b2E58DaFF870B590b").unwrap();
+        let output = Transaction::sign_message(
+            constants::ETH_PATH,
+            message,
+            "0x6031564e7b2F5cc33737807b2E58DaFF870B590b",
+        )
+        .unwrap();
         assert_eq!(
             output.signature,
             "57c976d1fa15c7e833fd340bcb3a96974060ed555369d443449ac4429c1933433afa5304d1cfcb6799403f2b97a1e83309b98fae8ad5fade62335664d90e819f1b".to_string()
         );
 
         let message = hex::decode("8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f").unwrap();
-        let output = Transaction::sign_message(constants::ETH_PATH,&message,"0x6031564e7b2F5cc33737807b2E58DaFF870B590b").unwrap();
+        let output = Transaction::sign_message(
+            constants::ETH_PATH,
+            &message,
+            "0x6031564e7b2F5cc33737807b2E58DaFF870B590b",
+        )
+        .unwrap();
         assert_eq!(
             output.signature,
             "3d8ba5e7375900476d715b479938e48a2e46e59f8e2e12673adb5e3df78a622050053ae0183f5e555e5db34ff43293de255f384709bd3fe6e00b8239c7f1a3561c".to_string()

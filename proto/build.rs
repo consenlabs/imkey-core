@@ -10,6 +10,10 @@ fn main() {
     env::set_var("OUT_DIR", "../wallet/coin-ethereum/src");
     prost_build::compile_protos(&["src/eth.proto"], &["src/"]).unwrap();
 
+    // tcx-tron
+    env::set_var("OUT_DIR", "../wallet/coin-tron/src");
+    prost_build::compile_protos(&["src/tron.proto"], &["src/"]).unwrap();
+
     // tcx-btc
     env::set_var("OUT_DIR", "../wallet/coin-bitcoin/src");
     prost_build::compile_protos(&["src/btc.proto"], &["src/"]).unwrap();

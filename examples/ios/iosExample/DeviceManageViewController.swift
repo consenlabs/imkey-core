@@ -25,16 +25,22 @@ class DeviceManageViewController: UIViewController {
     let rbEOS = LTHRadioButton(selectedColor: .black)
     let rbIMK = LTHRadioButton(selectedColor: .black)
     let rbCosmos = LTHRadioButton(selectedColor: .black)
+    let rbTron = LTHRadioButton(selectedColor: .black)
+    let rbFileCoin = LTHRadioButton(selectedColor: .black)
     self.view.addSubview(rbBTC)
     self.view.addSubview(rbETH)
     self.view.addSubview(rbEOS)
     self.view.addSubview(rbIMK)
     self.view.addSubview(rbCosmos)
+    self.view.addSubview(rbTron)
+    self.view.addSubview(rbFileCoin)
     rbBTC.translatesAutoresizingMaskIntoConstraints = false
     rbETH.translatesAutoresizingMaskIntoConstraints = false
     rbEOS.translatesAutoresizingMaskIntoConstraints = false
     rbIMK.translatesAutoresizingMaskIntoConstraints = false
     rbCosmos.translatesAutoresizingMaskIntoConstraints = false
+    rbTron.translatesAutoresizingMaskIntoConstraints = false
+    rbFileCoin.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
       rbBTC.centerYAnchor.constraint(equalTo: labelBTC.centerYAnchor),
       rbBTC.leadingAnchor.constraint(equalTo: labelBTC.leadingAnchor,constant: -20),
@@ -65,11 +71,25 @@ class DeviceManageViewController: UIViewController {
       rbCosmos.heightAnchor.constraint(equalToConstant: rbBTC.frame.height),
       rbCosmos.widthAnchor.constraint(equalToConstant: rbBTC.frame.width)]
     )
+    NSLayoutConstraint.activate([
+      rbTron.centerYAnchor.constraint(equalTo: labelTron.centerYAnchor),
+      rbTron.leadingAnchor.constraint(equalTo: labelTron.leadingAnchor,constant: -20),
+      rbTron.heightAnchor.constraint(equalToConstant: rbBTC.frame.height),
+      rbTron.widthAnchor.constraint(equalToConstant: rbBTC.frame.width)]
+    )
+    NSLayoutConstraint.activate([
+      rbFileCoin.centerYAnchor.constraint(equalTo: labelFileCoin.centerYAnchor),
+      rbFileCoin.leadingAnchor.constraint(equalTo: labelFileCoin.leadingAnchor,constant: -20),
+      rbFileCoin.heightAnchor.constraint(equalToConstant: rbBTC.frame.height),
+      rbFileCoin.widthAnchor.constraint(equalToConstant: rbBTC.frame.width)]
+    )
     rbBTC.onSelect {
       rbETH.deselect()
       rbEOS.deselect()
       rbIMK.deselect()
       rbCosmos.deselect()
+      rbTron.deselect()
+      rbFileCoin.deselect()
       self.appletName = "BTC"
     }
     rbETH.onSelect {
@@ -77,6 +97,8 @@ class DeviceManageViewController: UIViewController {
       rbEOS.deselect()
       rbIMK.deselect()
       rbCosmos.deselect()
+      rbTron.deselect()
+      rbFileCoin.deselect()
       self.appletName = "ETH"
     }
     rbEOS.onSelect {
@@ -84,6 +106,8 @@ class DeviceManageViewController: UIViewController {
       rbETH.deselect()
       rbIMK.deselect()
       rbCosmos.deselect()
+      rbTron.deselect()
+      rbFileCoin.deselect()
       self.appletName = "EOS"
     }
     rbIMK.onSelect {
@@ -91,6 +115,8 @@ class DeviceManageViewController: UIViewController {
       rbETH.deselect()
       rbEOS.deselect()
       rbCosmos.deselect()
+      rbTron.deselect()
+      rbFileCoin.deselect()
       self.appletName = "SIO"
     }
     rbCosmos.onSelect {
@@ -98,9 +124,29 @@ class DeviceManageViewController: UIViewController {
       rbETH.deselect()
       rbEOS.deselect()
       rbIMK.deselect()
+      rbTron.deselect()
+      rbFileCoin.deselect()
       self.appletName = "COSMOS"
     }
-    rbBTC.select()
+    rbTron.onSelect {
+      rbBTC.deselect()
+      rbETH.deselect()
+      rbEOS.deselect()
+      rbIMK.deselect()
+      rbCosmos.deselect()
+      rbFileCoin.deselect()
+      self.appletName = "TRON"
+    }
+    rbFileCoin.onSelect {
+      rbBTC.deselect()
+      rbETH.deselect()
+      rbEOS.deselect()
+      rbIMK.deselect()
+      rbCosmos.deselect()
+      rbTron.deselect()
+      self.appletName = "FILECOIN"
+    }
+    rbTron.select()
   }
     
   @IBOutlet weak var labelBTC: UILabel!
@@ -108,6 +154,8 @@ class DeviceManageViewController: UIViewController {
   @IBOutlet weak var labelEOS: UILabel!
   @IBOutlet weak var labelIMK: UILabel!
   @IBOutlet weak var labelCosmsos: UILabel!
+  @IBOutlet weak var labelTron: UILabel!
+  @IBOutlet weak var labelFileCoin: UILabel!
   
   
   @IBAction func backClick(_ sender: Any) {
