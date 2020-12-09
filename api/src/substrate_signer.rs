@@ -7,6 +7,6 @@ use prost::Message;
 
 pub fn sign_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u8>> {
     let input: SubstrateRawTxIn = SubstrateRawTxIn::decode(data).unwrap();
-    let signed = Transaction::sign_transaction(input, sign_param)?;
+    let signed = Transaction::sign_transaction(&input, sign_param)?;
     encode_message(signed)
 }
