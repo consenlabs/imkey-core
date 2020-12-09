@@ -107,10 +107,16 @@ impl Transaction {
 
 #[cfg(test)]
 mod test {
+<<<<<<< HEAD
     use crate::address::{AddressType, SubstrateAddress};
     use crate::substrateapi::SubstrateRawTxIn;
     use crate::transaction::Transaction;
     use common::constants::{KUSAMA_PATH, POLKADOT_PATH};
+=======
+    use crate::substrateapi::SubstrateRawTxIn;
+    use crate::transaction::Transaction;
+    use common::constants::POLKADOT_PATH;
+>>>>>>> add ksm instant id
     use common::SignParam;
     use device::device_binding::bind_test;
     use sp_core::crypto::Ss58Codec;
@@ -162,6 +168,7 @@ mod test {
             sender: "147mvrDYhFpZzvFASKBDNVcxoyz8XCVNyyFKSZcpbQxN33TT".to_string(),
             fee: "15.4000 milli DOT".to_string(),
         };
+<<<<<<< HEAD
 
         let input = SubstrateRawTxIn{
             raw_data: "0600ffd7568e5f0a7eda67a82691ff379ac4bba4f9c9b859fe779b5d46363b61ad2db9e56c0703d148e25901007b000000dcd1346701ca8396496e52aa2785b1748deb6db09551b72159dcb3e08991025bde8f69eeb5e065e18c6950ff708d7e551f68dc9bf59a07c52367c0280f805ec7".to_string()
@@ -179,5 +186,10 @@ mod test {
             sp_core::ed25519::Signature::verify(&sig, msg.as_slice(), &pk),
             "assert sig"
         );
+=======
+        let ret = Transaction::sign_transaction(&input, &sign_param).expect("sign error");
+
+        assert_eq!("sig", ret.signature);
+>>>>>>> add ksm instant id
     }
 }
