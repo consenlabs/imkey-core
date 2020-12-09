@@ -261,6 +261,39 @@ impl Secp256k1Apdu {
     }
 }
 
+pub struct Ed25519Apdu();
+
+impl Default for Ed25519Apdu {
+    fn default() -> Self {
+        Ed25519Apdu()
+    }
+}
+
+impl Ed25519Apdu {
+    pub fn sign(data: &[u8]) -> Vec<String> {
+        Apdu::prepare_sign(0x81, data.to_vec())
+    }
+
+    pub fn get_xpub(data: &[u8]) -> String {
+        if data.len() as u32 > LC_MAX {
+            panic!("data to long");
+        }
+        let mut apdu = ApduHeader::new(0x80, 0x82, 0x00, 0x00, data.len() as u8).to_array();
+        apdu.extend(data);
+        apdu.push(0x00); //Le
+        hex::encode(apdu)
+    }
+
+    pub fn register_address(name: &[u8], address: &[u8]) -> String {
+        let mut data: Vec<u8> = vec![];
+        data.push(address.len() as u8);
+        data.extend(address);
+        data.push(name.len() as u8);
+        data.extend(name);
+        Apdu::register_address(0x83, &data)
+    }
+}
+
 pub struct Apdu {}
 
 struct ApduHeader {

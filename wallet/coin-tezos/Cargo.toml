@@ -8,3 +8,10 @@ edition = "2018"
 
 [dependencies]
 common = {path = "../../common"}
+device = {path = "../../device"}
+transport = {path = "../../transport"}
+
+hex = "0.4.2"
+blake2b_simd = "0.5.10"
+bitcoin = "0.25.0"
+failure = "0.1.6"

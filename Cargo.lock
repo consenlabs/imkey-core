@@ -496,6 +496,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "coin-tezos"
+version = "0.1.0"
+dependencies = [
+ "bitcoin",
+ "blake2b_simd",
+ "common",
+ "device",
+ "failure",
+ "hex 0.4.2",
+ "transport",
+]
+
+[[package]]
 name = "common"
 version = "0.1.0"
 dependencies = [

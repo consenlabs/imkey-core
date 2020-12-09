@@ -21,6 +21,7 @@ pub const BTC_AID: &str = "695F627463";
 pub const COSMOS_AID: &str = "695F636F736D6F73";
 pub const FILECOIN_AID: &str = "695F6B315F66696C";
 pub const IMK_AID: &str = "695F696D6B";
+pub const TEZOS_AID: &str = "695F656473725F78747A";
 
 pub const BL_AID: &str = "D0426F6F746C6F61646572";
 
