@@ -16,9 +16,9 @@ pub mod ethereum_address;
 pub mod ethereum_signer;
 pub mod filecoin_address;
 pub mod filecoin_signer;
+pub mod message_handler;
 pub mod substrate_address;
 pub mod substrate_signer;
-pub mod message_handler;
 use std::sync::Mutex;
 
 #[macro_use]
@@ -181,14 +181,12 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                     &param.clone().input.unwrap().value,
                     &param,
                 ),
-                "POLKADOT" => substrate_signer::sign_transaction(
-                    &param.clone().input.unwrap().value,
-                    &param,
-                ),
-                "KUSAMA" => substrate_signer::sign_transaction(
-                    &param.clone().input.unwrap().value,
-                    &param,
-                ),
+                "POLKADOT" => {
+                    substrate_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
+                }
+                "KUSAMA" => {
+                    substrate_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
+                }
                 _ => Err(format_err!("sign_tx unsupported_chain")),
             }
         }),

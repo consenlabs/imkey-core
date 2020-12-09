@@ -16,7 +16,8 @@ pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
 }
 
 pub fn display_address(param: &AddressParam) -> Result<Vec<u8>> {
-    let address = SubstrateAddress::display_address(param.path.as_ref(), param.chain_type.as_ref())?;
+    let address =
+        SubstrateAddress::display_address(param.path.as_ref(), param.chain_type.as_ref())?;
 
     let address_message = AddressResult {
         path: param.path.to_owned(),
