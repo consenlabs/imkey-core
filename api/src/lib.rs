@@ -17,11 +17,10 @@ pub mod ethereum_signer;
 pub mod filecoin_address;
 pub mod filecoin_signer;
 pub mod message_handler;
-pub mod tron_address;
-pub mod tron_signer;
-pub mod usdt_signer;
 pub mod substrate_address;
 pub mod substrate_signer;
+pub mod tron_address;
+pub mod tron_signer;
 use std::sync::Mutex;
 
 #[macro_use]

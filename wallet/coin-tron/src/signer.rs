@@ -105,7 +105,7 @@ impl TronSigner {
     pub fn sign(path: &str, data_pack: &[u8], hash: &[u8], sender: &str) -> Result<String> {
         let select_apdu = Apdu::select_applet(TRON_AID);
         let select_result = send_apdu(select_apdu)?;
-        ApduCheck::checke_response(&select_result)?;
+        ApduCheck::check_response(&select_result)?;
 
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let path_signature = secp256k1_sign(&key_manager_obj.pri_key, &path.as_bytes())?;
@@ -129,7 +129,7 @@ impl TronSigner {
         let sign_apdus = Secp256k1Apdu::sign(data_pack);
         for apdu in sign_apdus {
             sign_response = send_apdu_timeout(apdu, constants::TIMEOUT_LONG)?;
-            ApduCheck::checke_response(&sign_response)?;
+            ApduCheck::check_response(&sign_response)?;
         }
 
         // verify
@@ -181,7 +181,7 @@ mod tests {
             is_tron_header: true,
         };
         let res = TronSigner::sign_message(input).unwrap();
-        assert_eq!("16417c6489da3a88ef980bf0a42551b9e76181d03e7334548ab3cb36e7622a484482722882a29e2fe4587b95c739a68624ebf9ada5f013a9340d883f03fcf9af1b", hex::encode(&res.signature));
+        assert_eq!("16417c6489da3a88ef980bf0a42551b9e76181d03e7334548ab3cb36e7622a484482722882a29e2fe4587b95c739a68624ebf9ada5f013a9340d883f03fcf9af1b", &res.signature);
 
         let input2 = TronMessageSignReq {
             path: constants::TRON_PATH.to_string(),
@@ -191,7 +191,17 @@ mod tests {
             is_tron_header: false,
         };
         let res = TronSigner::sign_message(input2).unwrap();
-        assert_eq!("7209610445e867cf2a36ea301bb5d1fbc3da597fd2ce4bb7fa64796fbf0620a4175e9f841cbf60d12c26737797217c0082fdb3caa8e44079e04ec3f93e86bbea1c", hex::encode(&res.signature));
+        assert_eq!("06ff3c5f98b8e8e257f47a66ce8e953c7a7d0f96eb6687da6a98b66a36c2a725759cab3df94d014bd17760328adf860649303c68c4fa6644d9f307e2f32cc3311c", &res.signature);
+
+        let input = TronMessageSignReq {
+            path: constants::TRON_PATH.to_string(),
+            message: "abcdef".to_string(),
+            address: "TY2uroBeZ5trA9QT96aEWj32XLkAAhQ9R2".to_string(),
+            is_hex: false,
+            is_tron_header: true,
+        };
+        let res = TronSigner::sign_message(input).unwrap();
+        assert_eq!("a87eb6ae7e97621b6ba2e2f70db31fe0c744c6adcfdc005044026506b70ac11a33f415f4478b6cf84af32b3b5d70a13a77e53287613449b345bb16fe012c04081b", &res.signature);
     }
 
     #[test]
@@ -206,6 +216,6 @@ mod tests {
             to: "TDQqJsFsStSy5fjG52KuiWW7HhJGAKGJLb".to_string()
         };
         let res = TronSigner::sign_transaction(input).unwrap();
-        assert_eq!("c65b4bde808f7fcfab7b0ef9c1e3946c83311f8ac0a5e95be2d8b6d2400cfe8b5e24dc8f0883132513e422f2aaad8a4ecc14438eae84b2683eefa626e3adffc61c", hex::encode(&res.signature))
+        assert_eq!("c65b4bde808f7fcfab7b0ef9c1e3946c83311f8ac0a5e95be2d8b6d2400cfe8b5e24dc8f0883132513e422f2aaad8a4ecc14438eae84b2683eefa626e3adffc61c", &res.signature);
     }
 }

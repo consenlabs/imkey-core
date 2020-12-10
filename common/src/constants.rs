@@ -21,7 +21,6 @@ pub const BTC_AID: &str = "695F627463";
 pub const COSMOS_AID: &str = "695F636F736D6F73";
 pub const FILECOIN_AID: &str = "695F6B315F66696C";
 pub const IMK_AID: &str = "695F696D6B";
-pub const FILECOIN_AID: &str = "695F6B315F66696C";
 pub const TRON_AID: &str = "695F6B315F74726F6E";
 pub const POLKADOT_AID: &str = "695F656473725F646F74";
 pub const KUSAMA_AID: &str = "695F656473725F6B736D";

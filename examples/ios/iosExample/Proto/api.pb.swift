@@ -413,8 +413,6 @@ extension Api_CommonResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     return true
   }
 }
-<<<<<<< HEAD
-=======
 
 extension Api_AddressParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".AddressParam"
@@ -919,4 +917,3 @@ extension Api_InitImKeyCoreXParam: SwiftProtobuf.Message, SwiftProtobuf._Message
     return true
   }
 }
->>>>>>> feature/polkadot
