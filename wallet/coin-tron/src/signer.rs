@@ -1,12 +1,12 @@
 use crate::address::TronAddress;
-use crate::tronapi::{TronMessageSignReq, TronMessageSignRes, TronTxReq, TronTxRes};
+use crate::tronapi::{TronMessageInput, TronMessageOutput, TronTxInput, TronTxOutput};
 use crate::Result;
 use common::apdu::{Apdu, ApduCheck, CoinCommonApdu, Secp256k1Apdu};
 use common::constants::TRON_AID;
 use common::error::CoinError;
 use common::path::check_path_validity;
 use common::utility::{is_valid_hex, secp256k1_sign, sha256_hash};
-use common::{constants, utility};
+use common::{constants, utility, SignParam};
 use device::device_binding::KEY_MANAGER;
 use device::key_manager::KeyManager;
 use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
@@ -16,8 +16,11 @@ use transport::message::{send_apdu, send_apdu_timeout};
 pub struct TronSigner {}
 
 impl TronSigner {
-    pub fn sign_message(input: TronMessageSignReq) -> Result<TronMessageSignRes> {
-        check_path_validity(&input.path).unwrap();
+    pub fn sign_message(
+        input: TronMessageInput,
+        sign_param: &SignParam,
+    ) -> Result<TronMessageOutput> {
+        check_path_validity(&sign_param.path).unwrap();
 
         let message = match input.is_hex {
             true => {
@@ -44,7 +47,7 @@ impl TronSigner {
         data_pack.push(hash.len() as u8);
         data_pack.extend(&hash);
 
-        let path = input.path.as_bytes();
+        let path = sign_param.path.as_bytes();
         data_pack.push(0x02);
         data_pack.push(path.len() as u8);
         data_pack.extend(path);
@@ -58,12 +61,17 @@ impl TronSigner {
         data_pack_with_sig.extend(&data_pack);
 
         drop(key_manager_obj);
-        let signature = TronSigner::sign(&input.path, &data_pack_with_sig, &hash, &input.address)?;
-        Ok(TronMessageSignRes { signature })
+        let signature = TronSigner::sign(
+            &sign_param.path,
+            &data_pack_with_sig,
+            &hash,
+            &sign_param.sender,
+        )?;
+        Ok(TronMessageOutput { signature })
     }
 
-    pub fn sign_transaction(input: TronTxReq) -> Result<TronTxRes> {
-        check_path_validity(&input.path).unwrap();
+    pub fn sign_transaction(input: TronTxInput, sign_param: &SignParam) -> Result<TronTxOutput> {
+        check_path_validity(&sign_param.path).unwrap();
 
         let mut data_pack = Vec::new();
 
@@ -73,17 +81,17 @@ impl TronSigner {
         data_pack.push(hash.len() as u8);
         data_pack.extend(&hash);
 
-        let path = input.path.as_bytes();
+        let path = sign_param.path.as_bytes();
         data_pack.push(0x02);
         data_pack.push(path.len() as u8);
         data_pack.extend(path);
 
-        let payment = input.payment.as_bytes();
+        let payment = sign_param.payment.as_bytes();
         data_pack.push(0x07);
         data_pack.push(payment.len() as u8);
         data_pack.extend(payment);
 
-        let to = input.to.as_bytes();
+        let to = sign_param.receiver.as_bytes();
         data_pack.push(0x08);
         data_pack.push(to.len() as u8);
         data_pack.extend(to);
@@ -98,8 +106,13 @@ impl TronSigner {
         data_pack_with_sig.extend(&data_pack_sig);
         data_pack_with_sig.extend(&data_pack);
 
-        let signature = TronSigner::sign(&input.path, &data_pack_with_sig, &hash, &input.address)?;
-        Ok(TronTxRes { signature })
+        let signature = TronSigner::sign(
+            &sign_param.path,
+            &data_pack_with_sig,
+            &hash,
+            &sign_param.sender,
+        )?;
+        Ok(TronTxOutput { signature })
     }
 
     pub fn sign(path: &str, data_pack: &[u8], hash: &[u8], sender: &str) -> Result<String> {
@@ -164,58 +177,69 @@ impl TronSigner {
 #[cfg(test)]
 mod tests {
     use crate::signer::TronSigner;
-    use crate::tronapi::{TronMessageSignReq, TronTxReq};
+    use crate::tronapi::{TronMessageInput, TronTxInput};
     use bitcoin::util::misc::hex_bytes;
-    use common::constants;
+    use common::{constants, SignParam};
     use device::device_binding::bind_test;
 
     #[test]
     fn sign_message() {
         bind_test();
 
-        let input = TronMessageSignReq {
+        let sign_param = SignParam {
+            chain_type: "TRON".to_string(),
             path: constants::TRON_PATH.to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
+            sender: "TY2uroBeZ5trA9QT96aEWj32XLkAAhQ9R2".to_string(),
+            fee: "".to_string(),
+        };
+
+        let input = TronMessageInput {
             message: "645c0b7b58158babbfa6c6cd5a48aa7340a8749176b120e8516216787a13dc76".to_string(),
-            address: "TY2uroBeZ5trA9QT96aEWj32XLkAAhQ9R2".to_string(),
             is_hex: true,
             is_tron_header: true,
         };
-        let res = TronSigner::sign_message(input).unwrap();
+        let res = TronSigner::sign_message(input, &sign_param).unwrap();
         assert_eq!("16417c6489da3a88ef980bf0a42551b9e76181d03e7334548ab3cb36e7622a484482722882a29e2fe4587b95c739a68624ebf9ada5f013a9340d883f03fcf9af1b", &res.signature);
 
-        let input2 = TronMessageSignReq {
-            path: constants::TRON_PATH.to_string(),
+        let input2 = TronMessageInput {
             message: "645c0b7b58158babbfa6c6cd5a48aa7340a8749176b120e8516216787a13dc76".to_string(),
-            address: "TY2uroBeZ5trA9QT96aEWj32XLkAAhQ9R2".to_string(),
             is_hex: true,
             is_tron_header: false,
         };
-        let res = TronSigner::sign_message(input2).unwrap();
+        let res = TronSigner::sign_message(input2, &sign_param).unwrap();
         assert_eq!("06ff3c5f98b8e8e257f47a66ce8e953c7a7d0f96eb6687da6a98b66a36c2a725759cab3df94d014bd17760328adf860649303c68c4fa6644d9f307e2f32cc3311c", &res.signature);
 
-        let input = TronMessageSignReq {
-            path: constants::TRON_PATH.to_string(),
+        let input3 = TronMessageInput {
             message: "abcdef".to_string(),
-            address: "TY2uroBeZ5trA9QT96aEWj32XLkAAhQ9R2".to_string(),
             is_hex: false,
             is_tron_header: true,
         };
-        let res = TronSigner::sign_message(input).unwrap();
+        let res = TronSigner::sign_message(input3, &sign_param).unwrap();
         assert_eq!("a87eb6ae7e97621b6ba2e2f70db31fe0c744c6adcfdc005044026506b70ac11a33f415f4478b6cf84af32b3b5d70a13a77e53287613449b345bb16fe012c04081b", &res.signature);
     }
 
     #[test]
     fn sign_transaction() {
         bind_test();
-
-        let input = TronTxReq{
+        let sign_param = SignParam {
+            chain_type: "TRON".to_string(),
             path: constants::TRON_PATH.to_string(),
-            raw_data: "0a0208312208b02efdc02638b61e40f083c3a7c92d5a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541a1e81654258bf14f63feb2e8d1380075d45b0dac1215410b3e84ec677b3e63c99affcadb91a6b4e086798f186470a0bfbfa7c92d".to_string(),
-            address: "TY2uroBeZ5trA9QT96aEWj32XLkAAhQ9R2".to_string(),
+            network: "".to_string(),
+            input: None,
             payment: "100 TRX".to_string(),
-            to: "TDQqJsFsStSy5fjG52KuiWW7HhJGAKGJLb".to_string()
+            receiver: "TDQqJsFsStSy5fjG52KuiWW7HhJGAKGJLb".to_string(),
+            sender: "TY2uroBeZ5trA9QT96aEWj32XLkAAhQ9R2".to_string(),
+            fee: "20 dd".to_string(),
         };
-        let res = TronSigner::sign_transaction(input).unwrap();
+        let input = TronTxInput{
+            raw_data: "0a0208312208b02efdc02638b61e40f083c3a7c92d5a65080112610a2d747970652e676f6f676c65617069732e636f6d2f70726f746f636f6c2e5472616e73666572436f6e747261637412300a1541a1e81654258bf14f63feb2e8d1380075d45b0dac1215410b3e84ec677b3e63c99affcadb91a6b4e086798f186470a0bfbfa7c92d".to_string(),
+        };
+
+        let res = TronSigner::sign_transaction(input, &sign_param).unwrap();
         assert_eq!("c65b4bde808f7fcfab7b0ef9c1e3946c83311f8ac0a5e95be2d8b6d2400cfe8b5e24dc8f0883132513e422f2aaad8a4ecc14438eae84b2683eefa626e3adffc61c", &res.signature);
     }
 }
