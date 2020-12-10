@@ -1,4 +1,5 @@
 pub mod address;
+pub mod tezosapi;
 pub mod transaction;
 use core::result;
 #[macro_use]

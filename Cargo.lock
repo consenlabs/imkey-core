@@ -505,6 +505,8 @@ dependencies = [
  "device",
  "failure",
  "hex 0.4.2",
+ "prost 0.6.1",
+ "prost-types 0.6.1",
  "transport",
 ]
 
