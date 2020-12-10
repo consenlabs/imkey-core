@@ -42,6 +42,8 @@ pub enum ImkeyError {
     ImkeyTsmCosCheckUpdateFail,
     #[fail(display = "imkey_auth_code_ciphertext_storage_fail")]
     ImkeyTsmAuthCodeCiphertextStorageFail,
+    #[fail(display = "imkey_tsm_cos_version_unsupport_applet")]
+    ImkeyTsmCosVersionUnsupport_applet,
 }
 
 #[derive(Fail, Debug, PartialOrd, PartialEq)]
@@ -54,4 +56,6 @@ pub enum BindError {
     ImkeyEncryptAuthcodeFail,
     #[fail(display = "imkey_save_key_file_fail")]
     ImkeySaveKeyFileFail,
+    #[fail(display = "imkey_authcode_error")]
+    ImkeyAuthcodeError,
 }

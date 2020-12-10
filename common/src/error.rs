@@ -56,4 +56,12 @@ pub enum CoinError {
     GetXpubError,
     #[fail(display = "address_type_mismatch")]
     AddressTypeMismatch,
+    #[fail(display = "invalid_address")]
+    InvalidAddress,
+    #[fail(display = "invalid_number")]
+    InvalidNumber,
+    #[fail(display = "invalid_param")]
+    InvalidParam,
+    #[fail(display = "invalid_format")]
+    InvalidFormat,
 }

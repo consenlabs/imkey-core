@@ -1,14 +1,14 @@
 use crate::Result;
 use bitcoin::util::base58;
-use common::apdu::{ApduCheck, CoinCommonApdu, Secp256k1Apdu, Apdu};
+use common::apdu::{Apdu, ApduCheck, CoinCommonApdu, Secp256k1Apdu};
+use common::constants::TRON_AID;
+use common::error::CoinError;
 use common::path::check_path_validity;
+use common::utility;
 use common::utility::secp256k1_sign;
 use device::device_binding::KEY_MANAGER;
 use keccak_hash::keccak;
 use transport::message::send_apdu;
-use common::constants::TRON_AID;
-use common::utility;
-use common::error::CoinError;
 
 pub struct TronAddress {}
 

@@ -1,18 +1,41 @@
-use crate::api::CommonResponse;
+use crate::api::{CommonResponse, InitImKeyCoreXParam};
 use crate::error_handling::Result;
 use crate::message_handler::encode_message;
 use common::applet;
 use common::constants;
+use common::{OPERATING_SYSTEM, XPUB_COMMON_IV, XPUB_COMMON_KEY_128};
 use device::device_manager;
 use device::deviceapi::{
     AppDeleteReq, AppDownloadReq, AppUpdateReq, AvailableAppBean, BindAcquireReq, BindAcquireRes,
-    BindCheckReq, BindCheckRes, CheckUpdateRes, CosCheckUpdateRes, DeviceConnectReq,
-    GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes, GetLifeTimeRes,
-    GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes, SetBleNameReq,
+    BindCheckRes, CheckUpdateRes, CosCheckUpdateRes, DeviceConnectReq, GetBatteryPowerRes,
+    GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes, GetLifeTimeRes, GetRamSizeRes,
+    GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes, SetBleNameReq,
 };
+use parking_lot::RwLock;
 use prost::Message;
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 use transport::hid_api::hid_connect;
+
+lazy_static! {
+    pub static ref IS_DEBUG: RwLock<bool> = RwLock::new(false);
+    pub static ref WALLET_FILE_DIR: RwLock<String> = RwLock::new("../test-data".to_string());
+}
+
+pub fn init_imkey_core(data: &[u8]) -> Result<Vec<u8>> {
+    let InitImKeyCoreXParam {
+        file_dir,
+        xpub_common_key,
+        xpub_common_iv,
+        is_debug,
+        system,
+    } = InitImKeyCoreXParam::decode(data).unwrap();
+    *WALLET_FILE_DIR.write() = file_dir.to_string();
+    *XPUB_COMMON_KEY_128.write() = xpub_common_key.to_string();
+    *XPUB_COMMON_IV.write() = xpub_common_iv.to_string();
+    *IS_DEBUG.write() = is_debug;
+    *OPERATING_SYSTEM.write() = system;
+    Ok(vec![])
+}
 
 pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppDownloadReq = AppDownloadReq::decode(data).expect("imkey_illegal_param");
@@ -49,31 +72,24 @@ pub fn check_update() -> Result<Vec<u8>> {
     let response = device_manager::check_update()?;
 
     let mut available_bean_list: Vec<AvailableAppBean> = Vec::new();
-    for (index, value) in response
-        ._ReturnData
-        .available_app_bean_list
-        .unwrap()
-        .iter()
-        .enumerate()
-    {
+    for value in response._ReturnData.available_app_bean_list.unwrap() {
         let version = match value.installed_version.as_ref() {
             Some(version) => version,
             None => "none",
         };
+        let app_name = applet::get_appname_by_instid(value.instance_aid.as_ref().unwrap());
+        if app_name.is_none() {
+            continue;
+        }
 
-        available_bean_list.insert(
-            index,
-            AvailableAppBean {
-                app_name: applet::get_appname_by_instid(value.instance_aid.as_ref().unwrap())
-                    .unwrap()
-                    .to_string(),
-                app_logo: value.app_logo.as_ref().unwrap().to_string(),
-                installed_version: version.to_string(),
-                last_updated: value.last_updated.as_ref().unwrap().to_string(),
-                latest_version: value.latest_version.as_ref().unwrap().to_string(),
-                install_mode: value.install_mode.as_ref().unwrap().to_string(),
-            },
-        );
+        available_bean_list.push(AvailableAppBean {
+            app_name: app_name.unwrap().to_string(),
+            app_logo: value.app_logo.as_ref().unwrap().to_string(),
+            installed_version: version.to_string(),
+            last_updated: value.last_updated.as_ref().unwrap().to_string(),
+            latest_version: value.latest_version.as_ref().unwrap().to_string(),
+            install_mode: value.install_mode.as_ref().unwrap().to_string(),
+        });
     }
 
     let return_code = response._ReturnCode;
@@ -99,9 +115,9 @@ pub fn se_secure_check() -> Result<Vec<u8>> {
     })
 }
 
-pub fn bind_check(data: &[u8]) -> Result<Vec<u8>> {
-    let bind_check: BindCheckReq = BindCheckReq::decode(data).expect("imkey_illegal_param");
-    let check_result = device_manager::bind_check(&bind_check.file_path)?;
+pub fn bind_check() -> Result<Vec<u8>> {
+    let file_path = WALLET_FILE_DIR.read();
+    let check_result = device_manager::bind_check(file_path.as_str())?;
     let response_msg = BindCheckRes {
         bind_status: check_result,
     };

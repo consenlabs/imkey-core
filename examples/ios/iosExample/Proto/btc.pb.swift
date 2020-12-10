@@ -43,86 +43,88 @@ public struct Btcapi_Utxo {
   public init() {}
 }
 
-public struct Btcapi_BtcTxReq {
+public struct Btcapi_BtcTxExtra {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var to: String = String()
-
-  public var amount: Int64 = 0
-
-  public var fee: Int64 = 0
-
-  public var changeAddressIndex: UInt32 = 0
-
-  public var unspents: [Btcapi_Utxo] = []
-
-  public var extraData: Data = SwiftProtobuf.Internal.emptyData
+  public var opReturn: String = String()
 
   public var propertyID: Int32 = 0
 
-  public var network: String = String()
-
-  public var pathPrefix: String = String()
+  public var feeMode: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
-public struct Btcapi_BtcTxRes {
+public struct Btcapi_BtcTxInput {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var txData: String = String()
+  public var to: String {
+    get {return _storage._to}
+    set {_uniqueStorage()._to = newValue}
+  }
+
+  public var amount: Int64 {
+    get {return _storage._amount}
+    set {_uniqueStorage()._amount = newValue}
+  }
+
+  public var fee: Int64 {
+    get {return _storage._fee}
+    set {_uniqueStorage()._fee = newValue}
+  }
+
+  public var changeAddressIndex: UInt32 {
+    get {return _storage._changeAddressIndex}
+    set {_uniqueStorage()._changeAddressIndex = newValue}
+  }
+
+  public var unspents: [Btcapi_Utxo] {
+    get {return _storage._unspents}
+    set {_uniqueStorage()._unspents = newValue}
+  }
+
+  public var segWit: String {
+    get {return _storage._segWit}
+    set {_uniqueStorage()._segWit = newValue}
+  }
+
+  public var `protocol`: String {
+    get {return _storage._protocol}
+    set {_uniqueStorage()._protocol = newValue}
+  }
+
+  public var extra: Btcapi_BtcTxExtra {
+    get {return _storage._extra ?? Btcapi_BtcTxExtra()}
+    set {_uniqueStorage()._extra = newValue}
+  }
+  /// Returns true if `extra` has been explicitly set.
+  public var hasExtra: Bool {return _storage._extra != nil}
+  /// Clears the value of `extra`. Subsequent reads from it will return its default value.
+  public mutating func clearExtra() {_uniqueStorage()._extra = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct Btcapi_BtcTxOutput {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var signature: String = String()
 
   public var txHash: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Btcapi_BtcSegwitTxReq {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var to: String = String()
-
-  public var amount: Int64 = 0
-
-  public var fee: Int64 = 0
-
-  public var changeAddressIndex: UInt32 = 0
-
-  public var unspents: [Btcapi_Utxo] = []
-
-  public var extraData: Data = SwiftProtobuf.Internal.emptyData
-
-  public var propertyID: Int32 = 0
-
-  public var network: String = String()
-
-  public var pathPrefix: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Btcapi_BtcSegwitTxRes {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var witnessTxData: String = String()
 
   public var wtxHash: String = String()
-
-  public var txHash: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -149,32 +151,6 @@ public struct Btcapi_BtcXpubRes {
   // methods supported on all messages.
 
   public var xpub: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Btcapi_BtcAddressReq {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var network: String = String()
-
-  public var path: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Btcapi_BtcAddressRes {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var address: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -250,231 +226,200 @@ extension Btcapi_Utxo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
   }
 }
 
-extension Btcapi_BtcTxReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".BtcTxReq"
+extension Btcapi_BtcTxExtra: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".BtcTxExtra"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "opReturn"),
+    2: .same(proto: "propertyId"),
+    3: .same(proto: "feeMode"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.opReturn)
+      case 2: try decoder.decodeSingularInt32Field(value: &self.propertyID)
+      case 3: try decoder.decodeSingularStringField(value: &self.feeMode)
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.opReturn.isEmpty {
+      try visitor.visitSingularStringField(value: self.opReturn, fieldNumber: 1)
+    }
+    if self.propertyID != 0 {
+      try visitor.visitSingularInt32Field(value: self.propertyID, fieldNumber: 2)
+    }
+    if !self.feeMode.isEmpty {
+      try visitor.visitSingularStringField(value: self.feeMode, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Btcapi_BtcTxExtra, rhs: Btcapi_BtcTxExtra) -> Bool {
+    if lhs.opReturn != rhs.opReturn {return false}
+    if lhs.propertyID != rhs.propertyID {return false}
+    if lhs.feeMode != rhs.feeMode {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Btcapi_BtcTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".BtcTxInput"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "to"),
     2: .same(proto: "amount"),
     3: .same(proto: "fee"),
     4: .standard(proto: "change_address_index"),
     5: .same(proto: "unspents"),
-    6: .standard(proto: "extra_data"),
-    7: .standard(proto: "property_id"),
-    8: .same(proto: "network"),
-    9: .standard(proto: "path_prefix"),
+    6: .same(proto: "segWit"),
+    7: .same(proto: "protocol"),
+    8: .same(proto: "extra"),
   ]
 
+  fileprivate class _StorageClass {
+    var _to: String = String()
+    var _amount: Int64 = 0
+    var _fee: Int64 = 0
+    var _changeAddressIndex: UInt32 = 0
+    var _unspents: [Btcapi_Utxo] = []
+    var _segWit: String = String()
+    var _protocol: String = String()
+    var _extra: Btcapi_BtcTxExtra? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _to = source._to
+      _amount = source._amount
+      _fee = source._fee
+      _changeAddressIndex = source._changeAddressIndex
+      _unspents = source._unspents
+      _segWit = source._segWit
+      _protocol = source._protocol
+      _extra = source._extra
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.to)
-      case 2: try decoder.decodeSingularInt64Field(value: &self.amount)
-      case 3: try decoder.decodeSingularInt64Field(value: &self.fee)
-      case 4: try decoder.decodeSingularUInt32Field(value: &self.changeAddressIndex)
-      case 5: try decoder.decodeRepeatedMessageField(value: &self.unspents)
-      case 6: try decoder.decodeSingularBytesField(value: &self.extraData)
-      case 7: try decoder.decodeSingularInt32Field(value: &self.propertyID)
-      case 8: try decoder.decodeSingularStringField(value: &self.network)
-      case 9: try decoder.decodeSingularStringField(value: &self.pathPrefix)
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._to)
+        case 2: try decoder.decodeSingularInt64Field(value: &_storage._amount)
+        case 3: try decoder.decodeSingularInt64Field(value: &_storage._fee)
+        case 4: try decoder.decodeSingularUInt32Field(value: &_storage._changeAddressIndex)
+        case 5: try decoder.decodeRepeatedMessageField(value: &_storage._unspents)
+        case 6: try decoder.decodeSingularStringField(value: &_storage._segWit)
+        case 7: try decoder.decodeSingularStringField(value: &_storage._protocol)
+        case 8: try decoder.decodeSingularMessageField(value: &_storage._extra)
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.to.isEmpty {
-      try visitor.visitSingularStringField(value: self.to, fieldNumber: 1)
-    }
-    if self.amount != 0 {
-      try visitor.visitSingularInt64Field(value: self.amount, fieldNumber: 2)
-    }
-    if self.fee != 0 {
-      try visitor.visitSingularInt64Field(value: self.fee, fieldNumber: 3)
-    }
-    if self.changeAddressIndex != 0 {
-      try visitor.visitSingularUInt32Field(value: self.changeAddressIndex, fieldNumber: 4)
-    }
-    if !self.unspents.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.unspents, fieldNumber: 5)
-    }
-    if !self.extraData.isEmpty {
-      try visitor.visitSingularBytesField(value: self.extraData, fieldNumber: 6)
-    }
-    if self.propertyID != 0 {
-      try visitor.visitSingularInt32Field(value: self.propertyID, fieldNumber: 7)
-    }
-    if !self.network.isEmpty {
-      try visitor.visitSingularStringField(value: self.network, fieldNumber: 8)
-    }
-    if !self.pathPrefix.isEmpty {
-      try visitor.visitSingularStringField(value: self.pathPrefix, fieldNumber: 9)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._to.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._to, fieldNumber: 1)
+      }
+      if _storage._amount != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._amount, fieldNumber: 2)
+      }
+      if _storage._fee != 0 {
+        try visitor.visitSingularInt64Field(value: _storage._fee, fieldNumber: 3)
+      }
+      if _storage._changeAddressIndex != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._changeAddressIndex, fieldNumber: 4)
+      }
+      if !_storage._unspents.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._unspents, fieldNumber: 5)
+      }
+      if !_storage._segWit.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._segWit, fieldNumber: 6)
+      }
+      if !_storage._protocol.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._protocol, fieldNumber: 7)
+      }
+      if let v = _storage._extra {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Btcapi_BtcTxReq, rhs: Btcapi_BtcTxReq) -> Bool {
-    if lhs.to != rhs.to {return false}
-    if lhs.amount != rhs.amount {return false}
-    if lhs.fee != rhs.fee {return false}
-    if lhs.changeAddressIndex != rhs.changeAddressIndex {return false}
-    if lhs.unspents != rhs.unspents {return false}
-    if lhs.extraData != rhs.extraData {return false}
-    if lhs.propertyID != rhs.propertyID {return false}
-    if lhs.network != rhs.network {return false}
-    if lhs.pathPrefix != rhs.pathPrefix {return false}
+  public static func ==(lhs: Btcapi_BtcTxInput, rhs: Btcapi_BtcTxInput) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._to != rhs_storage._to {return false}
+        if _storage._amount != rhs_storage._amount {return false}
+        if _storage._fee != rhs_storage._fee {return false}
+        if _storage._changeAddressIndex != rhs_storage._changeAddressIndex {return false}
+        if _storage._unspents != rhs_storage._unspents {return false}
+        if _storage._segWit != rhs_storage._segWit {return false}
+        if _storage._protocol != rhs_storage._protocol {return false}
+        if _storage._extra != rhs_storage._extra {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Btcapi_BtcTxRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".BtcTxRes"
+extension Btcapi_BtcTxOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".BtcTxOutput"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "tx_data"),
-    2: .standard(proto: "tx_hash"),
+    1: .same(proto: "signature"),
+    2: .same(proto: "txHash"),
+    3: .same(proto: "wtxHash"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.txData)
+      case 1: try decoder.decodeSingularStringField(value: &self.signature)
       case 2: try decoder.decodeSingularStringField(value: &self.txHash)
+      case 3: try decoder.decodeSingularStringField(value: &self.wtxHash)
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.txData.isEmpty {
-      try visitor.visitSingularStringField(value: self.txData, fieldNumber: 1)
+    if !self.signature.isEmpty {
+      try visitor.visitSingularStringField(value: self.signature, fieldNumber: 1)
     }
     if !self.txHash.isEmpty {
       try visitor.visitSingularStringField(value: self.txHash, fieldNumber: 2)
     }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Btcapi_BtcTxRes, rhs: Btcapi_BtcTxRes) -> Bool {
-    if lhs.txData != rhs.txData {return false}
-    if lhs.txHash != rhs.txHash {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Btcapi_BtcSegwitTxReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".BtcSegwitTxReq"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "to"),
-    2: .same(proto: "amount"),
-    3: .same(proto: "fee"),
-    4: .standard(proto: "change_address_index"),
-    5: .same(proto: "unspents"),
-    6: .standard(proto: "extra_data"),
-    7: .standard(proto: "property_id"),
-    8: .same(proto: "network"),
-    9: .standard(proto: "path_prefix"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.to)
-      case 2: try decoder.decodeSingularInt64Field(value: &self.amount)
-      case 3: try decoder.decodeSingularInt64Field(value: &self.fee)
-      case 4: try decoder.decodeSingularUInt32Field(value: &self.changeAddressIndex)
-      case 5: try decoder.decodeRepeatedMessageField(value: &self.unspents)
-      case 6: try decoder.decodeSingularBytesField(value: &self.extraData)
-      case 7: try decoder.decodeSingularInt32Field(value: &self.propertyID)
-      case 8: try decoder.decodeSingularStringField(value: &self.network)
-      case 9: try decoder.decodeSingularStringField(value: &self.pathPrefix)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.to.isEmpty {
-      try visitor.visitSingularStringField(value: self.to, fieldNumber: 1)
-    }
-    if self.amount != 0 {
-      try visitor.visitSingularInt64Field(value: self.amount, fieldNumber: 2)
-    }
-    if self.fee != 0 {
-      try visitor.visitSingularInt64Field(value: self.fee, fieldNumber: 3)
-    }
-    if self.changeAddressIndex != 0 {
-      try visitor.visitSingularUInt32Field(value: self.changeAddressIndex, fieldNumber: 4)
-    }
-    if !self.unspents.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.unspents, fieldNumber: 5)
-    }
-    if !self.extraData.isEmpty {
-      try visitor.visitSingularBytesField(value: self.extraData, fieldNumber: 6)
-    }
-    if self.propertyID != 0 {
-      try visitor.visitSingularInt32Field(value: self.propertyID, fieldNumber: 7)
-    }
-    if !self.network.isEmpty {
-      try visitor.visitSingularStringField(value: self.network, fieldNumber: 8)
-    }
-    if !self.pathPrefix.isEmpty {
-      try visitor.visitSingularStringField(value: self.pathPrefix, fieldNumber: 9)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Btcapi_BtcSegwitTxReq, rhs: Btcapi_BtcSegwitTxReq) -> Bool {
-    if lhs.to != rhs.to {return false}
-    if lhs.amount != rhs.amount {return false}
-    if lhs.fee != rhs.fee {return false}
-    if lhs.changeAddressIndex != rhs.changeAddressIndex {return false}
-    if lhs.unspents != rhs.unspents {return false}
-    if lhs.extraData != rhs.extraData {return false}
-    if lhs.propertyID != rhs.propertyID {return false}
-    if lhs.network != rhs.network {return false}
-    if lhs.pathPrefix != rhs.pathPrefix {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Btcapi_BtcSegwitTxRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".BtcSegwitTxRes"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "witness_tx_data"),
-    2: .standard(proto: "wtx_hash"),
-    3: .standard(proto: "tx_hash"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.witnessTxData)
-      case 2: try decoder.decodeSingularStringField(value: &self.wtxHash)
-      case 3: try decoder.decodeSingularStringField(value: &self.txHash)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.witnessTxData.isEmpty {
-      try visitor.visitSingularStringField(value: self.witnessTxData, fieldNumber: 1)
-    }
     if !self.wtxHash.isEmpty {
-      try visitor.visitSingularStringField(value: self.wtxHash, fieldNumber: 2)
-    }
-    if !self.txHash.isEmpty {
-      try visitor.visitSingularStringField(value: self.txHash, fieldNumber: 3)
+      try visitor.visitSingularStringField(value: self.wtxHash, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Btcapi_BtcSegwitTxRes, rhs: Btcapi_BtcSegwitTxRes) -> Bool {
-    if lhs.witnessTxData != rhs.witnessTxData {return false}
-    if lhs.wtxHash != rhs.wtxHash {return false}
+  public static func ==(lhs: Btcapi_BtcTxOutput, rhs: Btcapi_BtcTxOutput) -> Bool {
+    if lhs.signature != rhs.signature {return false}
     if lhs.txHash != rhs.txHash {return false}
+    if lhs.wtxHash != rhs.wtxHash {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -539,70 +484,6 @@ extension Btcapi_BtcXpubRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
 
   public static func ==(lhs: Btcapi_BtcXpubRes, rhs: Btcapi_BtcXpubRes) -> Bool {
     if lhs.xpub != rhs.xpub {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Btcapi_BtcAddressReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".BtcAddressReq"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "network"),
-    2: .same(proto: "path"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.network)
-      case 2: try decoder.decodeSingularStringField(value: &self.path)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.network.isEmpty {
-      try visitor.visitSingularStringField(value: self.network, fieldNumber: 1)
-    }
-    if !self.path.isEmpty {
-      try visitor.visitSingularStringField(value: self.path, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Btcapi_BtcAddressReq, rhs: Btcapi_BtcAddressReq) -> Bool {
-    if lhs.network != rhs.network {return false}
-    if lhs.path != rhs.path {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Btcapi_BtcAddressRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".BtcAddressRes"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "address"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.address)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.address.isEmpty {
-      try visitor.visitSingularStringField(value: self.address, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Btcapi_BtcAddressRes, rhs: Btcapi_BtcAddressRes) -> Bool {
-    if lhs.address != rhs.address {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

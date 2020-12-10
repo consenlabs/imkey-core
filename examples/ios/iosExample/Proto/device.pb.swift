@@ -98,18 +98,6 @@ public struct Deviceapi_AvailableAppBean {
   public init() {}
 }
 
-public struct Deviceapi_BindCheckReq {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var filePath: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
 public struct Deviceapi_BindCheckRes {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -510,35 +498,6 @@ extension Deviceapi_AvailableAppBean: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.lastUpdated != rhs.lastUpdated {return false}
     if lhs.latestVersion != rhs.latestVersion {return false}
     if lhs.installMode != rhs.installMode {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Deviceapi_BindCheckReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".BindCheckReq"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "file_path"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.filePath)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.filePath.isEmpty {
-      try visitor.visitSingularStringField(value: self.filePath, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Deviceapi_BindCheckReq, rhs: Deviceapi_BindCheckReq) -> Bool {
-    if lhs.filePath != rhs.filePath {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

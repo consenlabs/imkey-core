@@ -156,3 +156,9 @@ fastlane/test_output
 .DS_Store
 
 libconnector.a
+
+
+tools/ios-internal-release.sh
+tools/android-internal-release.sh
+ios-release/**
+mobile-sdk/imKeyCoreX/Products/

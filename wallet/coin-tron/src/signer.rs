@@ -1,16 +1,16 @@
 use crate::address::TronAddress;
 use crate::tronapi::{TronMessageSignReq, TronMessageSignRes, TronTxReq, TronTxRes};
 use crate::Result;
-use common::apdu::{ApduCheck, CoinCommonApdu, Secp256k1Apdu, Apdu};
+use common::apdu::{Apdu, ApduCheck, CoinCommonApdu, Secp256k1Apdu};
+use common::constants::TRON_AID;
 use common::error::CoinError;
 use common::path::check_path_validity;
 use common::utility::{is_valid_hex, secp256k1_sign, sha256_hash};
 use common::{constants, utility};
 use device::device_binding::KEY_MANAGER;
+use device::key_manager::KeyManager;
 use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
 use transport::message::{send_apdu, send_apdu_timeout};
-use device::key_manager::KeyManager;
-use common::constants::TRON_AID;
 
 #[derive(Debug)]
 pub struct TronSigner {}
@@ -106,7 +106,6 @@ impl TronSigner {
         let select_apdu = Apdu::select_applet(TRON_AID);
         let select_result = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_result)?;
-
 
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let path_signature = secp256k1_sign(&key_manager_obj.pri_key, &path.as_bytes())?;

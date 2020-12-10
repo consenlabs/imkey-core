@@ -126,6 +126,9 @@
                                 <rect key="frame" x="25" y="356" width="78" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="DeviceInfo"/>
+                                <connections>
+                                    <action selector="deviceInfo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TZB-Io-3nR"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6gt-kL-cjB">
                                 <rect key="frame" x="24" y="443" width="31" height="30"/>

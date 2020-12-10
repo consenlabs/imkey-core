@@ -9,9 +9,7 @@ use bitcoin::consensus::serialize;
 use bitcoin::hashes::core::str::FromStr;
 use bitcoin::hashes::hex::FromHex;
 use bitcoin::util::psbt::serialize::Serialize;
-use bitcoin::{
-    Address, BitcoinHash, Network, OutPoint, Script, SigHashType, Transaction, TxIn, TxOut,
-};
+use bitcoin::{Address, Network, OutPoint, Script, SigHashType, Transaction, TxIn, TxOut};
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::sha256d::Hash as Hash256;
@@ -124,7 +122,7 @@ impl BtcTransaction {
 
         //output data serialize
         let mut tx_to_sign = Transaction {
-            version: 1u32,
+            version: 1i32,
             lock_time: 0u32,
             input: vec![],
             output: txouts,
@@ -160,7 +158,7 @@ impl BtcTransaction {
 
         let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x41, 0x00, &output_pareper_data);
         for temp_str in btc_prepare_apdu_vec {
-            ApduCheck::checke_response(&send_apdu_timeout(temp_str, TIMEOUT_LONG)?)?;
+            ApduCheck::check_response(&send_apdu_timeout(temp_str, TIMEOUT_LONG)?)?;
         }
 
         let mut lock_script_ver: Vec<Script> = vec![];
@@ -172,7 +170,7 @@ impl BtcTransaction {
 
                 let mut temp_serialize_txin = TxIn {
                     previous_output: OutPoint {
-                        txid: Hash256::from_hex(temp_utxo.txhash.as_str())?,
+                        txid: bitcoin::hash_types::Txid::from_hex(temp_utxo.txhash.as_str())?,
                         vout: temp_utxo.vout as u32,
                     },
                     script_sig: Script::default(),
@@ -186,7 +184,7 @@ impl BtcTransaction {
                 input_data_vec.extend_from_slice(serialize(&temp_serialize_txin).as_slice());
                 let btc_perpare_apdu = BtcApdu::btc_perpare_input(0x80, &input_data_vec);
                 //send perpare apdu to device
-                ApduCheck::checke_response(&send_apdu(btc_perpare_apdu)?)?;
+                ApduCheck::check_response(&send_apdu(btc_perpare_apdu)?)?;
             }
             for y in i * EACH_ROUND_NUMBER..(i + 1) * EACH_ROUND_NUMBER {
                 if y >= utxo_pub_key_vec.len() {
@@ -199,7 +197,7 @@ impl BtcTransaction {
                 );
                 //sign data
                 let btc_sign_apdu_return = send_apdu(btc_sign_apdu)?;
-                ApduCheck::checke_response(&btc_sign_apdu_return)?;
+                ApduCheck::check_response(&btc_sign_apdu_return)?;
                 let btc_sign_apdu_return =
                     &btc_sign_apdu_return[..btc_sign_apdu_return.len() - 4].to_string();
                 let sign_result_str =
@@ -215,7 +213,7 @@ impl BtcTransaction {
         for (index, unspent) in self.unspents.iter().enumerate() {
             let txin = TxIn {
                 previous_output: OutPoint {
-                    txid: Hash256::from_hex(&unspent.txhash)?,
+                    txid: bitcoin::hash_types::Txid::from_hex(&unspent.txhash)?,
                     vout: unspent.vout as u32,
                 },
                 script_sig: lock_script_ver.get(index).unwrap().clone(),
@@ -309,7 +307,7 @@ impl BtcTransaction {
 
         //8.output data serialize
         let mut tx_to_sign = Transaction {
-            version: 2u32,
+            version: 2i32,
             lock_time: 0u32,
             input: vec![],
             output: txouts,
@@ -347,7 +345,7 @@ impl BtcTransaction {
         let btc_prepare_apdu_vec = BtcApdu::btc_prepare(0x31, 0x00, &output_pareper_data);
         //send output pareper command
         for temp_str in btc_prepare_apdu_vec {
-            ApduCheck::checke_response(&send_apdu_timeout(temp_str, TIMEOUT_LONG)?)?;
+            ApduCheck::check_response(&send_apdu_timeout(temp_str, TIMEOUT_LONG)?)?;
         }
 
         let mut txinputs: Vec<TxIn> = vec![];
@@ -357,7 +355,7 @@ impl BtcTransaction {
         for (index, unspent) in self.unspents.iter().enumerate() {
             let txin = TxIn {
                 previous_output: OutPoint {
-                    txid: Hash256::from_hex(&unspent.txhash)?,
+                    txid: bitcoin::hash_types::Txid::from_hex(&unspent.txhash)?,
                     vout: unspent.vout as u32,
                 },
                 script_sig: Script::new(),
@@ -413,7 +411,7 @@ impl BtcTransaction {
         let mut sequence_prepare_apdu_vec = BtcApdu::btc_prepare(0x31, 0x80, &sequence_vec);
         txhash_vout_prepare_apdu_vec.append(&mut sequence_prepare_apdu_vec);
         for apdu in txhash_vout_prepare_apdu_vec {
-            ApduCheck::checke_response(&send_apdu(apdu)?)?;
+            ApduCheck::check_response(&send_apdu(apdu)?)?;
         }
 
         //send sign apdu
@@ -421,14 +419,14 @@ impl BtcTransaction {
         for (index, wegwit_sign_apdu) in sign_apdu_vec.iter().enumerate() {
             //send sign apdu
             let sign_apdu_return_data = send_apdu(wegwit_sign_apdu.clone())?;
-            ApduCheck::checke_response(&sign_apdu_return_data)?;
+            ApduCheck::check_response(&sign_apdu_return_data)?;
             //build signature obj
             let sign_result_vec =
                 Vec::from_hex(&sign_apdu_return_data[2..sign_apdu_return_data.len() - 6]).unwrap();
-            let mut signnture_obj = Signature::from_compact(sign_result_vec.as_slice())?;
-            signnture_obj.normalize_s();
+            let mut signature_obj = Signature::from_compact(sign_result_vec.as_slice())?;
+            signature_obj.normalize_s();
             //generator der sign data
-            let mut sign_result_vec = signnture_obj.serialize_der().to_vec();
+            let mut sign_result_vec = signature_obj.serialize_der().to_vec();
             //add hash type
             sign_result_vec.push(SigHashType::All.as_u32() as u8);
             witnesses.push((
@@ -463,7 +461,7 @@ impl BtcTransaction {
         Ok(TxSignResult {
             signature: tx_bytes.to_hex(),
             tx_hash: tx_to_sign.txid().to_hex(),
-            wtx_id: tx_to_sign.bitcoin_hash().to_hex(),
+            wtx_id: tx_to_sign.wtxid().to_hex(),
         })
     }
 
@@ -501,9 +499,9 @@ impl BtcTransaction {
 
     pub fn build_lock_script(&self, signed: &str, utxo_public_key: &str) -> Result<Script> {
         let signed_vec = Vec::from_hex(&signed)?;
-        let mut signnture_obj = Signature::from_compact(signed_vec.as_slice())?;
-        signnture_obj.normalize_s();
-        let mut signed_vec = signnture_obj.serialize_der().to_vec();
+        let mut signature_obj = Signature::from_compact(signed_vec.as_slice())?;
+        signature_obj.normalize_s();
+        let mut signed_vec = signature_obj.serialize_der().to_vec();
 
         //add hash type
         signed_vec.push(SigHashType::All.as_u32() as u8);

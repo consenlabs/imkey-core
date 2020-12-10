@@ -1529,8 +1529,8 @@ public final class Cosmos {
 
   }
 
-  public interface SignDataOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmosapi.SignData)
+  public interface CosmosTxInputOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmosapi.CosmosTxInput)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1577,28 +1577,14 @@ public final class Cosmos {
         getMemoBytes();
 
     /**
-     * <code>repeated .cosmosapi.Msg msgs = 5;</code>
+     * <code>optional string msgs = 5;</code>
      */
-    java.util.List<cosmosapi.Cosmos.Msg> 
-        getMsgsList();
+    java.lang.String getMsgs();
     /**
-     * <code>repeated .cosmosapi.Msg msgs = 5;</code>
+     * <code>optional string msgs = 5;</code>
      */
-    cosmosapi.Cosmos.Msg getMsgs(int index);
-    /**
-     * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-     */
-    int getMsgsCount();
-    /**
-     * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-     */
-    java.util.List<? extends cosmosapi.Cosmos.MsgOrBuilder> 
-        getMsgsOrBuilderList();
-    /**
-     * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-     */
-    cosmosapi.Cosmos.MsgOrBuilder getMsgsOrBuilder(
-        int index);
+    com.google.protobuf.ByteString
+        getMsgsBytes();
 
     /**
      * <code>optional string sequence = 6;</code>
@@ -1611,21 +1597,21 @@ public final class Cosmos {
         getSequenceBytes();
   }
   /**
-   * Protobuf type {@code cosmosapi.SignData}
+   * Protobuf type {@code cosmosapi.CosmosTxInput}
    */
-  public  static final class SignData extends
+  public  static final class CosmosTxInput extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmosapi.SignData)
-      SignDataOrBuilder {
-    // Use SignData.newBuilder() to construct.
-    private SignData(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:cosmosapi.CosmosTxInput)
+      CosmosTxInputOrBuilder {
+    // Use CosmosTxInput.newBuilder() to construct.
+    private CosmosTxInput(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private SignData() {
+    private CosmosTxInput() {
       accountNumber_ = "";
       chainId_ = "";
       memo_ = "";
-      msgs_ = java.util.Collections.emptyList();
+      msgs_ = "";
       sequence_ = "";
     }
 
@@ -1634,7 +1620,7 @@ public final class Cosmos {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private SignData(
+    private CosmosTxInput(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1686,12 +1672,9 @@ public final class Cosmos {
               break;
             }
             case 42: {
-              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
-                msgs_ = new java.util.ArrayList<cosmosapi.Cosmos.Msg>();
-                mutable_bitField0_ |= 0x00000010;
-              }
-              msgs_.add(
-                  input.readMessage(cosmosapi.Cosmos.Msg.parser(), extensionRegistry));
+              java.lang.String s = input.readStringRequireUtf8();
+
+              msgs_ = s;
               break;
             }
             case 50: {
@@ -1708,25 +1691,21 @@ public final class Cosmos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
-          msgs_ = java.util.Collections.unmodifiableList(msgs_);
-        }
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_SignData_descriptor;
+      return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxInput_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_SignData_fieldAccessorTable
+      return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxInput_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              cosmosapi.Cosmos.SignData.class, cosmosapi.Cosmos.SignData.Builder.class);
+              cosmosapi.Cosmos.CosmosTxInput.class, cosmosapi.Cosmos.CosmosTxInput.Builder.class);
     }
 
-    private int bitField0_;
     public static final int ACCOUNT_NUMBER_FIELD_NUMBER = 1;
     private volatile java.lang.Object accountNumber_;
     /**
@@ -1851,38 +1830,37 @@ public final class Cosmos {
     }
 
     public static final int MSGS_FIELD_NUMBER = 5;
-    private java.util.List<cosmosapi.Cosmos.Msg> msgs_;
+    private volatile java.lang.Object msgs_;
     /**
-     * <code>repeated .cosmosapi.Msg msgs = 5;</code>
+     * <code>optional string msgs = 5;</code>
      */
-    public java.util.List<cosmosapi.Cosmos.Msg> getMsgsList() {
-      return msgs_;
+    public java.lang.String getMsgs() {
+      java.lang.Object ref = msgs_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        msgs_ = s;
+        return s;
+      }
     }
     /**
-     * <code>repeated .cosmosapi.Msg msgs = 5;</code>
+     * <code>optional string msgs = 5;</code>
      */
-    public java.util.List<? extends cosmosapi.Cosmos.MsgOrBuilder> 
-        getMsgsOrBuilderList() {
-      return msgs_;
-    }
-    /**
-     * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-     */
-    public int getMsgsCount() {
-      return msgs_.size();
-    }
-    /**
-     * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-     */
-    public cosmosapi.Cosmos.Msg getMsgs(int index) {
-      return msgs_.get(index);
-    }
-    /**
-     * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-     */
-    public cosmosapi.Cosmos.MsgOrBuilder getMsgsOrBuilder(
-        int index) {
-      return msgs_.get(index);
+    public com.google.protobuf.ByteString
+        getMsgsBytes() {
+      java.lang.Object ref = msgs_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        msgs_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int SEQUENCE_FIELD_NUMBER = 6;
@@ -1943,8 +1921,8 @@ public final class Cosmos {
       if (!getMemoBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, memo_);
       }
-      for (int i = 0; i < msgs_.size(); i++) {
-        output.writeMessage(5, msgs_.get(i));
+      if (!getMsgsBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, msgs_);
       }
       if (!getSequenceBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 6, sequence_);
@@ -1969,9 +1947,8 @@ public final class Cosmos {
       if (!getMemoBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, memo_);
       }
-      for (int i = 0; i < msgs_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, msgs_.get(i));
+      if (!getMsgsBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, msgs_);
       }
       if (!getSequenceBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, sequence_);
@@ -1986,10 +1963,10 @@ public final class Cosmos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof cosmosapi.Cosmos.SignData)) {
+      if (!(obj instanceof cosmosapi.Cosmos.CosmosTxInput)) {
         return super.equals(obj);
       }
-      cosmosapi.Cosmos.SignData other = (cosmosapi.Cosmos.SignData) obj;
+      cosmosapi.Cosmos.CosmosTxInput other = (cosmosapi.Cosmos.CosmosTxInput) obj;
 
       boolean result = true;
       result = result && getAccountNumber()
@@ -2003,8 +1980,8 @@ public final class Cosmos {
       }
       result = result && getMemo()
           .equals(other.getMemo());
-      result = result && getMsgsList()
-          .equals(other.getMsgsList());
+      result = result && getMsgs()
+          .equals(other.getMsgs());
       result = result && getSequence()
           .equals(other.getSequence());
       return result;
@@ -2027,10 +2004,8 @@ public final class Cosmos {
       }
       hash = (37 * hash) + MEMO_FIELD_NUMBER;
       hash = (53 * hash) + getMemo().hashCode();
-      if (getMsgsCount() > 0) {
-        hash = (37 * hash) + MSGS_FIELD_NUMBER;
-        hash = (53 * hash) + getMsgsList().hashCode();
-      }
+      hash = (37 * hash) + MSGS_FIELD_NUMBER;
+      hash = (53 * hash) + getMsgs().hashCode();
       hash = (37 * hash) + SEQUENCE_FIELD_NUMBER;
       hash = (53 * hash) + getSequence().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -2038,58 +2013,58 @@ public final class Cosmos {
       return hash;
     }
 
-    public static cosmosapi.Cosmos.SignData parseFrom(
+    public static cosmosapi.Cosmos.CosmosTxInput parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static cosmosapi.Cosmos.SignData parseFrom(
+    public static cosmosapi.Cosmos.CosmosTxInput parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static cosmosapi.Cosmos.SignData parseFrom(byte[] data)
+    public static cosmosapi.Cosmos.CosmosTxInput parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static cosmosapi.Cosmos.SignData parseFrom(
+    public static cosmosapi.Cosmos.CosmosTxInput parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static cosmosapi.Cosmos.SignData parseFrom(java.io.InputStream input)
+    public static cosmosapi.Cosmos.CosmosTxInput parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static cosmosapi.Cosmos.SignData parseFrom(
+    public static cosmosapi.Cosmos.CosmosTxInput parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static cosmosapi.Cosmos.SignData parseDelimitedFrom(java.io.InputStream input)
+    public static cosmosapi.Cosmos.CosmosTxInput parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static cosmosapi.Cosmos.SignData parseDelimitedFrom(
+    public static cosmosapi.Cosmos.CosmosTxInput parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static cosmosapi.Cosmos.SignData parseFrom(
+    public static cosmosapi.Cosmos.CosmosTxInput parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static cosmosapi.Cosmos.SignData parseFrom(
+    public static cosmosapi.Cosmos.CosmosTxInput parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2101,7 +2076,7 @@ public final class Cosmos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(cosmosapi.Cosmos.SignData prototype) {
+    public static Builder newBuilder(cosmosapi.Cosmos.CosmosTxInput prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -2116,25 +2091,25 @@ public final class Cosmos {
       return builder;
     }
     /**
-     * Protobuf type {@code cosmosapi.SignData}
+     * Protobuf type {@code cosmosapi.CosmosTxInput}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmosapi.SignData)
-        cosmosapi.Cosmos.SignDataOrBuilder {
+        // @@protoc_insertion_point(builder_implements:cosmosapi.CosmosTxInput)
+        cosmosapi.Cosmos.CosmosTxInputOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_SignData_descriptor;
+        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxInput_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_SignData_fieldAccessorTable
+        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxInput_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                cosmosapi.Cosmos.SignData.class, cosmosapi.Cosmos.SignData.Builder.class);
+                cosmosapi.Cosmos.CosmosTxInput.class, cosmosapi.Cosmos.CosmosTxInput.Builder.class);
       }
 
-      // Construct using cosmosapi.Cosmos.SignData.newBuilder()
+      // Construct using cosmosapi.Cosmos.CosmosTxInput.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2147,7 +2122,6 @@ public final class Cosmos {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
-          getMsgsFieldBuilder();
         }
       }
       public Builder clear() {
@@ -2164,12 +2138,8 @@ public final class Cosmos {
         }
         memo_ = "";
 
-        if (msgsBuilder_ == null) {
-          msgs_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
-        } else {
-          msgsBuilder_.clear();
-        }
+        msgs_ = "";
+
         sequence_ = "";
 
         return this;
@@ -2177,25 +2147,23 @@ public final class Cosmos {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_SignData_descriptor;
+        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxInput_descriptor;
       }
 
-      public cosmosapi.Cosmos.SignData getDefaultInstanceForType() {
-        return cosmosapi.Cosmos.SignData.getDefaultInstance();
+      public cosmosapi.Cosmos.CosmosTxInput getDefaultInstanceForType() {
+        return cosmosapi.Cosmos.CosmosTxInput.getDefaultInstance();
       }
 
-      public cosmosapi.Cosmos.SignData build() {
-        cosmosapi.Cosmos.SignData result = buildPartial();
+      public cosmosapi.Cosmos.CosmosTxInput build() {
+        cosmosapi.Cosmos.CosmosTxInput result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public cosmosapi.Cosmos.SignData buildPartial() {
-        cosmosapi.Cosmos.SignData result = new cosmosapi.Cosmos.SignData(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
+      public cosmosapi.Cosmos.CosmosTxInput buildPartial() {
+        cosmosapi.Cosmos.CosmosTxInput result = new cosmosapi.Cosmos.CosmosTxInput(this);
         result.accountNumber_ = accountNumber_;
         result.chainId_ = chainId_;
         if (feeBuilder_ == null) {
@@ -2204,17 +2172,8 @@ public final class Cosmos {
           result.fee_ = feeBuilder_.build();
         }
         result.memo_ = memo_;
-        if (msgsBuilder_ == null) {
-          if (((bitField0_ & 0x00000010) == 0x00000010)) {
-            msgs_ = java.util.Collections.unmodifiableList(msgs_);
-            bitField0_ = (bitField0_ & ~0x00000010);
-          }
-          result.msgs_ = msgs_;
-        } else {
-          result.msgs_ = msgsBuilder_.build();
-        }
+        result.msgs_ = msgs_;
         result.sequence_ = sequence_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -2246,16 +2205,16 @@ public final class Cosmos {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof cosmosapi.Cosmos.SignData) {
-          return mergeFrom((cosmosapi.Cosmos.SignData)other);
+        if (other instanceof cosmosapi.Cosmos.CosmosTxInput) {
+          return mergeFrom((cosmosapi.Cosmos.CosmosTxInput)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(cosmosapi.Cosmos.SignData other) {
-        if (other == cosmosapi.Cosmos.SignData.getDefaultInstance()) return this;
+      public Builder mergeFrom(cosmosapi.Cosmos.CosmosTxInput other) {
+        if (other == cosmosapi.Cosmos.CosmosTxInput.getDefaultInstance()) return this;
         if (!other.getAccountNumber().isEmpty()) {
           accountNumber_ = other.accountNumber_;
           onChanged();
@@ -2271,31 +2230,9 @@ public final class Cosmos {
           memo_ = other.memo_;
           onChanged();
         }
-        if (msgsBuilder_ == null) {
-          if (!other.msgs_.isEmpty()) {
-            if (msgs_.isEmpty()) {
-              msgs_ = other.msgs_;
-              bitField0_ = (bitField0_ & ~0x00000010);
-            } else {
-              ensureMsgsIsMutable();
-              msgs_.addAll(other.msgs_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.msgs_.isEmpty()) {
-            if (msgsBuilder_.isEmpty()) {
-              msgsBuilder_.dispose();
-              msgsBuilder_ = null;
-              msgs_ = other.msgs_;
-              bitField0_ = (bitField0_ & ~0x00000010);
-              msgsBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getMsgsFieldBuilder() : null;
-            } else {
-              msgsBuilder_.addAllMessages(other.msgs_);
-            }
-          }
+        if (!other.getMsgs().isEmpty()) {
+          msgs_ = other.msgs_;
+          onChanged();
         }
         if (!other.getSequence().isEmpty()) {
           sequence_ = other.sequence_;
@@ -2313,11 +2250,11 @@ public final class Cosmos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        cosmosapi.Cosmos.SignData parsedMessage = null;
+        cosmosapi.Cosmos.CosmosTxInput parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (cosmosapi.Cosmos.SignData) e.getUnfinishedMessage();
+          parsedMessage = (cosmosapi.Cosmos.CosmosTxInput) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2326,7 +2263,6 @@ public final class Cosmos {
         }
         return this;
       }
-      private int bitField0_;
 
       private java.lang.Object accountNumber_ = "";
       /**
@@ -2652,244 +2588,73 @@ public final class Cosmos {
         return this;
       }
 
-      private java.util.List<cosmosapi.Cosmos.Msg> msgs_ =
-        java.util.Collections.emptyList();
-      private void ensureMsgsIsMutable() {
-        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
-          msgs_ = new java.util.ArrayList<cosmosapi.Cosmos.Msg>(msgs_);
-          bitField0_ |= 0x00000010;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          cosmosapi.Cosmos.Msg, cosmosapi.Cosmos.Msg.Builder, cosmosapi.Cosmos.MsgOrBuilder> msgsBuilder_;
-
+      private java.lang.Object msgs_ = "";
       /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
+       * <code>optional string msgs = 5;</code>
        */
-      public java.util.List<cosmosapi.Cosmos.Msg> getMsgsList() {
-        if (msgsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(msgs_);
+      public java.lang.String getMsgs() {
+        java.lang.Object ref = msgs_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          msgs_ = s;
+          return s;
         } else {
-          return msgsBuilder_.getMessageList();
+          return (java.lang.String) ref;
         }
       }
       /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
+       * <code>optional string msgs = 5;</code>
        */
-      public int getMsgsCount() {
-        if (msgsBuilder_ == null) {
-          return msgs_.size();
+      public com.google.protobuf.ByteString
+          getMsgsBytes() {
+        java.lang.Object ref = msgs_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          msgs_ = b;
+          return b;
         } else {
-          return msgsBuilder_.getCount();
+          return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-       */
-      public cosmosapi.Cosmos.Msg getMsgs(int index) {
-        if (msgsBuilder_ == null) {
-          return msgs_.get(index);
-        } else {
-          return msgsBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
+       * <code>optional string msgs = 5;</code>
        */
       public Builder setMsgs(
-          int index, cosmosapi.Cosmos.Msg value) {
-        if (msgsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureMsgsIsMutable();
-          msgs_.set(index, value);
-          onChanged();
-        } else {
-          msgsBuilder_.setMessage(index, value);
-        }
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        msgs_ = value;
+        onChanged();
         return this;
       }
       /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-       */
-      public Builder setMsgs(
-          int index, cosmosapi.Cosmos.Msg.Builder builderForValue) {
-        if (msgsBuilder_ == null) {
-          ensureMsgsIsMutable();
-          msgs_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          msgsBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-       */
-      public Builder addMsgs(cosmosapi.Cosmos.Msg value) {
-        if (msgsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureMsgsIsMutable();
-          msgs_.add(value);
-          onChanged();
-        } else {
-          msgsBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-       */
-      public Builder addMsgs(
-          int index, cosmosapi.Cosmos.Msg value) {
-        if (msgsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureMsgsIsMutable();
-          msgs_.add(index, value);
-          onChanged();
-        } else {
-          msgsBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-       */
-      public Builder addMsgs(
-          cosmosapi.Cosmos.Msg.Builder builderForValue) {
-        if (msgsBuilder_ == null) {
-          ensureMsgsIsMutable();
-          msgs_.add(builderForValue.build());
-          onChanged();
-        } else {
-          msgsBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-       */
-      public Builder addMsgs(
-          int index, cosmosapi.Cosmos.Msg.Builder builderForValue) {
-        if (msgsBuilder_ == null) {
-          ensureMsgsIsMutable();
-          msgs_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          msgsBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-       */
-      public Builder addAllMsgs(
-          java.lang.Iterable<? extends cosmosapi.Cosmos.Msg> values) {
-        if (msgsBuilder_ == null) {
-          ensureMsgsIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, msgs_);
-          onChanged();
-        } else {
-          msgsBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
+       * <code>optional string msgs = 5;</code>
        */
       public Builder clearMsgs() {
-        if (msgsBuilder_ == null) {
-          msgs_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
-          onChanged();
-        } else {
-          msgsBuilder_.clear();
-        }
+        
+        msgs_ = getDefaultInstance().getMsgs();
+        onChanged();
         return this;
       }
       /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
+       * <code>optional string msgs = 5;</code>
        */
-      public Builder removeMsgs(int index) {
-        if (msgsBuilder_ == null) {
-          ensureMsgsIsMutable();
-          msgs_.remove(index);
-          onChanged();
-        } else {
-          msgsBuilder_.remove(index);
-        }
+      public Builder setMsgsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        msgs_ = value;
+        onChanged();
         return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-       */
-      public cosmosapi.Cosmos.Msg.Builder getMsgsBuilder(
-          int index) {
-        return getMsgsFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-       */
-      public cosmosapi.Cosmos.MsgOrBuilder getMsgsOrBuilder(
-          int index) {
-        if (msgsBuilder_ == null) {
-          return msgs_.get(index);  } else {
-          return msgsBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-       */
-      public java.util.List<? extends cosmosapi.Cosmos.MsgOrBuilder> 
-           getMsgsOrBuilderList() {
-        if (msgsBuilder_ != null) {
-          return msgsBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(msgs_);
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-       */
-      public cosmosapi.Cosmos.Msg.Builder addMsgsBuilder() {
-        return getMsgsFieldBuilder().addBuilder(
-            cosmosapi.Cosmos.Msg.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-       */
-      public cosmosapi.Cosmos.Msg.Builder addMsgsBuilder(
-          int index) {
-        return getMsgsFieldBuilder().addBuilder(
-            index, cosmosapi.Cosmos.Msg.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .cosmosapi.Msg msgs = 5;</code>
-       */
-      public java.util.List<cosmosapi.Cosmos.Msg.Builder> 
-           getMsgsBuilderList() {
-        return getMsgsFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          cosmosapi.Cosmos.Msg, cosmosapi.Cosmos.Msg.Builder, cosmosapi.Cosmos.MsgOrBuilder> 
-          getMsgsFieldBuilder() {
-        if (msgsBuilder_ == null) {
-          msgsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              cosmosapi.Cosmos.Msg, cosmosapi.Cosmos.Msg.Builder, cosmosapi.Cosmos.MsgOrBuilder>(
-                  msgs_,
-                  ((bitField0_ & 0x00000010) == 0x00000010),
-                  getParentForChildren(),
-                  isClean());
-          msgs_ = null;
-        }
-        return msgsBuilder_;
       }
 
       private java.lang.Object sequence_ = "";
@@ -2971,5084 +2736,81 @@ public final class Cosmos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:cosmosapi.SignData)
+      // @@protoc_insertion_point(builder_scope:cosmosapi.CosmosTxInput)
     }
 
-    // @@protoc_insertion_point(class_scope:cosmosapi.SignData)
-    private static final cosmosapi.Cosmos.SignData DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:cosmosapi.CosmosTxInput)
+    private static final cosmosapi.Cosmos.CosmosTxInput DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new cosmosapi.Cosmos.SignData();
+      DEFAULT_INSTANCE = new cosmosapi.Cosmos.CosmosTxInput();
     }
 
-    public static cosmosapi.Cosmos.SignData getDefaultInstance() {
+    public static cosmosapi.Cosmos.CosmosTxInput getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<SignData>
-        PARSER = new com.google.protobuf.AbstractParser<SignData>() {
-      public SignData parsePartialFrom(
+    private static final com.google.protobuf.Parser<CosmosTxInput>
+        PARSER = new com.google.protobuf.AbstractParser<CosmosTxInput>() {
+      public CosmosTxInput parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new SignData(input, extensionRegistry);
+          return new CosmosTxInput(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<SignData> parser() {
+    public static com.google.protobuf.Parser<CosmosTxInput> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<SignData> getParserForType() {
+    public com.google.protobuf.Parser<CosmosTxInput> getParserForType() {
       return PARSER;
     }
 
-    public cosmosapi.Cosmos.SignData getDefaultInstanceForType() {
+    public cosmosapi.Cosmos.CosmosTxInput getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface MsgOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmosapi.Msg)
+  public interface CosmosTxOutputOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:cosmosapi.CosmosTxOutput)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string type = 1;</code>
+     * <code>optional string signature = 1;</code>
      */
-    java.lang.String getType();
+    java.lang.String getSignature();
     /**
-     * <code>optional string type = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getTypeBytes();
-
-    /**
-     * <code>optional .cosmosapi.MsgValue value = 2;</code>
-     */
-    boolean hasValue();
-    /**
-     * <code>optional .cosmosapi.MsgValue value = 2;</code>
-     */
-    cosmosapi.Cosmos.MsgValue getValue();
-    /**
-     * <code>optional .cosmosapi.MsgValue value = 2;</code>
-     */
-    cosmosapi.Cosmos.MsgValueOrBuilder getValueOrBuilder();
-  }
-  /**
-   * Protobuf type {@code cosmosapi.Msg}
-   */
-  public  static final class Msg extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmosapi.Msg)
-      MsgOrBuilder {
-    // Use Msg.newBuilder() to construct.
-    private Msg(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private Msg() {
-      type_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private Msg(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              type_ = s;
-              break;
-            }
-            case 18: {
-              cosmosapi.Cosmos.MsgValue.Builder subBuilder = null;
-              if (value_ != null) {
-                subBuilder = value_.toBuilder();
-              }
-              value_ = input.readMessage(cosmosapi.Cosmos.MsgValue.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(value_);
-                value_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_Msg_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_Msg_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              cosmosapi.Cosmos.Msg.class, cosmosapi.Cosmos.Msg.Builder.class);
-    }
-
-    public static final int TYPE_FIELD_NUMBER = 1;
-    private volatile java.lang.Object type_;
-    /**
-     * <code>optional string type = 1;</code>
-     */
-    public java.lang.String getType() {
-      java.lang.Object ref = type_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        type_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string type = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getTypeBytes() {
-      java.lang.Object ref = type_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        type_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int VALUE_FIELD_NUMBER = 2;
-    private cosmosapi.Cosmos.MsgValue value_;
-    /**
-     * <code>optional .cosmosapi.MsgValue value = 2;</code>
-     */
-    public boolean hasValue() {
-      return value_ != null;
-    }
-    /**
-     * <code>optional .cosmosapi.MsgValue value = 2;</code>
-     */
-    public cosmosapi.Cosmos.MsgValue getValue() {
-      return value_ == null ? cosmosapi.Cosmos.MsgValue.getDefaultInstance() : value_;
-    }
-    /**
-     * <code>optional .cosmosapi.MsgValue value = 2;</code>
-     */
-    public cosmosapi.Cosmos.MsgValueOrBuilder getValueOrBuilder() {
-      return getValue();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getTypeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, type_);
-      }
-      if (value_ != null) {
-        output.writeMessage(2, getValue());
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getTypeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, type_);
-      }
-      if (value_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getValue());
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof cosmosapi.Cosmos.Msg)) {
-        return super.equals(obj);
-      }
-      cosmosapi.Cosmos.Msg other = (cosmosapi.Cosmos.Msg) obj;
-
-      boolean result = true;
-      result = result && getType()
-          .equals(other.getType());
-      result = result && (hasValue() == other.hasValue());
-      if (hasValue()) {
-        result = result && getValue()
-            .equals(other.getValue());
-      }
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + TYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getType().hashCode();
-      if (hasValue()) {
-        hash = (37 * hash) + VALUE_FIELD_NUMBER;
-        hash = (53 * hash) + getValue().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static cosmosapi.Cosmos.Msg parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cosmosapi.Cosmos.Msg parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.Msg parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cosmosapi.Cosmos.Msg parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.Msg parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.Msg parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.Msg parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.Msg parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.Msg parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.Msg parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(cosmosapi.Cosmos.Msg prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code cosmosapi.Msg}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmosapi.Msg)
-        cosmosapi.Cosmos.MsgOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_Msg_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_Msg_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                cosmosapi.Cosmos.Msg.class, cosmosapi.Cosmos.Msg.Builder.class);
-      }
-
-      // Construct using cosmosapi.Cosmos.Msg.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        type_ = "";
-
-        if (valueBuilder_ == null) {
-          value_ = null;
-        } else {
-          value_ = null;
-          valueBuilder_ = null;
-        }
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_Msg_descriptor;
-      }
-
-      public cosmosapi.Cosmos.Msg getDefaultInstanceForType() {
-        return cosmosapi.Cosmos.Msg.getDefaultInstance();
-      }
-
-      public cosmosapi.Cosmos.Msg build() {
-        cosmosapi.Cosmos.Msg result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public cosmosapi.Cosmos.Msg buildPartial() {
-        cosmosapi.Cosmos.Msg result = new cosmosapi.Cosmos.Msg(this);
-        result.type_ = type_;
-        if (valueBuilder_ == null) {
-          result.value_ = value_;
-        } else {
-          result.value_ = valueBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof cosmosapi.Cosmos.Msg) {
-          return mergeFrom((cosmosapi.Cosmos.Msg)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(cosmosapi.Cosmos.Msg other) {
-        if (other == cosmosapi.Cosmos.Msg.getDefaultInstance()) return this;
-        if (!other.getType().isEmpty()) {
-          type_ = other.type_;
-          onChanged();
-        }
-        if (other.hasValue()) {
-          mergeValue(other.getValue());
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        cosmosapi.Cosmos.Msg parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (cosmosapi.Cosmos.Msg) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object type_ = "";
-      /**
-       * <code>optional string type = 1;</code>
-       */
-      public java.lang.String getType() {
-        java.lang.Object ref = type_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          type_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string type = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getTypeBytes() {
-        java.lang.Object ref = type_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          type_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string type = 1;</code>
-       */
-      public Builder setType(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        type_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string type = 1;</code>
-       */
-      public Builder clearType() {
-        
-        type_ = getDefaultInstance().getType();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string type = 1;</code>
-       */
-      public Builder setTypeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        type_ = value;
-        onChanged();
-        return this;
-      }
-
-      private cosmosapi.Cosmos.MsgValue value_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          cosmosapi.Cosmos.MsgValue, cosmosapi.Cosmos.MsgValue.Builder, cosmosapi.Cosmos.MsgValueOrBuilder> valueBuilder_;
-      /**
-       * <code>optional .cosmosapi.MsgValue value = 2;</code>
-       */
-      public boolean hasValue() {
-        return valueBuilder_ != null || value_ != null;
-      }
-      /**
-       * <code>optional .cosmosapi.MsgValue value = 2;</code>
-       */
-      public cosmosapi.Cosmos.MsgValue getValue() {
-        if (valueBuilder_ == null) {
-          return value_ == null ? cosmosapi.Cosmos.MsgValue.getDefaultInstance() : value_;
-        } else {
-          return valueBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>optional .cosmosapi.MsgValue value = 2;</code>
-       */
-      public Builder setValue(cosmosapi.Cosmos.MsgValue value) {
-        if (valueBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          value_ = value;
-          onChanged();
-        } else {
-          valueBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .cosmosapi.MsgValue value = 2;</code>
-       */
-      public Builder setValue(
-          cosmosapi.Cosmos.MsgValue.Builder builderForValue) {
-        if (valueBuilder_ == null) {
-          value_ = builderForValue.build();
-          onChanged();
-        } else {
-          valueBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .cosmosapi.MsgValue value = 2;</code>
-       */
-      public Builder mergeValue(cosmosapi.Cosmos.MsgValue value) {
-        if (valueBuilder_ == null) {
-          if (value_ != null) {
-            value_ =
-              cosmosapi.Cosmos.MsgValue.newBuilder(value_).mergeFrom(value).buildPartial();
-          } else {
-            value_ = value;
-          }
-          onChanged();
-        } else {
-          valueBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .cosmosapi.MsgValue value = 2;</code>
-       */
-      public Builder clearValue() {
-        if (valueBuilder_ == null) {
-          value_ = null;
-          onChanged();
-        } else {
-          value_ = null;
-          valueBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .cosmosapi.MsgValue value = 2;</code>
-       */
-      public cosmosapi.Cosmos.MsgValue.Builder getValueBuilder() {
-        
-        onChanged();
-        return getValueFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>optional .cosmosapi.MsgValue value = 2;</code>
-       */
-      public cosmosapi.Cosmos.MsgValueOrBuilder getValueOrBuilder() {
-        if (valueBuilder_ != null) {
-          return valueBuilder_.getMessageOrBuilder();
-        } else {
-          return value_ == null ?
-              cosmosapi.Cosmos.MsgValue.getDefaultInstance() : value_;
-        }
-      }
-      /**
-       * <code>optional .cosmosapi.MsgValue value = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          cosmosapi.Cosmos.MsgValue, cosmosapi.Cosmos.MsgValue.Builder, cosmosapi.Cosmos.MsgValueOrBuilder> 
-          getValueFieldBuilder() {
-        if (valueBuilder_ == null) {
-          valueBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              cosmosapi.Cosmos.MsgValue, cosmosapi.Cosmos.MsgValue.Builder, cosmosapi.Cosmos.MsgValueOrBuilder>(
-                  getValue(),
-                  getParentForChildren(),
-                  isClean());
-          value_ = null;
-        }
-        return valueBuilder_;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:cosmosapi.Msg)
-    }
-
-    // @@protoc_insertion_point(class_scope:cosmosapi.Msg)
-    private static final cosmosapi.Cosmos.Msg DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new cosmosapi.Cosmos.Msg();
-    }
-
-    public static cosmosapi.Cosmos.Msg getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<Msg>
-        PARSER = new com.google.protobuf.AbstractParser<Msg>() {
-      public Msg parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Msg(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<Msg> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Msg> getParserForType() {
-      return PARSER;
-    }
-
-    public cosmosapi.Cosmos.Msg getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface MsgValueOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmosapi.MsgValue)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    java.util.List<cosmosapi.Cosmos.Coin> 
-        getAmountList();
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    cosmosapi.Cosmos.Coin getAmount(int index);
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    int getAmountCount();
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    java.util.List<? extends cosmosapi.Cosmos.CoinOrBuilder> 
-        getAmountOrBuilderList();
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    cosmosapi.Cosmos.CoinOrBuilder getAmountOrBuilder(
-        int index);
-
-    /**
-     * <code>map&lt;string, string&gt; addresses = 2;</code>
-     */
-    int getAddressesCount();
-    /**
-     * <code>map&lt;string, string&gt; addresses = 2;</code>
-     */
-    boolean containsAddresses(
-        java.lang.String key);
-    /**
-     * Use {@link #getAddressesMap()} instead.
-     */
-    @java.lang.Deprecated
-    java.util.Map<java.lang.String, java.lang.String>
-    getAddresses();
-    /**
-     * <code>map&lt;string, string&gt; addresses = 2;</code>
-     */
-    java.util.Map<java.lang.String, java.lang.String>
-    getAddressesMap();
-    /**
-     * <code>map&lt;string, string&gt; addresses = 2;</code>
-     */
-
-    java.lang.String getAddressesOrDefault(
-        java.lang.String key,
-        java.lang.String defaultValue);
-    /**
-     * <code>map&lt;string, string&gt; addresses = 2;</code>
-     */
-
-    java.lang.String getAddressesOrThrow(
-        java.lang.String key);
-  }
-  /**
-   * Protobuf type {@code cosmosapi.MsgValue}
-   */
-  public  static final class MsgValue extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmosapi.MsgValue)
-      MsgValueOrBuilder {
-    // Use MsgValue.newBuilder() to construct.
-    private MsgValue(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private MsgValue() {
-      amount_ = java.util.Collections.emptyList();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private MsgValue(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                amount_ = new java.util.ArrayList<cosmosapi.Cosmos.Coin>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              amount_.add(
-                  input.readMessage(cosmosapi.Cosmos.Coin.parser(), extensionRegistry));
-              break;
-            }
-            case 18: {
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-                addresses_ = com.google.protobuf.MapField.newMapField(
-                    AddressesDefaultEntryHolder.defaultEntry);
-                mutable_bitField0_ |= 0x00000002;
-              }
-              com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
-              addresses__ = input.readMessage(
-                  AddressesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
-              addresses_.getMutableMap().put(
-                  addresses__.getKey(), addresses__.getValue());
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          amount_ = java.util.Collections.unmodifiableList(amount_);
-        }
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_MsgValue_descriptor;
-    }
-
-    @SuppressWarnings({"rawtypes"})
-    protected com.google.protobuf.MapField internalGetMapField(
-        int number) {
-      switch (number) {
-        case 2:
-          return internalGetAddresses();
-        default:
-          throw new RuntimeException(
-              "Invalid map field number: " + number);
-      }
-    }
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_MsgValue_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              cosmosapi.Cosmos.MsgValue.class, cosmosapi.Cosmos.MsgValue.Builder.class);
-    }
-
-    public static final int AMOUNT_FIELD_NUMBER = 1;
-    private java.util.List<cosmosapi.Cosmos.Coin> amount_;
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public java.util.List<cosmosapi.Cosmos.Coin> getAmountList() {
-      return amount_;
-    }
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public java.util.List<? extends cosmosapi.Cosmos.CoinOrBuilder> 
-        getAmountOrBuilderList() {
-      return amount_;
-    }
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public int getAmountCount() {
-      return amount_.size();
-    }
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public cosmosapi.Cosmos.Coin getAmount(int index) {
-      return amount_.get(index);
-    }
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public cosmosapi.Cosmos.CoinOrBuilder getAmountOrBuilder(
-        int index) {
-      return amount_.get(index);
-    }
-
-    public static final int ADDRESSES_FIELD_NUMBER = 2;
-    private static final class AddressesDefaultEntryHolder {
-      static final com.google.protobuf.MapEntry<
-          java.lang.String, java.lang.String> defaultEntry =
-              com.google.protobuf.MapEntry
-              .<java.lang.String, java.lang.String>newDefaultInstance(
-                  cosmosapi.Cosmos.internal_static_cosmosapi_MsgValue_AddressesEntry_descriptor, 
-                  com.google.protobuf.WireFormat.FieldType.STRING,
-                  "",
-                  com.google.protobuf.WireFormat.FieldType.STRING,
-                  "");
-    }
-    private com.google.protobuf.MapField<
-        java.lang.String, java.lang.String> addresses_;
-    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
-    internalGetAddresses() {
-      if (addresses_ == null) {
-        return com.google.protobuf.MapField.emptyMapField(
-            AddressesDefaultEntryHolder.defaultEntry);
-      }
-      return addresses_;
-    }
-
-    public int getAddressesCount() {
-      return internalGetAddresses().getMap().size();
-    }
-    /**
-     * <code>map&lt;string, string&gt; addresses = 2;</code>
-     */
-
-    public boolean containsAddresses(
-        java.lang.String key) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      return internalGetAddresses().getMap().containsKey(key);
-    }
-    /**
-     * Use {@link #getAddressesMap()} instead.
-     */
-    @java.lang.Deprecated
-    public java.util.Map<java.lang.String, java.lang.String> getAddresses() {
-      return getAddressesMap();
-    }
-    /**
-     * <code>map&lt;string, string&gt; addresses = 2;</code>
-     */
-
-    public java.util.Map<java.lang.String, java.lang.String> getAddressesMap() {
-      return internalGetAddresses().getMap();
-    }
-    /**
-     * <code>map&lt;string, string&gt; addresses = 2;</code>
-     */
-
-    public java.lang.String getAddressesOrDefault(
-        java.lang.String key,
-        java.lang.String defaultValue) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      java.util.Map<java.lang.String, java.lang.String> map =
-          internalGetAddresses().getMap();
-      return map.containsKey(key) ? map.get(key) : defaultValue;
-    }
-    /**
-     * <code>map&lt;string, string&gt; addresses = 2;</code>
-     */
-
-    public java.lang.String getAddressesOrThrow(
-        java.lang.String key) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      java.util.Map<java.lang.String, java.lang.String> map =
-          internalGetAddresses().getMap();
-      if (!map.containsKey(key)) {
-        throw new java.lang.IllegalArgumentException();
-      }
-      return map.get(key);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      for (int i = 0; i < amount_.size(); i++) {
-        output.writeMessage(1, amount_.get(i));
-      }
-      com.google.protobuf.GeneratedMessageV3
-        .serializeStringMapTo(
-          output,
-          internalGetAddresses(),
-          AddressesDefaultEntryHolder.defaultEntry,
-          2);
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      for (int i = 0; i < amount_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, amount_.get(i));
-      }
-      for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
-           : internalGetAddresses().getMap().entrySet()) {
-        com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
-        addresses__ = AddressesDefaultEntryHolder.defaultEntry.newBuilderForType()
-            .setKey(entry.getKey())
-            .setValue(entry.getValue())
-            .build();
-        size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(2, addresses__);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof cosmosapi.Cosmos.MsgValue)) {
-        return super.equals(obj);
-      }
-      cosmosapi.Cosmos.MsgValue other = (cosmosapi.Cosmos.MsgValue) obj;
-
-      boolean result = true;
-      result = result && getAmountList()
-          .equals(other.getAmountList());
-      result = result && internalGetAddresses().equals(
-          other.internalGetAddresses());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      if (getAmountCount() > 0) {
-        hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
-        hash = (53 * hash) + getAmountList().hashCode();
-      }
-      if (!internalGetAddresses().getMap().isEmpty()) {
-        hash = (37 * hash) + ADDRESSES_FIELD_NUMBER;
-        hash = (53 * hash) + internalGetAddresses().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static cosmosapi.Cosmos.MsgValue parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cosmosapi.Cosmos.MsgValue parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.MsgValue parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cosmosapi.Cosmos.MsgValue parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.MsgValue parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.MsgValue parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.MsgValue parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.MsgValue parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.MsgValue parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.MsgValue parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(cosmosapi.Cosmos.MsgValue prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code cosmosapi.MsgValue}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmosapi.MsgValue)
-        cosmosapi.Cosmos.MsgValueOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_MsgValue_descriptor;
-      }
-
-      @SuppressWarnings({"rawtypes"})
-      protected com.google.protobuf.MapField internalGetMapField(
-          int number) {
-        switch (number) {
-          case 2:
-            return internalGetAddresses();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
-      @SuppressWarnings({"rawtypes"})
-      protected com.google.protobuf.MapField internalGetMutableMapField(
-          int number) {
-        switch (number) {
-          case 2:
-            return internalGetMutableAddresses();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_MsgValue_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                cosmosapi.Cosmos.MsgValue.class, cosmosapi.Cosmos.MsgValue.Builder.class);
-      }
-
-      // Construct using cosmosapi.Cosmos.MsgValue.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getAmountFieldBuilder();
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        if (amountBuilder_ == null) {
-          amount_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          amountBuilder_.clear();
-        }
-        internalGetMutableAddresses().clear();
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_MsgValue_descriptor;
-      }
-
-      public cosmosapi.Cosmos.MsgValue getDefaultInstanceForType() {
-        return cosmosapi.Cosmos.MsgValue.getDefaultInstance();
-      }
-
-      public cosmosapi.Cosmos.MsgValue build() {
-        cosmosapi.Cosmos.MsgValue result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public cosmosapi.Cosmos.MsgValue buildPartial() {
-        cosmosapi.Cosmos.MsgValue result = new cosmosapi.Cosmos.MsgValue(this);
-        int from_bitField0_ = bitField0_;
-        if (amountBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            amount_ = java.util.Collections.unmodifiableList(amount_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.amount_ = amount_;
-        } else {
-          result.amount_ = amountBuilder_.build();
-        }
-        result.addresses_ = internalGetAddresses();
-        result.addresses_.makeImmutable();
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof cosmosapi.Cosmos.MsgValue) {
-          return mergeFrom((cosmosapi.Cosmos.MsgValue)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(cosmosapi.Cosmos.MsgValue other) {
-        if (other == cosmosapi.Cosmos.MsgValue.getDefaultInstance()) return this;
-        if (amountBuilder_ == null) {
-          if (!other.amount_.isEmpty()) {
-            if (amount_.isEmpty()) {
-              amount_ = other.amount_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureAmountIsMutable();
-              amount_.addAll(other.amount_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.amount_.isEmpty()) {
-            if (amountBuilder_.isEmpty()) {
-              amountBuilder_.dispose();
-              amountBuilder_ = null;
-              amount_ = other.amount_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              amountBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getAmountFieldBuilder() : null;
-            } else {
-              amountBuilder_.addAllMessages(other.amount_);
-            }
-          }
-        }
-        internalGetMutableAddresses().mergeFrom(
-            other.internalGetAddresses());
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        cosmosapi.Cosmos.MsgValue parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (cosmosapi.Cosmos.MsgValue) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.util.List<cosmosapi.Cosmos.Coin> amount_ =
-        java.util.Collections.emptyList();
-      private void ensureAmountIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          amount_ = new java.util.ArrayList<cosmosapi.Cosmos.Coin>(amount_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          cosmosapi.Cosmos.Coin, cosmosapi.Cosmos.Coin.Builder, cosmosapi.Cosmos.CoinOrBuilder> amountBuilder_;
-
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public java.util.List<cosmosapi.Cosmos.Coin> getAmountList() {
-        if (amountBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(amount_);
-        } else {
-          return amountBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public int getAmountCount() {
-        if (amountBuilder_ == null) {
-          return amount_.size();
-        } else {
-          return amountBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.Coin getAmount(int index) {
-        if (amountBuilder_ == null) {
-          return amount_.get(index);
-        } else {
-          return amountBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder setAmount(
-          int index, cosmosapi.Cosmos.Coin value) {
-        if (amountBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAmountIsMutable();
-          amount_.set(index, value);
-          onChanged();
-        } else {
-          amountBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder setAmount(
-          int index, cosmosapi.Cosmos.Coin.Builder builderForValue) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          amount_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          amountBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAmount(cosmosapi.Cosmos.Coin value) {
-        if (amountBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAmountIsMutable();
-          amount_.add(value);
-          onChanged();
-        } else {
-          amountBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAmount(
-          int index, cosmosapi.Cosmos.Coin value) {
-        if (amountBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAmountIsMutable();
-          amount_.add(index, value);
-          onChanged();
-        } else {
-          amountBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAmount(
-          cosmosapi.Cosmos.Coin.Builder builderForValue) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          amount_.add(builderForValue.build());
-          onChanged();
-        } else {
-          amountBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAmount(
-          int index, cosmosapi.Cosmos.Coin.Builder builderForValue) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          amount_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          amountBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAllAmount(
-          java.lang.Iterable<? extends cosmosapi.Cosmos.Coin> values) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, amount_);
-          onChanged();
-        } else {
-          amountBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder clearAmount() {
-        if (amountBuilder_ == null) {
-          amount_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          amountBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder removeAmount(int index) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          amount_.remove(index);
-          onChanged();
-        } else {
-          amountBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.Coin.Builder getAmountBuilder(
-          int index) {
-        return getAmountFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.CoinOrBuilder getAmountOrBuilder(
-          int index) {
-        if (amountBuilder_ == null) {
-          return amount_.get(index);  } else {
-          return amountBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public java.util.List<? extends cosmosapi.Cosmos.CoinOrBuilder> 
-           getAmountOrBuilderList() {
-        if (amountBuilder_ != null) {
-          return amountBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(amount_);
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.Coin.Builder addAmountBuilder() {
-        return getAmountFieldBuilder().addBuilder(
-            cosmosapi.Cosmos.Coin.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.Coin.Builder addAmountBuilder(
-          int index) {
-        return getAmountFieldBuilder().addBuilder(
-            index, cosmosapi.Cosmos.Coin.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public java.util.List<cosmosapi.Cosmos.Coin.Builder> 
-           getAmountBuilderList() {
-        return getAmountFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          cosmosapi.Cosmos.Coin, cosmosapi.Cosmos.Coin.Builder, cosmosapi.Cosmos.CoinOrBuilder> 
-          getAmountFieldBuilder() {
-        if (amountBuilder_ == null) {
-          amountBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              cosmosapi.Cosmos.Coin, cosmosapi.Cosmos.Coin.Builder, cosmosapi.Cosmos.CoinOrBuilder>(
-                  amount_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
-                  getParentForChildren(),
-                  isClean());
-          amount_ = null;
-        }
-        return amountBuilder_;
-      }
-
-      private com.google.protobuf.MapField<
-          java.lang.String, java.lang.String> addresses_;
-      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
-      internalGetAddresses() {
-        if (addresses_ == null) {
-          return com.google.protobuf.MapField.emptyMapField(
-              AddressesDefaultEntryHolder.defaultEntry);
-        }
-        return addresses_;
-      }
-      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
-      internalGetMutableAddresses() {
-        onChanged();;
-        if (addresses_ == null) {
-          addresses_ = com.google.protobuf.MapField.newMapField(
-              AddressesDefaultEntryHolder.defaultEntry);
-        }
-        if (!addresses_.isMutable()) {
-          addresses_ = addresses_.copy();
-        }
-        return addresses_;
-      }
-
-      public int getAddressesCount() {
-        return internalGetAddresses().getMap().size();
-      }
-      /**
-       * <code>map&lt;string, string&gt; addresses = 2;</code>
-       */
-
-      public boolean containsAddresses(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        return internalGetAddresses().getMap().containsKey(key);
-      }
-      /**
-       * Use {@link #getAddressesMap()} instead.
-       */
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.String, java.lang.String> getAddresses() {
-        return getAddressesMap();
-      }
-      /**
-       * <code>map&lt;string, string&gt; addresses = 2;</code>
-       */
-
-      public java.util.Map<java.lang.String, java.lang.String> getAddressesMap() {
-        return internalGetAddresses().getMap();
-      }
-      /**
-       * <code>map&lt;string, string&gt; addresses = 2;</code>
-       */
-
-      public java.lang.String getAddressesOrDefault(
-          java.lang.String key,
-          java.lang.String defaultValue) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        java.util.Map<java.lang.String, java.lang.String> map =
-            internalGetAddresses().getMap();
-        return map.containsKey(key) ? map.get(key) : defaultValue;
-      }
-      /**
-       * <code>map&lt;string, string&gt; addresses = 2;</code>
-       */
-
-      public java.lang.String getAddressesOrThrow(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        java.util.Map<java.lang.String, java.lang.String> map =
-            internalGetAddresses().getMap();
-        if (!map.containsKey(key)) {
-          throw new java.lang.IllegalArgumentException();
-        }
-        return map.get(key);
-      }
-
-      public Builder clearAddresses() {
-        getMutableAddresses().clear();
-        return this;
-      }
-      /**
-       * <code>map&lt;string, string&gt; addresses = 2;</code>
-       */
-
-      public Builder removeAddresses(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        getMutableAddresses().remove(key);
-        return this;
-      }
-      /**
-       * Use alternate mutation accessors instead.
-       */
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.String, java.lang.String>
-      getMutableAddresses() {
-        return internalGetMutableAddresses().getMutableMap();
-      }
-      /**
-       * <code>map&lt;string, string&gt; addresses = 2;</code>
-       */
-      public Builder putAddresses(
-          java.lang.String key,
-          java.lang.String value) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        if (value == null) { throw new java.lang.NullPointerException(); }
-        getMutableAddresses().put(key, value);
-        return this;
-      }
-      /**
-       * <code>map&lt;string, string&gt; addresses = 2;</code>
-       */
-
-      public Builder putAllAddresses(
-          java.util.Map<java.lang.String, java.lang.String> values) {
-        getMutableAddresses().putAll(values);
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:cosmosapi.MsgValue)
-    }
-
-    // @@protoc_insertion_point(class_scope:cosmosapi.MsgValue)
-    private static final cosmosapi.Cosmos.MsgValue DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new cosmosapi.Cosmos.MsgValue();
-    }
-
-    public static cosmosapi.Cosmos.MsgValue getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<MsgValue>
-        PARSER = new com.google.protobuf.AbstractParser<MsgValue>() {
-      public MsgValue parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new MsgValue(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<MsgValue> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<MsgValue> getParserForType() {
-      return PARSER;
-    }
-
-    public cosmosapi.Cosmos.MsgValue getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface MsgDelegateValueOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmosapi.MsgDelegateValue)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    java.util.List<cosmosapi.Cosmos.Coin> 
-        getAmountList();
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    cosmosapi.Cosmos.Coin getAmount(int index);
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    int getAmountCount();
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    java.util.List<? extends cosmosapi.Cosmos.CoinOrBuilder> 
-        getAmountOrBuilderList();
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    cosmosapi.Cosmos.CoinOrBuilder getAmountOrBuilder(
-        int index);
-
-    /**
-     * <code>optional string delegator_address = 2;</code>
-     */
-    java.lang.String getDelegatorAddress();
-    /**
-     * <code>optional string delegator_address = 2;</code>
+     * <code>optional string signature = 1;</code>
      */
     com.google.protobuf.ByteString
-        getDelegatorAddressBytes();
+        getSignatureBytes();
 
     /**
-     * <code>optional string validator_address = 3;</code>
-     */
-    java.lang.String getValidatorAddress();
-    /**
-     * <code>optional string validator_address = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getValidatorAddressBytes();
-  }
-  /**
-   * Protobuf type {@code cosmosapi.MsgDelegateValue}
-   */
-  public  static final class MsgDelegateValue extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmosapi.MsgDelegateValue)
-      MsgDelegateValueOrBuilder {
-    // Use MsgDelegateValue.newBuilder() to construct.
-    private MsgDelegateValue(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private MsgDelegateValue() {
-      amount_ = java.util.Collections.emptyList();
-      delegatorAddress_ = "";
-      validatorAddress_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private MsgDelegateValue(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                amount_ = new java.util.ArrayList<cosmosapi.Cosmos.Coin>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              amount_.add(
-                  input.readMessage(cosmosapi.Cosmos.Coin.parser(), extensionRegistry));
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              delegatorAddress_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              validatorAddress_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          amount_ = java.util.Collections.unmodifiableList(amount_);
-        }
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_MsgDelegateValue_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_MsgDelegateValue_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              cosmosapi.Cosmos.MsgDelegateValue.class, cosmosapi.Cosmos.MsgDelegateValue.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int AMOUNT_FIELD_NUMBER = 1;
-    private java.util.List<cosmosapi.Cosmos.Coin> amount_;
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public java.util.List<cosmosapi.Cosmos.Coin> getAmountList() {
-      return amount_;
-    }
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public java.util.List<? extends cosmosapi.Cosmos.CoinOrBuilder> 
-        getAmountOrBuilderList() {
-      return amount_;
-    }
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public int getAmountCount() {
-      return amount_.size();
-    }
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public cosmosapi.Cosmos.Coin getAmount(int index) {
-      return amount_.get(index);
-    }
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public cosmosapi.Cosmos.CoinOrBuilder getAmountOrBuilder(
-        int index) {
-      return amount_.get(index);
-    }
-
-    public static final int DELEGATOR_ADDRESS_FIELD_NUMBER = 2;
-    private volatile java.lang.Object delegatorAddress_;
-    /**
-     * <code>optional string delegator_address = 2;</code>
-     */
-    public java.lang.String getDelegatorAddress() {
-      java.lang.Object ref = delegatorAddress_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        delegatorAddress_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string delegator_address = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getDelegatorAddressBytes() {
-      java.lang.Object ref = delegatorAddress_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        delegatorAddress_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int VALIDATOR_ADDRESS_FIELD_NUMBER = 3;
-    private volatile java.lang.Object validatorAddress_;
-    /**
-     * <code>optional string validator_address = 3;</code>
-     */
-    public java.lang.String getValidatorAddress() {
-      java.lang.Object ref = validatorAddress_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        validatorAddress_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string validator_address = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getValidatorAddressBytes() {
-      java.lang.Object ref = validatorAddress_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        validatorAddress_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      for (int i = 0; i < amount_.size(); i++) {
-        output.writeMessage(1, amount_.get(i));
-      }
-      if (!getDelegatorAddressBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, delegatorAddress_);
-      }
-      if (!getValidatorAddressBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, validatorAddress_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      for (int i = 0; i < amount_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, amount_.get(i));
-      }
-      if (!getDelegatorAddressBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, delegatorAddress_);
-      }
-      if (!getValidatorAddressBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, validatorAddress_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof cosmosapi.Cosmos.MsgDelegateValue)) {
-        return super.equals(obj);
-      }
-      cosmosapi.Cosmos.MsgDelegateValue other = (cosmosapi.Cosmos.MsgDelegateValue) obj;
-
-      boolean result = true;
-      result = result && getAmountList()
-          .equals(other.getAmountList());
-      result = result && getDelegatorAddress()
-          .equals(other.getDelegatorAddress());
-      result = result && getValidatorAddress()
-          .equals(other.getValidatorAddress());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      if (getAmountCount() > 0) {
-        hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
-        hash = (53 * hash) + getAmountList().hashCode();
-      }
-      hash = (37 * hash) + DELEGATOR_ADDRESS_FIELD_NUMBER;
-      hash = (53 * hash) + getDelegatorAddress().hashCode();
-      hash = (37 * hash) + VALIDATOR_ADDRESS_FIELD_NUMBER;
-      hash = (53 * hash) + getValidatorAddress().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static cosmosapi.Cosmos.MsgDelegateValue parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cosmosapi.Cosmos.MsgDelegateValue parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.MsgDelegateValue parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cosmosapi.Cosmos.MsgDelegateValue parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.MsgDelegateValue parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.MsgDelegateValue parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.MsgDelegateValue parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.MsgDelegateValue parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.MsgDelegateValue parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.MsgDelegateValue parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(cosmosapi.Cosmos.MsgDelegateValue prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code cosmosapi.MsgDelegateValue}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmosapi.MsgDelegateValue)
-        cosmosapi.Cosmos.MsgDelegateValueOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_MsgDelegateValue_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_MsgDelegateValue_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                cosmosapi.Cosmos.MsgDelegateValue.class, cosmosapi.Cosmos.MsgDelegateValue.Builder.class);
-      }
-
-      // Construct using cosmosapi.Cosmos.MsgDelegateValue.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getAmountFieldBuilder();
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        if (amountBuilder_ == null) {
-          amount_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          amountBuilder_.clear();
-        }
-        delegatorAddress_ = "";
-
-        validatorAddress_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_MsgDelegateValue_descriptor;
-      }
-
-      public cosmosapi.Cosmos.MsgDelegateValue getDefaultInstanceForType() {
-        return cosmosapi.Cosmos.MsgDelegateValue.getDefaultInstance();
-      }
-
-      public cosmosapi.Cosmos.MsgDelegateValue build() {
-        cosmosapi.Cosmos.MsgDelegateValue result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public cosmosapi.Cosmos.MsgDelegateValue buildPartial() {
-        cosmosapi.Cosmos.MsgDelegateValue result = new cosmosapi.Cosmos.MsgDelegateValue(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (amountBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            amount_ = java.util.Collections.unmodifiableList(amount_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.amount_ = amount_;
-        } else {
-          result.amount_ = amountBuilder_.build();
-        }
-        result.delegatorAddress_ = delegatorAddress_;
-        result.validatorAddress_ = validatorAddress_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof cosmosapi.Cosmos.MsgDelegateValue) {
-          return mergeFrom((cosmosapi.Cosmos.MsgDelegateValue)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(cosmosapi.Cosmos.MsgDelegateValue other) {
-        if (other == cosmosapi.Cosmos.MsgDelegateValue.getDefaultInstance()) return this;
-        if (amountBuilder_ == null) {
-          if (!other.amount_.isEmpty()) {
-            if (amount_.isEmpty()) {
-              amount_ = other.amount_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureAmountIsMutable();
-              amount_.addAll(other.amount_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.amount_.isEmpty()) {
-            if (amountBuilder_.isEmpty()) {
-              amountBuilder_.dispose();
-              amountBuilder_ = null;
-              amount_ = other.amount_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              amountBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getAmountFieldBuilder() : null;
-            } else {
-              amountBuilder_.addAllMessages(other.amount_);
-            }
-          }
-        }
-        if (!other.getDelegatorAddress().isEmpty()) {
-          delegatorAddress_ = other.delegatorAddress_;
-          onChanged();
-        }
-        if (!other.getValidatorAddress().isEmpty()) {
-          validatorAddress_ = other.validatorAddress_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        cosmosapi.Cosmos.MsgDelegateValue parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (cosmosapi.Cosmos.MsgDelegateValue) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.util.List<cosmosapi.Cosmos.Coin> amount_ =
-        java.util.Collections.emptyList();
-      private void ensureAmountIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          amount_ = new java.util.ArrayList<cosmosapi.Cosmos.Coin>(amount_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          cosmosapi.Cosmos.Coin, cosmosapi.Cosmos.Coin.Builder, cosmosapi.Cosmos.CoinOrBuilder> amountBuilder_;
-
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public java.util.List<cosmosapi.Cosmos.Coin> getAmountList() {
-        if (amountBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(amount_);
-        } else {
-          return amountBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public int getAmountCount() {
-        if (amountBuilder_ == null) {
-          return amount_.size();
-        } else {
-          return amountBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.Coin getAmount(int index) {
-        if (amountBuilder_ == null) {
-          return amount_.get(index);
-        } else {
-          return amountBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder setAmount(
-          int index, cosmosapi.Cosmos.Coin value) {
-        if (amountBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAmountIsMutable();
-          amount_.set(index, value);
-          onChanged();
-        } else {
-          amountBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder setAmount(
-          int index, cosmosapi.Cosmos.Coin.Builder builderForValue) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          amount_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          amountBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAmount(cosmosapi.Cosmos.Coin value) {
-        if (amountBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAmountIsMutable();
-          amount_.add(value);
-          onChanged();
-        } else {
-          amountBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAmount(
-          int index, cosmosapi.Cosmos.Coin value) {
-        if (amountBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAmountIsMutable();
-          amount_.add(index, value);
-          onChanged();
-        } else {
-          amountBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAmount(
-          cosmosapi.Cosmos.Coin.Builder builderForValue) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          amount_.add(builderForValue.build());
-          onChanged();
-        } else {
-          amountBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAmount(
-          int index, cosmosapi.Cosmos.Coin.Builder builderForValue) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          amount_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          amountBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAllAmount(
-          java.lang.Iterable<? extends cosmosapi.Cosmos.Coin> values) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, amount_);
-          onChanged();
-        } else {
-          amountBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder clearAmount() {
-        if (amountBuilder_ == null) {
-          amount_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          amountBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder removeAmount(int index) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          amount_.remove(index);
-          onChanged();
-        } else {
-          amountBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.Coin.Builder getAmountBuilder(
-          int index) {
-        return getAmountFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.CoinOrBuilder getAmountOrBuilder(
-          int index) {
-        if (amountBuilder_ == null) {
-          return amount_.get(index);  } else {
-          return amountBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public java.util.List<? extends cosmosapi.Cosmos.CoinOrBuilder> 
-           getAmountOrBuilderList() {
-        if (amountBuilder_ != null) {
-          return amountBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(amount_);
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.Coin.Builder addAmountBuilder() {
-        return getAmountFieldBuilder().addBuilder(
-            cosmosapi.Cosmos.Coin.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.Coin.Builder addAmountBuilder(
-          int index) {
-        return getAmountFieldBuilder().addBuilder(
-            index, cosmosapi.Cosmos.Coin.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public java.util.List<cosmosapi.Cosmos.Coin.Builder> 
-           getAmountBuilderList() {
-        return getAmountFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          cosmosapi.Cosmos.Coin, cosmosapi.Cosmos.Coin.Builder, cosmosapi.Cosmos.CoinOrBuilder> 
-          getAmountFieldBuilder() {
-        if (amountBuilder_ == null) {
-          amountBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              cosmosapi.Cosmos.Coin, cosmosapi.Cosmos.Coin.Builder, cosmosapi.Cosmos.CoinOrBuilder>(
-                  amount_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
-                  getParentForChildren(),
-                  isClean());
-          amount_ = null;
-        }
-        return amountBuilder_;
-      }
-
-      private java.lang.Object delegatorAddress_ = "";
-      /**
-       * <code>optional string delegator_address = 2;</code>
-       */
-      public java.lang.String getDelegatorAddress() {
-        java.lang.Object ref = delegatorAddress_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          delegatorAddress_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string delegator_address = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getDelegatorAddressBytes() {
-        java.lang.Object ref = delegatorAddress_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          delegatorAddress_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string delegator_address = 2;</code>
-       */
-      public Builder setDelegatorAddress(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        delegatorAddress_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string delegator_address = 2;</code>
-       */
-      public Builder clearDelegatorAddress() {
-        
-        delegatorAddress_ = getDefaultInstance().getDelegatorAddress();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string delegator_address = 2;</code>
-       */
-      public Builder setDelegatorAddressBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        delegatorAddress_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object validatorAddress_ = "";
-      /**
-       * <code>optional string validator_address = 3;</code>
-       */
-      public java.lang.String getValidatorAddress() {
-        java.lang.Object ref = validatorAddress_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          validatorAddress_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string validator_address = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getValidatorAddressBytes() {
-        java.lang.Object ref = validatorAddress_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          validatorAddress_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string validator_address = 3;</code>
-       */
-      public Builder setValidatorAddress(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        validatorAddress_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string validator_address = 3;</code>
-       */
-      public Builder clearValidatorAddress() {
-        
-        validatorAddress_ = getDefaultInstance().getValidatorAddress();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string validator_address = 3;</code>
-       */
-      public Builder setValidatorAddressBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        validatorAddress_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:cosmosapi.MsgDelegateValue)
-    }
-
-    // @@protoc_insertion_point(class_scope:cosmosapi.MsgDelegateValue)
-    private static final cosmosapi.Cosmos.MsgDelegateValue DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new cosmosapi.Cosmos.MsgDelegateValue();
-    }
-
-    public static cosmosapi.Cosmos.MsgDelegateValue getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<MsgDelegateValue>
-        PARSER = new com.google.protobuf.AbstractParser<MsgDelegateValue>() {
-      public MsgDelegateValue parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new MsgDelegateValue(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<MsgDelegateValue> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<MsgDelegateValue> getParserForType() {
-      return PARSER;
-    }
-
-    public cosmosapi.Cosmos.MsgDelegateValue getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface MsgSendValueOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmosapi.MsgSendValue)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    java.util.List<cosmosapi.Cosmos.Coin> 
-        getAmountList();
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    cosmosapi.Cosmos.Coin getAmount(int index);
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    int getAmountCount();
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    java.util.List<? extends cosmosapi.Cosmos.CoinOrBuilder> 
-        getAmountOrBuilderList();
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    cosmosapi.Cosmos.CoinOrBuilder getAmountOrBuilder(
-        int index);
-
-    /**
-     * <code>optional string from_address = 2;</code>
-     */
-    java.lang.String getFromAddress();
-    /**
-     * <code>optional string from_address = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getFromAddressBytes();
-
-    /**
-     * <code>optional string to_address = 3;</code>
-     */
-    java.lang.String getToAddress();
-    /**
-     * <code>optional string to_address = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getToAddressBytes();
-  }
-  /**
-   * Protobuf type {@code cosmosapi.MsgSendValue}
-   */
-  public  static final class MsgSendValue extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmosapi.MsgSendValue)
-      MsgSendValueOrBuilder {
-    // Use MsgSendValue.newBuilder() to construct.
-    private MsgSendValue(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private MsgSendValue() {
-      amount_ = java.util.Collections.emptyList();
-      fromAddress_ = "";
-      toAddress_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private MsgSendValue(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                amount_ = new java.util.ArrayList<cosmosapi.Cosmos.Coin>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              amount_.add(
-                  input.readMessage(cosmosapi.Cosmos.Coin.parser(), extensionRegistry));
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              fromAddress_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              toAddress_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          amount_ = java.util.Collections.unmodifiableList(amount_);
-        }
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_MsgSendValue_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_MsgSendValue_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              cosmosapi.Cosmos.MsgSendValue.class, cosmosapi.Cosmos.MsgSendValue.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int AMOUNT_FIELD_NUMBER = 1;
-    private java.util.List<cosmosapi.Cosmos.Coin> amount_;
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public java.util.List<cosmosapi.Cosmos.Coin> getAmountList() {
-      return amount_;
-    }
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public java.util.List<? extends cosmosapi.Cosmos.CoinOrBuilder> 
-        getAmountOrBuilderList() {
-      return amount_;
-    }
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public int getAmountCount() {
-      return amount_.size();
-    }
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public cosmosapi.Cosmos.Coin getAmount(int index) {
-      return amount_.get(index);
-    }
-    /**
-     * <code>repeated .cosmosapi.Coin amount = 1;</code>
-     */
-    public cosmosapi.Cosmos.CoinOrBuilder getAmountOrBuilder(
-        int index) {
-      return amount_.get(index);
-    }
-
-    public static final int FROM_ADDRESS_FIELD_NUMBER = 2;
-    private volatile java.lang.Object fromAddress_;
-    /**
-     * <code>optional string from_address = 2;</code>
-     */
-    public java.lang.String getFromAddress() {
-      java.lang.Object ref = fromAddress_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        fromAddress_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string from_address = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFromAddressBytes() {
-      java.lang.Object ref = fromAddress_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        fromAddress_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TO_ADDRESS_FIELD_NUMBER = 3;
-    private volatile java.lang.Object toAddress_;
-    /**
-     * <code>optional string to_address = 3;</code>
-     */
-    public java.lang.String getToAddress() {
-      java.lang.Object ref = toAddress_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        toAddress_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string to_address = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getToAddressBytes() {
-      java.lang.Object ref = toAddress_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        toAddress_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      for (int i = 0; i < amount_.size(); i++) {
-        output.writeMessage(1, amount_.get(i));
-      }
-      if (!getFromAddressBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, fromAddress_);
-      }
-      if (!getToAddressBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, toAddress_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      for (int i = 0; i < amount_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, amount_.get(i));
-      }
-      if (!getFromAddressBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, fromAddress_);
-      }
-      if (!getToAddressBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, toAddress_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof cosmosapi.Cosmos.MsgSendValue)) {
-        return super.equals(obj);
-      }
-      cosmosapi.Cosmos.MsgSendValue other = (cosmosapi.Cosmos.MsgSendValue) obj;
-
-      boolean result = true;
-      result = result && getAmountList()
-          .equals(other.getAmountList());
-      result = result && getFromAddress()
-          .equals(other.getFromAddress());
-      result = result && getToAddress()
-          .equals(other.getToAddress());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      if (getAmountCount() > 0) {
-        hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
-        hash = (53 * hash) + getAmountList().hashCode();
-      }
-      hash = (37 * hash) + FROM_ADDRESS_FIELD_NUMBER;
-      hash = (53 * hash) + getFromAddress().hashCode();
-      hash = (37 * hash) + TO_ADDRESS_FIELD_NUMBER;
-      hash = (53 * hash) + getToAddress().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static cosmosapi.Cosmos.MsgSendValue parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cosmosapi.Cosmos.MsgSendValue parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.MsgSendValue parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cosmosapi.Cosmos.MsgSendValue parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.MsgSendValue parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.MsgSendValue parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.MsgSendValue parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.MsgSendValue parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.MsgSendValue parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.MsgSendValue parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(cosmosapi.Cosmos.MsgSendValue prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code cosmosapi.MsgSendValue}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmosapi.MsgSendValue)
-        cosmosapi.Cosmos.MsgSendValueOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_MsgSendValue_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_MsgSendValue_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                cosmosapi.Cosmos.MsgSendValue.class, cosmosapi.Cosmos.MsgSendValue.Builder.class);
-      }
-
-      // Construct using cosmosapi.Cosmos.MsgSendValue.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getAmountFieldBuilder();
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        if (amountBuilder_ == null) {
-          amount_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          amountBuilder_.clear();
-        }
-        fromAddress_ = "";
-
-        toAddress_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_MsgSendValue_descriptor;
-      }
-
-      public cosmosapi.Cosmos.MsgSendValue getDefaultInstanceForType() {
-        return cosmosapi.Cosmos.MsgSendValue.getDefaultInstance();
-      }
-
-      public cosmosapi.Cosmos.MsgSendValue build() {
-        cosmosapi.Cosmos.MsgSendValue result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public cosmosapi.Cosmos.MsgSendValue buildPartial() {
-        cosmosapi.Cosmos.MsgSendValue result = new cosmosapi.Cosmos.MsgSendValue(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (amountBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            amount_ = java.util.Collections.unmodifiableList(amount_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.amount_ = amount_;
-        } else {
-          result.amount_ = amountBuilder_.build();
-        }
-        result.fromAddress_ = fromAddress_;
-        result.toAddress_ = toAddress_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof cosmosapi.Cosmos.MsgSendValue) {
-          return mergeFrom((cosmosapi.Cosmos.MsgSendValue)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(cosmosapi.Cosmos.MsgSendValue other) {
-        if (other == cosmosapi.Cosmos.MsgSendValue.getDefaultInstance()) return this;
-        if (amountBuilder_ == null) {
-          if (!other.amount_.isEmpty()) {
-            if (amount_.isEmpty()) {
-              amount_ = other.amount_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureAmountIsMutable();
-              amount_.addAll(other.amount_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.amount_.isEmpty()) {
-            if (amountBuilder_.isEmpty()) {
-              amountBuilder_.dispose();
-              amountBuilder_ = null;
-              amount_ = other.amount_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              amountBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getAmountFieldBuilder() : null;
-            } else {
-              amountBuilder_.addAllMessages(other.amount_);
-            }
-          }
-        }
-        if (!other.getFromAddress().isEmpty()) {
-          fromAddress_ = other.fromAddress_;
-          onChanged();
-        }
-        if (!other.getToAddress().isEmpty()) {
-          toAddress_ = other.toAddress_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        cosmosapi.Cosmos.MsgSendValue parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (cosmosapi.Cosmos.MsgSendValue) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.util.List<cosmosapi.Cosmos.Coin> amount_ =
-        java.util.Collections.emptyList();
-      private void ensureAmountIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          amount_ = new java.util.ArrayList<cosmosapi.Cosmos.Coin>(amount_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          cosmosapi.Cosmos.Coin, cosmosapi.Cosmos.Coin.Builder, cosmosapi.Cosmos.CoinOrBuilder> amountBuilder_;
-
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public java.util.List<cosmosapi.Cosmos.Coin> getAmountList() {
-        if (amountBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(amount_);
-        } else {
-          return amountBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public int getAmountCount() {
-        if (amountBuilder_ == null) {
-          return amount_.size();
-        } else {
-          return amountBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.Coin getAmount(int index) {
-        if (amountBuilder_ == null) {
-          return amount_.get(index);
-        } else {
-          return amountBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder setAmount(
-          int index, cosmosapi.Cosmos.Coin value) {
-        if (amountBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAmountIsMutable();
-          amount_.set(index, value);
-          onChanged();
-        } else {
-          amountBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder setAmount(
-          int index, cosmosapi.Cosmos.Coin.Builder builderForValue) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          amount_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          amountBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAmount(cosmosapi.Cosmos.Coin value) {
-        if (amountBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAmountIsMutable();
-          amount_.add(value);
-          onChanged();
-        } else {
-          amountBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAmount(
-          int index, cosmosapi.Cosmos.Coin value) {
-        if (amountBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAmountIsMutable();
-          amount_.add(index, value);
-          onChanged();
-        } else {
-          amountBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAmount(
-          cosmosapi.Cosmos.Coin.Builder builderForValue) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          amount_.add(builderForValue.build());
-          onChanged();
-        } else {
-          amountBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAmount(
-          int index, cosmosapi.Cosmos.Coin.Builder builderForValue) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          amount_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          amountBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder addAllAmount(
-          java.lang.Iterable<? extends cosmosapi.Cosmos.Coin> values) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, amount_);
-          onChanged();
-        } else {
-          amountBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder clearAmount() {
-        if (amountBuilder_ == null) {
-          amount_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          amountBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public Builder removeAmount(int index) {
-        if (amountBuilder_ == null) {
-          ensureAmountIsMutable();
-          amount_.remove(index);
-          onChanged();
-        } else {
-          amountBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.Coin.Builder getAmountBuilder(
-          int index) {
-        return getAmountFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.CoinOrBuilder getAmountOrBuilder(
-          int index) {
-        if (amountBuilder_ == null) {
-          return amount_.get(index);  } else {
-          return amountBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public java.util.List<? extends cosmosapi.Cosmos.CoinOrBuilder> 
-           getAmountOrBuilderList() {
-        if (amountBuilder_ != null) {
-          return amountBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(amount_);
-        }
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.Coin.Builder addAmountBuilder() {
-        return getAmountFieldBuilder().addBuilder(
-            cosmosapi.Cosmos.Coin.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public cosmosapi.Cosmos.Coin.Builder addAmountBuilder(
-          int index) {
-        return getAmountFieldBuilder().addBuilder(
-            index, cosmosapi.Cosmos.Coin.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .cosmosapi.Coin amount = 1;</code>
-       */
-      public java.util.List<cosmosapi.Cosmos.Coin.Builder> 
-           getAmountBuilderList() {
-        return getAmountFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          cosmosapi.Cosmos.Coin, cosmosapi.Cosmos.Coin.Builder, cosmosapi.Cosmos.CoinOrBuilder> 
-          getAmountFieldBuilder() {
-        if (amountBuilder_ == null) {
-          amountBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              cosmosapi.Cosmos.Coin, cosmosapi.Cosmos.Coin.Builder, cosmosapi.Cosmos.CoinOrBuilder>(
-                  amount_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
-                  getParentForChildren(),
-                  isClean());
-          amount_ = null;
-        }
-        return amountBuilder_;
-      }
-
-      private java.lang.Object fromAddress_ = "";
-      /**
-       * <code>optional string from_address = 2;</code>
-       */
-      public java.lang.String getFromAddress() {
-        java.lang.Object ref = fromAddress_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          fromAddress_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string from_address = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getFromAddressBytes() {
-        java.lang.Object ref = fromAddress_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          fromAddress_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string from_address = 2;</code>
-       */
-      public Builder setFromAddress(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        fromAddress_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string from_address = 2;</code>
-       */
-      public Builder clearFromAddress() {
-        
-        fromAddress_ = getDefaultInstance().getFromAddress();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string from_address = 2;</code>
-       */
-      public Builder setFromAddressBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        fromAddress_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object toAddress_ = "";
-      /**
-       * <code>optional string to_address = 3;</code>
-       */
-      public java.lang.String getToAddress() {
-        java.lang.Object ref = toAddress_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          toAddress_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string to_address = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getToAddressBytes() {
-        java.lang.Object ref = toAddress_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          toAddress_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string to_address = 3;</code>
-       */
-      public Builder setToAddress(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        toAddress_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string to_address = 3;</code>
-       */
-      public Builder clearToAddress() {
-        
-        toAddress_ = getDefaultInstance().getToAddress();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string to_address = 3;</code>
-       */
-      public Builder setToAddressBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        toAddress_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:cosmosapi.MsgSendValue)
-    }
-
-    // @@protoc_insertion_point(class_scope:cosmosapi.MsgSendValue)
-    private static final cosmosapi.Cosmos.MsgSendValue DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new cosmosapi.Cosmos.MsgSendValue();
-    }
-
-    public static cosmosapi.Cosmos.MsgSendValue getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<MsgSendValue>
-        PARSER = new com.google.protobuf.AbstractParser<MsgSendValue>() {
-      public MsgSendValue parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new MsgSendValue(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<MsgSendValue> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<MsgSendValue> getParserForType() {
-      return PARSER;
-    }
-
-    public cosmosapi.Cosmos.MsgSendValue getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface CosmosTxReqOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmosapi.CosmosTxReq)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional .cosmosapi.SignData signData = 1;</code>
-     */
-    boolean hasSignData();
-    /**
-     * <code>optional .cosmosapi.SignData signData = 1;</code>
-     */
-    cosmosapi.Cosmos.SignData getSignData();
-    /**
-     * <code>optional .cosmosapi.SignData signData = 1;</code>
-     */
-    cosmosapi.Cosmos.SignDataOrBuilder getSignDataOrBuilder();
-
-    /**
-     * <code>optional string path = 2;</code>
-     */
-    java.lang.String getPath();
-    /**
-     * <code>optional string path = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getPathBytes();
-
-    /**
-     * <code>optional string payment_dis = 3;</code>
-     */
-    java.lang.String getPaymentDis();
-    /**
-     * <code>optional string payment_dis = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getPaymentDisBytes();
-
-    /**
-     * <code>optional string to_dis = 4;</code>
-     */
-    java.lang.String getToDis();
-    /**
-     * <code>optional string to_dis = 4;</code>
-     */
-    com.google.protobuf.ByteString
-        getToDisBytes();
-
-    /**
-     * <code>optional string from_dis = 5;</code>
-     */
-    java.lang.String getFromDis();
-    /**
-     * <code>optional string from_dis = 5;</code>
-     */
-    com.google.protobuf.ByteString
-        getFromDisBytes();
-
-    /**
-     * <code>optional string fee_dis = 6;</code>
-     */
-    java.lang.String getFeeDis();
-    /**
-     * <code>optional string fee_dis = 6;</code>
-     */
-    com.google.protobuf.ByteString
-        getFeeDisBytes();
-  }
-  /**
-   * Protobuf type {@code cosmosapi.CosmosTxReq}
-   */
-  public  static final class CosmosTxReq extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmosapi.CosmosTxReq)
-      CosmosTxReqOrBuilder {
-    // Use CosmosTxReq.newBuilder() to construct.
-    private CosmosTxReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private CosmosTxReq() {
-      path_ = "";
-      paymentDis_ = "";
-      toDis_ = "";
-      fromDis_ = "";
-      feeDis_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private CosmosTxReq(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              cosmosapi.Cosmos.SignData.Builder subBuilder = null;
-              if (signData_ != null) {
-                subBuilder = signData_.toBuilder();
-              }
-              signData_ = input.readMessage(cosmosapi.Cosmos.SignData.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(signData_);
-                signData_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              path_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              paymentDis_ = s;
-              break;
-            }
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              toDis_ = s;
-              break;
-            }
-            case 42: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              fromDis_ = s;
-              break;
-            }
-            case 50: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              feeDis_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxReq_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxReq_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              cosmosapi.Cosmos.CosmosTxReq.class, cosmosapi.Cosmos.CosmosTxReq.Builder.class);
-    }
-
-    public static final int SIGNDATA_FIELD_NUMBER = 1;
-    private cosmosapi.Cosmos.SignData signData_;
-    /**
-     * <code>optional .cosmosapi.SignData signData = 1;</code>
-     */
-    public boolean hasSignData() {
-      return signData_ != null;
-    }
-    /**
-     * <code>optional .cosmosapi.SignData signData = 1;</code>
-     */
-    public cosmosapi.Cosmos.SignData getSignData() {
-      return signData_ == null ? cosmosapi.Cosmos.SignData.getDefaultInstance() : signData_;
-    }
-    /**
-     * <code>optional .cosmosapi.SignData signData = 1;</code>
-     */
-    public cosmosapi.Cosmos.SignDataOrBuilder getSignDataOrBuilder() {
-      return getSignData();
-    }
-
-    public static final int PATH_FIELD_NUMBER = 2;
-    private volatile java.lang.Object path_;
-    /**
-     * <code>optional string path = 2;</code>
-     */
-    public java.lang.String getPath() {
-      java.lang.Object ref = path_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        path_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string path = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getPathBytes() {
-      java.lang.Object ref = path_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        path_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PAYMENT_DIS_FIELD_NUMBER = 3;
-    private volatile java.lang.Object paymentDis_;
-    /**
-     * <code>optional string payment_dis = 3;</code>
-     */
-    public java.lang.String getPaymentDis() {
-      java.lang.Object ref = paymentDis_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        paymentDis_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string payment_dis = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getPaymentDisBytes() {
-      java.lang.Object ref = paymentDis_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        paymentDis_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TO_DIS_FIELD_NUMBER = 4;
-    private volatile java.lang.Object toDis_;
-    /**
-     * <code>optional string to_dis = 4;</code>
-     */
-    public java.lang.String getToDis() {
-      java.lang.Object ref = toDis_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        toDis_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string to_dis = 4;</code>
-     */
-    public com.google.protobuf.ByteString
-        getToDisBytes() {
-      java.lang.Object ref = toDis_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        toDis_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FROM_DIS_FIELD_NUMBER = 5;
-    private volatile java.lang.Object fromDis_;
-    /**
-     * <code>optional string from_dis = 5;</code>
-     */
-    public java.lang.String getFromDis() {
-      java.lang.Object ref = fromDis_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        fromDis_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string from_dis = 5;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFromDisBytes() {
-      java.lang.Object ref = fromDis_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        fromDis_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int FEE_DIS_FIELD_NUMBER = 6;
-    private volatile java.lang.Object feeDis_;
-    /**
-     * <code>optional string fee_dis = 6;</code>
-     */
-    public java.lang.String getFeeDis() {
-      java.lang.Object ref = feeDis_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        feeDis_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string fee_dis = 6;</code>
-     */
-    public com.google.protobuf.ByteString
-        getFeeDisBytes() {
-      java.lang.Object ref = feeDis_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        feeDis_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (signData_ != null) {
-        output.writeMessage(1, getSignData());
-      }
-      if (!getPathBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, path_);
-      }
-      if (!getPaymentDisBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, paymentDis_);
-      }
-      if (!getToDisBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, toDis_);
-      }
-      if (!getFromDisBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, fromDis_);
-      }
-      if (!getFeeDisBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, feeDis_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (signData_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getSignData());
-      }
-      if (!getPathBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, path_);
-      }
-      if (!getPaymentDisBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, paymentDis_);
-      }
-      if (!getToDisBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, toDis_);
-      }
-      if (!getFromDisBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, fromDis_);
-      }
-      if (!getFeeDisBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, feeDis_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof cosmosapi.Cosmos.CosmosTxReq)) {
-        return super.equals(obj);
-      }
-      cosmosapi.Cosmos.CosmosTxReq other = (cosmosapi.Cosmos.CosmosTxReq) obj;
-
-      boolean result = true;
-      result = result && (hasSignData() == other.hasSignData());
-      if (hasSignData()) {
-        result = result && getSignData()
-            .equals(other.getSignData());
-      }
-      result = result && getPath()
-          .equals(other.getPath());
-      result = result && getPaymentDis()
-          .equals(other.getPaymentDis());
-      result = result && getToDis()
-          .equals(other.getToDis());
-      result = result && getFromDis()
-          .equals(other.getFromDis());
-      result = result && getFeeDis()
-          .equals(other.getFeeDis());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      if (hasSignData()) {
-        hash = (37 * hash) + SIGNDATA_FIELD_NUMBER;
-        hash = (53 * hash) + getSignData().hashCode();
-      }
-      hash = (37 * hash) + PATH_FIELD_NUMBER;
-      hash = (53 * hash) + getPath().hashCode();
-      hash = (37 * hash) + PAYMENT_DIS_FIELD_NUMBER;
-      hash = (53 * hash) + getPaymentDis().hashCode();
-      hash = (37 * hash) + TO_DIS_FIELD_NUMBER;
-      hash = (53 * hash) + getToDis().hashCode();
-      hash = (37 * hash) + FROM_DIS_FIELD_NUMBER;
-      hash = (53 * hash) + getFromDis().hashCode();
-      hash = (37 * hash) + FEE_DIS_FIELD_NUMBER;
-      hash = (53 * hash) + getFeeDis().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static cosmosapi.Cosmos.CosmosTxReq parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cosmosapi.Cosmos.CosmosTxReq parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.CosmosTxReq parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cosmosapi.Cosmos.CosmosTxReq parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.CosmosTxReq parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.CosmosTxReq parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.CosmosTxReq parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.CosmosTxReq parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.CosmosTxReq parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.CosmosTxReq parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(cosmosapi.Cosmos.CosmosTxReq prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code cosmosapi.CosmosTxReq}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmosapi.CosmosTxReq)
-        cosmosapi.Cosmos.CosmosTxReqOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxReq_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxReq_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                cosmosapi.Cosmos.CosmosTxReq.class, cosmosapi.Cosmos.CosmosTxReq.Builder.class);
-      }
-
-      // Construct using cosmosapi.Cosmos.CosmosTxReq.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        if (signDataBuilder_ == null) {
-          signData_ = null;
-        } else {
-          signData_ = null;
-          signDataBuilder_ = null;
-        }
-        path_ = "";
-
-        paymentDis_ = "";
-
-        toDis_ = "";
-
-        fromDis_ = "";
-
-        feeDis_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxReq_descriptor;
-      }
-
-      public cosmosapi.Cosmos.CosmosTxReq getDefaultInstanceForType() {
-        return cosmosapi.Cosmos.CosmosTxReq.getDefaultInstance();
-      }
-
-      public cosmosapi.Cosmos.CosmosTxReq build() {
-        cosmosapi.Cosmos.CosmosTxReq result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public cosmosapi.Cosmos.CosmosTxReq buildPartial() {
-        cosmosapi.Cosmos.CosmosTxReq result = new cosmosapi.Cosmos.CosmosTxReq(this);
-        if (signDataBuilder_ == null) {
-          result.signData_ = signData_;
-        } else {
-          result.signData_ = signDataBuilder_.build();
-        }
-        result.path_ = path_;
-        result.paymentDis_ = paymentDis_;
-        result.toDis_ = toDis_;
-        result.fromDis_ = fromDis_;
-        result.feeDis_ = feeDis_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof cosmosapi.Cosmos.CosmosTxReq) {
-          return mergeFrom((cosmosapi.Cosmos.CosmosTxReq)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(cosmosapi.Cosmos.CosmosTxReq other) {
-        if (other == cosmosapi.Cosmos.CosmosTxReq.getDefaultInstance()) return this;
-        if (other.hasSignData()) {
-          mergeSignData(other.getSignData());
-        }
-        if (!other.getPath().isEmpty()) {
-          path_ = other.path_;
-          onChanged();
-        }
-        if (!other.getPaymentDis().isEmpty()) {
-          paymentDis_ = other.paymentDis_;
-          onChanged();
-        }
-        if (!other.getToDis().isEmpty()) {
-          toDis_ = other.toDis_;
-          onChanged();
-        }
-        if (!other.getFromDis().isEmpty()) {
-          fromDis_ = other.fromDis_;
-          onChanged();
-        }
-        if (!other.getFeeDis().isEmpty()) {
-          feeDis_ = other.feeDis_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        cosmosapi.Cosmos.CosmosTxReq parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (cosmosapi.Cosmos.CosmosTxReq) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private cosmosapi.Cosmos.SignData signData_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          cosmosapi.Cosmos.SignData, cosmosapi.Cosmos.SignData.Builder, cosmosapi.Cosmos.SignDataOrBuilder> signDataBuilder_;
-      /**
-       * <code>optional .cosmosapi.SignData signData = 1;</code>
-       */
-      public boolean hasSignData() {
-        return signDataBuilder_ != null || signData_ != null;
-      }
-      /**
-       * <code>optional .cosmosapi.SignData signData = 1;</code>
-       */
-      public cosmosapi.Cosmos.SignData getSignData() {
-        if (signDataBuilder_ == null) {
-          return signData_ == null ? cosmosapi.Cosmos.SignData.getDefaultInstance() : signData_;
-        } else {
-          return signDataBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>optional .cosmosapi.SignData signData = 1;</code>
-       */
-      public Builder setSignData(cosmosapi.Cosmos.SignData value) {
-        if (signDataBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          signData_ = value;
-          onChanged();
-        } else {
-          signDataBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .cosmosapi.SignData signData = 1;</code>
-       */
-      public Builder setSignData(
-          cosmosapi.Cosmos.SignData.Builder builderForValue) {
-        if (signDataBuilder_ == null) {
-          signData_ = builderForValue.build();
-          onChanged();
-        } else {
-          signDataBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .cosmosapi.SignData signData = 1;</code>
-       */
-      public Builder mergeSignData(cosmosapi.Cosmos.SignData value) {
-        if (signDataBuilder_ == null) {
-          if (signData_ != null) {
-            signData_ =
-              cosmosapi.Cosmos.SignData.newBuilder(signData_).mergeFrom(value).buildPartial();
-          } else {
-            signData_ = value;
-          }
-          onChanged();
-        } else {
-          signDataBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .cosmosapi.SignData signData = 1;</code>
-       */
-      public Builder clearSignData() {
-        if (signDataBuilder_ == null) {
-          signData_ = null;
-          onChanged();
-        } else {
-          signData_ = null;
-          signDataBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .cosmosapi.SignData signData = 1;</code>
-       */
-      public cosmosapi.Cosmos.SignData.Builder getSignDataBuilder() {
-        
-        onChanged();
-        return getSignDataFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>optional .cosmosapi.SignData signData = 1;</code>
-       */
-      public cosmosapi.Cosmos.SignDataOrBuilder getSignDataOrBuilder() {
-        if (signDataBuilder_ != null) {
-          return signDataBuilder_.getMessageOrBuilder();
-        } else {
-          return signData_ == null ?
-              cosmosapi.Cosmos.SignData.getDefaultInstance() : signData_;
-        }
-      }
-      /**
-       * <code>optional .cosmosapi.SignData signData = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          cosmosapi.Cosmos.SignData, cosmosapi.Cosmos.SignData.Builder, cosmosapi.Cosmos.SignDataOrBuilder> 
-          getSignDataFieldBuilder() {
-        if (signDataBuilder_ == null) {
-          signDataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              cosmosapi.Cosmos.SignData, cosmosapi.Cosmos.SignData.Builder, cosmosapi.Cosmos.SignDataOrBuilder>(
-                  getSignData(),
-                  getParentForChildren(),
-                  isClean());
-          signData_ = null;
-        }
-        return signDataBuilder_;
-      }
-
-      private java.lang.Object path_ = "";
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public java.lang.String getPath() {
-        java.lang.Object ref = path_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          path_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPathBytes() {
-        java.lang.Object ref = path_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          path_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public Builder setPath(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        path_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public Builder clearPath() {
-        
-        path_ = getDefaultInstance().getPath();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string path = 2;</code>
-       */
-      public Builder setPathBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        path_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object paymentDis_ = "";
-      /**
-       * <code>optional string payment_dis = 3;</code>
-       */
-      public java.lang.String getPaymentDis() {
-        java.lang.Object ref = paymentDis_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          paymentDis_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string payment_dis = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPaymentDisBytes() {
-        java.lang.Object ref = paymentDis_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          paymentDis_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string payment_dis = 3;</code>
-       */
-      public Builder setPaymentDis(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        paymentDis_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string payment_dis = 3;</code>
-       */
-      public Builder clearPaymentDis() {
-        
-        paymentDis_ = getDefaultInstance().getPaymentDis();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string payment_dis = 3;</code>
-       */
-      public Builder setPaymentDisBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        paymentDis_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object toDis_ = "";
-      /**
-       * <code>optional string to_dis = 4;</code>
-       */
-      public java.lang.String getToDis() {
-        java.lang.Object ref = toDis_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          toDis_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string to_dis = 4;</code>
-       */
-      public com.google.protobuf.ByteString
-          getToDisBytes() {
-        java.lang.Object ref = toDis_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          toDis_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string to_dis = 4;</code>
-       */
-      public Builder setToDis(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        toDis_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string to_dis = 4;</code>
-       */
-      public Builder clearToDis() {
-        
-        toDis_ = getDefaultInstance().getToDis();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string to_dis = 4;</code>
-       */
-      public Builder setToDisBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        toDis_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object fromDis_ = "";
-      /**
-       * <code>optional string from_dis = 5;</code>
-       */
-      public java.lang.String getFromDis() {
-        java.lang.Object ref = fromDis_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          fromDis_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string from_dis = 5;</code>
-       */
-      public com.google.protobuf.ByteString
-          getFromDisBytes() {
-        java.lang.Object ref = fromDis_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          fromDis_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string from_dis = 5;</code>
-       */
-      public Builder setFromDis(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        fromDis_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string from_dis = 5;</code>
-       */
-      public Builder clearFromDis() {
-        
-        fromDis_ = getDefaultInstance().getFromDis();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string from_dis = 5;</code>
-       */
-      public Builder setFromDisBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        fromDis_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object feeDis_ = "";
-      /**
-       * <code>optional string fee_dis = 6;</code>
-       */
-      public java.lang.String getFeeDis() {
-        java.lang.Object ref = feeDis_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          feeDis_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string fee_dis = 6;</code>
-       */
-      public com.google.protobuf.ByteString
-          getFeeDisBytes() {
-        java.lang.Object ref = feeDis_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          feeDis_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string fee_dis = 6;</code>
-       */
-      public Builder setFeeDis(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        feeDis_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string fee_dis = 6;</code>
-       */
-      public Builder clearFeeDis() {
-        
-        feeDis_ = getDefaultInstance().getFeeDis();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string fee_dis = 6;</code>
-       */
-      public Builder setFeeDisBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        feeDis_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:cosmosapi.CosmosTxReq)
-    }
-
-    // @@protoc_insertion_point(class_scope:cosmosapi.CosmosTxReq)
-    private static final cosmosapi.Cosmos.CosmosTxReq DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new cosmosapi.Cosmos.CosmosTxReq();
-    }
-
-    public static cosmosapi.Cosmos.CosmosTxReq getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<CosmosTxReq>
-        PARSER = new com.google.protobuf.AbstractParser<CosmosTxReq>() {
-      public CosmosTxReq parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new CosmosTxReq(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<CosmosTxReq> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<CosmosTxReq> getParserForType() {
-      return PARSER;
-    }
-
-    public cosmosapi.Cosmos.CosmosTxReq getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface CosmosTxResOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmosapi.CosmosTxRes)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string tx_data = 1;</code>
-     */
-    java.lang.String getTxData();
-    /**
-     * <code>optional string tx_data = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getTxDataBytes();
-
-    /**
-     * <code>optional string tx_hash = 2;</code>
+     * <code>optional string txHash = 2;</code>
      */
     java.lang.String getTxHash();
     /**
-     * <code>optional string tx_hash = 2;</code>
+     * <code>optional string txHash = 2;</code>
      */
     com.google.protobuf.ByteString
         getTxHashBytes();
   }
   /**
-   * Protobuf type {@code cosmosapi.CosmosTxRes}
+   * Protobuf type {@code cosmosapi.CosmosTxOutput}
    */
-  public  static final class CosmosTxRes extends
+  public  static final class CosmosTxOutput extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmosapi.CosmosTxRes)
-      CosmosTxResOrBuilder {
-    // Use CosmosTxRes.newBuilder() to construct.
-    private CosmosTxRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:cosmosapi.CosmosTxOutput)
+      CosmosTxOutputOrBuilder {
+    // Use CosmosTxOutput.newBuilder() to construct.
+    private CosmosTxOutput(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private CosmosTxRes() {
-      txData_ = "";
+    private CosmosTxOutput() {
+      signature_ = "";
       txHash_ = "";
     }
 
@@ -8057,7 +2819,7 @@ public final class Cosmos {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private CosmosTxRes(
+    private CosmosTxOutput(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -8080,7 +2842,7 @@ public final class Cosmos {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              txData_ = s;
+              signature_ = s;
               break;
             }
             case 18: {
@@ -8102,54 +2864,54 @@ public final class Cosmos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxRes_descriptor;
+      return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxOutput_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxRes_fieldAccessorTable
+      return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxOutput_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              cosmosapi.Cosmos.CosmosTxRes.class, cosmosapi.Cosmos.CosmosTxRes.Builder.class);
+              cosmosapi.Cosmos.CosmosTxOutput.class, cosmosapi.Cosmos.CosmosTxOutput.Builder.class);
     }
 
-    public static final int TX_DATA_FIELD_NUMBER = 1;
-    private volatile java.lang.Object txData_;
+    public static final int SIGNATURE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object signature_;
     /**
-     * <code>optional string tx_data = 1;</code>
+     * <code>optional string signature = 1;</code>
      */
-    public java.lang.String getTxData() {
-      java.lang.Object ref = txData_;
+    public java.lang.String getSignature() {
+      java.lang.Object ref = signature_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        txData_ = s;
+        signature_ = s;
         return s;
       }
     }
     /**
-     * <code>optional string tx_data = 1;</code>
+     * <code>optional string signature = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getTxDataBytes() {
-      java.lang.Object ref = txData_;
+        getSignatureBytes() {
+      java.lang.Object ref = signature_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        txData_ = b;
+        signature_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int TX_HASH_FIELD_NUMBER = 2;
+    public static final int TXHASH_FIELD_NUMBER = 2;
     private volatile java.lang.Object txHash_;
     /**
-     * <code>optional string tx_hash = 2;</code>
+     * <code>optional string txHash = 2;</code>
      */
     public java.lang.String getTxHash() {
       java.lang.Object ref = txHash_;
@@ -8164,7 +2926,7 @@ public final class Cosmos {
       }
     }
     /**
-     * <code>optional string tx_hash = 2;</code>
+     * <code>optional string txHash = 2;</code>
      */
     public com.google.protobuf.ByteString
         getTxHashBytes() {
@@ -8192,8 +2954,8 @@ public final class Cosmos {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getTxDataBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, txData_);
+      if (!getSignatureBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signature_);
       }
       if (!getTxHashBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, txHash_);
@@ -8205,8 +2967,8 @@ public final class Cosmos {
       if (size != -1) return size;
 
       size = 0;
-      if (!getTxDataBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, txData_);
+      if (!getSignatureBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signature_);
       }
       if (!getTxHashBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, txHash_);
@@ -8221,14 +2983,14 @@ public final class Cosmos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof cosmosapi.Cosmos.CosmosTxRes)) {
+      if (!(obj instanceof cosmosapi.Cosmos.CosmosTxOutput)) {
         return super.equals(obj);
       }
-      cosmosapi.Cosmos.CosmosTxRes other = (cosmosapi.Cosmos.CosmosTxRes) obj;
+      cosmosapi.Cosmos.CosmosTxOutput other = (cosmosapi.Cosmos.CosmosTxOutput) obj;
 
       boolean result = true;
-      result = result && getTxData()
-          .equals(other.getTxData());
+      result = result && getSignature()
+          .equals(other.getSignature());
       result = result && getTxHash()
           .equals(other.getTxHash());
       return result;
@@ -8241,67 +3003,67 @@ public final class Cosmos {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + TX_DATA_FIELD_NUMBER;
-      hash = (53 * hash) + getTxData().hashCode();
-      hash = (37 * hash) + TX_HASH_FIELD_NUMBER;
+      hash = (37 * hash) + SIGNATURE_FIELD_NUMBER;
+      hash = (53 * hash) + getSignature().hashCode();
+      hash = (37 * hash) + TXHASH_FIELD_NUMBER;
       hash = (53 * hash) + getTxHash().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static cosmosapi.Cosmos.CosmosTxRes parseFrom(
+    public static cosmosapi.Cosmos.CosmosTxOutput parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static cosmosapi.Cosmos.CosmosTxRes parseFrom(
+    public static cosmosapi.Cosmos.CosmosTxOutput parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static cosmosapi.Cosmos.CosmosTxRes parseFrom(byte[] data)
+    public static cosmosapi.Cosmos.CosmosTxOutput parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static cosmosapi.Cosmos.CosmosTxRes parseFrom(
+    public static cosmosapi.Cosmos.CosmosTxOutput parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static cosmosapi.Cosmos.CosmosTxRes parseFrom(java.io.InputStream input)
+    public static cosmosapi.Cosmos.CosmosTxOutput parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static cosmosapi.Cosmos.CosmosTxRes parseFrom(
+    public static cosmosapi.Cosmos.CosmosTxOutput parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static cosmosapi.Cosmos.CosmosTxRes parseDelimitedFrom(java.io.InputStream input)
+    public static cosmosapi.Cosmos.CosmosTxOutput parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static cosmosapi.Cosmos.CosmosTxRes parseDelimitedFrom(
+    public static cosmosapi.Cosmos.CosmosTxOutput parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static cosmosapi.Cosmos.CosmosTxRes parseFrom(
+    public static cosmosapi.Cosmos.CosmosTxOutput parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static cosmosapi.Cosmos.CosmosTxRes parseFrom(
+    public static cosmosapi.Cosmos.CosmosTxOutput parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -8313,7 +3075,7 @@ public final class Cosmos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(cosmosapi.Cosmos.CosmosTxRes prototype) {
+    public static Builder newBuilder(cosmosapi.Cosmos.CosmosTxOutput prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -8328,25 +3090,25 @@ public final class Cosmos {
       return builder;
     }
     /**
-     * Protobuf type {@code cosmosapi.CosmosTxRes}
+     * Protobuf type {@code cosmosapi.CosmosTxOutput}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmosapi.CosmosTxRes)
-        cosmosapi.Cosmos.CosmosTxResOrBuilder {
+        // @@protoc_insertion_point(builder_implements:cosmosapi.CosmosTxOutput)
+        cosmosapi.Cosmos.CosmosTxOutputOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxRes_descriptor;
+        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxOutput_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxRes_fieldAccessorTable
+        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxOutput_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                cosmosapi.Cosmos.CosmosTxRes.class, cosmosapi.Cosmos.CosmosTxRes.Builder.class);
+                cosmosapi.Cosmos.CosmosTxOutput.class, cosmosapi.Cosmos.CosmosTxOutput.Builder.class);
       }
 
-      // Construct using cosmosapi.Cosmos.CosmosTxRes.newBuilder()
+      // Construct using cosmosapi.Cosmos.CosmosTxOutput.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -8363,7 +3125,7 @@ public final class Cosmos {
       }
       public Builder clear() {
         super.clear();
-        txData_ = "";
+        signature_ = "";
 
         txHash_ = "";
 
@@ -8372,24 +3134,24 @@ public final class Cosmos {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxRes_descriptor;
+        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosTxOutput_descriptor;
       }
 
-      public cosmosapi.Cosmos.CosmosTxRes getDefaultInstanceForType() {
-        return cosmosapi.Cosmos.CosmosTxRes.getDefaultInstance();
+      public cosmosapi.Cosmos.CosmosTxOutput getDefaultInstanceForType() {
+        return cosmosapi.Cosmos.CosmosTxOutput.getDefaultInstance();
       }
 
-      public cosmosapi.Cosmos.CosmosTxRes build() {
-        cosmosapi.Cosmos.CosmosTxRes result = buildPartial();
+      public cosmosapi.Cosmos.CosmosTxOutput build() {
+        cosmosapi.Cosmos.CosmosTxOutput result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public cosmosapi.Cosmos.CosmosTxRes buildPartial() {
-        cosmosapi.Cosmos.CosmosTxRes result = new cosmosapi.Cosmos.CosmosTxRes(this);
-        result.txData_ = txData_;
+      public cosmosapi.Cosmos.CosmosTxOutput buildPartial() {
+        cosmosapi.Cosmos.CosmosTxOutput result = new cosmosapi.Cosmos.CosmosTxOutput(this);
+        result.signature_ = signature_;
         result.txHash_ = txHash_;
         onBuilt();
         return result;
@@ -8422,18 +3184,18 @@ public final class Cosmos {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof cosmosapi.Cosmos.CosmosTxRes) {
-          return mergeFrom((cosmosapi.Cosmos.CosmosTxRes)other);
+        if (other instanceof cosmosapi.Cosmos.CosmosTxOutput) {
+          return mergeFrom((cosmosapi.Cosmos.CosmosTxOutput)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(cosmosapi.Cosmos.CosmosTxRes other) {
-        if (other == cosmosapi.Cosmos.CosmosTxRes.getDefaultInstance()) return this;
-        if (!other.getTxData().isEmpty()) {
-          txData_ = other.txData_;
+      public Builder mergeFrom(cosmosapi.Cosmos.CosmosTxOutput other) {
+        if (other == cosmosapi.Cosmos.CosmosTxOutput.getDefaultInstance()) return this;
+        if (!other.getSignature().isEmpty()) {
+          signature_ = other.signature_;
           onChanged();
         }
         if (!other.getTxHash().isEmpty()) {
@@ -8452,11 +3214,11 @@ public final class Cosmos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        cosmosapi.Cosmos.CosmosTxRes parsedMessage = null;
+        cosmosapi.Cosmos.CosmosTxOutput parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (cosmosapi.Cosmos.CosmosTxRes) e.getUnfinishedMessage();
+          parsedMessage = (cosmosapi.Cosmos.CosmosTxOutput) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -8466,78 +3228,78 @@ public final class Cosmos {
         return this;
       }
 
-      private java.lang.Object txData_ = "";
+      private java.lang.Object signature_ = "";
       /**
-       * <code>optional string tx_data = 1;</code>
+       * <code>optional string signature = 1;</code>
        */
-      public java.lang.String getTxData() {
-        java.lang.Object ref = txData_;
+      public java.lang.String getSignature() {
+        java.lang.Object ref = signature_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          txData_ = s;
+          signature_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string tx_data = 1;</code>
+       * <code>optional string signature = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getTxDataBytes() {
-        java.lang.Object ref = txData_;
+          getSignatureBytes() {
+        java.lang.Object ref = signature_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          txData_ = b;
+          signature_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string tx_data = 1;</code>
+       * <code>optional string signature = 1;</code>
        */
-      public Builder setTxData(
+      public Builder setSignature(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        txData_ = value;
+        signature_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string tx_data = 1;</code>
+       * <code>optional string signature = 1;</code>
        */
-      public Builder clearTxData() {
+      public Builder clearSignature() {
         
-        txData_ = getDefaultInstance().getTxData();
+        signature_ = getDefaultInstance().getSignature();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string tx_data = 1;</code>
+       * <code>optional string signature = 1;</code>
        */
-      public Builder setTxDataBytes(
+      public Builder setSignatureBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        txData_ = value;
+        signature_ = value;
         onChanged();
         return this;
       }
 
       private java.lang.Object txHash_ = "";
       /**
-       * <code>optional string tx_hash = 2;</code>
+       * <code>optional string txHash = 2;</code>
        */
       public java.lang.String getTxHash() {
         java.lang.Object ref = txHash_;
@@ -8552,7 +3314,7 @@ public final class Cosmos {
         }
       }
       /**
-       * <code>optional string tx_hash = 2;</code>
+       * <code>optional string txHash = 2;</code>
        */
       public com.google.protobuf.ByteString
           getTxHashBytes() {
@@ -8568,7 +3330,7 @@ public final class Cosmos {
         }
       }
       /**
-       * <code>optional string tx_hash = 2;</code>
+       * <code>optional string txHash = 2;</code>
        */
       public Builder setTxHash(
           java.lang.String value) {
@@ -8581,7 +3343,7 @@ public final class Cosmos {
         return this;
       }
       /**
-       * <code>optional string tx_hash = 2;</code>
+       * <code>optional string txHash = 2;</code>
        */
       public Builder clearTxHash() {
         
@@ -8590,7 +3352,7 @@ public final class Cosmos {
         return this;
       }
       /**
-       * <code>optional string tx_hash = 2;</code>
+       * <code>optional string txHash = 2;</code>
        */
       public Builder setTxHashBytes(
           com.google.protobuf.ByteString value) {
@@ -8614,1045 +3376,39 @@ public final class Cosmos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:cosmosapi.CosmosTxRes)
+      // @@protoc_insertion_point(builder_scope:cosmosapi.CosmosTxOutput)
     }
 
-    // @@protoc_insertion_point(class_scope:cosmosapi.CosmosTxRes)
-    private static final cosmosapi.Cosmos.CosmosTxRes DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:cosmosapi.CosmosTxOutput)
+    private static final cosmosapi.Cosmos.CosmosTxOutput DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new cosmosapi.Cosmos.CosmosTxRes();
+      DEFAULT_INSTANCE = new cosmosapi.Cosmos.CosmosTxOutput();
     }
 
-    public static cosmosapi.Cosmos.CosmosTxRes getDefaultInstance() {
+    public static cosmosapi.Cosmos.CosmosTxOutput getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<CosmosTxRes>
-        PARSER = new com.google.protobuf.AbstractParser<CosmosTxRes>() {
-      public CosmosTxRes parsePartialFrom(
+    private static final com.google.protobuf.Parser<CosmosTxOutput>
+        PARSER = new com.google.protobuf.AbstractParser<CosmosTxOutput>() {
+      public CosmosTxOutput parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new CosmosTxRes(input, extensionRegistry);
+          return new CosmosTxOutput(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<CosmosTxRes> parser() {
+    public static com.google.protobuf.Parser<CosmosTxOutput> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<CosmosTxRes> getParserForType() {
+    public com.google.protobuf.Parser<CosmosTxOutput> getParserForType() {
       return PARSER;
     }
 
-    public cosmosapi.Cosmos.CosmosTxRes getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface CosmosAddressReqOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmosapi.CosmosAddressReq)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string path = 1;</code>
-     */
-    java.lang.String getPath();
-    /**
-     * <code>optional string path = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getPathBytes();
-  }
-  /**
-   * Protobuf type {@code cosmosapi.CosmosAddressReq}
-   */
-  public  static final class CosmosAddressReq extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmosapi.CosmosAddressReq)
-      CosmosAddressReqOrBuilder {
-    // Use CosmosAddressReq.newBuilder() to construct.
-    private CosmosAddressReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private CosmosAddressReq() {
-      path_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private CosmosAddressReq(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              path_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosAddressReq_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosAddressReq_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              cosmosapi.Cosmos.CosmosAddressReq.class, cosmosapi.Cosmos.CosmosAddressReq.Builder.class);
-    }
-
-    public static final int PATH_FIELD_NUMBER = 1;
-    private volatile java.lang.Object path_;
-    /**
-     * <code>optional string path = 1;</code>
-     */
-    public java.lang.String getPath() {
-      java.lang.Object ref = path_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        path_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string path = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getPathBytes() {
-      java.lang.Object ref = path_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        path_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getPathBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, path_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getPathBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, path_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof cosmosapi.Cosmos.CosmosAddressReq)) {
-        return super.equals(obj);
-      }
-      cosmosapi.Cosmos.CosmosAddressReq other = (cosmosapi.Cosmos.CosmosAddressReq) obj;
-
-      boolean result = true;
-      result = result && getPath()
-          .equals(other.getPath());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + PATH_FIELD_NUMBER;
-      hash = (53 * hash) + getPath().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static cosmosapi.Cosmos.CosmosAddressReq parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressReq parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressReq parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressReq parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressReq parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressReq parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressReq parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressReq parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressReq parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressReq parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(cosmosapi.Cosmos.CosmosAddressReq prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code cosmosapi.CosmosAddressReq}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmosapi.CosmosAddressReq)
-        cosmosapi.Cosmos.CosmosAddressReqOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosAddressReq_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosAddressReq_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                cosmosapi.Cosmos.CosmosAddressReq.class, cosmosapi.Cosmos.CosmosAddressReq.Builder.class);
-      }
-
-      // Construct using cosmosapi.Cosmos.CosmosAddressReq.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        path_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosAddressReq_descriptor;
-      }
-
-      public cosmosapi.Cosmos.CosmosAddressReq getDefaultInstanceForType() {
-        return cosmosapi.Cosmos.CosmosAddressReq.getDefaultInstance();
-      }
-
-      public cosmosapi.Cosmos.CosmosAddressReq build() {
-        cosmosapi.Cosmos.CosmosAddressReq result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public cosmosapi.Cosmos.CosmosAddressReq buildPartial() {
-        cosmosapi.Cosmos.CosmosAddressReq result = new cosmosapi.Cosmos.CosmosAddressReq(this);
-        result.path_ = path_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof cosmosapi.Cosmos.CosmosAddressReq) {
-          return mergeFrom((cosmosapi.Cosmos.CosmosAddressReq)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(cosmosapi.Cosmos.CosmosAddressReq other) {
-        if (other == cosmosapi.Cosmos.CosmosAddressReq.getDefaultInstance()) return this;
-        if (!other.getPath().isEmpty()) {
-          path_ = other.path_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        cosmosapi.Cosmos.CosmosAddressReq parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (cosmosapi.Cosmos.CosmosAddressReq) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object path_ = "";
-      /**
-       * <code>optional string path = 1;</code>
-       */
-      public java.lang.String getPath() {
-        java.lang.Object ref = path_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          path_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string path = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPathBytes() {
-        java.lang.Object ref = path_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          path_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string path = 1;</code>
-       */
-      public Builder setPath(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        path_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string path = 1;</code>
-       */
-      public Builder clearPath() {
-        
-        path_ = getDefaultInstance().getPath();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string path = 1;</code>
-       */
-      public Builder setPathBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        path_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:cosmosapi.CosmosAddressReq)
-    }
-
-    // @@protoc_insertion_point(class_scope:cosmosapi.CosmosAddressReq)
-    private static final cosmosapi.Cosmos.CosmosAddressReq DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new cosmosapi.Cosmos.CosmosAddressReq();
-    }
-
-    public static cosmosapi.Cosmos.CosmosAddressReq getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<CosmosAddressReq>
-        PARSER = new com.google.protobuf.AbstractParser<CosmosAddressReq>() {
-      public CosmosAddressReq parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new CosmosAddressReq(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<CosmosAddressReq> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<CosmosAddressReq> getParserForType() {
-      return PARSER;
-    }
-
-    public cosmosapi.Cosmos.CosmosAddressReq getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface CosmosAddressResOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:cosmosapi.CosmosAddressRes)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string address = 1;</code>
-     */
-    java.lang.String getAddress();
-    /**
-     * <code>optional string address = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getAddressBytes();
-  }
-  /**
-   * Protobuf type {@code cosmosapi.CosmosAddressRes}
-   */
-  public  static final class CosmosAddressRes extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:cosmosapi.CosmosAddressRes)
-      CosmosAddressResOrBuilder {
-    // Use CosmosAddressRes.newBuilder() to construct.
-    private CosmosAddressRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private CosmosAddressRes() {
-      address_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private CosmosAddressRes(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              address_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosAddressRes_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosAddressRes_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              cosmosapi.Cosmos.CosmosAddressRes.class, cosmosapi.Cosmos.CosmosAddressRes.Builder.class);
-    }
-
-    public static final int ADDRESS_FIELD_NUMBER = 1;
-    private volatile java.lang.Object address_;
-    /**
-     * <code>optional string address = 1;</code>
-     */
-    public java.lang.String getAddress() {
-      java.lang.Object ref = address_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        address_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string address = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getAddressBytes() {
-      java.lang.Object ref = address_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        address_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getAddressBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, address_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getAddressBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, address_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof cosmosapi.Cosmos.CosmosAddressRes)) {
-        return super.equals(obj);
-      }
-      cosmosapi.Cosmos.CosmosAddressRes other = (cosmosapi.Cosmos.CosmosAddressRes) obj;
-
-      boolean result = true;
-      result = result && getAddress()
-          .equals(other.getAddress());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + ADDRESS_FIELD_NUMBER;
-      hash = (53 * hash) + getAddress().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static cosmosapi.Cosmos.CosmosAddressRes parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressRes parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressRes parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressRes parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressRes parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressRes parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressRes parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressRes parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressRes parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static cosmosapi.Cosmos.CosmosAddressRes parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(cosmosapi.Cosmos.CosmosAddressRes prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code cosmosapi.CosmosAddressRes}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:cosmosapi.CosmosAddressRes)
-        cosmosapi.Cosmos.CosmosAddressResOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosAddressRes_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosAddressRes_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                cosmosapi.Cosmos.CosmosAddressRes.class, cosmosapi.Cosmos.CosmosAddressRes.Builder.class);
-      }
-
-      // Construct using cosmosapi.Cosmos.CosmosAddressRes.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        address_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return cosmosapi.Cosmos.internal_static_cosmosapi_CosmosAddressRes_descriptor;
-      }
-
-      public cosmosapi.Cosmos.CosmosAddressRes getDefaultInstanceForType() {
-        return cosmosapi.Cosmos.CosmosAddressRes.getDefaultInstance();
-      }
-
-      public cosmosapi.Cosmos.CosmosAddressRes build() {
-        cosmosapi.Cosmos.CosmosAddressRes result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public cosmosapi.Cosmos.CosmosAddressRes buildPartial() {
-        cosmosapi.Cosmos.CosmosAddressRes result = new cosmosapi.Cosmos.CosmosAddressRes(this);
-        result.address_ = address_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof cosmosapi.Cosmos.CosmosAddressRes) {
-          return mergeFrom((cosmosapi.Cosmos.CosmosAddressRes)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(cosmosapi.Cosmos.CosmosAddressRes other) {
-        if (other == cosmosapi.Cosmos.CosmosAddressRes.getDefaultInstance()) return this;
-        if (!other.getAddress().isEmpty()) {
-          address_ = other.address_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        cosmosapi.Cosmos.CosmosAddressRes parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (cosmosapi.Cosmos.CosmosAddressRes) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object address_ = "";
-      /**
-       * <code>optional string address = 1;</code>
-       */
-      public java.lang.String getAddress() {
-        java.lang.Object ref = address_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          address_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string address = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getAddressBytes() {
-        java.lang.Object ref = address_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          address_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string address = 1;</code>
-       */
-      public Builder setAddress(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        address_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string address = 1;</code>
-       */
-      public Builder clearAddress() {
-        
-        address_ = getDefaultInstance().getAddress();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string address = 1;</code>
-       */
-      public Builder setAddressBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        address_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:cosmosapi.CosmosAddressRes)
-    }
-
-    // @@protoc_insertion_point(class_scope:cosmosapi.CosmosAddressRes)
-    private static final cosmosapi.Cosmos.CosmosAddressRes DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new cosmosapi.Cosmos.CosmosAddressRes();
-    }
-
-    public static cosmosapi.Cosmos.CosmosAddressRes getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<CosmosAddressRes>
-        PARSER = new com.google.protobuf.AbstractParser<CosmosAddressRes>() {
-      public CosmosAddressRes parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new CosmosAddressRes(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<CosmosAddressRes> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<CosmosAddressRes> getParserForType() {
-      return PARSER;
-    }
-
-    public cosmosapi.Cosmos.CosmosAddressRes getDefaultInstanceForType() {
+    public cosmosapi.Cosmos.CosmosTxOutput getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -9669,55 +3425,15 @@ public final class Cosmos {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_cosmosapi_StdFee_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmosapi_SignData_descriptor;
+    internal_static_cosmosapi_CosmosTxInput_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmosapi_SignData_fieldAccessorTable;
+      internal_static_cosmosapi_CosmosTxInput_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmosapi_Msg_descriptor;
+    internal_static_cosmosapi_CosmosTxOutput_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmosapi_Msg_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmosapi_MsgValue_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmosapi_MsgValue_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmosapi_MsgValue_AddressesEntry_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmosapi_MsgValue_AddressesEntry_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmosapi_MsgDelegateValue_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmosapi_MsgDelegateValue_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmosapi_MsgSendValue_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmosapi_MsgSendValue_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmosapi_CosmosTxReq_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmosapi_CosmosTxReq_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmosapi_CosmosTxRes_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmosapi_CosmosTxRes_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmosapi_CosmosAddressReq_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmosapi_CosmosAddressReq_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_cosmosapi_CosmosAddressRes_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_cosmosapi_CosmosAddressRes_fieldAccessorTable;
+      internal_static_cosmosapi_CosmosTxOutput_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -9730,27 +3446,11 @@ public final class Cosmos {
       "\n\014cosmos.proto\022\tcosmosapi\"%\n\004Coin\022\016\n\006amo" +
       "unt\030\001 \001(\t\022\r\n\005denom\030\002 \001(\t\"6\n\006StdFee\022\037\n\006am" +
       "ount\030\001 \003(\0132\017.cosmosapi.Coin\022\013\n\003gas\030\002 \001(\t" +
-      "\"\222\001\n\010SignData\022\026\n\016account_number\030\001 \001(\t\022\020\n" +
-      "\010chain_id\030\002 \001(\t\022\036\n\003fee\030\003 \001(\0132\021.cosmosapi" +
-      ".StdFee\022\014\n\004memo\030\004 \001(\t\022\034\n\004msgs\030\005 \003(\0132\016.co" +
-      "smosapi.Msg\022\020\n\010sequence\030\006 \001(\t\"7\n\003Msg\022\014\n\004" +
-      "type\030\001 \001(\t\022\"\n\005value\030\002 \001(\0132\023.cosmosapi.Ms" +
-      "gValue\"\224\001\n\010MsgValue\022\037\n\006amount\030\001 \003(\0132\017.co" +
-      "smosapi.Coin\0225\n\taddresses\030\002 \003(\0132\".cosmos",
-      "api.MsgValue.AddressesEntry\0320\n\016Addresses" +
-      "Entry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"i\n" +
-      "\020MsgDelegateValue\022\037\n\006amount\030\001 \003(\0132\017.cosm" +
-      "osapi.Coin\022\031\n\021delegator_address\030\002 \001(\t\022\031\n" +
-      "\021validator_address\030\003 \001(\t\"Y\n\014MsgSendValue" +
-      "\022\037\n\006amount\030\001 \003(\0132\017.cosmosapi.Coin\022\024\n\014fro" +
-      "m_address\030\002 \001(\t\022\022\n\nto_address\030\003 \001(\t\"\212\001\n\013" +
-      "CosmosTxReq\022%\n\010signData\030\001 \001(\0132\023.cosmosap" +
-      "i.SignData\022\014\n\004path\030\002 \001(\t\022\023\n\013payment_dis\030" +
-      "\003 \001(\t\022\016\n\006to_dis\030\004 \001(\t\022\020\n\010from_dis\030\005 \001(\t\022",
-      "\017\n\007fee_dis\030\006 \001(\t\"/\n\013CosmosTxRes\022\017\n\007tx_da" +
-      "ta\030\001 \001(\t\022\017\n\007tx_hash\030\002 \001(\t\" \n\020CosmosAddre" +
-      "ssReq\022\014\n\004path\030\001 \001(\t\"#\n\020CosmosAddressRes\022" +
-      "\017\n\007address\030\001 \001(\tb\006proto3"
+      "\"\207\001\n\rCosmosTxInput\022\026\n\016account_number\030\001 \001" +
+      "(\t\022\020\n\010chain_id\030\002 \001(\t\022\036\n\003fee\030\003 \001(\0132\021.cosm" +
+      "osapi.StdFee\022\014\n\004memo\030\004 \001(\t\022\014\n\004msgs\030\005 \001(\t" +
+      "\022\020\n\010sequence\030\006 \001(\t\"3\n\016CosmosTxOutput\022\021\n\t" +
+      "signature\030\001 \001(\t\022\016\n\006txHash\030\002 \001(\tb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -9776,66 +3476,18 @@ public final class Cosmos {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cosmosapi_StdFee_descriptor,
         new java.lang.String[] { "Amount", "Gas", });
-    internal_static_cosmosapi_SignData_descriptor =
+    internal_static_cosmosapi_CosmosTxInput_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_cosmosapi_SignData_fieldAccessorTable = new
+    internal_static_cosmosapi_CosmosTxInput_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmosapi_SignData_descriptor,
+        internal_static_cosmosapi_CosmosTxInput_descriptor,
         new java.lang.String[] { "AccountNumber", "ChainId", "Fee", "Memo", "Msgs", "Sequence", });
-    internal_static_cosmosapi_Msg_descriptor =
+    internal_static_cosmosapi_CosmosTxOutput_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_cosmosapi_Msg_fieldAccessorTable = new
+    internal_static_cosmosapi_CosmosTxOutput_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmosapi_Msg_descriptor,
-        new java.lang.String[] { "Type", "Value", });
-    internal_static_cosmosapi_MsgValue_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_cosmosapi_MsgValue_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmosapi_MsgValue_descriptor,
-        new java.lang.String[] { "Amount", "Addresses", });
-    internal_static_cosmosapi_MsgValue_AddressesEntry_descriptor =
-      internal_static_cosmosapi_MsgValue_descriptor.getNestedTypes().get(0);
-    internal_static_cosmosapi_MsgValue_AddressesEntry_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmosapi_MsgValue_AddressesEntry_descriptor,
-        new java.lang.String[] { "Key", "Value", });
-    internal_static_cosmosapi_MsgDelegateValue_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_cosmosapi_MsgDelegateValue_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmosapi_MsgDelegateValue_descriptor,
-        new java.lang.String[] { "Amount", "DelegatorAddress", "ValidatorAddress", });
-    internal_static_cosmosapi_MsgSendValue_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_cosmosapi_MsgSendValue_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmosapi_MsgSendValue_descriptor,
-        new java.lang.String[] { "Amount", "FromAddress", "ToAddress", });
-    internal_static_cosmosapi_CosmosTxReq_descriptor =
-      getDescriptor().getMessageTypes().get(7);
-    internal_static_cosmosapi_CosmosTxReq_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmosapi_CosmosTxReq_descriptor,
-        new java.lang.String[] { "SignData", "Path", "PaymentDis", "ToDis", "FromDis", "FeeDis", });
-    internal_static_cosmosapi_CosmosTxRes_descriptor =
-      getDescriptor().getMessageTypes().get(8);
-    internal_static_cosmosapi_CosmosTxRes_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmosapi_CosmosTxRes_descriptor,
-        new java.lang.String[] { "TxData", "TxHash", });
-    internal_static_cosmosapi_CosmosAddressReq_descriptor =
-      getDescriptor().getMessageTypes().get(9);
-    internal_static_cosmosapi_CosmosAddressReq_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmosapi_CosmosAddressReq_descriptor,
-        new java.lang.String[] { "Path", });
-    internal_static_cosmosapi_CosmosAddressRes_descriptor =
-      getDescriptor().getMessageTypes().get(10);
-    internal_static_cosmosapi_CosmosAddressRes_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_cosmosapi_CosmosAddressRes_descriptor,
-        new java.lang.String[] { "Address", });
+        internal_static_cosmosapi_CosmosTxOutput_descriptor,
+        new java.lang.String[] { "Signature", "TxHash", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

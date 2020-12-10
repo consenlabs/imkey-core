@@ -96,6 +96,9 @@ impl<T> ServiceResponse<T> {
             constants::TSM_RETURNCODE_SE_QUERY_FAIL => {
                 Err(ImkeyError::ImkeyTsmDeviceUpdateCheckFail.into())
             }
+            constants::TSM_RETURNCODE_COS_VERSION_UNSUPPORT_APPLET => {
+                Err(ImkeyError::ImkeyTsmCosVersionUnsupport_applet.into())
+            }
             _ => Err(ImkeyError::ImkeyTsmServerError.into()),
         }
     }

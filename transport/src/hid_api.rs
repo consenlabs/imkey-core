@@ -177,6 +177,9 @@ mod test {
 
     #[test]
     fn hid_connect_test() {
+        //device is empty test
+        assert!(send_apdu("00A4040000".to_string()).is_err());
+
         //Test equipment has been connected and connected again
         let connect_result = hid_connect("imKey Pro");
         if connect_result.is_ok() {
@@ -185,7 +188,8 @@ mod test {
     }
 
     #[test]
+    #[ignore]
     fn hid_device_is_empty_test() {
-        assert!(send_apdu("00A4040000".to_string()).is_err());
+        assert!(send_apdu("00A4040000".to_string()).is_err()); //same test in hid_connect_test
     }
 }

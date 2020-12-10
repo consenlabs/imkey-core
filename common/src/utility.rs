@@ -87,7 +87,7 @@ pub fn is_valid_hex(input: &str) -> bool {
         return false;
     }
 
-    let regex = Regex::new(r"[0-9a-fA-F]+").unwrap();
+    let regex = Regex::new(r"^[0-9a-fA-F]+$").unwrap();
     regex.is_match(value.as_ref())
 }
 
@@ -206,5 +206,11 @@ mod tests {
         assert_eq!(is_valid_hex(input1), true,);
         let input1 = "Hello imKey";
         assert_eq!(is_valid_hex(input1), false,);
+        let input1 = "+9qMMqskYEMjYyy0YnHtjXDRR62cpMDcoWFSA/";
+        assert_eq!(is_valid_hex(input1), false,);
+        let input1 = "R4Sod77GQJ1uxcQ8DH8giotqKTTiOQpt4ukd84VdKwdHUyeajiGhi6AUPSkyjsu1i0mXL";
+        assert_eq!(is_valid_hex(input1), false,);
+        let input1 = "d8549e61c7c5fa21315f86c9b6bd7f2efd0e7aef8647c467679a8cfefff9996329c47a6509487d2ca4d0408ff8f683449d438a0491c8bf11d54fa3b2d6af9849c808ddd1b67e84e8029edc5df4dc485e41fb1de2cbdd3143f204fb4cb58ca9155a194e465dcc7fbcb9fc729147efba62fbba2ba0356a97dcf816ab1fa8f4ebedf8506fa2920ac1f92bf2d3709b3b1cbb57124db22beb866a3b42e6286a6f6b4bcab27ec9cf7403db78f43c3d957de89d5fb23b3d9bcb23c0f62d9064da159714";
+        assert_eq!(is_valid_hex(input1), true,);
     }
 }

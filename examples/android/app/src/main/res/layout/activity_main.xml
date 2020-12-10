@@ -124,13 +124,13 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_imk"
+                android:id="@+id/btn_filecoin"
                 style="@style/button"
                 android:layout_width="0dp"
                 android:layout_marginLeft="2dp"
                 android:layout_weight="1"
                 android:onClick="onClick"
-                android:text="IMK" />
+                android:text="FILECOIN" />
 
             <Button
                 android:id="@+id/btn_cosmos"
