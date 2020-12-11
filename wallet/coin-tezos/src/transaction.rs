@@ -14,7 +14,7 @@ use transport::message::{send_apdu, send_apdu_timeout};
 pub struct Transaction();
 
 impl Transaction {
-    pub fn sign_tx(tezos_tx_input: TezosTxInput, sign_param: SignParam) -> Result<TezosTxOutput> {
+    pub fn sign_tx(tezos_tx_input: TezosTxInput, sign_param: &SignParam) -> Result<TezosTxOutput> {
         //check path
         check_path_validity(&sign_param.path).expect("check path error");
         //check address

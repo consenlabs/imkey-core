@@ -17,6 +17,8 @@ pub mod ethereum_signer;
 pub mod filecoin_address;
 pub mod filecoin_signer;
 pub mod message_handler;
+pub mod tezos_address;
+pub mod tezos_signer;
 use std::sync::Mutex;
 
 #[macro_use]
@@ -119,6 +121,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "ETHEREUM" => ethereum_address::get_address(&param),
                 "COSMOS" => cosmos_address::get_address(&param),
                 "FILECOIN" => filecoin_address::get_address(&param),
+                "TEZOS" => tezos_address::get_address(&param),
                 _ => Err(format_err!("get_address unsupported_chain")),
             }
         }),
@@ -128,6 +131,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 .expect("imkey_illegal_param");
             match param.chain_type.as_str() {
                 "EOS" => eos_pubkey::get_eos_pubkey(&param),
+                "TEZOS" => tezos_address::get_pub_key(&param),
                 _ => Err(format_err!("get_pub_key unsupported_chain")),
             }
         }),
@@ -149,6 +153,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "ETHEREUM" => ethereum_address::register_address(&param),
                 "COSMOS" => cosmos_address::display_cosmos_address(&param),
                 "FILECOIN" => filecoin_address::display_filecoin_address(&param),
+                "TEZOS" => tezos_address::display_tezos_address(&param),
                 _ => Err(format_err!("register_address unsupported_chain")),
             }
         }),
@@ -172,6 +177,10 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                     &param,
                 ),
                 "FILECOIN" => filecoin_signer::sign_filecoin_transaction(
+                    &param.clone().input.unwrap().value,
+                    &param,
+                ),
+                "TEZOS" => tezos_signer::sign_tezos_transaction(
                     &param.clone().input.unwrap().value,
                     &param,
                 ),

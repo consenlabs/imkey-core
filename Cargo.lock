@@ -91,6 +91,7 @@ dependencies = [
  "coin-eos",
  "coin-ethereum",
  "coin-filecoin",
+ "coin-tezos",
  "common",
  "device",
  "ethereum-types",
