@@ -14,6 +14,7 @@ use common::constants::{
     BIND_RESULT_ERROR, BIND_RESULT_SUCCESS, BIND_STATUS_BOUND_OTHER, BIND_STATUS_BOUND_THIS,
     BIND_STATUS_UNBOUND, IMK_AID,
 };
+use parking_lot::Mutex;
 use rand::rngs::OsRng;
 use regex::Regex;
 use ring::digest;
@@ -22,7 +23,6 @@ use secp256k1::ecdh::SharedSecret;
 use secp256k1::{PublicKey, SecretKey};
 use sha1::Sha1;
 use std::collections::HashMap;
-use std::sync::Mutex;
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 use transport::hid_api::hid_connect;
 use transport::message::send_apdu;
@@ -49,7 +49,7 @@ impl DeviceManage {
         //get SN number
         let sn = device_manager::get_sn()?;
         //Calculate encryption key
-        let mut key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let mut key_manager_obj = KEY_MANAGER.lock();
         key_manager_obj.gen_encrypt_key(&seid, &sn);
 
         //Get the ciphertext of the local key file
@@ -125,7 +125,7 @@ impl DeviceManage {
         let seid = device_manager::get_se_id()?;
         AuthCodeStorageRequest::build_request_data(seid, auth_code_ciphertext).send_message()?;
 
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         //select IMK applet
         select_imk_applet()?;
         //calc HASH

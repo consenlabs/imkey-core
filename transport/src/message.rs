@@ -1,10 +1,10 @@
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 use super::hid_api;
 use crate::Result;
+use parking_lot::Mutex;
+use parking_lot::RwLock;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
-use std::sync::Mutex;
-use std::sync::RwLock;
 use std::thread;
 use std::time::Duration;
 
@@ -31,12 +31,12 @@ pub extern "C" fn default_callback(_apdu: *const c_char, _timeout: i32) -> *cons
 }
 
 pub fn set_callback(callback: extern "C" fn(apdu: *const c_char, timeout: i32) -> *const c_char) {
-    let mut _callback = CALLBACK.lock().unwrap();
+    let mut _callback = CALLBACK.lock();
     *_callback = callback;
 }
 
 pub fn get_apdu() -> *const c_char {
-    let apdu = APDU.read().unwrap();
+    let apdu = APDU.read();
     return CString::new(apdu.to_owned()).unwrap().into_raw();
 }
 
@@ -44,7 +44,7 @@ pub fn get_apdu() -> *const c_char {
 fn set_apdu_r(apdu: String) {
     println!("set_apdu_r...");
     loop {
-        let mut _apdu = APDU.write().unwrap();
+        let mut _apdu = APDU.write();
         if *_apdu == "" {
             //debug!("is null set");
             println!("is null set");
@@ -58,7 +58,7 @@ fn set_apdu_r(apdu: String) {
 }
 
 pub fn set_apdu(apdu: *const c_char) {
-    let mut _apdu = APDU.write().unwrap();
+    let mut _apdu = APDU.write();
     let c_str: &CStr = unsafe { CStr::from_ptr(apdu) };
     let str_slice: &str = c_str.to_str().unwrap();
     let str_buf: String = str_slice.to_owned();
@@ -73,7 +73,7 @@ fn get_apdu_return_r() -> Result<String> {
     let loop_max = timeout * 1000 / 100;
     let mut loop_count = 0;
     loop {
-        let mut apdu_return = APDU_RETURN.write().unwrap();
+        let mut apdu_return = APDU_RETURN.write();
         if *apdu_return != "" {
             println!("get_apdu_return_r not null {}", apdu_return.clone());
             let temp = apdu_return.clone();
@@ -95,13 +95,13 @@ fn get_apdu_return_r() -> Result<String> {
 }
 
 pub fn get_apdu_return() -> *const c_char {
-    let apdu = APDU_RETURN.read().unwrap();
+    let apdu = APDU_RETURN.read();
     //debug!("get_apdu_return...{}", apdu.clone());
     return CString::new(apdu.to_owned()).unwrap().into_raw();
 }
 
 pub fn set_apdu_return(apdu_return: *const c_char) {
-    let mut _apdu_return = APDU_RETURN.write().unwrap();
+    let mut _apdu_return = APDU_RETURN.write();
     let c_str: &CStr = unsafe { CStr::from_ptr(apdu_return) };
     let str_slice: &str = c_str.to_str().unwrap();
     let str_buf: String = str_slice.to_owned();
@@ -130,7 +130,7 @@ pub fn send_apdu_timeout(apdu: String, timeout: i32) -> Result<String> {
     // set_apdu_r(apdu);
     // get_apdu_return_r().unwrap()
 
-    let callback = CALLBACK.lock().unwrap();
+    let callback = CALLBACK.lock();
     let ptr = callback(CString::new(apdu).unwrap().into_raw(), timeout);
 
     // let mut res = unsafe { Ok(CStr::from_ptr(ptr).to_string_lossy().into_owned()) }?;

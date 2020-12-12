@@ -25,7 +25,7 @@ impl EosPubkey {
         let sign_source_val = &res_msg_pubkey[..194];
         let sign_result = &res_msg_pubkey[194..res_msg_pubkey.len() - 4];
 
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
 
         //use se public key verify sign
         let sign_verify_result = utility::secp256k1_sign_verify(
