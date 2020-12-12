@@ -73,7 +73,7 @@ impl BtcTransaction {
         let chain_code = &sign_source_val[130..];
 
         //use se public key verify sign
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         let sign_verify_result = secp256k1_sign_verify(
             &key_manager_obj.se_pub_key.as_slice(),
             hex::decode(sign_result).unwrap().as_slice(),
@@ -260,7 +260,7 @@ impl BtcTransaction {
         let chain_code = &sign_source_val[130..];
 
         //use se public key verify sign
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         let sign_verify_result = secp256k1_sign_verify(
             &key_manager_obj.se_pub_key.as_slice(),
             hex::decode(sign_result).unwrap().as_slice(),

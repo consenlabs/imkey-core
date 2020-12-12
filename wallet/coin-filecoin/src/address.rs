@@ -31,7 +31,7 @@ impl FilecoinAddress {
         let select_response = message::send_apdu(select_apdu)?;
         ApduCheck::check_response(&select_response)?;
 
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         let bind_signature = utility::secp256k1_sign(&key_manager_obj.pri_key, &path.as_bytes())?;
 
         let mut apdu_pack: Vec<u8> = vec![];

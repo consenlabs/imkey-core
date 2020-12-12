@@ -4,7 +4,7 @@ use crate::Result;
 use hex::FromHex;
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 use hidapi::{HidApi, HidDevice};
-use std::sync::Mutex;
+use parking_lot::Mutex;
 
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 lazy_static! {

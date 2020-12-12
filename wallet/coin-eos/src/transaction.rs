@@ -67,7 +67,7 @@ impl EosTransaction {
                 sign_data_pack.extend(hex::decode(&view_info).unwrap().as_slice());
 
                 //bind signature
-                let key_manager_obj = KEY_MANAGER.lock().unwrap();
+                let key_manager_obj = KEY_MANAGER.lock();
                 let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &sign_data_pack)?;
 
                 //send prepare data
@@ -172,7 +172,7 @@ impl EosTransaction {
         data_pack.push(sign_param.path.as_bytes().len() as u8);
         data_pack.extend(sign_param.path.as_bytes());
 
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap();
 
         let mut prepare_pack: Vec<u8> = Vec::new();

@@ -30,3 +30,4 @@ log = {version = "0.4.8", features = ["std"]}
 prost = "0.6.1"
 prost-types = "0.6.1"
 bytes = "0.5.4"
+parking_lot = "0.10"

@@ -17,7 +17,7 @@ pub mod ethereum_signer;
 pub mod filecoin_address;
 pub mod filecoin_signer;
 pub mod message_handler;
-use std::sync::Mutex;
+use parking_lot::Mutex;
 
 #[macro_use]
 extern crate lazy_static;
@@ -70,7 +70,7 @@ pub unsafe extern "C" fn imkey_free_const_string(s: *const c_char) {
 /// dispatch protobuf rpc call
 #[no_mangle]
 pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char {
-    let mut _l = API_LOCK.lock().unwrap();
+    let mut _l = API_LOCK.lock();
     let hex_c_str = CStr::from_ptr(hex_str);
     let hex_str = hex_c_str.to_str().expect("parse_arguments to_str");
 
