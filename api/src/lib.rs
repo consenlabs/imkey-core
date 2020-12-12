@@ -210,6 +210,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                     param.clone().input.unwrap().value.as_slice(),
                     &param,
                 ),
+                "TRON" => tron_signer::sign_message(&param.clone().input.unwrap().value, &param),
                 _ => Err(format_err!(
                     "sign message is not supported the chain {}",
                     param.chain_type
