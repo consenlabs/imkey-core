@@ -96,6 +96,11 @@ impl TronSigner {
         data_pack.push(to.len() as u8);
         data_pack.extend(to);
 
+        let fee = sign_param.fee.as_bytes();
+        data_pack.push(0x09);
+        data_pack.push(fee.len() as u8);
+        data_pack.extend(fee);
+
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let data_pack_sig = secp256k1_sign(&key_manager_obj.pri_key, &data_pack)?;
         drop(key_manager_obj);
