@@ -7,7 +7,7 @@ use std::collections::HashMap;
 
 use crate::address::CkbAddress;
 use common::apdu::{Apdu, ApduCheck, Secp256k1Apdu};
-use common::constants::FILECOIN_AID;
+use common::constants::NERVOS_AID;
 use common::error::CoinError;
 use common::utility::{secp256k1_sign, uncompress_pubkey_2_compress};
 use common::{constants, utility, SignParam};
@@ -108,7 +108,8 @@ impl<'a> CkbTxSigner<'a> {
     }
 
     fn sign_recoverable_hash(&mut self, hash: &[u8]) -> Result<String> {
-        let select_apdu = Apdu::select_applet(FILECOIN_AID);
+        println!("hash:{}", hex::encode(hash));
+        let select_apdu = Apdu::select_applet(NERVOS_AID);
         let select_result = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_result)?;
 
@@ -176,10 +177,9 @@ impl<'a> CkbTxSigner<'a> {
         let rec_id =
             utility::retrieve_recid(&hash, &normalizes_sig_vec, &hex::decode(&pub_key)?).unwrap();
         let rec_id = rec_id.to_i32();
-        let v = rec_id + 27;
 
         let mut signature = hex::encode(&normalizes_sig_vec.as_ref());
-        signature.push_str(&format!("{:02x}", &v));
+        signature.push_str(&format!("{:02x}", &rec_id));
 
         Ok(signature)
     }
@@ -361,12 +361,12 @@ mod tests {
 
         let sign_param = SignParam {
             chain_type: "NERVOS".to_string(),
-            path: constants::FILECOIN_PATH.to_string(),
+            path: constants::NERVOS_PATH.to_string(),
             network: "TESTNET".to_string(),
             input: None,
             payment: "22 ckb".to_string(),
             receiver: "ckt1qyqtr684u76tu7r8efkd24hw8922xfvhnazskzdzy6".to_string(),
-            sender: "ckt1qyqxsfdw2g6eueze54nga0k4ty67yg43ltcqgzewhc".to_string(),
+            sender: "ckt1qyqtr684u76tu7r8efkd24hw8922xfvhnazskzdzy6".to_string(),
             fee: "11 ckb".to_string(),
         };
 

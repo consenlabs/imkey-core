@@ -3,7 +3,7 @@ use crate::Result;
 use bech32::ToBase32;
 use common::apdu::{Apdu, ApduCheck, Secp256k1Apdu};
 use common::constants;
-use common::constants::FILECOIN_AID;
+use common::constants::NERVOS_AID;
 use common::error::CoinError;
 use common::path::check_path_validity;
 use common::utility::{secp256k1_sign, secp256k1_sign_verify, uncompress_pubkey_2_compress};
@@ -31,7 +31,7 @@ impl CkbAddress {
     pub fn get_public_key(path: &str) -> Result<String> {
         check_path_validity(path).expect("check path error");
 
-        let select_apdu = Apdu::select_applet(FILECOIN_AID);
+        let select_apdu = Apdu::select_applet(NERVOS_AID);
         let select_response = send_apdu(select_apdu)?;
         ApduCheck::checke_response(&select_response)?;
 
@@ -64,7 +64,7 @@ impl CkbAddress {
             return Err(CoinError::ImkeySignatureVerifyFail.into());
         }
 
-        let pub_key = &res_msg_pubkey[..res_msg_pubkey.len() - 4];
+        let pub_key = &res_msg_pubkey[0..130];
         Ok(pub_key.to_string())
     }
 
@@ -118,8 +118,8 @@ mod tests {
         bind_test();
 
         let network = "TESTNET";
-        let pk = CkbAddress::get_public_key(constants::FILECOIN_PATH).expect("get pubkey fail");
-        assert_eq!(&pk, "044B9C3C0E1CEFD90897798E7CE471FEFF0D1BE4C6BA24061D7D9F68CFDB19A0EC0192392A94B121743ADB91C7029C6F3C80FD18B6E34E8B8F9EA87E559C68FDC41F7C8E9139DB9850A4E4AD3B91713D9ABD0C887141EBE0EBBD3B607FBC91B0173045022100C5A0A62F5D36DFDA3F31DCCC457114D8C69E70632DB553DDC34F660708846DEB0220117451C84E45EB3574C568864DC75F1EAF49D8DCA4A24F582F8D69C2F047B745");
+        let pk = CkbAddress::get_public_key(constants::NERVOS_PATH).expect("get pubkey fail");
+        assert_eq!(&pk, "04554851980004FF256888612BF0D64D9B1002BF82331450FD5A7405D1B23CC5BD2F4DDA9D71F6502CD761AFB29B1A89AECEBC832851CD361D3351216F08635BBF");
     }
 
     #[test]
@@ -128,8 +128,8 @@ mod tests {
 
         let network = "TESTNET";
         let address =
-            CkbAddress::get_address(network, constants::FILECOIN_PATH).expect("get address fail");
-        assert_eq!(&address, "ckt1qyqxsfdw2g6eueze54nga0k4ty67yg43ltcqgzewhc");
+            CkbAddress::get_address(network, constants::NERVOS_PATH).expect("get address fail");
+        assert_eq!(&address, "ckt1qyqtr684u76tu7r8efkd24hw8922xfvhnazskzdzy6");
     }
 
     #[test]
@@ -137,9 +137,9 @@ mod tests {
         bind_test();
 
         let network = "TESTNET";
-        let address = CkbAddress::display_address(network, constants::FILECOIN_PATH)
-            .expect("get address fail");
+        let address =
+            CkbAddress::display_address(network, constants::NERVOS_PATH).expect("get address fail");
         println!("address:{}", &address);
-        assert_eq!(&address, "ckt1qyqxsfdw2g6eueze54nga0k4ty67yg43ltcqgzewhc");
+        assert_eq!(&address, "ckt1qyqtr684u76tu7r8efkd24hw8922xfvhnazskzdzy6");
     }
 }

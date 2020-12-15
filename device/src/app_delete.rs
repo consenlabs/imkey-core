@@ -87,7 +87,7 @@ mod test {
         assert!(hid_connect("imKey Pro").is_ok());
         let seid = get_se_id().unwrap();
         let device_cert = get_cert().unwrap();
-        let instance_aid = "695F627463".to_string();
+        let instance_aid = "695F6B315F636B62".to_string();
         assert!(
             AppDeleteRequest::build_request_data(seid, instance_aid, device_cert)
                 .send_message()
