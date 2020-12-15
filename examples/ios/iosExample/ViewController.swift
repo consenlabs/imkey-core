@@ -119,12 +119,13 @@ class ViewController: UIViewController,BLEDelegate {
     print("ramSize:\(ramSize)")
     print("power:\(power)")
     print("lifeTime:\(lifeTime)")
+//    API.substrateSignTX()
   }
   
   @IBAction func bindCheck(_ sender: Any) {
     let status = API.bindCheck()
     print("status:\(status)")
-    let bindResult = API.bindAcquire(bindCode: "ydsgqpkx")
+    let bindResult = API.bindAcquire(bindCode: "u5qgen7u")
     print("bind result:\(bindResult)")
   }
   

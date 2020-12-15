@@ -23,6 +23,9 @@
 		D86ADCF725473BBA008CBEAE /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86ADCF625473BBA008CBEAE /* Data+Extension.swift */; };
 		D86ADD1125473F94008CBEAE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86ADD1025473F94008CBEAE /* String+Extension.swift */; };
 		D86ADD1325473FE4008CBEAE /* Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86ADD1225473FE4008CBEAE /* Hex.swift */; };
+		D87733EC2582323F00037FFE /* substrate.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87733EA2582323E00037FFE /* substrate.pb.swift */; };
+		D87733ED2582323F00037FFE /* tron.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87733EB2582323F00037FFE /* tron.pb.swift */; };
+		D87733EF2582336500037FFE /* common.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87733EE2582336500037FFE /* common.pb.swift */; };
 		D87BBB912462068900F09CFB /* DeviceManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBB902462068900F09CFB /* DeviceManageViewController.swift */; };
 		D87BBB9624621F2100F09CFB /* CosmosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBB9224621F2100F09CFB /* CosmosViewController.swift */; };
 		D87BBB9724621F2100F09CFB /* EOSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87BBB9324621F2100F09CFB /* EOSViewController.swift */; };
@@ -104,6 +107,9 @@
 		D86ADCF625473BBA008CBEAE /* Data+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		D86ADD1025473F94008CBEAE /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		D86ADD1225473FE4008CBEAE /* Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hex.swift; sourceTree = "<group>"; };
+		D87733EA2582323E00037FFE /* substrate.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = substrate.pb.swift; sourceTree = "<group>"; };
+		D87733EB2582323F00037FFE /* tron.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tron.pb.swift; sourceTree = "<group>"; };
+		D87733EE2582336500037FFE /* common.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = common.pb.swift; sourceTree = "<group>"; };
 		D87BBB902462068900F09CFB /* DeviceManageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceManageViewController.swift; sourceTree = "<group>"; };
 		D87BBB9224621F2100F09CFB /* CosmosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosViewController.swift; sourceTree = "<group>"; };
 		D87BBB9324621F2100F09CFB /* EOSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EOSViewController.swift; sourceTree = "<group>"; };
@@ -308,6 +314,9 @@
 		D8B0C355244A43EB009F1B06 /* proto */ = {
 			isa = PBXGroup;
 			children = (
+				D87733EE2582336500037FFE /* common.pb.swift */,
+				D87733EA2582323E00037FFE /* substrate.pb.swift */,
+				D87733EB2582323F00037FFE /* tron.pb.swift */,
 				D8B0C35A244A463F009F1B06 /* api.pb.swift */,
 				D8B0C35B244A463F009F1B06 /* btc.pb.swift */,
 				D8B0C357244A463F009F1B06 /* cosmos.pb.swift */,
@@ -572,6 +581,8 @@
 				D8B0C362244A463F009F1B06 /* device.pb.swift in Sources */,
 				D87BBBBE2462245B00F09CFB /* CosmosTest.swift in Sources */,
 				D87BBB9824621F2100F09CFB /* BTCViewController.swift in Sources */,
+				D87733EC2582323F00037FFE /* substrate.pb.swift in Sources */,
+				D87733EF2582336500037FFE /* common.pb.swift in Sources */,
 				D87BBB9624621F2100F09CFB /* CosmosViewController.swift in Sources */,
 				D8B0C36A244A520F009F1B06 /* API.swift in Sources */,
 				D8B0C35D244A463F009F1B06 /* cosmos.pb.swift in Sources */,
@@ -587,6 +598,7 @@
 				D8B0C35E244A463F009F1B06 /* eos.pb.swift in Sources */,
 				D86ADCF525473B62008CBEAE /* ImkeyError.swift in Sources */,
 				D87BBBC32462250C00F09CFB /* FeatTest.swift in Sources */,
+				D87733ED2582323F00037FFE /* tron.pb.swift in Sources */,
 				D8B0C360244A463F009F1B06 /* api.pb.swift in Sources */,
 				D87BBB9724621F2100F09CFB /* EOSViewController.swift in Sources */,
 			);

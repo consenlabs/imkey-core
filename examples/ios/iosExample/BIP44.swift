@@ -18,5 +18,6 @@ public struct BIP44 {
   public static let eos = "m/44'/194'"
   public static let EOS_LEDGER = "m/44'/194'/0'/0/0"
   public static let cosmos = "m/44'/118'/0'/0/0"
+  public static let polkadot = "m/44'/354'/0'/0'/0'"
   
 }

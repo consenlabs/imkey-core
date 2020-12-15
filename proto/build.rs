@@ -37,6 +37,10 @@ fn main() {
     // subtrate
     env::set_var("OUT_DIR", "../wallet/coin-substrate/src");
     prost_build::compile_protos(&["src/substrate.proto"], &["src/"]).unwrap();
+
+    // tron
+    env::set_var("OUT_DIR", "../wallet/coin-tron/src");
+    prost_build::compile_protos(&["src/tron.proto"], &["src/"]).unwrap();
 }
 
 #[cfg(test)]
