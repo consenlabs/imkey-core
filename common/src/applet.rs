@@ -1,3 +1,5 @@
+use crate::constants::NERVOS_AID;
+
 pub fn get_appname_by_instid(instid: &str) -> Option<&str> {
     match instid {
         "695F627463" => Some("BTC"),
@@ -8,6 +10,7 @@ pub fn get_appname_by_instid(instid: &str) -> Option<&str> {
         "695F656473725F6B736D" => Some("KSM"),
         "695F656473725F646F74" => Some("DOT"),
         "695F696D6B" => Some("IMK"),
+        NERVOS_AID => Some("TRX"),
         _ => None,
     }
 }
@@ -21,6 +24,7 @@ pub fn get_instid_by_appname(appname: &str) -> Option<&str> {
         "KSM" => Some("695F656473725F6B736D"),
         "DOT" => Some("695F656473725F646F74"),
         "IMK" => Some("695F696D6B"),
+        "TRX" => Some(NERVOS_AID),
         _ => None,
     }
 }

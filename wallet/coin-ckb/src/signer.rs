@@ -210,7 +210,7 @@ impl<'a> CkbTxSigner<'a> {
 }
 
 impl CkbSigner {
-    fn sign_transaction(tx: &CkbTxInput, sign_param: &SignParam) -> Result<CkbTxOutput> {
+    pub fn sign_transaction(tx: &CkbTxInput, sign_param: &SignParam) -> Result<CkbTxOutput> {
         if tx.witnesses.len() == 0 {
             return Err(Error::RequiredWitness.into());
         }
