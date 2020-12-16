@@ -364,10 +364,10 @@ mod tests {
             path: constants::NERVOS_PATH.to_string(),
             network: "TESTNET".to_string(),
             input: None,
-            payment: "22 ckb".to_string(),
+            payment: "62 ckb".to_string(),
             receiver: "ckt1qyqtr684u76tu7r8efkd24hw8922xfvhnazskzdzy6".to_string(),
             sender: "ckt1qyqtr684u76tu7r8efkd24hw8922xfvhnazskzdzy6".to_string(),
-            fee: "11 ckb".to_string(),
+            fee: "0.0001191 ckb".to_string(),
         };
 
         let tx_output = CkbSigner::sign_transaction(&tx_input, &sign_param).expect("sign error");

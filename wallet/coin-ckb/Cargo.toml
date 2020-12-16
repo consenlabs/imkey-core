@@ -13,7 +13,7 @@ transport = {path = "../../transport"}
 blake2b-rs = "0.1.5"
 failure = "0.1.6"
 bech32 = "0.7.1"
-hex = "0.3.2"
+hex = "0.4.0"
 byteorder = "1.3.2"
 prost = "0.6.1"
 lazy_static = "1.4.0"
