@@ -111,7 +111,7 @@ impl<'a> CkbTxSigner<'a> {
         println!("hash:{}", hex::encode(hash));
         let select_apdu = Apdu::select_applet(NERVOS_AID);
         let select_result = send_apdu(select_apdu)?;
-        ApduCheck::checke_response(&select_result)?;
+        ApduCheck::check_response(&select_result)?;
 
         let pub_key = CkbAddress::get_public_key(&self.sign_param.path)?;
         let comprs_pubkey = uncompress_pubkey_2_compress(&pub_key);
@@ -153,7 +153,7 @@ impl<'a> CkbTxSigner<'a> {
         let sign_apdus = Secp256k1Apdu::sign(&apdu_pack);
         for apdu in sign_apdus {
             sign_response = send_apdu_timeout(apdu, constants::TIMEOUT_LONG)?;
-            ApduCheck::checke_response(&sign_response)?;
+            ApduCheck::check_response(&sign_response)?;
         }
 
         // verify

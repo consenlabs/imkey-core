@@ -261,6 +261,39 @@ impl Secp256k1Apdu {
     }
 }
 
+pub struct Ed25519Apdu();
+
+impl Default for Ed25519Apdu {
+    fn default() -> Self {
+        Ed25519Apdu()
+    }
+}
+
+impl Ed25519Apdu {
+    pub fn sign(data: &[u8]) -> Vec<String> {
+        Apdu::prepare_sign(0x81, data.to_vec())
+    }
+
+    pub fn get_xpub(data: &[u8]) -> String {
+        if data.len() as u32 > LC_MAX {
+            panic!("data to long");
+        }
+        let mut apdu = ApduHeader::new(0x80, 0x82, 0x00, 0x00, data.len() as u8).to_array();
+        apdu.extend(data);
+        apdu.push(0x00); //Le
+        hex::encode(apdu)
+    }
+
+    pub fn register_address(name: &[u8], address: &[u8]) -> String {
+        let mut data: Vec<u8> = vec![];
+        data.push(address.len() as u8);
+        data.extend(address);
+        data.push(name.len() as u8);
+        data.extend(name);
+        Apdu::register_address(0x83, &data)
+    }
+}
+
 pub struct Apdu {}
 
 struct ApduHeader {
@@ -418,7 +451,7 @@ impl ImkApdu {
 pub struct ApduCheck {}
 
 impl ApduCheck {
-    pub fn checke_response(response_data: &str) -> Result<()> {
+    pub fn check_response(response_data: &str) -> Result<()> {
         let response_data: &str = &response_data[response_data.len() - 4..];
         match response_data {
             "9000" => Ok(()),
@@ -754,21 +787,21 @@ mod tests {
 
     #[test]
     fn check_response_test() {
-        assert!(ApduCheck::checke_response("009000").is_ok());
-        assert!(ApduCheck::checke_response("006940").is_err());
-        assert!(ApduCheck::checke_response("006985").is_err());
-        assert!(ApduCheck::checke_response("006280").is_err());
-        assert!(ApduCheck::checke_response("006A86").is_err());
-        assert!(ApduCheck::checke_response("006E00").is_err());
-        assert!(ApduCheck::checke_response("006A80").is_err());
-        assert!(ApduCheck::checke_response("006700").is_err());
-        assert!(ApduCheck::checke_response("006942").is_err());
-        assert!(ApduCheck::checke_response("006D00").is_err());
-        assert!(ApduCheck::checke_response("006941").is_err());
-        assert!(ApduCheck::checke_response("00F000").is_err());
-        assert!(ApduCheck::checke_response("00F080").is_err());
-        assert!(ApduCheck::checke_response("00F081").is_err());
-        assert!(ApduCheck::checke_response("006F01").is_err());
-        assert!(ApduCheck::checke_response("000000").is_err());
+        assert!(ApduCheck::check_response("009000").is_ok());
+        assert!(ApduCheck::check_response("006940").is_err());
+        assert!(ApduCheck::check_response("006985").is_err());
+        assert!(ApduCheck::check_response("006280").is_err());
+        assert!(ApduCheck::check_response("006A86").is_err());
+        assert!(ApduCheck::check_response("006E00").is_err());
+        assert!(ApduCheck::check_response("006A80").is_err());
+        assert!(ApduCheck::check_response("006700").is_err());
+        assert!(ApduCheck::check_response("006942").is_err());
+        assert!(ApduCheck::check_response("006D00").is_err());
+        assert!(ApduCheck::check_response("006941").is_err());
+        assert!(ApduCheck::check_response("00F000").is_err());
+        assert!(ApduCheck::check_response("00F080").is_err());
+        assert!(ApduCheck::check_response("00F081").is_err());
+        assert!(ApduCheck::check_response("006F01").is_err());
+        assert!(ApduCheck::check_response("000000").is_err());
     }
 }

@@ -33,7 +33,7 @@ impl CkbAddress {
 
         let select_apdu = Apdu::select_applet(NERVOS_AID);
         let select_response = send_apdu(select_apdu)?;
-        ApduCheck::checke_response(&select_response)?;
+        ApduCheck::check_response(&select_response)?;
 
         let key_manager_obj = KEY_MANAGER.lock().unwrap();
         let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, path.as_bytes())?;
@@ -49,7 +49,7 @@ impl CkbAddress {
         //get public
         let msg_pubkey = Secp256k1Apdu::get_xpub(&apdu_pack);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
-        ApduCheck::checke_response(&res_msg_pubkey)?;
+        ApduCheck::check_response(&res_msg_pubkey)?;
 
         let sign_source_val = &res_msg_pubkey[..194];
         let sign_result = &res_msg_pubkey[194..res_msg_pubkey.len() - 4];
@@ -81,7 +81,7 @@ impl CkbAddress {
         let menu_name = "CKB".as_bytes();
         let reg_apdu = Secp256k1Apdu::register_address(menu_name, address.as_bytes());
         let res_reg = send_apdu(reg_apdu)?;
-        ApduCheck::checke_response(&res_reg)?;
+        ApduCheck::check_response(&res_reg)?;
         Ok(address)
     }
 }

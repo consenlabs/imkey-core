@@ -92,4 +92,5 @@ message InitImKeyCoreXParam {
     string xpubCommonKey = 2;
     string xpubCommonIv = 3;
     bool isDebug = 4;
+    string system = 5;
 }

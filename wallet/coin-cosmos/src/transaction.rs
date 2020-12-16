@@ -112,24 +112,24 @@ impl CosmosTransaction {
 
         let select_apdu = CosmosApdu::select_applet();
         let select_response = send_apdu(select_apdu)?;
-        ApduCheck::checke_response(&select_response)?;
+        ApduCheck::check_response(&select_response)?;
 
         let prepare_apdus = CosmosApdu::prepare_sign(prepare_data);
 
         for apdu in prepare_apdus {
             let response = send_apdu_timeout(apdu, constants::TIMEOUT_LONG)?;
-            ApduCheck::checke_response(&response)?;
+            ApduCheck::check_response(&response)?;
         }
 
         let sign_apdu = CosmosApdu::sign_digest(constants::COSMOS_PATH);
 
         let sign_result = send_apdu(sign_apdu)?;
-        ApduCheck::checke_response(&sign_result)?;
+        ApduCheck::check_response(&sign_result)?;
 
         let sign_compact = hex::decode(&sign_result[2..130]).unwrap();
-        let mut signnture_obj = SecpSignature::from_compact(sign_compact.as_slice()).unwrap();
-        signnture_obj.normalize_s();
-        let normalizes_sig_vec = signnture_obj.serialize_compact();
+        let mut signature_obj = SecpSignature::from_compact(sign_compact.as_slice()).unwrap();
+        signature_obj.normalize_s();
+        let normalizes_sig_vec = signature_obj.serialize_compact();
 
         let sign_base64 = base64::encode(&normalizes_sig_vec.as_ref());
 

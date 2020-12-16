@@ -16,16 +16,16 @@ pub struct CosmosAddress {}
 
 impl CosmosAddress {
     pub fn get_pub_key(path: &str) -> Result<String> {
-        path::check_path_validity(path).unwrap();
+        path::check_path_validity(path)?;
 
         let select_apdu = CosmosApdu::select_applet();
         let select_response = message::send_apdu(select_apdu)?;
-        ApduCheck::checke_response(&select_response)?;
+        ApduCheck::check_response(&select_response)?;
 
         //get public
         let msg_pubkey = CosmosApdu::get_xpub(&path, true);
         let res_msg_pubkey = message::send_apdu(msg_pubkey)?;
-        ApduCheck::checke_response(&res_msg_pubkey)?;
+        ApduCheck::check_response(&res_msg_pubkey)?;
 
         let sign_source_val = &res_msg_pubkey[..194];
         let sign_result = &res_msg_pubkey[194..res_msg_pubkey.len() - 4];
@@ -74,7 +74,7 @@ impl CosmosAddress {
         let address = CosmosAddress::get_address(path).unwrap();
         let reg_apdu = CosmosApdu::register_address(address.as_bytes());
         let res_reg = message::send_apdu(reg_apdu)?;
-        ApduCheck::checke_response(&res_reg)?;
+        ApduCheck::check_response(&res_reg)?;
         Ok(address)
     }
 }

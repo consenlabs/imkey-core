@@ -57,7 +57,7 @@ impl DeviceManage {
         let mut key_flag = false;
         if !ciphertext.is_empty() {
             //Decrypt and parse the ciphertext
-            key_flag = !key_manager_obj.decrypt_keys(ciphertext.as_bytes())?;
+            key_flag = !key_manager_obj.decrypt_keys(&ciphertext)?;
         }
 
         //If the key file does not exist or is empty then regenerate
@@ -71,7 +71,7 @@ impl DeviceManage {
         //send bindcheck command and get return data
         select_imk_applet()?;
         let bind_check_apdu_resp_data = send_apdu(bind_check_apdu)?;
-        ApduCheck::checke_response(bind_check_apdu_resp_data.as_str())?;
+        ApduCheck::check_response(bind_check_apdu_resp_data.as_str())?;
 
         let status = String::from(&bind_check_apdu_resp_data[..2]);
         let se_pub_key_cert: String =
@@ -151,7 +151,7 @@ impl DeviceManage {
         std::mem::drop(key_manager_obj);
         //send command to device
         let bind_result = send_apdu(identity_verify_apdu)?;
-        ApduCheck::checke_response(&bind_result)?;
+        ApduCheck::check_response(&bind_result)?;
         let result_code = &bind_result[..bind_result.len() - 4];
 
         match result_code {
@@ -163,13 +163,13 @@ impl DeviceManage {
     pub fn display_bind_code() -> Result<()> {
         select_imk_applet()?;
         let gen_auth_code_ret_data = send_apdu(ImkApdu::generate_auth_code())?;
-        ApduCheck::checke_response(&gen_auth_code_ret_data)
+        ApduCheck::check_response(&gen_auth_code_ret_data)
     }
 }
 
 fn select_imk_applet() -> Result<()> {
     let apdu_response = send_apdu(Apdu::select_applet(IMK_AID))?;
-    ApduCheck::checke_response(apdu_response.as_str())
+    ApduCheck::check_response(apdu_response.as_str())
 }
 
 /**

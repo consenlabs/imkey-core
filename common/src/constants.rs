@@ -1,5 +1,5 @@
 pub const VERSION: &str = "2.0.0";
-pub const URL: &str = "https://imkeyserver.com:10443/imkey/";
+pub const URL: &str = "https://imkeyserver.com:10443/imkey";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
 pub const TSM_ACTION_APP_DOWNLOAD: &str = "/appDownload";
@@ -22,6 +22,9 @@ pub const COSMOS_AID: &str = "695F636F736D6F73";
 pub const FILECOIN_AID: &str = "695F6B315F66696C";
 pub const IMK_AID: &str = "695F696D6B";
 pub const NERVOS_AID: &str = "695F6B315F636B62";
+pub const POLKADOT_AID: &str = "695F656473725F646F74";
+pub const KUSAMA_AID: &str = "695F656473725F6B736D";
+pub const TRON_AID: &str = "695F6B315F74726F6E";
 
 pub const BL_AID: &str = "D0426F6F746C6F61646572";
 
@@ -31,6 +34,9 @@ pub const EOS_PATH: &str = "m/44'/194'/0'/0/0";
 pub const ETH_PATH: &str = "m/44'/60'/0'/0/0";
 pub const FILECOIN_PATH: &str = "m/44'/461'/0/0/0";
 pub const NERVOS_PATH: &str = "m/44'/309'/0'/0/0";
+pub const POLKADOT_PATH: &str = "m/44'/354'/0'/0'/0'";
+pub const KUSAMA_PATH: &str = "m/44'/434'/0'/0'/0'";
+pub const TRON_PATH: &str = "m/44'/195'/0'/0/0";
 
 pub const MAX_UTXO_NUMBER: usize = 252;
 pub const EACH_ROUND_NUMBER: usize = 5;

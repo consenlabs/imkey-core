@@ -121,7 +121,7 @@ impl BtcAddress {
         let apdu_res = send_apdu(BtcApdu::register_address(
             &address_str.clone().into_bytes().to_vec(),
         ))?;
-        ApduCheck::checke_response(apdu_res.as_str())?;
+        ApduCheck::check_response(apdu_res.as_str())?;
         Ok(address_str)
     }
 
@@ -133,7 +133,7 @@ impl BtcAddress {
         let apdu_res = send_apdu(BtcApdu::register_address(
             &address_str.clone().into_bytes().to_vec(),
         ))?;
-        ApduCheck::checke_response(apdu_res.as_str())?;
+        ApduCheck::check_response(apdu_res.as_str())?;
         Ok(address_str)
     }
 }

@@ -131,4 +131,6 @@ pub struct InitImKeyCoreXParam {
     pub xpub_common_iv: std::string::String,
     #[prost(bool, tag = "4")]
     pub is_debug: bool,
+    #[prost(string, tag = "5")]
+    pub system: std::string::String,
 }

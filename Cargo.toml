@@ -9,5 +9,7 @@ members = [
     "wallet/coin-ethereum",
     "wallet/coin-eos",
     "wallet/coin-cosmos",
-    "wallet/coin-ckb"
+    "wallet/coin-ckb",
+    "wallet/coin-substrate",
+    "wallet/coin-tron",
 ]

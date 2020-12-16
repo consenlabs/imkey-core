@@ -15,3 +15,18 @@ cbindgen src/lib.rs -l c > ../target/connector.h
 cp ../target/universal/release/libconnector.a ../examples/ios/iosExample/include/libconnector.a
 cp ../target/connector.h ../examples/ios/iosExample/include/connector.h
 popd
+
+rm -rf examples/ios/iosExample/proto
+mkdir examples/ios/iosExample/proto
+
+pushd proto/src
+protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/proto api.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/proto device.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/proto btc.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/proto eth.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/proto eos.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/proto cosmos.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/proto tron.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/proto substrate.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/proto common.proto
+popd

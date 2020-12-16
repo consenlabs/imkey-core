@@ -13,6 +13,7 @@ use crate::Result;
 use aes_soft::Aes128;
 use block_modes::block_padding::Pkcs7;
 use block_modes::{BlockMode, Cbc};
+use common::utility::is_valid_hex;
 use hex::FromHex;
 use rand::thread_rng;
 use secp256k1::Secp256k1;
@@ -93,10 +94,17 @@ impl KeyManager {
     /**
     Get key file data
     */
-    pub fn get_key_file_data(path: &String, seid: &String) -> Result<String> {
+    pub fn get_key_file_data(path: &str, seid: &str) -> Result<String> {
         let mut return_data = String::new();
-        let file =
-            File::open(format!("{}/keys{}", path, seid[seid.len() - 8..].to_string()).as_str());
+        // !!! compatibility issue, the path of key file in android is different with ios before 2.0.0
+        let android_path = format!("{}/keys{}", path, seid[seid.len() - 8..].to_string());
+        let ios_path = format!("{}/keys{}", path, seid);
+        let path = if Path::new(android_path.as_str()).exists() {
+            android_path
+        } else {
+            ios_path
+        };
+        let file = File::open(&path);
         match file {
             Ok(mut f) => {
                 f.read_to_string(&mut return_data)
@@ -113,9 +121,11 @@ impl KeyManager {
     /**
     Decrypt key file data
     */
-    pub fn decrypt_keys(&mut self, ciphertext: &[u8]) -> Result<bool> {
-        //base64 decoding
-        let ciphertext_bytes = decode(ciphertext)?;
+    pub fn decrypt_keys(&mut self, ciphertext: &str) -> Result<bool> {
+        let ciphertext_bytes = match is_valid_hex(ciphertext) {
+            true => hex::decode(ciphertext).expect("invalid keys"),
+            false => decode(ciphertext.as_bytes()).expect("invalid keys"), //base64 decode
+        };
 
         //AES-CBC Decrypt
         type Aes128Cbc = Cbc<Aes128, Pkcs7>;
