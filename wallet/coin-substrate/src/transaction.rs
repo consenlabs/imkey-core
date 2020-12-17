@@ -1,4 +1,4 @@
-use crate::address::AddressType;
+use crate::address::{AddressType, SubstrateAddress};
 use crate::substrateapi::{SubstrateRawTxIn, SubstrateTxOut};
 use crate::{Result, PAYLOAD_HASH_THRESHOLD, SIGNATURE_TYPE_ED25519};
 use common::apdu::{Apdu, ApduCheck, Ed25519Apdu};
@@ -37,6 +37,16 @@ impl Transaction {
         let select_apdu = Apdu::select_applet(aid);
         let select_result = send_apdu(select_apdu)?;
         ApduCheck::check_response(&select_result)?;
+
+        let address_type = match sign_param.chain_type.as_str() {
+            "POLKADOT" => AddressType::Polkadot,
+            "KUSAMA" => AddressType::Kusama,
+            _ => panic!("address type not support"),
+        };
+        let addr = SubstrateAddress::get_address(&sign_param.path, &address_type)?;
+        if &sign_param.sender != &addr {
+            return Err(CoinError::ImkeyAddressMismatchWithPath.into());
+        }
 
         let raw_data_bytes = if tx.raw_data.starts_with("0x") {
             tx.raw_data[2..].to_string()
@@ -127,7 +137,7 @@ mod test {
             input: None,
             payment: "25 DOT".to_string(),
             receiver: "12pWV6LvG4iAfNpFNTvvkWy3H9H8wtCkjiXupAzo2BCmPViM".to_string(),
-            sender: "147mvrDYhFpZzvFASKBDNVcxoyz8XCVNyyFKSZcpbQxN33TT".to_string(),
+            sender: "16NhUkUTkYsYRjMD22Sop2DF8MAXUsjPcYtgHF3t1ccmohx1".to_string(),
             fee: "15.4000 milli DOT".to_string(),
         };
 
@@ -159,7 +169,7 @@ mod test {
             input: None,
             payment: "25 DOT".to_string(),
             receiver: "12pWV6LvG4iAfNpFNTvvkWy3H9H8wtCkjiXupAzo2BCmPViM".to_string(),
-            sender: "147mvrDYhFpZzvFASKBDNVcxoyz8XCVNyyFKSZcpbQxN33TT".to_string(),
+            sender: "Fde6T2hDvbvuQrRizcjPoQNZTxuVSbTp78zwFcxzUb86xXSZ".to_string(),
             fee: "15.4000 milli DOT".to_string(),
         };
 
