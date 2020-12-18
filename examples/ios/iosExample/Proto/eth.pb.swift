@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Ethapi_EthTxReq {
+public struct Ethapi_EthTxInput {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -38,27 +38,17 @@ public struct Ethapi_EthTxReq {
 
   public var chainID: String = String()
 
-  public var path: String = String()
-
-  public var payment: String = String()
-
-  public var receiver: String = String()
-
-  public var sender: String = String()
-
-  public var fee: String = String()
-
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
-public struct Ethapi_EthTxRes {
+public struct Ethapi_EthTxOutput {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var txData: String = String()
+  public var signature: String = String()
 
   public var txHash: String = String()
 
@@ -67,47 +57,21 @@ public struct Ethapi_EthTxRes {
   public init() {}
 }
 
-public struct Ethapi_EthAddressReq {
+public struct Ethapi_EthMessageInput {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
-
-  public var path: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Ethapi_EthAddressRes {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var address: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Ethapi_EthMessageSignReq {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var path: String = String()
 
   public var message: String = String()
 
-  public var sender: String = String()
+  public var isPersonalSign: Bool = false
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
-public struct Ethapi_EthMessageSignRes {
+public struct Ethapi_EthMessageOutput {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -123,8 +87,8 @@ public struct Ethapi_EthMessageSignRes {
 
 fileprivate let _protobuf_package = "ethapi"
 
-extension Ethapi_EthTxReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".EthTxReq"
+extension Ethapi_EthTxInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".EthTxInput"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "nonce"),
     2: .standard(proto: "gas_price"),
@@ -133,11 +97,6 @@ extension Ethapi_EthTxReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
     5: .same(proto: "value"),
     6: .same(proto: "data"),
     7: .standard(proto: "chain_id"),
-    8: .same(proto: "path"),
-    9: .same(proto: "payment"),
-    10: .same(proto: "receiver"),
-    11: .same(proto: "sender"),
-    12: .same(proto: "fee"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -150,11 +109,6 @@ extension Ethapi_EthTxReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
       case 5: try decoder.decodeSingularStringField(value: &self.value)
       case 6: try decoder.decodeSingularStringField(value: &self.data)
       case 7: try decoder.decodeSingularStringField(value: &self.chainID)
-      case 8: try decoder.decodeSingularStringField(value: &self.path)
-      case 9: try decoder.decodeSingularStringField(value: &self.payment)
-      case 10: try decoder.decodeSingularStringField(value: &self.receiver)
-      case 11: try decoder.decodeSingularStringField(value: &self.sender)
-      case 12: try decoder.decodeSingularStringField(value: &self.fee)
       default: break
       }
     }
@@ -182,25 +136,10 @@ extension Ethapi_EthTxReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
     if !self.chainID.isEmpty {
       try visitor.visitSingularStringField(value: self.chainID, fieldNumber: 7)
     }
-    if !self.path.isEmpty {
-      try visitor.visitSingularStringField(value: self.path, fieldNumber: 8)
-    }
-    if !self.payment.isEmpty {
-      try visitor.visitSingularStringField(value: self.payment, fieldNumber: 9)
-    }
-    if !self.receiver.isEmpty {
-      try visitor.visitSingularStringField(value: self.receiver, fieldNumber: 10)
-    }
-    if !self.sender.isEmpty {
-      try visitor.visitSingularStringField(value: self.sender, fieldNumber: 11)
-    }
-    if !self.fee.isEmpty {
-      try visitor.visitSingularStringField(value: self.fee, fieldNumber: 12)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Ethapi_EthTxReq, rhs: Ethapi_EthTxReq) -> Bool {
+  public static func ==(lhs: Ethapi_EthTxInput, rhs: Ethapi_EthTxInput) -> Bool {
     if lhs.nonce != rhs.nonce {return false}
     if lhs.gasPrice != rhs.gasPrice {return false}
     if lhs.gasLimit != rhs.gasLimit {return false}
@@ -208,27 +147,22 @@ extension Ethapi_EthTxReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
     if lhs.value != rhs.value {return false}
     if lhs.data != rhs.data {return false}
     if lhs.chainID != rhs.chainID {return false}
-    if lhs.path != rhs.path {return false}
-    if lhs.payment != rhs.payment {return false}
-    if lhs.receiver != rhs.receiver {return false}
-    if lhs.sender != rhs.sender {return false}
-    if lhs.fee != rhs.fee {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Ethapi_EthTxRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".EthTxRes"
+extension Ethapi_EthTxOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".EthTxOutput"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "tx_data"),
-    2: .standard(proto: "tx_hash"),
+    1: .same(proto: "signature"),
+    2: .same(proto: "txHash"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.txData)
+      case 1: try decoder.decodeSingularStringField(value: &self.signature)
       case 2: try decoder.decodeSingularStringField(value: &self.txHash)
       default: break
       }
@@ -236,8 +170,8 @@ extension Ethapi_EthTxRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.txData.isEmpty {
-      try visitor.visitSingularStringField(value: self.txData, fieldNumber: 1)
+    if !self.signature.isEmpty {
+      try visitor.visitSingularStringField(value: self.signature, fieldNumber: 1)
     }
     if !self.txHash.isEmpty {
       try visitor.visitSingularStringField(value: self.txHash, fieldNumber: 2)
@@ -245,115 +179,51 @@ extension Ethapi_EthTxRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Ethapi_EthTxRes, rhs: Ethapi_EthTxRes) -> Bool {
-    if lhs.txData != rhs.txData {return false}
+  public static func ==(lhs: Ethapi_EthTxOutput, rhs: Ethapi_EthTxOutput) -> Bool {
+    if lhs.signature != rhs.signature {return false}
     if lhs.txHash != rhs.txHash {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Ethapi_EthAddressReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".EthAddressReq"
+extension Ethapi_EthMessageInput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".EthMessageInput"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "path"),
+    1: .same(proto: "message"),
+    2: .same(proto: "isPersonalSign"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.path)
+      case 1: try decoder.decodeSingularStringField(value: &self.message)
+      case 2: try decoder.decodeSingularBoolField(value: &self.isPersonalSign)
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.path.isEmpty {
-      try visitor.visitSingularStringField(value: self.path, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Ethapi_EthAddressReq, rhs: Ethapi_EthAddressReq) -> Bool {
-    if lhs.path != rhs.path {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Ethapi_EthAddressRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".EthAddressRes"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "address"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.address)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.address.isEmpty {
-      try visitor.visitSingularStringField(value: self.address, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Ethapi_EthAddressRes, rhs: Ethapi_EthAddressRes) -> Bool {
-    if lhs.address != rhs.address {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Ethapi_EthMessageSignReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".EthMessageSignReq"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "path"),
-    2: .same(proto: "message"),
-    3: .same(proto: "sender"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.path)
-      case 2: try decoder.decodeSingularStringField(value: &self.message)
-      case 3: try decoder.decodeSingularStringField(value: &self.sender)
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.path.isEmpty {
-      try visitor.visitSingularStringField(value: self.path, fieldNumber: 1)
-    }
     if !self.message.isEmpty {
-      try visitor.visitSingularStringField(value: self.message, fieldNumber: 2)
+      try visitor.visitSingularStringField(value: self.message, fieldNumber: 1)
     }
-    if !self.sender.isEmpty {
-      try visitor.visitSingularStringField(value: self.sender, fieldNumber: 3)
+    if self.isPersonalSign != false {
+      try visitor.visitSingularBoolField(value: self.isPersonalSign, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Ethapi_EthMessageSignReq, rhs: Ethapi_EthMessageSignReq) -> Bool {
-    if lhs.path != rhs.path {return false}
+  public static func ==(lhs: Ethapi_EthMessageInput, rhs: Ethapi_EthMessageInput) -> Bool {
     if lhs.message != rhs.message {return false}
-    if lhs.sender != rhs.sender {return false}
+    if lhs.isPersonalSign != rhs.isPersonalSign {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Ethapi_EthMessageSignRes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".EthMessageSignRes"
+extension Ethapi_EthMessageOutput: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".EthMessageOutput"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "signature"),
   ]
@@ -374,7 +244,7 @@ extension Ethapi_EthMessageSignRes: SwiftProtobuf.Message, SwiftProtobuf._Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Ethapi_EthMessageSignRes, rhs: Ethapi_EthMessageSignRes) -> Bool {
+  public static func ==(lhs: Ethapi_EthMessageOutput, rhs: Ethapi_EthMessageOutput) -> Bool {
     if lhs.signature != rhs.signature {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

@@ -1,12 +1,12 @@
 use crate::address::EthAddress;
-use crate::ethapi::{EthMessageSignReq, EthMessageSignRes, EthTxRes};
+use crate::ethapi::{EthMessageInput, EthMessageOutput, EthTxOutput};
 use crate::types::{Action, Signature};
 use crate::Result as EthResult;
 use common::apdu::{ApduCheck, CoinCommonApdu, EthApdu};
 use common::error::CoinError;
 use common::path::check_path_validity;
 use common::utility::{hex_to_bytes, is_valid_hex, secp256k1_sign};
-use common::{constants, utility};
+use common::{constants, utility, SignParam};
 use device::device_binding::KEY_MANAGER;
 use ethereum_types::{H256, U256};
 use keccak_hash::keccak;
@@ -40,7 +40,7 @@ impl Transaction {
         receiver: &str,
         sender: &str,
         fee: &str,
-    ) -> EthResult<EthTxRes> {
+    ) -> EthResult<EthTxOutput> {
         // ) {
         //check path
         check_path_validity(path)?;
@@ -81,19 +81,19 @@ impl Transaction {
         //select applet
         let select_apdu = EthApdu::select_applet();
         let select_result = send_apdu(select_apdu)?;
-        ApduCheck::checke_response(&select_result)?;
+        ApduCheck::check_response(&select_result)?;
 
         //prepare apdu
         let msg_prepare = EthApdu::prepare_sign(apdu_pack);
         for msg in msg_prepare {
             let res = send_apdu_timeout(msg, constants::TIMEOUT_LONG)?;
-            ApduCheck::checke_response(&res)?;
+            ApduCheck::check_response(&res)?;
         }
 
         //get public
         let msg_pubkey = EthApdu::get_xpub(path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
-        ApduCheck::checke_response(&res_msg_pubkey)?;
+        ApduCheck::check_response(&res_msg_pubkey)?;
 
         let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
 
@@ -106,14 +106,14 @@ impl Transaction {
         //sign
         let msg_sign = EthApdu::sign_digest(path);
         let res_msg_sign = send_apdu(msg_sign)?;
-        ApduCheck::checke_response(&res_msg_sign)?;
+        ApduCheck::check_response(&res_msg_sign)?;
 
         let sign_compact = &res_msg_sign[2..130];
         let sign_compact_vec = hex_to_bytes(sign_compact).unwrap(); //todo error
 
-        let mut signnture_obj = SecpSignature::from_compact(sign_compact_vec.as_slice()).unwrap();
-        signnture_obj.normalize_s();
-        let normalizes_sig_vec = signnture_obj.serialize_compact();
+        let mut signature_obj = SecpSignature::from_compact(sign_compact_vec.as_slice()).unwrap();
+        signature_obj.normalize_s();
+        let normalizes_sig_vec = signature_obj.serialize_compact();
 
         let msg_hash = self.hash(chain_id);
 
@@ -132,8 +132,8 @@ impl Transaction {
             tx_hash.insert_str(0, "0x");
         }
 
-        let tx_sign_result = EthTxRes {
-            tx_data: hex::encode(signed.0),
+        let tx_sign_result = EthTxOutput {
+            signature: hex::encode(signed.0),
             tx_hash,
         };
 
@@ -192,37 +192,26 @@ impl Transaction {
         }
     }
 
-    pub fn sign_persional_message(input: EthMessageSignReq) -> EthResult<EthMessageSignRes> {
-        check_path_validity(&input.path).unwrap();
+    pub fn sign_message(
+        input: EthMessageInput,
+        sign_param: &SignParam,
+    ) -> EthResult<EthMessageOutput> {
+        check_path_validity(&sign_param.path)?;
 
-        let message = match is_valid_hex(&input.message){
-            true => {let value = &input.message[2..];
-                hex::decode(value).unwrap()}
-            false => input.message.into_bytes()
-        };
-
-        let header = format!("Ethereum Signed Message:\n{}", &message.len());
+        let message_to_sign;
+        if is_valid_hex(&input.message) {
+            let value = &input.message[2..];
+            message_to_sign = hex::decode(value).unwrap();
+        } else {
+            message_to_sign = input.message.into_bytes();
+        }
 
         let mut data = Vec::new();
-        data.extend(header.as_bytes());
-        data.extend(message);
-
-        Transaction::sign_message(&input.path,&data,&input.sender)
-    }
-
-
-    pub fn ec_sign(input: EthMessageSignReq) -> EthResult<EthMessageSignRes> {
-        check_path_validity(&input.path).unwrap();
-        let message = match is_valid_hex(&input.message){
-            true => {let value = &input.message[2..];
-            hex::decode(value).unwrap()}
-            false => input.message.into_bytes()
-        };
-        Transaction::sign_message(&input.path,&message,&input.sender)
-    }
-
-    pub fn sign_message(path:&str,message:&[u8],sender:&str) -> EthResult<EthMessageSignRes> {
-        let mut data = message.to_vec();
+        if input.is_personal_sign {
+            let header = format!("Ethereum Signed Message:\n{}", &message_to_sign.len());
+            data.extend(header.as_bytes());
+        }
+        data.extend(message_to_sign);
 
         let mut data_to_sign: Vec<u8> = Vec::new();
         data_to_sign.push(0x01);
@@ -241,32 +230,32 @@ impl Transaction {
 
         let select_apdu = EthApdu::select_applet();
         let select_result = send_apdu(select_apdu)?;
-        ApduCheck::checke_response(&select_result)?;
+        ApduCheck::check_response(&select_result)?;
 
-        let msg_pubkey = EthApdu::get_xpub(path, false);
+        let msg_pubkey = EthApdu::get_xpub(&sign_param.path, false);
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
         let pubkey_raw = hex_to_bytes(&res_msg_pubkey[..130]).unwrap();
         let address_main = EthAddress::address_from_pubkey(pubkey_raw.clone()).unwrap();
         let address_checksummed = EthAddress::address_checksummed(&address_main);
 
-        if &address_checksummed != sender {
+        if &address_checksummed != &sign_param.sender {
             return Err(CoinError::ImkeyAddressMismatchWithPath.into());
         }
 
         let prepare_apdus = EthApdu::prepare_personal_sign(apdu_pack);
         for apdu in prepare_apdus {
             let res = send_apdu_timeout(apdu, constants::TIMEOUT_LONG)?;
-            ApduCheck::checke_response(&res)?;
+            ApduCheck::check_response(&res)?;
         }
 
-        let sign_apdu = EthApdu::personal_sign(path);
+        let sign_apdu = EthApdu::personal_sign(&sign_param.path);
         let sign_response = send_apdu(sign_apdu)?;
-        ApduCheck::checke_response(&sign_response)?;
+        ApduCheck::check_response(&sign_response)?;
 
         let sign_compact = hex::decode(&sign_response[2..130]).unwrap();
-        let mut signnture_obj = SecpSignature::from_compact(sign_compact.as_slice()).unwrap();
-        signnture_obj.normalize_s();
-        let normalizes_sig_vec = signnture_obj.serialize_compact();
+        let mut signature_obj = SecpSignature::from_compact(sign_compact.as_slice()).unwrap();
+        signature_obj.normalize_s();
+        let normalizes_sig_vec = signature_obj.serialize_compact();
 
         let data_hash = tiny_keccak::keccak256(&data);
         let rec_id = utility::retrieve_recid(&data_hash, &normalizes_sig_vec, &pubkey_raw).unwrap();
@@ -276,7 +265,7 @@ impl Transaction {
         let mut signature = hex::encode(&normalizes_sig_vec.as_ref());
         signature.push_str(&format!("{:02x}", &v));
 
-        Ok(EthMessageSignRes { signature })
+        Ok(EthMessageOutput { signature })
     }
 }
 
@@ -359,7 +348,7 @@ mod tests {
             .sign(Some(28), &path, &payment, &receiver, &sender, &fee)
             .unwrap();
         assert_eq!(
-            tx_result.tx_data,
+            tx_result.signature,
             "f867088504a817c8088302e248943535353535353535353535353535353535353535820200805ba03aa62abb45b77418caf139dda0179aea802c99967b3d690b87d586a87bc805afa02b5ce94f40dc865ca63403e0e5e723e1523884f001573677cd8cec11c7ca332f".to_string()
         );
         assert_eq!(
@@ -477,23 +466,42 @@ mod tests {
     fn test_sign_personal_message() {
         bind_test();
 
-        let input = EthMessageSignReq {
+        let sign_param = SignParam {
+            chain_type: "ETHEREUM".to_string(),
             path: constants::ETH_PATH.to_string(),
-            message: "Hello imKey".to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+            fee: "".to_string(),
         };
-        let output = Transaction::sign_persional_message(input).unwrap();
+        let input = EthMessageInput {
+            message: "Hello imKey".to_string(),
+            is_personal_sign: true,
+        };
+        let output = Transaction::sign_message(input, &sign_param).unwrap();
         assert_eq!(
             output.signature,
             "d928f76ad80d63003c189b095078d94ae068dc2f18a5cafd97b3a630d7bc47465bd6f1e74de2e88c05b271e1c5a8b93564d9d8842c207482b20634d68f2d54e51b".to_string()
         );
 
-        let input = EthMessageSignReq {
+        let sign_param = SignParam {
+            chain_type: "ETHEREUM".to_string(),
             path: constants::ETH_PATH.to_string(),
-            message: "0x8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f".to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+            fee: "".to_string(),
         };
-        let output = Transaction::sign_persional_message(input).unwrap();
+        let input = EthMessageInput {
+            message: "0x8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f".to_string(),
+            is_personal_sign: true
+        };
+
+        let output = Transaction::sign_message(input, &sign_param).unwrap();
         assert_eq!(
             output.signature,
             "35a94616ce12ddb79f6d351c2644c0fa2f496bd152b17102a5672359f583373b6dd5d2a60f5d9909cf84e6af7dc40176179c819a7cbd9b199f4c2e868530293f1b".to_string()
@@ -504,42 +512,41 @@ mod tests {
     fn test_ec_sign() {
         bind_test();
 
-        let input = EthMessageSignReq {
+        let sign_param = SignParam {
+            chain_type: "ETHEREUM".to_string(),
             path: constants::ETH_PATH.to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
+            sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+            fee: "".to_string(),
+        };
+        let input = EthMessageInput {
             message: "Hello imKey".to_string(),
-            sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+            is_personal_sign: false,
         };
-        let output = Transaction::ec_sign(input).unwrap();
+        let output = Transaction::sign_message(input, &sign_param).unwrap();
         assert_eq!(
             output.signature,
             "57c976d1fa15c7e833fd340bcb3a96974060ed555369d443449ac4429c1933433afa5304d1cfcb6799403f2b97a1e83309b98fae8ad5fade62335664d90e819f1b".to_string()
         );
 
-        let input = EthMessageSignReq {
+        let sign_param = SignParam {
+            chain_type: "ETHEREUM".to_string(),
             path: constants::ETH_PATH.to_string(),
-            message: "0x8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f".to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+            fee: "".to_string(),
         };
-        let output = Transaction::ec_sign(input).unwrap();
-        assert_eq!(
-            output.signature,
-            "3d8ba5e7375900476d715b479938e48a2e46e59f8e2e12673adb5e3df78a622050053ae0183f5e555e5db34ff43293de255f384709bd3fe6e00b8239c7f1a3561c".to_string()
-        );
-    }
-
-    #[test]
-    fn test_sign_message() {
-        bind_test();
-
-        let message = b"Hello imKey";
-        let output = Transaction::sign_message(constants::ETH_PATH,message,"0x6031564e7b2F5cc33737807b2E58DaFF870B590b").unwrap();
-        assert_eq!(
-            output.signature,
-            "57c976d1fa15c7e833fd340bcb3a96974060ed555369d443449ac4429c1933433afa5304d1cfcb6799403f2b97a1e83309b98fae8ad5fade62335664d90e819f1b".to_string()
-        );
-
-        let message = hex::decode("8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f").unwrap();
-        let output = Transaction::sign_message(constants::ETH_PATH,&message,"0x6031564e7b2F5cc33737807b2E58DaFF870B590b").unwrap();
+        let input = EthMessageInput {
+            message: "0x8d61d40bb0761526fe24d84199321d5e9f6542e56c52018c401b963d64ef21678c18563a3eba889229ab078a8a1baed22226913f".to_string(),
+            is_personal_sign: false
+        };
+        let output = Transaction::sign_message(input, &sign_param).unwrap();
         assert_eq!(
             output.signature,
             "3d8ba5e7375900476d715b479938e48a2e46e59f8e2e12673adb5e3df78a622050053ae0183f5e555e5db34ff43293de255f384709bd3fe6e00b8239c7f1a3561c".to_string()
@@ -588,12 +595,21 @@ mod tests {
             "imkey_address_mismatch_with_path"
         );
 
-        let input = EthMessageSignReq {
-            path: path,
-            message: "Hello imKey".to_string(),
+        let sign_param = SignParam {
+            chain_type: "ETHEREUM".to_string(),
+            path,
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
             sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+            fee: "".to_string(),
         };
-        let output = Transaction::sign_persional_message(input);
+        let input = EthMessageInput {
+            message: "Hello imKey".to_string(),
+            is_personal_sign: true,
+        };
+        let output = Transaction::sign_message(input, &sign_param);
         assert_eq!(
             format!("{}", output.err().unwrap()),
             "imkey_address_mismatch_with_path"

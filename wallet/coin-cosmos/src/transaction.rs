@@ -1,5 +1,5 @@
 use crate::address::CosmosAddress;
-use crate::cosmosapi::CosmosTxRes;
+use crate::cosmosapi::CosmosTxOutput;
 use crate::Result;
 use bitcoin_hashes::hex::ToHex;
 use common::apdu::{ApduCheck, CoinCommonApdu, CosmosApdu};
@@ -80,7 +80,7 @@ pub struct StdTx {
 }
 
 impl CosmosTransaction {
-    pub fn sign(self) -> Result<CosmosTxRes> {
+    pub fn sign(self) -> Result<CosmosTxOutput> {
         let json = serde_json::to_vec(&self.sign_data).unwrap();
         let json_str = String::from_utf8(json.to_owned()).unwrap();
         let json_hash = sha256_hash(&json_str.as_bytes()).to_hex();
@@ -112,24 +112,24 @@ impl CosmosTransaction {
 
         let select_apdu = CosmosApdu::select_applet();
         let select_response = send_apdu(select_apdu)?;
-        ApduCheck::checke_response(&select_response)?;
+        ApduCheck::check_response(&select_response)?;
 
         let prepare_apdus = CosmosApdu::prepare_sign(prepare_data);
 
         for apdu in prepare_apdus {
             let response = send_apdu_timeout(apdu, constants::TIMEOUT_LONG)?;
-            ApduCheck::checke_response(&response)?;
+            ApduCheck::check_response(&response)?;
         }
 
         let sign_apdu = CosmosApdu::sign_digest(constants::COSMOS_PATH);
 
         let sign_result = send_apdu(sign_apdu)?;
-        ApduCheck::checke_response(&sign_result)?;
+        ApduCheck::check_response(&sign_result)?;
 
         let sign_compact = hex::decode(&sign_result[2..130]).unwrap();
-        let mut signnture_obj = SecpSignature::from_compact(sign_compact.as_slice()).unwrap();
-        signnture_obj.normalize_s();
-        let normalizes_sig_vec = signnture_obj.serialize_compact();
+        let mut signature_obj = SecpSignature::from_compact(sign_compact.as_slice()).unwrap();
+        signature_obj.normalize_s();
+        let normalizes_sig_vec = signature_obj.serialize_compact();
 
         let sign_base64 = base64::encode(&normalizes_sig_vec.as_ref());
 
@@ -157,11 +157,11 @@ impl CosmosTransaction {
         let json = serde_json::to_vec(&std_tx).unwrap();
         let json = String::from_utf8(json.to_owned()).unwrap();
 
-        let ouput = CosmosTxRes {
-            tx_data: json.to_string(),
+        let output = CosmosTxOutput {
+            signature: json.to_string(),
             tx_hash: "".to_string(),
         };
-        Ok(ouput)
+        Ok(output)
     }
 }
 
@@ -241,7 +241,7 @@ mod tests {
         };
         let cosmos_tx_output = input.sign().unwrap();
         let expect_result = r#"{"fee":{"amount":[{"amount":"0","denom":""}],"gas":"21906"},"memo":"","signatures":[{"account_number":"1234567890","pub_key":{"type":"tendermint/PubKeySecp256k1","value":"AjLB7yHXPBlTGwqk6GPPOXwrmCsvlY9gzbYpaYJMCW1l"},"sequence":"1234567890","signature":"h4//cOYLTiDYbdw+1NVZufwppIAcEQ1xsWMYcCdcGtsu4xSnYStxyJgIa57445sHnXgWP84VvnQ5geoUZAKxlQ=="}],"msg":[{"type":"cosmos-sdk/MsgDelegate","value":{"amount":[{"amount":"10","denom":"atom"}],"delegator_address":"cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f","validator_address":"cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"}}]}"#;
-        assert_eq!(&expect_result, &cosmos_tx_output.tx_data);
+        assert_eq!(&expect_result, &cosmos_tx_output.signature);
     }
 
     #[test]
@@ -286,7 +286,7 @@ mod tests {
         };
         let cosmos_tx_output = input.sign().unwrap();
         let expect_result = r#"{"fee":{"amount":[{"amount":"0","denom":""}],"gas":"21906"},"memo":"","signatures":[{"account_number":"1234567890","pub_key":{"type":"tendermint/PubKeySecp256k1","value":"AjLB7yHXPBlTGwqk6GPPOXwrmCsvlY9gzbYpaYJMCW1l"},"sequence":"1234567890","signature":"h4//cOYLTiDYbdw+1NVZufwppIAcEQ1xsWMYcCdcGtsu4xSnYStxyJgIa57445sHnXgWP84VvnQ5geoUZAKxlQ=="}],"msg":[{"type":"cosmos-sdk/MsgDelegate","value":{"amount":[{"amount":"10","denom":"atom"}],"delegator_address":"cosmos1y0a8sc5ayv52f2fm5t7hr2g88qgljzk4jcz78f","validator_address":"cosmosvaloper1zkupr83hrzkn3up5elktzcq3tuft8nxsmwdqgp"}}]}"#;
-        assert_eq!(&expect_result, &cosmos_tx_output.tx_data);
+        assert_eq!(&expect_result, &cosmos_tx_output.signature);
     }
 
     #[test]
@@ -331,7 +331,7 @@ mod tests {
         };
         let cosmos_tx_output = input.sign().unwrap();
         let expect_result = r#"{"fee":{"amount":[{"amount":"750","denom":"muon"}],"gas":"30000"},"memo":"","signatures":[{"account_number":"1234567890","pub_key":{"type":"tendermint/PubKeySecp256k1","value":"AjLB7yHXPBlTGwqk6GPPOXwrmCsvlY9gzbYpaYJMCW1l"},"sequence":"1234567890","signature":"Tp8DYyOSghHF2S70I08fodPL0PWPmY6KNu9ZWN+mqoREdHs7UKIox3tZO2K7ytN4LVl9wBqaWstNOfp5Qa44tg=="}],"msg":[{"type":"cosmos-sdk/MsgSend","value":{"amount":[],"from_address":"cosmos1ajz9y0x3wekez7tz2td2j6l2dftn28v26dd992","to_address":"cosmos1yeckxz7tapz34kjwnjxvmxzurerquhtrmxmuxt"}}]}"#;
-        assert_eq!(&expect_result, &cosmos_tx_output.tx_data);
+        assert_eq!(&expect_result, &cosmos_tx_output.signature);
     }
 
     #[test]

@@ -57,7 +57,7 @@ impl DeviceManage {
         let mut key_flag = false;
         if !ciphertext.is_empty() {
             //Decrypt and parse the ciphertext
-            key_flag = !key_manager_obj.decrypt_keys(ciphertext.as_bytes())?;
+            key_flag = !key_manager_obj.decrypt_keys(&ciphertext)?;
         }
 
         //If the key file does not exist or is empty then regenerate
@@ -71,7 +71,7 @@ impl DeviceManage {
         //send bindcheck command and get return data
         select_imk_applet()?;
         let bind_check_apdu_resp_data = send_apdu(bind_check_apdu)?;
-        ApduCheck::checke_response(bind_check_apdu_resp_data.as_str())?;
+        ApduCheck::check_response(bind_check_apdu_resp_data.as_str())?;
 
         let status = String::from(&bind_check_apdu_resp_data[..2]);
         let se_pub_key_cert: String =
@@ -95,7 +95,7 @@ impl DeviceManage {
                 x_out = x;
                 y_out = y;
                 expect_result.into()
-            })?;
+            });
             let sha1_result = Sha1::from(&x_out[..]).digest().bytes();
 
             //set the session key
@@ -151,23 +151,25 @@ impl DeviceManage {
         std::mem::drop(key_manager_obj);
         //send command to device
         let bind_result = send_apdu(identity_verify_apdu)?;
-        ApduCheck::checke_response(&bind_result)?;
-        Ok(BIND_STATUS_MAP
-            .get(&bind_result[..bind_result.len() - 4])
-            .unwrap()
-            .to_string())
+        ApduCheck::check_response(&bind_result)?;
+        let result_code = &bind_result[..bind_result.len() - 4];
+
+        match result_code {
+            BIND_RESULT_ERROR => Err(BindError::ImkeyAuthcodeError.into()),
+            _ => Ok(BIND_STATUS_MAP.get(result_code).unwrap().to_string()),
+        }
     }
 
     pub fn display_bind_code() -> Result<()> {
         select_imk_applet()?;
         let gen_auth_code_ret_data = send_apdu(ImkApdu::generate_auth_code())?;
-        ApduCheck::checke_response(&gen_auth_code_ret_data)
+        ApduCheck::check_response(&gen_auth_code_ret_data)
     }
 }
 
 fn select_imk_applet() -> Result<()> {
     let apdu_response = send_apdu(Apdu::select_applet(IMK_AID))?;
-    ApduCheck::checke_response(apdu_response.as_str())
+    ApduCheck::check_response(apdu_response.as_str())
 }
 
 /**
@@ -219,8 +221,8 @@ fn get_se_pubkey(se_pubkey_cert: String) -> Result<String> {
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn bind_test() {
     //binding device
-       let path = "/Users/joe/work/sdk_gen_key".to_string();
-       let bind_code = "YDSGQPKX".to_string();
+    let path = TEST_KEY_PATH.to_string();
+    let bind_code = TEST_BIND_CODE.to_string();
 
     // let path = "/tmp/".to_string();
     // let bind_code = "PVU3FY64".to_string();
@@ -230,7 +232,7 @@ pub fn bind_test() {
     if !"bound_this".eq(check_result.as_str()) {
         //If it is not bound to this device, then perform the binding operation
         let bind_result = DeviceManage::bind_acquire(&bind_code).unwrap_or_default();
-        if "5A".eq(bind_result.as_str()) {
+        if "success".eq(bind_result.as_str()) {
             println!("{:?}", "binding success");
         } else {
             println!("{:?}", "binding error");
@@ -241,16 +243,23 @@ pub fn bind_test() {
     }
 }
 
+// pub const TEST_KEY_PATH: &str = "/tmp/";
+// pub const TEST_BIND_CODE: &str = "MCYNK5AH";
+pub const TEST_KEY_PATH: &str = "/Users/joe/work/sdk_gen_key";
+pub const TEST_BIND_CODE: &str = "YDSGQPKX";
+
 #[cfg(test)]
 mod test {
-    use crate::device_binding::{auth_code_encrypt, gen_iv, DeviceManage};
+    use crate::device_binding::{
+        auth_code_encrypt, gen_iv, DeviceManage, TEST_BIND_CODE, TEST_KEY_PATH,
+    };
     use crate::device_manager::bind_display_code;
     use transport::hid_api::hid_connect;
 
     #[test]
     fn device_bind_test() {
-        let path = "/tmp/".to_string();
-        let bind_code = "PVU3FY64".to_string();
+        let path = TEST_KEY_PATH.to_string();
+        let bind_code = TEST_BIND_CODE.to_string();
 
         assert!(hid_connect("imKey Pro").is_ok());
         let check_result = DeviceManage::bind_check(&path).unwrap();

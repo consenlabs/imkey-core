@@ -27,34 +27,12 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* StdFee_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   StdFee_reflection_ = NULL;
-const ::google::protobuf::Descriptor* SignData_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* CosmosTxInput_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  SignData_reflection_ = NULL;
-const ::google::protobuf::Descriptor* Msg_descriptor_ = NULL;
+  CosmosTxInput_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CosmosTxOutput_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  Msg_reflection_ = NULL;
-const ::google::protobuf::Descriptor* MsgValue_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  MsgValue_reflection_ = NULL;
-const ::google::protobuf::Descriptor* MsgValue_AddressesEntry_descriptor_ = NULL;
-const ::google::protobuf::Descriptor* MsgDelegateValue_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  MsgDelegateValue_reflection_ = NULL;
-const ::google::protobuf::Descriptor* MsgSendValue_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  MsgSendValue_reflection_ = NULL;
-const ::google::protobuf::Descriptor* CosmosTxReq_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  CosmosTxReq_reflection_ = NULL;
-const ::google::protobuf::Descriptor* CosmosTxRes_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  CosmosTxRes_reflection_ = NULL;
-const ::google::protobuf::Descriptor* CosmosAddressReq_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  CosmosAddressReq_reflection_ = NULL;
-const ::google::protobuf::Descriptor* CosmosAddressRes_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  CosmosAddressRes_reflection_ = NULL;
+  CosmosTxOutput_reflection_ = NULL;
 
 }  // namespace
 
@@ -96,150 +74,40 @@ void protobuf_AssignDesc_cosmos_2eproto() {
       -1,
       sizeof(StdFee),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StdFee, _internal_metadata_));
-  SignData_descriptor_ = file->message_type(2);
-  static const int SignData_offsets_[6] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignData, account_number_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignData, chain_id_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignData, fee_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignData, memo_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignData, msgs_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignData, sequence_),
+  CosmosTxInput_descriptor_ = file->message_type(2);
+  static const int CosmosTxInput_offsets_[6] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxInput, account_number_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxInput, chain_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxInput, fee_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxInput, memo_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxInput, msgs_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxInput, sequence_),
   };
-  SignData_reflection_ =
+  CosmosTxInput_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      SignData_descriptor_,
-      SignData::internal_default_instance(),
-      SignData_offsets_,
+      CosmosTxInput_descriptor_,
+      CosmosTxInput::internal_default_instance(),
+      CosmosTxInput_offsets_,
       -1,
       -1,
       -1,
-      sizeof(SignData),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SignData, _internal_metadata_));
-  Msg_descriptor_ = file->message_type(3);
-  static const int Msg_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Msg, type_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Msg, value_),
+      sizeof(CosmosTxInput),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxInput, _internal_metadata_));
+  CosmosTxOutput_descriptor_ = file->message_type(3);
+  static const int CosmosTxOutput_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxOutput, signature_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxOutput, txhash_),
   };
-  Msg_reflection_ =
+  CosmosTxOutput_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      Msg_descriptor_,
-      Msg::internal_default_instance(),
-      Msg_offsets_,
+      CosmosTxOutput_descriptor_,
+      CosmosTxOutput::internal_default_instance(),
+      CosmosTxOutput_offsets_,
       -1,
       -1,
       -1,
-      sizeof(Msg),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Msg, _internal_metadata_));
-  MsgValue_descriptor_ = file->message_type(4);
-  static const int MsgValue_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgValue, amount_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgValue, addresses_),
-  };
-  MsgValue_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      MsgValue_descriptor_,
-      MsgValue::internal_default_instance(),
-      MsgValue_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(MsgValue),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgValue, _internal_metadata_));
-  MsgValue_AddressesEntry_descriptor_ = MsgValue_descriptor_->nested_type(0);
-  MsgDelegateValue_descriptor_ = file->message_type(5);
-  static const int MsgDelegateValue_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgDelegateValue, amount_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgDelegateValue, delegator_address_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgDelegateValue, validator_address_),
-  };
-  MsgDelegateValue_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      MsgDelegateValue_descriptor_,
-      MsgDelegateValue::internal_default_instance(),
-      MsgDelegateValue_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(MsgDelegateValue),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgDelegateValue, _internal_metadata_));
-  MsgSendValue_descriptor_ = file->message_type(6);
-  static const int MsgSendValue_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgSendValue, amount_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgSendValue, from_address_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgSendValue, to_address_),
-  };
-  MsgSendValue_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      MsgSendValue_descriptor_,
-      MsgSendValue::internal_default_instance(),
-      MsgSendValue_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(MsgSendValue),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MsgSendValue, _internal_metadata_));
-  CosmosTxReq_descriptor_ = file->message_type(7);
-  static const int CosmosTxReq_offsets_[6] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxReq, signdata_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxReq, path_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxReq, payment_dis_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxReq, to_dis_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxReq, from_dis_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxReq, fee_dis_),
-  };
-  CosmosTxReq_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      CosmosTxReq_descriptor_,
-      CosmosTxReq::internal_default_instance(),
-      CosmosTxReq_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(CosmosTxReq),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxReq, _internal_metadata_));
-  CosmosTxRes_descriptor_ = file->message_type(8);
-  static const int CosmosTxRes_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxRes, tx_data_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxRes, tx_hash_),
-  };
-  CosmosTxRes_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      CosmosTxRes_descriptor_,
-      CosmosTxRes::internal_default_instance(),
-      CosmosTxRes_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(CosmosTxRes),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxRes, _internal_metadata_));
-  CosmosAddressReq_descriptor_ = file->message_type(9);
-  static const int CosmosAddressReq_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosAddressReq, path_),
-  };
-  CosmosAddressReq_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      CosmosAddressReq_descriptor_,
-      CosmosAddressReq::internal_default_instance(),
-      CosmosAddressReq_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(CosmosAddressReq),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosAddressReq, _internal_metadata_));
-  CosmosAddressRes_descriptor_ = file->message_type(10);
-  static const int CosmosAddressRes_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosAddressRes, address_),
-  };
-  CosmosAddressRes_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      CosmosAddressRes_descriptor_,
-      CosmosAddressRes::internal_default_instance(),
-      CosmosAddressRes_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(CosmosAddressRes),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosAddressRes, _internal_metadata_));
+      sizeof(CosmosTxOutput),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CosmosTxOutput, _internal_metadata_));
 }
 
 namespace {
@@ -258,32 +126,9 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       StdFee_descriptor_, StdFee::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      SignData_descriptor_, SignData::internal_default_instance());
+      CosmosTxInput_descriptor_, CosmosTxInput::internal_default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Msg_descriptor_, Msg::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      MsgValue_descriptor_, MsgValue::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-        MsgValue_AddressesEntry_descriptor_,
-        ::google::protobuf::internal::MapEntry<
-            ::std::string,
-            ::std::string,
-            ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-            ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-            0>::CreateDefaultInstance(
-                MsgValue_AddressesEntry_descriptor_));
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      MsgDelegateValue_descriptor_, MsgDelegateValue::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      MsgSendValue_descriptor_, MsgSendValue::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      CosmosTxReq_descriptor_, CosmosTxReq::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      CosmosTxRes_descriptor_, CosmosTxRes::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      CosmosAddressReq_descriptor_, CosmosAddressReq::internal_default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      CosmosAddressRes_descriptor_, CosmosAddressRes::internal_default_instance());
+      CosmosTxOutput_descriptor_, CosmosTxOutput::internal_default_instance());
 }
 
 }  // namespace
@@ -293,24 +138,10 @@ void protobuf_ShutdownFile_cosmos_2eproto() {
   delete Coin_reflection_;
   StdFee_default_instance_.Shutdown();
   delete StdFee_reflection_;
-  SignData_default_instance_.Shutdown();
-  delete SignData_reflection_;
-  Msg_default_instance_.Shutdown();
-  delete Msg_reflection_;
-  MsgValue_default_instance_.Shutdown();
-  delete MsgValue_reflection_;
-  MsgDelegateValue_default_instance_.Shutdown();
-  delete MsgDelegateValue_reflection_;
-  MsgSendValue_default_instance_.Shutdown();
-  delete MsgSendValue_reflection_;
-  CosmosTxReq_default_instance_.Shutdown();
-  delete CosmosTxReq_reflection_;
-  CosmosTxRes_default_instance_.Shutdown();
-  delete CosmosTxRes_reflection_;
-  CosmosAddressReq_default_instance_.Shutdown();
-  delete CosmosAddressReq_reflection_;
-  CosmosAddressRes_default_instance_.Shutdown();
-  delete CosmosAddressRes_reflection_;
+  CosmosTxInput_default_instance_.Shutdown();
+  delete CosmosTxInput_reflection_;
+  CosmosTxOutput_default_instance_.Shutdown();
+  delete CosmosTxOutput_reflection_;
 }
 
 void protobuf_InitDefaults_cosmos_2eproto_impl() {
@@ -321,34 +152,13 @@ void protobuf_InitDefaults_cosmos_2eproto_impl() {
   ::google::protobuf::internal::GetEmptyString();
   StdFee_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
-  SignData_default_instance_.DefaultConstruct();
+  CosmosTxInput_default_instance_.DefaultConstruct();
   ::google::protobuf::internal::GetEmptyString();
-  Msg_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  MsgValue_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  MsgDelegateValue_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  MsgSendValue_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  CosmosTxReq_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  CosmosTxRes_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  CosmosAddressReq_default_instance_.DefaultConstruct();
-  ::google::protobuf::internal::GetEmptyString();
-  CosmosAddressRes_default_instance_.DefaultConstruct();
+  CosmosTxOutput_default_instance_.DefaultConstruct();
   Coin_default_instance_.get_mutable()->InitAsDefaultInstance();
   StdFee_default_instance_.get_mutable()->InitAsDefaultInstance();
-  SignData_default_instance_.get_mutable()->InitAsDefaultInstance();
-  Msg_default_instance_.get_mutable()->InitAsDefaultInstance();
-  MsgValue_default_instance_.get_mutable()->InitAsDefaultInstance();
-  MsgDelegateValue_default_instance_.get_mutable()->InitAsDefaultInstance();
-  MsgSendValue_default_instance_.get_mutable()->InitAsDefaultInstance();
-  CosmosTxReq_default_instance_.get_mutable()->InitAsDefaultInstance();
-  CosmosTxRes_default_instance_.get_mutable()->InitAsDefaultInstance();
-  CosmosAddressReq_default_instance_.get_mutable()->InitAsDefaultInstance();
-  CosmosAddressRes_default_instance_.get_mutable()->InitAsDefaultInstance();
+  CosmosTxInput_default_instance_.get_mutable()->InitAsDefaultInstance();
+  CosmosTxOutput_default_instance_.get_mutable()->InitAsDefaultInstance();
 }
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_InitDefaults_cosmos_2eproto_once_);
@@ -364,27 +174,11 @@ void protobuf_AddDesc_cosmos_2eproto_impl() {
     "\n\014cosmos.proto\022\tcosmosapi\"%\n\004Coin\022\016\n\006amo"
     "unt\030\001 \001(\t\022\r\n\005denom\030\002 \001(\t\"6\n\006StdFee\022\037\n\006am"
     "ount\030\001 \003(\0132\017.cosmosapi.Coin\022\013\n\003gas\030\002 \001(\t"
-    "\"\222\001\n\010SignData\022\026\n\016account_number\030\001 \001(\t\022\020\n"
-    "\010chain_id\030\002 \001(\t\022\036\n\003fee\030\003 \001(\0132\021.cosmosapi"
-    ".StdFee\022\014\n\004memo\030\004 \001(\t\022\034\n\004msgs\030\005 \003(\0132\016.co"
-    "smosapi.Msg\022\020\n\010sequence\030\006 \001(\t\"7\n\003Msg\022\014\n\004"
-    "type\030\001 \001(\t\022\"\n\005value\030\002 \001(\0132\023.cosmosapi.Ms"
-    "gValue\"\224\001\n\010MsgValue\022\037\n\006amount\030\001 \003(\0132\017.co"
-    "smosapi.Coin\0225\n\taddresses\030\002 \003(\0132\".cosmos"
-    "api.MsgValue.AddressesEntry\0320\n\016Addresses"
-    "Entry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"i\n"
-    "\020MsgDelegateValue\022\037\n\006amount\030\001 \003(\0132\017.cosm"
-    "osapi.Coin\022\031\n\021delegator_address\030\002 \001(\t\022\031\n"
-    "\021validator_address\030\003 \001(\t\"Y\n\014MsgSendValue"
-    "\022\037\n\006amount\030\001 \003(\0132\017.cosmosapi.Coin\022\024\n\014fro"
-    "m_address\030\002 \001(\t\022\022\n\nto_address\030\003 \001(\t\"\212\001\n\013"
-    "CosmosTxReq\022%\n\010signData\030\001 \001(\0132\023.cosmosap"
-    "i.SignData\022\014\n\004path\030\002 \001(\t\022\023\n\013payment_dis\030"
-    "\003 \001(\t\022\016\n\006to_dis\030\004 \001(\t\022\020\n\010from_dis\030\005 \001(\t\022"
-    "\017\n\007fee_dis\030\006 \001(\t\"/\n\013CosmosTxRes\022\017\n\007tx_da"
-    "ta\030\001 \001(\t\022\017\n\007tx_hash\030\002 \001(\t\" \n\020CosmosAddre"
-    "ssReq\022\014\n\004path\030\001 \001(\t\"#\n\020CosmosAddressRes\022"
-    "\017\n\007address\030\001 \001(\tb\006proto3", 944);
+    "\"\207\001\n\rCosmosTxInput\022\026\n\016account_number\030\001 \001"
+    "(\t\022\020\n\010chain_id\030\002 \001(\t\022\036\n\003fee\030\003 \001(\0132\021.cosm"
+    "osapi.StdFee\022\014\n\004memo\030\004 \001(\t\022\014\n\004msgs\030\005 \001(\t"
+    "\022\020\n\010sequence\030\006 \001(\t\"3\n\016CosmosTxOutput\022\021\n\t"
+    "signature\030\001 \001(\t\022\016\n\006txHash\030\002 \001(\tb\006proto3", 319);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "cosmos.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_cosmos_2eproto);
@@ -1166,99 +960,101 @@ inline const StdFee* StdFee::internal_default_instance() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int SignData::kAccountNumberFieldNumber;
-const int SignData::kChainIdFieldNumber;
-const int SignData::kFeeFieldNumber;
-const int SignData::kMemoFieldNumber;
-const int SignData::kMsgsFieldNumber;
-const int SignData::kSequenceFieldNumber;
+const int CosmosTxInput::kAccountNumberFieldNumber;
+const int CosmosTxInput::kChainIdFieldNumber;
+const int CosmosTxInput::kFeeFieldNumber;
+const int CosmosTxInput::kMemoFieldNumber;
+const int CosmosTxInput::kMsgsFieldNumber;
+const int CosmosTxInput::kSequenceFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-SignData::SignData()
+CosmosTxInput::CosmosTxInput()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (this != internal_default_instance()) protobuf_InitDefaults_cosmos_2eproto();
   SharedCtor();
-  // @@protoc_insertion_point(constructor:cosmosapi.SignData)
+  // @@protoc_insertion_point(constructor:cosmosapi.CosmosTxInput)
 }
 
-void SignData::InitAsDefaultInstance() {
+void CosmosTxInput::InitAsDefaultInstance() {
   fee_ = const_cast< ::cosmosapi::StdFee*>(
       ::cosmosapi::StdFee::internal_default_instance());
 }
 
-SignData::SignData(const SignData& from)
+CosmosTxInput::CosmosTxInput(const CosmosTxInput& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
   UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:cosmosapi.SignData)
+  // @@protoc_insertion_point(copy_constructor:cosmosapi.CosmosTxInput)
 }
 
-void SignData::SharedCtor() {
+void CosmosTxInput::SharedCtor() {
   account_number_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   chain_id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   memo_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  msgs_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   sequence_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   fee_ = NULL;
   _cached_size_ = 0;
 }
 
-SignData::~SignData() {
-  // @@protoc_insertion_point(destructor:cosmosapi.SignData)
+CosmosTxInput::~CosmosTxInput() {
+  // @@protoc_insertion_point(destructor:cosmosapi.CosmosTxInput)
   SharedDtor();
 }
 
-void SignData::SharedDtor() {
+void CosmosTxInput::SharedDtor() {
   account_number_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   chain_id_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   memo_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  msgs_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   sequence_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != &SignData_default_instance_.get()) {
+  if (this != &CosmosTxInput_default_instance_.get()) {
     delete fee_;
   }
 }
 
-void SignData::SetCachedSize(int size) const {
+void CosmosTxInput::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* SignData::descriptor() {
+const ::google::protobuf::Descriptor* CosmosTxInput::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return SignData_descriptor_;
+  return CosmosTxInput_descriptor_;
 }
 
-const SignData& SignData::default_instance() {
+const CosmosTxInput& CosmosTxInput::default_instance() {
   protobuf_InitDefaults_cosmos_2eproto();
   return *internal_default_instance();
 }
 
-::google::protobuf::internal::ExplicitlyConstructed<SignData> SignData_default_instance_;
+::google::protobuf::internal::ExplicitlyConstructed<CosmosTxInput> CosmosTxInput_default_instance_;
 
-SignData* SignData::New(::google::protobuf::Arena* arena) const {
-  SignData* n = new SignData;
+CosmosTxInput* CosmosTxInput::New(::google::protobuf::Arena* arena) const {
+  CosmosTxInput* n = new CosmosTxInput;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void SignData::Clear() {
-// @@protoc_insertion_point(message_clear_start:cosmosapi.SignData)
+void CosmosTxInput::Clear() {
+// @@protoc_insertion_point(message_clear_start:cosmosapi.CosmosTxInput)
   account_number_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   chain_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (GetArenaNoVirtual() == NULL && fee_ != NULL) delete fee_;
   fee_ = NULL;
   memo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  msgs_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   sequence_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  msgs_.Clear();
 }
 
-bool SignData::MergePartialFromCodedStream(
+bool CosmosTxInput::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:cosmosapi.SignData)
+  // @@protoc_insertion_point(parse_start:cosmosapi.CosmosTxInput)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -1272,7 +1068,7 @@ bool SignData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->account_number().data(), this->account_number().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.SignData.account_number"));
+            "cosmosapi.CosmosTxInput.account_number"));
         } else {
           goto handle_unusual;
         }
@@ -1289,7 +1085,7 @@ bool SignData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->chain_id().data(), this->chain_id().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.SignData.chain_id"));
+            "cosmosapi.CosmosTxInput.chain_id"));
         } else {
           goto handle_unusual;
         }
@@ -1319,7 +1115,7 @@ bool SignData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->memo().data(), this->memo().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.SignData.memo"));
+            "cosmosapi.CosmosTxInput.memo"));
         } else {
           goto handle_unusual;
         }
@@ -1327,19 +1123,19 @@ bool SignData::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .cosmosapi.Msg msgs = 5;
+      // optional string msgs = 5;
       case 5: {
         if (tag == 42) {
          parse_msgs:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_msgs:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_msgs()));
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_msgs()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->msgs().data(), this->msgs().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "cosmosapi.CosmosTxInput.msgs"));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(42)) goto parse_loop_msgs;
-        input->UnsafeDecrementRecursionDepth();
         if (input->ExpectTag(50)) goto parse_sequence;
         break;
       }
@@ -1353,7 +1149,7 @@ bool SignData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->sequence().data(), this->sequence().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.SignData.sequence"));
+            "cosmosapi.CosmosTxInput.sequence"));
         } else {
           goto handle_unusual;
         }
@@ -1374,23 +1170,23 @@ bool SignData::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:cosmosapi.SignData)
+  // @@protoc_insertion_point(parse_success:cosmosapi.CosmosTxInput)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:cosmosapi.SignData)
+  // @@protoc_insertion_point(parse_failure:cosmosapi.CosmosTxInput)
   return false;
 #undef DO_
 }
 
-void SignData::SerializeWithCachedSizes(
+void CosmosTxInput::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:cosmosapi.SignData)
+  // @@protoc_insertion_point(serialize_start:cosmosapi.CosmosTxInput)
   // optional string account_number = 1;
   if (this->account_number().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->account_number().data(), this->account_number().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.SignData.account_number");
+      "cosmosapi.CosmosTxInput.account_number");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->account_number(), output);
   }
@@ -1400,7 +1196,7 @@ void SignData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->chain_id().data(), this->chain_id().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.SignData.chain_id");
+      "cosmosapi.CosmosTxInput.chain_id");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->chain_id(), output);
   }
@@ -1416,15 +1212,19 @@ void SignData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->memo().data(), this->memo().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.SignData.memo");
+      "cosmosapi.CosmosTxInput.memo");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->memo(), output);
   }
 
-  // repeated .cosmosapi.Msg msgs = 5;
-  for (unsigned int i = 0, n = this->msgs_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      5, this->msgs(i), output);
+  // optional string msgs = 5;
+  if (this->msgs().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->msgs().data(), this->msgs().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "cosmosapi.CosmosTxInput.msgs");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->msgs(), output);
   }
 
   // optional string sequence = 6;
@@ -1432,24 +1232,24 @@ void SignData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sequence().data(), this->sequence().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.SignData.sequence");
+      "cosmosapi.CosmosTxInput.sequence");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       6, this->sequence(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:cosmosapi.SignData)
+  // @@protoc_insertion_point(serialize_end:cosmosapi.CosmosTxInput)
 }
 
-::google::protobuf::uint8* SignData::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* CosmosTxInput::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:cosmosapi.SignData)
+  // @@protoc_insertion_point(serialize_to_array_start:cosmosapi.CosmosTxInput)
   // optional string account_number = 1;
   if (this->account_number().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->account_number().data(), this->account_number().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.SignData.account_number");
+      "cosmosapi.CosmosTxInput.account_number");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->account_number(), target);
@@ -1460,7 +1260,7 @@ void SignData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->chain_id().data(), this->chain_id().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.SignData.chain_id");
+      "cosmosapi.CosmosTxInput.chain_id");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->chain_id(), target);
@@ -1478,17 +1278,21 @@ void SignData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->memo().data(), this->memo().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.SignData.memo");
+      "cosmosapi.CosmosTxInput.memo");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         4, this->memo(), target);
   }
 
-  // repeated .cosmosapi.Msg msgs = 5;
-  for (unsigned int i = 0, n = this->msgs_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        5, this->msgs(i), false, target);
+  // optional string msgs = 5;
+  if (this->msgs().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->msgs().data(), this->msgs().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "cosmosapi.CosmosTxInput.msgs");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->msgs(), target);
   }
 
   // optional string sequence = 6;
@@ -1496,18 +1300,18 @@ void SignData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sequence().data(), this->sequence().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.SignData.sequence");
+      "cosmosapi.CosmosTxInput.sequence");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         6, this->sequence(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:cosmosapi.SignData)
+  // @@protoc_insertion_point(serialize_to_array_end:cosmosapi.CosmosTxInput)
   return target;
 }
 
-size_t SignData::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cosmosapi.SignData)
+size_t CosmosTxInput::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:cosmosapi.CosmosTxInput)
   size_t total_size = 0;
 
   // optional string account_number = 1;
@@ -1538,22 +1342,18 @@ size_t SignData::ByteSizeLong() const {
         this->memo());
   }
 
+  // optional string msgs = 5;
+  if (this->msgs().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->msgs());
+  }
+
   // optional string sequence = 6;
   if (this->sequence().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->sequence());
-  }
-
-  // repeated .cosmosapi.Msg msgs = 5;
-  {
-    unsigned int count = this->msgs_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->msgs(i));
-    }
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -1563,23 +1363,23 @@ size_t SignData::ByteSizeLong() const {
   return total_size;
 }
 
-void SignData::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:cosmosapi.SignData)
+void CosmosTxInput::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:cosmosapi.CosmosTxInput)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const SignData* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const SignData>(
+  const CosmosTxInput* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const CosmosTxInput>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:cosmosapi.SignData)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:cosmosapi.CosmosTxInput)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:cosmosapi.SignData)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:cosmosapi.CosmosTxInput)
     UnsafeMergeFrom(*source);
   }
 }
 
-void SignData::MergeFrom(const SignData& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cosmosapi.SignData)
+void CosmosTxInput::MergeFrom(const CosmosTxInput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:cosmosapi.CosmosTxInput)
   if (GOOGLE_PREDICT_TRUE(&from != this)) {
     UnsafeMergeFrom(from);
   } else {
@@ -1587,9 +1387,8 @@ void SignData::MergeFrom(const SignData& from) {
   }
 }
 
-void SignData::UnsafeMergeFrom(const SignData& from) {
+void CosmosTxInput::UnsafeMergeFrom(const CosmosTxInput& from) {
   GOOGLE_DCHECK(&from != this);
-  msgs_.MergeFrom(from.msgs_);
   if (from.account_number().size() > 0) {
 
     account_number_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.account_number_);
@@ -1605,174 +1404,178 @@ void SignData::UnsafeMergeFrom(const SignData& from) {
 
     memo_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.memo_);
   }
+  if (from.msgs().size() > 0) {
+
+    msgs_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.msgs_);
+  }
   if (from.sequence().size() > 0) {
 
     sequence_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sequence_);
   }
 }
 
-void SignData::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:cosmosapi.SignData)
+void CosmosTxInput::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:cosmosapi.CosmosTxInput)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void SignData::CopyFrom(const SignData& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cosmosapi.SignData)
+void CosmosTxInput::CopyFrom(const CosmosTxInput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:cosmosapi.CosmosTxInput)
   if (&from == this) return;
   Clear();
   UnsafeMergeFrom(from);
 }
 
-bool SignData::IsInitialized() const {
+bool CosmosTxInput::IsInitialized() const {
 
   return true;
 }
 
-void SignData::Swap(SignData* other) {
+void CosmosTxInput::Swap(CosmosTxInput* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void SignData::InternalSwap(SignData* other) {
+void CosmosTxInput::InternalSwap(CosmosTxInput* other) {
   account_number_.Swap(&other->account_number_);
   chain_id_.Swap(&other->chain_id_);
   std::swap(fee_, other->fee_);
   memo_.Swap(&other->memo_);
-  msgs_.UnsafeArenaSwap(&other->msgs_);
+  msgs_.Swap(&other->msgs_);
   sequence_.Swap(&other->sequence_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata SignData::GetMetadata() const {
+::google::protobuf::Metadata CosmosTxInput::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = SignData_descriptor_;
-  metadata.reflection = SignData_reflection_;
+  metadata.descriptor = CosmosTxInput_descriptor_;
+  metadata.reflection = CosmosTxInput_reflection_;
   return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// SignData
+// CosmosTxInput
 
 // optional string account_number = 1;
-void SignData::clear_account_number() {
+void CosmosTxInput::clear_account_number() {
   account_number_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& SignData::account_number() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.SignData.account_number)
+const ::std::string& CosmosTxInput::account_number() const {
+  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxInput.account_number)
   return account_number_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void SignData::set_account_number(const ::std::string& value) {
+void CosmosTxInput::set_account_number(const ::std::string& value) {
   
   account_number_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.SignData.account_number)
+  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxInput.account_number)
 }
-void SignData::set_account_number(const char* value) {
+void CosmosTxInput::set_account_number(const char* value) {
   
   account_number_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.SignData.account_number)
+  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxInput.account_number)
 }
-void SignData::set_account_number(const char* value, size_t size) {
+void CosmosTxInput::set_account_number(const char* value, size_t size) {
   
   account_number_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.SignData.account_number)
+  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxInput.account_number)
 }
-::std::string* SignData::mutable_account_number() {
+::std::string* CosmosTxInput::mutable_account_number() {
   
-  // @@protoc_insertion_point(field_mutable:cosmosapi.SignData.account_number)
+  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxInput.account_number)
   return account_number_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* SignData::release_account_number() {
-  // @@protoc_insertion_point(field_release:cosmosapi.SignData.account_number)
+::std::string* CosmosTxInput::release_account_number() {
+  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxInput.account_number)
   
   return account_number_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void SignData::set_allocated_account_number(::std::string* account_number) {
+void CosmosTxInput::set_allocated_account_number(::std::string* account_number) {
   if (account_number != NULL) {
     
   } else {
     
   }
   account_number_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), account_number);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.SignData.account_number)
+  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxInput.account_number)
 }
 
 // optional string chain_id = 2;
-void SignData::clear_chain_id() {
+void CosmosTxInput::clear_chain_id() {
   chain_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& SignData::chain_id() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.SignData.chain_id)
+const ::std::string& CosmosTxInput::chain_id() const {
+  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxInput.chain_id)
   return chain_id_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void SignData::set_chain_id(const ::std::string& value) {
+void CosmosTxInput::set_chain_id(const ::std::string& value) {
   
   chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.SignData.chain_id)
+  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxInput.chain_id)
 }
-void SignData::set_chain_id(const char* value) {
+void CosmosTxInput::set_chain_id(const char* value) {
   
   chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.SignData.chain_id)
+  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxInput.chain_id)
 }
-void SignData::set_chain_id(const char* value, size_t size) {
+void CosmosTxInput::set_chain_id(const char* value, size_t size) {
   
   chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.SignData.chain_id)
+  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxInput.chain_id)
 }
-::std::string* SignData::mutable_chain_id() {
+::std::string* CosmosTxInput::mutable_chain_id() {
   
-  // @@protoc_insertion_point(field_mutable:cosmosapi.SignData.chain_id)
+  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxInput.chain_id)
   return chain_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* SignData::release_chain_id() {
-  // @@protoc_insertion_point(field_release:cosmosapi.SignData.chain_id)
+::std::string* CosmosTxInput::release_chain_id() {
+  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxInput.chain_id)
   
   return chain_id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void SignData::set_allocated_chain_id(::std::string* chain_id) {
+void CosmosTxInput::set_allocated_chain_id(::std::string* chain_id) {
   if (chain_id != NULL) {
     
   } else {
     
   }
   chain_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chain_id);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.SignData.chain_id)
+  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxInput.chain_id)
 }
 
 // optional .cosmosapi.StdFee fee = 3;
-bool SignData::has_fee() const {
+bool CosmosTxInput::has_fee() const {
   return this != internal_default_instance() && fee_ != NULL;
 }
-void SignData::clear_fee() {
+void CosmosTxInput::clear_fee() {
   if (GetArenaNoVirtual() == NULL && fee_ != NULL) delete fee_;
   fee_ = NULL;
 }
-const ::cosmosapi::StdFee& SignData::fee() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.SignData.fee)
+const ::cosmosapi::StdFee& CosmosTxInput::fee() const {
+  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxInput.fee)
   return fee_ != NULL ? *fee_
                          : *::cosmosapi::StdFee::internal_default_instance();
 }
-::cosmosapi::StdFee* SignData::mutable_fee() {
+::cosmosapi::StdFee* CosmosTxInput::mutable_fee() {
   
   if (fee_ == NULL) {
     fee_ = new ::cosmosapi::StdFee;
   }
-  // @@protoc_insertion_point(field_mutable:cosmosapi.SignData.fee)
+  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxInput.fee)
   return fee_;
 }
-::cosmosapi::StdFee* SignData::release_fee() {
-  // @@protoc_insertion_point(field_release:cosmosapi.SignData.fee)
+::cosmosapi::StdFee* CosmosTxInput::release_fee() {
+  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxInput.fee)
   
   ::cosmosapi::StdFee* temp = fee_;
   fee_ = NULL;
   return temp;
 }
-void SignData::set_allocated_fee(::cosmosapi::StdFee* fee) {
+void CosmosTxInput::set_allocated_fee(::cosmosapi::StdFee* fee) {
   delete fee_;
   fee_ = fee;
   if (fee) {
@@ -1780,241 +1583,254 @@ void SignData::set_allocated_fee(::cosmosapi::StdFee* fee) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.SignData.fee)
+  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxInput.fee)
 }
 
 // optional string memo = 4;
-void SignData::clear_memo() {
+void CosmosTxInput::clear_memo() {
   memo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& SignData::memo() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.SignData.memo)
+const ::std::string& CosmosTxInput::memo() const {
+  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxInput.memo)
   return memo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void SignData::set_memo(const ::std::string& value) {
+void CosmosTxInput::set_memo(const ::std::string& value) {
   
   memo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.SignData.memo)
+  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxInput.memo)
 }
-void SignData::set_memo(const char* value) {
+void CosmosTxInput::set_memo(const char* value) {
   
   memo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.SignData.memo)
+  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxInput.memo)
 }
-void SignData::set_memo(const char* value, size_t size) {
+void CosmosTxInput::set_memo(const char* value, size_t size) {
   
   memo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.SignData.memo)
+  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxInput.memo)
 }
-::std::string* SignData::mutable_memo() {
+::std::string* CosmosTxInput::mutable_memo() {
   
-  // @@protoc_insertion_point(field_mutable:cosmosapi.SignData.memo)
+  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxInput.memo)
   return memo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* SignData::release_memo() {
-  // @@protoc_insertion_point(field_release:cosmosapi.SignData.memo)
+::std::string* CosmosTxInput::release_memo() {
+  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxInput.memo)
   
   return memo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void SignData::set_allocated_memo(::std::string* memo) {
+void CosmosTxInput::set_allocated_memo(::std::string* memo) {
   if (memo != NULL) {
     
   } else {
     
   }
   memo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), memo);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.SignData.memo)
+  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxInput.memo)
 }
 
-// repeated .cosmosapi.Msg msgs = 5;
-int SignData::msgs_size() const {
-  return msgs_.size();
+// optional string msgs = 5;
+void CosmosTxInput::clear_msgs() {
+  msgs_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void SignData::clear_msgs() {
-  msgs_.Clear();
+const ::std::string& CosmosTxInput::msgs() const {
+  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxInput.msgs)
+  return msgs_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::cosmosapi::Msg& SignData::msgs(int index) const {
-  // @@protoc_insertion_point(field_get:cosmosapi.SignData.msgs)
-  return msgs_.Get(index);
+void CosmosTxInput::set_msgs(const ::std::string& value) {
+  
+  msgs_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxInput.msgs)
 }
-::cosmosapi::Msg* SignData::mutable_msgs(int index) {
-  // @@protoc_insertion_point(field_mutable:cosmosapi.SignData.msgs)
-  return msgs_.Mutable(index);
+void CosmosTxInput::set_msgs(const char* value) {
+  
+  msgs_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxInput.msgs)
 }
-::cosmosapi::Msg* SignData::add_msgs() {
-  // @@protoc_insertion_point(field_add:cosmosapi.SignData.msgs)
-  return msgs_.Add();
+void CosmosTxInput::set_msgs(const char* value, size_t size) {
+  
+  msgs_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxInput.msgs)
 }
-::google::protobuf::RepeatedPtrField< ::cosmosapi::Msg >*
-SignData::mutable_msgs() {
-  // @@protoc_insertion_point(field_mutable_list:cosmosapi.SignData.msgs)
-  return &msgs_;
+::std::string* CosmosTxInput::mutable_msgs() {
+  
+  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxInput.msgs)
+  return msgs_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::google::protobuf::RepeatedPtrField< ::cosmosapi::Msg >&
-SignData::msgs() const {
-  // @@protoc_insertion_point(field_list:cosmosapi.SignData.msgs)
-  return msgs_;
+::std::string* CosmosTxInput::release_msgs() {
+  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxInput.msgs)
+  
+  return msgs_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void CosmosTxInput::set_allocated_msgs(::std::string* msgs) {
+  if (msgs != NULL) {
+    
+  } else {
+    
+  }
+  msgs_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), msgs);
+  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxInput.msgs)
 }
 
 // optional string sequence = 6;
-void SignData::clear_sequence() {
+void CosmosTxInput::clear_sequence() {
   sequence_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& SignData::sequence() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.SignData.sequence)
+const ::std::string& CosmosTxInput::sequence() const {
+  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxInput.sequence)
   return sequence_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void SignData::set_sequence(const ::std::string& value) {
+void CosmosTxInput::set_sequence(const ::std::string& value) {
   
   sequence_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.SignData.sequence)
+  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxInput.sequence)
 }
-void SignData::set_sequence(const char* value) {
+void CosmosTxInput::set_sequence(const char* value) {
   
   sequence_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.SignData.sequence)
+  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxInput.sequence)
 }
-void SignData::set_sequence(const char* value, size_t size) {
+void CosmosTxInput::set_sequence(const char* value, size_t size) {
   
   sequence_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.SignData.sequence)
+  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxInput.sequence)
 }
-::std::string* SignData::mutable_sequence() {
+::std::string* CosmosTxInput::mutable_sequence() {
   
-  // @@protoc_insertion_point(field_mutable:cosmosapi.SignData.sequence)
+  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxInput.sequence)
   return sequence_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* SignData::release_sequence() {
-  // @@protoc_insertion_point(field_release:cosmosapi.SignData.sequence)
+::std::string* CosmosTxInput::release_sequence() {
+  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxInput.sequence)
   
   return sequence_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void SignData::set_allocated_sequence(::std::string* sequence) {
+void CosmosTxInput::set_allocated_sequence(::std::string* sequence) {
   if (sequence != NULL) {
     
   } else {
     
   }
   sequence_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sequence);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.SignData.sequence)
+  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxInput.sequence)
 }
 
-inline const SignData* SignData::internal_default_instance() {
-  return &SignData_default_instance_.get();
+inline const CosmosTxInput* CosmosTxInput::internal_default_instance() {
+  return &CosmosTxInput_default_instance_.get();
 }
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Msg::kTypeFieldNumber;
-const int Msg::kValueFieldNumber;
+const int CosmosTxOutput::kSignatureFieldNumber;
+const int CosmosTxOutput::kTxHashFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-Msg::Msg()
+CosmosTxOutput::CosmosTxOutput()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (this != internal_default_instance()) protobuf_InitDefaults_cosmos_2eproto();
   SharedCtor();
-  // @@protoc_insertion_point(constructor:cosmosapi.Msg)
+  // @@protoc_insertion_point(constructor:cosmosapi.CosmosTxOutput)
 }
 
-void Msg::InitAsDefaultInstance() {
-  value_ = const_cast< ::cosmosapi::MsgValue*>(
-      ::cosmosapi::MsgValue::internal_default_instance());
+void CosmosTxOutput::InitAsDefaultInstance() {
 }
 
-Msg::Msg(const Msg& from)
+CosmosTxOutput::CosmosTxOutput(const CosmosTxOutput& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
   UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:cosmosapi.Msg)
+  // @@protoc_insertion_point(copy_constructor:cosmosapi.CosmosTxOutput)
 }
 
-void Msg::SharedCtor() {
-  type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  value_ = NULL;
+void CosmosTxOutput::SharedCtor() {
+  signature_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  txhash_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _cached_size_ = 0;
 }
 
-Msg::~Msg() {
-  // @@protoc_insertion_point(destructor:cosmosapi.Msg)
+CosmosTxOutput::~CosmosTxOutput() {
+  // @@protoc_insertion_point(destructor:cosmosapi.CosmosTxOutput)
   SharedDtor();
 }
 
-void Msg::SharedDtor() {
-  type_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != &Msg_default_instance_.get()) {
-    delete value_;
-  }
+void CosmosTxOutput::SharedDtor() {
+  signature_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  txhash_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-void Msg::SetCachedSize(int size) const {
+void CosmosTxOutput::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* Msg::descriptor() {
+const ::google::protobuf::Descriptor* CosmosTxOutput::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return Msg_descriptor_;
+  return CosmosTxOutput_descriptor_;
 }
 
-const Msg& Msg::default_instance() {
+const CosmosTxOutput& CosmosTxOutput::default_instance() {
   protobuf_InitDefaults_cosmos_2eproto();
   return *internal_default_instance();
 }
 
-::google::protobuf::internal::ExplicitlyConstructed<Msg> Msg_default_instance_;
+::google::protobuf::internal::ExplicitlyConstructed<CosmosTxOutput> CosmosTxOutput_default_instance_;
 
-Msg* Msg::New(::google::protobuf::Arena* arena) const {
-  Msg* n = new Msg;
+CosmosTxOutput* CosmosTxOutput::New(::google::protobuf::Arena* arena) const {
+  CosmosTxOutput* n = new CosmosTxOutput;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void Msg::Clear() {
-// @@protoc_insertion_point(message_clear_start:cosmosapi.Msg)
-  type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (GetArenaNoVirtual() == NULL && value_ != NULL) delete value_;
-  value_ = NULL;
+void CosmosTxOutput::Clear() {
+// @@protoc_insertion_point(message_clear_start:cosmosapi.CosmosTxOutput)
+  signature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  txhash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-bool Msg::MergePartialFromCodedStream(
+bool CosmosTxOutput::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:cosmosapi.Msg)
+  // @@protoc_insertion_point(parse_start:cosmosapi.CosmosTxOutput)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string type = 1;
+      // optional string signature = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_type()));
+                input, this->mutable_signature()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->type().data(), this->type().length(),
+            this->signature().data(), this->signature().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.Msg.type"));
+            "cosmosapi.CosmosTxOutput.signature"));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_value;
+        if (input->ExpectTag(18)) goto parse_txHash;
         break;
       }
 
-      // optional .cosmosapi.MsgValue value = 2;
+      // optional string txHash = 2;
       case 2: {
         if (tag == 18) {
-         parse_value:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_value()));
+         parse_txHash:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_txhash()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->txhash().data(), this->txhash().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "cosmosapi.CosmosTxOutput.txHash"));
         } else {
           goto handle_unusual;
         }
@@ -2035,78 +1851,86 @@ bool Msg::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:cosmosapi.Msg)
+  // @@protoc_insertion_point(parse_success:cosmosapi.CosmosTxOutput)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:cosmosapi.Msg)
+  // @@protoc_insertion_point(parse_failure:cosmosapi.CosmosTxOutput)
   return false;
 #undef DO_
 }
 
-void Msg::SerializeWithCachedSizes(
+void CosmosTxOutput::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:cosmosapi.Msg)
-  // optional string type = 1;
-  if (this->type().size() > 0) {
+  // @@protoc_insertion_point(serialize_start:cosmosapi.CosmosTxOutput)
+  // optional string signature = 1;
+  if (this->signature().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->type().data(), this->type().length(),
+      this->signature().data(), this->signature().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.Msg.type");
+      "cosmosapi.CosmosTxOutput.signature");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->type(), output);
+      1, this->signature(), output);
   }
 
-  // optional .cosmosapi.MsgValue value = 2;
-  if (this->has_value()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->value_, output);
+  // optional string txHash = 2;
+  if (this->txhash().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->txhash().data(), this->txhash().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "cosmosapi.CosmosTxOutput.txHash");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->txhash(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:cosmosapi.Msg)
+  // @@protoc_insertion_point(serialize_end:cosmosapi.CosmosTxOutput)
 }
 
-::google::protobuf::uint8* Msg::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* CosmosTxOutput::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:cosmosapi.Msg)
-  // optional string type = 1;
-  if (this->type().size() > 0) {
+  // @@protoc_insertion_point(serialize_to_array_start:cosmosapi.CosmosTxOutput)
+  // optional string signature = 1;
+  if (this->signature().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->type().data(), this->type().length(),
+      this->signature().data(), this->signature().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.Msg.type");
+      "cosmosapi.CosmosTxOutput.signature");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->type(), target);
+        1, this->signature(), target);
   }
 
-  // optional .cosmosapi.MsgValue value = 2;
-  if (this->has_value()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        2, *this->value_, false, target);
+  // optional string txHash = 2;
+  if (this->txhash().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->txhash().data(), this->txhash().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "cosmosapi.CosmosTxOutput.txHash");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->txhash(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:cosmosapi.Msg)
+  // @@protoc_insertion_point(serialize_to_array_end:cosmosapi.CosmosTxOutput)
   return target;
 }
 
-size_t Msg::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cosmosapi.Msg)
+size_t CosmosTxOutput::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:cosmosapi.CosmosTxOutput)
   size_t total_size = 0;
 
-  // optional string type = 1;
-  if (this->type().size() > 0) {
+  // optional string signature = 1;
+  if (this->signature().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->type());
+        this->signature());
   }
 
-  // optional .cosmosapi.MsgValue value = 2;
-  if (this->has_value()) {
+  // optional string txHash = 2;
+  if (this->txhash().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->value_);
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->txhash());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -2116,23 +1940,23 @@ size_t Msg::ByteSizeLong() const {
   return total_size;
 }
 
-void Msg::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:cosmosapi.Msg)
+void CosmosTxOutput::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:cosmosapi.CosmosTxOutput)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const Msg* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Msg>(
+  const CosmosTxOutput* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const CosmosTxOutput>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:cosmosapi.Msg)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:cosmosapi.CosmosTxOutput)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:cosmosapi.Msg)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:cosmosapi.CosmosTxOutput)
     UnsafeMergeFrom(*source);
   }
 }
 
-void Msg::MergeFrom(const Msg& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cosmosapi.Msg)
+void CosmosTxOutput::MergeFrom(const CosmosTxOutput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:cosmosapi.CosmosTxOutput)
   if (GOOGLE_PREDICT_TRUE(&from != this)) {
     UnsafeMergeFrom(from);
   } else {
@@ -2140,3244 +1964,149 @@ void Msg::MergeFrom(const Msg& from) {
   }
 }
 
-void Msg::UnsafeMergeFrom(const Msg& from) {
+void CosmosTxOutput::UnsafeMergeFrom(const CosmosTxOutput& from) {
   GOOGLE_DCHECK(&from != this);
-  if (from.type().size() > 0) {
+  if (from.signature().size() > 0) {
 
-    type_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.type_);
+    signature_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.signature_);
   }
-  if (from.has_value()) {
-    mutable_value()->::cosmosapi::MsgValue::MergeFrom(from.value());
+  if (from.txhash().size() > 0) {
+
+    txhash_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.txhash_);
   }
 }
 
-void Msg::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:cosmosapi.Msg)
+void CosmosTxOutput::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:cosmosapi.CosmosTxOutput)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void Msg::CopyFrom(const Msg& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cosmosapi.Msg)
+void CosmosTxOutput::CopyFrom(const CosmosTxOutput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:cosmosapi.CosmosTxOutput)
   if (&from == this) return;
   Clear();
   UnsafeMergeFrom(from);
 }
 
-bool Msg::IsInitialized() const {
+bool CosmosTxOutput::IsInitialized() const {
 
   return true;
 }
 
-void Msg::Swap(Msg* other) {
+void CosmosTxOutput::Swap(CosmosTxOutput* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void Msg::InternalSwap(Msg* other) {
-  type_.Swap(&other->type_);
-  std::swap(value_, other->value_);
+void CosmosTxOutput::InternalSwap(CosmosTxOutput* other) {
+  signature_.Swap(&other->signature_);
+  txhash_.Swap(&other->txhash_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata Msg::GetMetadata() const {
+::google::protobuf::Metadata CosmosTxOutput::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = Msg_descriptor_;
-  metadata.reflection = Msg_reflection_;
+  metadata.descriptor = CosmosTxOutput_descriptor_;
+  metadata.reflection = CosmosTxOutput_reflection_;
   return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// Msg
+// CosmosTxOutput
 
-// optional string type = 1;
-void Msg::clear_type() {
-  type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string signature = 1;
+void CosmosTxOutput::clear_signature() {
+  signature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& Msg::type() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.Msg.type)
-  return type_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+const ::std::string& CosmosTxOutput::signature() const {
+  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxOutput.signature)
+  return signature_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Msg::set_type(const ::std::string& value) {
+void CosmosTxOutput::set_signature(const ::std::string& value) {
   
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.Msg.type)
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxOutput.signature)
 }
-void Msg::set_type(const char* value) {
+void CosmosTxOutput::set_signature(const char* value) {
   
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.Msg.type)
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxOutput.signature)
 }
-void Msg::set_type(const char* value, size_t size) {
+void CosmosTxOutput::set_signature(const char* value, size_t size) {
   
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.Msg.type)
+  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxOutput.signature)
 }
-::std::string* Msg::mutable_type() {
+::std::string* CosmosTxOutput::mutable_signature() {
   
-  // @@protoc_insertion_point(field_mutable:cosmosapi.Msg.type)
-  return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxOutput.signature)
+  return signature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* Msg::release_type() {
-  // @@protoc_insertion_point(field_release:cosmosapi.Msg.type)
+::std::string* CosmosTxOutput::release_signature() {
+  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxOutput.signature)
   
-  return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return signature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Msg::set_allocated_type(::std::string* type) {
-  if (type != NULL) {
+void CosmosTxOutput::set_allocated_signature(::std::string* signature) {
+  if (signature != NULL) {
     
   } else {
     
   }
-  type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.Msg.type)
+  signature_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), signature);
+  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxOutput.signature)
 }
 
-// optional .cosmosapi.MsgValue value = 2;
-bool Msg::has_value() const {
-  return this != internal_default_instance() && value_ != NULL;
+// optional string txHash = 2;
+void CosmosTxOutput::clear_txhash() {
+  txhash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Msg::clear_value() {
-  if (GetArenaNoVirtual() == NULL && value_ != NULL) delete value_;
-  value_ = NULL;
+const ::std::string& CosmosTxOutput::txhash() const {
+  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxOutput.txHash)
+  return txhash_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::cosmosapi::MsgValue& Msg::value() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.Msg.value)
-  return value_ != NULL ? *value_
-                         : *::cosmosapi::MsgValue::internal_default_instance();
-}
-::cosmosapi::MsgValue* Msg::mutable_value() {
+void CosmosTxOutput::set_txhash(const ::std::string& value) {
   
-  if (value_ == NULL) {
-    value_ = new ::cosmosapi::MsgValue;
-  }
-  // @@protoc_insertion_point(field_mutable:cosmosapi.Msg.value)
-  return value_;
+  txhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxOutput.txHash)
 }
-::cosmosapi::MsgValue* Msg::release_value() {
-  // @@protoc_insertion_point(field_release:cosmosapi.Msg.value)
+void CosmosTxOutput::set_txhash(const char* value) {
   
-  ::cosmosapi::MsgValue* temp = value_;
-  value_ = NULL;
-  return temp;
+  txhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxOutput.txHash)
 }
-void Msg::set_allocated_value(::cosmosapi::MsgValue* value) {
-  delete value_;
-  value_ = value;
-  if (value) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.Msg.value)
-}
-
-inline const Msg* Msg::internal_default_instance() {
-  return &Msg_default_instance_.get();
-}
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int MsgValue::kAmountFieldNumber;
-const int MsgValue::kAddressesFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-MsgValue::MsgValue()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_cosmos_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:cosmosapi.MsgValue)
-}
-
-void MsgValue::InitAsDefaultInstance() {
-}
-
-MsgValue::MsgValue(const MsgValue& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:cosmosapi.MsgValue)
-}
-
-void MsgValue::SharedCtor() {
-  addresses_.SetAssignDescriptorCallback(
-      protobuf_AssignDescriptorsOnce);
-  addresses_.SetEntryDescriptor(
-      &::cosmosapi::MsgValue_AddressesEntry_descriptor_);
-  _cached_size_ = 0;
-}
-
-MsgValue::~MsgValue() {
-  // @@protoc_insertion_point(destructor:cosmosapi.MsgValue)
-  SharedDtor();
-}
-
-void MsgValue::SharedDtor() {
-}
-
-void MsgValue::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* MsgValue::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return MsgValue_descriptor_;
-}
-
-const MsgValue& MsgValue::default_instance() {
-  protobuf_InitDefaults_cosmos_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<MsgValue> MsgValue_default_instance_;
-
-MsgValue* MsgValue::New(::google::protobuf::Arena* arena) const {
-  MsgValue* n = new MsgValue;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void MsgValue::Clear() {
-// @@protoc_insertion_point(message_clear_start:cosmosapi.MsgValue)
-  amount_.Clear();
-  addresses_.Clear();
-}
-
-bool MsgValue::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:cosmosapi.MsgValue)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .cosmosapi.Coin amount = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_amount:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_amount()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(10)) goto parse_loop_amount;
-        if (input->ExpectTag(18)) goto parse_loop_addresses;
-        input->UnsafeDecrementRecursionDepth();
-        break;
-      }
-
-      // map<string, string> addresses = 2;
-      case 2: {
-        if (tag == 18) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_addresses:
-          MsgValue_AddressesEntry::Parser< ::google::protobuf::internal::MapField<
-              ::std::string, ::std::string,
-              ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-              ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-              0 >,
-            ::google::protobuf::Map< ::std::string, ::std::string > > parser(&addresses_);
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-              input, &parser));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            parser.key().data(), parser.key().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.MsgValue.AddressesEntry.key"));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            parser.value().data(), parser.value().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.MsgValue.AddressesEntry.value"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_loop_addresses;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:cosmosapi.MsgValue)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:cosmosapi.MsgValue)
-  return false;
-#undef DO_
-}
-
-void MsgValue::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:cosmosapi.MsgValue)
-  // repeated .cosmosapi.Coin amount = 1;
-  for (unsigned int i = 0, n = this->amount_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->amount(i), output);
-  }
-
-  // map<string, string> addresses = 2;
-  if (!this->addresses().empty()) {
-    typedef ::google::protobuf::Map< ::std::string, ::std::string >::const_pointer
-        ConstPtr;
-    typedef ConstPtr SortItem;
-    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
-    struct Utf8Check {
-      static void Check(ConstPtr p) {
-        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-          p->first.data(), p->first.length(),
-          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-          "cosmosapi.MsgValue.AddressesEntry.key");
-        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-          p->second.data(), p->second.length(),
-          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-          "cosmosapi.MsgValue.AddressesEntry.value");
-      }
-    };
-
-    if (output->IsSerializationDeterminstic() &&
-        this->addresses().size() > 1) {
-      ::google::protobuf::scoped_array<SortItem> items(
-          new SortItem[this->addresses().size()]);
-      typedef ::google::protobuf::Map< ::std::string, ::std::string >::size_type size_type;
-      size_type n = 0;
-      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
-          it = this->addresses().begin();
-          it != this->addresses().end(); ++it, ++n) {
-        items[n] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[n], Less());
-      ::google::protobuf::scoped_ptr<MsgValue_AddressesEntry> entry;
-      for (size_type i = 0; i < n; i++) {
-        entry.reset(addresses_.NewEntryWrapper(
-            items[i]->first, items[i]->second));
-        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-            2, *entry, output);
-        Utf8Check::Check(items[i]);
-      }
-    } else {
-      ::google::protobuf::scoped_ptr<MsgValue_AddressesEntry> entry;
-      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
-          it = this->addresses().begin();
-          it != this->addresses().end(); ++it) {
-        entry.reset(addresses_.NewEntryWrapper(
-            it->first, it->second));
-        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-            2, *entry, output);
-        Utf8Check::Check(&*it);
-      }
-    }
-  }
-
-  // @@protoc_insertion_point(serialize_end:cosmosapi.MsgValue)
-}
-
-::google::protobuf::uint8* MsgValue::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:cosmosapi.MsgValue)
-  // repeated .cosmosapi.Coin amount = 1;
-  for (unsigned int i = 0, n = this->amount_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        1, this->amount(i), false, target);
-  }
-
-  // map<string, string> addresses = 2;
-  if (!this->addresses().empty()) {
-    typedef ::google::protobuf::Map< ::std::string, ::std::string >::const_pointer
-        ConstPtr;
-    typedef ConstPtr SortItem;
-    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
-    struct Utf8Check {
-      static void Check(ConstPtr p) {
-        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-          p->first.data(), p->first.length(),
-          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-          "cosmosapi.MsgValue.AddressesEntry.key");
-        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-          p->second.data(), p->second.length(),
-          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-          "cosmosapi.MsgValue.AddressesEntry.value");
-      }
-    };
-
-    if (deterministic &&
-        this->addresses().size() > 1) {
-      ::google::protobuf::scoped_array<SortItem> items(
-          new SortItem[this->addresses().size()]);
-      typedef ::google::protobuf::Map< ::std::string, ::std::string >::size_type size_type;
-      size_type n = 0;
-      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
-          it = this->addresses().begin();
-          it != this->addresses().end(); ++it, ++n) {
-        items[n] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[n], Less());
-      ::google::protobuf::scoped_ptr<MsgValue_AddressesEntry> entry;
-      for (size_type i = 0; i < n; i++) {
-        entry.reset(addresses_.NewEntryWrapper(
-            items[i]->first, items[i]->second));
-        target = ::google::protobuf::internal::WireFormatLite::
-                   InternalWriteMessageNoVirtualToArray(
-                       2, *entry, deterministic, target);
-;
-        Utf8Check::Check(items[i]);
-      }
-    } else {
-      ::google::protobuf::scoped_ptr<MsgValue_AddressesEntry> entry;
-      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
-          it = this->addresses().begin();
-          it != this->addresses().end(); ++it) {
-        entry.reset(addresses_.NewEntryWrapper(
-            it->first, it->second));
-        target = ::google::protobuf::internal::WireFormatLite::
-                   InternalWriteMessageNoVirtualToArray(
-                       2, *entry, deterministic, target);
-;
-        Utf8Check::Check(&*it);
-      }
-    }
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:cosmosapi.MsgValue)
-  return target;
-}
-
-size_t MsgValue::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cosmosapi.MsgValue)
-  size_t total_size = 0;
-
-  // repeated .cosmosapi.Coin amount = 1;
-  {
-    unsigned int count = this->amount_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->amount(i));
-    }
-  }
-
-  // map<string, string> addresses = 2;
-  total_size += 1 *
-      ::google::protobuf::internal::FromIntSize(this->addresses_size());
-  {
-    ::google::protobuf::scoped_ptr<MsgValue_AddressesEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
-        it = this->addresses().begin();
-        it != this->addresses().end(); ++it) {
-      entry.reset(addresses_.NewEntryWrapper(it->first, it->second));
-      total_size += ::google::protobuf::internal::WireFormatLite::
-          MessageSizeNoVirtual(*entry);
-    }
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void MsgValue::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:cosmosapi.MsgValue)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const MsgValue* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const MsgValue>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:cosmosapi.MsgValue)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:cosmosapi.MsgValue)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void MsgValue::MergeFrom(const MsgValue& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cosmosapi.MsgValue)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void MsgValue::UnsafeMergeFrom(const MsgValue& from) {
-  GOOGLE_DCHECK(&from != this);
-  amount_.MergeFrom(from.amount_);
-  addresses_.MergeFrom(from.addresses_);
-}
-
-void MsgValue::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:cosmosapi.MsgValue)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void MsgValue::CopyFrom(const MsgValue& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cosmosapi.MsgValue)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool MsgValue::IsInitialized() const {
-
-  return true;
-}
-
-void MsgValue::Swap(MsgValue* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void MsgValue::InternalSwap(MsgValue* other) {
-  amount_.UnsafeArenaSwap(&other->amount_);
-  addresses_.Swap(&other->addresses_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata MsgValue::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = MsgValue_descriptor_;
-  metadata.reflection = MsgValue_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// MsgValue
-
-// repeated .cosmosapi.Coin amount = 1;
-int MsgValue::amount_size() const {
-  return amount_.size();
-}
-void MsgValue::clear_amount() {
-  amount_.Clear();
-}
-const ::cosmosapi::Coin& MsgValue::amount(int index) const {
-  // @@protoc_insertion_point(field_get:cosmosapi.MsgValue.amount)
-  return amount_.Get(index);
-}
-::cosmosapi::Coin* MsgValue::mutable_amount(int index) {
-  // @@protoc_insertion_point(field_mutable:cosmosapi.MsgValue.amount)
-  return amount_.Mutable(index);
-}
-::cosmosapi::Coin* MsgValue::add_amount() {
-  // @@protoc_insertion_point(field_add:cosmosapi.MsgValue.amount)
-  return amount_.Add();
-}
-::google::protobuf::RepeatedPtrField< ::cosmosapi::Coin >*
-MsgValue::mutable_amount() {
-  // @@protoc_insertion_point(field_mutable_list:cosmosapi.MsgValue.amount)
-  return &amount_;
-}
-const ::google::protobuf::RepeatedPtrField< ::cosmosapi::Coin >&
-MsgValue::amount() const {
-  // @@protoc_insertion_point(field_list:cosmosapi.MsgValue.amount)
-  return amount_;
-}
-
-// map<string, string> addresses = 2;
-int MsgValue::addresses_size() const {
-  return addresses_.size();
-}
-void MsgValue::clear_addresses() {
-  addresses_.Clear();
-}
- const ::google::protobuf::Map< ::std::string, ::std::string >&
-MsgValue::addresses() const {
-  // @@protoc_insertion_point(field_map:cosmosapi.MsgValue.addresses)
-  return addresses_.GetMap();
-}
- ::google::protobuf::Map< ::std::string, ::std::string >*
-MsgValue::mutable_addresses() {
-  // @@protoc_insertion_point(field_mutable_map:cosmosapi.MsgValue.addresses)
-  return addresses_.MutableMap();
-}
-
-inline const MsgValue* MsgValue::internal_default_instance() {
-  return &MsgValue_default_instance_.get();
-}
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int MsgDelegateValue::kAmountFieldNumber;
-const int MsgDelegateValue::kDelegatorAddressFieldNumber;
-const int MsgDelegateValue::kValidatorAddressFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-MsgDelegateValue::MsgDelegateValue()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_cosmos_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:cosmosapi.MsgDelegateValue)
-}
-
-void MsgDelegateValue::InitAsDefaultInstance() {
-}
-
-MsgDelegateValue::MsgDelegateValue(const MsgDelegateValue& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:cosmosapi.MsgDelegateValue)
-}
-
-void MsgDelegateValue::SharedCtor() {
-  delegator_address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  validator_address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _cached_size_ = 0;
-}
-
-MsgDelegateValue::~MsgDelegateValue() {
-  // @@protoc_insertion_point(destructor:cosmosapi.MsgDelegateValue)
-  SharedDtor();
-}
-
-void MsgDelegateValue::SharedDtor() {
-  delegator_address_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  validator_address_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-void MsgDelegateValue::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* MsgDelegateValue::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return MsgDelegateValue_descriptor_;
-}
-
-const MsgDelegateValue& MsgDelegateValue::default_instance() {
-  protobuf_InitDefaults_cosmos_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<MsgDelegateValue> MsgDelegateValue_default_instance_;
-
-MsgDelegateValue* MsgDelegateValue::New(::google::protobuf::Arena* arena) const {
-  MsgDelegateValue* n = new MsgDelegateValue;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void MsgDelegateValue::Clear() {
-// @@protoc_insertion_point(message_clear_start:cosmosapi.MsgDelegateValue)
-  delegator_address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  validator_address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  amount_.Clear();
-}
-
-bool MsgDelegateValue::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:cosmosapi.MsgDelegateValue)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .cosmosapi.Coin amount = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_amount:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_amount()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(10)) goto parse_loop_amount;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectTag(18)) goto parse_delegator_address;
-        break;
-      }
-
-      // optional string delegator_address = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_delegator_address:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_delegator_address()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->delegator_address().data(), this->delegator_address().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.MsgDelegateValue.delegator_address"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_validator_address;
-        break;
-      }
-
-      // optional string validator_address = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_validator_address:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_validator_address()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->validator_address().data(), this->validator_address().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.MsgDelegateValue.validator_address"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:cosmosapi.MsgDelegateValue)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:cosmosapi.MsgDelegateValue)
-  return false;
-#undef DO_
-}
-
-void MsgDelegateValue::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:cosmosapi.MsgDelegateValue)
-  // repeated .cosmosapi.Coin amount = 1;
-  for (unsigned int i = 0, n = this->amount_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->amount(i), output);
-  }
-
-  // optional string delegator_address = 2;
-  if (this->delegator_address().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->delegator_address().data(), this->delegator_address().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.MsgDelegateValue.delegator_address");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->delegator_address(), output);
-  }
-
-  // optional string validator_address = 3;
-  if (this->validator_address().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->validator_address().data(), this->validator_address().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.MsgDelegateValue.validator_address");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->validator_address(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:cosmosapi.MsgDelegateValue)
-}
-
-::google::protobuf::uint8* MsgDelegateValue::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:cosmosapi.MsgDelegateValue)
-  // repeated .cosmosapi.Coin amount = 1;
-  for (unsigned int i = 0, n = this->amount_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        1, this->amount(i), false, target);
-  }
-
-  // optional string delegator_address = 2;
-  if (this->delegator_address().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->delegator_address().data(), this->delegator_address().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.MsgDelegateValue.delegator_address");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->delegator_address(), target);
-  }
-
-  // optional string validator_address = 3;
-  if (this->validator_address().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->validator_address().data(), this->validator_address().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.MsgDelegateValue.validator_address");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->validator_address(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:cosmosapi.MsgDelegateValue)
-  return target;
-}
-
-size_t MsgDelegateValue::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cosmosapi.MsgDelegateValue)
-  size_t total_size = 0;
-
-  // optional string delegator_address = 2;
-  if (this->delegator_address().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->delegator_address());
-  }
-
-  // optional string validator_address = 3;
-  if (this->validator_address().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->validator_address());
-  }
-
-  // repeated .cosmosapi.Coin amount = 1;
-  {
-    unsigned int count = this->amount_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->amount(i));
-    }
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void MsgDelegateValue::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:cosmosapi.MsgDelegateValue)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const MsgDelegateValue* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const MsgDelegateValue>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:cosmosapi.MsgDelegateValue)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:cosmosapi.MsgDelegateValue)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void MsgDelegateValue::MergeFrom(const MsgDelegateValue& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cosmosapi.MsgDelegateValue)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void MsgDelegateValue::UnsafeMergeFrom(const MsgDelegateValue& from) {
-  GOOGLE_DCHECK(&from != this);
-  amount_.MergeFrom(from.amount_);
-  if (from.delegator_address().size() > 0) {
-
-    delegator_address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.delegator_address_);
-  }
-  if (from.validator_address().size() > 0) {
-
-    validator_address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.validator_address_);
-  }
-}
-
-void MsgDelegateValue::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:cosmosapi.MsgDelegateValue)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void MsgDelegateValue::CopyFrom(const MsgDelegateValue& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cosmosapi.MsgDelegateValue)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool MsgDelegateValue::IsInitialized() const {
-
-  return true;
-}
-
-void MsgDelegateValue::Swap(MsgDelegateValue* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void MsgDelegateValue::InternalSwap(MsgDelegateValue* other) {
-  amount_.UnsafeArenaSwap(&other->amount_);
-  delegator_address_.Swap(&other->delegator_address_);
-  validator_address_.Swap(&other->validator_address_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata MsgDelegateValue::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = MsgDelegateValue_descriptor_;
-  metadata.reflection = MsgDelegateValue_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// MsgDelegateValue
-
-// repeated .cosmosapi.Coin amount = 1;
-int MsgDelegateValue::amount_size() const {
-  return amount_.size();
-}
-void MsgDelegateValue::clear_amount() {
-  amount_.Clear();
-}
-const ::cosmosapi::Coin& MsgDelegateValue::amount(int index) const {
-  // @@protoc_insertion_point(field_get:cosmosapi.MsgDelegateValue.amount)
-  return amount_.Get(index);
-}
-::cosmosapi::Coin* MsgDelegateValue::mutable_amount(int index) {
-  // @@protoc_insertion_point(field_mutable:cosmosapi.MsgDelegateValue.amount)
-  return amount_.Mutable(index);
-}
-::cosmosapi::Coin* MsgDelegateValue::add_amount() {
-  // @@protoc_insertion_point(field_add:cosmosapi.MsgDelegateValue.amount)
-  return amount_.Add();
-}
-::google::protobuf::RepeatedPtrField< ::cosmosapi::Coin >*
-MsgDelegateValue::mutable_amount() {
-  // @@protoc_insertion_point(field_mutable_list:cosmosapi.MsgDelegateValue.amount)
-  return &amount_;
-}
-const ::google::protobuf::RepeatedPtrField< ::cosmosapi::Coin >&
-MsgDelegateValue::amount() const {
-  // @@protoc_insertion_point(field_list:cosmosapi.MsgDelegateValue.amount)
-  return amount_;
-}
-
-// optional string delegator_address = 2;
-void MsgDelegateValue::clear_delegator_address() {
-  delegator_address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& MsgDelegateValue::delegator_address() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.MsgDelegateValue.delegator_address)
-  return delegator_address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void MsgDelegateValue::set_delegator_address(const ::std::string& value) {
+void CosmosTxOutput::set_txhash(const char* value, size_t size) {
   
-  delegator_address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.MsgDelegateValue.delegator_address)
-}
-void MsgDelegateValue::set_delegator_address(const char* value) {
-  
-  delegator_address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.MsgDelegateValue.delegator_address)
-}
-void MsgDelegateValue::set_delegator_address(const char* value, size_t size) {
-  
-  delegator_address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  txhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.MsgDelegateValue.delegator_address)
+  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxOutput.txHash)
 }
-::std::string* MsgDelegateValue::mutable_delegator_address() {
+::std::string* CosmosTxOutput::mutable_txhash() {
   
-  // @@protoc_insertion_point(field_mutable:cosmosapi.MsgDelegateValue.delegator_address)
-  return delegator_address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxOutput.txHash)
+  return txhash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* MsgDelegateValue::release_delegator_address() {
-  // @@protoc_insertion_point(field_release:cosmosapi.MsgDelegateValue.delegator_address)
+::std::string* CosmosTxOutput::release_txhash() {
+  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxOutput.txHash)
   
-  return delegator_address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return txhash_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void MsgDelegateValue::set_allocated_delegator_address(::std::string* delegator_address) {
-  if (delegator_address != NULL) {
+void CosmosTxOutput::set_allocated_txhash(::std::string* txhash) {
+  if (txhash != NULL) {
     
   } else {
     
   }
-  delegator_address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), delegator_address);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.MsgDelegateValue.delegator_address)
+  txhash_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), txhash);
+  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxOutput.txHash)
 }
 
-// optional string validator_address = 3;
-void MsgDelegateValue::clear_validator_address() {
-  validator_address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& MsgDelegateValue::validator_address() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.MsgDelegateValue.validator_address)
-  return validator_address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void MsgDelegateValue::set_validator_address(const ::std::string& value) {
-  
-  validator_address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.MsgDelegateValue.validator_address)
-}
-void MsgDelegateValue::set_validator_address(const char* value) {
-  
-  validator_address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.MsgDelegateValue.validator_address)
-}
-void MsgDelegateValue::set_validator_address(const char* value, size_t size) {
-  
-  validator_address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.MsgDelegateValue.validator_address)
-}
-::std::string* MsgDelegateValue::mutable_validator_address() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.MsgDelegateValue.validator_address)
-  return validator_address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* MsgDelegateValue::release_validator_address() {
-  // @@protoc_insertion_point(field_release:cosmosapi.MsgDelegateValue.validator_address)
-  
-  return validator_address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void MsgDelegateValue::set_allocated_validator_address(::std::string* validator_address) {
-  if (validator_address != NULL) {
-    
-  } else {
-    
-  }
-  validator_address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), validator_address);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.MsgDelegateValue.validator_address)
-}
-
-inline const MsgDelegateValue* MsgDelegateValue::internal_default_instance() {
-  return &MsgDelegateValue_default_instance_.get();
-}
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int MsgSendValue::kAmountFieldNumber;
-const int MsgSendValue::kFromAddressFieldNumber;
-const int MsgSendValue::kToAddressFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-MsgSendValue::MsgSendValue()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_cosmos_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:cosmosapi.MsgSendValue)
-}
-
-void MsgSendValue::InitAsDefaultInstance() {
-}
-
-MsgSendValue::MsgSendValue(const MsgSendValue& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:cosmosapi.MsgSendValue)
-}
-
-void MsgSendValue::SharedCtor() {
-  from_address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  to_address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _cached_size_ = 0;
-}
-
-MsgSendValue::~MsgSendValue() {
-  // @@protoc_insertion_point(destructor:cosmosapi.MsgSendValue)
-  SharedDtor();
-}
-
-void MsgSendValue::SharedDtor() {
-  from_address_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  to_address_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-void MsgSendValue::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* MsgSendValue::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return MsgSendValue_descriptor_;
-}
-
-const MsgSendValue& MsgSendValue::default_instance() {
-  protobuf_InitDefaults_cosmos_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<MsgSendValue> MsgSendValue_default_instance_;
-
-MsgSendValue* MsgSendValue::New(::google::protobuf::Arena* arena) const {
-  MsgSendValue* n = new MsgSendValue;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void MsgSendValue::Clear() {
-// @@protoc_insertion_point(message_clear_start:cosmosapi.MsgSendValue)
-  from_address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  to_address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  amount_.Clear();
-}
-
-bool MsgSendValue::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:cosmosapi.MsgSendValue)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .cosmosapi.Coin amount = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_amount:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_amount()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(10)) goto parse_loop_amount;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectTag(18)) goto parse_from_address;
-        break;
-      }
-
-      // optional string from_address = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_from_address:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_from_address()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->from_address().data(), this->from_address().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.MsgSendValue.from_address"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_to_address;
-        break;
-      }
-
-      // optional string to_address = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_to_address:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_to_address()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->to_address().data(), this->to_address().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.MsgSendValue.to_address"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:cosmosapi.MsgSendValue)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:cosmosapi.MsgSendValue)
-  return false;
-#undef DO_
-}
-
-void MsgSendValue::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:cosmosapi.MsgSendValue)
-  // repeated .cosmosapi.Coin amount = 1;
-  for (unsigned int i = 0, n = this->amount_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->amount(i), output);
-  }
-
-  // optional string from_address = 2;
-  if (this->from_address().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->from_address().data(), this->from_address().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.MsgSendValue.from_address");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->from_address(), output);
-  }
-
-  // optional string to_address = 3;
-  if (this->to_address().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->to_address().data(), this->to_address().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.MsgSendValue.to_address");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->to_address(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:cosmosapi.MsgSendValue)
-}
-
-::google::protobuf::uint8* MsgSendValue::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:cosmosapi.MsgSendValue)
-  // repeated .cosmosapi.Coin amount = 1;
-  for (unsigned int i = 0, n = this->amount_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        1, this->amount(i), false, target);
-  }
-
-  // optional string from_address = 2;
-  if (this->from_address().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->from_address().data(), this->from_address().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.MsgSendValue.from_address");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->from_address(), target);
-  }
-
-  // optional string to_address = 3;
-  if (this->to_address().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->to_address().data(), this->to_address().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.MsgSendValue.to_address");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->to_address(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:cosmosapi.MsgSendValue)
-  return target;
-}
-
-size_t MsgSendValue::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cosmosapi.MsgSendValue)
-  size_t total_size = 0;
-
-  // optional string from_address = 2;
-  if (this->from_address().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->from_address());
-  }
-
-  // optional string to_address = 3;
-  if (this->to_address().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->to_address());
-  }
-
-  // repeated .cosmosapi.Coin amount = 1;
-  {
-    unsigned int count = this->amount_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->amount(i));
-    }
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void MsgSendValue::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:cosmosapi.MsgSendValue)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const MsgSendValue* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const MsgSendValue>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:cosmosapi.MsgSendValue)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:cosmosapi.MsgSendValue)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void MsgSendValue::MergeFrom(const MsgSendValue& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cosmosapi.MsgSendValue)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void MsgSendValue::UnsafeMergeFrom(const MsgSendValue& from) {
-  GOOGLE_DCHECK(&from != this);
-  amount_.MergeFrom(from.amount_);
-  if (from.from_address().size() > 0) {
-
-    from_address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.from_address_);
-  }
-  if (from.to_address().size() > 0) {
-
-    to_address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.to_address_);
-  }
-}
-
-void MsgSendValue::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:cosmosapi.MsgSendValue)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void MsgSendValue::CopyFrom(const MsgSendValue& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cosmosapi.MsgSendValue)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool MsgSendValue::IsInitialized() const {
-
-  return true;
-}
-
-void MsgSendValue::Swap(MsgSendValue* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void MsgSendValue::InternalSwap(MsgSendValue* other) {
-  amount_.UnsafeArenaSwap(&other->amount_);
-  from_address_.Swap(&other->from_address_);
-  to_address_.Swap(&other->to_address_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata MsgSendValue::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = MsgSendValue_descriptor_;
-  metadata.reflection = MsgSendValue_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// MsgSendValue
-
-// repeated .cosmosapi.Coin amount = 1;
-int MsgSendValue::amount_size() const {
-  return amount_.size();
-}
-void MsgSendValue::clear_amount() {
-  amount_.Clear();
-}
-const ::cosmosapi::Coin& MsgSendValue::amount(int index) const {
-  // @@protoc_insertion_point(field_get:cosmosapi.MsgSendValue.amount)
-  return amount_.Get(index);
-}
-::cosmosapi::Coin* MsgSendValue::mutable_amount(int index) {
-  // @@protoc_insertion_point(field_mutable:cosmosapi.MsgSendValue.amount)
-  return amount_.Mutable(index);
-}
-::cosmosapi::Coin* MsgSendValue::add_amount() {
-  // @@protoc_insertion_point(field_add:cosmosapi.MsgSendValue.amount)
-  return amount_.Add();
-}
-::google::protobuf::RepeatedPtrField< ::cosmosapi::Coin >*
-MsgSendValue::mutable_amount() {
-  // @@protoc_insertion_point(field_mutable_list:cosmosapi.MsgSendValue.amount)
-  return &amount_;
-}
-const ::google::protobuf::RepeatedPtrField< ::cosmosapi::Coin >&
-MsgSendValue::amount() const {
-  // @@protoc_insertion_point(field_list:cosmosapi.MsgSendValue.amount)
-  return amount_;
-}
-
-// optional string from_address = 2;
-void MsgSendValue::clear_from_address() {
-  from_address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& MsgSendValue::from_address() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.MsgSendValue.from_address)
-  return from_address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void MsgSendValue::set_from_address(const ::std::string& value) {
-  
-  from_address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.MsgSendValue.from_address)
-}
-void MsgSendValue::set_from_address(const char* value) {
-  
-  from_address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.MsgSendValue.from_address)
-}
-void MsgSendValue::set_from_address(const char* value, size_t size) {
-  
-  from_address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.MsgSendValue.from_address)
-}
-::std::string* MsgSendValue::mutable_from_address() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.MsgSendValue.from_address)
-  return from_address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* MsgSendValue::release_from_address() {
-  // @@protoc_insertion_point(field_release:cosmosapi.MsgSendValue.from_address)
-  
-  return from_address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void MsgSendValue::set_allocated_from_address(::std::string* from_address) {
-  if (from_address != NULL) {
-    
-  } else {
-    
-  }
-  from_address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from_address);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.MsgSendValue.from_address)
-}
-
-// optional string to_address = 3;
-void MsgSendValue::clear_to_address() {
-  to_address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& MsgSendValue::to_address() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.MsgSendValue.to_address)
-  return to_address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void MsgSendValue::set_to_address(const ::std::string& value) {
-  
-  to_address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.MsgSendValue.to_address)
-}
-void MsgSendValue::set_to_address(const char* value) {
-  
-  to_address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.MsgSendValue.to_address)
-}
-void MsgSendValue::set_to_address(const char* value, size_t size) {
-  
-  to_address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.MsgSendValue.to_address)
-}
-::std::string* MsgSendValue::mutable_to_address() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.MsgSendValue.to_address)
-  return to_address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* MsgSendValue::release_to_address() {
-  // @@protoc_insertion_point(field_release:cosmosapi.MsgSendValue.to_address)
-  
-  return to_address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void MsgSendValue::set_allocated_to_address(::std::string* to_address) {
-  if (to_address != NULL) {
-    
-  } else {
-    
-  }
-  to_address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), to_address);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.MsgSendValue.to_address)
-}
-
-inline const MsgSendValue* MsgSendValue::internal_default_instance() {
-  return &MsgSendValue_default_instance_.get();
-}
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int CosmosTxReq::kSignDataFieldNumber;
-const int CosmosTxReq::kPathFieldNumber;
-const int CosmosTxReq::kPaymentDisFieldNumber;
-const int CosmosTxReq::kToDisFieldNumber;
-const int CosmosTxReq::kFromDisFieldNumber;
-const int CosmosTxReq::kFeeDisFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-CosmosTxReq::CosmosTxReq()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_cosmos_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:cosmosapi.CosmosTxReq)
-}
-
-void CosmosTxReq::InitAsDefaultInstance() {
-  signdata_ = const_cast< ::cosmosapi::SignData*>(
-      ::cosmosapi::SignData::internal_default_instance());
-}
-
-CosmosTxReq::CosmosTxReq(const CosmosTxReq& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:cosmosapi.CosmosTxReq)
-}
-
-void CosmosTxReq::SharedCtor() {
-  path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  payment_dis_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  to_dis_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  from_dis_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  fee_dis_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  signdata_ = NULL;
-  _cached_size_ = 0;
-}
-
-CosmosTxReq::~CosmosTxReq() {
-  // @@protoc_insertion_point(destructor:cosmosapi.CosmosTxReq)
-  SharedDtor();
-}
-
-void CosmosTxReq::SharedDtor() {
-  path_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  payment_dis_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  to_dis_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  from_dis_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  fee_dis_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != &CosmosTxReq_default_instance_.get()) {
-    delete signdata_;
-  }
-}
-
-void CosmosTxReq::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* CosmosTxReq::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return CosmosTxReq_descriptor_;
-}
-
-const CosmosTxReq& CosmosTxReq::default_instance() {
-  protobuf_InitDefaults_cosmos_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<CosmosTxReq> CosmosTxReq_default_instance_;
-
-CosmosTxReq* CosmosTxReq::New(::google::protobuf::Arena* arena) const {
-  CosmosTxReq* n = new CosmosTxReq;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void CosmosTxReq::Clear() {
-// @@protoc_insertion_point(message_clear_start:cosmosapi.CosmosTxReq)
-  if (GetArenaNoVirtual() == NULL && signdata_ != NULL) delete signdata_;
-  signdata_ = NULL;
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  payment_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  to_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  from_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  fee_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool CosmosTxReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:cosmosapi.CosmosTxReq)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .cosmosapi.SignData signData = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_signdata()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_path;
-        break;
-      }
-
-      // optional string path = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_path:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_path()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->path().data(), this->path().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.CosmosTxReq.path"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_payment_dis;
-        break;
-      }
-
-      // optional string payment_dis = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_payment_dis:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_payment_dis()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->payment_dis().data(), this->payment_dis().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.CosmosTxReq.payment_dis"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_to_dis;
-        break;
-      }
-
-      // optional string to_dis = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_to_dis:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_to_dis()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->to_dis().data(), this->to_dis().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.CosmosTxReq.to_dis"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(42)) goto parse_from_dis;
-        break;
-      }
-
-      // optional string from_dis = 5;
-      case 5: {
-        if (tag == 42) {
-         parse_from_dis:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_from_dis()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->from_dis().data(), this->from_dis().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.CosmosTxReq.from_dis"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_fee_dis;
-        break;
-      }
-
-      // optional string fee_dis = 6;
-      case 6: {
-        if (tag == 50) {
-         parse_fee_dis:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_fee_dis()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->fee_dis().data(), this->fee_dis().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.CosmosTxReq.fee_dis"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:cosmosapi.CosmosTxReq)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:cosmosapi.CosmosTxReq)
-  return false;
-#undef DO_
-}
-
-void CosmosTxReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:cosmosapi.CosmosTxReq)
-  // optional .cosmosapi.SignData signData = 1;
-  if (this->has_signdata()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->signdata_, output);
-  }
-
-  // optional string path = 2;
-  if (this->path().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosTxReq.path");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->path(), output);
-  }
-
-  // optional string payment_dis = 3;
-  if (this->payment_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->payment_dis().data(), this->payment_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosTxReq.payment_dis");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->payment_dis(), output);
-  }
-
-  // optional string to_dis = 4;
-  if (this->to_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->to_dis().data(), this->to_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosTxReq.to_dis");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      4, this->to_dis(), output);
-  }
-
-  // optional string from_dis = 5;
-  if (this->from_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->from_dis().data(), this->from_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosTxReq.from_dis");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      5, this->from_dis(), output);
-  }
-
-  // optional string fee_dis = 6;
-  if (this->fee_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->fee_dis().data(), this->fee_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosTxReq.fee_dis");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      6, this->fee_dis(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:cosmosapi.CosmosTxReq)
-}
-
-::google::protobuf::uint8* CosmosTxReq::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:cosmosapi.CosmosTxReq)
-  // optional .cosmosapi.SignData signData = 1;
-  if (this->has_signdata()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageNoVirtualToArray(
-        1, *this->signdata_, false, target);
-  }
-
-  // optional string path = 2;
-  if (this->path().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosTxReq.path");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->path(), target);
-  }
-
-  // optional string payment_dis = 3;
-  if (this->payment_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->payment_dis().data(), this->payment_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosTxReq.payment_dis");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->payment_dis(), target);
-  }
-
-  // optional string to_dis = 4;
-  if (this->to_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->to_dis().data(), this->to_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosTxReq.to_dis");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        4, this->to_dis(), target);
-  }
-
-  // optional string from_dis = 5;
-  if (this->from_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->from_dis().data(), this->from_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosTxReq.from_dis");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        5, this->from_dis(), target);
-  }
-
-  // optional string fee_dis = 6;
-  if (this->fee_dis().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->fee_dis().data(), this->fee_dis().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosTxReq.fee_dis");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        6, this->fee_dis(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:cosmosapi.CosmosTxReq)
-  return target;
-}
-
-size_t CosmosTxReq::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cosmosapi.CosmosTxReq)
-  size_t total_size = 0;
-
-  // optional .cosmosapi.SignData signData = 1;
-  if (this->has_signdata()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->signdata_);
-  }
-
-  // optional string path = 2;
-  if (this->path().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->path());
-  }
-
-  // optional string payment_dis = 3;
-  if (this->payment_dis().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->payment_dis());
-  }
-
-  // optional string to_dis = 4;
-  if (this->to_dis().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->to_dis());
-  }
-
-  // optional string from_dis = 5;
-  if (this->from_dis().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->from_dis());
-  }
-
-  // optional string fee_dis = 6;
-  if (this->fee_dis().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->fee_dis());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void CosmosTxReq::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:cosmosapi.CosmosTxReq)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const CosmosTxReq* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const CosmosTxReq>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:cosmosapi.CosmosTxReq)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:cosmosapi.CosmosTxReq)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void CosmosTxReq::MergeFrom(const CosmosTxReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cosmosapi.CosmosTxReq)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void CosmosTxReq::UnsafeMergeFrom(const CosmosTxReq& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.has_signdata()) {
-    mutable_signdata()->::cosmosapi::SignData::MergeFrom(from.signdata());
-  }
-  if (from.path().size() > 0) {
-
-    path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_);
-  }
-  if (from.payment_dis().size() > 0) {
-
-    payment_dis_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.payment_dis_);
-  }
-  if (from.to_dis().size() > 0) {
-
-    to_dis_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.to_dis_);
-  }
-  if (from.from_dis().size() > 0) {
-
-    from_dis_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.from_dis_);
-  }
-  if (from.fee_dis().size() > 0) {
-
-    fee_dis_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.fee_dis_);
-  }
-}
-
-void CosmosTxReq::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:cosmosapi.CosmosTxReq)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void CosmosTxReq::CopyFrom(const CosmosTxReq& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cosmosapi.CosmosTxReq)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool CosmosTxReq::IsInitialized() const {
-
-  return true;
-}
-
-void CosmosTxReq::Swap(CosmosTxReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void CosmosTxReq::InternalSwap(CosmosTxReq* other) {
-  std::swap(signdata_, other->signdata_);
-  path_.Swap(&other->path_);
-  payment_dis_.Swap(&other->payment_dis_);
-  to_dis_.Swap(&other->to_dis_);
-  from_dis_.Swap(&other->from_dis_);
-  fee_dis_.Swap(&other->fee_dis_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata CosmosTxReq::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = CosmosTxReq_descriptor_;
-  metadata.reflection = CosmosTxReq_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// CosmosTxReq
-
-// optional .cosmosapi.SignData signData = 1;
-bool CosmosTxReq::has_signdata() const {
-  return this != internal_default_instance() && signdata_ != NULL;
-}
-void CosmosTxReq::clear_signdata() {
-  if (GetArenaNoVirtual() == NULL && signdata_ != NULL) delete signdata_;
-  signdata_ = NULL;
-}
-const ::cosmosapi::SignData& CosmosTxReq::signdata() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxReq.signData)
-  return signdata_ != NULL ? *signdata_
-                         : *::cosmosapi::SignData::internal_default_instance();
-}
-::cosmosapi::SignData* CosmosTxReq::mutable_signdata() {
-  
-  if (signdata_ == NULL) {
-    signdata_ = new ::cosmosapi::SignData;
-  }
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxReq.signData)
-  return signdata_;
-}
-::cosmosapi::SignData* CosmosTxReq::release_signdata() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxReq.signData)
-  
-  ::cosmosapi::SignData* temp = signdata_;
-  signdata_ = NULL;
-  return temp;
-}
-void CosmosTxReq::set_allocated_signdata(::cosmosapi::SignData* signdata) {
-  delete signdata_;
-  signdata_ = signdata;
-  if (signdata) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxReq.signData)
-}
-
-// optional string path = 2;
-void CosmosTxReq::clear_path() {
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& CosmosTxReq::path() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxReq.path)
-  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosTxReq::set_path(const ::std::string& value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxReq.path)
-}
-void CosmosTxReq::set_path(const char* value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxReq.path)
-}
-void CosmosTxReq::set_path(const char* value, size_t size) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxReq.path)
-}
-::std::string* CosmosTxReq::mutable_path() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxReq.path)
-  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* CosmosTxReq::release_path() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxReq.path)
-  
-  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosTxReq::set_allocated_path(::std::string* path) {
-  if (path != NULL) {
-    
-  } else {
-    
-  }
-  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxReq.path)
-}
-
-// optional string payment_dis = 3;
-void CosmosTxReq::clear_payment_dis() {
-  payment_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& CosmosTxReq::payment_dis() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxReq.payment_dis)
-  return payment_dis_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosTxReq::set_payment_dis(const ::std::string& value) {
-  
-  payment_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxReq.payment_dis)
-}
-void CosmosTxReq::set_payment_dis(const char* value) {
-  
-  payment_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxReq.payment_dis)
-}
-void CosmosTxReq::set_payment_dis(const char* value, size_t size) {
-  
-  payment_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxReq.payment_dis)
-}
-::std::string* CosmosTxReq::mutable_payment_dis() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxReq.payment_dis)
-  return payment_dis_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* CosmosTxReq::release_payment_dis() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxReq.payment_dis)
-  
-  return payment_dis_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosTxReq::set_allocated_payment_dis(::std::string* payment_dis) {
-  if (payment_dis != NULL) {
-    
-  } else {
-    
-  }
-  payment_dis_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), payment_dis);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxReq.payment_dis)
-}
-
-// optional string to_dis = 4;
-void CosmosTxReq::clear_to_dis() {
-  to_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& CosmosTxReq::to_dis() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxReq.to_dis)
-  return to_dis_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosTxReq::set_to_dis(const ::std::string& value) {
-  
-  to_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxReq.to_dis)
-}
-void CosmosTxReq::set_to_dis(const char* value) {
-  
-  to_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxReq.to_dis)
-}
-void CosmosTxReq::set_to_dis(const char* value, size_t size) {
-  
-  to_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxReq.to_dis)
-}
-::std::string* CosmosTxReq::mutable_to_dis() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxReq.to_dis)
-  return to_dis_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* CosmosTxReq::release_to_dis() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxReq.to_dis)
-  
-  return to_dis_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosTxReq::set_allocated_to_dis(::std::string* to_dis) {
-  if (to_dis != NULL) {
-    
-  } else {
-    
-  }
-  to_dis_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), to_dis);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxReq.to_dis)
-}
-
-// optional string from_dis = 5;
-void CosmosTxReq::clear_from_dis() {
-  from_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& CosmosTxReq::from_dis() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxReq.from_dis)
-  return from_dis_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosTxReq::set_from_dis(const ::std::string& value) {
-  
-  from_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxReq.from_dis)
-}
-void CosmosTxReq::set_from_dis(const char* value) {
-  
-  from_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxReq.from_dis)
-}
-void CosmosTxReq::set_from_dis(const char* value, size_t size) {
-  
-  from_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxReq.from_dis)
-}
-::std::string* CosmosTxReq::mutable_from_dis() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxReq.from_dis)
-  return from_dis_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* CosmosTxReq::release_from_dis() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxReq.from_dis)
-  
-  return from_dis_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosTxReq::set_allocated_from_dis(::std::string* from_dis) {
-  if (from_dis != NULL) {
-    
-  } else {
-    
-  }
-  from_dis_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from_dis);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxReq.from_dis)
-}
-
-// optional string fee_dis = 6;
-void CosmosTxReq::clear_fee_dis() {
-  fee_dis_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& CosmosTxReq::fee_dis() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxReq.fee_dis)
-  return fee_dis_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosTxReq::set_fee_dis(const ::std::string& value) {
-  
-  fee_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxReq.fee_dis)
-}
-void CosmosTxReq::set_fee_dis(const char* value) {
-  
-  fee_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxReq.fee_dis)
-}
-void CosmosTxReq::set_fee_dis(const char* value, size_t size) {
-  
-  fee_dis_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxReq.fee_dis)
-}
-::std::string* CosmosTxReq::mutable_fee_dis() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxReq.fee_dis)
-  return fee_dis_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* CosmosTxReq::release_fee_dis() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxReq.fee_dis)
-  
-  return fee_dis_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosTxReq::set_allocated_fee_dis(::std::string* fee_dis) {
-  if (fee_dis != NULL) {
-    
-  } else {
-    
-  }
-  fee_dis_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), fee_dis);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxReq.fee_dis)
-}
-
-inline const CosmosTxReq* CosmosTxReq::internal_default_instance() {
-  return &CosmosTxReq_default_instance_.get();
-}
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int CosmosTxRes::kTxDataFieldNumber;
-const int CosmosTxRes::kTxHashFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-CosmosTxRes::CosmosTxRes()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_cosmos_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:cosmosapi.CosmosTxRes)
-}
-
-void CosmosTxRes::InitAsDefaultInstance() {
-}
-
-CosmosTxRes::CosmosTxRes(const CosmosTxRes& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:cosmosapi.CosmosTxRes)
-}
-
-void CosmosTxRes::SharedCtor() {
-  tx_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  tx_hash_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _cached_size_ = 0;
-}
-
-CosmosTxRes::~CosmosTxRes() {
-  // @@protoc_insertion_point(destructor:cosmosapi.CosmosTxRes)
-  SharedDtor();
-}
-
-void CosmosTxRes::SharedDtor() {
-  tx_data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  tx_hash_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-void CosmosTxRes::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* CosmosTxRes::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return CosmosTxRes_descriptor_;
-}
-
-const CosmosTxRes& CosmosTxRes::default_instance() {
-  protobuf_InitDefaults_cosmos_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<CosmosTxRes> CosmosTxRes_default_instance_;
-
-CosmosTxRes* CosmosTxRes::New(::google::protobuf::Arena* arena) const {
-  CosmosTxRes* n = new CosmosTxRes;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void CosmosTxRes::Clear() {
-// @@protoc_insertion_point(message_clear_start:cosmosapi.CosmosTxRes)
-  tx_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  tx_hash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool CosmosTxRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:cosmosapi.CosmosTxRes)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string tx_data = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_tx_data()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->tx_data().data(), this->tx_data().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.CosmosTxRes.tx_data"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_tx_hash;
-        break;
-      }
-
-      // optional string tx_hash = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_tx_hash:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_tx_hash()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->tx_hash().data(), this->tx_hash().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.CosmosTxRes.tx_hash"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:cosmosapi.CosmosTxRes)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:cosmosapi.CosmosTxRes)
-  return false;
-#undef DO_
-}
-
-void CosmosTxRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:cosmosapi.CosmosTxRes)
-  // optional string tx_data = 1;
-  if (this->tx_data().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->tx_data().data(), this->tx_data().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosTxRes.tx_data");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->tx_data(), output);
-  }
-
-  // optional string tx_hash = 2;
-  if (this->tx_hash().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->tx_hash().data(), this->tx_hash().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosTxRes.tx_hash");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->tx_hash(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:cosmosapi.CosmosTxRes)
-}
-
-::google::protobuf::uint8* CosmosTxRes::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:cosmosapi.CosmosTxRes)
-  // optional string tx_data = 1;
-  if (this->tx_data().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->tx_data().data(), this->tx_data().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosTxRes.tx_data");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->tx_data(), target);
-  }
-
-  // optional string tx_hash = 2;
-  if (this->tx_hash().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->tx_hash().data(), this->tx_hash().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosTxRes.tx_hash");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->tx_hash(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:cosmosapi.CosmosTxRes)
-  return target;
-}
-
-size_t CosmosTxRes::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cosmosapi.CosmosTxRes)
-  size_t total_size = 0;
-
-  // optional string tx_data = 1;
-  if (this->tx_data().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->tx_data());
-  }
-
-  // optional string tx_hash = 2;
-  if (this->tx_hash().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->tx_hash());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void CosmosTxRes::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:cosmosapi.CosmosTxRes)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const CosmosTxRes* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const CosmosTxRes>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:cosmosapi.CosmosTxRes)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:cosmosapi.CosmosTxRes)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void CosmosTxRes::MergeFrom(const CosmosTxRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cosmosapi.CosmosTxRes)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void CosmosTxRes::UnsafeMergeFrom(const CosmosTxRes& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.tx_data().size() > 0) {
-
-    tx_data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.tx_data_);
-  }
-  if (from.tx_hash().size() > 0) {
-
-    tx_hash_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.tx_hash_);
-  }
-}
-
-void CosmosTxRes::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:cosmosapi.CosmosTxRes)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void CosmosTxRes::CopyFrom(const CosmosTxRes& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cosmosapi.CosmosTxRes)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool CosmosTxRes::IsInitialized() const {
-
-  return true;
-}
-
-void CosmosTxRes::Swap(CosmosTxRes* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void CosmosTxRes::InternalSwap(CosmosTxRes* other) {
-  tx_data_.Swap(&other->tx_data_);
-  tx_hash_.Swap(&other->tx_hash_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata CosmosTxRes::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = CosmosTxRes_descriptor_;
-  metadata.reflection = CosmosTxRes_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// CosmosTxRes
-
-// optional string tx_data = 1;
-void CosmosTxRes::clear_tx_data() {
-  tx_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& CosmosTxRes::tx_data() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxRes.tx_data)
-  return tx_data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosTxRes::set_tx_data(const ::std::string& value) {
-  
-  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxRes.tx_data)
-}
-void CosmosTxRes::set_tx_data(const char* value) {
-  
-  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxRes.tx_data)
-}
-void CosmosTxRes::set_tx_data(const char* value, size_t size) {
-  
-  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxRes.tx_data)
-}
-::std::string* CosmosTxRes::mutable_tx_data() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxRes.tx_data)
-  return tx_data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* CosmosTxRes::release_tx_data() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxRes.tx_data)
-  
-  return tx_data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosTxRes::set_allocated_tx_data(::std::string* tx_data) {
-  if (tx_data != NULL) {
-    
-  } else {
-    
-  }
-  tx_data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tx_data);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxRes.tx_data)
-}
-
-// optional string tx_hash = 2;
-void CosmosTxRes::clear_tx_hash() {
-  tx_hash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& CosmosTxRes::tx_hash() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxRes.tx_hash)
-  return tx_hash_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosTxRes::set_tx_hash(const ::std::string& value) {
-  
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxRes.tx_hash)
-}
-void CosmosTxRes::set_tx_hash(const char* value) {
-  
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxRes.tx_hash)
-}
-void CosmosTxRes::set_tx_hash(const char* value, size_t size) {
-  
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxRes.tx_hash)
-}
-::std::string* CosmosTxRes::mutable_tx_hash() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxRes.tx_hash)
-  return tx_hash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* CosmosTxRes::release_tx_hash() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxRes.tx_hash)
-  
-  return tx_hash_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosTxRes::set_allocated_tx_hash(::std::string* tx_hash) {
-  if (tx_hash != NULL) {
-    
-  } else {
-    
-  }
-  tx_hash_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tx_hash);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxRes.tx_hash)
-}
-
-inline const CosmosTxRes* CosmosTxRes::internal_default_instance() {
-  return &CosmosTxRes_default_instance_.get();
-}
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int CosmosAddressReq::kPathFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-CosmosAddressReq::CosmosAddressReq()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_cosmos_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:cosmosapi.CosmosAddressReq)
-}
-
-void CosmosAddressReq::InitAsDefaultInstance() {
-}
-
-CosmosAddressReq::CosmosAddressReq(const CosmosAddressReq& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:cosmosapi.CosmosAddressReq)
-}
-
-void CosmosAddressReq::SharedCtor() {
-  path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _cached_size_ = 0;
-}
-
-CosmosAddressReq::~CosmosAddressReq() {
-  // @@protoc_insertion_point(destructor:cosmosapi.CosmosAddressReq)
-  SharedDtor();
-}
-
-void CosmosAddressReq::SharedDtor() {
-  path_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-void CosmosAddressReq::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* CosmosAddressReq::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return CosmosAddressReq_descriptor_;
-}
-
-const CosmosAddressReq& CosmosAddressReq::default_instance() {
-  protobuf_InitDefaults_cosmos_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<CosmosAddressReq> CosmosAddressReq_default_instance_;
-
-CosmosAddressReq* CosmosAddressReq::New(::google::protobuf::Arena* arena) const {
-  CosmosAddressReq* n = new CosmosAddressReq;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void CosmosAddressReq::Clear() {
-// @@protoc_insertion_point(message_clear_start:cosmosapi.CosmosAddressReq)
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool CosmosAddressReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:cosmosapi.CosmosAddressReq)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string path = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_path()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->path().data(), this->path().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.CosmosAddressReq.path"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:cosmosapi.CosmosAddressReq)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:cosmosapi.CosmosAddressReq)
-  return false;
-#undef DO_
-}
-
-void CosmosAddressReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:cosmosapi.CosmosAddressReq)
-  // optional string path = 1;
-  if (this->path().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosAddressReq.path");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->path(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:cosmosapi.CosmosAddressReq)
-}
-
-::google::protobuf::uint8* CosmosAddressReq::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:cosmosapi.CosmosAddressReq)
-  // optional string path = 1;
-  if (this->path().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->path().data(), this->path().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosAddressReq.path");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->path(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:cosmosapi.CosmosAddressReq)
-  return target;
-}
-
-size_t CosmosAddressReq::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cosmosapi.CosmosAddressReq)
-  size_t total_size = 0;
-
-  // optional string path = 1;
-  if (this->path().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->path());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void CosmosAddressReq::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:cosmosapi.CosmosAddressReq)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const CosmosAddressReq* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const CosmosAddressReq>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:cosmosapi.CosmosAddressReq)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:cosmosapi.CosmosAddressReq)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void CosmosAddressReq::MergeFrom(const CosmosAddressReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cosmosapi.CosmosAddressReq)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void CosmosAddressReq::UnsafeMergeFrom(const CosmosAddressReq& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.path().size() > 0) {
-
-    path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_);
-  }
-}
-
-void CosmosAddressReq::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:cosmosapi.CosmosAddressReq)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void CosmosAddressReq::CopyFrom(const CosmosAddressReq& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cosmosapi.CosmosAddressReq)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool CosmosAddressReq::IsInitialized() const {
-
-  return true;
-}
-
-void CosmosAddressReq::Swap(CosmosAddressReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void CosmosAddressReq::InternalSwap(CosmosAddressReq* other) {
-  path_.Swap(&other->path_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata CosmosAddressReq::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = CosmosAddressReq_descriptor_;
-  metadata.reflection = CosmosAddressReq_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// CosmosAddressReq
-
-// optional string path = 1;
-void CosmosAddressReq::clear_path() {
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& CosmosAddressReq::path() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosAddressReq.path)
-  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosAddressReq::set_path(const ::std::string& value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosAddressReq.path)
-}
-void CosmosAddressReq::set_path(const char* value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosAddressReq.path)
-}
-void CosmosAddressReq::set_path(const char* value, size_t size) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosAddressReq.path)
-}
-::std::string* CosmosAddressReq::mutable_path() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosAddressReq.path)
-  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* CosmosAddressReq::release_path() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosAddressReq.path)
-  
-  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosAddressReq::set_allocated_path(::std::string* path) {
-  if (path != NULL) {
-    
-  } else {
-    
-  }
-  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosAddressReq.path)
-}
-
-inline const CosmosAddressReq* CosmosAddressReq::internal_default_instance() {
-  return &CosmosAddressReq_default_instance_.get();
-}
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int CosmosAddressRes::kAddressFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-CosmosAddressRes::CosmosAddressRes()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (this != internal_default_instance()) protobuf_InitDefaults_cosmos_2eproto();
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:cosmosapi.CosmosAddressRes)
-}
-
-void CosmosAddressRes::InitAsDefaultInstance() {
-}
-
-CosmosAddressRes::CosmosAddressRes(const CosmosAddressRes& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  UnsafeMergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:cosmosapi.CosmosAddressRes)
-}
-
-void CosmosAddressRes::SharedCtor() {
-  address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _cached_size_ = 0;
-}
-
-CosmosAddressRes::~CosmosAddressRes() {
-  // @@protoc_insertion_point(destructor:cosmosapi.CosmosAddressRes)
-  SharedDtor();
-}
-
-void CosmosAddressRes::SharedDtor() {
-  address_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-void CosmosAddressRes::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* CosmosAddressRes::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return CosmosAddressRes_descriptor_;
-}
-
-const CosmosAddressRes& CosmosAddressRes::default_instance() {
-  protobuf_InitDefaults_cosmos_2eproto();
-  return *internal_default_instance();
-}
-
-::google::protobuf::internal::ExplicitlyConstructed<CosmosAddressRes> CosmosAddressRes_default_instance_;
-
-CosmosAddressRes* CosmosAddressRes::New(::google::protobuf::Arena* arena) const {
-  CosmosAddressRes* n = new CosmosAddressRes;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void CosmosAddressRes::Clear() {
-// @@protoc_insertion_point(message_clear_start:cosmosapi.CosmosAddressRes)
-  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool CosmosAddressRes::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:cosmosapi.CosmosAddressRes)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string address = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_address()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->address().data(), this->address().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "cosmosapi.CosmosAddressRes.address"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:cosmosapi.CosmosAddressRes)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:cosmosapi.CosmosAddressRes)
-  return false;
-#undef DO_
-}
-
-void CosmosAddressRes::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:cosmosapi.CosmosAddressRes)
-  // optional string address = 1;
-  if (this->address().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->address().data(), this->address().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosAddressRes.address");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->address(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:cosmosapi.CosmosAddressRes)
-}
-
-::google::protobuf::uint8* CosmosAddressRes::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:cosmosapi.CosmosAddressRes)
-  // optional string address = 1;
-  if (this->address().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->address().data(), this->address().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "cosmosapi.CosmosAddressRes.address");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->address(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:cosmosapi.CosmosAddressRes)
-  return target;
-}
-
-size_t CosmosAddressRes::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cosmosapi.CosmosAddressRes)
-  size_t total_size = 0;
-
-  // optional string address = 1;
-  if (this->address().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->address());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void CosmosAddressRes::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:cosmosapi.CosmosAddressRes)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const CosmosAddressRes* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const CosmosAddressRes>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:cosmosapi.CosmosAddressRes)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:cosmosapi.CosmosAddressRes)
-    UnsafeMergeFrom(*source);
-  }
-}
-
-void CosmosAddressRes::MergeFrom(const CosmosAddressRes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cosmosapi.CosmosAddressRes)
-  if (GOOGLE_PREDICT_TRUE(&from != this)) {
-    UnsafeMergeFrom(from);
-  } else {
-    MergeFromFail(__LINE__);
-  }
-}
-
-void CosmosAddressRes::UnsafeMergeFrom(const CosmosAddressRes& from) {
-  GOOGLE_DCHECK(&from != this);
-  if (from.address().size() > 0) {
-
-    address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
-  }
-}
-
-void CosmosAddressRes::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:cosmosapi.CosmosAddressRes)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void CosmosAddressRes::CopyFrom(const CosmosAddressRes& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cosmosapi.CosmosAddressRes)
-  if (&from == this) return;
-  Clear();
-  UnsafeMergeFrom(from);
-}
-
-bool CosmosAddressRes::IsInitialized() const {
-
-  return true;
-}
-
-void CosmosAddressRes::Swap(CosmosAddressRes* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void CosmosAddressRes::InternalSwap(CosmosAddressRes* other) {
-  address_.Swap(&other->address_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata CosmosAddressRes::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = CosmosAddressRes_descriptor_;
-  metadata.reflection = CosmosAddressRes_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// CosmosAddressRes
-
-// optional string address = 1;
-void CosmosAddressRes::clear_address() {
-  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-const ::std::string& CosmosAddressRes::address() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosAddressRes.address)
-  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosAddressRes::set_address(const ::std::string& value) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosAddressRes.address)
-}
-void CosmosAddressRes::set_address(const char* value) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosAddressRes.address)
-}
-void CosmosAddressRes::set_address(const char* value, size_t size) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosAddressRes.address)
-}
-::std::string* CosmosAddressRes::mutable_address() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosAddressRes.address)
-  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-::std::string* CosmosAddressRes::release_address() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosAddressRes.address)
-  
-  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-void CosmosAddressRes::set_allocated_address(::std::string* address) {
-  if (address != NULL) {
-    
-  } else {
-    
-  }
-  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosAddressRes.address)
-}
-
-inline const CosmosAddressRes* CosmosAddressRes::internal_default_instance() {
-  return &CosmosAddressRes_default_instance_.get();
+inline const CosmosTxOutput* CosmosTxOutput::internal_default_instance() {
+  return &CosmosTxOutput_default_instance_.get();
 }
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 

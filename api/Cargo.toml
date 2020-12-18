@@ -16,8 +16,9 @@ coin-ethereum = {path = "../wallet/coin-ethereum"}
 coin-bitcoin = {path = "../wallet/coin-bitcoin"}
 coin-eos = {path = "../wallet/coin-eos"}
 coin-cosmos = {path = "../wallet/coin-cosmos"}
+coin-filecoin = {path = "../wallet/coin-filecoin"}
 common = {path = "../common"}
-bitcoin = "0.21.0"
+bitcoin = "0.25.0"
 ethereum-types = "0.6.0"
 prost = "0.6.1"
 bytes = "0.5.4"
@@ -26,7 +27,18 @@ hex = "0.4.2"
 failure = "0.1.8"
 linked-hash-map = { version = "0.5.3", features = ["serde_impl"] }
 serde_json = { version = "1.0.53", default-features = false, features = ["alloc"] }
+base64 = "0.10.1"
+parking_lot = "0.10"
 
 [lib]
 name="connector"
 crate-type=["staticlib","cdylib"]
+#
+#[target.aarch64-linux-android.dependencies]
+#openssl = { version = "*", features = ["vendored"] }
+#[target.armv7-linux-androideabi.dependencies]
+#openssl = { version = "*", features = ["vendored"] }
+#[target.i686-linux-android.dependencies]
+#openssl = { version = "*", features = ["vendored"] }
+#[target.x86_64-linux-android.dependencies]
+#openssl = { version = "*", features = ["vendored"] }

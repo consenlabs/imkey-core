@@ -31,10 +31,6 @@ message AvailableAppBean {
     string install_mode = 6;
 }
 
-message BindCheckReq {
-    string file_path = 1;
-}
-
 message BindCheckRes {
     string bind_status = 1;
 }

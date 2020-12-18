@@ -32,6 +32,17 @@ android {
 //            signingConfig signingConfigs.release
         }
     }
+    sourceSets {
+        main {
+            proto {
+                srcDir 'src/main/proto'
+                include '**/*.proto'
+            }
+            java {
+                srcDir 'src/main/java'
+            }
+        }
+    }
     buildToolsVersion '27.0.3'
 }
 

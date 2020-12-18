@@ -38,8 +38,19 @@ void protobuf_InitDefaults_api_2eproto();
 void protobuf_AssignDesc_api_2eproto();
 void protobuf_ShutdownFile_api_2eproto();
 
+class AddressParam;
+class AddressResult;
+class BitcoinWallet;
+class CommonResponse;
+class EosWallet;
+class EosWallet_PubKeyInfo;
+class ErrorResponse;
+class ExternalAddress;
+class ExternalAddressParam;
 class ImkeyAction;
-class Response;
+class InitImKeyCoreXParam;
+class PubKeyParam;
+class PubKeyResult;
 
 // ===================================================================
 
@@ -144,34 +155,34 @@ extern ::google::protobuf::internal::ExplicitlyConstructed<ImkeyAction> ImkeyAct
 
 // -------------------------------------------------------------------
 
-class Response : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:api.Response) */ {
+class ErrorResponse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:api.ErrorResponse) */ {
  public:
-  Response();
-  virtual ~Response();
+  ErrorResponse();
+  virtual ~ErrorResponse();
 
-  Response(const Response& from);
+  ErrorResponse(const ErrorResponse& from);
 
-  inline Response& operator=(const Response& from) {
+  inline ErrorResponse& operator=(const ErrorResponse& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const Response& default_instance();
+  static const ErrorResponse& default_instance();
 
-  static const Response* internal_default_instance();
+  static const ErrorResponse* internal_default_instance();
 
-  void Swap(Response* other);
+  void Swap(ErrorResponse* other);
 
   // implements Message ----------------------------------------------
 
-  inline Response* New() const { return New(NULL); }
+  inline ErrorResponse* New() const { return New(NULL); }
 
-  Response* New(::google::protobuf::Arena* arena) const;
+  ErrorResponse* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Response& from);
-  void MergeFrom(const Response& from);
+  void CopyFrom(const ErrorResponse& from);
+  void MergeFrom(const ErrorResponse& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -190,8 +201,8 @@ class Response : public ::google::protobuf::Message /* @@protoc_insertion_point(
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(Response* other);
-  void UnsafeMergeFrom(const Response& from);
+  void InternalSwap(ErrorResponse* other);
+  void UnsafeMergeFrom(const ErrorResponse& from);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -224,7 +235,7 @@ class Response : public ::google::protobuf::Message /* @@protoc_insertion_point(
   ::std::string* release_error();
   void set_allocated_error(::std::string* error);
 
-  // @@protoc_insertion_point(class_scope:api.Response)
+  // @@protoc_insertion_point(class_scope:api.ErrorResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -238,7 +249,1330 @@ class Response : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   void InitAsDefaultInstance();
 };
-extern ::google::protobuf::internal::ExplicitlyConstructed<Response> Response_default_instance_;
+extern ::google::protobuf::internal::ExplicitlyConstructed<ErrorResponse> ErrorResponse_default_instance_;
+
+// -------------------------------------------------------------------
+
+class CommonResponse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:api.CommonResponse) */ {
+ public:
+  CommonResponse();
+  virtual ~CommonResponse();
+
+  CommonResponse(const CommonResponse& from);
+
+  inline CommonResponse& operator=(const CommonResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CommonResponse& default_instance();
+
+  static const CommonResponse* internal_default_instance();
+
+  void Swap(CommonResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  inline CommonResponse* New() const { return New(NULL); }
+
+  CommonResponse* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CommonResponse& from);
+  void MergeFrom(const CommonResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(CommonResponse* other);
+  void UnsafeMergeFrom(const CommonResponse& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string result = 1;
+  void clear_result();
+  static const int kResultFieldNumber = 1;
+  const ::std::string& result() const;
+  void set_result(const ::std::string& value);
+  void set_result(const char* value);
+  void set_result(const char* value, size_t size);
+  ::std::string* mutable_result();
+  ::std::string* release_result();
+  void set_allocated_result(::std::string* result);
+
+  // @@protoc_insertion_point(class_scope:api.CommonResponse)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr result_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_api_2eproto_impl();
+  friend void  protobuf_AddDesc_api_2eproto_impl();
+  friend void protobuf_AssignDesc_api_2eproto();
+  friend void protobuf_ShutdownFile_api_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<CommonResponse> CommonResponse_default_instance_;
+
+// -------------------------------------------------------------------
+
+class AddressParam : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:api.AddressParam) */ {
+ public:
+  AddressParam();
+  virtual ~AddressParam();
+
+  AddressParam(const AddressParam& from);
+
+  inline AddressParam& operator=(const AddressParam& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const AddressParam& default_instance();
+
+  static const AddressParam* internal_default_instance();
+
+  void Swap(AddressParam* other);
+
+  // implements Message ----------------------------------------------
+
+  inline AddressParam* New() const { return New(NULL); }
+
+  AddressParam* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const AddressParam& from);
+  void MergeFrom(const AddressParam& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AddressParam* other);
+  void UnsafeMergeFrom(const AddressParam& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string chainType = 1;
+  void clear_chaintype();
+  static const int kChainTypeFieldNumber = 1;
+  const ::std::string& chaintype() const;
+  void set_chaintype(const ::std::string& value);
+  void set_chaintype(const char* value);
+  void set_chaintype(const char* value, size_t size);
+  ::std::string* mutable_chaintype();
+  ::std::string* release_chaintype();
+  void set_allocated_chaintype(::std::string* chaintype);
+
+  // optional string path = 2;
+  void clear_path();
+  static const int kPathFieldNumber = 2;
+  const ::std::string& path() const;
+  void set_path(const ::std::string& value);
+  void set_path(const char* value);
+  void set_path(const char* value, size_t size);
+  ::std::string* mutable_path();
+  ::std::string* release_path();
+  void set_allocated_path(::std::string* path);
+
+  // optional string network = 3;
+  void clear_network();
+  static const int kNetworkFieldNumber = 3;
+  const ::std::string& network() const;
+  void set_network(const ::std::string& value);
+  void set_network(const char* value);
+  void set_network(const char* value, size_t size);
+  ::std::string* mutable_network();
+  ::std::string* release_network();
+  void set_allocated_network(::std::string* network);
+
+  // optional bool isSegWit = 4;
+  void clear_issegwit();
+  static const int kIsSegWitFieldNumber = 4;
+  bool issegwit() const;
+  void set_issegwit(bool value);
+
+  // @@protoc_insertion_point(class_scope:api.AddressParam)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr chaintype_;
+  ::google::protobuf::internal::ArenaStringPtr path_;
+  ::google::protobuf::internal::ArenaStringPtr network_;
+  bool issegwit_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_api_2eproto_impl();
+  friend void  protobuf_AddDesc_api_2eproto_impl();
+  friend void protobuf_AssignDesc_api_2eproto();
+  friend void protobuf_ShutdownFile_api_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<AddressParam> AddressParam_default_instance_;
+
+// -------------------------------------------------------------------
+
+class AddressResult : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:api.AddressResult) */ {
+ public:
+  AddressResult();
+  virtual ~AddressResult();
+
+  AddressResult(const AddressResult& from);
+
+  inline AddressResult& operator=(const AddressResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const AddressResult& default_instance();
+
+  static const AddressResult* internal_default_instance();
+
+  void Swap(AddressResult* other);
+
+  // implements Message ----------------------------------------------
+
+  inline AddressResult* New() const { return New(NULL); }
+
+  AddressResult* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const AddressResult& from);
+  void MergeFrom(const AddressResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AddressResult* other);
+  void UnsafeMergeFrom(const AddressResult& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string path = 1;
+  void clear_path();
+  static const int kPathFieldNumber = 1;
+  const ::std::string& path() const;
+  void set_path(const ::std::string& value);
+  void set_path(const char* value);
+  void set_path(const char* value, size_t size);
+  ::std::string* mutable_path();
+  ::std::string* release_path();
+  void set_allocated_path(::std::string* path);
+
+  // optional string chainType = 2;
+  void clear_chaintype();
+  static const int kChainTypeFieldNumber = 2;
+  const ::std::string& chaintype() const;
+  void set_chaintype(const ::std::string& value);
+  void set_chaintype(const char* value);
+  void set_chaintype(const char* value, size_t size);
+  ::std::string* mutable_chaintype();
+  ::std::string* release_chaintype();
+  void set_allocated_chaintype(::std::string* chaintype);
+
+  // optional string address = 3;
+  void clear_address();
+  static const int kAddressFieldNumber = 3;
+  const ::std::string& address() const;
+  void set_address(const ::std::string& value);
+  void set_address(const char* value);
+  void set_address(const char* value, size_t size);
+  ::std::string* mutable_address();
+  ::std::string* release_address();
+  void set_allocated_address(::std::string* address);
+
+  // @@protoc_insertion_point(class_scope:api.AddressResult)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr path_;
+  ::google::protobuf::internal::ArenaStringPtr chaintype_;
+  ::google::protobuf::internal::ArenaStringPtr address_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_api_2eproto_impl();
+  friend void  protobuf_AddDesc_api_2eproto_impl();
+  friend void protobuf_AssignDesc_api_2eproto();
+  friend void protobuf_ShutdownFile_api_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<AddressResult> AddressResult_default_instance_;
+
+// -------------------------------------------------------------------
+
+class PubKeyParam : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:api.PubKeyParam) */ {
+ public:
+  PubKeyParam();
+  virtual ~PubKeyParam();
+
+  PubKeyParam(const PubKeyParam& from);
+
+  inline PubKeyParam& operator=(const PubKeyParam& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PubKeyParam& default_instance();
+
+  static const PubKeyParam* internal_default_instance();
+
+  void Swap(PubKeyParam* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PubKeyParam* New() const { return New(NULL); }
+
+  PubKeyParam* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PubKeyParam& from);
+  void MergeFrom(const PubKeyParam& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PubKeyParam* other);
+  void UnsafeMergeFrom(const PubKeyParam& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string chainType = 1;
+  void clear_chaintype();
+  static const int kChainTypeFieldNumber = 1;
+  const ::std::string& chaintype() const;
+  void set_chaintype(const ::std::string& value);
+  void set_chaintype(const char* value);
+  void set_chaintype(const char* value, size_t size);
+  ::std::string* mutable_chaintype();
+  ::std::string* release_chaintype();
+  void set_allocated_chaintype(::std::string* chaintype);
+
+  // optional string path = 2;
+  void clear_path();
+  static const int kPathFieldNumber = 2;
+  const ::std::string& path() const;
+  void set_path(const ::std::string& value);
+  void set_path(const char* value);
+  void set_path(const char* value, size_t size);
+  ::std::string* mutable_path();
+  ::std::string* release_path();
+  void set_allocated_path(::std::string* path);
+
+  // optional string network = 3;
+  void clear_network();
+  static const int kNetworkFieldNumber = 3;
+  const ::std::string& network() const;
+  void set_network(const ::std::string& value);
+  void set_network(const char* value);
+  void set_network(const char* value, size_t size);
+  ::std::string* mutable_network();
+  ::std::string* release_network();
+  void set_allocated_network(::std::string* network);
+
+  // optional string isSegWit = 4;
+  void clear_issegwit();
+  static const int kIsSegWitFieldNumber = 4;
+  const ::std::string& issegwit() const;
+  void set_issegwit(const ::std::string& value);
+  void set_issegwit(const char* value);
+  void set_issegwit(const char* value, size_t size);
+  ::std::string* mutable_issegwit();
+  ::std::string* release_issegwit();
+  void set_allocated_issegwit(::std::string* issegwit);
+
+  // @@protoc_insertion_point(class_scope:api.PubKeyParam)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr chaintype_;
+  ::google::protobuf::internal::ArenaStringPtr path_;
+  ::google::protobuf::internal::ArenaStringPtr network_;
+  ::google::protobuf::internal::ArenaStringPtr issegwit_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_api_2eproto_impl();
+  friend void  protobuf_AddDesc_api_2eproto_impl();
+  friend void protobuf_AssignDesc_api_2eproto();
+  friend void protobuf_ShutdownFile_api_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<PubKeyParam> PubKeyParam_default_instance_;
+
+// -------------------------------------------------------------------
+
+class PubKeyResult : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:api.PubKeyResult) */ {
+ public:
+  PubKeyResult();
+  virtual ~PubKeyResult();
+
+  PubKeyResult(const PubKeyResult& from);
+
+  inline PubKeyResult& operator=(const PubKeyResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PubKeyResult& default_instance();
+
+  static const PubKeyResult* internal_default_instance();
+
+  void Swap(PubKeyResult* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PubKeyResult* New() const { return New(NULL); }
+
+  PubKeyResult* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PubKeyResult& from);
+  void MergeFrom(const PubKeyResult& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PubKeyResult* other);
+  void UnsafeMergeFrom(const PubKeyResult& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string path = 1;
+  void clear_path();
+  static const int kPathFieldNumber = 1;
+  const ::std::string& path() const;
+  void set_path(const ::std::string& value);
+  void set_path(const char* value);
+  void set_path(const char* value, size_t size);
+  ::std::string* mutable_path();
+  ::std::string* release_path();
+  void set_allocated_path(::std::string* path);
+
+  // optional string chainType = 2;
+  void clear_chaintype();
+  static const int kChainTypeFieldNumber = 2;
+  const ::std::string& chaintype() const;
+  void set_chaintype(const ::std::string& value);
+  void set_chaintype(const char* value);
+  void set_chaintype(const char* value, size_t size);
+  ::std::string* mutable_chaintype();
+  ::std::string* release_chaintype();
+  void set_allocated_chaintype(::std::string* chaintype);
+
+  // optional string pubKey = 3;
+  void clear_pubkey();
+  static const int kPubKeyFieldNumber = 3;
+  const ::std::string& pubkey() const;
+  void set_pubkey(const ::std::string& value);
+  void set_pubkey(const char* value);
+  void set_pubkey(const char* value, size_t size);
+  ::std::string* mutable_pubkey();
+  ::std::string* release_pubkey();
+  void set_allocated_pubkey(::std::string* pubkey);
+
+  // optional string derivedMode = 4;
+  void clear_derivedmode();
+  static const int kDerivedModeFieldNumber = 4;
+  const ::std::string& derivedmode() const;
+  void set_derivedmode(const ::std::string& value);
+  void set_derivedmode(const char* value);
+  void set_derivedmode(const char* value, size_t size);
+  ::std::string* mutable_derivedmode();
+  ::std::string* release_derivedmode();
+  void set_allocated_derivedmode(::std::string* derivedmode);
+
+  // @@protoc_insertion_point(class_scope:api.PubKeyResult)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr path_;
+  ::google::protobuf::internal::ArenaStringPtr chaintype_;
+  ::google::protobuf::internal::ArenaStringPtr pubkey_;
+  ::google::protobuf::internal::ArenaStringPtr derivedmode_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_api_2eproto_impl();
+  friend void  protobuf_AddDesc_api_2eproto_impl();
+  friend void protobuf_AssignDesc_api_2eproto();
+  friend void protobuf_ShutdownFile_api_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<PubKeyResult> PubKeyResult_default_instance_;
+
+// -------------------------------------------------------------------
+
+class ExternalAddress : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:api.ExternalAddress) */ {
+ public:
+  ExternalAddress();
+  virtual ~ExternalAddress();
+
+  ExternalAddress(const ExternalAddress& from);
+
+  inline ExternalAddress& operator=(const ExternalAddress& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ExternalAddress& default_instance();
+
+  static const ExternalAddress* internal_default_instance();
+
+  void Swap(ExternalAddress* other);
+
+  // implements Message ----------------------------------------------
+
+  inline ExternalAddress* New() const { return New(NULL); }
+
+  ExternalAddress* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ExternalAddress& from);
+  void MergeFrom(const ExternalAddress& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ExternalAddress* other);
+  void UnsafeMergeFrom(const ExternalAddress& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string address = 1;
+  void clear_address();
+  static const int kAddressFieldNumber = 1;
+  const ::std::string& address() const;
+  void set_address(const ::std::string& value);
+  void set_address(const char* value);
+  void set_address(const char* value, size_t size);
+  ::std::string* mutable_address();
+  ::std::string* release_address();
+  void set_allocated_address(::std::string* address);
+
+  // optional string derivedPath = 2;
+  void clear_derivedpath();
+  static const int kDerivedPathFieldNumber = 2;
+  const ::std::string& derivedpath() const;
+  void set_derivedpath(const ::std::string& value);
+  void set_derivedpath(const char* value);
+  void set_derivedpath(const char* value, size_t size);
+  ::std::string* mutable_derivedpath();
+  ::std::string* release_derivedpath();
+  void set_allocated_derivedpath(::std::string* derivedpath);
+
+  // optional string type = 3;
+  void clear_type();
+  static const int kTypeFieldNumber = 3;
+  const ::std::string& type() const;
+  void set_type(const ::std::string& value);
+  void set_type(const char* value);
+  void set_type(const char* value, size_t size);
+  ::std::string* mutable_type();
+  ::std::string* release_type();
+  void set_allocated_type(::std::string* type);
+
+  // @@protoc_insertion_point(class_scope:api.ExternalAddress)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr address_;
+  ::google::protobuf::internal::ArenaStringPtr derivedpath_;
+  ::google::protobuf::internal::ArenaStringPtr type_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_api_2eproto_impl();
+  friend void  protobuf_AddDesc_api_2eproto_impl();
+  friend void protobuf_AssignDesc_api_2eproto();
+  friend void protobuf_ShutdownFile_api_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<ExternalAddress> ExternalAddress_default_instance_;
+
+// -------------------------------------------------------------------
+
+class BitcoinWallet : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:api.BitcoinWallet) */ {
+ public:
+  BitcoinWallet();
+  virtual ~BitcoinWallet();
+
+  BitcoinWallet(const BitcoinWallet& from);
+
+  inline BitcoinWallet& operator=(const BitcoinWallet& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const BitcoinWallet& default_instance();
+
+  static const BitcoinWallet* internal_default_instance();
+
+  void Swap(BitcoinWallet* other);
+
+  // implements Message ----------------------------------------------
+
+  inline BitcoinWallet* New() const { return New(NULL); }
+
+  BitcoinWallet* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const BitcoinWallet& from);
+  void MergeFrom(const BitcoinWallet& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(BitcoinWallet* other);
+  void UnsafeMergeFrom(const BitcoinWallet& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string path = 1;
+  void clear_path();
+  static const int kPathFieldNumber = 1;
+  const ::std::string& path() const;
+  void set_path(const ::std::string& value);
+  void set_path(const char* value);
+  void set_path(const char* value, size_t size);
+  ::std::string* mutable_path();
+  ::std::string* release_path();
+  void set_allocated_path(::std::string* path);
+
+  // optional string chainType = 2;
+  void clear_chaintype();
+  static const int kChainTypeFieldNumber = 2;
+  const ::std::string& chaintype() const;
+  void set_chaintype(const ::std::string& value);
+  void set_chaintype(const char* value);
+  void set_chaintype(const char* value, size_t size);
+  ::std::string* mutable_chaintype();
+  ::std::string* release_chaintype();
+  void set_allocated_chaintype(::std::string* chaintype);
+
+  // optional string address = 3;
+  void clear_address();
+  static const int kAddressFieldNumber = 3;
+  const ::std::string& address() const;
+  void set_address(const ::std::string& value);
+  void set_address(const char* value);
+  void set_address(const char* value, size_t size);
+  ::std::string* mutable_address();
+  ::std::string* release_address();
+  void set_allocated_address(::std::string* address);
+
+  // optional string encXPub = 4;
+  void clear_encxpub();
+  static const int kEncXPubFieldNumber = 4;
+  const ::std::string& encxpub() const;
+  void set_encxpub(const ::std::string& value);
+  void set_encxpub(const char* value);
+  void set_encxpub(const char* value, size_t size);
+  ::std::string* mutable_encxpub();
+  ::std::string* release_encxpub();
+  void set_allocated_encxpub(::std::string* encxpub);
+
+  // optional .api.ExternalAddress externalAddress = 5;
+  bool has_externaladdress() const;
+  void clear_externaladdress();
+  static const int kExternalAddressFieldNumber = 5;
+  const ::api::ExternalAddress& externaladdress() const;
+  ::api::ExternalAddress* mutable_externaladdress();
+  ::api::ExternalAddress* release_externaladdress();
+  void set_allocated_externaladdress(::api::ExternalAddress* externaladdress);
+
+  // @@protoc_insertion_point(class_scope:api.BitcoinWallet)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr path_;
+  ::google::protobuf::internal::ArenaStringPtr chaintype_;
+  ::google::protobuf::internal::ArenaStringPtr address_;
+  ::google::protobuf::internal::ArenaStringPtr encxpub_;
+  ::api::ExternalAddress* externaladdress_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_api_2eproto_impl();
+  friend void  protobuf_AddDesc_api_2eproto_impl();
+  friend void protobuf_AssignDesc_api_2eproto();
+  friend void protobuf_ShutdownFile_api_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<BitcoinWallet> BitcoinWallet_default_instance_;
+
+// -------------------------------------------------------------------
+
+class EosWallet_PubKeyInfo : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:api.EosWallet.PubKeyInfo) */ {
+ public:
+  EosWallet_PubKeyInfo();
+  virtual ~EosWallet_PubKeyInfo();
+
+  EosWallet_PubKeyInfo(const EosWallet_PubKeyInfo& from);
+
+  inline EosWallet_PubKeyInfo& operator=(const EosWallet_PubKeyInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const EosWallet_PubKeyInfo& default_instance();
+
+  static const EosWallet_PubKeyInfo* internal_default_instance();
+
+  void Swap(EosWallet_PubKeyInfo* other);
+
+  // implements Message ----------------------------------------------
+
+  inline EosWallet_PubKeyInfo* New() const { return New(NULL); }
+
+  EosWallet_PubKeyInfo* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const EosWallet_PubKeyInfo& from);
+  void MergeFrom(const EosWallet_PubKeyInfo& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(EosWallet_PubKeyInfo* other);
+  void UnsafeMergeFrom(const EosWallet_PubKeyInfo& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string path = 1;
+  void clear_path();
+  static const int kPathFieldNumber = 1;
+  const ::std::string& path() const;
+  void set_path(const ::std::string& value);
+  void set_path(const char* value);
+  void set_path(const char* value, size_t size);
+  ::std::string* mutable_path();
+  ::std::string* release_path();
+  void set_allocated_path(::std::string* path);
+
+  // optional string derivedMode = 2;
+  void clear_derivedmode();
+  static const int kDerivedModeFieldNumber = 2;
+  const ::std::string& derivedmode() const;
+  void set_derivedmode(const ::std::string& value);
+  void set_derivedmode(const char* value);
+  void set_derivedmode(const char* value, size_t size);
+  ::std::string* mutable_derivedmode();
+  ::std::string* release_derivedmode();
+  void set_allocated_derivedmode(::std::string* derivedmode);
+
+  // optional string publicKey = 3;
+  void clear_publickey();
+  static const int kPublicKeyFieldNumber = 3;
+  const ::std::string& publickey() const;
+  void set_publickey(const ::std::string& value);
+  void set_publickey(const char* value);
+  void set_publickey(const char* value, size_t size);
+  ::std::string* mutable_publickey();
+  ::std::string* release_publickey();
+  void set_allocated_publickey(::std::string* publickey);
+
+  // @@protoc_insertion_point(class_scope:api.EosWallet.PubKeyInfo)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr path_;
+  ::google::protobuf::internal::ArenaStringPtr derivedmode_;
+  ::google::protobuf::internal::ArenaStringPtr publickey_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_api_2eproto_impl();
+  friend void  protobuf_AddDesc_api_2eproto_impl();
+  friend void protobuf_AssignDesc_api_2eproto();
+  friend void protobuf_ShutdownFile_api_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<EosWallet_PubKeyInfo> EosWallet_PubKeyInfo_default_instance_;
+
+// -------------------------------------------------------------------
+
+class EosWallet : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:api.EosWallet) */ {
+ public:
+  EosWallet();
+  virtual ~EosWallet();
+
+  EosWallet(const EosWallet& from);
+
+  inline EosWallet& operator=(const EosWallet& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const EosWallet& default_instance();
+
+  static const EosWallet* internal_default_instance();
+
+  void Swap(EosWallet* other);
+
+  // implements Message ----------------------------------------------
+
+  inline EosWallet* New() const { return New(NULL); }
+
+  EosWallet* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const EosWallet& from);
+  void MergeFrom(const EosWallet& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(EosWallet* other);
+  void UnsafeMergeFrom(const EosWallet& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  typedef EosWallet_PubKeyInfo PubKeyInfo;
+
+  // accessors -------------------------------------------------------
+
+  // optional string chainType = 1;
+  void clear_chaintype();
+  static const int kChainTypeFieldNumber = 1;
+  const ::std::string& chaintype() const;
+  void set_chaintype(const ::std::string& value);
+  void set_chaintype(const char* value);
+  void set_chaintype(const char* value, size_t size);
+  ::std::string* mutable_chaintype();
+  ::std::string* release_chaintype();
+  void set_allocated_chaintype(::std::string* chaintype);
+
+  // optional string address = 2;
+  void clear_address();
+  static const int kAddressFieldNumber = 2;
+  const ::std::string& address() const;
+  void set_address(const ::std::string& value);
+  void set_address(const char* value);
+  void set_address(const char* value, size_t size);
+  ::std::string* mutable_address();
+  ::std::string* release_address();
+  void set_allocated_address(::std::string* address);
+
+  // repeated .api.EosWallet.PubKeyInfo publicKeys = 3;
+  int publickeys_size() const;
+  void clear_publickeys();
+  static const int kPublicKeysFieldNumber = 3;
+  const ::api::EosWallet_PubKeyInfo& publickeys(int index) const;
+  ::api::EosWallet_PubKeyInfo* mutable_publickeys(int index);
+  ::api::EosWallet_PubKeyInfo* add_publickeys();
+  ::google::protobuf::RepeatedPtrField< ::api::EosWallet_PubKeyInfo >*
+      mutable_publickeys();
+  const ::google::protobuf::RepeatedPtrField< ::api::EosWallet_PubKeyInfo >&
+      publickeys() const;
+
+  // @@protoc_insertion_point(class_scope:api.EosWallet)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::api::EosWallet_PubKeyInfo > publickeys_;
+  ::google::protobuf::internal::ArenaStringPtr chaintype_;
+  ::google::protobuf::internal::ArenaStringPtr address_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_api_2eproto_impl();
+  friend void  protobuf_AddDesc_api_2eproto_impl();
+  friend void protobuf_AssignDesc_api_2eproto();
+  friend void protobuf_ShutdownFile_api_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<EosWallet> EosWallet_default_instance_;
+
+// -------------------------------------------------------------------
+
+class ExternalAddressParam : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:api.ExternalAddressParam) */ {
+ public:
+  ExternalAddressParam();
+  virtual ~ExternalAddressParam();
+
+  ExternalAddressParam(const ExternalAddressParam& from);
+
+  inline ExternalAddressParam& operator=(const ExternalAddressParam& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ExternalAddressParam& default_instance();
+
+  static const ExternalAddressParam* internal_default_instance();
+
+  void Swap(ExternalAddressParam* other);
+
+  // implements Message ----------------------------------------------
+
+  inline ExternalAddressParam* New() const { return New(NULL); }
+
+  ExternalAddressParam* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ExternalAddressParam& from);
+  void MergeFrom(const ExternalAddressParam& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ExternalAddressParam* other);
+  void UnsafeMergeFrom(const ExternalAddressParam& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string path = 1;
+  void clear_path();
+  static const int kPathFieldNumber = 1;
+  const ::std::string& path() const;
+  void set_path(const ::std::string& value);
+  void set_path(const char* value);
+  void set_path(const char* value, size_t size);
+  ::std::string* mutable_path();
+  ::std::string* release_path();
+  void set_allocated_path(::std::string* path);
+
+  // optional string chainType = 2;
+  void clear_chaintype();
+  static const int kChainTypeFieldNumber = 2;
+  const ::std::string& chaintype() const;
+  void set_chaintype(const ::std::string& value);
+  void set_chaintype(const char* value);
+  void set_chaintype(const char* value, size_t size);
+  ::std::string* mutable_chaintype();
+  ::std::string* release_chaintype();
+  void set_allocated_chaintype(::std::string* chaintype);
+
+  // optional string network = 3;
+  void clear_network();
+  static const int kNetworkFieldNumber = 3;
+  const ::std::string& network() const;
+  void set_network(const ::std::string& value);
+  void set_network(const char* value);
+  void set_network(const char* value, size_t size);
+  ::std::string* mutable_network();
+  ::std::string* release_network();
+  void set_allocated_network(::std::string* network);
+
+  // optional string segWit = 4;
+  void clear_segwit();
+  static const int kSegWitFieldNumber = 4;
+  const ::std::string& segwit() const;
+  void set_segwit(const ::std::string& value);
+  void set_segwit(const char* value);
+  void set_segwit(const char* value, size_t size);
+  ::std::string* mutable_segwit();
+  ::std::string* release_segwit();
+  void set_allocated_segwit(::std::string* segwit);
+
+  // optional int32 externalIdx = 5;
+  void clear_externalidx();
+  static const int kExternalIdxFieldNumber = 5;
+  ::google::protobuf::int32 externalidx() const;
+  void set_externalidx(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:api.ExternalAddressParam)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr path_;
+  ::google::protobuf::internal::ArenaStringPtr chaintype_;
+  ::google::protobuf::internal::ArenaStringPtr network_;
+  ::google::protobuf::internal::ArenaStringPtr segwit_;
+  ::google::protobuf::int32 externalidx_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_api_2eproto_impl();
+  friend void  protobuf_AddDesc_api_2eproto_impl();
+  friend void protobuf_AssignDesc_api_2eproto();
+  friend void protobuf_ShutdownFile_api_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<ExternalAddressParam> ExternalAddressParam_default_instance_;
+
+// -------------------------------------------------------------------
+
+class InitImKeyCoreXParam : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:api.InitImKeyCoreXParam) */ {
+ public:
+  InitImKeyCoreXParam();
+  virtual ~InitImKeyCoreXParam();
+
+  InitImKeyCoreXParam(const InitImKeyCoreXParam& from);
+
+  inline InitImKeyCoreXParam& operator=(const InitImKeyCoreXParam& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const InitImKeyCoreXParam& default_instance();
+
+  static const InitImKeyCoreXParam* internal_default_instance();
+
+  void Swap(InitImKeyCoreXParam* other);
+
+  // implements Message ----------------------------------------------
+
+  inline InitImKeyCoreXParam* New() const { return New(NULL); }
+
+  InitImKeyCoreXParam* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const InitImKeyCoreXParam& from);
+  void MergeFrom(const InitImKeyCoreXParam& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InitImKeyCoreXParam* other);
+  void UnsafeMergeFrom(const InitImKeyCoreXParam& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string fileDir = 1;
+  void clear_filedir();
+  static const int kFileDirFieldNumber = 1;
+  const ::std::string& filedir() const;
+  void set_filedir(const ::std::string& value);
+  void set_filedir(const char* value);
+  void set_filedir(const char* value, size_t size);
+  ::std::string* mutable_filedir();
+  ::std::string* release_filedir();
+  void set_allocated_filedir(::std::string* filedir);
+
+  // optional string xpubCommonKey = 2;
+  void clear_xpubcommonkey();
+  static const int kXpubCommonKeyFieldNumber = 2;
+  const ::std::string& xpubcommonkey() const;
+  void set_xpubcommonkey(const ::std::string& value);
+  void set_xpubcommonkey(const char* value);
+  void set_xpubcommonkey(const char* value, size_t size);
+  ::std::string* mutable_xpubcommonkey();
+  ::std::string* release_xpubcommonkey();
+  void set_allocated_xpubcommonkey(::std::string* xpubcommonkey);
+
+  // optional string xpubCommonIv = 3;
+  void clear_xpubcommoniv();
+  static const int kXpubCommonIvFieldNumber = 3;
+  const ::std::string& xpubcommoniv() const;
+  void set_xpubcommoniv(const ::std::string& value);
+  void set_xpubcommoniv(const char* value);
+  void set_xpubcommoniv(const char* value, size_t size);
+  ::std::string* mutable_xpubcommoniv();
+  ::std::string* release_xpubcommoniv();
+  void set_allocated_xpubcommoniv(::std::string* xpubcommoniv);
+
+  // optional bool isDebug = 4;
+  void clear_isdebug();
+  static const int kIsDebugFieldNumber = 4;
+  bool isdebug() const;
+  void set_isdebug(bool value);
+
+  // @@protoc_insertion_point(class_scope:api.InitImKeyCoreXParam)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr filedir_;
+  ::google::protobuf::internal::ArenaStringPtr xpubcommonkey_;
+  ::google::protobuf::internal::ArenaStringPtr xpubcommoniv_;
+  bool isdebug_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_api_2eproto_impl();
+  friend void  protobuf_AddDesc_api_2eproto_impl();
+  friend void protobuf_AssignDesc_api_2eproto();
+  friend void protobuf_ShutdownFile_api_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<InitImKeyCoreXParam> InitImKeyCoreXParam_default_instance_;
 
 // ===================================================================
 
@@ -336,70 +1670,1776 @@ inline const ImkeyAction* ImkeyAction::internal_default_instance() {
 }
 // -------------------------------------------------------------------
 
-// Response
+// ErrorResponse
 
 // optional bool isSuccess = 1;
-inline void Response::clear_issuccess() {
+inline void ErrorResponse::clear_issuccess() {
   issuccess_ = false;
 }
-inline bool Response::issuccess() const {
-  // @@protoc_insertion_point(field_get:api.Response.isSuccess)
+inline bool ErrorResponse::issuccess() const {
+  // @@protoc_insertion_point(field_get:api.ErrorResponse.isSuccess)
   return issuccess_;
 }
-inline void Response::set_issuccess(bool value) {
+inline void ErrorResponse::set_issuccess(bool value) {
   
   issuccess_ = value;
-  // @@protoc_insertion_point(field_set:api.Response.isSuccess)
+  // @@protoc_insertion_point(field_set:api.ErrorResponse.isSuccess)
 }
 
 // optional string error = 2;
-inline void Response::clear_error() {
+inline void ErrorResponse::clear_error() {
   error_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& Response::error() const {
-  // @@protoc_insertion_point(field_get:api.Response.error)
+inline const ::std::string& ErrorResponse::error() const {
+  // @@protoc_insertion_point(field_get:api.ErrorResponse.error)
   return error_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void Response::set_error(const ::std::string& value) {
+inline void ErrorResponse::set_error(const ::std::string& value) {
   
   error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:api.Response.error)
+  // @@protoc_insertion_point(field_set:api.ErrorResponse.error)
 }
-inline void Response::set_error(const char* value) {
+inline void ErrorResponse::set_error(const char* value) {
   
   error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:api.Response.error)
+  // @@protoc_insertion_point(field_set_char:api.ErrorResponse.error)
 }
-inline void Response::set_error(const char* value, size_t size) {
+inline void ErrorResponse::set_error(const char* value, size_t size) {
   
   error_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:api.Response.error)
+  // @@protoc_insertion_point(field_set_pointer:api.ErrorResponse.error)
 }
-inline ::std::string* Response::mutable_error() {
+inline ::std::string* ErrorResponse::mutable_error() {
   
-  // @@protoc_insertion_point(field_mutable:api.Response.error)
+  // @@protoc_insertion_point(field_mutable:api.ErrorResponse.error)
   return error_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* Response::release_error() {
-  // @@protoc_insertion_point(field_release:api.Response.error)
+inline ::std::string* ErrorResponse::release_error() {
+  // @@protoc_insertion_point(field_release:api.ErrorResponse.error)
   
   return error_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void Response::set_allocated_error(::std::string* error) {
+inline void ErrorResponse::set_allocated_error(::std::string* error) {
   if (error != NULL) {
     
   } else {
     
   }
   error_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), error);
-  // @@protoc_insertion_point(field_set_allocated:api.Response.error)
+  // @@protoc_insertion_point(field_set_allocated:api.ErrorResponse.error)
 }
 
-inline const Response* Response::internal_default_instance() {
-  return &Response_default_instance_.get();
+inline const ErrorResponse* ErrorResponse::internal_default_instance() {
+  return &ErrorResponse_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// CommonResponse
+
+// optional string result = 1;
+inline void CommonResponse::clear_result() {
+  result_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CommonResponse::result() const {
+  // @@protoc_insertion_point(field_get:api.CommonResponse.result)
+  return result_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CommonResponse::set_result(const ::std::string& value) {
+  
+  result_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.CommonResponse.result)
+}
+inline void CommonResponse::set_result(const char* value) {
+  
+  result_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.CommonResponse.result)
+}
+inline void CommonResponse::set_result(const char* value, size_t size) {
+  
+  result_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.CommonResponse.result)
+}
+inline ::std::string* CommonResponse::mutable_result() {
+  
+  // @@protoc_insertion_point(field_mutable:api.CommonResponse.result)
+  return result_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CommonResponse::release_result() {
+  // @@protoc_insertion_point(field_release:api.CommonResponse.result)
+  
+  return result_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CommonResponse::set_allocated_result(::std::string* result) {
+  if (result != NULL) {
+    
+  } else {
+    
+  }
+  result_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), result);
+  // @@protoc_insertion_point(field_set_allocated:api.CommonResponse.result)
+}
+
+inline const CommonResponse* CommonResponse::internal_default_instance() {
+  return &CommonResponse_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// AddressParam
+
+// optional string chainType = 1;
+inline void AddressParam::clear_chaintype() {
+  chaintype_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& AddressParam::chaintype() const {
+  // @@protoc_insertion_point(field_get:api.AddressParam.chainType)
+  return chaintype_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddressParam::set_chaintype(const ::std::string& value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.AddressParam.chainType)
+}
+inline void AddressParam::set_chaintype(const char* value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.AddressParam.chainType)
+}
+inline void AddressParam::set_chaintype(const char* value, size_t size) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.AddressParam.chainType)
+}
+inline ::std::string* AddressParam::mutable_chaintype() {
+  
+  // @@protoc_insertion_point(field_mutable:api.AddressParam.chainType)
+  return chaintype_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* AddressParam::release_chaintype() {
+  // @@protoc_insertion_point(field_release:api.AddressParam.chainType)
+  
+  return chaintype_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddressParam::set_allocated_chaintype(::std::string* chaintype) {
+  if (chaintype != NULL) {
+    
+  } else {
+    
+  }
+  chaintype_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chaintype);
+  // @@protoc_insertion_point(field_set_allocated:api.AddressParam.chainType)
+}
+
+// optional string path = 2;
+inline void AddressParam::clear_path() {
+  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& AddressParam::path() const {
+  // @@protoc_insertion_point(field_get:api.AddressParam.path)
+  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddressParam::set_path(const ::std::string& value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.AddressParam.path)
+}
+inline void AddressParam::set_path(const char* value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.AddressParam.path)
+}
+inline void AddressParam::set_path(const char* value, size_t size) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.AddressParam.path)
+}
+inline ::std::string* AddressParam::mutable_path() {
+  
+  // @@protoc_insertion_point(field_mutable:api.AddressParam.path)
+  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* AddressParam::release_path() {
+  // @@protoc_insertion_point(field_release:api.AddressParam.path)
+  
+  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddressParam::set_allocated_path(::std::string* path) {
+  if (path != NULL) {
+    
+  } else {
+    
+  }
+  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
+  // @@protoc_insertion_point(field_set_allocated:api.AddressParam.path)
+}
+
+// optional string network = 3;
+inline void AddressParam::clear_network() {
+  network_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& AddressParam::network() const {
+  // @@protoc_insertion_point(field_get:api.AddressParam.network)
+  return network_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddressParam::set_network(const ::std::string& value) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.AddressParam.network)
+}
+inline void AddressParam::set_network(const char* value) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.AddressParam.network)
+}
+inline void AddressParam::set_network(const char* value, size_t size) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.AddressParam.network)
+}
+inline ::std::string* AddressParam::mutable_network() {
+  
+  // @@protoc_insertion_point(field_mutable:api.AddressParam.network)
+  return network_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* AddressParam::release_network() {
+  // @@protoc_insertion_point(field_release:api.AddressParam.network)
+  
+  return network_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddressParam::set_allocated_network(::std::string* network) {
+  if (network != NULL) {
+    
+  } else {
+    
+  }
+  network_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), network);
+  // @@protoc_insertion_point(field_set_allocated:api.AddressParam.network)
+}
+
+// optional bool isSegWit = 4;
+inline void AddressParam::clear_issegwit() {
+  issegwit_ = false;
+}
+inline bool AddressParam::issegwit() const {
+  // @@protoc_insertion_point(field_get:api.AddressParam.isSegWit)
+  return issegwit_;
+}
+inline void AddressParam::set_issegwit(bool value) {
+  
+  issegwit_ = value;
+  // @@protoc_insertion_point(field_set:api.AddressParam.isSegWit)
+}
+
+inline const AddressParam* AddressParam::internal_default_instance() {
+  return &AddressParam_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// AddressResult
+
+// optional string path = 1;
+inline void AddressResult::clear_path() {
+  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& AddressResult::path() const {
+  // @@protoc_insertion_point(field_get:api.AddressResult.path)
+  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddressResult::set_path(const ::std::string& value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.AddressResult.path)
+}
+inline void AddressResult::set_path(const char* value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.AddressResult.path)
+}
+inline void AddressResult::set_path(const char* value, size_t size) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.AddressResult.path)
+}
+inline ::std::string* AddressResult::mutable_path() {
+  
+  // @@protoc_insertion_point(field_mutable:api.AddressResult.path)
+  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* AddressResult::release_path() {
+  // @@protoc_insertion_point(field_release:api.AddressResult.path)
+  
+  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddressResult::set_allocated_path(::std::string* path) {
+  if (path != NULL) {
+    
+  } else {
+    
+  }
+  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
+  // @@protoc_insertion_point(field_set_allocated:api.AddressResult.path)
+}
+
+// optional string chainType = 2;
+inline void AddressResult::clear_chaintype() {
+  chaintype_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& AddressResult::chaintype() const {
+  // @@protoc_insertion_point(field_get:api.AddressResult.chainType)
+  return chaintype_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddressResult::set_chaintype(const ::std::string& value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.AddressResult.chainType)
+}
+inline void AddressResult::set_chaintype(const char* value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.AddressResult.chainType)
+}
+inline void AddressResult::set_chaintype(const char* value, size_t size) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.AddressResult.chainType)
+}
+inline ::std::string* AddressResult::mutable_chaintype() {
+  
+  // @@protoc_insertion_point(field_mutable:api.AddressResult.chainType)
+  return chaintype_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* AddressResult::release_chaintype() {
+  // @@protoc_insertion_point(field_release:api.AddressResult.chainType)
+  
+  return chaintype_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddressResult::set_allocated_chaintype(::std::string* chaintype) {
+  if (chaintype != NULL) {
+    
+  } else {
+    
+  }
+  chaintype_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chaintype);
+  // @@protoc_insertion_point(field_set_allocated:api.AddressResult.chainType)
+}
+
+// optional string address = 3;
+inline void AddressResult::clear_address() {
+  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& AddressResult::address() const {
+  // @@protoc_insertion_point(field_get:api.AddressResult.address)
+  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddressResult::set_address(const ::std::string& value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.AddressResult.address)
+}
+inline void AddressResult::set_address(const char* value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.AddressResult.address)
+}
+inline void AddressResult::set_address(const char* value, size_t size) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.AddressResult.address)
+}
+inline ::std::string* AddressResult::mutable_address() {
+  
+  // @@protoc_insertion_point(field_mutable:api.AddressResult.address)
+  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* AddressResult::release_address() {
+  // @@protoc_insertion_point(field_release:api.AddressResult.address)
+  
+  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddressResult::set_allocated_address(::std::string* address) {
+  if (address != NULL) {
+    
+  } else {
+    
+  }
+  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
+  // @@protoc_insertion_point(field_set_allocated:api.AddressResult.address)
+}
+
+inline const AddressResult* AddressResult::internal_default_instance() {
+  return &AddressResult_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// PubKeyParam
+
+// optional string chainType = 1;
+inline void PubKeyParam::clear_chaintype() {
+  chaintype_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PubKeyParam::chaintype() const {
+  // @@protoc_insertion_point(field_get:api.PubKeyParam.chainType)
+  return chaintype_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyParam::set_chaintype(const ::std::string& value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.PubKeyParam.chainType)
+}
+inline void PubKeyParam::set_chaintype(const char* value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.PubKeyParam.chainType)
+}
+inline void PubKeyParam::set_chaintype(const char* value, size_t size) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.PubKeyParam.chainType)
+}
+inline ::std::string* PubKeyParam::mutable_chaintype() {
+  
+  // @@protoc_insertion_point(field_mutable:api.PubKeyParam.chainType)
+  return chaintype_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PubKeyParam::release_chaintype() {
+  // @@protoc_insertion_point(field_release:api.PubKeyParam.chainType)
+  
+  return chaintype_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyParam::set_allocated_chaintype(::std::string* chaintype) {
+  if (chaintype != NULL) {
+    
+  } else {
+    
+  }
+  chaintype_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chaintype);
+  // @@protoc_insertion_point(field_set_allocated:api.PubKeyParam.chainType)
+}
+
+// optional string path = 2;
+inline void PubKeyParam::clear_path() {
+  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PubKeyParam::path() const {
+  // @@protoc_insertion_point(field_get:api.PubKeyParam.path)
+  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyParam::set_path(const ::std::string& value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.PubKeyParam.path)
+}
+inline void PubKeyParam::set_path(const char* value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.PubKeyParam.path)
+}
+inline void PubKeyParam::set_path(const char* value, size_t size) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.PubKeyParam.path)
+}
+inline ::std::string* PubKeyParam::mutable_path() {
+  
+  // @@protoc_insertion_point(field_mutable:api.PubKeyParam.path)
+  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PubKeyParam::release_path() {
+  // @@protoc_insertion_point(field_release:api.PubKeyParam.path)
+  
+  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyParam::set_allocated_path(::std::string* path) {
+  if (path != NULL) {
+    
+  } else {
+    
+  }
+  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
+  // @@protoc_insertion_point(field_set_allocated:api.PubKeyParam.path)
+}
+
+// optional string network = 3;
+inline void PubKeyParam::clear_network() {
+  network_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PubKeyParam::network() const {
+  // @@protoc_insertion_point(field_get:api.PubKeyParam.network)
+  return network_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyParam::set_network(const ::std::string& value) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.PubKeyParam.network)
+}
+inline void PubKeyParam::set_network(const char* value) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.PubKeyParam.network)
+}
+inline void PubKeyParam::set_network(const char* value, size_t size) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.PubKeyParam.network)
+}
+inline ::std::string* PubKeyParam::mutable_network() {
+  
+  // @@protoc_insertion_point(field_mutable:api.PubKeyParam.network)
+  return network_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PubKeyParam::release_network() {
+  // @@protoc_insertion_point(field_release:api.PubKeyParam.network)
+  
+  return network_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyParam::set_allocated_network(::std::string* network) {
+  if (network != NULL) {
+    
+  } else {
+    
+  }
+  network_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), network);
+  // @@protoc_insertion_point(field_set_allocated:api.PubKeyParam.network)
+}
+
+// optional string isSegWit = 4;
+inline void PubKeyParam::clear_issegwit() {
+  issegwit_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PubKeyParam::issegwit() const {
+  // @@protoc_insertion_point(field_get:api.PubKeyParam.isSegWit)
+  return issegwit_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyParam::set_issegwit(const ::std::string& value) {
+  
+  issegwit_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.PubKeyParam.isSegWit)
+}
+inline void PubKeyParam::set_issegwit(const char* value) {
+  
+  issegwit_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.PubKeyParam.isSegWit)
+}
+inline void PubKeyParam::set_issegwit(const char* value, size_t size) {
+  
+  issegwit_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.PubKeyParam.isSegWit)
+}
+inline ::std::string* PubKeyParam::mutable_issegwit() {
+  
+  // @@protoc_insertion_point(field_mutable:api.PubKeyParam.isSegWit)
+  return issegwit_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PubKeyParam::release_issegwit() {
+  // @@protoc_insertion_point(field_release:api.PubKeyParam.isSegWit)
+  
+  return issegwit_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyParam::set_allocated_issegwit(::std::string* issegwit) {
+  if (issegwit != NULL) {
+    
+  } else {
+    
+  }
+  issegwit_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), issegwit);
+  // @@protoc_insertion_point(field_set_allocated:api.PubKeyParam.isSegWit)
+}
+
+inline const PubKeyParam* PubKeyParam::internal_default_instance() {
+  return &PubKeyParam_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// PubKeyResult
+
+// optional string path = 1;
+inline void PubKeyResult::clear_path() {
+  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PubKeyResult::path() const {
+  // @@protoc_insertion_point(field_get:api.PubKeyResult.path)
+  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyResult::set_path(const ::std::string& value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.PubKeyResult.path)
+}
+inline void PubKeyResult::set_path(const char* value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.PubKeyResult.path)
+}
+inline void PubKeyResult::set_path(const char* value, size_t size) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.PubKeyResult.path)
+}
+inline ::std::string* PubKeyResult::mutable_path() {
+  
+  // @@protoc_insertion_point(field_mutable:api.PubKeyResult.path)
+  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PubKeyResult::release_path() {
+  // @@protoc_insertion_point(field_release:api.PubKeyResult.path)
+  
+  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyResult::set_allocated_path(::std::string* path) {
+  if (path != NULL) {
+    
+  } else {
+    
+  }
+  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
+  // @@protoc_insertion_point(field_set_allocated:api.PubKeyResult.path)
+}
+
+// optional string chainType = 2;
+inline void PubKeyResult::clear_chaintype() {
+  chaintype_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PubKeyResult::chaintype() const {
+  // @@protoc_insertion_point(field_get:api.PubKeyResult.chainType)
+  return chaintype_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyResult::set_chaintype(const ::std::string& value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.PubKeyResult.chainType)
+}
+inline void PubKeyResult::set_chaintype(const char* value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.PubKeyResult.chainType)
+}
+inline void PubKeyResult::set_chaintype(const char* value, size_t size) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.PubKeyResult.chainType)
+}
+inline ::std::string* PubKeyResult::mutable_chaintype() {
+  
+  // @@protoc_insertion_point(field_mutable:api.PubKeyResult.chainType)
+  return chaintype_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PubKeyResult::release_chaintype() {
+  // @@protoc_insertion_point(field_release:api.PubKeyResult.chainType)
+  
+  return chaintype_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyResult::set_allocated_chaintype(::std::string* chaintype) {
+  if (chaintype != NULL) {
+    
+  } else {
+    
+  }
+  chaintype_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chaintype);
+  // @@protoc_insertion_point(field_set_allocated:api.PubKeyResult.chainType)
+}
+
+// optional string pubKey = 3;
+inline void PubKeyResult::clear_pubkey() {
+  pubkey_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PubKeyResult::pubkey() const {
+  // @@protoc_insertion_point(field_get:api.PubKeyResult.pubKey)
+  return pubkey_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyResult::set_pubkey(const ::std::string& value) {
+  
+  pubkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.PubKeyResult.pubKey)
+}
+inline void PubKeyResult::set_pubkey(const char* value) {
+  
+  pubkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.PubKeyResult.pubKey)
+}
+inline void PubKeyResult::set_pubkey(const char* value, size_t size) {
+  
+  pubkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.PubKeyResult.pubKey)
+}
+inline ::std::string* PubKeyResult::mutable_pubkey() {
+  
+  // @@protoc_insertion_point(field_mutable:api.PubKeyResult.pubKey)
+  return pubkey_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PubKeyResult::release_pubkey() {
+  // @@protoc_insertion_point(field_release:api.PubKeyResult.pubKey)
+  
+  return pubkey_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyResult::set_allocated_pubkey(::std::string* pubkey) {
+  if (pubkey != NULL) {
+    
+  } else {
+    
+  }
+  pubkey_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), pubkey);
+  // @@protoc_insertion_point(field_set_allocated:api.PubKeyResult.pubKey)
+}
+
+// optional string derivedMode = 4;
+inline void PubKeyResult::clear_derivedmode() {
+  derivedmode_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PubKeyResult::derivedmode() const {
+  // @@protoc_insertion_point(field_get:api.PubKeyResult.derivedMode)
+  return derivedmode_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyResult::set_derivedmode(const ::std::string& value) {
+  
+  derivedmode_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.PubKeyResult.derivedMode)
+}
+inline void PubKeyResult::set_derivedmode(const char* value) {
+  
+  derivedmode_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.PubKeyResult.derivedMode)
+}
+inline void PubKeyResult::set_derivedmode(const char* value, size_t size) {
+  
+  derivedmode_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.PubKeyResult.derivedMode)
+}
+inline ::std::string* PubKeyResult::mutable_derivedmode() {
+  
+  // @@protoc_insertion_point(field_mutable:api.PubKeyResult.derivedMode)
+  return derivedmode_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PubKeyResult::release_derivedmode() {
+  // @@protoc_insertion_point(field_release:api.PubKeyResult.derivedMode)
+  
+  return derivedmode_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PubKeyResult::set_allocated_derivedmode(::std::string* derivedmode) {
+  if (derivedmode != NULL) {
+    
+  } else {
+    
+  }
+  derivedmode_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), derivedmode);
+  // @@protoc_insertion_point(field_set_allocated:api.PubKeyResult.derivedMode)
+}
+
+inline const PubKeyResult* PubKeyResult::internal_default_instance() {
+  return &PubKeyResult_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// ExternalAddress
+
+// optional string address = 1;
+inline void ExternalAddress::clear_address() {
+  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ExternalAddress::address() const {
+  // @@protoc_insertion_point(field_get:api.ExternalAddress.address)
+  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ExternalAddress::set_address(const ::std::string& value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.ExternalAddress.address)
+}
+inline void ExternalAddress::set_address(const char* value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.ExternalAddress.address)
+}
+inline void ExternalAddress::set_address(const char* value, size_t size) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.ExternalAddress.address)
+}
+inline ::std::string* ExternalAddress::mutable_address() {
+  
+  // @@protoc_insertion_point(field_mutable:api.ExternalAddress.address)
+  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ExternalAddress::release_address() {
+  // @@protoc_insertion_point(field_release:api.ExternalAddress.address)
+  
+  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ExternalAddress::set_allocated_address(::std::string* address) {
+  if (address != NULL) {
+    
+  } else {
+    
+  }
+  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
+  // @@protoc_insertion_point(field_set_allocated:api.ExternalAddress.address)
+}
+
+// optional string derivedPath = 2;
+inline void ExternalAddress::clear_derivedpath() {
+  derivedpath_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ExternalAddress::derivedpath() const {
+  // @@protoc_insertion_point(field_get:api.ExternalAddress.derivedPath)
+  return derivedpath_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ExternalAddress::set_derivedpath(const ::std::string& value) {
+  
+  derivedpath_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.ExternalAddress.derivedPath)
+}
+inline void ExternalAddress::set_derivedpath(const char* value) {
+  
+  derivedpath_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.ExternalAddress.derivedPath)
+}
+inline void ExternalAddress::set_derivedpath(const char* value, size_t size) {
+  
+  derivedpath_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.ExternalAddress.derivedPath)
+}
+inline ::std::string* ExternalAddress::mutable_derivedpath() {
+  
+  // @@protoc_insertion_point(field_mutable:api.ExternalAddress.derivedPath)
+  return derivedpath_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ExternalAddress::release_derivedpath() {
+  // @@protoc_insertion_point(field_release:api.ExternalAddress.derivedPath)
+  
+  return derivedpath_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ExternalAddress::set_allocated_derivedpath(::std::string* derivedpath) {
+  if (derivedpath != NULL) {
+    
+  } else {
+    
+  }
+  derivedpath_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), derivedpath);
+  // @@protoc_insertion_point(field_set_allocated:api.ExternalAddress.derivedPath)
+}
+
+// optional string type = 3;
+inline void ExternalAddress::clear_type() {
+  type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ExternalAddress::type() const {
+  // @@protoc_insertion_point(field_get:api.ExternalAddress.type)
+  return type_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ExternalAddress::set_type(const ::std::string& value) {
+  
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.ExternalAddress.type)
+}
+inline void ExternalAddress::set_type(const char* value) {
+  
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.ExternalAddress.type)
+}
+inline void ExternalAddress::set_type(const char* value, size_t size) {
+  
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.ExternalAddress.type)
+}
+inline ::std::string* ExternalAddress::mutable_type() {
+  
+  // @@protoc_insertion_point(field_mutable:api.ExternalAddress.type)
+  return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ExternalAddress::release_type() {
+  // @@protoc_insertion_point(field_release:api.ExternalAddress.type)
+  
+  return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ExternalAddress::set_allocated_type(::std::string* type) {
+  if (type != NULL) {
+    
+  } else {
+    
+  }
+  type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
+  // @@protoc_insertion_point(field_set_allocated:api.ExternalAddress.type)
+}
+
+inline const ExternalAddress* ExternalAddress::internal_default_instance() {
+  return &ExternalAddress_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// BitcoinWallet
+
+// optional string path = 1;
+inline void BitcoinWallet::clear_path() {
+  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BitcoinWallet::path() const {
+  // @@protoc_insertion_point(field_get:api.BitcoinWallet.path)
+  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BitcoinWallet::set_path(const ::std::string& value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.BitcoinWallet.path)
+}
+inline void BitcoinWallet::set_path(const char* value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.BitcoinWallet.path)
+}
+inline void BitcoinWallet::set_path(const char* value, size_t size) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.BitcoinWallet.path)
+}
+inline ::std::string* BitcoinWallet::mutable_path() {
+  
+  // @@protoc_insertion_point(field_mutable:api.BitcoinWallet.path)
+  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BitcoinWallet::release_path() {
+  // @@protoc_insertion_point(field_release:api.BitcoinWallet.path)
+  
+  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BitcoinWallet::set_allocated_path(::std::string* path) {
+  if (path != NULL) {
+    
+  } else {
+    
+  }
+  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
+  // @@protoc_insertion_point(field_set_allocated:api.BitcoinWallet.path)
+}
+
+// optional string chainType = 2;
+inline void BitcoinWallet::clear_chaintype() {
+  chaintype_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BitcoinWallet::chaintype() const {
+  // @@protoc_insertion_point(field_get:api.BitcoinWallet.chainType)
+  return chaintype_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BitcoinWallet::set_chaintype(const ::std::string& value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.BitcoinWallet.chainType)
+}
+inline void BitcoinWallet::set_chaintype(const char* value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.BitcoinWallet.chainType)
+}
+inline void BitcoinWallet::set_chaintype(const char* value, size_t size) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.BitcoinWallet.chainType)
+}
+inline ::std::string* BitcoinWallet::mutable_chaintype() {
+  
+  // @@protoc_insertion_point(field_mutable:api.BitcoinWallet.chainType)
+  return chaintype_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BitcoinWallet::release_chaintype() {
+  // @@protoc_insertion_point(field_release:api.BitcoinWallet.chainType)
+  
+  return chaintype_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BitcoinWallet::set_allocated_chaintype(::std::string* chaintype) {
+  if (chaintype != NULL) {
+    
+  } else {
+    
+  }
+  chaintype_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chaintype);
+  // @@protoc_insertion_point(field_set_allocated:api.BitcoinWallet.chainType)
+}
+
+// optional string address = 3;
+inline void BitcoinWallet::clear_address() {
+  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BitcoinWallet::address() const {
+  // @@protoc_insertion_point(field_get:api.BitcoinWallet.address)
+  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BitcoinWallet::set_address(const ::std::string& value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.BitcoinWallet.address)
+}
+inline void BitcoinWallet::set_address(const char* value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.BitcoinWallet.address)
+}
+inline void BitcoinWallet::set_address(const char* value, size_t size) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.BitcoinWallet.address)
+}
+inline ::std::string* BitcoinWallet::mutable_address() {
+  
+  // @@protoc_insertion_point(field_mutable:api.BitcoinWallet.address)
+  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BitcoinWallet::release_address() {
+  // @@protoc_insertion_point(field_release:api.BitcoinWallet.address)
+  
+  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BitcoinWallet::set_allocated_address(::std::string* address) {
+  if (address != NULL) {
+    
+  } else {
+    
+  }
+  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
+  // @@protoc_insertion_point(field_set_allocated:api.BitcoinWallet.address)
+}
+
+// optional string encXPub = 4;
+inline void BitcoinWallet::clear_encxpub() {
+  encxpub_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BitcoinWallet::encxpub() const {
+  // @@protoc_insertion_point(field_get:api.BitcoinWallet.encXPub)
+  return encxpub_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BitcoinWallet::set_encxpub(const ::std::string& value) {
+  
+  encxpub_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.BitcoinWallet.encXPub)
+}
+inline void BitcoinWallet::set_encxpub(const char* value) {
+  
+  encxpub_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.BitcoinWallet.encXPub)
+}
+inline void BitcoinWallet::set_encxpub(const char* value, size_t size) {
+  
+  encxpub_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.BitcoinWallet.encXPub)
+}
+inline ::std::string* BitcoinWallet::mutable_encxpub() {
+  
+  // @@protoc_insertion_point(field_mutable:api.BitcoinWallet.encXPub)
+  return encxpub_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BitcoinWallet::release_encxpub() {
+  // @@protoc_insertion_point(field_release:api.BitcoinWallet.encXPub)
+  
+  return encxpub_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BitcoinWallet::set_allocated_encxpub(::std::string* encxpub) {
+  if (encxpub != NULL) {
+    
+  } else {
+    
+  }
+  encxpub_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), encxpub);
+  // @@protoc_insertion_point(field_set_allocated:api.BitcoinWallet.encXPub)
+}
+
+// optional .api.ExternalAddress externalAddress = 5;
+inline bool BitcoinWallet::has_externaladdress() const {
+  return this != internal_default_instance() && externaladdress_ != NULL;
+}
+inline void BitcoinWallet::clear_externaladdress() {
+  if (GetArenaNoVirtual() == NULL && externaladdress_ != NULL) delete externaladdress_;
+  externaladdress_ = NULL;
+}
+inline const ::api::ExternalAddress& BitcoinWallet::externaladdress() const {
+  // @@protoc_insertion_point(field_get:api.BitcoinWallet.externalAddress)
+  return externaladdress_ != NULL ? *externaladdress_
+                         : *::api::ExternalAddress::internal_default_instance();
+}
+inline ::api::ExternalAddress* BitcoinWallet::mutable_externaladdress() {
+  
+  if (externaladdress_ == NULL) {
+    externaladdress_ = new ::api::ExternalAddress;
+  }
+  // @@protoc_insertion_point(field_mutable:api.BitcoinWallet.externalAddress)
+  return externaladdress_;
+}
+inline ::api::ExternalAddress* BitcoinWallet::release_externaladdress() {
+  // @@protoc_insertion_point(field_release:api.BitcoinWallet.externalAddress)
+  
+  ::api::ExternalAddress* temp = externaladdress_;
+  externaladdress_ = NULL;
+  return temp;
+}
+inline void BitcoinWallet::set_allocated_externaladdress(::api::ExternalAddress* externaladdress) {
+  delete externaladdress_;
+  externaladdress_ = externaladdress;
+  if (externaladdress) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:api.BitcoinWallet.externalAddress)
+}
+
+inline const BitcoinWallet* BitcoinWallet::internal_default_instance() {
+  return &BitcoinWallet_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// EosWallet_PubKeyInfo
+
+// optional string path = 1;
+inline void EosWallet_PubKeyInfo::clear_path() {
+  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EosWallet_PubKeyInfo::path() const {
+  // @@protoc_insertion_point(field_get:api.EosWallet.PubKeyInfo.path)
+  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EosWallet_PubKeyInfo::set_path(const ::std::string& value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.EosWallet.PubKeyInfo.path)
+}
+inline void EosWallet_PubKeyInfo::set_path(const char* value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.EosWallet.PubKeyInfo.path)
+}
+inline void EosWallet_PubKeyInfo::set_path(const char* value, size_t size) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.EosWallet.PubKeyInfo.path)
+}
+inline ::std::string* EosWallet_PubKeyInfo::mutable_path() {
+  
+  // @@protoc_insertion_point(field_mutable:api.EosWallet.PubKeyInfo.path)
+  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EosWallet_PubKeyInfo::release_path() {
+  // @@protoc_insertion_point(field_release:api.EosWallet.PubKeyInfo.path)
+  
+  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EosWallet_PubKeyInfo::set_allocated_path(::std::string* path) {
+  if (path != NULL) {
+    
+  } else {
+    
+  }
+  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
+  // @@protoc_insertion_point(field_set_allocated:api.EosWallet.PubKeyInfo.path)
+}
+
+// optional string derivedMode = 2;
+inline void EosWallet_PubKeyInfo::clear_derivedmode() {
+  derivedmode_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EosWallet_PubKeyInfo::derivedmode() const {
+  // @@protoc_insertion_point(field_get:api.EosWallet.PubKeyInfo.derivedMode)
+  return derivedmode_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EosWallet_PubKeyInfo::set_derivedmode(const ::std::string& value) {
+  
+  derivedmode_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.EosWallet.PubKeyInfo.derivedMode)
+}
+inline void EosWallet_PubKeyInfo::set_derivedmode(const char* value) {
+  
+  derivedmode_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.EosWallet.PubKeyInfo.derivedMode)
+}
+inline void EosWallet_PubKeyInfo::set_derivedmode(const char* value, size_t size) {
+  
+  derivedmode_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.EosWallet.PubKeyInfo.derivedMode)
+}
+inline ::std::string* EosWallet_PubKeyInfo::mutable_derivedmode() {
+  
+  // @@protoc_insertion_point(field_mutable:api.EosWallet.PubKeyInfo.derivedMode)
+  return derivedmode_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EosWallet_PubKeyInfo::release_derivedmode() {
+  // @@protoc_insertion_point(field_release:api.EosWallet.PubKeyInfo.derivedMode)
+  
+  return derivedmode_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EosWallet_PubKeyInfo::set_allocated_derivedmode(::std::string* derivedmode) {
+  if (derivedmode != NULL) {
+    
+  } else {
+    
+  }
+  derivedmode_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), derivedmode);
+  // @@protoc_insertion_point(field_set_allocated:api.EosWallet.PubKeyInfo.derivedMode)
+}
+
+// optional string publicKey = 3;
+inline void EosWallet_PubKeyInfo::clear_publickey() {
+  publickey_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EosWallet_PubKeyInfo::publickey() const {
+  // @@protoc_insertion_point(field_get:api.EosWallet.PubKeyInfo.publicKey)
+  return publickey_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EosWallet_PubKeyInfo::set_publickey(const ::std::string& value) {
+  
+  publickey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.EosWallet.PubKeyInfo.publicKey)
+}
+inline void EosWallet_PubKeyInfo::set_publickey(const char* value) {
+  
+  publickey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.EosWallet.PubKeyInfo.publicKey)
+}
+inline void EosWallet_PubKeyInfo::set_publickey(const char* value, size_t size) {
+  
+  publickey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.EosWallet.PubKeyInfo.publicKey)
+}
+inline ::std::string* EosWallet_PubKeyInfo::mutable_publickey() {
+  
+  // @@protoc_insertion_point(field_mutable:api.EosWallet.PubKeyInfo.publicKey)
+  return publickey_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EosWallet_PubKeyInfo::release_publickey() {
+  // @@protoc_insertion_point(field_release:api.EosWallet.PubKeyInfo.publicKey)
+  
+  return publickey_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EosWallet_PubKeyInfo::set_allocated_publickey(::std::string* publickey) {
+  if (publickey != NULL) {
+    
+  } else {
+    
+  }
+  publickey_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), publickey);
+  // @@protoc_insertion_point(field_set_allocated:api.EosWallet.PubKeyInfo.publicKey)
+}
+
+inline const EosWallet_PubKeyInfo* EosWallet_PubKeyInfo::internal_default_instance() {
+  return &EosWallet_PubKeyInfo_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// EosWallet
+
+// optional string chainType = 1;
+inline void EosWallet::clear_chaintype() {
+  chaintype_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EosWallet::chaintype() const {
+  // @@protoc_insertion_point(field_get:api.EosWallet.chainType)
+  return chaintype_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EosWallet::set_chaintype(const ::std::string& value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.EosWallet.chainType)
+}
+inline void EosWallet::set_chaintype(const char* value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.EosWallet.chainType)
+}
+inline void EosWallet::set_chaintype(const char* value, size_t size) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.EosWallet.chainType)
+}
+inline ::std::string* EosWallet::mutable_chaintype() {
+  
+  // @@protoc_insertion_point(field_mutable:api.EosWallet.chainType)
+  return chaintype_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EosWallet::release_chaintype() {
+  // @@protoc_insertion_point(field_release:api.EosWallet.chainType)
+  
+  return chaintype_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EosWallet::set_allocated_chaintype(::std::string* chaintype) {
+  if (chaintype != NULL) {
+    
+  } else {
+    
+  }
+  chaintype_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chaintype);
+  // @@protoc_insertion_point(field_set_allocated:api.EosWallet.chainType)
+}
+
+// optional string address = 2;
+inline void EosWallet::clear_address() {
+  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EosWallet::address() const {
+  // @@protoc_insertion_point(field_get:api.EosWallet.address)
+  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EosWallet::set_address(const ::std::string& value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.EosWallet.address)
+}
+inline void EosWallet::set_address(const char* value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.EosWallet.address)
+}
+inline void EosWallet::set_address(const char* value, size_t size) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.EosWallet.address)
+}
+inline ::std::string* EosWallet::mutable_address() {
+  
+  // @@protoc_insertion_point(field_mutable:api.EosWallet.address)
+  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EosWallet::release_address() {
+  // @@protoc_insertion_point(field_release:api.EosWallet.address)
+  
+  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EosWallet::set_allocated_address(::std::string* address) {
+  if (address != NULL) {
+    
+  } else {
+    
+  }
+  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
+  // @@protoc_insertion_point(field_set_allocated:api.EosWallet.address)
+}
+
+// repeated .api.EosWallet.PubKeyInfo publicKeys = 3;
+inline int EosWallet::publickeys_size() const {
+  return publickeys_.size();
+}
+inline void EosWallet::clear_publickeys() {
+  publickeys_.Clear();
+}
+inline const ::api::EosWallet_PubKeyInfo& EosWallet::publickeys(int index) const {
+  // @@protoc_insertion_point(field_get:api.EosWallet.publicKeys)
+  return publickeys_.Get(index);
+}
+inline ::api::EosWallet_PubKeyInfo* EosWallet::mutable_publickeys(int index) {
+  // @@protoc_insertion_point(field_mutable:api.EosWallet.publicKeys)
+  return publickeys_.Mutable(index);
+}
+inline ::api::EosWallet_PubKeyInfo* EosWallet::add_publickeys() {
+  // @@protoc_insertion_point(field_add:api.EosWallet.publicKeys)
+  return publickeys_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::api::EosWallet_PubKeyInfo >*
+EosWallet::mutable_publickeys() {
+  // @@protoc_insertion_point(field_mutable_list:api.EosWallet.publicKeys)
+  return &publickeys_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::api::EosWallet_PubKeyInfo >&
+EosWallet::publickeys() const {
+  // @@protoc_insertion_point(field_list:api.EosWallet.publicKeys)
+  return publickeys_;
+}
+
+inline const EosWallet* EosWallet::internal_default_instance() {
+  return &EosWallet_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// ExternalAddressParam
+
+// optional string path = 1;
+inline void ExternalAddressParam::clear_path() {
+  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ExternalAddressParam::path() const {
+  // @@protoc_insertion_point(field_get:api.ExternalAddressParam.path)
+  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ExternalAddressParam::set_path(const ::std::string& value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.ExternalAddressParam.path)
+}
+inline void ExternalAddressParam::set_path(const char* value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.ExternalAddressParam.path)
+}
+inline void ExternalAddressParam::set_path(const char* value, size_t size) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.ExternalAddressParam.path)
+}
+inline ::std::string* ExternalAddressParam::mutable_path() {
+  
+  // @@protoc_insertion_point(field_mutable:api.ExternalAddressParam.path)
+  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ExternalAddressParam::release_path() {
+  // @@protoc_insertion_point(field_release:api.ExternalAddressParam.path)
+  
+  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ExternalAddressParam::set_allocated_path(::std::string* path) {
+  if (path != NULL) {
+    
+  } else {
+    
+  }
+  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
+  // @@protoc_insertion_point(field_set_allocated:api.ExternalAddressParam.path)
+}
+
+// optional string chainType = 2;
+inline void ExternalAddressParam::clear_chaintype() {
+  chaintype_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ExternalAddressParam::chaintype() const {
+  // @@protoc_insertion_point(field_get:api.ExternalAddressParam.chainType)
+  return chaintype_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ExternalAddressParam::set_chaintype(const ::std::string& value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.ExternalAddressParam.chainType)
+}
+inline void ExternalAddressParam::set_chaintype(const char* value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.ExternalAddressParam.chainType)
+}
+inline void ExternalAddressParam::set_chaintype(const char* value, size_t size) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.ExternalAddressParam.chainType)
+}
+inline ::std::string* ExternalAddressParam::mutable_chaintype() {
+  
+  // @@protoc_insertion_point(field_mutable:api.ExternalAddressParam.chainType)
+  return chaintype_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ExternalAddressParam::release_chaintype() {
+  // @@protoc_insertion_point(field_release:api.ExternalAddressParam.chainType)
+  
+  return chaintype_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ExternalAddressParam::set_allocated_chaintype(::std::string* chaintype) {
+  if (chaintype != NULL) {
+    
+  } else {
+    
+  }
+  chaintype_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chaintype);
+  // @@protoc_insertion_point(field_set_allocated:api.ExternalAddressParam.chainType)
+}
+
+// optional string network = 3;
+inline void ExternalAddressParam::clear_network() {
+  network_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ExternalAddressParam::network() const {
+  // @@protoc_insertion_point(field_get:api.ExternalAddressParam.network)
+  return network_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ExternalAddressParam::set_network(const ::std::string& value) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.ExternalAddressParam.network)
+}
+inline void ExternalAddressParam::set_network(const char* value) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.ExternalAddressParam.network)
+}
+inline void ExternalAddressParam::set_network(const char* value, size_t size) {
+  
+  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.ExternalAddressParam.network)
+}
+inline ::std::string* ExternalAddressParam::mutable_network() {
+  
+  // @@protoc_insertion_point(field_mutable:api.ExternalAddressParam.network)
+  return network_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ExternalAddressParam::release_network() {
+  // @@protoc_insertion_point(field_release:api.ExternalAddressParam.network)
+  
+  return network_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ExternalAddressParam::set_allocated_network(::std::string* network) {
+  if (network != NULL) {
+    
+  } else {
+    
+  }
+  network_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), network);
+  // @@protoc_insertion_point(field_set_allocated:api.ExternalAddressParam.network)
+}
+
+// optional string segWit = 4;
+inline void ExternalAddressParam::clear_segwit() {
+  segwit_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ExternalAddressParam::segwit() const {
+  // @@protoc_insertion_point(field_get:api.ExternalAddressParam.segWit)
+  return segwit_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ExternalAddressParam::set_segwit(const ::std::string& value) {
+  
+  segwit_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.ExternalAddressParam.segWit)
+}
+inline void ExternalAddressParam::set_segwit(const char* value) {
+  
+  segwit_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.ExternalAddressParam.segWit)
+}
+inline void ExternalAddressParam::set_segwit(const char* value, size_t size) {
+  
+  segwit_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.ExternalAddressParam.segWit)
+}
+inline ::std::string* ExternalAddressParam::mutable_segwit() {
+  
+  // @@protoc_insertion_point(field_mutable:api.ExternalAddressParam.segWit)
+  return segwit_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ExternalAddressParam::release_segwit() {
+  // @@protoc_insertion_point(field_release:api.ExternalAddressParam.segWit)
+  
+  return segwit_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ExternalAddressParam::set_allocated_segwit(::std::string* segwit) {
+  if (segwit != NULL) {
+    
+  } else {
+    
+  }
+  segwit_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), segwit);
+  // @@protoc_insertion_point(field_set_allocated:api.ExternalAddressParam.segWit)
+}
+
+// optional int32 externalIdx = 5;
+inline void ExternalAddressParam::clear_externalidx() {
+  externalidx_ = 0;
+}
+inline ::google::protobuf::int32 ExternalAddressParam::externalidx() const {
+  // @@protoc_insertion_point(field_get:api.ExternalAddressParam.externalIdx)
+  return externalidx_;
+}
+inline void ExternalAddressParam::set_externalidx(::google::protobuf::int32 value) {
+  
+  externalidx_ = value;
+  // @@protoc_insertion_point(field_set:api.ExternalAddressParam.externalIdx)
+}
+
+inline const ExternalAddressParam* ExternalAddressParam::internal_default_instance() {
+  return &ExternalAddressParam_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// InitImKeyCoreXParam
+
+// optional string fileDir = 1;
+inline void InitImKeyCoreXParam::clear_filedir() {
+  filedir_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& InitImKeyCoreXParam::filedir() const {
+  // @@protoc_insertion_point(field_get:api.InitImKeyCoreXParam.fileDir)
+  return filedir_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void InitImKeyCoreXParam::set_filedir(const ::std::string& value) {
+  
+  filedir_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.InitImKeyCoreXParam.fileDir)
+}
+inline void InitImKeyCoreXParam::set_filedir(const char* value) {
+  
+  filedir_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.InitImKeyCoreXParam.fileDir)
+}
+inline void InitImKeyCoreXParam::set_filedir(const char* value, size_t size) {
+  
+  filedir_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.InitImKeyCoreXParam.fileDir)
+}
+inline ::std::string* InitImKeyCoreXParam::mutable_filedir() {
+  
+  // @@protoc_insertion_point(field_mutable:api.InitImKeyCoreXParam.fileDir)
+  return filedir_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* InitImKeyCoreXParam::release_filedir() {
+  // @@protoc_insertion_point(field_release:api.InitImKeyCoreXParam.fileDir)
+  
+  return filedir_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void InitImKeyCoreXParam::set_allocated_filedir(::std::string* filedir) {
+  if (filedir != NULL) {
+    
+  } else {
+    
+  }
+  filedir_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), filedir);
+  // @@protoc_insertion_point(field_set_allocated:api.InitImKeyCoreXParam.fileDir)
+}
+
+// optional string xpubCommonKey = 2;
+inline void InitImKeyCoreXParam::clear_xpubcommonkey() {
+  xpubcommonkey_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& InitImKeyCoreXParam::xpubcommonkey() const {
+  // @@protoc_insertion_point(field_get:api.InitImKeyCoreXParam.xpubCommonKey)
+  return xpubcommonkey_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void InitImKeyCoreXParam::set_xpubcommonkey(const ::std::string& value) {
+  
+  xpubcommonkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.InitImKeyCoreXParam.xpubCommonKey)
+}
+inline void InitImKeyCoreXParam::set_xpubcommonkey(const char* value) {
+  
+  xpubcommonkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.InitImKeyCoreXParam.xpubCommonKey)
+}
+inline void InitImKeyCoreXParam::set_xpubcommonkey(const char* value, size_t size) {
+  
+  xpubcommonkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.InitImKeyCoreXParam.xpubCommonKey)
+}
+inline ::std::string* InitImKeyCoreXParam::mutable_xpubcommonkey() {
+  
+  // @@protoc_insertion_point(field_mutable:api.InitImKeyCoreXParam.xpubCommonKey)
+  return xpubcommonkey_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* InitImKeyCoreXParam::release_xpubcommonkey() {
+  // @@protoc_insertion_point(field_release:api.InitImKeyCoreXParam.xpubCommonKey)
+  
+  return xpubcommonkey_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void InitImKeyCoreXParam::set_allocated_xpubcommonkey(::std::string* xpubcommonkey) {
+  if (xpubcommonkey != NULL) {
+    
+  } else {
+    
+  }
+  xpubcommonkey_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), xpubcommonkey);
+  // @@protoc_insertion_point(field_set_allocated:api.InitImKeyCoreXParam.xpubCommonKey)
+}
+
+// optional string xpubCommonIv = 3;
+inline void InitImKeyCoreXParam::clear_xpubcommoniv() {
+  xpubcommoniv_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& InitImKeyCoreXParam::xpubcommoniv() const {
+  // @@protoc_insertion_point(field_get:api.InitImKeyCoreXParam.xpubCommonIv)
+  return xpubcommoniv_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void InitImKeyCoreXParam::set_xpubcommoniv(const ::std::string& value) {
+  
+  xpubcommoniv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.InitImKeyCoreXParam.xpubCommonIv)
+}
+inline void InitImKeyCoreXParam::set_xpubcommoniv(const char* value) {
+  
+  xpubcommoniv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.InitImKeyCoreXParam.xpubCommonIv)
+}
+inline void InitImKeyCoreXParam::set_xpubcommoniv(const char* value, size_t size) {
+  
+  xpubcommoniv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.InitImKeyCoreXParam.xpubCommonIv)
+}
+inline ::std::string* InitImKeyCoreXParam::mutable_xpubcommoniv() {
+  
+  // @@protoc_insertion_point(field_mutable:api.InitImKeyCoreXParam.xpubCommonIv)
+  return xpubcommoniv_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* InitImKeyCoreXParam::release_xpubcommoniv() {
+  // @@protoc_insertion_point(field_release:api.InitImKeyCoreXParam.xpubCommonIv)
+  
+  return xpubcommoniv_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void InitImKeyCoreXParam::set_allocated_xpubcommoniv(::std::string* xpubcommoniv) {
+  if (xpubcommoniv != NULL) {
+    
+  } else {
+    
+  }
+  xpubcommoniv_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), xpubcommoniv);
+  // @@protoc_insertion_point(field_set_allocated:api.InitImKeyCoreXParam.xpubCommonIv)
+}
+
+// optional bool isDebug = 4;
+inline void InitImKeyCoreXParam::clear_isdebug() {
+  isdebug_ = false;
+}
+inline bool InitImKeyCoreXParam::isdebug() const {
+  // @@protoc_insertion_point(field_get:api.InitImKeyCoreXParam.isDebug)
+  return isdebug_;
+}
+inline void InitImKeyCoreXParam::set_isdebug(bool value) {
+  
+  isdebug_ = value;
+  // @@protoc_insertion_point(field_set:api.InitImKeyCoreXParam.isDebug)
+}
+
+inline const InitImKeyCoreXParam* InitImKeyCoreXParam::internal_default_instance() {
+  return &InitImKeyCoreXParam_default_instance_.get();
 }
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

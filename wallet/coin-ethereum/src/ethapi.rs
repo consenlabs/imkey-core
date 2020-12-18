@@ -1,5 +1,5 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EthTxReq {
+pub struct EthTxInput {
     #[prost(string, tag = "1")]
     pub nonce: std::string::String,
     #[prost(string, tag = "2")]
@@ -14,45 +14,23 @@ pub struct EthTxReq {
     pub data: std::string::String,
     #[prost(string, tag = "7")]
     pub chain_id: std::string::String,
-    #[prost(string, tag = "8")]
-    pub path: std::string::String,
-    #[prost(string, tag = "9")]
-    pub payment: std::string::String,
-    #[prost(string, tag = "10")]
-    pub receiver: std::string::String,
-    #[prost(string, tag = "11")]
-    pub sender: std::string::String,
-    #[prost(string, tag = "12")]
-    pub fee: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EthTxRes {
+pub struct EthTxOutput {
     #[prost(string, tag = "1")]
-    pub tx_data: std::string::String,
+    pub signature: std::string::String,
     #[prost(string, tag = "2")]
     pub tx_hash: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EthAddressReq {
+pub struct EthMessageInput {
     #[prost(string, tag = "1")]
-    pub path: std::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EthAddressRes {
-    #[prost(string, tag = "1")]
-    pub address: std::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EthMessageSignReq {
-    #[prost(string, tag = "1")]
-    pub path: std::string::String,
-    #[prost(string, tag = "2")]
     pub message: std::string::String,
-    #[prost(string, tag = "3")]
-    pub sender: std::string::String,
+    #[prost(bool, tag = "2")]
+    pub is_personal_sign: bool,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EthMessageSignRes {
+pub struct EthMessageOutput {
     #[prost(string, tag = "1")]
     pub signature: std::string::String,
 }

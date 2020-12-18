@@ -43,11 +43,6 @@ pub struct AvailableAppBean {
     pub install_mode: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct BindCheckReq {
-    #[prost(string, tag = "1")]
-    pub file_path: std::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BindCheckRes {
     #[prost(string, tag = "1")]
     pub bind_status: std::string::String,

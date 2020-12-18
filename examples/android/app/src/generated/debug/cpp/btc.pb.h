@@ -37,12 +37,9 @@ void protobuf_InitDefaults_btc_2eproto();
 void protobuf_AssignDesc_btc_2eproto();
 void protobuf_ShutdownFile_btc_2eproto();
 
-class BtcAddressReq;
-class BtcAddressRes;
-class BtcSegwitTxReq;
-class BtcSegwitTxRes;
-class BtcTxReq;
-class BtcTxRes;
+class BtcTxExtra;
+class BtcTxInput;
+class BtcTxOutput;
 class BtcXpubReq;
 class BtcXpubRes;
 class Utxo;
@@ -197,34 +194,34 @@ extern ::google::protobuf::internal::ExplicitlyConstructed<Utxo> Utxo_default_in
 
 // -------------------------------------------------------------------
 
-class BtcTxReq : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:btcapi.BtcTxReq) */ {
+class BtcTxExtra : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:btcapi.BtcTxExtra) */ {
  public:
-  BtcTxReq();
-  virtual ~BtcTxReq();
+  BtcTxExtra();
+  virtual ~BtcTxExtra();
 
-  BtcTxReq(const BtcTxReq& from);
+  BtcTxExtra(const BtcTxExtra& from);
 
-  inline BtcTxReq& operator=(const BtcTxReq& from) {
+  inline BtcTxExtra& operator=(const BtcTxExtra& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const BtcTxReq& default_instance();
+  static const BtcTxExtra& default_instance();
 
-  static const BtcTxReq* internal_default_instance();
+  static const BtcTxExtra* internal_default_instance();
 
-  void Swap(BtcTxReq* other);
+  void Swap(BtcTxExtra* other);
 
   // implements Message ----------------------------------------------
 
-  inline BtcTxReq* New() const { return New(NULL); }
+  inline BtcTxExtra* New() const { return New(NULL); }
 
-  BtcTxReq* New(::google::protobuf::Arena* arena) const;
+  BtcTxExtra* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const BtcTxReq& from);
-  void MergeFrom(const BtcTxReq& from);
+  void CopyFrom(const BtcTxExtra& from);
+  void MergeFrom(const BtcTxExtra& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -243,8 +240,118 @@ class BtcTxReq : public ::google::protobuf::Message /* @@protoc_insertion_point(
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(BtcTxReq* other);
-  void UnsafeMergeFrom(const BtcTxReq& from);
+  void InternalSwap(BtcTxExtra* other);
+  void UnsafeMergeFrom(const BtcTxExtra& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string opReturn = 1;
+  void clear_opreturn();
+  static const int kOpReturnFieldNumber = 1;
+  const ::std::string& opreturn() const;
+  void set_opreturn(const ::std::string& value);
+  void set_opreturn(const char* value);
+  void set_opreturn(const char* value, size_t size);
+  ::std::string* mutable_opreturn();
+  ::std::string* release_opreturn();
+  void set_allocated_opreturn(::std::string* opreturn);
+
+  // optional int32 propertyId = 2;
+  void clear_propertyid();
+  static const int kPropertyIdFieldNumber = 2;
+  ::google::protobuf::int32 propertyid() const;
+  void set_propertyid(::google::protobuf::int32 value);
+
+  // optional string feeMode = 3;
+  void clear_feemode();
+  static const int kFeeModeFieldNumber = 3;
+  const ::std::string& feemode() const;
+  void set_feemode(const ::std::string& value);
+  void set_feemode(const char* value);
+  void set_feemode(const char* value, size_t size);
+  ::std::string* mutable_feemode();
+  ::std::string* release_feemode();
+  void set_allocated_feemode(::std::string* feemode);
+
+  // @@protoc_insertion_point(class_scope:btcapi.BtcTxExtra)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr opreturn_;
+  ::google::protobuf::internal::ArenaStringPtr feemode_;
+  ::google::protobuf::int32 propertyid_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_btc_2eproto_impl();
+  friend void  protobuf_AddDesc_btc_2eproto_impl();
+  friend void protobuf_AssignDesc_btc_2eproto();
+  friend void protobuf_ShutdownFile_btc_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<BtcTxExtra> BtcTxExtra_default_instance_;
+
+// -------------------------------------------------------------------
+
+class BtcTxInput : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:btcapi.BtcTxInput) */ {
+ public:
+  BtcTxInput();
+  virtual ~BtcTxInput();
+
+  BtcTxInput(const BtcTxInput& from);
+
+  inline BtcTxInput& operator=(const BtcTxInput& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const BtcTxInput& default_instance();
+
+  static const BtcTxInput* internal_default_instance();
+
+  void Swap(BtcTxInput* other);
+
+  // implements Message ----------------------------------------------
+
+  inline BtcTxInput* New() const { return New(NULL); }
+
+  BtcTxInput* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const BtcTxInput& from);
+  void MergeFrom(const BtcTxInput& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(BtcTxInput* other);
+  void UnsafeMergeFrom(const BtcTxInput& from);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -301,58 +408,49 @@ class BtcTxReq : public ::google::protobuf::Message /* @@protoc_insertion_point(
   const ::google::protobuf::RepeatedPtrField< ::btcapi::Utxo >&
       unspents() const;
 
-  // optional bytes extra_data = 6;
-  void clear_extra_data();
-  static const int kExtraDataFieldNumber = 6;
-  const ::std::string& extra_data() const;
-  void set_extra_data(const ::std::string& value);
-  void set_extra_data(const char* value);
-  void set_extra_data(const void* value, size_t size);
-  ::std::string* mutable_extra_data();
-  ::std::string* release_extra_data();
-  void set_allocated_extra_data(::std::string* extra_data);
+  // optional string segWit = 6;
+  void clear_segwit();
+  static const int kSegWitFieldNumber = 6;
+  const ::std::string& segwit() const;
+  void set_segwit(const ::std::string& value);
+  void set_segwit(const char* value);
+  void set_segwit(const char* value, size_t size);
+  ::std::string* mutable_segwit();
+  ::std::string* release_segwit();
+  void set_allocated_segwit(::std::string* segwit);
 
-  // optional int32 property_id = 7;
-  void clear_property_id();
-  static const int kPropertyIdFieldNumber = 7;
-  ::google::protobuf::int32 property_id() const;
-  void set_property_id(::google::protobuf::int32 value);
+  // optional string protocol = 7;
+  void clear_protocol();
+  static const int kProtocolFieldNumber = 7;
+  const ::std::string& protocol() const;
+  void set_protocol(const ::std::string& value);
+  void set_protocol(const char* value);
+  void set_protocol(const char* value, size_t size);
+  ::std::string* mutable_protocol();
+  ::std::string* release_protocol();
+  void set_allocated_protocol(::std::string* protocol);
 
-  // optional string network = 8;
-  void clear_network();
-  static const int kNetworkFieldNumber = 8;
-  const ::std::string& network() const;
-  void set_network(const ::std::string& value);
-  void set_network(const char* value);
-  void set_network(const char* value, size_t size);
-  ::std::string* mutable_network();
-  ::std::string* release_network();
-  void set_allocated_network(::std::string* network);
+  // optional .btcapi.BtcTxExtra extra = 8;
+  bool has_extra() const;
+  void clear_extra();
+  static const int kExtraFieldNumber = 8;
+  const ::btcapi::BtcTxExtra& extra() const;
+  ::btcapi::BtcTxExtra* mutable_extra();
+  ::btcapi::BtcTxExtra* release_extra();
+  void set_allocated_extra(::btcapi::BtcTxExtra* extra);
 
-  // optional string path_prefix = 9;
-  void clear_path_prefix();
-  static const int kPathPrefixFieldNumber = 9;
-  const ::std::string& path_prefix() const;
-  void set_path_prefix(const ::std::string& value);
-  void set_path_prefix(const char* value);
-  void set_path_prefix(const char* value, size_t size);
-  ::std::string* mutable_path_prefix();
-  ::std::string* release_path_prefix();
-  void set_allocated_path_prefix(::std::string* path_prefix);
-
-  // @@protoc_insertion_point(class_scope:btcapi.BtcTxReq)
+  // @@protoc_insertion_point(class_scope:btcapi.BtcTxInput)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::RepeatedPtrField< ::btcapi::Utxo > unspents_;
   ::google::protobuf::internal::ArenaStringPtr to_;
-  ::google::protobuf::internal::ArenaStringPtr extra_data_;
-  ::google::protobuf::internal::ArenaStringPtr network_;
-  ::google::protobuf::internal::ArenaStringPtr path_prefix_;
+  ::google::protobuf::internal::ArenaStringPtr segwit_;
+  ::google::protobuf::internal::ArenaStringPtr protocol_;
+  ::btcapi::BtcTxExtra* extra_;
   ::google::protobuf::int64 amount_;
   ::google::protobuf::int64 fee_;
   ::google::protobuf::uint32 change_address_index_;
-  ::google::protobuf::int32 property_id_;
   mutable int _cached_size_;
   friend void  protobuf_InitDefaults_btc_2eproto_impl();
   friend void  protobuf_AddDesc_btc_2eproto_impl();
@@ -361,38 +459,38 @@ class BtcTxReq : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   void InitAsDefaultInstance();
 };
-extern ::google::protobuf::internal::ExplicitlyConstructed<BtcTxReq> BtcTxReq_default_instance_;
+extern ::google::protobuf::internal::ExplicitlyConstructed<BtcTxInput> BtcTxInput_default_instance_;
 
 // -------------------------------------------------------------------
 
-class BtcTxRes : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:btcapi.BtcTxRes) */ {
+class BtcTxOutput : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:btcapi.BtcTxOutput) */ {
  public:
-  BtcTxRes();
-  virtual ~BtcTxRes();
+  BtcTxOutput();
+  virtual ~BtcTxOutput();
 
-  BtcTxRes(const BtcTxRes& from);
+  BtcTxOutput(const BtcTxOutput& from);
 
-  inline BtcTxRes& operator=(const BtcTxRes& from) {
+  inline BtcTxOutput& operator=(const BtcTxOutput& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const BtcTxRes& default_instance();
+  static const BtcTxOutput& default_instance();
 
-  static const BtcTxRes* internal_default_instance();
+  static const BtcTxOutput* internal_default_instance();
 
-  void Swap(BtcTxRes* other);
+  void Swap(BtcTxOutput* other);
 
   // implements Message ----------------------------------------------
 
-  inline BtcTxRes* New() const { return New(NULL); }
+  inline BtcTxOutput* New() const { return New(NULL); }
 
-  BtcTxRes* New(::google::protobuf::Arena* arena) const;
+  BtcTxOutput* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const BtcTxRes& from);
-  void MergeFrom(const BtcTxRes& from);
+  void CopyFrom(const BtcTxOutput& from);
+  void MergeFrom(const BtcTxOutput& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -411,8 +509,8 @@ class BtcTxRes : public ::google::protobuf::Message /* @@protoc_insertion_point(
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(BtcTxRes* other);
-  void UnsafeMergeFrom(const BtcTxRes& from);
+  void InternalSwap(BtcTxOutput* other);
+  void UnsafeMergeFrom(const BtcTxOutput& from);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -428,34 +526,46 @@ class BtcTxRes : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // accessors -------------------------------------------------------
 
-  // optional string tx_data = 1;
-  void clear_tx_data();
-  static const int kTxDataFieldNumber = 1;
-  const ::std::string& tx_data() const;
-  void set_tx_data(const ::std::string& value);
-  void set_tx_data(const char* value);
-  void set_tx_data(const char* value, size_t size);
-  ::std::string* mutable_tx_data();
-  ::std::string* release_tx_data();
-  void set_allocated_tx_data(::std::string* tx_data);
+  // optional string signature = 1;
+  void clear_signature();
+  static const int kSignatureFieldNumber = 1;
+  const ::std::string& signature() const;
+  void set_signature(const ::std::string& value);
+  void set_signature(const char* value);
+  void set_signature(const char* value, size_t size);
+  ::std::string* mutable_signature();
+  ::std::string* release_signature();
+  void set_allocated_signature(::std::string* signature);
 
-  // optional string tx_hash = 2;
-  void clear_tx_hash();
+  // optional string txHash = 2;
+  void clear_txhash();
   static const int kTxHashFieldNumber = 2;
-  const ::std::string& tx_hash() const;
-  void set_tx_hash(const ::std::string& value);
-  void set_tx_hash(const char* value);
-  void set_tx_hash(const char* value, size_t size);
-  ::std::string* mutable_tx_hash();
-  ::std::string* release_tx_hash();
-  void set_allocated_tx_hash(::std::string* tx_hash);
+  const ::std::string& txhash() const;
+  void set_txhash(const ::std::string& value);
+  void set_txhash(const char* value);
+  void set_txhash(const char* value, size_t size);
+  ::std::string* mutable_txhash();
+  ::std::string* release_txhash();
+  void set_allocated_txhash(::std::string* txhash);
 
-  // @@protoc_insertion_point(class_scope:btcapi.BtcTxRes)
+  // optional string wtxHash = 3;
+  void clear_wtxhash();
+  static const int kWtxHashFieldNumber = 3;
+  const ::std::string& wtxhash() const;
+  void set_wtxhash(const ::std::string& value);
+  void set_wtxhash(const char* value);
+  void set_wtxhash(const char* value, size_t size);
+  ::std::string* mutable_wtxhash();
+  ::std::string* release_wtxhash();
+  void set_allocated_wtxhash(::std::string* wtxhash);
+
+  // @@protoc_insertion_point(class_scope:btcapi.BtcTxOutput)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr tx_data_;
-  ::google::protobuf::internal::ArenaStringPtr tx_hash_;
+  ::google::protobuf::internal::ArenaStringPtr signature_;
+  ::google::protobuf::internal::ArenaStringPtr txhash_;
+  ::google::protobuf::internal::ArenaStringPtr wtxhash_;
   mutable int _cached_size_;
   friend void  protobuf_InitDefaults_btc_2eproto_impl();
   friend void  protobuf_AddDesc_btc_2eproto_impl();
@@ -464,290 +574,7 @@ class BtcTxRes : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   void InitAsDefaultInstance();
 };
-extern ::google::protobuf::internal::ExplicitlyConstructed<BtcTxRes> BtcTxRes_default_instance_;
-
-// -------------------------------------------------------------------
-
-class BtcSegwitTxReq : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:btcapi.BtcSegwitTxReq) */ {
- public:
-  BtcSegwitTxReq();
-  virtual ~BtcSegwitTxReq();
-
-  BtcSegwitTxReq(const BtcSegwitTxReq& from);
-
-  inline BtcSegwitTxReq& operator=(const BtcSegwitTxReq& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const BtcSegwitTxReq& default_instance();
-
-  static const BtcSegwitTxReq* internal_default_instance();
-
-  void Swap(BtcSegwitTxReq* other);
-
-  // implements Message ----------------------------------------------
-
-  inline BtcSegwitTxReq* New() const { return New(NULL); }
-
-  BtcSegwitTxReq* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const BtcSegwitTxReq& from);
-  void MergeFrom(const BtcSegwitTxReq& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  size_t ByteSizeLong() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
-    return InternalSerializeWithCachedSizesToArray(false, output);
-  }
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(BtcSegwitTxReq* other);
-  void UnsafeMergeFrom(const BtcSegwitTxReq& from);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional string to = 1;
-  void clear_to();
-  static const int kToFieldNumber = 1;
-  const ::std::string& to() const;
-  void set_to(const ::std::string& value);
-  void set_to(const char* value);
-  void set_to(const char* value, size_t size);
-  ::std::string* mutable_to();
-  ::std::string* release_to();
-  void set_allocated_to(::std::string* to);
-
-  // optional int64 amount = 2;
-  void clear_amount();
-  static const int kAmountFieldNumber = 2;
-  ::google::protobuf::int64 amount() const;
-  void set_amount(::google::protobuf::int64 value);
-
-  // optional int64 fee = 3;
-  void clear_fee();
-  static const int kFeeFieldNumber = 3;
-  ::google::protobuf::int64 fee() const;
-  void set_fee(::google::protobuf::int64 value);
-
-  // optional uint32 change_address_index = 4;
-  void clear_change_address_index();
-  static const int kChangeAddressIndexFieldNumber = 4;
-  ::google::protobuf::uint32 change_address_index() const;
-  void set_change_address_index(::google::protobuf::uint32 value);
-
-  // repeated .btcapi.Utxo unspents = 5;
-  int unspents_size() const;
-  void clear_unspents();
-  static const int kUnspentsFieldNumber = 5;
-  const ::btcapi::Utxo& unspents(int index) const;
-  ::btcapi::Utxo* mutable_unspents(int index);
-  ::btcapi::Utxo* add_unspents();
-  ::google::protobuf::RepeatedPtrField< ::btcapi::Utxo >*
-      mutable_unspents();
-  const ::google::protobuf::RepeatedPtrField< ::btcapi::Utxo >&
-      unspents() const;
-
-  // optional bytes extra_data = 6;
-  void clear_extra_data();
-  static const int kExtraDataFieldNumber = 6;
-  const ::std::string& extra_data() const;
-  void set_extra_data(const ::std::string& value);
-  void set_extra_data(const char* value);
-  void set_extra_data(const void* value, size_t size);
-  ::std::string* mutable_extra_data();
-  ::std::string* release_extra_data();
-  void set_allocated_extra_data(::std::string* extra_data);
-
-  // optional int32 property_id = 7;
-  void clear_property_id();
-  static const int kPropertyIdFieldNumber = 7;
-  ::google::protobuf::int32 property_id() const;
-  void set_property_id(::google::protobuf::int32 value);
-
-  // optional string network = 8;
-  void clear_network();
-  static const int kNetworkFieldNumber = 8;
-  const ::std::string& network() const;
-  void set_network(const ::std::string& value);
-  void set_network(const char* value);
-  void set_network(const char* value, size_t size);
-  ::std::string* mutable_network();
-  ::std::string* release_network();
-  void set_allocated_network(::std::string* network);
-
-  // optional string path_prefix = 9;
-  void clear_path_prefix();
-  static const int kPathPrefixFieldNumber = 9;
-  const ::std::string& path_prefix() const;
-  void set_path_prefix(const ::std::string& value);
-  void set_path_prefix(const char* value);
-  void set_path_prefix(const char* value, size_t size);
-  ::std::string* mutable_path_prefix();
-  ::std::string* release_path_prefix();
-  void set_allocated_path_prefix(::std::string* path_prefix);
-
-  // @@protoc_insertion_point(class_scope:btcapi.BtcSegwitTxReq)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField< ::btcapi::Utxo > unspents_;
-  ::google::protobuf::internal::ArenaStringPtr to_;
-  ::google::protobuf::internal::ArenaStringPtr extra_data_;
-  ::google::protobuf::internal::ArenaStringPtr network_;
-  ::google::protobuf::internal::ArenaStringPtr path_prefix_;
-  ::google::protobuf::int64 amount_;
-  ::google::protobuf::int64 fee_;
-  ::google::protobuf::uint32 change_address_index_;
-  ::google::protobuf::int32 property_id_;
-  mutable int _cached_size_;
-  friend void  protobuf_InitDefaults_btc_2eproto_impl();
-  friend void  protobuf_AddDesc_btc_2eproto_impl();
-  friend void protobuf_AssignDesc_btc_2eproto();
-  friend void protobuf_ShutdownFile_btc_2eproto();
-
-  void InitAsDefaultInstance();
-};
-extern ::google::protobuf::internal::ExplicitlyConstructed<BtcSegwitTxReq> BtcSegwitTxReq_default_instance_;
-
-// -------------------------------------------------------------------
-
-class BtcSegwitTxRes : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:btcapi.BtcSegwitTxRes) */ {
- public:
-  BtcSegwitTxRes();
-  virtual ~BtcSegwitTxRes();
-
-  BtcSegwitTxRes(const BtcSegwitTxRes& from);
-
-  inline BtcSegwitTxRes& operator=(const BtcSegwitTxRes& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const BtcSegwitTxRes& default_instance();
-
-  static const BtcSegwitTxRes* internal_default_instance();
-
-  void Swap(BtcSegwitTxRes* other);
-
-  // implements Message ----------------------------------------------
-
-  inline BtcSegwitTxRes* New() const { return New(NULL); }
-
-  BtcSegwitTxRes* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const BtcSegwitTxRes& from);
-  void MergeFrom(const BtcSegwitTxRes& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  size_t ByteSizeLong() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
-    return InternalSerializeWithCachedSizesToArray(false, output);
-  }
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(BtcSegwitTxRes* other);
-  void UnsafeMergeFrom(const BtcSegwitTxRes& from);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional string witness_tx_data = 1;
-  void clear_witness_tx_data();
-  static const int kWitnessTxDataFieldNumber = 1;
-  const ::std::string& witness_tx_data() const;
-  void set_witness_tx_data(const ::std::string& value);
-  void set_witness_tx_data(const char* value);
-  void set_witness_tx_data(const char* value, size_t size);
-  ::std::string* mutable_witness_tx_data();
-  ::std::string* release_witness_tx_data();
-  void set_allocated_witness_tx_data(::std::string* witness_tx_data);
-
-  // optional string wtx_hash = 2;
-  void clear_wtx_hash();
-  static const int kWtxHashFieldNumber = 2;
-  const ::std::string& wtx_hash() const;
-  void set_wtx_hash(const ::std::string& value);
-  void set_wtx_hash(const char* value);
-  void set_wtx_hash(const char* value, size_t size);
-  ::std::string* mutable_wtx_hash();
-  ::std::string* release_wtx_hash();
-  void set_allocated_wtx_hash(::std::string* wtx_hash);
-
-  // optional string tx_hash = 3;
-  void clear_tx_hash();
-  static const int kTxHashFieldNumber = 3;
-  const ::std::string& tx_hash() const;
-  void set_tx_hash(const ::std::string& value);
-  void set_tx_hash(const char* value);
-  void set_tx_hash(const char* value, size_t size);
-  ::std::string* mutable_tx_hash();
-  ::std::string* release_tx_hash();
-  void set_allocated_tx_hash(::std::string* tx_hash);
-
-  // @@protoc_insertion_point(class_scope:btcapi.BtcSegwitTxRes)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr witness_tx_data_;
-  ::google::protobuf::internal::ArenaStringPtr wtx_hash_;
-  ::google::protobuf::internal::ArenaStringPtr tx_hash_;
-  mutable int _cached_size_;
-  friend void  protobuf_InitDefaults_btc_2eproto_impl();
-  friend void  protobuf_AddDesc_btc_2eproto_impl();
-  friend void protobuf_AssignDesc_btc_2eproto();
-  friend void protobuf_ShutdownFile_btc_2eproto();
-
-  void InitAsDefaultInstance();
-};
-extern ::google::protobuf::internal::ExplicitlyConstructed<BtcSegwitTxRes> BtcSegwitTxRes_default_instance_;
+extern ::google::protobuf::internal::ExplicitlyConstructed<BtcTxOutput> BtcTxOutput_default_instance_;
 
 // -------------------------------------------------------------------
 
@@ -942,200 +769,6 @@ class BtcXpubRes : public ::google::protobuf::Message /* @@protoc_insertion_poin
   void InitAsDefaultInstance();
 };
 extern ::google::protobuf::internal::ExplicitlyConstructed<BtcXpubRes> BtcXpubRes_default_instance_;
-
-// -------------------------------------------------------------------
-
-class BtcAddressReq : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:btcapi.BtcAddressReq) */ {
- public:
-  BtcAddressReq();
-  virtual ~BtcAddressReq();
-
-  BtcAddressReq(const BtcAddressReq& from);
-
-  inline BtcAddressReq& operator=(const BtcAddressReq& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const BtcAddressReq& default_instance();
-
-  static const BtcAddressReq* internal_default_instance();
-
-  void Swap(BtcAddressReq* other);
-
-  // implements Message ----------------------------------------------
-
-  inline BtcAddressReq* New() const { return New(NULL); }
-
-  BtcAddressReq* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const BtcAddressReq& from);
-  void MergeFrom(const BtcAddressReq& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  size_t ByteSizeLong() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
-    return InternalSerializeWithCachedSizesToArray(false, output);
-  }
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(BtcAddressReq* other);
-  void UnsafeMergeFrom(const BtcAddressReq& from);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional string network = 1;
-  void clear_network();
-  static const int kNetworkFieldNumber = 1;
-  const ::std::string& network() const;
-  void set_network(const ::std::string& value);
-  void set_network(const char* value);
-  void set_network(const char* value, size_t size);
-  ::std::string* mutable_network();
-  ::std::string* release_network();
-  void set_allocated_network(::std::string* network);
-
-  // optional string path = 2;
-  void clear_path();
-  static const int kPathFieldNumber = 2;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
-
-  // @@protoc_insertion_point(class_scope:btcapi.BtcAddressReq)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr network_;
-  ::google::protobuf::internal::ArenaStringPtr path_;
-  mutable int _cached_size_;
-  friend void  protobuf_InitDefaults_btc_2eproto_impl();
-  friend void  protobuf_AddDesc_btc_2eproto_impl();
-  friend void protobuf_AssignDesc_btc_2eproto();
-  friend void protobuf_ShutdownFile_btc_2eproto();
-
-  void InitAsDefaultInstance();
-};
-extern ::google::protobuf::internal::ExplicitlyConstructed<BtcAddressReq> BtcAddressReq_default_instance_;
-
-// -------------------------------------------------------------------
-
-class BtcAddressRes : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:btcapi.BtcAddressRes) */ {
- public:
-  BtcAddressRes();
-  virtual ~BtcAddressRes();
-
-  BtcAddressRes(const BtcAddressRes& from);
-
-  inline BtcAddressRes& operator=(const BtcAddressRes& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const BtcAddressRes& default_instance();
-
-  static const BtcAddressRes* internal_default_instance();
-
-  void Swap(BtcAddressRes* other);
-
-  // implements Message ----------------------------------------------
-
-  inline BtcAddressRes* New() const { return New(NULL); }
-
-  BtcAddressRes* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const BtcAddressRes& from);
-  void MergeFrom(const BtcAddressRes& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  size_t ByteSizeLong() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
-    return InternalSerializeWithCachedSizesToArray(false, output);
-  }
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(BtcAddressRes* other);
-  void UnsafeMergeFrom(const BtcAddressRes& from);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional string address = 1;
-  void clear_address();
-  static const int kAddressFieldNumber = 1;
-  const ::std::string& address() const;
-  void set_address(const ::std::string& value);
-  void set_address(const char* value);
-  void set_address(const char* value, size_t size);
-  ::std::string* mutable_address();
-  ::std::string* release_address();
-  void set_allocated_address(::std::string* address);
-
-  // @@protoc_insertion_point(class_scope:btcapi.BtcAddressRes)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr address_;
-  mutable int _cached_size_;
-  friend void  protobuf_InitDefaults_btc_2eproto_impl();
-  friend void  protobuf_AddDesc_btc_2eproto_impl();
-  friend void protobuf_AssignDesc_btc_2eproto();
-  friend void protobuf_ShutdownFile_btc_2eproto();
-
-  void InitAsDefaultInstance();
-};
-extern ::google::protobuf::internal::ExplicitlyConstructed<BtcAddressRes> BtcAddressRes_default_instance_;
 
 // ===================================================================
 
@@ -1368,775 +1001,501 @@ inline const Utxo* Utxo::internal_default_instance() {
 }
 // -------------------------------------------------------------------
 
-// BtcTxReq
+// BtcTxExtra
+
+// optional string opReturn = 1;
+inline void BtcTxExtra::clear_opreturn() {
+  opreturn_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BtcTxExtra::opreturn() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxExtra.opReturn)
+  return opreturn_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BtcTxExtra::set_opreturn(const ::std::string& value) {
+  
+  opreturn_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:btcapi.BtcTxExtra.opReturn)
+}
+inline void BtcTxExtra::set_opreturn(const char* value) {
+  
+  opreturn_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxExtra.opReturn)
+}
+inline void BtcTxExtra::set_opreturn(const char* value, size_t size) {
+  
+  opreturn_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxExtra.opReturn)
+}
+inline ::std::string* BtcTxExtra::mutable_opreturn() {
+  
+  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxExtra.opReturn)
+  return opreturn_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BtcTxExtra::release_opreturn() {
+  // @@protoc_insertion_point(field_release:btcapi.BtcTxExtra.opReturn)
+  
+  return opreturn_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BtcTxExtra::set_allocated_opreturn(::std::string* opreturn) {
+  if (opreturn != NULL) {
+    
+  } else {
+    
+  }
+  opreturn_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), opreturn);
+  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxExtra.opReturn)
+}
+
+// optional int32 propertyId = 2;
+inline void BtcTxExtra::clear_propertyid() {
+  propertyid_ = 0;
+}
+inline ::google::protobuf::int32 BtcTxExtra::propertyid() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxExtra.propertyId)
+  return propertyid_;
+}
+inline void BtcTxExtra::set_propertyid(::google::protobuf::int32 value) {
+  
+  propertyid_ = value;
+  // @@protoc_insertion_point(field_set:btcapi.BtcTxExtra.propertyId)
+}
+
+// optional string feeMode = 3;
+inline void BtcTxExtra::clear_feemode() {
+  feemode_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BtcTxExtra::feemode() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxExtra.feeMode)
+  return feemode_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BtcTxExtra::set_feemode(const ::std::string& value) {
+  
+  feemode_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:btcapi.BtcTxExtra.feeMode)
+}
+inline void BtcTxExtra::set_feemode(const char* value) {
+  
+  feemode_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxExtra.feeMode)
+}
+inline void BtcTxExtra::set_feemode(const char* value, size_t size) {
+  
+  feemode_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxExtra.feeMode)
+}
+inline ::std::string* BtcTxExtra::mutable_feemode() {
+  
+  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxExtra.feeMode)
+  return feemode_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BtcTxExtra::release_feemode() {
+  // @@protoc_insertion_point(field_release:btcapi.BtcTxExtra.feeMode)
+  
+  return feemode_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BtcTxExtra::set_allocated_feemode(::std::string* feemode) {
+  if (feemode != NULL) {
+    
+  } else {
+    
+  }
+  feemode_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), feemode);
+  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxExtra.feeMode)
+}
+
+inline const BtcTxExtra* BtcTxExtra::internal_default_instance() {
+  return &BtcTxExtra_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// BtcTxInput
 
 // optional string to = 1;
-inline void BtcTxReq::clear_to() {
+inline void BtcTxInput::clear_to() {
   to_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& BtcTxReq::to() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcTxReq.to)
+inline const ::std::string& BtcTxInput::to() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxInput.to)
   return to_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BtcTxReq::set_to(const ::std::string& value) {
+inline void BtcTxInput::set_to(const ::std::string& value) {
   
   to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcTxReq.to)
+  // @@protoc_insertion_point(field_set:btcapi.BtcTxInput.to)
 }
-inline void BtcTxReq::set_to(const char* value) {
+inline void BtcTxInput::set_to(const char* value) {
   
   to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxReq.to)
+  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxInput.to)
 }
-inline void BtcTxReq::set_to(const char* value, size_t size) {
+inline void BtcTxInput::set_to(const char* value, size_t size) {
   
   to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxReq.to)
+  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxInput.to)
 }
-inline ::std::string* BtcTxReq::mutable_to() {
+inline ::std::string* BtcTxInput::mutable_to() {
   
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxReq.to)
+  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxInput.to)
   return to_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* BtcTxReq::release_to() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcTxReq.to)
+inline ::std::string* BtcTxInput::release_to() {
+  // @@protoc_insertion_point(field_release:btcapi.BtcTxInput.to)
   
   return to_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BtcTxReq::set_allocated_to(::std::string* to) {
+inline void BtcTxInput::set_allocated_to(::std::string* to) {
   if (to != NULL) {
     
   } else {
     
   }
   to_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), to);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxReq.to)
+  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxInput.to)
 }
 
 // optional int64 amount = 2;
-inline void BtcTxReq::clear_amount() {
+inline void BtcTxInput::clear_amount() {
   amount_ = GOOGLE_LONGLONG(0);
 }
-inline ::google::protobuf::int64 BtcTxReq::amount() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcTxReq.amount)
+inline ::google::protobuf::int64 BtcTxInput::amount() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxInput.amount)
   return amount_;
 }
-inline void BtcTxReq::set_amount(::google::protobuf::int64 value) {
+inline void BtcTxInput::set_amount(::google::protobuf::int64 value) {
   
   amount_ = value;
-  // @@protoc_insertion_point(field_set:btcapi.BtcTxReq.amount)
+  // @@protoc_insertion_point(field_set:btcapi.BtcTxInput.amount)
 }
 
 // optional int64 fee = 3;
-inline void BtcTxReq::clear_fee() {
+inline void BtcTxInput::clear_fee() {
   fee_ = GOOGLE_LONGLONG(0);
 }
-inline ::google::protobuf::int64 BtcTxReq::fee() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcTxReq.fee)
+inline ::google::protobuf::int64 BtcTxInput::fee() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxInput.fee)
   return fee_;
 }
-inline void BtcTxReq::set_fee(::google::protobuf::int64 value) {
+inline void BtcTxInput::set_fee(::google::protobuf::int64 value) {
   
   fee_ = value;
-  // @@protoc_insertion_point(field_set:btcapi.BtcTxReq.fee)
+  // @@protoc_insertion_point(field_set:btcapi.BtcTxInput.fee)
 }
 
 // optional uint32 change_address_index = 4;
-inline void BtcTxReq::clear_change_address_index() {
+inline void BtcTxInput::clear_change_address_index() {
   change_address_index_ = 0u;
 }
-inline ::google::protobuf::uint32 BtcTxReq::change_address_index() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcTxReq.change_address_index)
+inline ::google::protobuf::uint32 BtcTxInput::change_address_index() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxInput.change_address_index)
   return change_address_index_;
 }
-inline void BtcTxReq::set_change_address_index(::google::protobuf::uint32 value) {
+inline void BtcTxInput::set_change_address_index(::google::protobuf::uint32 value) {
   
   change_address_index_ = value;
-  // @@protoc_insertion_point(field_set:btcapi.BtcTxReq.change_address_index)
+  // @@protoc_insertion_point(field_set:btcapi.BtcTxInput.change_address_index)
 }
 
 // repeated .btcapi.Utxo unspents = 5;
-inline int BtcTxReq::unspents_size() const {
+inline int BtcTxInput::unspents_size() const {
   return unspents_.size();
 }
-inline void BtcTxReq::clear_unspents() {
+inline void BtcTxInput::clear_unspents() {
   unspents_.Clear();
 }
-inline const ::btcapi::Utxo& BtcTxReq::unspents(int index) const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcTxReq.unspents)
+inline const ::btcapi::Utxo& BtcTxInput::unspents(int index) const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxInput.unspents)
   return unspents_.Get(index);
 }
-inline ::btcapi::Utxo* BtcTxReq::mutable_unspents(int index) {
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxReq.unspents)
+inline ::btcapi::Utxo* BtcTxInput::mutable_unspents(int index) {
+  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxInput.unspents)
   return unspents_.Mutable(index);
 }
-inline ::btcapi::Utxo* BtcTxReq::add_unspents() {
-  // @@protoc_insertion_point(field_add:btcapi.BtcTxReq.unspents)
+inline ::btcapi::Utxo* BtcTxInput::add_unspents() {
+  // @@protoc_insertion_point(field_add:btcapi.BtcTxInput.unspents)
   return unspents_.Add();
 }
 inline ::google::protobuf::RepeatedPtrField< ::btcapi::Utxo >*
-BtcTxReq::mutable_unspents() {
-  // @@protoc_insertion_point(field_mutable_list:btcapi.BtcTxReq.unspents)
+BtcTxInput::mutable_unspents() {
+  // @@protoc_insertion_point(field_mutable_list:btcapi.BtcTxInput.unspents)
   return &unspents_;
 }
 inline const ::google::protobuf::RepeatedPtrField< ::btcapi::Utxo >&
-BtcTxReq::unspents() const {
-  // @@protoc_insertion_point(field_list:btcapi.BtcTxReq.unspents)
+BtcTxInput::unspents() const {
+  // @@protoc_insertion_point(field_list:btcapi.BtcTxInput.unspents)
   return unspents_;
 }
 
-// optional bytes extra_data = 6;
-inline void BtcTxReq::clear_extra_data() {
-  extra_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string segWit = 6;
+inline void BtcTxInput::clear_segwit() {
+  segwit_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& BtcTxReq::extra_data() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcTxReq.extra_data)
-  return extra_data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string& BtcTxInput::segwit() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxInput.segWit)
+  return segwit_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BtcTxReq::set_extra_data(const ::std::string& value) {
+inline void BtcTxInput::set_segwit(const ::std::string& value) {
   
-  extra_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcTxReq.extra_data)
+  segwit_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:btcapi.BtcTxInput.segWit)
 }
-inline void BtcTxReq::set_extra_data(const char* value) {
+inline void BtcTxInput::set_segwit(const char* value) {
   
-  extra_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxReq.extra_data)
+  segwit_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxInput.segWit)
 }
-inline void BtcTxReq::set_extra_data(const void* value, size_t size) {
+inline void BtcTxInput::set_segwit(const char* value, size_t size) {
   
-  extra_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  segwit_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxReq.extra_data)
+  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxInput.segWit)
 }
-inline ::std::string* BtcTxReq::mutable_extra_data() {
+inline ::std::string* BtcTxInput::mutable_segwit() {
   
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxReq.extra_data)
-  return extra_data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxInput.segWit)
+  return segwit_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* BtcTxReq::release_extra_data() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcTxReq.extra_data)
+inline ::std::string* BtcTxInput::release_segwit() {
+  // @@protoc_insertion_point(field_release:btcapi.BtcTxInput.segWit)
   
-  return extra_data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return segwit_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BtcTxReq::set_allocated_extra_data(::std::string* extra_data) {
-  if (extra_data != NULL) {
+inline void BtcTxInput::set_allocated_segwit(::std::string* segwit) {
+  if (segwit != NULL) {
     
   } else {
     
   }
-  extra_data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), extra_data);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxReq.extra_data)
+  segwit_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), segwit);
+  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxInput.segWit)
 }
 
-// optional int32 property_id = 7;
-inline void BtcTxReq::clear_property_id() {
-  property_id_ = 0;
+// optional string protocol = 7;
+inline void BtcTxInput::clear_protocol() {
+  protocol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::google::protobuf::int32 BtcTxReq::property_id() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcTxReq.property_id)
-  return property_id_;
+inline const ::std::string& BtcTxInput::protocol() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxInput.protocol)
+  return protocol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BtcTxReq::set_property_id(::google::protobuf::int32 value) {
+inline void BtcTxInput::set_protocol(const ::std::string& value) {
   
-  property_id_ = value;
-  // @@protoc_insertion_point(field_set:btcapi.BtcTxReq.property_id)
+  protocol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:btcapi.BtcTxInput.protocol)
 }
-
-// optional string network = 8;
-inline void BtcTxReq::clear_network() {
-  network_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& BtcTxReq::network() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcTxReq.network)
-  return network_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcTxReq::set_network(const ::std::string& value) {
+inline void BtcTxInput::set_protocol(const char* value) {
   
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcTxReq.network)
+  protocol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxInput.protocol)
 }
-inline void BtcTxReq::set_network(const char* value) {
+inline void BtcTxInput::set_protocol(const char* value, size_t size) {
   
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxReq.network)
-}
-inline void BtcTxReq::set_network(const char* value, size_t size) {
-  
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  protocol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxReq.network)
+  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxInput.protocol)
 }
-inline ::std::string* BtcTxReq::mutable_network() {
+inline ::std::string* BtcTxInput::mutable_protocol() {
   
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxReq.network)
-  return network_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxInput.protocol)
+  return protocol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* BtcTxReq::release_network() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcTxReq.network)
+inline ::std::string* BtcTxInput::release_protocol() {
+  // @@protoc_insertion_point(field_release:btcapi.BtcTxInput.protocol)
   
-  return network_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return protocol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BtcTxReq::set_allocated_network(::std::string* network) {
-  if (network != NULL) {
+inline void BtcTxInput::set_allocated_protocol(::std::string* protocol) {
+  if (protocol != NULL) {
     
   } else {
     
   }
-  network_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), network);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxReq.network)
+  protocol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), protocol);
+  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxInput.protocol)
 }
 
-// optional string path_prefix = 9;
-inline void BtcTxReq::clear_path_prefix() {
-  path_prefix_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional .btcapi.BtcTxExtra extra = 8;
+inline bool BtcTxInput::has_extra() const {
+  return this != internal_default_instance() && extra_ != NULL;
 }
-inline const ::std::string& BtcTxReq::path_prefix() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcTxReq.path_prefix)
-  return path_prefix_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void BtcTxInput::clear_extra() {
+  if (GetArenaNoVirtual() == NULL && extra_ != NULL) delete extra_;
+  extra_ = NULL;
 }
-inline void BtcTxReq::set_path_prefix(const ::std::string& value) {
+inline const ::btcapi::BtcTxExtra& BtcTxInput::extra() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxInput.extra)
+  return extra_ != NULL ? *extra_
+                         : *::btcapi::BtcTxExtra::internal_default_instance();
+}
+inline ::btcapi::BtcTxExtra* BtcTxInput::mutable_extra() {
   
-  path_prefix_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcTxReq.path_prefix)
+  if (extra_ == NULL) {
+    extra_ = new ::btcapi::BtcTxExtra;
+  }
+  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxInput.extra)
+  return extra_;
 }
-inline void BtcTxReq::set_path_prefix(const char* value) {
+inline ::btcapi::BtcTxExtra* BtcTxInput::release_extra() {
+  // @@protoc_insertion_point(field_release:btcapi.BtcTxInput.extra)
   
-  path_prefix_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxReq.path_prefix)
+  ::btcapi::BtcTxExtra* temp = extra_;
+  extra_ = NULL;
+  return temp;
 }
-inline void BtcTxReq::set_path_prefix(const char* value, size_t size) {
-  
-  path_prefix_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxReq.path_prefix)
-}
-inline ::std::string* BtcTxReq::mutable_path_prefix() {
-  
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxReq.path_prefix)
-  return path_prefix_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* BtcTxReq::release_path_prefix() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcTxReq.path_prefix)
-  
-  return path_prefix_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcTxReq::set_allocated_path_prefix(::std::string* path_prefix) {
-  if (path_prefix != NULL) {
+inline void BtcTxInput::set_allocated_extra(::btcapi::BtcTxExtra* extra) {
+  delete extra_;
+  extra_ = extra;
+  if (extra) {
     
   } else {
     
   }
-  path_prefix_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path_prefix);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxReq.path_prefix)
+  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxInput.extra)
 }
 
-inline const BtcTxReq* BtcTxReq::internal_default_instance() {
-  return &BtcTxReq_default_instance_.get();
+inline const BtcTxInput* BtcTxInput::internal_default_instance() {
+  return &BtcTxInput_default_instance_.get();
 }
 // -------------------------------------------------------------------
 
-// BtcTxRes
+// BtcTxOutput
 
-// optional string tx_data = 1;
-inline void BtcTxRes::clear_tx_data() {
-  tx_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string signature = 1;
+inline void BtcTxOutput::clear_signature() {
+  signature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& BtcTxRes::tx_data() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcTxRes.tx_data)
-  return tx_data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string& BtcTxOutput::signature() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxOutput.signature)
+  return signature_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BtcTxRes::set_tx_data(const ::std::string& value) {
+inline void BtcTxOutput::set_signature(const ::std::string& value) {
   
-  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcTxRes.tx_data)
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:btcapi.BtcTxOutput.signature)
 }
-inline void BtcTxRes::set_tx_data(const char* value) {
+inline void BtcTxOutput::set_signature(const char* value) {
   
-  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxRes.tx_data)
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxOutput.signature)
 }
-inline void BtcTxRes::set_tx_data(const char* value, size_t size) {
+inline void BtcTxOutput::set_signature(const char* value, size_t size) {
   
-  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxRes.tx_data)
+  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxOutput.signature)
 }
-inline ::std::string* BtcTxRes::mutable_tx_data() {
+inline ::std::string* BtcTxOutput::mutable_signature() {
   
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxRes.tx_data)
-  return tx_data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxOutput.signature)
+  return signature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* BtcTxRes::release_tx_data() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcTxRes.tx_data)
+inline ::std::string* BtcTxOutput::release_signature() {
+  // @@protoc_insertion_point(field_release:btcapi.BtcTxOutput.signature)
   
-  return tx_data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return signature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BtcTxRes::set_allocated_tx_data(::std::string* tx_data) {
-  if (tx_data != NULL) {
+inline void BtcTxOutput::set_allocated_signature(::std::string* signature) {
+  if (signature != NULL) {
     
   } else {
     
   }
-  tx_data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tx_data);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxRes.tx_data)
+  signature_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), signature);
+  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxOutput.signature)
 }
 
-// optional string tx_hash = 2;
-inline void BtcTxRes::clear_tx_hash() {
-  tx_hash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string txHash = 2;
+inline void BtcTxOutput::clear_txhash() {
+  txhash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& BtcTxRes::tx_hash() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcTxRes.tx_hash)
-  return tx_hash_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string& BtcTxOutput::txhash() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxOutput.txHash)
+  return txhash_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BtcTxRes::set_tx_hash(const ::std::string& value) {
+inline void BtcTxOutput::set_txhash(const ::std::string& value) {
   
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcTxRes.tx_hash)
+  txhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:btcapi.BtcTxOutput.txHash)
 }
-inline void BtcTxRes::set_tx_hash(const char* value) {
+inline void BtcTxOutput::set_txhash(const char* value) {
   
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxRes.tx_hash)
+  txhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxOutput.txHash)
 }
-inline void BtcTxRes::set_tx_hash(const char* value, size_t size) {
+inline void BtcTxOutput::set_txhash(const char* value, size_t size) {
   
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  txhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxRes.tx_hash)
+  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxOutput.txHash)
 }
-inline ::std::string* BtcTxRes::mutable_tx_hash() {
+inline ::std::string* BtcTxOutput::mutable_txhash() {
   
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxRes.tx_hash)
-  return tx_hash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxOutput.txHash)
+  return txhash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* BtcTxRes::release_tx_hash() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcTxRes.tx_hash)
+inline ::std::string* BtcTxOutput::release_txhash() {
+  // @@protoc_insertion_point(field_release:btcapi.BtcTxOutput.txHash)
   
-  return tx_hash_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return txhash_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BtcTxRes::set_allocated_tx_hash(::std::string* tx_hash) {
-  if (tx_hash != NULL) {
+inline void BtcTxOutput::set_allocated_txhash(::std::string* txhash) {
+  if (txhash != NULL) {
     
   } else {
     
   }
-  tx_hash_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tx_hash);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxRes.tx_hash)
+  txhash_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), txhash);
+  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxOutput.txHash)
 }
 
-inline const BtcTxRes* BtcTxRes::internal_default_instance() {
-  return &BtcTxRes_default_instance_.get();
+// optional string wtxHash = 3;
+inline void BtcTxOutput::clear_wtxhash() {
+  wtxhash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-// -------------------------------------------------------------------
-
-// BtcSegwitTxReq
-
-// optional string to = 1;
-inline void BtcSegwitTxReq::clear_to() {
-  to_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string& BtcTxOutput::wtxhash() const {
+  // @@protoc_insertion_point(field_get:btcapi.BtcTxOutput.wtxHash)
+  return wtxhash_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& BtcSegwitTxReq::to() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcSegwitTxReq.to)
-  return to_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcSegwitTxReq::set_to(const ::std::string& value) {
+inline void BtcTxOutput::set_wtxhash(const ::std::string& value) {
   
-  to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcSegwitTxReq.to)
+  wtxhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:btcapi.BtcTxOutput.wtxHash)
 }
-inline void BtcSegwitTxReq::set_to(const char* value) {
+inline void BtcTxOutput::set_wtxhash(const char* value) {
   
-  to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcSegwitTxReq.to)
+  wtxhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:btcapi.BtcTxOutput.wtxHash)
 }
-inline void BtcSegwitTxReq::set_to(const char* value, size_t size) {
+inline void BtcTxOutput::set_wtxhash(const char* value, size_t size) {
   
-  to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  wtxhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcSegwitTxReq.to)
+  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcTxOutput.wtxHash)
 }
-inline ::std::string* BtcSegwitTxReq::mutable_to() {
+inline ::std::string* BtcTxOutput::mutable_wtxhash() {
   
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcSegwitTxReq.to)
-  return to_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:btcapi.BtcTxOutput.wtxHash)
+  return wtxhash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* BtcSegwitTxReq::release_to() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcSegwitTxReq.to)
+inline ::std::string* BtcTxOutput::release_wtxhash() {
+  // @@protoc_insertion_point(field_release:btcapi.BtcTxOutput.wtxHash)
   
-  return to_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return wtxhash_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BtcSegwitTxReq::set_allocated_to(::std::string* to) {
-  if (to != NULL) {
+inline void BtcTxOutput::set_allocated_wtxhash(::std::string* wtxhash) {
+  if (wtxhash != NULL) {
     
   } else {
     
   }
-  to_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), to);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcSegwitTxReq.to)
+  wtxhash_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), wtxhash);
+  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcTxOutput.wtxHash)
 }
 
-// optional int64 amount = 2;
-inline void BtcSegwitTxReq::clear_amount() {
-  amount_ = GOOGLE_LONGLONG(0);
-}
-inline ::google::protobuf::int64 BtcSegwitTxReq::amount() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcSegwitTxReq.amount)
-  return amount_;
-}
-inline void BtcSegwitTxReq::set_amount(::google::protobuf::int64 value) {
-  
-  amount_ = value;
-  // @@protoc_insertion_point(field_set:btcapi.BtcSegwitTxReq.amount)
-}
-
-// optional int64 fee = 3;
-inline void BtcSegwitTxReq::clear_fee() {
-  fee_ = GOOGLE_LONGLONG(0);
-}
-inline ::google::protobuf::int64 BtcSegwitTxReq::fee() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcSegwitTxReq.fee)
-  return fee_;
-}
-inline void BtcSegwitTxReq::set_fee(::google::protobuf::int64 value) {
-  
-  fee_ = value;
-  // @@protoc_insertion_point(field_set:btcapi.BtcSegwitTxReq.fee)
-}
-
-// optional uint32 change_address_index = 4;
-inline void BtcSegwitTxReq::clear_change_address_index() {
-  change_address_index_ = 0u;
-}
-inline ::google::protobuf::uint32 BtcSegwitTxReq::change_address_index() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcSegwitTxReq.change_address_index)
-  return change_address_index_;
-}
-inline void BtcSegwitTxReq::set_change_address_index(::google::protobuf::uint32 value) {
-  
-  change_address_index_ = value;
-  // @@protoc_insertion_point(field_set:btcapi.BtcSegwitTxReq.change_address_index)
-}
-
-// repeated .btcapi.Utxo unspents = 5;
-inline int BtcSegwitTxReq::unspents_size() const {
-  return unspents_.size();
-}
-inline void BtcSegwitTxReq::clear_unspents() {
-  unspents_.Clear();
-}
-inline const ::btcapi::Utxo& BtcSegwitTxReq::unspents(int index) const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcSegwitTxReq.unspents)
-  return unspents_.Get(index);
-}
-inline ::btcapi::Utxo* BtcSegwitTxReq::mutable_unspents(int index) {
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcSegwitTxReq.unspents)
-  return unspents_.Mutable(index);
-}
-inline ::btcapi::Utxo* BtcSegwitTxReq::add_unspents() {
-  // @@protoc_insertion_point(field_add:btcapi.BtcSegwitTxReq.unspents)
-  return unspents_.Add();
-}
-inline ::google::protobuf::RepeatedPtrField< ::btcapi::Utxo >*
-BtcSegwitTxReq::mutable_unspents() {
-  // @@protoc_insertion_point(field_mutable_list:btcapi.BtcSegwitTxReq.unspents)
-  return &unspents_;
-}
-inline const ::google::protobuf::RepeatedPtrField< ::btcapi::Utxo >&
-BtcSegwitTxReq::unspents() const {
-  // @@protoc_insertion_point(field_list:btcapi.BtcSegwitTxReq.unspents)
-  return unspents_;
-}
-
-// optional bytes extra_data = 6;
-inline void BtcSegwitTxReq::clear_extra_data() {
-  extra_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& BtcSegwitTxReq::extra_data() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcSegwitTxReq.extra_data)
-  return extra_data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcSegwitTxReq::set_extra_data(const ::std::string& value) {
-  
-  extra_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcSegwitTxReq.extra_data)
-}
-inline void BtcSegwitTxReq::set_extra_data(const char* value) {
-  
-  extra_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcSegwitTxReq.extra_data)
-}
-inline void BtcSegwitTxReq::set_extra_data(const void* value, size_t size) {
-  
-  extra_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcSegwitTxReq.extra_data)
-}
-inline ::std::string* BtcSegwitTxReq::mutable_extra_data() {
-  
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcSegwitTxReq.extra_data)
-  return extra_data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* BtcSegwitTxReq::release_extra_data() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcSegwitTxReq.extra_data)
-  
-  return extra_data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcSegwitTxReq::set_allocated_extra_data(::std::string* extra_data) {
-  if (extra_data != NULL) {
-    
-  } else {
-    
-  }
-  extra_data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), extra_data);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcSegwitTxReq.extra_data)
-}
-
-// optional int32 property_id = 7;
-inline void BtcSegwitTxReq::clear_property_id() {
-  property_id_ = 0;
-}
-inline ::google::protobuf::int32 BtcSegwitTxReq::property_id() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcSegwitTxReq.property_id)
-  return property_id_;
-}
-inline void BtcSegwitTxReq::set_property_id(::google::protobuf::int32 value) {
-  
-  property_id_ = value;
-  // @@protoc_insertion_point(field_set:btcapi.BtcSegwitTxReq.property_id)
-}
-
-// optional string network = 8;
-inline void BtcSegwitTxReq::clear_network() {
-  network_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& BtcSegwitTxReq::network() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcSegwitTxReq.network)
-  return network_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcSegwitTxReq::set_network(const ::std::string& value) {
-  
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcSegwitTxReq.network)
-}
-inline void BtcSegwitTxReq::set_network(const char* value) {
-  
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcSegwitTxReq.network)
-}
-inline void BtcSegwitTxReq::set_network(const char* value, size_t size) {
-  
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcSegwitTxReq.network)
-}
-inline ::std::string* BtcSegwitTxReq::mutable_network() {
-  
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcSegwitTxReq.network)
-  return network_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* BtcSegwitTxReq::release_network() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcSegwitTxReq.network)
-  
-  return network_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcSegwitTxReq::set_allocated_network(::std::string* network) {
-  if (network != NULL) {
-    
-  } else {
-    
-  }
-  network_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), network);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcSegwitTxReq.network)
-}
-
-// optional string path_prefix = 9;
-inline void BtcSegwitTxReq::clear_path_prefix() {
-  path_prefix_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& BtcSegwitTxReq::path_prefix() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcSegwitTxReq.path_prefix)
-  return path_prefix_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcSegwitTxReq::set_path_prefix(const ::std::string& value) {
-  
-  path_prefix_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcSegwitTxReq.path_prefix)
-}
-inline void BtcSegwitTxReq::set_path_prefix(const char* value) {
-  
-  path_prefix_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcSegwitTxReq.path_prefix)
-}
-inline void BtcSegwitTxReq::set_path_prefix(const char* value, size_t size) {
-  
-  path_prefix_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcSegwitTxReq.path_prefix)
-}
-inline ::std::string* BtcSegwitTxReq::mutable_path_prefix() {
-  
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcSegwitTxReq.path_prefix)
-  return path_prefix_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* BtcSegwitTxReq::release_path_prefix() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcSegwitTxReq.path_prefix)
-  
-  return path_prefix_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcSegwitTxReq::set_allocated_path_prefix(::std::string* path_prefix) {
-  if (path_prefix != NULL) {
-    
-  } else {
-    
-  }
-  path_prefix_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path_prefix);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcSegwitTxReq.path_prefix)
-}
-
-inline const BtcSegwitTxReq* BtcSegwitTxReq::internal_default_instance() {
-  return &BtcSegwitTxReq_default_instance_.get();
-}
-// -------------------------------------------------------------------
-
-// BtcSegwitTxRes
-
-// optional string witness_tx_data = 1;
-inline void BtcSegwitTxRes::clear_witness_tx_data() {
-  witness_tx_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& BtcSegwitTxRes::witness_tx_data() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcSegwitTxRes.witness_tx_data)
-  return witness_tx_data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcSegwitTxRes::set_witness_tx_data(const ::std::string& value) {
-  
-  witness_tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcSegwitTxRes.witness_tx_data)
-}
-inline void BtcSegwitTxRes::set_witness_tx_data(const char* value) {
-  
-  witness_tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcSegwitTxRes.witness_tx_data)
-}
-inline void BtcSegwitTxRes::set_witness_tx_data(const char* value, size_t size) {
-  
-  witness_tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcSegwitTxRes.witness_tx_data)
-}
-inline ::std::string* BtcSegwitTxRes::mutable_witness_tx_data() {
-  
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcSegwitTxRes.witness_tx_data)
-  return witness_tx_data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* BtcSegwitTxRes::release_witness_tx_data() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcSegwitTxRes.witness_tx_data)
-  
-  return witness_tx_data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcSegwitTxRes::set_allocated_witness_tx_data(::std::string* witness_tx_data) {
-  if (witness_tx_data != NULL) {
-    
-  } else {
-    
-  }
-  witness_tx_data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), witness_tx_data);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcSegwitTxRes.witness_tx_data)
-}
-
-// optional string wtx_hash = 2;
-inline void BtcSegwitTxRes::clear_wtx_hash() {
-  wtx_hash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& BtcSegwitTxRes::wtx_hash() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcSegwitTxRes.wtx_hash)
-  return wtx_hash_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcSegwitTxRes::set_wtx_hash(const ::std::string& value) {
-  
-  wtx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcSegwitTxRes.wtx_hash)
-}
-inline void BtcSegwitTxRes::set_wtx_hash(const char* value) {
-  
-  wtx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcSegwitTxRes.wtx_hash)
-}
-inline void BtcSegwitTxRes::set_wtx_hash(const char* value, size_t size) {
-  
-  wtx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcSegwitTxRes.wtx_hash)
-}
-inline ::std::string* BtcSegwitTxRes::mutable_wtx_hash() {
-  
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcSegwitTxRes.wtx_hash)
-  return wtx_hash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* BtcSegwitTxRes::release_wtx_hash() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcSegwitTxRes.wtx_hash)
-  
-  return wtx_hash_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcSegwitTxRes::set_allocated_wtx_hash(::std::string* wtx_hash) {
-  if (wtx_hash != NULL) {
-    
-  } else {
-    
-  }
-  wtx_hash_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), wtx_hash);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcSegwitTxRes.wtx_hash)
-}
-
-// optional string tx_hash = 3;
-inline void BtcSegwitTxRes::clear_tx_hash() {
-  tx_hash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& BtcSegwitTxRes::tx_hash() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcSegwitTxRes.tx_hash)
-  return tx_hash_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcSegwitTxRes::set_tx_hash(const ::std::string& value) {
-  
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcSegwitTxRes.tx_hash)
-}
-inline void BtcSegwitTxRes::set_tx_hash(const char* value) {
-  
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcSegwitTxRes.tx_hash)
-}
-inline void BtcSegwitTxRes::set_tx_hash(const char* value, size_t size) {
-  
-  tx_hash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcSegwitTxRes.tx_hash)
-}
-inline ::std::string* BtcSegwitTxRes::mutable_tx_hash() {
-  
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcSegwitTxRes.tx_hash)
-  return tx_hash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* BtcSegwitTxRes::release_tx_hash() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcSegwitTxRes.tx_hash)
-  
-  return tx_hash_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcSegwitTxRes::set_allocated_tx_hash(::std::string* tx_hash) {
-  if (tx_hash != NULL) {
-    
-  } else {
-    
-  }
-  tx_hash_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tx_hash);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcSegwitTxRes.tx_hash)
-}
-
-inline const BtcSegwitTxRes* BtcSegwitTxRes::internal_default_instance() {
-  return &BtcSegwitTxRes_default_instance_.get();
+inline const BtcTxOutput* BtcTxOutput::internal_default_instance() {
+  return &BtcTxOutput_default_instance_.get();
 }
 // -------------------------------------------------------------------
 
@@ -2284,159 +1643,7 @@ inline void BtcXpubRes::set_allocated_xpub(::std::string* xpub) {
 inline const BtcXpubRes* BtcXpubRes::internal_default_instance() {
   return &BtcXpubRes_default_instance_.get();
 }
-// -------------------------------------------------------------------
-
-// BtcAddressReq
-
-// optional string network = 1;
-inline void BtcAddressReq::clear_network() {
-  network_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& BtcAddressReq::network() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcAddressReq.network)
-  return network_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcAddressReq::set_network(const ::std::string& value) {
-  
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcAddressReq.network)
-}
-inline void BtcAddressReq::set_network(const char* value) {
-  
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcAddressReq.network)
-}
-inline void BtcAddressReq::set_network(const char* value, size_t size) {
-  
-  network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcAddressReq.network)
-}
-inline ::std::string* BtcAddressReq::mutable_network() {
-  
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcAddressReq.network)
-  return network_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* BtcAddressReq::release_network() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcAddressReq.network)
-  
-  return network_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcAddressReq::set_allocated_network(::std::string* network) {
-  if (network != NULL) {
-    
-  } else {
-    
-  }
-  network_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), network);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcAddressReq.network)
-}
-
-// optional string path = 2;
-inline void BtcAddressReq::clear_path() {
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& BtcAddressReq::path() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcAddressReq.path)
-  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcAddressReq::set_path(const ::std::string& value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcAddressReq.path)
-}
-inline void BtcAddressReq::set_path(const char* value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcAddressReq.path)
-}
-inline void BtcAddressReq::set_path(const char* value, size_t size) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcAddressReq.path)
-}
-inline ::std::string* BtcAddressReq::mutable_path() {
-  
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcAddressReq.path)
-  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* BtcAddressReq::release_path() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcAddressReq.path)
-  
-  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcAddressReq::set_allocated_path(::std::string* path) {
-  if (path != NULL) {
-    
-  } else {
-    
-  }
-  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcAddressReq.path)
-}
-
-inline const BtcAddressReq* BtcAddressReq::internal_default_instance() {
-  return &BtcAddressReq_default_instance_.get();
-}
-// -------------------------------------------------------------------
-
-// BtcAddressRes
-
-// optional string address = 1;
-inline void BtcAddressRes::clear_address() {
-  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& BtcAddressRes::address() const {
-  // @@protoc_insertion_point(field_get:btcapi.BtcAddressRes.address)
-  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcAddressRes::set_address(const ::std::string& value) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:btcapi.BtcAddressRes.address)
-}
-inline void BtcAddressRes::set_address(const char* value) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:btcapi.BtcAddressRes.address)
-}
-inline void BtcAddressRes::set_address(const char* value, size_t size) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:btcapi.BtcAddressRes.address)
-}
-inline ::std::string* BtcAddressRes::mutable_address() {
-  
-  // @@protoc_insertion_point(field_mutable:btcapi.BtcAddressRes.address)
-  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* BtcAddressRes::release_address() {
-  // @@protoc_insertion_point(field_release:btcapi.BtcAddressRes.address)
-  
-  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BtcAddressRes::set_allocated_address(::std::string* address) {
-  if (address != NULL) {
-    
-  } else {
-    
-  }
-  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
-  // @@protoc_insertion_point(field_set_allocated:btcapi.BtcAddressRes.address)
-}
-
-inline const BtcAddressRes* BtcAddressRes::internal_default_instance() {
-  return &BtcAddressRes_default_instance_.get();
-}
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

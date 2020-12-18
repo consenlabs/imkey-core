@@ -37,45 +37,43 @@ void protobuf_InitDefaults_eos_2eproto();
 void protobuf_AssignDesc_eos_2eproto();
 void protobuf_ShutdownFile_eos_2eproto();
 
-class EosMessageSignReq;
-class EosMessageSignRes;
-class EosPubkeyReq;
-class EosPubkeyRes;
+class EosMessageInput;
+class EosMessageOutput;
 class EosSignData;
 class EosSignResult;
-class EosTxReq;
-class EosTxRes;
+class EosTxInput;
+class EosTxOutput;
 
 // ===================================================================
 
-class EosTxReq : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eosapi.EosTxReq) */ {
+class EosTxInput : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eosapi.EosTxInput) */ {
  public:
-  EosTxReq();
-  virtual ~EosTxReq();
+  EosTxInput();
+  virtual ~EosTxInput();
 
-  EosTxReq(const EosTxReq& from);
+  EosTxInput(const EosTxInput& from);
 
-  inline EosTxReq& operator=(const EosTxReq& from) {
+  inline EosTxInput& operator=(const EosTxInput& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const EosTxReq& default_instance();
+  static const EosTxInput& default_instance();
 
-  static const EosTxReq* internal_default_instance();
+  static const EosTxInput* internal_default_instance();
 
-  void Swap(EosTxReq* other);
+  void Swap(EosTxInput* other);
 
   // implements Message ----------------------------------------------
 
-  inline EosTxReq* New() const { return New(NULL); }
+  inline EosTxInput* New() const { return New(NULL); }
 
-  EosTxReq* New(::google::protobuf::Arena* arena) const;
+  EosTxInput* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const EosTxReq& from);
-  void MergeFrom(const EosTxReq& from);
+  void CopyFrom(const EosTxInput& from);
+  void MergeFrom(const EosTxInput& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -94,8 +92,8 @@ class EosTxReq : public ::google::protobuf::Message /* @@protoc_insertion_point(
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(EosTxReq* other);
-  void UnsafeMergeFrom(const EosTxReq& from);
+  void InternalSwap(EosTxInput* other);
+  void UnsafeMergeFrom(const EosTxInput& from);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -111,35 +109,23 @@ class EosTxReq : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // accessors -------------------------------------------------------
 
-  // optional string path = 1;
-  void clear_path();
-  static const int kPathFieldNumber = 1;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
-
-  // repeated .eosapi.EosSignData sign_datas = 2;
-  int sign_datas_size() const;
-  void clear_sign_datas();
-  static const int kSignDatasFieldNumber = 2;
-  const ::eosapi::EosSignData& sign_datas(int index) const;
-  ::eosapi::EosSignData* mutable_sign_datas(int index);
-  ::eosapi::EosSignData* add_sign_datas();
+  // repeated .eosapi.EosSignData transactions = 1;
+  int transactions_size() const;
+  void clear_transactions();
+  static const int kTransactionsFieldNumber = 1;
+  const ::eosapi::EosSignData& transactions(int index) const;
+  ::eosapi::EosSignData* mutable_transactions(int index);
+  ::eosapi::EosSignData* add_transactions();
   ::google::protobuf::RepeatedPtrField< ::eosapi::EosSignData >*
-      mutable_sign_datas();
+      mutable_transactions();
   const ::google::protobuf::RepeatedPtrField< ::eosapi::EosSignData >&
-      sign_datas() const;
+      transactions() const;
 
-  // @@protoc_insertion_point(class_scope:eosapi.EosTxReq)
+  // @@protoc_insertion_point(class_scope:eosapi.EosTxInput)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField< ::eosapi::EosSignData > sign_datas_;
-  ::google::protobuf::internal::ArenaStringPtr path_;
+  ::google::protobuf::RepeatedPtrField< ::eosapi::EosSignData > transactions_;
   mutable int _cached_size_;
   friend void  protobuf_InitDefaults_eos_2eproto_impl();
   friend void  protobuf_AddDesc_eos_2eproto_impl();
@@ -148,7 +134,7 @@ class EosTxReq : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   void InitAsDefaultInstance();
 };
-extern ::google::protobuf::internal::ExplicitlyConstructed<EosTxReq> EosTxReq_default_instance_;
+extern ::google::protobuf::internal::ExplicitlyConstructed<EosTxInput> EosTxInput_default_instance_;
 
 // -------------------------------------------------------------------
 
@@ -215,69 +201,58 @@ class EosSignData : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   // accessors -------------------------------------------------------
 
-  // optional string tx_data = 1;
-  void clear_tx_data();
-  static const int kTxDataFieldNumber = 1;
-  const ::std::string& tx_data() const;
-  void set_tx_data(const ::std::string& value);
-  void set_tx_data(const char* value);
-  void set_tx_data(const char* value, size_t size);
-  ::std::string* mutable_tx_data();
-  ::std::string* release_tx_data();
-  void set_allocated_tx_data(::std::string* tx_data);
+  // optional string txHex = 1;
+  void clear_txhex();
+  static const int kTxHexFieldNumber = 1;
+  const ::std::string& txhex() const;
+  void set_txhex(const ::std::string& value);
+  void set_txhex(const char* value);
+  void set_txhex(const char* value, size_t size);
+  ::std::string* mutable_txhex();
+  ::std::string* release_txhex();
+  void set_allocated_txhex(::std::string* txhex);
 
-  // repeated string pub_keys = 2;
-  int pub_keys_size() const;
-  void clear_pub_keys();
-  static const int kPubKeysFieldNumber = 2;
-  const ::std::string& pub_keys(int index) const;
-  ::std::string* mutable_pub_keys(int index);
-  void set_pub_keys(int index, const ::std::string& value);
-  void set_pub_keys(int index, const char* value);
-  void set_pub_keys(int index, const char* value, size_t size);
-  ::std::string* add_pub_keys();
-  void add_pub_keys(const ::std::string& value);
-  void add_pub_keys(const char* value);
-  void add_pub_keys(const char* value, size_t size);
-  const ::google::protobuf::RepeatedPtrField< ::std::string>& pub_keys() const;
-  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_pub_keys();
+  // repeated string publicKeys = 2;
+  int publickeys_size() const;
+  void clear_publickeys();
+  static const int kPublicKeysFieldNumber = 2;
+  const ::std::string& publickeys(int index) const;
+  ::std::string* mutable_publickeys(int index);
+  void set_publickeys(int index, const ::std::string& value);
+  void set_publickeys(int index, const char* value);
+  void set_publickeys(int index, const char* value, size_t size);
+  ::std::string* add_publickeys();
+  void add_publickeys(const ::std::string& value);
+  void add_publickeys(const char* value);
+  void add_publickeys(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& publickeys() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_publickeys();
 
-  // optional string chain_id = 3;
-  void clear_chain_id();
+  // optional string chainId = 3;
+  void clear_chainid();
   static const int kChainIdFieldNumber = 3;
-  const ::std::string& chain_id() const;
-  void set_chain_id(const ::std::string& value);
-  void set_chain_id(const char* value);
-  void set_chain_id(const char* value, size_t size);
-  ::std::string* mutable_chain_id();
-  ::std::string* release_chain_id();
-  void set_allocated_chain_id(::std::string* chain_id);
+  const ::std::string& chainid() const;
+  void set_chainid(const ::std::string& value);
+  void set_chainid(const char* value);
+  void set_chainid(const char* value, size_t size);
+  ::std::string* mutable_chainid();
+  ::std::string* release_chainid();
+  void set_allocated_chainid(::std::string* chainid);
 
-  // optional string to = 4;
-  void clear_to();
-  static const int kToFieldNumber = 4;
-  const ::std::string& to() const;
-  void set_to(const ::std::string& value);
-  void set_to(const char* value);
-  void set_to(const char* value, size_t size);
-  ::std::string* mutable_to();
-  ::std::string* release_to();
-  void set_allocated_to(::std::string* to);
+  // optional string receiver = 4;
+  void clear_receiver();
+  static const int kReceiverFieldNumber = 4;
+  const ::std::string& receiver() const;
+  void set_receiver(const ::std::string& value);
+  void set_receiver(const char* value);
+  void set_receiver(const char* value, size_t size);
+  ::std::string* mutable_receiver();
+  ::std::string* release_receiver();
+  void set_allocated_receiver(::std::string* receiver);
 
-  // optional string from = 5;
-  void clear_from();
-  static const int kFromFieldNumber = 5;
-  const ::std::string& from() const;
-  void set_from(const ::std::string& value);
-  void set_from(const char* value);
-  void set_from(const char* value, size_t size);
-  ::std::string* mutable_from();
-  ::std::string* release_from();
-  void set_allocated_from(::std::string* from);
-
-  // optional string payment = 6;
+  // optional string payment = 5;
   void clear_payment();
-  static const int kPaymentFieldNumber = 6;
+  static const int kPaymentFieldNumber = 5;
   const ::std::string& payment() const;
   void set_payment(const ::std::string& value);
   void set_payment(const char* value);
@@ -286,16 +261,27 @@ class EosSignData : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::std::string* release_payment();
   void set_allocated_payment(::std::string* payment);
 
+  // optional string sender = 6;
+  void clear_sender();
+  static const int kSenderFieldNumber = 6;
+  const ::std::string& sender() const;
+  void set_sender(const ::std::string& value);
+  void set_sender(const char* value);
+  void set_sender(const char* value, size_t size);
+  ::std::string* mutable_sender();
+  ::std::string* release_sender();
+  void set_allocated_sender(::std::string* sender);
+
   // @@protoc_insertion_point(class_scope:eosapi.EosSignData)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField< ::std::string> pub_keys_;
-  ::google::protobuf::internal::ArenaStringPtr tx_data_;
-  ::google::protobuf::internal::ArenaStringPtr chain_id_;
-  ::google::protobuf::internal::ArenaStringPtr to_;
-  ::google::protobuf::internal::ArenaStringPtr from_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> publickeys_;
+  ::google::protobuf::internal::ArenaStringPtr txhex_;
+  ::google::protobuf::internal::ArenaStringPtr chainid_;
+  ::google::protobuf::internal::ArenaStringPtr receiver_;
   ::google::protobuf::internal::ArenaStringPtr payment_;
+  ::google::protobuf::internal::ArenaStringPtr sender_;
   mutable int _cached_size_;
   friend void  protobuf_InitDefaults_eos_2eproto_impl();
   friend void  protobuf_AddDesc_eos_2eproto_impl();
@@ -308,34 +294,34 @@ extern ::google::protobuf::internal::ExplicitlyConstructed<EosSignData> EosSignD
 
 // -------------------------------------------------------------------
 
-class EosTxRes : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eosapi.EosTxRes) */ {
+class EosTxOutput : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eosapi.EosTxOutput) */ {
  public:
-  EosTxRes();
-  virtual ~EosTxRes();
+  EosTxOutput();
+  virtual ~EosTxOutput();
 
-  EosTxRes(const EosTxRes& from);
+  EosTxOutput(const EosTxOutput& from);
 
-  inline EosTxRes& operator=(const EosTxRes& from) {
+  inline EosTxOutput& operator=(const EosTxOutput& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const EosTxRes& default_instance();
+  static const EosTxOutput& default_instance();
 
-  static const EosTxRes* internal_default_instance();
+  static const EosTxOutput* internal_default_instance();
 
-  void Swap(EosTxRes* other);
+  void Swap(EosTxOutput* other);
 
   // implements Message ----------------------------------------------
 
-  inline EosTxRes* New() const { return New(NULL); }
+  inline EosTxOutput* New() const { return New(NULL); }
 
-  EosTxRes* New(::google::protobuf::Arena* arena) const;
+  EosTxOutput* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const EosTxRes& from);
-  void MergeFrom(const EosTxRes& from);
+  void CopyFrom(const EosTxOutput& from);
+  void MergeFrom(const EosTxOutput& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -354,8 +340,8 @@ class EosTxRes : public ::google::protobuf::Message /* @@protoc_insertion_point(
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(EosTxRes* other);
-  void UnsafeMergeFrom(const EosTxRes& from);
+  void InternalSwap(EosTxOutput* other);
+  void UnsafeMergeFrom(const EosTxOutput& from);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -383,7 +369,7 @@ class EosTxRes : public ::google::protobuf::Message /* @@protoc_insertion_point(
   const ::google::protobuf::RepeatedPtrField< ::eosapi::EosSignResult >&
       trans_multi_signs() const;
 
-  // @@protoc_insertion_point(class_scope:eosapi.EosTxRes)
+  // @@protoc_insertion_point(class_scope:eosapi.EosTxOutput)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -396,7 +382,7 @@ class EosTxRes : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   void InitAsDefaultInstance();
 };
-extern ::google::protobuf::internal::ExplicitlyConstructed<EosTxRes> EosTxRes_default_instance_;
+extern ::google::protobuf::internal::ExplicitlyConstructed<EosTxOutput> EosTxOutput_default_instance_;
 
 // -------------------------------------------------------------------
 
@@ -508,34 +494,34 @@ extern ::google::protobuf::internal::ExplicitlyConstructed<EosSignResult> EosSig
 
 // -------------------------------------------------------------------
 
-class EosPubkeyReq : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eosapi.EosPubkeyReq) */ {
+class EosMessageInput : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eosapi.EosMessageInput) */ {
  public:
-  EosPubkeyReq();
-  virtual ~EosPubkeyReq();
+  EosMessageInput();
+  virtual ~EosMessageInput();
 
-  EosPubkeyReq(const EosPubkeyReq& from);
+  EosMessageInput(const EosMessageInput& from);
 
-  inline EosPubkeyReq& operator=(const EosPubkeyReq& from) {
+  inline EosMessageInput& operator=(const EosMessageInput& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const EosPubkeyReq& default_instance();
+  static const EosMessageInput& default_instance();
 
-  static const EosPubkeyReq* internal_default_instance();
+  static const EosMessageInput* internal_default_instance();
 
-  void Swap(EosPubkeyReq* other);
+  void Swap(EosMessageInput* other);
 
   // implements Message ----------------------------------------------
 
-  inline EosPubkeyReq* New() const { return New(NULL); }
+  inline EosMessageInput* New() const { return New(NULL); }
 
-  EosPubkeyReq* New(::google::protobuf::Arena* arena) const;
+  EosMessageInput* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const EosPubkeyReq& from);
-  void MergeFrom(const EosPubkeyReq& from);
+  void CopyFrom(const EosMessageInput& from);
+  void MergeFrom(const EosMessageInput& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -554,8 +540,8 @@ class EosPubkeyReq : public ::google::protobuf::Message /* @@protoc_insertion_po
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(EosPubkeyReq* other);
-  void UnsafeMergeFrom(const EosPubkeyReq& from);
+  void InternalSwap(EosMessageInput* other);
+  void UnsafeMergeFrom(const EosMessageInput& from);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -571,202 +557,9 @@ class EosPubkeyReq : public ::google::protobuf::Message /* @@protoc_insertion_po
 
   // accessors -------------------------------------------------------
 
-  // optional string path = 1;
-  void clear_path();
-  static const int kPathFieldNumber = 1;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
-
-  // @@protoc_insertion_point(class_scope:eosapi.EosPubkeyReq)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr path_;
-  mutable int _cached_size_;
-  friend void  protobuf_InitDefaults_eos_2eproto_impl();
-  friend void  protobuf_AddDesc_eos_2eproto_impl();
-  friend void protobuf_AssignDesc_eos_2eproto();
-  friend void protobuf_ShutdownFile_eos_2eproto();
-
-  void InitAsDefaultInstance();
-};
-extern ::google::protobuf::internal::ExplicitlyConstructed<EosPubkeyReq> EosPubkeyReq_default_instance_;
-
-// -------------------------------------------------------------------
-
-class EosPubkeyRes : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eosapi.EosPubkeyRes) */ {
- public:
-  EosPubkeyRes();
-  virtual ~EosPubkeyRes();
-
-  EosPubkeyRes(const EosPubkeyRes& from);
-
-  inline EosPubkeyRes& operator=(const EosPubkeyRes& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const EosPubkeyRes& default_instance();
-
-  static const EosPubkeyRes* internal_default_instance();
-
-  void Swap(EosPubkeyRes* other);
-
-  // implements Message ----------------------------------------------
-
-  inline EosPubkeyRes* New() const { return New(NULL); }
-
-  EosPubkeyRes* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const EosPubkeyRes& from);
-  void MergeFrom(const EosPubkeyRes& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  size_t ByteSizeLong() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
-    return InternalSerializeWithCachedSizesToArray(false, output);
-  }
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(EosPubkeyRes* other);
-  void UnsafeMergeFrom(const EosPubkeyRes& from);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional string pubkey = 1;
-  void clear_pubkey();
-  static const int kPubkeyFieldNumber = 1;
-  const ::std::string& pubkey() const;
-  void set_pubkey(const ::std::string& value);
-  void set_pubkey(const char* value);
-  void set_pubkey(const char* value, size_t size);
-  ::std::string* mutable_pubkey();
-  ::std::string* release_pubkey();
-  void set_allocated_pubkey(::std::string* pubkey);
-
-  // @@protoc_insertion_point(class_scope:eosapi.EosPubkeyRes)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr pubkey_;
-  mutable int _cached_size_;
-  friend void  protobuf_InitDefaults_eos_2eproto_impl();
-  friend void  protobuf_AddDesc_eos_2eproto_impl();
-  friend void protobuf_AssignDesc_eos_2eproto();
-  friend void protobuf_ShutdownFile_eos_2eproto();
-
-  void InitAsDefaultInstance();
-};
-extern ::google::protobuf::internal::ExplicitlyConstructed<EosPubkeyRes> EosPubkeyRes_default_instance_;
-
-// -------------------------------------------------------------------
-
-class EosMessageSignReq : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eosapi.EosMessageSignReq) */ {
- public:
-  EosMessageSignReq();
-  virtual ~EosMessageSignReq();
-
-  EosMessageSignReq(const EosMessageSignReq& from);
-
-  inline EosMessageSignReq& operator=(const EosMessageSignReq& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const EosMessageSignReq& default_instance();
-
-  static const EosMessageSignReq* internal_default_instance();
-
-  void Swap(EosMessageSignReq* other);
-
-  // implements Message ----------------------------------------------
-
-  inline EosMessageSignReq* New() const { return New(NULL); }
-
-  EosMessageSignReq* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const EosMessageSignReq& from);
-  void MergeFrom(const EosMessageSignReq& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  size_t ByteSizeLong() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
-    return InternalSerializeWithCachedSizesToArray(false, output);
-  }
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(EosMessageSignReq* other);
-  void UnsafeMergeFrom(const EosMessageSignReq& from);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional string path = 1;
-  void clear_path();
-  static const int kPathFieldNumber = 1;
-  const ::std::string& path() const;
-  void set_path(const ::std::string& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  ::std::string* mutable_path();
-  ::std::string* release_path();
-  void set_allocated_path(::std::string* path);
-
-  // optional string data = 2;
+  // optional string data = 1;
   void clear_data();
-  static const int kDataFieldNumber = 2;
+  static const int kDataFieldNumber = 1;
   const ::std::string& data() const;
   void set_data(const ::std::string& value);
   void set_data(const char* value);
@@ -775,15 +568,9 @@ class EosMessageSignReq : public ::google::protobuf::Message /* @@protoc_inserti
   ::std::string* release_data();
   void set_allocated_data(::std::string* data);
 
-  // optional bool is_hex = 3;
-  void clear_is_hex();
-  static const int kIsHexFieldNumber = 3;
-  bool is_hex() const;
-  void set_is_hex(bool value);
-
-  // optional string pubkey = 4;
+  // optional string pubkey = 2;
   void clear_pubkey();
-  static const int kPubkeyFieldNumber = 4;
+  static const int kPubkeyFieldNumber = 2;
   const ::std::string& pubkey() const;
   void set_pubkey(const ::std::string& value);
   void set_pubkey(const char* value);
@@ -792,14 +579,19 @@ class EosMessageSignReq : public ::google::protobuf::Message /* @@protoc_inserti
   ::std::string* release_pubkey();
   void set_allocated_pubkey(::std::string* pubkey);
 
-  // @@protoc_insertion_point(class_scope:eosapi.EosMessageSignReq)
+  // optional bool isHex = 3;
+  void clear_ishex();
+  static const int kIsHexFieldNumber = 3;
+  bool ishex() const;
+  void set_ishex(bool value);
+
+  // @@protoc_insertion_point(class_scope:eosapi.EosMessageInput)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr path_;
   ::google::protobuf::internal::ArenaStringPtr data_;
   ::google::protobuf::internal::ArenaStringPtr pubkey_;
-  bool is_hex_;
+  bool ishex_;
   mutable int _cached_size_;
   friend void  protobuf_InitDefaults_eos_2eproto_impl();
   friend void  protobuf_AddDesc_eos_2eproto_impl();
@@ -808,38 +600,38 @@ class EosMessageSignReq : public ::google::protobuf::Message /* @@protoc_inserti
 
   void InitAsDefaultInstance();
 };
-extern ::google::protobuf::internal::ExplicitlyConstructed<EosMessageSignReq> EosMessageSignReq_default_instance_;
+extern ::google::protobuf::internal::ExplicitlyConstructed<EosMessageInput> EosMessageInput_default_instance_;
 
 // -------------------------------------------------------------------
 
-class EosMessageSignRes : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eosapi.EosMessageSignRes) */ {
+class EosMessageOutput : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:eosapi.EosMessageOutput) */ {
  public:
-  EosMessageSignRes();
-  virtual ~EosMessageSignRes();
+  EosMessageOutput();
+  virtual ~EosMessageOutput();
 
-  EosMessageSignRes(const EosMessageSignRes& from);
+  EosMessageOutput(const EosMessageOutput& from);
 
-  inline EosMessageSignRes& operator=(const EosMessageSignRes& from) {
+  inline EosMessageOutput& operator=(const EosMessageOutput& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const EosMessageSignRes& default_instance();
+  static const EosMessageOutput& default_instance();
 
-  static const EosMessageSignRes* internal_default_instance();
+  static const EosMessageOutput* internal_default_instance();
 
-  void Swap(EosMessageSignRes* other);
+  void Swap(EosMessageOutput* other);
 
   // implements Message ----------------------------------------------
 
-  inline EosMessageSignRes* New() const { return New(NULL); }
+  inline EosMessageOutput* New() const { return New(NULL); }
 
-  EosMessageSignRes* New(::google::protobuf::Arena* arena) const;
+  EosMessageOutput* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const EosMessageSignRes& from);
-  void MergeFrom(const EosMessageSignRes& from);
+  void CopyFrom(const EosMessageOutput& from);
+  void MergeFrom(const EosMessageOutput& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -858,8 +650,8 @@ class EosMessageSignRes : public ::google::protobuf::Message /* @@protoc_inserti
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(EosMessageSignRes* other);
-  void UnsafeMergeFrom(const EosMessageSignRes& from);
+  void InternalSwap(EosMessageOutput* other);
+  void UnsafeMergeFrom(const EosMessageOutput& from);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -886,7 +678,7 @@ class EosMessageSignRes : public ::google::protobuf::Message /* @@protoc_inserti
   ::std::string* release_signature();
   void set_allocated_signature(::std::string* signature);
 
-  // @@protoc_insertion_point(class_scope:eosapi.EosMessageSignRes)
+  // @@protoc_insertion_point(class_scope:eosapi.EosMessageOutput)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -899,7 +691,7 @@ class EosMessageSignRes : public ::google::protobuf::Message /* @@protoc_inserti
 
   void InitAsDefaultInstance();
 };
-extern ::google::protobuf::internal::ExplicitlyConstructed<EosMessageSignRes> EosMessageSignRes_default_instance_;
+extern ::google::protobuf::internal::ExplicitlyConstructed<EosMessageOutput> EosMessageOutput_default_instance_;
 
 // ===================================================================
 
@@ -907,321 +699,233 @@ extern ::google::protobuf::internal::ExplicitlyConstructed<EosMessageSignRes> Eo
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
-// EosTxReq
+// EosTxInput
 
-// optional string path = 1;
-inline void EosTxReq::clear_path() {
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// repeated .eosapi.EosSignData transactions = 1;
+inline int EosTxInput::transactions_size() const {
+  return transactions_.size();
 }
-inline const ::std::string& EosTxReq::path() const {
-  // @@protoc_insertion_point(field_get:eosapi.EosTxReq.path)
-  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void EosTxInput::clear_transactions() {
+  transactions_.Clear();
 }
-inline void EosTxReq::set_path(const ::std::string& value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:eosapi.EosTxReq.path)
+inline const ::eosapi::EosSignData& EosTxInput::transactions(int index) const {
+  // @@protoc_insertion_point(field_get:eosapi.EosTxInput.transactions)
+  return transactions_.Get(index);
 }
-inline void EosTxReq::set_path(const char* value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:eosapi.EosTxReq.path)
+inline ::eosapi::EosSignData* EosTxInput::mutable_transactions(int index) {
+  // @@protoc_insertion_point(field_mutable:eosapi.EosTxInput.transactions)
+  return transactions_.Mutable(index);
 }
-inline void EosTxReq::set_path(const char* value, size_t size) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:eosapi.EosTxReq.path)
-}
-inline ::std::string* EosTxReq::mutable_path() {
-  
-  // @@protoc_insertion_point(field_mutable:eosapi.EosTxReq.path)
-  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* EosTxReq::release_path() {
-  // @@protoc_insertion_point(field_release:eosapi.EosTxReq.path)
-  
-  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void EosTxReq::set_allocated_path(::std::string* path) {
-  if (path != NULL) {
-    
-  } else {
-    
-  }
-  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:eosapi.EosTxReq.path)
-}
-
-// repeated .eosapi.EosSignData sign_datas = 2;
-inline int EosTxReq::sign_datas_size() const {
-  return sign_datas_.size();
-}
-inline void EosTxReq::clear_sign_datas() {
-  sign_datas_.Clear();
-}
-inline const ::eosapi::EosSignData& EosTxReq::sign_datas(int index) const {
-  // @@protoc_insertion_point(field_get:eosapi.EosTxReq.sign_datas)
-  return sign_datas_.Get(index);
-}
-inline ::eosapi::EosSignData* EosTxReq::mutable_sign_datas(int index) {
-  // @@protoc_insertion_point(field_mutable:eosapi.EosTxReq.sign_datas)
-  return sign_datas_.Mutable(index);
-}
-inline ::eosapi::EosSignData* EosTxReq::add_sign_datas() {
-  // @@protoc_insertion_point(field_add:eosapi.EosTxReq.sign_datas)
-  return sign_datas_.Add();
+inline ::eosapi::EosSignData* EosTxInput::add_transactions() {
+  // @@protoc_insertion_point(field_add:eosapi.EosTxInput.transactions)
+  return transactions_.Add();
 }
 inline ::google::protobuf::RepeatedPtrField< ::eosapi::EosSignData >*
-EosTxReq::mutable_sign_datas() {
-  // @@protoc_insertion_point(field_mutable_list:eosapi.EosTxReq.sign_datas)
-  return &sign_datas_;
+EosTxInput::mutable_transactions() {
+  // @@protoc_insertion_point(field_mutable_list:eosapi.EosTxInput.transactions)
+  return &transactions_;
 }
 inline const ::google::protobuf::RepeatedPtrField< ::eosapi::EosSignData >&
-EosTxReq::sign_datas() const {
-  // @@protoc_insertion_point(field_list:eosapi.EosTxReq.sign_datas)
-  return sign_datas_;
+EosTxInput::transactions() const {
+  // @@protoc_insertion_point(field_list:eosapi.EosTxInput.transactions)
+  return transactions_;
 }
 
-inline const EosTxReq* EosTxReq::internal_default_instance() {
-  return &EosTxReq_default_instance_.get();
+inline const EosTxInput* EosTxInput::internal_default_instance() {
+  return &EosTxInput_default_instance_.get();
 }
 // -------------------------------------------------------------------
 
 // EosSignData
 
-// optional string tx_data = 1;
-inline void EosSignData::clear_tx_data() {
-  tx_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string txHex = 1;
+inline void EosSignData::clear_txhex() {
+  txhex_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& EosSignData::tx_data() const {
-  // @@protoc_insertion_point(field_get:eosapi.EosSignData.tx_data)
-  return tx_data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string& EosSignData::txhex() const {
+  // @@protoc_insertion_point(field_get:eosapi.EosSignData.txHex)
+  return txhex_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void EosSignData::set_tx_data(const ::std::string& value) {
+inline void EosSignData::set_txhex(const ::std::string& value) {
   
-  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:eosapi.EosSignData.tx_data)
+  txhex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:eosapi.EosSignData.txHex)
 }
-inline void EosSignData::set_tx_data(const char* value) {
+inline void EosSignData::set_txhex(const char* value) {
   
-  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:eosapi.EosSignData.tx_data)
+  txhex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:eosapi.EosSignData.txHex)
 }
-inline void EosSignData::set_tx_data(const char* value, size_t size) {
+inline void EosSignData::set_txhex(const char* value, size_t size) {
   
-  tx_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  txhex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:eosapi.EosSignData.tx_data)
+  // @@protoc_insertion_point(field_set_pointer:eosapi.EosSignData.txHex)
 }
-inline ::std::string* EosSignData::mutable_tx_data() {
+inline ::std::string* EosSignData::mutable_txhex() {
   
-  // @@protoc_insertion_point(field_mutable:eosapi.EosSignData.tx_data)
-  return tx_data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:eosapi.EosSignData.txHex)
+  return txhex_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* EosSignData::release_tx_data() {
-  // @@protoc_insertion_point(field_release:eosapi.EosSignData.tx_data)
+inline ::std::string* EosSignData::release_txhex() {
+  // @@protoc_insertion_point(field_release:eosapi.EosSignData.txHex)
   
-  return tx_data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return txhex_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void EosSignData::set_allocated_tx_data(::std::string* tx_data) {
-  if (tx_data != NULL) {
+inline void EosSignData::set_allocated_txhex(::std::string* txhex) {
+  if (txhex != NULL) {
     
   } else {
     
   }
-  tx_data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tx_data);
-  // @@protoc_insertion_point(field_set_allocated:eosapi.EosSignData.tx_data)
+  txhex_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), txhex);
+  // @@protoc_insertion_point(field_set_allocated:eosapi.EosSignData.txHex)
 }
 
-// repeated string pub_keys = 2;
-inline int EosSignData::pub_keys_size() const {
-  return pub_keys_.size();
+// repeated string publicKeys = 2;
+inline int EosSignData::publickeys_size() const {
+  return publickeys_.size();
 }
-inline void EosSignData::clear_pub_keys() {
-  pub_keys_.Clear();
+inline void EosSignData::clear_publickeys() {
+  publickeys_.Clear();
 }
-inline const ::std::string& EosSignData::pub_keys(int index) const {
-  // @@protoc_insertion_point(field_get:eosapi.EosSignData.pub_keys)
-  return pub_keys_.Get(index);
+inline const ::std::string& EosSignData::publickeys(int index) const {
+  // @@protoc_insertion_point(field_get:eosapi.EosSignData.publicKeys)
+  return publickeys_.Get(index);
 }
-inline ::std::string* EosSignData::mutable_pub_keys(int index) {
-  // @@protoc_insertion_point(field_mutable:eosapi.EosSignData.pub_keys)
-  return pub_keys_.Mutable(index);
+inline ::std::string* EosSignData::mutable_publickeys(int index) {
+  // @@protoc_insertion_point(field_mutable:eosapi.EosSignData.publicKeys)
+  return publickeys_.Mutable(index);
 }
-inline void EosSignData::set_pub_keys(int index, const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:eosapi.EosSignData.pub_keys)
-  pub_keys_.Mutable(index)->assign(value);
+inline void EosSignData::set_publickeys(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:eosapi.EosSignData.publicKeys)
+  publickeys_.Mutable(index)->assign(value);
 }
-inline void EosSignData::set_pub_keys(int index, const char* value) {
-  pub_keys_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:eosapi.EosSignData.pub_keys)
+inline void EosSignData::set_publickeys(int index, const char* value) {
+  publickeys_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:eosapi.EosSignData.publicKeys)
 }
-inline void EosSignData::set_pub_keys(int index, const char* value, size_t size) {
-  pub_keys_.Mutable(index)->assign(
+inline void EosSignData::set_publickeys(int index, const char* value, size_t size) {
+  publickeys_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:eosapi.EosSignData.pub_keys)
+  // @@protoc_insertion_point(field_set_pointer:eosapi.EosSignData.publicKeys)
 }
-inline ::std::string* EosSignData::add_pub_keys() {
-  // @@protoc_insertion_point(field_add_mutable:eosapi.EosSignData.pub_keys)
-  return pub_keys_.Add();
+inline ::std::string* EosSignData::add_publickeys() {
+  // @@protoc_insertion_point(field_add_mutable:eosapi.EosSignData.publicKeys)
+  return publickeys_.Add();
 }
-inline void EosSignData::add_pub_keys(const ::std::string& value) {
-  pub_keys_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:eosapi.EosSignData.pub_keys)
+inline void EosSignData::add_publickeys(const ::std::string& value) {
+  publickeys_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:eosapi.EosSignData.publicKeys)
 }
-inline void EosSignData::add_pub_keys(const char* value) {
-  pub_keys_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:eosapi.EosSignData.pub_keys)
+inline void EosSignData::add_publickeys(const char* value) {
+  publickeys_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:eosapi.EosSignData.publicKeys)
 }
-inline void EosSignData::add_pub_keys(const char* value, size_t size) {
-  pub_keys_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:eosapi.EosSignData.pub_keys)
+inline void EosSignData::add_publickeys(const char* value, size_t size) {
+  publickeys_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:eosapi.EosSignData.publicKeys)
 }
 inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
-EosSignData::pub_keys() const {
-  // @@protoc_insertion_point(field_list:eosapi.EosSignData.pub_keys)
-  return pub_keys_;
+EosSignData::publickeys() const {
+  // @@protoc_insertion_point(field_list:eosapi.EosSignData.publicKeys)
+  return publickeys_;
 }
 inline ::google::protobuf::RepeatedPtrField< ::std::string>*
-EosSignData::mutable_pub_keys() {
-  // @@protoc_insertion_point(field_mutable_list:eosapi.EosSignData.pub_keys)
-  return &pub_keys_;
+EosSignData::mutable_publickeys() {
+  // @@protoc_insertion_point(field_mutable_list:eosapi.EosSignData.publicKeys)
+  return &publickeys_;
 }
 
-// optional string chain_id = 3;
-inline void EosSignData::clear_chain_id() {
-  chain_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string chainId = 3;
+inline void EosSignData::clear_chainid() {
+  chainid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& EosSignData::chain_id() const {
-  // @@protoc_insertion_point(field_get:eosapi.EosSignData.chain_id)
-  return chain_id_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string& EosSignData::chainid() const {
+  // @@protoc_insertion_point(field_get:eosapi.EosSignData.chainId)
+  return chainid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void EosSignData::set_chain_id(const ::std::string& value) {
+inline void EosSignData::set_chainid(const ::std::string& value) {
   
-  chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:eosapi.EosSignData.chain_id)
+  chainid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:eosapi.EosSignData.chainId)
 }
-inline void EosSignData::set_chain_id(const char* value) {
+inline void EosSignData::set_chainid(const char* value) {
   
-  chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:eosapi.EosSignData.chain_id)
+  chainid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:eosapi.EosSignData.chainId)
 }
-inline void EosSignData::set_chain_id(const char* value, size_t size) {
+inline void EosSignData::set_chainid(const char* value, size_t size) {
   
-  chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  chainid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:eosapi.EosSignData.chain_id)
+  // @@protoc_insertion_point(field_set_pointer:eosapi.EosSignData.chainId)
 }
-inline ::std::string* EosSignData::mutable_chain_id() {
+inline ::std::string* EosSignData::mutable_chainid() {
   
-  // @@protoc_insertion_point(field_mutable:eosapi.EosSignData.chain_id)
-  return chain_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:eosapi.EosSignData.chainId)
+  return chainid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* EosSignData::release_chain_id() {
-  // @@protoc_insertion_point(field_release:eosapi.EosSignData.chain_id)
+inline ::std::string* EosSignData::release_chainid() {
+  // @@protoc_insertion_point(field_release:eosapi.EosSignData.chainId)
   
-  return chain_id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return chainid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void EosSignData::set_allocated_chain_id(::std::string* chain_id) {
-  if (chain_id != NULL) {
+inline void EosSignData::set_allocated_chainid(::std::string* chainid) {
+  if (chainid != NULL) {
     
   } else {
     
   }
-  chain_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chain_id);
-  // @@protoc_insertion_point(field_set_allocated:eosapi.EosSignData.chain_id)
+  chainid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chainid);
+  // @@protoc_insertion_point(field_set_allocated:eosapi.EosSignData.chainId)
 }
 
-// optional string to = 4;
-inline void EosSignData::clear_to() {
-  to_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string receiver = 4;
+inline void EosSignData::clear_receiver() {
+  receiver_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& EosSignData::to() const {
-  // @@protoc_insertion_point(field_get:eosapi.EosSignData.to)
-  return to_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string& EosSignData::receiver() const {
+  // @@protoc_insertion_point(field_get:eosapi.EosSignData.receiver)
+  return receiver_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void EosSignData::set_to(const ::std::string& value) {
+inline void EosSignData::set_receiver(const ::std::string& value) {
   
-  to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:eosapi.EosSignData.to)
+  receiver_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:eosapi.EosSignData.receiver)
 }
-inline void EosSignData::set_to(const char* value) {
+inline void EosSignData::set_receiver(const char* value) {
   
-  to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:eosapi.EosSignData.to)
+  receiver_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:eosapi.EosSignData.receiver)
 }
-inline void EosSignData::set_to(const char* value, size_t size) {
+inline void EosSignData::set_receiver(const char* value, size_t size) {
   
-  to_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  receiver_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:eosapi.EosSignData.to)
+  // @@protoc_insertion_point(field_set_pointer:eosapi.EosSignData.receiver)
 }
-inline ::std::string* EosSignData::mutable_to() {
+inline ::std::string* EosSignData::mutable_receiver() {
   
-  // @@protoc_insertion_point(field_mutable:eosapi.EosSignData.to)
-  return to_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:eosapi.EosSignData.receiver)
+  return receiver_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* EosSignData::release_to() {
-  // @@protoc_insertion_point(field_release:eosapi.EosSignData.to)
+inline ::std::string* EosSignData::release_receiver() {
+  // @@protoc_insertion_point(field_release:eosapi.EosSignData.receiver)
   
-  return to_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return receiver_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void EosSignData::set_allocated_to(::std::string* to) {
-  if (to != NULL) {
+inline void EosSignData::set_allocated_receiver(::std::string* receiver) {
+  if (receiver != NULL) {
     
   } else {
     
   }
-  to_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), to);
-  // @@protoc_insertion_point(field_set_allocated:eosapi.EosSignData.to)
+  receiver_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), receiver);
+  // @@protoc_insertion_point(field_set_allocated:eosapi.EosSignData.receiver)
 }
 
-// optional string from = 5;
-inline void EosSignData::clear_from() {
-  from_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& EosSignData::from() const {
-  // @@protoc_insertion_point(field_get:eosapi.EosSignData.from)
-  return from_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void EosSignData::set_from(const ::std::string& value) {
-  
-  from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:eosapi.EosSignData.from)
-}
-inline void EosSignData::set_from(const char* value) {
-  
-  from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:eosapi.EosSignData.from)
-}
-inline void EosSignData::set_from(const char* value, size_t size) {
-  
-  from_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:eosapi.EosSignData.from)
-}
-inline ::std::string* EosSignData::mutable_from() {
-  
-  // @@protoc_insertion_point(field_mutable:eosapi.EosSignData.from)
-  return from_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* EosSignData::release_from() {
-  // @@protoc_insertion_point(field_release:eosapi.EosSignData.from)
-  
-  return from_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void EosSignData::set_allocated_from(::std::string* from) {
-  if (from != NULL) {
-    
-  } else {
-    
-  }
-  from_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from);
-  // @@protoc_insertion_point(field_set_allocated:eosapi.EosSignData.from)
-}
-
-// optional string payment = 6;
+// optional string payment = 5;
 inline void EosSignData::clear_payment() {
   payment_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1265,45 +969,89 @@ inline void EosSignData::set_allocated_payment(::std::string* payment) {
   // @@protoc_insertion_point(field_set_allocated:eosapi.EosSignData.payment)
 }
 
+// optional string sender = 6;
+inline void EosSignData::clear_sender() {
+  sender_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EosSignData::sender() const {
+  // @@protoc_insertion_point(field_get:eosapi.EosSignData.sender)
+  return sender_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EosSignData::set_sender(const ::std::string& value) {
+  
+  sender_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:eosapi.EosSignData.sender)
+}
+inline void EosSignData::set_sender(const char* value) {
+  
+  sender_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:eosapi.EosSignData.sender)
+}
+inline void EosSignData::set_sender(const char* value, size_t size) {
+  
+  sender_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:eosapi.EosSignData.sender)
+}
+inline ::std::string* EosSignData::mutable_sender() {
+  
+  // @@protoc_insertion_point(field_mutable:eosapi.EosSignData.sender)
+  return sender_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EosSignData::release_sender() {
+  // @@protoc_insertion_point(field_release:eosapi.EosSignData.sender)
+  
+  return sender_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EosSignData::set_allocated_sender(::std::string* sender) {
+  if (sender != NULL) {
+    
+  } else {
+    
+  }
+  sender_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sender);
+  // @@protoc_insertion_point(field_set_allocated:eosapi.EosSignData.sender)
+}
+
 inline const EosSignData* EosSignData::internal_default_instance() {
   return &EosSignData_default_instance_.get();
 }
 // -------------------------------------------------------------------
 
-// EosTxRes
+// EosTxOutput
 
 // repeated .eosapi.EosSignResult trans_multi_signs = 1;
-inline int EosTxRes::trans_multi_signs_size() const {
+inline int EosTxOutput::trans_multi_signs_size() const {
   return trans_multi_signs_.size();
 }
-inline void EosTxRes::clear_trans_multi_signs() {
+inline void EosTxOutput::clear_trans_multi_signs() {
   trans_multi_signs_.Clear();
 }
-inline const ::eosapi::EosSignResult& EosTxRes::trans_multi_signs(int index) const {
-  // @@protoc_insertion_point(field_get:eosapi.EosTxRes.trans_multi_signs)
+inline const ::eosapi::EosSignResult& EosTxOutput::trans_multi_signs(int index) const {
+  // @@protoc_insertion_point(field_get:eosapi.EosTxOutput.trans_multi_signs)
   return trans_multi_signs_.Get(index);
 }
-inline ::eosapi::EosSignResult* EosTxRes::mutable_trans_multi_signs(int index) {
-  // @@protoc_insertion_point(field_mutable:eosapi.EosTxRes.trans_multi_signs)
+inline ::eosapi::EosSignResult* EosTxOutput::mutable_trans_multi_signs(int index) {
+  // @@protoc_insertion_point(field_mutable:eosapi.EosTxOutput.trans_multi_signs)
   return trans_multi_signs_.Mutable(index);
 }
-inline ::eosapi::EosSignResult* EosTxRes::add_trans_multi_signs() {
-  // @@protoc_insertion_point(field_add:eosapi.EosTxRes.trans_multi_signs)
+inline ::eosapi::EosSignResult* EosTxOutput::add_trans_multi_signs() {
+  // @@protoc_insertion_point(field_add:eosapi.EosTxOutput.trans_multi_signs)
   return trans_multi_signs_.Add();
 }
 inline ::google::protobuf::RepeatedPtrField< ::eosapi::EosSignResult >*
-EosTxRes::mutable_trans_multi_signs() {
-  // @@protoc_insertion_point(field_mutable_list:eosapi.EosTxRes.trans_multi_signs)
+EosTxOutput::mutable_trans_multi_signs() {
+  // @@protoc_insertion_point(field_mutable_list:eosapi.EosTxOutput.trans_multi_signs)
   return &trans_multi_signs_;
 }
 inline const ::google::protobuf::RepeatedPtrField< ::eosapi::EosSignResult >&
-EosTxRes::trans_multi_signs() const {
-  // @@protoc_insertion_point(field_list:eosapi.EosTxRes.trans_multi_signs)
+EosTxOutput::trans_multi_signs() const {
+  // @@protoc_insertion_point(field_list:eosapi.EosTxOutput.trans_multi_signs)
   return trans_multi_signs_;
 }
 
-inline const EosTxRes* EosTxRes::internal_default_instance() {
-  return &EosTxRes_default_instance_.get();
+inline const EosTxOutput* EosTxOutput::internal_default_instance() {
+  return &EosTxOutput_default_instance_.get();
 }
 // -------------------------------------------------------------------
 
@@ -1413,315 +1161,165 @@ inline const EosSignResult* EosSignResult::internal_default_instance() {
 }
 // -------------------------------------------------------------------
 
-// EosPubkeyReq
+// EosMessageInput
 
-// optional string path = 1;
-inline void EosPubkeyReq::clear_path() {
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& EosPubkeyReq::path() const {
-  // @@protoc_insertion_point(field_get:eosapi.EosPubkeyReq.path)
-  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void EosPubkeyReq::set_path(const ::std::string& value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:eosapi.EosPubkeyReq.path)
-}
-inline void EosPubkeyReq::set_path(const char* value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:eosapi.EosPubkeyReq.path)
-}
-inline void EosPubkeyReq::set_path(const char* value, size_t size) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:eosapi.EosPubkeyReq.path)
-}
-inline ::std::string* EosPubkeyReq::mutable_path() {
-  
-  // @@protoc_insertion_point(field_mutable:eosapi.EosPubkeyReq.path)
-  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* EosPubkeyReq::release_path() {
-  // @@protoc_insertion_point(field_release:eosapi.EosPubkeyReq.path)
-  
-  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void EosPubkeyReq::set_allocated_path(::std::string* path) {
-  if (path != NULL) {
-    
-  } else {
-    
-  }
-  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:eosapi.EosPubkeyReq.path)
-}
-
-inline const EosPubkeyReq* EosPubkeyReq::internal_default_instance() {
-  return &EosPubkeyReq_default_instance_.get();
-}
-// -------------------------------------------------------------------
-
-// EosPubkeyRes
-
-// optional string pubkey = 1;
-inline void EosPubkeyRes::clear_pubkey() {
-  pubkey_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& EosPubkeyRes::pubkey() const {
-  // @@protoc_insertion_point(field_get:eosapi.EosPubkeyRes.pubkey)
-  return pubkey_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void EosPubkeyRes::set_pubkey(const ::std::string& value) {
-  
-  pubkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:eosapi.EosPubkeyRes.pubkey)
-}
-inline void EosPubkeyRes::set_pubkey(const char* value) {
-  
-  pubkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:eosapi.EosPubkeyRes.pubkey)
-}
-inline void EosPubkeyRes::set_pubkey(const char* value, size_t size) {
-  
-  pubkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:eosapi.EosPubkeyRes.pubkey)
-}
-inline ::std::string* EosPubkeyRes::mutable_pubkey() {
-  
-  // @@protoc_insertion_point(field_mutable:eosapi.EosPubkeyRes.pubkey)
-  return pubkey_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* EosPubkeyRes::release_pubkey() {
-  // @@protoc_insertion_point(field_release:eosapi.EosPubkeyRes.pubkey)
-  
-  return pubkey_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void EosPubkeyRes::set_allocated_pubkey(::std::string* pubkey) {
-  if (pubkey != NULL) {
-    
-  } else {
-    
-  }
-  pubkey_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), pubkey);
-  // @@protoc_insertion_point(field_set_allocated:eosapi.EosPubkeyRes.pubkey)
-}
-
-inline const EosPubkeyRes* EosPubkeyRes::internal_default_instance() {
-  return &EosPubkeyRes_default_instance_.get();
-}
-// -------------------------------------------------------------------
-
-// EosMessageSignReq
-
-// optional string path = 1;
-inline void EosMessageSignReq::clear_path() {
-  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& EosMessageSignReq::path() const {
-  // @@protoc_insertion_point(field_get:eosapi.EosMessageSignReq.path)
-  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void EosMessageSignReq::set_path(const ::std::string& value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:eosapi.EosMessageSignReq.path)
-}
-inline void EosMessageSignReq::set_path(const char* value) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:eosapi.EosMessageSignReq.path)
-}
-inline void EosMessageSignReq::set_path(const char* value, size_t size) {
-  
-  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:eosapi.EosMessageSignReq.path)
-}
-inline ::std::string* EosMessageSignReq::mutable_path() {
-  
-  // @@protoc_insertion_point(field_mutable:eosapi.EosMessageSignReq.path)
-  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* EosMessageSignReq::release_path() {
-  // @@protoc_insertion_point(field_release:eosapi.EosMessageSignReq.path)
-  
-  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void EosMessageSignReq::set_allocated_path(::std::string* path) {
-  if (path != NULL) {
-    
-  } else {
-    
-  }
-  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:eosapi.EosMessageSignReq.path)
-}
-
-// optional string data = 2;
-inline void EosMessageSignReq::clear_data() {
+// optional string data = 1;
+inline void EosMessageInput::clear_data() {
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& EosMessageSignReq::data() const {
-  // @@protoc_insertion_point(field_get:eosapi.EosMessageSignReq.data)
+inline const ::std::string& EosMessageInput::data() const {
+  // @@protoc_insertion_point(field_get:eosapi.EosMessageInput.data)
   return data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void EosMessageSignReq::set_data(const ::std::string& value) {
+inline void EosMessageInput::set_data(const ::std::string& value) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:eosapi.EosMessageSignReq.data)
+  // @@protoc_insertion_point(field_set:eosapi.EosMessageInput.data)
 }
-inline void EosMessageSignReq::set_data(const char* value) {
+inline void EosMessageInput::set_data(const char* value) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:eosapi.EosMessageSignReq.data)
+  // @@protoc_insertion_point(field_set_char:eosapi.EosMessageInput.data)
 }
-inline void EosMessageSignReq::set_data(const char* value, size_t size) {
+inline void EosMessageInput::set_data(const char* value, size_t size) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:eosapi.EosMessageSignReq.data)
+  // @@protoc_insertion_point(field_set_pointer:eosapi.EosMessageInput.data)
 }
-inline ::std::string* EosMessageSignReq::mutable_data() {
+inline ::std::string* EosMessageInput::mutable_data() {
   
-  // @@protoc_insertion_point(field_mutable:eosapi.EosMessageSignReq.data)
+  // @@protoc_insertion_point(field_mutable:eosapi.EosMessageInput.data)
   return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* EosMessageSignReq::release_data() {
-  // @@protoc_insertion_point(field_release:eosapi.EosMessageSignReq.data)
+inline ::std::string* EosMessageInput::release_data() {
+  // @@protoc_insertion_point(field_release:eosapi.EosMessageInput.data)
   
   return data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void EosMessageSignReq::set_allocated_data(::std::string* data) {
+inline void EosMessageInput::set_allocated_data(::std::string* data) {
   if (data != NULL) {
     
   } else {
     
   }
   data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), data);
-  // @@protoc_insertion_point(field_set_allocated:eosapi.EosMessageSignReq.data)
+  // @@protoc_insertion_point(field_set_allocated:eosapi.EosMessageInput.data)
 }
 
-// optional bool is_hex = 3;
-inline void EosMessageSignReq::clear_is_hex() {
-  is_hex_ = false;
-}
-inline bool EosMessageSignReq::is_hex() const {
-  // @@protoc_insertion_point(field_get:eosapi.EosMessageSignReq.is_hex)
-  return is_hex_;
-}
-inline void EosMessageSignReq::set_is_hex(bool value) {
-  
-  is_hex_ = value;
-  // @@protoc_insertion_point(field_set:eosapi.EosMessageSignReq.is_hex)
-}
-
-// optional string pubkey = 4;
-inline void EosMessageSignReq::clear_pubkey() {
+// optional string pubkey = 2;
+inline void EosMessageInput::clear_pubkey() {
   pubkey_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& EosMessageSignReq::pubkey() const {
-  // @@protoc_insertion_point(field_get:eosapi.EosMessageSignReq.pubkey)
+inline const ::std::string& EosMessageInput::pubkey() const {
+  // @@protoc_insertion_point(field_get:eosapi.EosMessageInput.pubkey)
   return pubkey_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void EosMessageSignReq::set_pubkey(const ::std::string& value) {
+inline void EosMessageInput::set_pubkey(const ::std::string& value) {
   
   pubkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:eosapi.EosMessageSignReq.pubkey)
+  // @@protoc_insertion_point(field_set:eosapi.EosMessageInput.pubkey)
 }
-inline void EosMessageSignReq::set_pubkey(const char* value) {
+inline void EosMessageInput::set_pubkey(const char* value) {
   
   pubkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:eosapi.EosMessageSignReq.pubkey)
+  // @@protoc_insertion_point(field_set_char:eosapi.EosMessageInput.pubkey)
 }
-inline void EosMessageSignReq::set_pubkey(const char* value, size_t size) {
+inline void EosMessageInput::set_pubkey(const char* value, size_t size) {
   
   pubkey_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:eosapi.EosMessageSignReq.pubkey)
+  // @@protoc_insertion_point(field_set_pointer:eosapi.EosMessageInput.pubkey)
 }
-inline ::std::string* EosMessageSignReq::mutable_pubkey() {
+inline ::std::string* EosMessageInput::mutable_pubkey() {
   
-  // @@protoc_insertion_point(field_mutable:eosapi.EosMessageSignReq.pubkey)
+  // @@protoc_insertion_point(field_mutable:eosapi.EosMessageInput.pubkey)
   return pubkey_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* EosMessageSignReq::release_pubkey() {
-  // @@protoc_insertion_point(field_release:eosapi.EosMessageSignReq.pubkey)
+inline ::std::string* EosMessageInput::release_pubkey() {
+  // @@protoc_insertion_point(field_release:eosapi.EosMessageInput.pubkey)
   
   return pubkey_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void EosMessageSignReq::set_allocated_pubkey(::std::string* pubkey) {
+inline void EosMessageInput::set_allocated_pubkey(::std::string* pubkey) {
   if (pubkey != NULL) {
     
   } else {
     
   }
   pubkey_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), pubkey);
-  // @@protoc_insertion_point(field_set_allocated:eosapi.EosMessageSignReq.pubkey)
+  // @@protoc_insertion_point(field_set_allocated:eosapi.EosMessageInput.pubkey)
 }
 
-inline const EosMessageSignReq* EosMessageSignReq::internal_default_instance() {
-  return &EosMessageSignReq_default_instance_.get();
+// optional bool isHex = 3;
+inline void EosMessageInput::clear_ishex() {
+  ishex_ = false;
+}
+inline bool EosMessageInput::ishex() const {
+  // @@protoc_insertion_point(field_get:eosapi.EosMessageInput.isHex)
+  return ishex_;
+}
+inline void EosMessageInput::set_ishex(bool value) {
+  
+  ishex_ = value;
+  // @@protoc_insertion_point(field_set:eosapi.EosMessageInput.isHex)
+}
+
+inline const EosMessageInput* EosMessageInput::internal_default_instance() {
+  return &EosMessageInput_default_instance_.get();
 }
 // -------------------------------------------------------------------
 
-// EosMessageSignRes
+// EosMessageOutput
 
 // optional string signature = 1;
-inline void EosMessageSignRes::clear_signature() {
+inline void EosMessageOutput::clear_signature() {
   signature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& EosMessageSignRes::signature() const {
-  // @@protoc_insertion_point(field_get:eosapi.EosMessageSignRes.signature)
+inline const ::std::string& EosMessageOutput::signature() const {
+  // @@protoc_insertion_point(field_get:eosapi.EosMessageOutput.signature)
   return signature_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void EosMessageSignRes::set_signature(const ::std::string& value) {
+inline void EosMessageOutput::set_signature(const ::std::string& value) {
   
   signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:eosapi.EosMessageSignRes.signature)
+  // @@protoc_insertion_point(field_set:eosapi.EosMessageOutput.signature)
 }
-inline void EosMessageSignRes::set_signature(const char* value) {
+inline void EosMessageOutput::set_signature(const char* value) {
   
   signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:eosapi.EosMessageSignRes.signature)
+  // @@protoc_insertion_point(field_set_char:eosapi.EosMessageOutput.signature)
 }
-inline void EosMessageSignRes::set_signature(const char* value, size_t size) {
+inline void EosMessageOutput::set_signature(const char* value, size_t size) {
   
   signature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:eosapi.EosMessageSignRes.signature)
+  // @@protoc_insertion_point(field_set_pointer:eosapi.EosMessageOutput.signature)
 }
-inline ::std::string* EosMessageSignRes::mutable_signature() {
+inline ::std::string* EosMessageOutput::mutable_signature() {
   
-  // @@protoc_insertion_point(field_mutable:eosapi.EosMessageSignRes.signature)
+  // @@protoc_insertion_point(field_mutable:eosapi.EosMessageOutput.signature)
   return signature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* EosMessageSignRes::release_signature() {
-  // @@protoc_insertion_point(field_release:eosapi.EosMessageSignRes.signature)
+inline ::std::string* EosMessageOutput::release_signature() {
+  // @@protoc_insertion_point(field_release:eosapi.EosMessageOutput.signature)
   
   return signature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void EosMessageSignRes::set_allocated_signature(::std::string* signature) {
+inline void EosMessageOutput::set_allocated_signature(::std::string* signature) {
   if (signature != NULL) {
     
   } else {
     
   }
   signature_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), signature);
-  // @@protoc_insertion_point(field_set_allocated:eosapi.EosMessageSignRes.signature)
+  // @@protoc_insertion_point(field_set_allocated:eosapi.EosMessageOutput.signature)
 }
 
-inline const EosMessageSignRes* EosMessageSignRes::internal_default_instance() {
-  return &EosMessageSignRes_default_instance_.get();
+inline const EosMessageOutput* EosMessageOutput::internal_default_instance() {
+  return &EosMessageOutput_default_instance_.get();
 }
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -14,20 +14,27 @@ use app_update::AppUpdateRequest;
 use common::apdu::{Apdu, ApduCheck};
 use common::applet;
 use common::constants;
+use regex::Regex;
 use se_activate::SeActivateRequest;
 use transport::message::send_apdu;
 
+pub fn select_isd() -> Result<String> {
+    let res = send_apdu("00A4040000".to_string())?;
+    ApduCheck::check_response(res.as_str())?;
+    Ok(res)
+}
+
 pub fn get_se_id() -> Result<String> {
-    send_apdu("00A4040000".to_string())?;
+    select_isd();
     let res = send_apdu("80CB800005DFFF028101".to_string())?;
-    ApduCheck::checke_response(res.as_str())?;
+    ApduCheck::check_response(res.as_str())?;
     Ok(String::from(&res[0..res.len() - 4]))
 }
 
 pub fn get_sn() -> Result<String> {
-    send_apdu("00A4040000".to_string())?;
+    select_isd();
     let res = send_apdu("80CA004400".to_string())?;
-    ApduCheck::checke_response(res.as_str())?;
+    ApduCheck::check_response(res.as_str())?;
     let hex_decode = hex::decode(String::from(&res[0..res.len() - 4]));
     match hex_decode {
         Ok(sn) => Ok(String::from_utf8(sn).unwrap()),
@@ -36,55 +43,84 @@ pub fn get_sn() -> Result<String> {
 }
 
 pub fn get_ram_size() -> Result<String> {
-    //send_apdu("00A4040000".to_string());
     let res = send_apdu("80CB800005DFFF02814600".to_string())?;
-    ApduCheck::checke_response(res.as_str())?;
-    Ok(res.chars().take(res.len() - 4).collect())
+    ApduCheck::check_response(res.as_str())?;
+    let hex_ram_size: String = res[4..8].to_string();
+    let ram_size = i64::from_str_radix(&hex_ram_size, 16)?;
+    Ok(ram_size.to_string())
 }
 
 pub fn get_firmware_version() -> Result<String> {
-    send_apdu("00A4040000".to_string())?;
+    select_isd();
     let res = send_apdu("80CB800005DFFF02800300".to_string())?;
-    ApduCheck::checke_response(res.as_str())?;
-    Ok(res.chars().take(res.len() - 4).collect())
+    ApduCheck::check_response(res.as_str())?;
+    let firmware_version = format!(
+        "{}.{}.{}",
+        res[0..1].to_string(),
+        res[1..2].to_string(),
+        res[2..res.len() - 4].to_string()
+    );
+    Ok(firmware_version)
 }
 
 pub fn get_battery_power() -> Result<String> {
-    send_apdu("00A4040000".to_string())?;
+    select_isd();
     let res = send_apdu("00D6FEED01".to_string())?;
-    ApduCheck::checke_response(res.as_str())?;
-    Ok(res.chars().take(res.len() - 4).collect())
+    ApduCheck::check_response(res.as_str())?;
+    let hex_power: String = res[0..res.len() - 4].to_string();
+    let charging_flag = "FF";
+    let power = match &hex_power == charging_flag {
+        true => hex_power,
+        false => i64::from_str_radix(&hex_power, 16)?.to_string(),
+    };
+    Ok(power)
 }
 
 pub fn get_life_time() -> Result<String> {
-    //send_apdu("00A4040000".to_string());
     let res = send_apdu("FFDCFEED00".to_string())?;
-    ApduCheck::checke_response(res.as_str())?;
-    Ok(res.chars().take(res.len() - 4).collect())
+    ApduCheck::check_response(res.as_str())?;
+    let hex_life_time = &res[0..res.len() - 4];
+    let life_time = match hex_life_time {
+        "80" => "life_time_device_inited",
+        "89" => "life_time_device_activated",
+        "81" => "life_time_unset_pin",
+        "83" => "life_time_wallet_unready",
+        "84" => "life_time_wallet_creatting",
+        "85" => "life_time_wallet_recovering",
+        "86" => "life_time_wallet_ready",
+        _ => "life_time_unknown",
+    };
+    Ok(life_time.to_string())
 }
 
 pub fn get_ble_name() -> Result<String> {
-    //send_apdu("00A4040000".to_string());
     let res = send_apdu("FFDB465400".to_string())?;
-    Ok(res.chars().collect())
+    let hex = hex::decode(&res[0..res.len() - 4].to_string())?;
+    Ok(String::from_utf8(hex)?)
 }
 
 pub fn set_ble_name(ble_name: String) -> Result<String> {
+    let name_verify_regex = Regex::new(r"[0-9A-Za-z]{1,12}").unwrap();
+    if !name_verify_regex.is_match(ble_name.as_ref()) {
+        return Err(format_err!("imkey_device_name_invalid"));
+    }
     let apdu = Apdu::set_ble_name(ble_name.as_ref());
     let res = send_apdu(apdu)?;
     Ok(res.chars().take(res.len() - 4).collect())
 }
 
 pub fn get_ble_version() -> Result<String> {
-    send_apdu("00A4040000".to_string())?;
+    select_isd();
     let res = send_apdu("80CB800005DFFF02810000".to_string())?;
-    Ok(res.chars().take(res.len() - 4).collect())
+    let chars: Vec<char> = res.chars().collect();
+    let format_version = format!("{}.{}.{}{}", chars[0], chars[1], chars[2], chars[3]);
+    Ok(format_version)
 }
 
 pub fn get_cert() -> Result<String> {
-    send_apdu("00A4040000".to_string())?;
+    select_isd();
     let res = send_apdu("80CABF2106A6048302151800".to_string())?;
-    ApduCheck::checke_response(&res)?;
+    ApduCheck::check_response(&res)?;
     Ok(res.chars().take(res.len() - 4).collect())
 }
 
@@ -161,18 +197,12 @@ pub fn cos_upgrade() -> Result<()> {
 pub fn cos_check_update() -> Result<ServiceResponse<CosCheckUpdateResponse>> {
     let seid = get_se_id()?;
     let mut cos_version = get_firmware_version()?;
-    cos_version = format!(
-        "{}.{}.{}",
-        cos_version[0..1].to_string(),
-        cos_version[1..2].to_string(),
-        cos_version[2..].to_string()
-    );
     CosCheckUpdateRequest::build_request_data(seid, cos_version).send_message()
 }
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn is_bl_status() -> Result<bool> {
     let res_data = send_apdu(Apdu::select_applet(constants::BL_AID))?;
-    let check_result = ApduCheck::checke_response(res_data.as_str());
+    let check_result = ApduCheck::check_response(res_data.as_str());
     if check_result.is_err() {
         return Ok(false);
     }

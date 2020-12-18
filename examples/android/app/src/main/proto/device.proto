@@ -1,11 +1,8 @@
 syntax = "proto3";
 package deviceapi;
 
-message EmptyResponse {
-}
-
 message AppDownloadReq {
-    string app_name = 1;
+    string appName = 1;
 }
 
 message AppUpdateReq {
@@ -32,10 +29,6 @@ message AvailableAppBean {
     string last_updated = 4;
     string latest_version = 5;
     string install_mode = 6;
-}
-
-message BindCheckReq {
-    string file_path = 1;
 }
 
 message BindCheckRes {
@@ -92,4 +85,17 @@ message GetSdkInfoRes {
 
 message DeviceConnectReq {
     string device_model_name = 1;
+}
+
+message CosCheckUpdateRes {
+    string seid = 1;
+    bool is_latest = 2;
+    string latest_cos_version = 3;
+    string update_type = 4;
+    string description = 5;
+    bool is_update_success = 6;
+}
+
+message IsBlStatusRes {
+    bool check_result = 1;
 }

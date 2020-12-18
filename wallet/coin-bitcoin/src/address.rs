@@ -94,7 +94,7 @@ impl BtcAddress {
         let mut pub_key_obj = PublicKey::from_str(pub_key)?;
         pub_key_obj.compressed = true;
 
-        Ok(Address::p2shwpkh(&pub_key_obj, network).to_string())
+        Ok(Address::p2shwpkh(&pub_key_obj, network)?.to_string())
     }
 
     /**
@@ -121,7 +121,7 @@ impl BtcAddress {
         let apdu_res = send_apdu(BtcApdu::register_address(
             &address_str.clone().into_bytes().to_vec(),
         ))?;
-        ApduCheck::checke_response(apdu_res.as_str())?;
+        ApduCheck::check_response(apdu_res.as_str())?;
         Ok(address_str)
     }
 
@@ -133,7 +133,7 @@ impl BtcAddress {
         let apdu_res = send_apdu(BtcApdu::register_address(
             &address_str.clone().into_bytes().to_vec(),
         ))?;
-        ApduCheck::checke_response(apdu_res.as_str())?;
+        ApduCheck::check_response(apdu_res.as_str())?;
         Ok(address_str)
     }
 }

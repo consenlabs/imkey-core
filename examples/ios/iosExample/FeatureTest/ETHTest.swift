@@ -46,18 +46,18 @@ class ETHTest: FeatTest {
 //                           "preview":preview
 //              ],chainID:Int(v)!,path: BIP44.eth)
             
-            var ethInput = Ethapi_EthTxReq()
+            var ethInput = Ethapi_EthTxInput()
             ethInput.nonce = String(nonce)
             ethInput.gasPrice = String(gasPrice)
             ethInput.gasLimit = String(gasLimit)
             ethInput.to = tx["to"] as! String
             ethInput.value = String(value)
             ethInput.data = tx["data"] as! String
-            ethInput.payment = payment
-            ethInput.receiver = receiver
-            ethInput.sender = sender
-            ethInput.fee = fee
-            ethInput.path = BIP44.eth
+//            ethInput.payment = payment
+//            ethInput.receiver = receiver
+//            ethInput.sender = sender
+//            ethInput.fee = fee
+//            ethInput.path = BIP44.eth
             ethInput.chainID = v
             let output = API.ethSignTx(ethInput: ethInput)
             
