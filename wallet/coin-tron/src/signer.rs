@@ -134,7 +134,7 @@ impl TronSigner {
         let res_msg_pubkey = send_apdu(msg_pubkey)?;
         let pubkey_raw = hex::decode(&res_msg_pubkey[..130]).unwrap();
         let address = TronAddress::address_from_pubkey(pubkey_raw.as_slice()).unwrap();
-        if &address != sender {
+        if !sender.to_string().is_empty() && &address != sender {
             return Err(CoinError::ImkeyAddressMismatchWithPath.into());
         }
 
