@@ -90,7 +90,7 @@ mod tests {
     fn test_get_pub_key() {
         bind_test();
 
-        let comprs_pubkey = CosmosAddress::get_pub_key(constants::COSMOS_PATH).unwrap();
+        let comprs_pubkey = CosmosAddress::get_pub_key(constants::FILECOIN_PATH).unwrap();
         assert_eq!(
             &comprs_pubkey,
             "0232C1EF21D73C19531B0AA4E863CF397C2B982B2F958F60CDB62969824C096D65"

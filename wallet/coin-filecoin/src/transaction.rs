@@ -165,7 +165,6 @@ mod tests {
     use device::device_binding::bind_test;
 
     #[test]
-    #[ignore]
     fn test_sign_trans() {
         bind_test();
         let tx_input = FilecoinTxInput {

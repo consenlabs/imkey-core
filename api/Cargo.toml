@@ -19,6 +19,7 @@ coin-cosmos = {path = "../wallet/coin-cosmos"}
 coin-filecoin = {path = "../wallet/coin-filecoin"}
 coin-substrate = {path = "../wallet/coin-substrate"}
 coin-tron = {path = "../wallet/coin-tron"}
+coin-ckb = {path = "../wallet/coin-ckb"}
 common = {path = "../common"}
 bitcoin = "0.25.0"
 ethereum-types = "0.6.0"
