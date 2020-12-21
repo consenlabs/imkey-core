@@ -52,7 +52,7 @@ impl TronSigner {
         data_pack.push(path.len() as u8);
         data_pack.extend(path);
 
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         let msg_sig = secp256k1_sign(&key_manager_obj.pri_key, &data_pack)?;
         let mut data_pack_with_sig = Vec::new();
         data_pack_with_sig.push(0x00);
@@ -96,7 +96,7 @@ impl TronSigner {
         data_pack.push(to.len() as u8);
         data_pack.extend(to);
 
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         let data_pack_sig = secp256k1_sign(&key_manager_obj.pri_key, &data_pack)?;
         drop(key_manager_obj);
 
@@ -120,7 +120,7 @@ impl TronSigner {
         let select_result = send_apdu(select_apdu)?;
         ApduCheck::check_response(&select_result)?;
 
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         let path_signature = secp256k1_sign(&key_manager_obj.pri_key, &path.as_bytes())?;
         let mut path_pack: Vec<u8> = vec![];
         path_pack.push(0x00);
