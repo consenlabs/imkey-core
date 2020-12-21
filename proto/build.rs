@@ -34,6 +34,9 @@ fn main() {
     env::set_var("OUT_DIR", "../wallet/coin-filecoin/src");
     prost_build::compile_protos(&["src/filecoin.proto"], &["src/"]).unwrap();
 
+    // ckb
+    env::set_var("OUT_DIR", "../wallet/coin-ckb/src");
+    prost_build::compile_protos(&["src/ckb.proto"], &["src/"]).unwrap();
     // subtrate
     env::set_var("OUT_DIR", "../wallet/coin-substrate/src");
     prost_build::compile_protos(&["src/substrate.proto"], &["src/"]).unwrap();
