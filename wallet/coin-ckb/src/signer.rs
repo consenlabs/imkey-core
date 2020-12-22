@@ -1,6 +1,6 @@
 use crate::hash::new_blake2b;
+use crate::nervosapi::{CachedCell, CkbTxInput, CkbTxOutput, OutPoint, Witness};
 use crate::serializer::Serializer;
-use crate::transaction::{CachedCell, CkbTxInput, CkbTxOutput, OutPoint, Witness};
 use crate::Result;
 use crate::{hex_to_bytes, Error};
 use std::collections::HashMap;
@@ -115,9 +115,11 @@ impl<'a> CkbTxSigner<'a> {
 
         let pub_key = CkbAddress::get_public_key(&self.sign_param.path)?;
         let comprs_pubkey = uncompress_pubkey_2_compress(&pub_key);
-        let address =
+        let testnet_address =
             CkbAddress::from_public_key("TESTNET", &hex::decode(&comprs_pubkey)?).unwrap();
-        if &address != &self.sign_param.sender {
+        let mainnet_address =
+            CkbAddress::from_public_key("MAINNET", &hex::decode(&comprs_pubkey)?).unwrap();
+        if testnet_address != self.sign_param.sender && mainnet_address != self.sign_param.sender {
             return Err(CoinError::ImkeyAddressMismatchWithPath.into());
         }
 
@@ -140,7 +142,7 @@ impl<'a> CkbTxSigner<'a> {
         data_pack.extend([9, self.sign_param.fee.as_bytes().len() as u8].iter());
         data_pack.extend(self.sign_param.fee.as_bytes().iter());
 
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap();
 
         let mut apdu_pack: Vec<u8> = Vec::new();

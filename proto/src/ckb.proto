@@ -1,5 +1,5 @@
 syntax = "proto3";
-package transaction;
+package nervosapi;
 
 message OutPoint {
    string txHash = 1;

@@ -1,5 +1,5 @@
+use crate::nervosapi::{Script, Witness};
 use crate::serializer::Serializer;
-use crate::transaction::{Script, Witness};
 
 use super::Error;
 use crate::hash::blake2b_256;
