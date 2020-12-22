@@ -12,4 +12,5 @@ members = [
     "wallet/coin-ckb",
     "wallet/coin-substrate",
     "wallet/coin-tron",
+    "wallet/coin-tezos",
 ]

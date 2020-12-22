@@ -44,6 +44,10 @@ fn main() {
     // tron
     env::set_var("OUT_DIR", "../wallet/coin-tron/src");
     prost_build::compile_protos(&["src/tron.proto"], &["src/"]).unwrap();
+
+    // tcx-tezos
+    env::set_var("OUT_DIR", "../wallet/coin-tezos/src");
+    prost_build::compile_protos(&["src/tezos.proto"], &["src/"]).unwrap();
 }
 
 #[cfg(test)]

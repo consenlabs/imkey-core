@@ -25,6 +25,8 @@ pub const POLKADOT_AID: &str = "695F65645F646F74";
 pub const KUSAMA_AID: &str = "695F65645F6B736D";
 pub const TRON_AID: &str = "695F6B315F747278";
 pub const NERVOS_AID: &str = "695F6B315F636B62";
+pub const TEZOS_AID: &str = "695F656473725F78747A";
+
 pub const BL_AID: &str = "D0426F6F746C6F61646572";
 
 //path

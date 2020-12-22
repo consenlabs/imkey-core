@@ -21,6 +21,7 @@ coin-substrate = {path = "../wallet/coin-substrate"}
 coin-tron = {path = "../wallet/coin-tron"}
 coin-ckb = {path = "../wallet/coin-ckb"}
 common = {path = "../common"}
+coin-tezos = {path = "../wallet/coin-tezos"}
 bitcoin = "0.25.0"
 ethereum-types = "0.6.0"
 prost = "0.6.1"
