@@ -18,7 +18,7 @@ impl Transaction {
         //check path
         check_path_validity(&sign_param.path).expect("check path error");
         //check address
-        Self::address_check(tezos_tx_input.to.as_str());
+        Self::address_check(sign_param.receiver.as_str());
 
         let raw_data_bytes = if tezos_tx_input.raw_data.starts_with("0x") {
             tezos_tx_input.raw_data[2..].to_string()
