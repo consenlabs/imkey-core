@@ -1,4 +1,4 @@
-use crate::constants::{BTC_AID, COSMOS_AID, EOS_AID, ETH_AID, LC_MAX};
+use crate::constants::{BCH_AID, BTC_AID, COSMOS_AID, EOS_AID, ETH_AID, LC_MAX};
 use crate::error::ApduError;
 use crate::Result;
 use hex;
@@ -258,6 +258,28 @@ impl Secp256k1Apdu {
         data.push(name.len() as u8);
         data.extend(name);
         Apdu::register_address(0x83, &data)
+    }
+}
+
+pub struct BchApdu();
+
+impl Default for BchApdu {
+    fn default() -> Self {
+        BchApdu {}
+    }
+}
+
+impl CoinCommonApdu for BchApdu {
+    fn select_applet() -> String {
+        Apdu::select_applet(BCH_AID)
+    }
+
+    fn get_xpub(path: &str, verify_flag: bool) -> String {
+        Apdu::get_pubkey(0x43, path, verify_flag)
+    }
+
+    fn register_address(address: &[u8]) -> String {
+        Apdu::register_address(0x36, address)
     }
 }
 

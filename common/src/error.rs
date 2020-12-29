@@ -64,4 +64,10 @@ pub enum CoinError {
     InvalidParam,
     #[fail(display = "invalid_format")]
     InvalidFormat,
+    #[fail(display = "bch_convert_to_legacy_address_failed")]
+    ConvertToLegacyAddressFailed,
+    #[fail(display = "bch_convert_to_cash_address_failed")]
+    ConvertToCashAddressFailed,
+    #[fail(display = "construct_bch_address_failed")]
+    ConstructBchAddressFailed,
 }

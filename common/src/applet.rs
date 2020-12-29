@@ -5,8 +5,7 @@ pub fn get_appname_by_instid(instid: &str) -> Option<&str> {
         "695F656F73" => Some("EOS"),
         "695F636F736D6F73" => Some("COSMOS"),
         "695F6B315F66696C" => Some("FILECOIN"),
-        "695F6B315F66696C02" => Some("FILECOIN2"),
-        "695F6B315F66696C03" => Some("FILECOIN3"),
+        "695F626368" => Some("BCH"),
         "695F696D6B" => Some("IMK"),
         _ => None,
     }
@@ -17,9 +16,8 @@ pub fn get_instid_by_appname(appname: &str) -> Option<&str> {
         "ETH" => Some("695F657468"),
         "EOS" => Some("695F656F73"),
         "COSMOS" => Some("695F636F736D6F73"),
-        "FILECOIN" => Some("695F6B315F66696C"),
-        "FILECOIN2" => Some("695F6B315F66696C02"),
-        "FILECOIN3" => Some("695F6B315F66696C03"),
+        "FILECOIN" => Some("4695F6B315F66696C"),
+        "BCH" => Some("695F626368"),
         "IMK" => Some("695F696D6B"),
         _ => None,
     }
@@ -38,6 +36,7 @@ mod tests {
             get_appname_by_instid("695F6B315F66696C").unwrap(),
             "FILECOIN"
         );
+        assert_eq!(get_appname_by_instid("695F626368").unwrap(), "BCH");
         assert_eq!(get_appname_by_instid("695F696D6B").unwrap(), "IMK");
         assert!(get_appname_by_instid("1111111111").is_none());
     }
@@ -53,6 +52,7 @@ mod tests {
             get_instid_by_appname("FILECOIN").unwrap(),
             "695F6B315F66696C"
         );
+        assert_eq!(get_instid_by_appname("BCH").unwrap(), "695F626368");
         assert!(get_instid_by_appname("APPLET").is_none());
     }
 }
