@@ -32,7 +32,7 @@ impl TezosAddress {
         Ok(address)
     }
 
-    pub fn get_pub_key(path: &str) -> Result<String> {
+    fn get_pub_key(path: &str) -> Result<String> {
         //path check
         check_path_validity(path)?;
 
@@ -69,7 +69,21 @@ impl TezosAddress {
         if !sign_verify_result {
             return Err(CoinError::ImkeySignatureVerifyFail.into());
         }
+
         Ok(pubkey.to_string())
+    }
+
+    pub fn get_base58_pub_key(path: &str) -> Result<String> {
+        let pub_key = Self::get_pub_key(path)?;
+        let edpk_prefix: Vec<u8> = vec![0x0D, 0x0F, 0x25, 0xD9];
+
+        let pub_key_bytes = hex::decode(pub_key)?;
+        let to_hash = [edpk_prefix, pub_key_bytes].concat();
+        let hashed = sha256_hash(&sha256_hash(&to_hash));
+        let hash_with_checksum = [to_hash, hashed[0..4].to_vec()].concat();
+        let edpk = base58::encode_slice(&hash_with_checksum);
+
+        Ok(edpk.to_string())
     }
 
     pub fn display_address(path: &str) -> Result<String> {

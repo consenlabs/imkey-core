@@ -115,6 +115,10 @@ pub fn retrieve_recid(msg: &[u8], sign_compact: &[u8], pubkey: &Vec<u8>) -> Resu
     Ok(rec_id)
 }
 
+// pub fn dsha256(bytes: &[u8]) -> Vec<u8> {
+//     Sha256::digest(&Sha256::digest(&bytes)).to_vec()
+// }
+
 #[cfg(test)]
 mod tests {
     use crate::utility;

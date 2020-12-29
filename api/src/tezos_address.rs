@@ -26,7 +26,7 @@ pub fn display_tezos_address(param: &AddressParam) -> Result<Vec<u8>> {
 }
 
 pub fn get_pub_key(param: &PubKeyParam) -> Result<Vec<u8>> {
-    let pub_key = TezosAddress::get_pub_key(param.path.as_ref())?;
+    let pub_key = TezosAddress::get_base58_pub_key(param.path.as_ref())?;
 
     let apub_key_message = PubKeyResult {
         path: param.path.to_owned(),
