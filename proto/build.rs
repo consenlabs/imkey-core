@@ -33,6 +33,10 @@ fn main() {
     // tcx-filecoin
     env::set_var("OUT_DIR", "../wallet/coin-filecoin/src");
     prost_build::compile_protos(&["src/filecoin.proto"], &["src/"]).unwrap();
+
+    // subtrate
+    env::set_var("OUT_DIR", "../wallet/coin-substrate/src");
+    prost_build::compile_protos(&["src/substrate.proto"], &["src/"]).unwrap();
 }
 
 #[cfg(test)]

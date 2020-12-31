@@ -17,6 +17,8 @@ pub mod ethereum_signer;
 pub mod filecoin_address;
 pub mod filecoin_signer;
 pub mod message_handler;
+pub mod substrate_address;
+pub mod substrate_signer;
 use std::sync::Mutex;
 
 #[macro_use]
@@ -119,6 +121,8 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "ETHEREUM" => ethereum_address::get_address(&param),
                 "COSMOS" => cosmos_address::get_address(&param),
                 "FILECOIN" => filecoin_address::get_address(&param),
+                "POLKADOT" => substrate_address::get_address(&param),
+                "KUSAMA" => substrate_address::get_address(&param),
                 _ => Err(format_err!("get_address unsupported_chain")),
             }
         }),
@@ -149,6 +153,8 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "ETHEREUM" => ethereum_address::register_address(&param),
                 "COSMOS" => cosmos_address::display_cosmos_address(&param),
                 "FILECOIN" => filecoin_address::display_filecoin_address(&param),
+                "POLKADOT" => substrate_address::display_address(&param),
+                "KUSAMA" => substrate_address::display_address(&param),
                 _ => Err(format_err!("register_address unsupported_chain")),
             }
         }),
@@ -175,6 +181,12 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                     &param.clone().input.unwrap().value,
                     &param,
                 ),
+                "POLKADOT" => {
+                    substrate_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
+                }
+                "KUSAMA" => {
+                    substrate_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
+                }
                 _ => Err(format_err!("sign_tx unsupported_chain")),
             }
         }),
