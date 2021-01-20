@@ -19,7 +19,7 @@ const DEV_PID: u16 = 0x0891;
 
 pub fn hid_send(apdu: &String, timeout: i32) -> Result<String> {
     //get hid_device obj
-    let hid_device_obj: &Vec<HidDevice> = &HID_DEVICE.lock().unwrap();
+    let hid_device_obj: &Vec<HidDevice> = &HID_DEVICE.lock();
     if hid_device_obj.is_empty() {
         drop(hid_device_obj);
         return Err(HidError::DeviceConnectInterfaceNotCalled.into());
@@ -128,7 +128,7 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
 
 pub fn hid_connect(_device_model_name: &str) -> Result<()> {
     //get hid initialization obj
-    let hid_api = HID_API.lock().unwrap();
+    let hid_api = HID_API.lock();
 
     //connect device
     match hid_api.open(DEV_VID, DEV_PID) {
@@ -136,7 +136,7 @@ pub fn hid_connect(_device_model_name: &str) -> Result<()> {
             println!("device connected!!!");
             first_write_read_device_response(&hid_device)?;
             drop(hid_api);
-            let mut hid_device_obj = HID_DEVICE.lock().unwrap();
+            let mut hid_device_obj = HID_DEVICE.lock();
             *hid_device_obj = vec![hid_device];
             drop(hid_device_obj);
             send_apdu("00A40400".to_string())?;
