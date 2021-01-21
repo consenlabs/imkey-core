@@ -32,12 +32,12 @@ impl TsmService for AppUpdateRequest {
 
     fn send_message(&mut self) -> Result<()> {
         loop {
-            println!("send message：{:#?}", self);
+            // println!("send message：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
             let response_data = https::post(constants::TSM_ACTION_APP_UPDATE, req_data)?;
             let return_bean: ServiceResponse<AppUpdateResponse> =
                 serde_json::from_str(response_data.as_str())?;
-            println!("return message：{:#?}", return_bean);
+            // println!("return message：{:#?}", return_bean);
             if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //check if end
                 let next_step_key = return_bean._ReturnData.next_step_key.unwrap();

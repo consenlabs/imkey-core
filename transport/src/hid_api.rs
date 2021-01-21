@@ -24,7 +24,7 @@ pub fn hid_send(apdu: &String, timeout: i32) -> Result<String> {
         drop(hid_device_obj);
         return Err(HidError::DeviceConnectInterfaceNotCalled.into());
     }
-    println!("-->{}", apdu);
+    // println!("-->{}", apdu);
     send_device_message(
         &hid_device_obj.get(0).unwrap(),
         Vec::from_hex(apdu.as_str()).unwrap().as_slice(),
@@ -32,7 +32,7 @@ pub fn hid_send(apdu: &String, timeout: i32) -> Result<String> {
     let return_data = read_device_response(&hid_device_obj.get(0).unwrap(), timeout)?;
     //    drop(hid_device_obj);
     let apdu_response = hex::encode_upper(return_data);
-    println!("<--{}", apdu_response.clone());
+    // println!("<--{}", apdu_response.clone());
     Ok(apdu_response)
 }
 
@@ -133,7 +133,7 @@ pub fn hid_connect(_device_model_name: &str) -> Result<()> {
     //connect device
     match hid_api.open(DEV_VID, DEV_PID) {
         Ok(hid_device) => {
-            println!("device connected!!!");
+            // println!("device connected!!!");
             first_write_read_device_response(&hid_device)?;
             drop(hid_api);
             let mut hid_device_obj = HID_DEVICE.lock();
@@ -143,7 +143,7 @@ pub fn hid_connect(_device_model_name: &str) -> Result<()> {
             return Ok(());
         }
         Err(err) => {
-            println!("device connect failed : {}", err);
+            // println!("device connect failed : {}", err);
             drop(hid_api);
             //Check if the connection is normal
             match send_apdu("00A40400".to_string()) {
