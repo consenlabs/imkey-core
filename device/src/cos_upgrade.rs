@@ -25,7 +25,7 @@ pub struct CosUpgradeRequest {
     #[serde(rename = "commandID")]
     pub command_id: String,
     pub card_ret_data_list: Option<Vec<String>>,
-    pub se_bl_versioon: Option<String>,
+    pub se_bl_version: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -88,7 +88,7 @@ impl CosUpgradeRequest {
             status_word: None,
             command_id: String::from(constants::TSM_ACTION_COS_UPGRADE),
             card_ret_data_list: None,
-            se_bl_versioon: se_bl_version,
+            se_bl_version: se_bl_version,
         };
 
         loop {
@@ -122,7 +122,7 @@ impl CosUpgradeRequest {
                                     if "03".eq(next_step_key.as_str()) {
                                         reconnect()?;
                                         se_bl_version = Some(get_bl_version()?);
-                                        request_data.se_bl_versioon = se_bl_version;
+                                        request_data.se_bl_version = se_bl_version;
                                     } else if "05".eq(next_step_key.as_str()) {
                                         reconnect()?;
                                         se_cos_version = get_firmware_version()?;
