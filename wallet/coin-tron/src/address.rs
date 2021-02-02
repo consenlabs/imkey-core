@@ -64,7 +64,7 @@ impl TronAddress {
 
     pub fn display_address(path: &str) -> Result<String> {
         let address = TronAddress::get_address(path).unwrap();
-        let tron_menu_name = "XRP".as_bytes();
+        let tron_menu_name = "TRON".as_bytes();
         let reg_apdu = Secp256k1Apdu::register_address(tron_menu_name, address.as_bytes());
         let res_reg = send_apdu(reg_apdu)?;
         ApduCheck::check_response(&res_reg)?;

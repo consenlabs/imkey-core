@@ -88,7 +88,7 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
     headerdata.push((msg_size & 0xFF00) as u8);
     headerdata.push((msg_size & 0x00FF) as u8);
     let mut data = Vec::new();
-    if (msg_size + 8) < 65 {
+    if (msg_size + 8) <= 65 {
         data.extend_from_slice(&headerdata[0..8]);
         data.extend_from_slice(&msg[0..msg_size]);
     } else {
@@ -96,7 +96,7 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
         let mut flg = 0;
         loop {
             if !(datalenflage == 0) {
-                if datalenflage + 65 - 6 > msg_size {
+                if datalenflage + 65 - 6 >= msg_size {
                     data.extend_from_slice(&headerdata[0..5]);
                     data.push(flg as u8);
                     data.extend_from_slice(&msg[datalenflage..msg_size]);
@@ -113,10 +113,6 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
                 datalenflage += 65 - 8;
             }
         }
-    }
-
-    while data.len() % 65 > 0 {
-        data.push(0);
     }
 
     let total_written = 0;
