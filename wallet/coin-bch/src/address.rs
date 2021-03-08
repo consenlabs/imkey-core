@@ -74,7 +74,7 @@ impl BchAddress {
 
         let sign_source_val = &res_msg_pubkey[..194];
         let sign_result = &res_msg_pubkey[194..res_msg_pubkey.len() - 4];
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         let sign_verify_result = utility::secp256k1_sign_verify(
             &key_manager_obj.se_pub_key,
             hex::decode(sign_result).unwrap().as_slice(),
