@@ -31,7 +31,7 @@ impl FilecoinAddress {
         let select_response = message::send_apdu(select_apdu)?;
         ApduCheck::check_response(&select_response)?;
 
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         let bind_signature = utility::secp256k1_sign(&key_manager_obj.pri_key, &path.as_bytes())?;
 
         let mut apdu_pack: Vec<u8> = vec![];
@@ -98,8 +98,8 @@ impl FilecoinAddress {
 
     pub fn display_address(path: &str, network: &str) -> Result<String> {
         let address = Self::get_address(path, network).unwrap();
-        let tron_menu_name = "FILECOIN".as_bytes();
-        let reg_apdu = Secp256k1Apdu::register_address(tron_menu_name, address.as_bytes());
+        let filecoin_menu_name = "FILECOIN".as_bytes();
+        let reg_apdu = Secp256k1Apdu::register_address(filecoin_menu_name, address.as_bytes());
         let res_reg = message::send_apdu(reg_apdu)?;
         ApduCheck::check_response(&res_reg)?;
         Ok(address)

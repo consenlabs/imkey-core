@@ -103,7 +103,7 @@ impl CosmosTransaction {
 
         let sign_pack_vec = hex::decode(sign_pack).expect("Decoding failed");
 
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         let mut prepare_data = secp256k1_sign(&key_manager_obj.pri_key, &sign_pack_vec.as_slice())?;
         std::mem::drop(key_manager_obj);
         prepare_data.insert(0, prepare_data.len() as u8);

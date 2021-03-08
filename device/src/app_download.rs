@@ -32,12 +32,12 @@ impl TsmService for AppDownloadRequest {
 
     fn send_message(&mut self) -> Result<()> {
         loop {
-            println!("send message：{:#?}", self);
+            // println!("send message：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
             let response_data = https::post(constants::TSM_ACTION_APP_DOWNLOAD, req_data)?;
             let return_bean: ServiceResponse<AppDownloadResponse> =
                 serde_json::from_str(response_data.as_str())?;
-            println!("return message：{:#?}", return_bean);
+            // println!("return message：{:#?}", return_bean);
             if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //check step key is end
                 let next_step_key = return_bean._ReturnData.next_step_key.unwrap();
@@ -94,7 +94,7 @@ mod test {
         assert!(hid_connect("imKey Pro").is_ok());
         let seid = get_se_id().unwrap();
         let device_cert = get_cert().unwrap();
-        let instance_aid = "695F627463".to_string();
+        let instance_aid = "695F656473725F6B736D".to_string();
         let exe_result =
             AppDownloadRequest::build_request_data(seid, instance_aid, device_cert, None)
                 .send_message();

@@ -4,7 +4,7 @@ use crate::Result;
 use hex::FromHex;
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 use hidapi::{HidApi, HidDevice};
-use std::sync::Mutex;
+use parking_lot::Mutex;
 
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 lazy_static! {
@@ -19,12 +19,12 @@ const DEV_PID: u16 = 0x0891;
 
 pub fn hid_send(apdu: &String, timeout: i32) -> Result<String> {
     //get hid_device obj
-    let hid_device_obj: &Vec<HidDevice> = &HID_DEVICE.lock().unwrap();
+    let hid_device_obj: &Vec<HidDevice> = &HID_DEVICE.lock();
     if hid_device_obj.is_empty() {
         drop(hid_device_obj);
         return Err(HidError::DeviceConnectInterfaceNotCalled.into());
     }
-    println!("-->{}", apdu);
+    // println!("-->{}", apdu);
     send_device_message(
         &hid_device_obj.get(0).unwrap(),
         Vec::from_hex(apdu.as_str()).unwrap().as_slice(),
@@ -32,7 +32,7 @@ pub fn hid_send(apdu: &String, timeout: i32) -> Result<String> {
     let return_data = read_device_response(&hid_device_obj.get(0).unwrap(), timeout)?;
     //    drop(hid_device_obj);
     let apdu_response = hex::encode_upper(return_data);
-    println!("<--{}", apdu_response.clone());
+    // println!("<--{}", apdu_response.clone());
     Ok(apdu_response)
 }
 
@@ -88,7 +88,7 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
     headerdata.push((msg_size & 0xFF00) as u8);
     headerdata.push((msg_size & 0x00FF) as u8);
     let mut data = Vec::new();
-    if (msg_size + 8) < 65 {
+    if (msg_size + 8) <= 65 {
         data.extend_from_slice(&headerdata[0..8]);
         data.extend_from_slice(&msg[0..msg_size]);
     } else {
@@ -96,7 +96,7 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
         let mut flg = 0;
         loop {
             if !(datalenflage == 0) {
-                if datalenflage + 65 - 6 > msg_size {
+                if datalenflage + 65 - 6 >= msg_size {
                     data.extend_from_slice(&headerdata[0..5]);
                     data.push(flg as u8);
                     data.extend_from_slice(&msg[datalenflage..msg_size]);
@@ -115,10 +115,6 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
         }
     }
 
-    while data.len() % 65 > 0 {
-        data.push(0);
-    }
-
     let total_written = 0;
     for chunk in data.chunks(65) {
         device.write(&chunk)?;
@@ -128,22 +124,22 @@ fn send_device_message(device: &hidapi::HidDevice, msg: &[u8]) -> Result<usize> 
 
 pub fn hid_connect(_device_model_name: &str) -> Result<()> {
     //get hid initialization obj
-    let hid_api = HID_API.lock().unwrap();
+    let hid_api = HID_API.lock();
 
     //connect device
     match hid_api.open(DEV_VID, DEV_PID) {
         Ok(hid_device) => {
-            println!("device connected!!!");
+            // println!("device connected!!!");
             first_write_read_device_response(&hid_device)?;
             drop(hid_api);
-            let mut hid_device_obj = HID_DEVICE.lock().unwrap();
+            let mut hid_device_obj = HID_DEVICE.lock();
             *hid_device_obj = vec![hid_device];
             drop(hid_device_obj);
             send_apdu("00A40400".to_string())?;
             return Ok(());
         }
         Err(err) => {
-            println!("device connect failed : {}", err);
+            // println!("device connect failed : {}", err);
             drop(hid_api);
             //Check if the connection is normal
             match send_apdu("00A40400".to_string()) {
