@@ -6,11 +6,9 @@ use transport::message::send_apdu;
 
 use bch_addr::Converter;
 use bitcoin::util::address::Error as BtcAddressError;
-use bitcoin::util::bip32::{ChainCode, ChildNumber, DerivationPath, ExtendedPubKey, Fingerprint};
 use bitcoin::{Address as BtcAddress, Network, PublicKey, Script};
-use common::apdu::{Apdu, ApduCheck, BchApdu, CoinCommonApdu};
-use common::constants::BCH_AID;
-use common::error::CommonError;
+use common::apdu::{Apdu, ApduCheck, BtcApdu, CoinCommonApdu};
+use common::constants::BTC_AID;
 use common::path::check_path_validity;
 use common::utility;
 use device::device_binding::KEY_MANAGER;
@@ -67,7 +65,7 @@ impl BchAddress {
         //path check
         check_path_validity(path)?;
 
-        let select_apdu = Apdu::select_applet(BCH_AID);
+        let select_apdu = Apdu::select_applet(BTC_AID);
         let select_response = message::send_apdu(select_apdu)?;
         ApduCheck::check_response(&select_response)?;
 
@@ -109,7 +107,8 @@ impl BchAddress {
         //path check
         check_path_validity(path)?;
         let address_str = Self::get_address(network, path)?;
-        let apdu_res = send_apdu(BchApdu::register_address(
+        let apdu_res = send_apdu(BtcApdu::register_name_address(
+            "BCH".as_bytes(),
             &address_str.clone().into_bytes().to_vec(),
         ))?;
         ApduCheck::check_response(apdu_res.as_str())?;

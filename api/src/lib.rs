@@ -5,8 +5,8 @@ use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 pub mod api;
 pub mod bch_address;
-pub mod bch_signer;
 pub mod btc_address;
+pub mod btc_fork_address;
 pub mod btc_signer;
 pub mod cosmos_address;
 pub mod cosmos_signer;
@@ -123,6 +123,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "COSMOS" => cosmos_address::get_address(&param),
                 "FILECOIN" => filecoin_address::get_address(&param),
                 "BITCOINCASH" => bch_address::get_address(&param),
+                "LITECOIN" => btc_fork_address::get_address(&param),
                 _ => Err(format_err!("get_address unsupported_chain")),
             }
         }),
@@ -153,7 +154,6 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "ETHEREUM" => ethereum_address::register_address(&param),
                 "COSMOS" => cosmos_address::display_cosmos_address(&param),
                 "FILECOIN" => filecoin_address::display_filecoin_address(&param),
-                "BITCOINCASH" => bch_address::register_bch_address(&param),
                 _ => Err(format_err!("register_address unsupported_chain")),
             }
         }),
@@ -180,9 +180,9 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                     &param.clone().input.unwrap().value,
                     &param,
                 ),
-                "BITCOINCASH" => {
+                /*"BITCOINCASH" => {
                     bch_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
-                }
+                }*/
                 _ => Err(format_err!("sign_tx unsupported_chain")),
             }
         }),

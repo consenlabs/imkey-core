@@ -18,6 +18,7 @@ coin-eos = {path = "../wallet/coin-eos"}
 coin-cosmos = {path = "../wallet/coin-cosmos"}
 coin-filecoin = {path = "../wallet/coin-filecoin"}
 coin-bch = {path = "../wallet/coin-bch"}
+coin-btc-fork = {path = "../wallet/coin-btc-fork"}
 
 common = {path = "../common"}
 bitcoin = "0.25.0"

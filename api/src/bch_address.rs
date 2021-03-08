@@ -14,43 +14,43 @@ pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
         _ => Network::Testnet,
     };
 
-    let account_path = param.path.to_string();
-    let main_address: String;
-    let receive_address: String;
-
-    main_address = BchAddress::get_address(network, format!("{}/0/0", account_path).as_str())?;
-    receive_address = BchAddress::get_address(network, format!("{}/0/1", account_path).as_str())?;
-
-    let external_address = ExternalAddress {
-        address: receive_address,
-        derived_path: "0/1".to_string(),
-        r#type: "EXTERNAL".to_string(),
-    };
-
-    let address_message = BitcoinWallet {
+    let address = BchAddress::get_address(network, &param.path)?;
+    let address_message = AddressResult {
         path: param.path.to_owned(),
         chain_type: param.chain_type.to_string(),
-        address: main_address,
-        enc_x_pub: "",
-        external_address: Some(external_address),
+        address: address,
     };
     encode_message(address_message)
 }
 
-pub fn register_bch_address(param: &AddressParam) -> Result<Vec<u8>> {
-    let network = match param.network.as_ref() {
-        "MAINNET" => Network::Bitcoin,
-        "TESTNET" => Network::Testnet,
-        _ => Network::Testnet,
+#[cfg(test)]
+mod tests {
+    use crate::api::{
+        AddressParam, AddressResult, BitcoinWallet, ExternalAddress, ExternalAddressParam,
     };
+    use crate::bch_address::get_address;
+    use device::device_binding::bind_test;
 
-    let path = format!("{}/0/0", param.path);
-    let address = BchAddress::display_address(network, &path)?;
+    #[test]
+    fn test_btc_fork_address() {
+        bind_test();
 
-    let address_message = AddressResult {
-        path: param.path.to_string(),
-        chain_type: param.chain_type.to_string(),
-        address,
-    };
-    encode_message(address_message)
+        let param = AddressParam {
+            chain_type: "BITCOINCASH".to_string(),
+            path: "m/44'/145'/0'/0/0".to_string(),
+            network: "MAINNET".to_string(),
+            is_seg_wit: true,
+        };
+        let message = get_address(&param);
+        assert_eq!("0a116d2f3434272f313435272f30272f302f30120b424954434f494e434153481a2a717a6c643764617637643273666a646c367839736e6b76663672616a386c66786a636a35666138793272", hex::encode(message.unwrap()));
+
+        let param = AddressParam {
+            chain_type: "BITCOINCASH".to_string(),
+            path: "m/44'/145'/0'/0/0".to_string(),
+            network: "TESTNET".to_string(),
+            is_seg_wit: true,
+        };
+        let message = get_address(&param);
+        assert_eq!("0a116d2f3434272f313435272f30272f302f30120b424954434f494e434153481a2a717a6c643764617637643273666a646c367839736e6b76663672616a386c66786a636b786436396e646c", hex::encode(message.unwrap()));
+    }
 }

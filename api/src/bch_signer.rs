@@ -41,7 +41,7 @@ pub fn sign_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u8>> 
 
     let op_return = hex_to_bytes(&input.op_return).expect("decode btc extra op_return");
 
-    let signed = bch_tx.sign_transaction(network, &input.path, input.change_address, &op_return)?;
+    let signed = bch_tx.sign_transaction(network, &sign_param.path, input.change_address, &op_return)?;
     let tx_sign_result = BchTxOutput {
         signature: signed.signature,
         tx_hash: signed.tx_hash,
