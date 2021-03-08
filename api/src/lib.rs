@@ -4,7 +4,9 @@ use prost::Message;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 pub mod api;
+pub mod bch_address;
 pub mod btc_address;
+pub mod btc_fork_address;
 pub mod btc_signer;
 pub mod cosmos_address;
 pub mod cosmos_signer;
@@ -126,6 +128,8 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "POLKADOT" => substrate_address::get_address(&param),
                 "KUSAMA" => substrate_address::get_address(&param),
                 "TRON" => tron_address::get_address(&param),
+                "BITCOINCASH" => bch_address::get_address(&param),
+                "LITECOIN" => btc_fork_address::get_address(&param),
                 _ => Err(format_err!("get_address unsupported_chain")),
             }
         }),
@@ -194,6 +198,9 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "TRON" => {
                     tron_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
                 }
+                /*"BITCOINCASH" => {
+                    bch_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
+                }*/
                 _ => Err(format_err!("sign_tx unsupported_chain")),
             }
         }),

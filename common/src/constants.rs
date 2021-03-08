@@ -24,6 +24,8 @@ pub const IMK_AID: &str = "695F696D6B";
 pub const POLKADOT_AID: &str = "695F65645F646F74";
 pub const KUSAMA_AID: &str = "695F65645F6B736D";
 pub const TRON_AID: &str = "695F6B315F747278";
+pub const BCH_AID: &str = "695F626368";
+pub const LTC_AID: &str = "695F6C7463";
 
 pub const BL_AID: &str = "D0426F6F746C6F61646572";
 

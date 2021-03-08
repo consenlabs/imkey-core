@@ -102,6 +102,15 @@ impl BtcApdu {
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
     }
+
+    pub fn register_name_address(name: &[u8], address: &[u8]) -> String {
+        let mut data: Vec<u8> = vec![];
+        data.push(address.len() as u8);
+        data.extend(address);
+        data.push(name.len() as u8);
+        data.extend(name);
+        Apdu::register_address(0x37, &data)
+    }
 }
 
 pub struct EthApdu();
@@ -291,6 +300,29 @@ impl Ed25519Apdu {
         data.push(name.len() as u8);
         data.extend(name);
         Apdu::register_address(0x83, &data)
+
+   }
+}
+
+pub struct BchApdu();
+
+impl Default for BchApdu {
+    fn default() -> Self {
+        BchApdu {}
+    }
+}
+
+impl CoinCommonApdu for BchApdu {
+    fn select_applet() -> String {
+        Apdu::select_applet(BTC_AID)
+    }
+
+    fn get_xpub(path: &str, verify_flag: bool) -> String {
+        Apdu::get_pubkey(0x43, path, verify_flag)
+    }
+
+    fn register_address(address: &[u8]) -> String {
+        Apdu::register_address(0x36, address)
     }
 }
 
