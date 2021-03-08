@@ -69,7 +69,7 @@ impl Transaction {
         data_pack.extend([9, fee.as_bytes().len() as u8].iter());
         data_pack.extend(fee.as_bytes().iter());
 
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap();
 
         let mut apdu_pack: Vec<u8> = Vec::new();
@@ -219,7 +219,7 @@ impl Transaction {
         data_to_sign.push((data.len() & 0x00FF) as u8);
         data_to_sign.extend(data.as_slice());
 
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_to_sign)?;
 
         let mut apdu_pack: Vec<u8> = vec![];

@@ -63,6 +63,19 @@ pub fn get_firmware_version() -> Result<String> {
     Ok(firmware_version)
 }
 
+pub fn get_bl_version() -> Result<String> {
+    select_isd();
+    let res = send_apdu("80CA800900".to_string())?;
+    ApduCheck::check_response(res.as_str())?;
+    let bl_version = format!(
+        "{}.{}.{}",
+        res[0..1].to_string(),
+        res[1..2].to_string(),
+        res[2..res.len() - 4].to_string()
+    );
+    Ok(bl_version)
+}
+
 pub fn get_battery_power() -> Result<String> {
     select_isd();
     let res = send_apdu("00D6FEED01".to_string())?;

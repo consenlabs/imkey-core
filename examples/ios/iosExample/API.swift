@@ -513,6 +513,28 @@ public class API{
     return bindResponse.bindResult
   }
   
+  public class func substrateSignTX(){
+    var input = Substrateapi_SubstrateRawTxIn()
+    input.rawData = "0600ffd7568e5f0a7eda67a82691ff379ac4bba4f9c9b859fe779b5d46363b61ad2db9e56c0703d148e25901007b000000dcd1346701ca8396496e52aa2785b1748deb6db09551b72159dcb3e08991025bde8f69eeb5e065e18c6950ff708d7e551f68dc9bf59a07c52367c0280f805ec7"
+    var signParam = Common_SignParam()
+    signParam.chainType = "POLKADOT"
+    signParam.path = BIP44.polkadot
+    signParam.payment = "25 DOT"
+    signParam.receiver = "12pWV6LvG4iAfNpFNTvvkWy3H9H8wtCkjiXupAzo2BCmPViM"
+    signParam.sender = "147mvrDYhFpZzvFASKBDNVcxoyz8XCVNyyFKSZcpbQxN33TT"
+    signParam.fee = "15.4000 milli DOT"
+    signParam.input.value = try! input.serializedData()
+    
+    var action = Api_ImkeyAction()
+    action.param.value = try! signParam.serializedData()
+    action.method = "sign_tx"
+    
+    let paramHex = try! action.serializedData().toHexString()
+    let res = call_imkey_api(paramHex)
+//    let hexRes = String(cString:res!).toHexString()
+//    Log.d(hexRes)
+  }
+  
   public class func btcSignTX(){
     Log.d("btc sign ...")
     var btcInput = Btcapi_BtcTxInput()

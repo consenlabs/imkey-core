@@ -307,7 +307,7 @@ fileprivate let _protobuf_package = "deviceapi"
 extension Deviceapi_AppDownloadReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".AppDownloadReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "appName"),
+    1: .standard(proto: "app_name"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {

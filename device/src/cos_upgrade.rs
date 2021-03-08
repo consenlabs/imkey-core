@@ -1,5 +1,5 @@
 use crate::app_download::AppDownloadRequest;
-use crate::device_manager::{get_cert, get_firmware_version, get_se_id, get_sn};
+use crate::device_manager::{get_bl_version, get_cert, get_firmware_version, get_se_id, get_sn};
 use crate::error::ImkeyError;
 use crate::ServiceResponse;
 use crate::{Result, TsmService};
@@ -25,6 +25,7 @@ pub struct CosUpgradeRequest {
     #[serde(rename = "commandID")]
     pub command_id: String,
     pub card_ret_data_list: Option<Vec<String>>,
+    pub se_bl_version: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -42,13 +43,13 @@ impl CosUpgradeRequest {
     pub fn cos_upgrade(sdk_version: Option<String>) -> Result<()> {
         //read se device cert
         let mut device_cert = get_cert()?;
-        //        ApduCheck::checke_response(&device_cert)?; //TODO 在所有manager里的接口中增加check方法
 
         let mut is_jump = false;
         let seid;
         let sn;
         let mut se_cos_version = String::new();
         let mut is_bl_status = true;
+        let mut se_bl_version = None;
         //read seid and sn number
         if device_cert.starts_with("bf21") || device_cert.starts_with("BF21") {
             seid = get_se_id()?;
@@ -68,6 +69,7 @@ impl CosUpgradeRequest {
                     .iter(),
             );
             device_cert = hex::encode_upper(temp_device_cert);
+            se_bl_version = Some(get_bl_version()?);
         } else {
             return Err(ImkeyError::ImkeyTsmCosUpgradeFail.into());
         }
@@ -86,15 +88,16 @@ impl CosUpgradeRequest {
             status_word: None,
             command_id: String::from(constants::TSM_ACTION_COS_UPGRADE),
             card_ret_data_list: None,
+            se_bl_version: se_bl_version,
         };
 
         loop {
-            println!("send message：{:#?}", request_data);
+            // println!("send message：{:#?}", request_data);
             let req_data = serde_json::to_vec_pretty(&request_data).unwrap();
             let response_data = https::post(constants::TSM_ACTION_COS_UPGRADE, req_data)?;
             let return_bean: ServiceResponse<CosUpgradeResponse> =
                 serde_json::from_str(response_data.as_str())?;
-            println!("return message：{:#?}", return_bean);
+            // println!("return message：{:#?}", return_bean);
             if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //check if end
                 let next_step_key = return_bean._ReturnData.next_step_key.unwrap();
@@ -118,6 +121,8 @@ impl CosUpgradeRequest {
                                 {
                                     if "03".eq(next_step_key.as_str()) {
                                         reconnect()?;
+                                        se_bl_version = Some(get_bl_version()?);
+                                        request_data.se_bl_version = se_bl_version;
                                     } else if "05".eq(next_step_key.as_str()) {
                                         reconnect()?;
                                         se_cos_version = get_firmware_version()?;

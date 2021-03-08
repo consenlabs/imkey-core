@@ -27,4 +27,6 @@ protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/p
 protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/proto eos.proto
 protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/proto cosmos.proto
 protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/proto tron.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/proto substrate.proto
+protoc --swift_opt=Visibility=Public --swift_out=../../examples/ios/iosExample/proto common.proto
 popd

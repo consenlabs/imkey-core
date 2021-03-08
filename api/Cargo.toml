@@ -17,6 +17,8 @@ coin-bitcoin = {path = "../wallet/coin-bitcoin"}
 coin-eos = {path = "../wallet/coin-eos"}
 coin-cosmos = {path = "../wallet/coin-cosmos"}
 coin-filecoin = {path = "../wallet/coin-filecoin"}
+coin-substrate = {path = "../wallet/coin-substrate"}
+coin-tron = {path = "../wallet/coin-tron"}
 coin-bch = {path = "../wallet/coin-bch"}
 coin-btc-fork = {path = "../wallet/coin-btc-fork"}
 

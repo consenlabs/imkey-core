@@ -94,7 +94,7 @@ impl Transaction {
         data_pack.extend([9, sign_param.fee.as_bytes().len() as u8].iter());
         data_pack.extend(sign_param.fee.as_bytes().iter());
 
-        let key_manager_obj = KEY_MANAGER.lock().unwrap();
+        let key_manager_obj = KEY_MANAGER.lock();
         let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap();
 
         let mut apdu_pack: Vec<u8> = Vec::new();
