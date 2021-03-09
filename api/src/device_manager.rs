@@ -6,10 +6,11 @@ use common::constants;
 use common::{OPERATING_SYSTEM, XPUB_COMMON_IV, XPUB_COMMON_KEY_128};
 use device::device_manager;
 use device::deviceapi::{
-    AppDeleteReq, AppDownloadReq, AppUpdateReq, AvailableAppBean, BindAcquireReq, BindAcquireRes,
-    BindCheckRes, CheckUpdateRes, CosCheckUpdateRes, DeviceConnectReq, GetBatteryPowerRes,
-    GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes, GetLifeTimeRes, GetRamSizeRes,
-    GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes, SetBleNameReq,
+    AppDeleteReq, AppDownloadReq, AppDownloadRes, AppUpdateReq, AppUpdateRes, AvailableAppBean,
+    BindAcquireReq, BindAcquireRes, BindCheckRes, CheckUpdateRes, CosCheckUpdateRes,
+    DeviceConnectReq, GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes,
+    GetLifeTimeRes, GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes,
+    SetBleNameReq,
 };
 use parking_lot::RwLock;
 use prost::Message;
@@ -39,18 +40,39 @@ pub fn init_imkey_core(data: &[u8]) -> Result<Vec<u8>> {
 
 pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppDownloadReq = AppDownloadReq::decode(data).expect("imkey_illegal_param");
-    device_manager::app_download(request.app_name.as_ref())?;
-    encode_message(CommonResponse {
-        result: "success".to_string(),
-    })
+    let response = device_manager::app_download(request.app_name.as_ref())?;
+
+    let app_download_res = match response._ReturnData.address_register_list.is_some() {
+        true => AppDownloadRes {
+            address_register_list: response
+                ._ReturnData
+                .address_register_list
+                .expect("address_register_list_not_exist"),
+        },
+        _ => AppDownloadRes {
+            address_register_list: vec![],
+        },
+    };
+
+    encode_message(app_download_res)
 }
 
 pub fn app_update(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppUpdateReq = AppUpdateReq::decode(data).expect("imkey_illegal_prarm");
-    device_manager::app_update(request.app_name.as_ref())?;
-    encode_message(CommonResponse {
-        result: "success".to_string(),
-    })
+    let response = device_manager::app_update(request.app_name.as_ref())?;
+    let app_update_res = match response._ReturnData.address_register_list.is_some() {
+        true => AppUpdateRes {
+            address_register_list: response
+                ._ReturnData
+                .address_register_list
+                .expect("address_register_list_not_exist"),
+        },
+        _ => AppUpdateRes {
+            address_register_list: vec![],
+        },
+    };
+
+    encode_message(app_update_res)
 }
 
 pub fn app_delete(data: &[u8]) -> Result<Vec<u8>> {

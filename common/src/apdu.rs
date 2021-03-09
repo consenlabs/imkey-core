@@ -300,8 +300,7 @@ impl Ed25519Apdu {
         data.push(name.len() as u8);
         data.extend(name);
         Apdu::register_address(0x83, &data)
-
-   }
+    }
 }
 
 pub struct BchApdu();
