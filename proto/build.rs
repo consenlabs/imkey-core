@@ -41,7 +41,7 @@ fn main() {
     // tron
     env::set_var("OUT_DIR", "../wallet/coin-tron/src");
     prost_build::compile_protos(&["src/tron.proto"], &["src/"]).unwrap();
-    
+
     // tcx-bch
     env::set_var("OUT_DIR", "../wallet/coin-bch/src");
     prost_build::compile_protos(&["src/bch.proto"], &["src/"]).unwrap();

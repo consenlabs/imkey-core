@@ -3,7 +3,8 @@ use super::se_activate;
 use super::se_query::SeQueryRequest;
 use super::se_secure_check::SeSecureCheckRequest;
 use crate::app_delete::AppDeleteRequest;
-use crate::app_download::AppDownloadRequest;
+use crate::app_download::{AppDownloadRequest, AppDownloadResponse};
+use crate::app_update::AppUpdateResponse;
 use crate::cos_check_update::{CosCheckUpdateRequest, CosCheckUpdateResponse};
 use crate::cos_upgrade::CosUpgradeRequest;
 use crate::device_binding::DeviceManage;
@@ -158,7 +159,7 @@ pub fn check_update() -> Result<ServiceResponse<SeQueryResponse>> {
     SeQueryRequest::build_request_data(seid, sn, sdk_version).send_message()
 }
 
-pub fn app_download(app_name: &str) -> Result<()> {
+pub fn app_download(app_name: &str) -> Result<ServiceResponse<AppDownloadResponse>> {
     let seid: String = get_se_id()?;
     let device_cert: String = get_cert()?;
     let sdk_version = Some(constants::VERSION.to_string());
@@ -169,7 +170,7 @@ pub fn app_download(app_name: &str) -> Result<()> {
         .send_message()
 }
 
-pub fn app_update(app_name: &str) -> Result<()> {
+pub fn app_update(app_name: &str) -> Result<ServiceResponse<AppUpdateResponse>> {
     let seid: String = get_se_id()?;
     let device_cert: String = get_cert()?;
     let sdk_version = Some(constants::VERSION.to_string());
