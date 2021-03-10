@@ -5,9 +5,10 @@ use bitcoin::secp256k1::Secp256k1 as BitcoinSecp256k1;
 use bitcoin::util::base58;
 use bitcoin::util::bip32::{ChainCode, ChildNumber, ExtendedPubKey};
 use bitcoin::{Address, Network, PublicKey};
-use common::apdu::{ApduCheck, BchApdu, CoinCommonApdu};
+use common::apdu::{ApduCheck, BtcForkApdu, CoinCommonApdu};
 use common::error::CoinError;
 use common::utility::sha256_hash;
+use device::device_binding::KEY_MANAGER;
 use secp256k1::{Message, PublicKey as PublicKey2, Secp256k1, Signature};
 use std::str::FromStr;
 use transport::message::send_apdu;
@@ -51,8 +52,8 @@ pub fn address_verify(
         )
         .to_string();
 
-        let utxo_address = utxo.address.to_string();
-        let bch_address = BchAddress::convert_to_legacy_if_need(se_gen_address_str.as_ref())?;
+        let utxo_address = utxo.address.clone();
+        let bch_address = BchAddress::convert_to_legacy_if_need(utxo_address.as_ref())?;
 
         if !bch_address.eq(&se_gen_address_str) {
             return Err(CoinError::ImkeyAddressMismatchWithPath.into());
@@ -74,9 +75,9 @@ pub enum TransTypeFlg {
 get xpub
 */
 pub fn get_xpub_data(path: &str, verify_flag: bool) -> Result<String> {
-    let select_response = send_apdu(BchApdu::select_applet())?;
+    let select_response = send_apdu(BtcForkApdu::select_applet())?;
     ApduCheck::check_response(&select_response)?;
-    let xpub_data = send_apdu(BchApdu::get_xpub(path, verify_flag))?;
+    let xpub_data = send_apdu(BtcForkApdu::get_xpub(path, verify_flag))?;
     ApduCheck::check_response(&xpub_data)?;
     Ok(xpub_data)
 }
@@ -84,7 +85,9 @@ pub fn get_xpub_data(path: &str, verify_flag: bool) -> Result<String> {
 /**
 sign verify
 */
-pub fn secp256k1_sign_verify(public: &[u8], signed: &[u8], message: &[u8]) -> Result<bool> {
+pub fn apdu_sign_verify(signed: &[u8], message: &[u8]) -> Result<bool> {
+    let key_manager_obj = KEY_MANAGER.lock();
+    let public = &key_manager_obj.se_pub_key.as_slice();
     let secp = Secp256k1::new();
     //build public
     let public_obj = PublicKey2::from_slice(public)?;

@@ -5,6 +5,7 @@ use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 pub mod api;
 pub mod bch_address;
+pub mod bch_signer;
 pub mod btc_address;
 pub mod btc_fork_address;
 pub mod btc_signer;
@@ -23,6 +24,7 @@ pub mod substrate_address;
 pub mod substrate_signer;
 pub mod tron_address;
 pub mod tron_signer;
+
 use parking_lot::Mutex;
 
 #[macro_use]

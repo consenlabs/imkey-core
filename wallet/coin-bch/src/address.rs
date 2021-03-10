@@ -170,6 +170,14 @@ mod tests {
         let btc_address = get_btc_address_result.ok().unwrap();
         assert_eq!("qzld7dav7d2sfjdl6x9snkvf6raj8lfxjcj5fa8y2r", btc_address);
 
+        let network: Network = Network::Bitcoin;
+        let path: &str = "m/44'/145'/0'/1/0";
+        let get_btc_address_result = BchAddress::get_address(network, path);
+
+        assert!(get_btc_address_result.is_ok());
+        let btc_address = get_btc_address_result.ok().unwrap();
+        assert_eq!("qq5jyy9vmsznss93gmt8m2v2fep7wvpdwsn2hrjgsg", btc_address);
+
         let network: Network = Network::Testnet;
         let path: &str = "m/44'/145'/0'/0/0";
         let get_btc_address_result = BchAddress::get_address(network, path);

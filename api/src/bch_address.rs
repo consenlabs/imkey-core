@@ -1,11 +1,8 @@
-use crate::api::{
-    AddressParam, AddressResult, BitcoinWallet, ExternalAddress, ExternalAddressParam,
-};
+use crate::api::{AddressParam, AddressResult};
 use crate::error_handling::Result;
 use crate::message_handler::encode_message;
 use bitcoin::Network;
 use coin_bch::address::BchAddress;
-use prost::Message;
 
 pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
     let network = match param.network.as_ref() {
