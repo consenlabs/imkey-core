@@ -352,7 +352,26 @@ impl BtcForkApdu {
         return apdu_vec;
     }
 
-    pub fn btc_fork_sign(ins: u8, last_one: bool, hash_type: u8, data: Vec<u8>) -> String {
+    pub fn btc_fork_perpare_input(ins: u8, p1: u8, data: &Vec<u8>) -> String {
+        if data.len() as u32 > LC_MAX {
+            panic!("data to long");
+        }
+        let mut apdu = ApduHeader::new(0x80, ins, p1, 0x00, data.len() as u8).to_array();
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
+    pub fn btc_fork_sign(ins: u8, index: u8, hash_type: u8, path: &str) -> String {
+        let path_bytes = path.as_bytes();
+        let mut apdu =
+            ApduHeader::new(0x80, ins, index, hash_type, path_bytes.len() as u8).to_array();
+        apdu.extend(path_bytes.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
+    pub fn btc_fork_segwit_sign(ins: u8, last_one: bool, hash_type: u8, data: Vec<u8>) -> String {
         if data.len() as u32 > LC_MAX {
             panic!("data to long");
         }

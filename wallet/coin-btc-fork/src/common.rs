@@ -1,14 +1,11 @@
 use crate::address::BtcForkAddress;
 use crate::btcforkapi::Utxo;
 use crate::Result;
-use bitcoin::consensus::serialize;
-use bitcoin::hash_types::{PubkeyHash, ScriptHash};
 use bitcoin::secp256k1::Secp256k1 as BitcoinSecp256k1;
 use bitcoin::util::base58;
 use bitcoin::util::bip32::{ChainCode, ChildNumber, ExtendedPubKey};
 use bitcoin::Network;
 use bitcoin::{Address, PublicKey};
-use bitcoin_hashes::hash160;
 use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::sha256d::Hash as Hash256;
 use bitcoin_hashes::Hash;
@@ -53,13 +50,33 @@ pub fn address_verify(
             extend_public_key = extend_public_key.ckd_pub(&bitcoin_secp, test_chain_number)?;
         }
 
-        let se_address = Address::p2pkh(
+        let se_gen_address = match trans_type_flg {
+            TransTypeFlg::BTC => Address::p2pkh(
+                &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
+                network,
+            ),
+            TransTypeFlg::SEGWIT => Address::p2shwpkh(
+                &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
+                network,
+            )?,
+        };
+
+        /*let se_address = Address::p2pkh(
             &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
             network,
         );
-        let se_script = se_address.script_pubkey();
+
+        let se_address1 =  Address::p2shwpkh(
+            &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
+            network,
+        );*/
+
+        let se_script = se_gen_address.script_pubkey();
         let utxo_address = BtcForkAddress::from_str(&utxo.address).unwrap();
         let utxo_script = utxo_address.payload.script_pubkey();
+
+        let h1 = utxo_script.to_string();
+        let h2 = se_script.to_string();
 
         if se_script != utxo_script {
             return Err(CoinError::ImkeyAddressMismatchWithPath.into());
@@ -109,22 +126,6 @@ pub fn secp256k1_sign_verify(public: &[u8], signed: &[u8], message: &[u8]) -> Re
 get address version
 */
 pub fn get_address_version(network: Network, address: &str) -> Result<u8> {
-    match network {
-        Network::Bitcoin => {
-            if !address.starts_with('1') && !address.starts_with('3') {
-                return Err(CoinError::AddressTypeMismatch.into());
-            }
-        }
-        Network::Testnet => {
-            if !address.starts_with('m') && !address.starts_with('n') && !address.starts_with('2') {
-                return Err(CoinError::AddressTypeMismatch.into());
-            }
-        }
-        _ => {
-            return Err(CoinError::ImkeySdkIllegalArgument.into());
-        }
-    }
-    //get address version
     let address_bytes = base58::from(address)?;
     Ok(address_bytes.as_slice()[0])
 }

@@ -1,12 +1,8 @@
-use crate::api::{
-    AddressParam, AddressResult, BitcoinWallet, ExternalAddress, ExternalAddressParam,
-};
+use crate::api::{AddressParam, AddressResult};
 use crate::error_handling::Result;
 use crate::message_handler::encode_message;
-use bitcoin::Network;
 use coin_btc_fork::address::BtcForkAddress;
 use coin_btc_fork::btc_fork_network::network_from_param;
-use prost::Message;
 
 pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
     let address: String;
@@ -30,9 +26,7 @@ pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
 
 #[cfg(test)]
 mod tests {
-    use crate::api::{
-        AddressParam, AddressResult, BitcoinWallet, ExternalAddress, ExternalAddressParam,
-    };
+    use crate::api::AddressParam;
     use crate::btc_fork_address::get_address;
     use device::device_binding::bind_test;
 

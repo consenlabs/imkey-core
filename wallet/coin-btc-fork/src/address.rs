@@ -2,11 +2,9 @@ use crate::btc_fork_network::{network_form_hrp, network_from_coin, BtcForkNetwor
 use crate::common::get_xpub_data;
 use crate::Result;
 use bitcoin::hash_types::{PubkeyHash, ScriptHash};
-use bitcoin::util::address::Error as BtcAddressError;
 use bitcoin::util::address::Payload;
 use bitcoin::util::base58;
 use bitcoin::{Address, Network, PublicKey};
-use bitcoin_hashes::hash160;
 use bitcoin_hashes::Hash;
 
 use common::coin_info::coin_info_from_param;
@@ -276,6 +274,14 @@ mod test {
         assert!(get_address_result.is_ok());
         let addr = get_address_result.ok().unwrap();
         assert_eq!("Ldfdegx3hJygDuFDUA7Rkzjjx8gfFhP9DP", addr);
+
+        let network = network_from_param("LITECOIN", "TESTNET", "NONE").unwrap();
+        let path: &str = "m/44'/2'/0'/0/0";
+        let get_address_result = BtcForkAddress::p2pkh(&network, path);
+
+        assert!(get_address_result.is_ok());
+        let addr = get_address_result.ok().unwrap();
+        assert_eq!("myxdgXjCRgAskD2g1b6WJttJbuv67hq6sQ", addr);
 
         let network = network_from_param("LITECOIN", "MAINNET", "P2WPKH").unwrap();
         let path: &str = "m/44'/2'/0'/0/0";

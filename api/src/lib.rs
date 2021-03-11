@@ -8,6 +8,7 @@ pub mod bch_address;
 pub mod bch_signer;
 pub mod btc_address;
 pub mod btc_fork_address;
+pub mod btc_fork_signer;
 pub mod btc_signer;
 pub mod cosmos_address;
 pub mod cosmos_signer;
@@ -202,6 +203,9 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 }
                 "BITCOINCASH" => {
                     bch_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
+                }
+                "LITECOIN" => {
+                    btc_fork_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
                 }
                 _ => Err(format_err!("sign_tx unsupported_chain")),
             }
