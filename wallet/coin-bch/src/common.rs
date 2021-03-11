@@ -40,11 +40,23 @@ pub fn address_verify(
         };
 
         let bitcoin_secp = BitcoinSecp256k1::new();
-        let index_number_vec: Vec<&str> = utxo.derive_path.as_str().split('/').collect();
-        for index_number in index_number_vec {
-            let test_chain_number = ChildNumber::from_normal_idx(index_number.parse().unwrap())?;
-            extend_public_key = extend_public_key.ckd_pub(&bitcoin_secp, test_chain_number)?;
-        }
+
+        let se_gen_address_str = if utxo.derive_path.is_empty() {
+            Address::p2pkh(&public_key_obj, network).to_string()
+        } else {
+            let index_number_vec: Vec<&str> = utxo.derive_path.as_str().split('/').collect();
+
+            for index_number in index_number_vec {
+                let test_chain_number =
+                    ChildNumber::from_normal_idx(index_number.parse().unwrap())?;
+                extend_public_key = extend_public_key.ckd_pub(&bitcoin_secp, test_chain_number)?;
+            }
+            Address::p2pkh(
+                &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
+                network,
+            )
+            .to_string()
+        };
         //verify address
         let se_gen_address_str = Address::p2pkh(
             &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
