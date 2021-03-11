@@ -49,8 +49,10 @@ impl BchTransaction {
     ) -> Result<TxSignResult> {
         //path check
         check_path_validity(path)?;
-        let mut path_str = path.to_string();
-        if !path.ends_with("/") {
+        let bip44_segments: Vec<&str> = path.split("/").collect();
+        let is_full_path = bip44_segments.len() == 6;
+        let mut path_str: String = path.to_string();
+        if !path.ends_with("/") && !is_full_path {
             path_str = format!("{}{}", path_str, "/");
         }
         //check utxo number
