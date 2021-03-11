@@ -44,6 +44,7 @@ impl BchTransaction {
         network: Network,
         path: &str,
         change_idx: i32,
+        change_address: &str,
         extra_data: &Vec<u8>,
     ) -> Result<TxSignResult> {
         //path check
@@ -94,24 +95,10 @@ impl BchTransaction {
         txouts.push(self.build_send_to_output());
 
         //add change output
-        /*if self.get_change_amount() > DUST_THRESHOLD {
-            let path_temp = format!("{}{}{}", path_str, "1/", change_idx);
-            let bch_address = BchAddress::get_address(network, path_temp.as_str())?;
-            let legacy_address = BchAddress::convert_to_legacy_if_need(bch_address.as_str())?;
-            let address_obj = Address::from_str(legacy_address.as_str())?;
-            txouts.push(TxOut {
-                value: self.get_change_amount() as u64,
-                script_pubkey: address_obj.script_pubkey(),
-            });
-        }*/
-
-        let path_temp = format!("{}{}{}", path_str, "1/", change_idx);
-        let bch_address = BchAddress::get_address(network, path_temp.as_str())?;
-        let legacy_address = BchAddress::convert_to_legacy_if_need(bch_address.as_str())?;
-        let address_obj = Address::from_str(legacy_address.as_str())?;
+        let change_addr = self.get_change_address(network, path, change_idx, change_address)?;
         txouts.push(TxOut {
             value: self.get_change_amount() as u64,
-            script_pubkey: address_obj.script_pubkey(),
+            script_pubkey: change_addr.script_pubkey(),
         });
 
         //add the op_return
@@ -327,21 +314,33 @@ impl BchTransaction {
             .push_slice(Vec::from_hex(utxo_public_key)?.as_slice())
             .into_script())
     }
+
+    fn get_change_address(
+        &self,
+        network: Network,
+        path: &str,
+        change_idx: i32,
+        change_address: &str,
+    ) -> Result<Address> {
+        let legacy_addr = if !change_address.is_empty() {
+            if !BchAddress::is_valid(change_address) {
+                return Err(CoinError::ImkeyAddressMismatchWithPath.into());
+            }
+            BchAddress::convert_to_legacy_if_need(change_address)?
+        } else {
+            let path_temp = format!("{}{}{}", path, "1/", change_idx);
+            let bch_address = BchAddress::get_address(network, path_temp.as_str())?;
+            BchAddress::convert_to_legacy_if_need(bch_address.as_str())?
+        };
+        Ok(Address::from_str(legacy_addr.as_str())?)
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::bchapi::BchTxInput;
-    use bitcoin::{Address, Network};
-    use hex::FromHex;
-    use std::str::FromStr;
-
-    use bitcoin::blockdata::transaction::SigHashType::None;
-    use common::error::CoinError;
+    use bitcoin::Network;
     use device::device_binding::bind_test;
-    use device::device_binding::DeviceManage;
-    use transport::hid_api::hid_connect;
 
     #[test]
     fn test_sign_transaction() {
@@ -370,6 +369,7 @@ mod tests {
             Network::Bitcoin,
             &"m/44'/145'/0'/".to_string(),
             0,
+            "",
             &extra_data,
         );
         assert_eq!(
@@ -415,6 +415,7 @@ mod tests {
             Network::Bitcoin,
             &"m/44'/145'/0'/".to_string(),
             0,
+            "",
             &extra_data,
         );
         assert_eq!(
@@ -460,10 +461,57 @@ mod tests {
             Network::Bitcoin,
             &"m/44'/145'/0'/".to_string(),
             0,
+            "",
             &extra_data,
         );
         assert_eq!(
             "0100000002e2986a004630cb451921d9e7b4454a6671e50ddd43ea431c34f6011d9ca4c309000000006a47304402203b2b4f64117152d0e332d0ce18da1bc789643b8ce91047a3f347ddba24c2a601022074fc24b99175044637cece18b64eed1ea40edcfda61fbb158ff5547a6213a57341210251492dfb299f21e426307180b577f927696b6df0b61883215f88eb9685d3d449ffffffff74cdd54bc48333e1d2f108460284d137c39b6c417d9ff55a572a9550d428d69a000000006a47304402206e0bd590268c6949f063424f0ad58cc500752b35773295584f71e9a90221e2400220133b04eecb1bb992f7799dc73a53f07bbb521b6c80d2ebdbe759be10a7c6367741210251492dfb299f21e426307180b577f927696b6df0b61883215f88eb9685d3d449ffffffff02b0ad0100000000001976a9142af4c2c085cd9da90c13cd64c6ae746fa139956e88ac3c620700000000001976a914292210acdc053840b146d67da98a4e43e7302d7488ac00000000",
+            sign_result.as_ref().unwrap().signature
+        );
+    }
+
+    #[test]
+    fn test_sign_change_address() {
+        //binding device
+        bind_test();
+
+        let extra_data = vec![];
+        let utxo = Utxo {
+            txhash: "09c3a49c1d01f6341c43ea43dd0de571664a45b4e7d9211945cb3046006a98e2".to_string(),
+            vout: 0,
+            amount: 100000,
+            address: "qzld7dav7d2sfjdl6x9snkvf6raj8lfxjcj5fa8y2r".to_string(),
+            script_pubkey: "76a91488d9931ea73d60eaf7e5671efc0552b912911f2a88ac".to_string(),
+            derive_path: "0/0".to_string(),
+            sequence: 0,
+        };
+        let utxo2 = Utxo {
+            txhash: "9ad628d450952a575af59f7d416c9bc337d184024608f1d2e13383c44bd5cd74".to_string(),
+            vout: 0,
+            amount: 500000,
+            address: "qzld7dav7d2sfjdl6x9snkvf6raj8lfxjcj5fa8y2r".to_string(),
+            script_pubkey: "76a91488d9931ea73d60eaf7e5671efc0552b912911f2a88ac".to_string(),
+            derive_path: "0/0".to_string(),
+            sequence: 0,
+        };
+        let mut utxos = Vec::new();
+        utxos.push(utxo);
+        utxos.push(utxo2);
+        let transaction_req_data = BchTransaction {
+            to: "14v8bLFeGxuQG7NsKVfbk6P3PsazeduWcK".to_string(),
+            amount: 110000,
+            unspents: utxos,
+            fee: 6100,
+        };
+        let sign_result = transaction_req_data.sign_transaction(
+            Network::Bitcoin,
+            &"m/44'/145'/0'/".to_string(),
+            0,
+            "qzld7dav7d2sfjdl6x9snkvf6raj8lfxjcj5fa8y2r",
+            &extra_data,
+        );
+        assert_eq!(
+            "0100000002e2986a004630cb451921d9e7b4454a6671e50ddd43ea431c34f6011d9ca4c309000000006a47304402205cb3ae31d6ea0a8b21040c176c39b5b7468423e819f74dd9dc3389e46c3e5f9a02204d1cf42ee8d1409568c3ef907f2b6b8b0b9307b2e40d874dffc32d08692839d041210251492dfb299f21e426307180b577f927696b6df0b61883215f88eb9685d3d449ffffffff74cdd54bc48333e1d2f108460284d137c39b6c417d9ff55a572a9550d428d69a000000006b483045022100d6b9ad4d0322928ad008650e2a2fc04c4861df90b7e2a2c0d221f93fc95ce4b00220744f50dba959332234677687467a44fbbf2e20537dd25f26bd0608790f946c2c41210251492dfb299f21e426307180b577f927696b6df0b61883215f88eb9685d3d449ffffffff02b0ad0100000000001976a9142af4c2c085cd9da90c13cd64c6ae746fa139956e88ac3c620700000000001976a914bedf37acf35504c9bfd18b09d989d0fb23fd269688ac00000000",
             sign_result.as_ref().unwrap().signature
         );
     }

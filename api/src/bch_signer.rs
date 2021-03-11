@@ -3,17 +3,17 @@ use crate::message_handler::encode_message;
 use bitcoin::Network;
 
 use coin_bch::transaction::{BchTransaction, Utxo};
-use coin_bitcoin::btcapi::{BtcTxInput, BtcTxOutput};
+use coin_btc_fork::btcforkapi::{BtcForkTxInput, BtcForkTxOutput};
 use common::utility::hex_to_bytes;
 use common::SignParam;
 use prost::Message;
 
 pub fn sign_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u8>> {
-    let input: BtcTxInput = BtcTxInput::decode(data).expect("BtcTxInput");
+    let input: BtcForkTxInput = BtcForkTxInput::decode(data).expect("BtcTxInput");
     sign_bch_transaction(&input, sign_param)
 }
 
-pub fn sign_bch_transaction(param: &BtcTxInput, sign_param: &SignParam) -> Result<Vec<u8>> {
+pub fn sign_bch_transaction(param: &BtcForkTxInput, sign_param: &SignParam) -> Result<Vec<u8>> {
     let mut unspents = Vec::new();
     for utxo in &param.unspents {
         let new_utxo = Utxo {
@@ -41,20 +41,16 @@ pub fn sign_bch_transaction(param: &BtcTxInput, sign_param: &SignParam) -> Resul
         Network::Bitcoin
     };
 
-    let op_return: Vec<u8>;
-    if let Some(extra) = param.extra.clone() {
-        op_return = hex_to_bytes(&extra.op_return).expect("decode btc extra op_return");
-    } else {
-        op_return = vec![];
-    }
+    let extra_data = vec![];
 
     let signed = bch_tx.sign_transaction(
         network,
         &sign_param.path,
         param.change_address_index as i32,
-        &op_return,
+        &param.change_address,
+        &extra_data,
     )?;
-    let tx_sign_result = BtcTxOutput {
+    let tx_sign_result = BtcForkTxOutput {
         signature: signed.signature,
         tx_hash: signed.tx_hash,
         wtx_hash: "".to_string(),
@@ -66,8 +62,7 @@ pub fn sign_bch_transaction(param: &BtcTxInput, sign_param: &SignParam) -> Resul
 mod tests {
     use crate::bch_signer::sign_bch_transaction;
     use coin_bch::transaction::BchTransaction;
-    use coin_bitcoin::btcapi::Utxo;
-    use coin_bitcoin::btcapi::{BtcTxInput, BtcTxOutput};
+    use coin_btc_fork::btcforkapi::{BtcForkTxInput, BtcForkTxOutput, Utxo};
     use common::SignParam;
     use device::device_binding::bind_test;
 
@@ -86,15 +81,14 @@ mod tests {
         };
         let mut utxos = Vec::new();
         utxos.push(utxo);
-        let btcTxInput = BtcTxInput {
+        let txInput = BtcForkTxInput {
             to: "qq40fskqshxem2gvz0xkf34ww3h6zwv4dcr7pm0z6s".to_string(),
             amount: 93454,
             fee: 6000,
             change_address_index: 0,
+            change_address: "qq5jyy9vmsznss93gmt8m2v2fep7wvpdwsn2hrjgsg".to_string(),
             unspents: utxos,
             seg_wit: "".to_string(),
-            protocol: "".to_string(),
-            extra: None,
         };
 
         let sign_param = SignParam {
@@ -108,7 +102,7 @@ mod tests {
             fee: "".to_string(),
         };
 
-        let message = sign_bch_transaction(&btcTxInput, &sign_param);
+        let message = sign_bch_transaction(&txInput, &sign_param);
         assert_eq!("0ac4033031303030303030303165323938366130303436333063623435313932316439653762343435346136363731653530646464343365613433316333346636303131643963613463333039303030303030303036623438333034353032323130306164633130333634346361353432666261333431323662636165663237613934616633346432373232336265376461646436333462386664613239633337366530323230303562323333633037633234633838363062626338393936323461353566386537633666656232353062616364633462623062666664353666666138303037633431323130323531343932646662323939663231653432363330373138306235373766393237363936623664663062363138383332313566383865623936383564336434343966666666666666663032306536643031303030303030303030303139373661393134326166346332633038356364396461393063313363643634633661653734366661313339393536653838616332323032303030303030303030303030313937366139313432393232313061636463303533383430623134366436376461393861346534336537333032643734383861633030303030303030124037363663636331363035323563303762613563393533646664343233373331366264316462386436333561636366323266346366383737343363306631306135", hex::encode(message.unwrap()));
     }
 }

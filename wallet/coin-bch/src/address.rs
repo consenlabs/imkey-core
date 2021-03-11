@@ -7,7 +7,7 @@ use transport::message::send_apdu;
 use bch_addr::Converter;
 use bitcoin::util::address::Error as BtcAddressError;
 use bitcoin::{Address as BtcAddress, Network, PublicKey, Script};
-use common::apdu::{Apdu, ApduCheck, BtcApdu, CoinCommonApdu};
+use common::apdu::{Apdu, ApduCheck, BtcApdu};
 use common::constants::BTC_AID;
 use common::path::check_path_validity;
 use common::utility;
@@ -119,6 +119,15 @@ impl BchAddress {
         let target_addr = BchAddress::convert_to_legacy_if_need(target_addr)?;
         let addr = BtcAddress::from_str(&target_addr)?;
         Ok(addr.script_pubkey())
+    }
+
+    pub fn is_valid(address: &str) -> bool {
+        let converter = Converter::default();
+        if converter.is_legacy_addr(address) || converter.is_cash_addr(address) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
