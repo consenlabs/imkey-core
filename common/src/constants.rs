@@ -45,6 +45,7 @@ pub const DUST_THRESHOLD: i64 = 2730;
 pub const MIN_NONDUST_OUTPUT: i64 = 546;
 // max op return size
 pub const MAX_OPRETURN_SIZE: usize = 80;
+pub const BTC_FORK_DUST: i64 = 546;
 
 // imkey device status
 pub const IMKEY_DEV_STATUS_INACTIVATED: &str = "inactivated";

@@ -12,7 +12,7 @@ use bitcoin_hashes::hash160;
 use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::Hash;
 use common::apdu::{ApduCheck, BtcForkApdu};
-use common::constants::{MAX_OPRETURN_SIZE, MAX_UTXO_NUMBER, TIMEOUT_LONG};
+use common::constants::{BTC_FORK_DUST, MAX_OPRETURN_SIZE, MAX_UTXO_NUMBER, TIMEOUT_LONG};
 use common::error::CoinError;
 use common::path::check_path_validity;
 use common::utility::{bigint_to_byte_vec, secp256k1_sign};
@@ -95,11 +95,14 @@ impl BchTransaction {
         txouts.push(self.build_send_to_output());
 
         //add change output
-        let change_addr = self.get_change_address(network, path, change_idx, change_address)?;
-        txouts.push(TxOut {
-            value: self.get_change_amount() as u64,
-            script_pubkey: change_addr.script_pubkey(),
-        });
+        if self.get_change_amount() > BTC_FORK_DUST {
+            //add change output
+            let change_addr = self.get_change_address(network, path, change_idx, change_address)?;
+            txouts.push(TxOut {
+                value: self.get_change_amount() as u64,
+                script_pubkey: change_addr.script_pubkey(),
+            });
+        }
 
         //add the op_return
         if !extra_data.is_empty() {
@@ -324,7 +327,7 @@ impl BchTransaction {
     ) -> Result<Address> {
         let legacy_addr = if !change_address.is_empty() {
             if !BchAddress::is_valid(change_address) {
-                return Err(CoinError::ImkeyAddressMismatchWithPath.into());
+                return Err(CoinError::InvalidAddress.into());
             }
             BchAddress::convert_to_legacy_if_need(change_address)?
         } else {

@@ -4,6 +4,7 @@ pub mod address;
 pub mod btc_fork_network;
 pub mod btcforkapi;
 pub mod common;
+pub mod transaction;
 
 pub type Result<T> = result::Result<T, failure::Error>;
 extern crate failure;

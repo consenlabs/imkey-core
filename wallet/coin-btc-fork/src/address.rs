@@ -1,9 +1,17 @@
-use crate::btc_fork_network::BtcForkNetwork;
+use crate::btc_fork_network::{network_form_hrp, network_from_coin, BtcForkNetwork};
 use crate::common::get_xpub_data;
 use crate::Result;
+use bitcoin::hash_types::{PubkeyHash, ScriptHash};
+use bitcoin::util::address::Error as BtcAddressError;
 use bitcoin::util::address::Payload;
 use bitcoin::util::base58;
 use bitcoin::{Address, Network, PublicKey};
+use bitcoin_hashes::hash160;
+use bitcoin_hashes::Hash;
+
+use common::coin_info::coin_info_from_param;
+use common::coin_info::CoinInfo;
+use common::error::CoinError;
 use common::path::check_path_validity;
 use std::fmt::{Display, Formatter};
 use std::str::FromStr;
@@ -73,6 +81,127 @@ impl BtcForkAddress {
 
         Ok(btc_fork_address.to_string())
     }
+
+    pub fn is_valid(address: &str, coin: &CoinInfo) -> bool {
+        let ret = BtcForkAddress::from_str(address);
+        if ret.is_err() {
+            false
+        } else {
+            let addr: BtcForkAddress = ret.unwrap();
+            addr.network.network == coin.network
+        }
+    }
+}
+
+impl FromStr for BtcForkAddress {
+    type Err = failure::Error;
+
+    fn from_str(s: &str) -> Result<BtcForkAddress> {
+        // try bech32
+        let bech32_network = bech32_network(s);
+        if let Some(network) = bech32_network {
+            // decode as bech32
+            let (_, payload) = bech32::decode(s)?;
+            if payload.is_empty() {
+                return Err(CoinError::EmptyBech32Payload.into());
+            }
+
+            // Get the script version and program (converted from 5-bit to 8-bit)
+            let (version, program): (bech32::u5, Vec<u8>) = {
+                let (v, p5) = payload.split_at(1);
+                (v[0], bech32::FromBase32::from_base32(p5)?)
+            };
+
+            // Generic segwit checks.
+            if version.to_u8() > 16 {
+                return Err(CoinError::InvalidWitnessVersion.into());
+            }
+            if program.len() < 2 || program.len() > 40 {
+                return Err(CoinError::InvalidWitnessProgramLength.into());
+            }
+
+            // Specific segwit v0 check.
+            if version.to_u8() == 0 && (program.len() != 20 && program.len() != 32) {
+                return Err(CoinError::InvalidSegwitV0ProgramLength.into());
+            }
+
+            return Ok(BtcForkAddress {
+                payload: Payload::WitnessProgram { version, program },
+                network,
+            });
+        }
+
+        let data = decode_base58(s)?;
+        let (network, payload) = match data[0] {
+            0 => {
+                let coin_info = coin_info_from_param("BITCOIN", "MAINNET", "NONE", "")
+                    .expect("BtcForkNetwork coin_info");
+                (
+                    network_from_coin(&coin_info).expect("btc"),
+                    Payload::PubkeyHash(PubkeyHash::from_slice(&data[1..]).unwrap()),
+                )
+            }
+            5 => {
+                let coin_info = coin_info_from_param("BITCOIN", "MAINNET", "P2WPKH", "")
+                    .expect("BITCOIN-P2WPKH coin_info");
+                (
+                    network_from_coin(&coin_info).expect("btc"),
+                    Payload::ScriptHash(ScriptHash::from_slice(&data[1..]).unwrap()),
+                    //Payload::ScriptHash(hash160::Hash::from_slice(&data[1..]).unwrap()),
+                )
+            }
+            0x30 => {
+                let coin_info = coin_info_from_param("LITECOIN", "MAINNET", "NONE", "")
+                    .expect("LITECOIN coin_info");
+                (
+                    network_from_coin(&coin_info).expect("ltc-L"),
+                    Payload::PubkeyHash(PubkeyHash::from_slice(&data[1..]).unwrap()),
+                    //Payload::PubkeyHash(hash160::Hash::from_slice(&data[1..]).unwrap()),
+                )
+            }
+            0x32 => {
+                let coin_info = coin_info_from_param("LITECOIN", "MAINNET", "P2WPKH", "")
+                    .expect("LITECOIN-P2WPKH coin_info");
+                (
+                    network_from_coin(&coin_info).expect("ltc"),
+                    Payload::ScriptHash(ScriptHash::from_slice(&data[1..]).unwrap()),
+                    //Payload::ScriptHash(hash160::Hash::from_slice(&data[1..]).unwrap()),
+                )
+            }
+            0x3a => {
+                let coin_info = coin_info_from_param("LITECOIN", "TESTNET", "P2WPKH", "")
+                    .expect("LITECOIN TESTNET P2WPKH coin_info");
+                (
+                    network_from_coin(&coin_info).expect("ltc-testnet"),
+                    Payload::ScriptHash(ScriptHash::from_slice(&data[1..]).unwrap()),
+                    //Payload::ScriptHash(hash160::Hash::from_slice(&data[1..]).unwrap()),
+                )
+            }
+            111 => {
+                let coin_info = coin_info_from_param("BITCOIN", "TESTNET", "NONE", "")
+                    .expect("BITCOIN-TESTNET coin_info");
+                (
+                    network_from_coin(&coin_info).expect("btc-testnet"),
+                    Payload::PubkeyHash(PubkeyHash::from_slice(&data[1..]).unwrap()),
+                    //Payload::PubkeyHash(hash160::Hash::from_slice(&data[1..]).unwrap()),
+                )
+            }
+            196 => {
+                let coin_info = coin_info_from_param("BITCOIN", "TESTNET", "P2WPKH", "")
+                    .expect("BITCOIN-TESTNET-P2WPKH coin_info");
+                (
+                    network_from_coin(&coin_info).expect("btc-testnet"),
+                    Payload::ScriptHash(ScriptHash::from_slice(&data[1..]).unwrap()),
+                    //Payload::ScriptHash(hash160::Hash::from_slice(&data[1..]).unwrap()),
+                )
+            }
+            x => {
+                return Err(CoinError::InvalidVersion.into());
+            }
+        };
+
+        Ok(BtcForkAddress { network, payload })
+    }
 }
 
 impl Display for BtcForkAddress {
@@ -103,12 +232,39 @@ impl Display for BtcForkAddress {
     }
 }
 
+/// Extract the bech32 prefix.
+/// Returns the same slice when no prefix is found.
+fn bech32_network(bech32: &str) -> Option<BtcForkNetwork> {
+    let bech32_prefix = match bech32.rfind('1') {
+        None => None,
+        Some(sep) => Some(bech32.split_at(sep).0),
+    };
+    match bech32_prefix {
+        Some(prefix) => network_form_hrp(prefix),
+        None => None,
+    }
+}
+
+fn decode_base58(addr: &str) -> Result<Vec<u8>> {
+    // Base58
+    if addr.len() > 50 {
+        return Err(CoinError::InvalidAddrLength.into());
+    }
+    let data = base58::from_check(&addr)?;
+    if data.len() != 21 {
+        return Err(CoinError::InvalidAddrLength.into());
+    } else {
+        Ok(data)
+    }
+}
+
 #[cfg(test)]
 mod test {
     use crate::address::BtcForkAddress;
     use crate::btc_fork_network::network_from_param;
     use bitcoin::Network;
     use device::device_binding::bind_test;
+    use std::str::FromStr;
 
     #[test]
     fn test_btc_fork_address() {
@@ -136,5 +292,35 @@ mod test {
         assert!(get_address_result.is_ok());
         let addr = get_address_result.ok().unwrap();
         assert_eq!("ltc1qefxc4n0dd88y7pwsjfv5d5nplpkxwh7cl75fny", addr);
+    }
+
+    #[test]
+    pub fn test_btc_fork_address_from_str() {
+        let addr = BtcForkAddress::from_str("MR5Hu9zXPX3o9QuYNJGft1VMpRP418QDfW").unwrap();
+        assert_eq!(addr.network.coin, "LITECOIN");
+        assert_eq!(addr.network.seg_wit, "P2WPKH");
+        assert_eq!(addr.network.network, "MAINNET");
+        let addr = BtcForkAddress::from_str("ltc1qum864wd9nwsc0u9ytkctz6wzrw6g7zdn08yddf").unwrap();
+        assert_eq!(addr.network.coin, "LITECOIN");
+        assert_eq!(addr.network.seg_wit, "SEGWIT");
+        assert_eq!(addr.network.network, "MAINNET");
+
+        let addr = BtcForkAddress::from_str("3Js9bGaZSQCNLudeGRHL4NExVinc25RbuG").unwrap();
+        assert_eq!(addr.network.coin, "BITCOIN");
+        assert_eq!(addr.network.seg_wit, "P2WPKH");
+        assert_eq!(addr.network.network, "MAINNET");
+        let addr = BtcForkAddress::from_str("bc1qum864wd9nwsc0u9ytkctz6wzrw6g7zdntm7f4e").unwrap();
+        assert_eq!(addr.network.coin, "BITCOIN");
+        assert_eq!(addr.network.seg_wit, "SEGWIT");
+        assert_eq!(addr.network.network, "MAINNET");
+        let addr = BtcForkAddress::from_str("12z6UzsA3tjpaeuvA2Zr9jwx19Azz74D6g").unwrap();
+        assert_eq!(addr.network.coin, "BITCOIN");
+        assert_eq!(addr.network.seg_wit, "NONE");
+        assert_eq!(addr.network.network, "MAINNET");
+
+        let addr = BtcForkAddress::from_str("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB").unwrap();
+        assert_eq!(addr.network.coin, "BITCOIN");
+        assert_eq!(addr.network.seg_wit, "P2WPKH");
+        assert_eq!(addr.network.network, "TESTNET");
     }
 }

@@ -1,3 +1,4 @@
+use common::coin_info::CoinInfo;
 use parking_lot::RwLock;
 
 #[derive(Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -176,6 +177,9 @@ lazy_static! {
 // LTC address prefix: https://bitcoin.stackexchange.com/questions/62781/litecoin-constants-and-prefixes
 // hrp: https://github.com/satoshilabs/slips/blob/master/slip-0173.md
 // BTC https://en.bitcoin.it/wiki/List_of_address_prefixes
+pub fn network_from_coin(coin_info: &CoinInfo) -> Option<BtcForkNetwork> {
+    network_from_param(&coin_info.coin, &coin_info.network, &coin_info.seg_wit)
+}
 
 pub fn network_from_param(
     chain_type: &str,
