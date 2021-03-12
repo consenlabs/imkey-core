@@ -44,10 +44,13 @@ pub fn address_verify(
         };
 
         let bitcoin_secp = BitcoinSecp256k1::new();
-        let index_number_vec: Vec<&str> = utxo.derived_path.as_str().split('/').collect();
-        for index_number in index_number_vec {
-            let test_chain_number = ChildNumber::from_normal_idx(index_number.parse().unwrap())?;
-            extend_public_key = extend_public_key.ckd_pub(&bitcoin_secp, test_chain_number)?;
+        if !utxo.derived_path.is_empty() {
+            let index_number_vec: Vec<&str> = utxo.derived_path.as_str().split('/').collect();
+            for index_number in index_number_vec {
+                let test_chain_number =
+                    ChildNumber::from_normal_idx(index_number.parse().unwrap())?;
+                extend_public_key = extend_public_key.ckd_pub(&bitcoin_secp, test_chain_number)?;
+            }
         }
 
         let se_gen_address = match trans_type_flg {
@@ -61,22 +64,9 @@ pub fn address_verify(
             )?,
         };
 
-        /*let se_address = Address::p2pkh(
-            &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
-            network,
-        );
-
-        let se_address1 =  Address::p2shwpkh(
-            &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
-            network,
-        );*/
-
         let se_script = se_gen_address.script_pubkey();
         let utxo_address = BtcForkAddress::from_str(&utxo.address).unwrap();
         let utxo_script = utxo_address.payload.script_pubkey();
-
-        let h1 = utxo_script.to_string();
-        let h2 = se_script.to_string();
 
         if se_script != utxo_script {
             return Err(CoinError::ImkeyAddressMismatchWithPath.into());

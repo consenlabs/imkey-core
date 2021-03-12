@@ -45,7 +45,10 @@ impl BtcForkTransaction {
         //path check
         check_path_validity(path)?;
         let mut path_str = path.to_string();
-        if !path.ends_with("/") {
+        let bip44_segments: Vec<&str> = path.split("/").collect();
+        let is_full_path = bip44_segments.len() == 6;
+        let mut path_str: String = path.to_string();
+        if !path.ends_with("/") && !is_full_path {
             path_str = format!("{}{}", path_str, "/");
         }
         //check uxto number
@@ -241,7 +244,10 @@ impl BtcForkTransaction {
         //path check
         check_path_validity(path)?;
         let mut path_str = path.to_string();
-        if !path.ends_with("/") {
+        let bip44_segments: Vec<&str> = path.split("/").collect();
+        let is_full_path = bip44_segments.len() == 6;
+        let mut path_str: String = path.to_string();
+        if !path.ends_with("/") && !is_full_path {
             path_str = format!("{}{}", path_str, "/");
         }
         //check utxo number
@@ -688,6 +694,46 @@ mod tests {
         let sign_result = transaction_req_data.sign_segwit_transaction(
             Network::Bitcoin,
             &"m/44'/2'/0'/".to_string(),
+            &extra_data,
+        );
+
+        assert_eq!(
+            "020000000001018bba45b98e54a14d79ca2a5e253f727bff45cf58b5ac5421dd6a37756eb668e80100000017160014ca4d8acded69ce4f05d0925946d261f86c675fd8ffffffff01c01f2e010000000017a91400aff21f24bc08af58e41e4186d8492a10b84f9e8702483045022100d11b3f5959fde1a4ce0fc37bc423d0972338f5e116999f1bcbf0c6ac6aa9d3ea02201e223b6115f13c49cc902c6c794c71c43ab5acd1ada5909315f7a321ee06671701210289ca41680edbc5594ee6378ebd937e42cd6b4b969e40dd82c20ef2a8aa5bad7b00000000",
+            sign_result.as_ref().unwrap().signature
+        );
+    }
+
+    #[test]
+    fn test_sign_segwit_ltc_fullpath() {
+        //binding device
+        bind_test();
+        let extra_data = vec![];
+        let unspents = vec![Utxo {
+            tx_hash: "e868b66e75376add2154acb558cf45ff7b723f255e2aca794da1548eb945ba8b".to_string(),
+            vout: 1,
+            amount: 19850000,
+            address: "M7xo1Mi1gULZSwgvu7VVEvrwMRqngmFkVd".to_string(),
+            script_pub_key: "76a914ca4d8acded69ce4f05d0925946d261f86c675fd888ac".to_string(),
+            derived_path: "".to_string(),
+            sequence: 0,
+        }];
+        let tx_input = BtcForkTxInput {
+            to: "M7xo1Mi1gULZSwgvu7VVEvrwMRqngmFkVd".to_string(),
+            amount: 19800000,
+            unspents,
+            fee: 50000,
+            change_address_index: 1u32,
+            change_address: "".to_string(),
+            seg_wit: "".to_string(),
+        };
+        let coin_info = coin_info_from_param("LITECOIN", "MAINNET", "P2WPKH", "").unwrap();
+        let transaction_req_data = BtcForkTransaction {
+            tx_input,
+            coin_info,
+        };
+        let sign_result = transaction_req_data.sign_segwit_transaction(
+            Network::Bitcoin,
+            &"m/44'/2'/0'/0/0".to_string(),
             &extra_data,
         );
 
