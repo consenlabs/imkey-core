@@ -43,12 +43,19 @@ pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {
     let response = device_manager::app_download(request.app_name.as_ref())?;
 
     let app_download_res = match response._ReturnData.address_register_list.is_some() {
-        true => AppDownloadRes {
-            address_register_list: response
-                ._ReturnData
-                .address_register_list
-                .expect("address_register_list_not_exist"),
-        },
+        true => {
+            let mut app_name_list = vec![];
+            for instance_aid in response._ReturnData.address_register_list.unwrap() {
+                app_name_list.push(
+                    applet::get_appname_by_instid(instance_aid.as_str())
+                        .expect("imKey_app_id_noe_exist")
+                        .to_string(),
+                )
+            }
+            AppDownloadRes {
+                address_register_list: app_name_list,
+            }
+        }
         _ => AppDownloadRes {
             address_register_list: vec![],
         },
@@ -61,12 +68,19 @@ pub fn app_update(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppUpdateReq = AppUpdateReq::decode(data).expect("imkey_illegal_prarm");
     let response = device_manager::app_update(request.app_name.as_ref())?;
     let app_update_res = match response._ReturnData.address_register_list.is_some() {
-        true => AppUpdateRes {
-            address_register_list: response
-                ._ReturnData
-                .address_register_list
-                .expect("address_register_list_not_exist"),
-        },
+        true => {
+            let mut app_name_list = vec![];
+            for instance_aid in response._ReturnData.address_register_list.unwrap() {
+                app_name_list.push(
+                    applet::get_appname_by_instid(instance_aid.as_str())
+                        .expect("imKey_app_id_noe_exist")
+                        .to_string(),
+                );
+            }
+            AppUpdateRes {
+                address_register_list: app_name_list,
+            }
+        }
         _ => AppUpdateRes {
             address_register_list: vec![],
         },
