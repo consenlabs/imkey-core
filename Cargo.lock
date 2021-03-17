@@ -553,7 +553,7 @@ version = "0.1.0"
 dependencies = [
  "bech32 0.7.2",
  "bitcoin",
- "bitcoin_hashes 0.7.6",
+ "bitcoin_hashes 0.9.4",
  "bitcoinconsensus",
  "bytes 0.5.6",
  "common",
