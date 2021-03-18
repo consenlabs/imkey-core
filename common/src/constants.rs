@@ -1,6 +1,6 @@
 pub const VERSION: &str = "2.3.0";
-// pub const URL: &str = "https://imkey.online:1000/imkey";
-pub const URL: &str = "https://imkeyserver.com:10444/imkey";
+pub const URL: &str = "https://imkey.online:1000/imkey";
+// pub const URL: &str = "https://imkeyserver.com:10444/imkey";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
 pub const TSM_ACTION_APP_DOWNLOAD: &str = "/appDownload";
@@ -105,6 +105,6 @@ pub const APDU_RSP_SWITCH_BL_STATUS_SUCCESS: &str = "905A";
 pub const TIMEOUT_LONG: i32 = 120;
 pub const DEVICE_MODEL_NAME: &str = "imKey Pro";
 //network connect
-pub const NETWORK_CONN_TIMEOUT: u16 = 300;
-pub const NETWORK_WRITE_TIMEOUT: u16 = 300;
-pub const NETWORK_READ_TIMEOUT: u16 = 300;
+pub const NETWORK_CONN_TIMEOUT: u16 = 30;
+pub const NETWORK_WRITE_TIMEOUT: u16 = 30;
+pub const NETWORK_READ_TIMEOUT: u16 = 30;

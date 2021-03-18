@@ -57,12 +57,12 @@ pub fn address_verify(
             )
             .to_string()
         };
-        //verify address
-        let se_gen_address_str = Address::p2pkh(
-            &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
-            network,
-        )
-        .to_string();
+        // //verify address
+        // let se_gen_address_str = Address::p2pkh(
+        //     &PublicKey::from_str(extend_public_key.public_key.to_string().as_str())?,
+        //     network,
+        // )
+        // .to_string();
 
         let utxo_address = utxo.address.clone();
         let bch_address = BchAddress::convert_to_legacy_if_need(utxo_address.as_ref())?;
