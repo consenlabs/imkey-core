@@ -6,6 +6,7 @@ use regex::Regex;
 use ring::digest;
 use secp256k1::recovery::{RecoverableSignature, RecoveryId};
 use secp256k1::{Message, PublicKey as PublicKey2, Secp256k1, SecretKey, Signature};
+use std::str::FromStr;
 
 pub fn hex_to_bytes(value: &str) -> Result<Vec<u8>> {
     let ret_data;
@@ -113,6 +114,19 @@ pub fn retrieve_recid(msg: &[u8], sign_compact: &[u8], pubkey: &Vec<u8>) -> Resu
 
     let rec_id = RecoveryId::from_i32(recid_final)?;
     Ok(rec_id)
+}
+
+pub fn get_account_path(path: &str) -> Result<String> {
+    // example: m/44'/60'/0'/0/0
+    let _ = bitcoin::util::bip32::DerivationPath::from_str(path)?;
+    let mut children: Vec<&str> = path.split('/').collect();
+
+    ensure!(children.len() >= 4, format!("{} path is too short", path));
+
+    while children.len() > 4 {
+        children.remove(children.len() - 1);
+    }
+    Ok(children.join("/"))
 }
 
 #[cfg(test)]

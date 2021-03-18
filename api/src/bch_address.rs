@@ -13,7 +13,8 @@ pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
     };
 
     let address = BchAddress::get_address(network, &param.path)?;
-    let enc_xpub = BtcForkAddress::get_enc_xpub(network, param.path.as_ref())?;
+    let account_path = common::utility::get_account_path(&param.path)?;
+    let enc_xpub = BtcForkAddress::get_enc_xpub(network, &account_path)?;
 
     let address_message = BtcForkWallet {
         path: param.path.to_owned(),
