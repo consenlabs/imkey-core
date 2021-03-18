@@ -1,7 +1,6 @@
 use core::result;
 
 pub mod address;
-pub mod bchapi;
 mod common;
 pub mod transaction;
 pub type Result<T> = result::Result<T, failure::Error>;

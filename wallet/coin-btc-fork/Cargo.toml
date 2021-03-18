@@ -27,4 +27,5 @@ prost-types = "0.6.1"
 lazy_static = "1.4.0"
 parking_lot = "0.10"
 bech32 = "0.7.1"
+base64 = "0.10.1"
 

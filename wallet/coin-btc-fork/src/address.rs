@@ -4,13 +4,15 @@ use crate::Result;
 use bitcoin::hash_types::{PubkeyHash, ScriptHash};
 use bitcoin::util::address::Payload;
 use bitcoin::util::base58;
+use bitcoin::util::bip32::{ChainCode, ChildNumber, DerivationPath, ExtendedPubKey, Fingerprint};
 use bitcoin::{Address, Network, PublicKey};
 use bitcoin_hashes::Hash;
 
 use common::coin_info::coin_info_from_param;
 use common::coin_info::CoinInfo;
-use common::error::CoinError;
+use common::error::{CoinError, CommonError};
 use common::path::check_path_validity;
+
 use std::fmt::{Display, Formatter};
 use std::str::FromStr;
 
@@ -21,6 +23,84 @@ pub struct BtcForkAddress {
 }
 
 impl BtcForkAddress {
+    pub fn get_enc_xpub(network: Network, path: &str) -> Result<String> {
+        let xpub = Self::get_xpub(network, path)?;
+        let key = common::XPUB_COMMON_KEY_128.read();
+        let iv = common::XPUB_COMMON_IV.read();
+        let key_bytes = hex::decode(&*key)?;
+        let iv_bytes = hex::decode(&*iv)?;
+        let encrypted = common::aes::cbc::encrypt_pkcs7(&xpub.as_bytes(), &key_bytes, &iv_bytes)?;
+        Ok(base64::encode(&encrypted))
+    }
+
+    /**
+    get xpub with path
+    */
+    pub fn get_xpub(network: Network, path: &str) -> Result<String> {
+        //path check
+        check_path_validity(path)?;
+
+        //get xpub data
+        let xpub_data = get_xpub_data(path, true)?;
+        let xpub_data = &xpub_data[..194].to_string();
+
+        //get public key and chain code
+        let pub_key = &xpub_data[..130];
+        let chain_code = &xpub_data[130..];
+
+        //build parent public key obj
+        let parent_xpub = get_xpub_data(Self::get_parent_path(path)?, true)?;
+        let parent_xpub = &parent_xpub[..130].to_string();
+        let mut parent_pub_key_obj = PublicKey::from_str(parent_xpub)?;
+        parent_pub_key_obj.compressed = true;
+
+        //build child public key obj
+        let mut pub_key_obj = PublicKey::from_str(pub_key)?;
+        pub_key_obj.compressed = true;
+
+        //get parent public key fingerprint
+        let chain_code_obj = ChainCode::from(hex::decode(chain_code).unwrap().as_slice());
+        let parent_ext_pub_key = ExtendedPubKey {
+            network: network,
+            depth: 0 as u8,
+            parent_fingerprint: Fingerprint::default(),
+            child_number: ChildNumber::from_normal_idx(0).unwrap(),
+            public_key: parent_pub_key_obj,
+            chain_code: chain_code_obj,
+        };
+        let fingerprint_obj = parent_ext_pub_key.fingerprint();
+
+        //build extend public key obj
+        let chain_code_obj = ChainCode::from(hex::decode(chain_code).unwrap().as_slice());
+        let chain_number_vec: Vec<ChildNumber> = DerivationPath::from_str(path)?.into();
+        let extend_public_key = ExtendedPubKey {
+            network: network,
+            depth: chain_number_vec.len() as u8,
+            parent_fingerprint: fingerprint_obj,
+            child_number: *chain_number_vec.get(chain_number_vec.len() - 1).unwrap(),
+            public_key: pub_key_obj,
+            chain_code: chain_code_obj,
+        };
+        //get and return xpub
+        Ok(extend_public_key.to_string())
+    }
+
+    /**
+    get parent public key path
+    */
+    fn get_parent_path(path: &str) -> Result<&str> {
+        if path.is_empty() {
+            return Err(CommonError::ImkeyPathIllegal.into());
+        }
+
+        let mut end_flg = path.rfind("/").unwrap();
+        if path.ends_with("/") {
+            let path = &path[..path.len() - 1];
+            end_flg = path.rfind("/").unwrap();
+        }
+        Ok(&path[..end_flg])
+    }
+
     pub fn p2pkh(network: &BtcForkNetwork, path: &str) -> Result<String> {
         //path check
         check_path_validity(path)?;
@@ -263,6 +343,31 @@ mod test {
     use bitcoin::Network;
     use device::device_binding::bind_test;
     use std::str::FromStr;
+
+    #[test]
+    fn get_xpub_test() {
+        bind_test();
+
+        let version: Network = Network::Bitcoin;
+        let path: &str = "m/44'/0'/0'/0/0";
+        let get_xpub_result = BtcForkAddress::get_xpub(version, path);
+        assert!(get_xpub_result.is_ok());
+        let xpub = get_xpub_result.ok().unwrap();
+        assert_eq!("xpub6FuzpGNBc46EfvmcvECyqXjrzGcKErQgpQcpvhw1tiC5yXvi1jUkzudMpdg5AaguiFstdVR5ASDbSceBswKRy6cAhpTgozmgxMUayPDrLLX", xpub);
+
+        let version: Network = Network::Bitcoin;
+        let path: &str = "m/44'/2'/0'/0/0";
+        let get_xpub_result = BtcForkAddress::get_xpub(version, path);
+        assert!(get_xpub_result.is_ok());
+        let xpub = get_xpub_result.ok().unwrap();
+        assert_eq!("xpub6Gxe3rj6UCkx1oZSg36MnEtVcj6utTcuY2tHeyEgpXEnm9Hde8AVQrUHPnYS5mhRp4ML7GgeMCVgdpWE3gfN5hG4ayRUrF4e5UPuKEwzpns", xpub);
+
+        let version: Network = Network::Bitcoin;
+        let path: &str = "m/44'/2'/0'/0/0";
+        let get_enc_xpub_result = BtcForkAddress::get_enc_xpub(version, path);
+        let enc_xpub = get_enc_xpub_result.ok().unwrap();
+        assert_eq!("qO1zELT4UFoF3jVJ5qeo34HDSZVfDjd7u89H12wqyEQ4K1KEYoNVnBm61RyJevqOhwNKPJGrLp0QkJfJR3eFDKcI9rfvDl6bUXDZ+Kw1e4OzPSOkG8rwhqQnZKb7xd+xJSRRNkhLOMTEu0XutOqvjA==", enc_xpub);
+    }
 
     #[test]
     fn test_btc_fork_address() {
