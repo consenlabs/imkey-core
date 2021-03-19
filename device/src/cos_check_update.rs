@@ -10,6 +10,8 @@ pub struct CosCheckUpdateRequest {
     pub cos_version: String,
     #[serde(rename = "commandID")]
     pub command_id: String,
+    pub sdk_version: Option<String>,
+    pub terminal_type: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -42,10 +44,14 @@ impl TsmService for CosCheckUpdateRequest {
 
 impl CosCheckUpdateRequest {
     pub fn build_request_data(seid: String, cos_version: String) -> Self {
+        let terminal_type = common::TERMINAL_TYPE.read().to_string();
+        let sdk_version = common::SDK_VERSION.read().to_string();
         CosCheckUpdateRequest {
             seid: seid,
             cos_version: cos_version,
             command_id: String::from(constants::TSM_ACTION_COS_CHECK_UPDATE),
+            sdk_version: Some(sdk_version),
+            terminal_type: Some(terminal_type),
         }
     }
 }

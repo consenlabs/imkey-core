@@ -15,6 +15,8 @@ pub struct SeSecureCheckRequest {
     #[serde(rename = "commandID")]
     pub command_id: String,
     pub card_ret_data_list: Option<Vec<String>>,
+    pub sdk_version: Option<String>,
+    pub terminal_type: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -62,6 +64,7 @@ impl TsmService for SeSecureCheckRequest {
 
 impl SeSecureCheckRequest {
     pub fn build_request_data(seid: String, sn: String, device_cert: String) -> Self {
+        let terminal_type = common::TERMINAL_TYPE.read().to_string();
         SeSecureCheckRequest {
             seid: seid,
             sn: sn,
@@ -70,6 +73,8 @@ impl SeSecureCheckRequest {
             status_word: None,
             command_id: String::from(constants::TSM_ACTION_SE_SECURE_CHECK),
             card_ret_data_list: None,
+            sdk_version: Some(constants::VERSION.to_string()),
+            terminal_type: Some(terminal_type),
         }
     }
 }

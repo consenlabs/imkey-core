@@ -26,6 +26,8 @@ pub struct CosUpgradeRequest {
     pub command_id: String,
     pub card_ret_data_list: Option<Vec<String>>,
     pub se_bl_version: Option<String>,
+    pub sdk_version: Option<String>,
+    pub terminal_type: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -40,7 +42,7 @@ pub struct CosUpgradeResponse {
 
 impl CosUpgradeRequest {
     #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
-    pub fn cos_upgrade(sdk_version: Option<String>) -> Result<()> {
+    pub fn cos_upgrade() -> Result<()> {
         //read se device cert
         let mut device_cert = get_cert()?;
 
@@ -73,7 +75,8 @@ impl CosUpgradeRequest {
         } else {
             return Err(ImkeyError::ImkeyTsmCosUpgradeFail.into());
         }
-
+        let terminal_type = common::TERMINAL_TYPE.read().to_string();
+        let sdk_version = common::SDK_VERSION.read().to_string();
         let mut request_data = CosUpgradeRequest {
             seid: seid.clone(),
             sn: sn,
@@ -89,6 +92,8 @@ impl CosUpgradeRequest {
             command_id: String::from(constants::TSM_ACTION_COS_UPGRADE),
             card_ret_data_list: None,
             se_bl_version: se_bl_version,
+            sdk_version: Some(sdk_version),
+            terminal_type: Some(terminal_type),
         };
 
         loop {
@@ -145,7 +150,6 @@ impl CosUpgradeRequest {
                                     seid.clone(),
                                     temp_instance_aid.clone(),
                                     device_cert.clone(),
-                                    sdk_version.clone(),
                                 )
                                 .send_message()?;
                             }
@@ -188,6 +192,6 @@ mod tests {
     #[cfg(not(tarpaulin))]
     fn cos_upgrade_test() {
         assert!(hid_connect("imKey Pro").is_ok());
-        assert!(CosUpgradeRequest::cos_upgrade(None).is_ok());
+        assert!(CosUpgradeRequest::cos_upgrade().is_ok());
     }
 }
