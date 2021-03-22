@@ -40,7 +40,7 @@ pub fn init_imkey_core(data: &[u8]) -> Result<Vec<u8>> {
     *XPUB_COMMON_IV.write() = xpub_common_iv.to_string();
     *IS_DEBUG.write() = is_debug;
     *OPERATING_SYSTEM.write() = system;
-    *TERMINAL_TYPE.write() = terminal_type;
+    *TERMINAL_TYPE.write() = terminal_type.to_uppercase();
     *SDK_VERSION.write() = sdk_version;
     *SERVER_URL.write() = server_url;
     Ok(vec![])

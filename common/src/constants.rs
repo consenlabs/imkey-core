@@ -108,3 +108,7 @@ pub const DEVICE_MODEL_NAME: &str = "imKey Pro";
 pub const NETWORK_CONN_TIMEOUT: u16 = 30;
 pub const NETWORK_WRITE_TIMEOUT: u16 = 30;
 pub const NETWORK_READ_TIMEOUT: u16 = 30;
+
+//terminal type
+pub const TERMINAL_TYPE_APP: &str = "APP";
+pub const TERMINAL_TYPE_PC: &str = "PC";
