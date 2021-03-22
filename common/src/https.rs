@@ -1,6 +1,6 @@
 use crate::constants;
 use crate::Result;
-use crate::SDK_VERSION;
+use crate::SERVER_URL;
 use hyper::client::Client;
 use hyper::header::HeaderValue;
 use hyper::{Body, Method, Request};
@@ -15,7 +15,7 @@ pub fn post(action: &str, req_data: Vec<u8>) -> Result<String> {
 }
 
 async fn async_post(action: &str, req_data: Vec<u8>) -> Result<String> {
-    let uri: hyper::Uri = format!("{}{}", SDK_VERSION.read().to_string(), action)
+    let uri: hyper::Uri = format!("{}{}", SERVER_URL.read().to_string(), action)
         .to_string()
         .parse()
         .unwrap();
