@@ -1,5 +1,6 @@
-pub const VERSION: &str = "2.2.0";
+pub const VERSION: &str = "2.3.0";
 pub const URL: &str = "https://imkey.online:1000/imkey";
+// pub const URL: &str = "https://imkeyserver.com:10444/imkey";
 
 pub const TSM_ACTION_SE_SECURE_CHECK: &str = "/seSecureCheck";
 pub const TSM_ACTION_APP_DOWNLOAD: &str = "/appDownload";
@@ -24,6 +25,8 @@ pub const IMK_AID: &str = "695F696D6B";
 pub const POLKADOT_AID: &str = "695F65645F646F74";
 pub const KUSAMA_AID: &str = "695F65645F6B736D";
 pub const TRON_AID: &str = "695F6B315F747278";
+pub const BCH_AID: &str = "695F626368";
+pub const LTC_AID: &str = "695F6C7463";
 
 pub const BL_AID: &str = "D0426F6F746C6F61646572";
 
@@ -42,6 +45,7 @@ pub const DUST_THRESHOLD: i64 = 2730;
 pub const MIN_NONDUST_OUTPUT: i64 = 546;
 // max op return size
 pub const MAX_OPRETURN_SIZE: usize = 80;
+pub const BTC_FORK_DUST: i64 = 546;
 
 // imkey device status
 pub const IMKEY_DEV_STATUS_INACTIVATED: &str = "inactivated";

@@ -1,12 +1,15 @@
 pub mod aes;
 pub mod apdu;
 pub mod applet;
+pub mod coin_info;
 pub mod common;
 pub mod constants;
+pub mod curve;
 pub mod error;
 pub mod https;
 pub mod path;
 pub mod utility;
+
 use parking_lot::RwLock;
 
 pub use crate::common::SignParam;

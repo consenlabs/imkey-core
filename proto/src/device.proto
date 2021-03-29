@@ -5,8 +5,16 @@ message AppDownloadReq {
     string app_name = 1;
 }
 
+message AppDownloadRes {
+    repeated string address_register_list = 1;
+}
+
 message AppUpdateReq {
     string app_name = 1;
+}
+
+message AppUpdateRes {
+    repeated string address_register_list = 1;
 }
 
 message AppDeleteReq {

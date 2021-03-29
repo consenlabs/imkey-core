@@ -4,9 +4,19 @@ pub struct AppDownloadReq {
     pub app_name: std::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AppDownloadRes {
+    #[prost(string, repeated, tag = "1")]
+    pub address_register_list: ::std::vec::Vec<std::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AppUpdateReq {
     #[prost(string, tag = "1")]
     pub app_name: std::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AppUpdateRes {
+    #[prost(string, repeated, tag = "1")]
+    pub address_register_list: ::std::vec::Vec<std::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AppDeleteReq {
