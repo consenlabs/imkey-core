@@ -200,7 +200,12 @@ impl Transaction {
 
         let message_to_sign;
         if is_valid_hex(&input.message) {
-            let value = &input.message[2..];
+            let value = if input.message.to_lowercase().starts_with("0x") {
+                &input.message[2..]
+            } else {
+                &input.message
+            };
+
             message_to_sign = hex::decode(value).unwrap();
         } else {
             message_to_sign = input.message.into_bytes();

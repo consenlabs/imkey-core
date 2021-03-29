@@ -61,8 +61,10 @@ pub fn sign_eth_message(data: &[u8], sign_param: &SignParam) -> Result<Vec<u8>> 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use device::device_binding::DeviceManage;
     use ethereum_types::{Address, U256};
     use std::str::FromStr;
+    use transport::hid_api::hid_connect;
 
     #[test]
     fn u256_from_str() {
