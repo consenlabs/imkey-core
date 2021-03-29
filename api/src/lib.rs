@@ -278,7 +278,33 @@ pub unsafe extern "C" fn imkey_get_last_err_message() -> *const c_char {
         }
     })
 }
+#[no_mangle]
+pub unsafe extern "C" fn imkey_clear_err_win(s: *const c_char) {
+    LAST_ERROR.with(|e| {
+        *e.borrow_mut() = None;
+    });
+    LAST_BACKTRACE.with(|e| {
+        *e.borrow_mut() = None;
+    });
+}
 
+#[no_mangle]
+pub unsafe extern "C" fn imkey_get_last_err_message_win(s: *const c_char) -> *const c_char {
+    LAST_ERROR.with(|e| {
+        if let Some(ref err) = *e.borrow() {
+            let rsp = ErrorResponse {
+                is_success: false,
+                error: err.to_string(),
+            };
+            // eprintln!("{:#?}", rsp);
+            let rsp_bytes = encode_message(rsp).expect("encode error");
+            let ret_str = hex::encode(rsp_bytes);
+            CString::new(ret_str).unwrap().into_raw()
+        } else {
+            CString::new("").unwrap().into_raw()
+        }
+    })
+}
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -371,7 +397,7 @@ mod tests {
         //     })
         // };
         // assert_eq!("", hex::encode(encode_message(action).unwrap()));
-        let _ = unsafe { imkey_clear_err() };
+        let _ = unsafe { imkey_clear_err(_to_c_char("")) };
         // let param_bytes = encode_message(param).unwrap();
         // let param_bytes = hex::decode("0a0c636865636b5f757064617465").unwrap();
         // let param_hex = hex::encode(param_bytes);
@@ -384,7 +410,7 @@ mod tests {
         let ret_hex = unsafe {
             _to_str(call_imkey_api(_to_c_char(&"0a077369676e5f747812e6030a10636f6d6d6f6e2e5369676e506172616d12d1030a0b424954434f494e4341534812116d2f3434272f313435272f30272f302f301a074d41494e4e455422b2020a19627463666f726b6170692e427463466f726b5478496e7075741294020a2a71707a36376763776139616738346c6a6d6d6e33753774636a6d39726b63326a66636a6b32717a66637510a08d061aaa010a4061346439666561373337636236633030326337613833666235383531613366373566306163646437626237663137373232633162323465653765306232336461100018c09a0c222a7171687979616a75323270637967783870683035716a6e787978616c686d65736b796371706d67786e302a323736613931343265343237363563353238333832323063373064646634303461363632316262666265663330623138386163320020c6032801322a7171687979616a75323270637967783870683035716a6e787978616c686d65736b796371706d67786e303a044e4f4e452a09302e30303120424348322a71707a36376763776139616738346c6a6d6d6e33753774636a6d39726b63326a66636a6b32717a6663753a2a7171687979616a75323270637967783870683035716a6e787978616c686d65736b796371706d67786e30420e302e303030303034353420424348")))
         };
-        let err = unsafe { _to_str(imkey_get_last_err_message()) };
+        let err = unsafe { _to_str(imkey_get_last_err_message(_to_c_char(""))) };
         if !err.is_empty() {
             let err_bytes = hex::decode(err).unwrap();
             let err_ret: ErrorResponse = ErrorResponse::decode(err_bytes.as_slice()).unwrap();
