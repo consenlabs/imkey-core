@@ -102,6 +102,15 @@ impl BtcApdu {
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
     }
+
+    pub fn register_name_address(name: &[u8], address: &[u8]) -> String {
+        let mut data: Vec<u8> = vec![];
+        data.push(address.len() as u8);
+        data.extend(address);
+        data.push(name.len() as u8);
+        data.extend(name);
+        Apdu::register_address(0x37, &data)
+    }
 }
 
 pub struct EthApdu();
@@ -291,6 +300,90 @@ impl Ed25519Apdu {
         data.push(name.len() as u8);
         data.extend(name);
         Apdu::register_address(0x83, &data)
+    }
+}
+
+pub struct BtcForkApdu();
+
+impl Default for BtcForkApdu {
+    fn default() -> Self {
+        BtcForkApdu {}
+    }
+}
+
+impl CoinCommonApdu for BtcForkApdu {
+    fn select_applet() -> String {
+        Apdu::select_applet(BTC_AID)
+    }
+
+    fn get_xpub(path: &str, verify_flag: bool) -> String {
+        Apdu::get_pubkey(0x43, path, verify_flag)
+    }
+
+    fn register_address(address: &[u8]) -> String {
+        Apdu::register_address(0x36, address)
+    }
+}
+
+impl BtcForkApdu {
+    pub fn btc_fork_prepare(ins: u8, p1: u8, data: &Vec<u8>) -> Vec<String> {
+        let mut apdu_vec = Vec::new();
+        let apdu_number = (data.len() - 1) / LC_MAX as usize + 1;
+        for index in 0..apdu_number {
+            if index == apdu_number - 1 {
+                let length = if data.len() % LC_MAX as usize == 0 {
+                    LC_MAX
+                } else {
+                    (data.len() % LC_MAX as usize) as u32
+                };
+                let mut temp_apdu_vec =
+                    ApduHeader::new(0x80, ins, p1, 0x80, length as u8).to_array();
+                temp_apdu_vec.extend_from_slice(&data[index * LC_MAX as usize..]);
+                apdu_vec.push(hex::encode_upper(temp_apdu_vec));
+            } else {
+                let mut temp_apdu_vec =
+                    ApduHeader::new(0x80, ins, p1, 0x00, LC_MAX as u8).to_array();
+                temp_apdu_vec.extend_from_slice(
+                    &data[index * LC_MAX as usize..((index + 1) * LC_MAX as usize) as usize],
+                );
+                apdu_vec.push(hex::encode_upper(temp_apdu_vec));
+            }
+        }
+        return apdu_vec;
+    }
+
+    pub fn btc_fork_perpare_input(ins: u8, p1: u8, data: &Vec<u8>) -> String {
+        if data.len() as u32 > LC_MAX {
+            panic!("data to long");
+        }
+        let mut apdu = ApduHeader::new(0x80, ins, p1, 0x00, data.len() as u8).to_array();
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
+    pub fn btc_fork_sign(ins: u8, index: u8, hash_type: u8, path: &str) -> String {
+        let path_bytes = path.as_bytes();
+        let mut apdu =
+            ApduHeader::new(0x80, ins, index, hash_type, path_bytes.len() as u8).to_array();
+        apdu.extend(path_bytes.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
+    pub fn btc_fork_segwit_sign(ins: u8, last_one: bool, hash_type: u8, data: Vec<u8>) -> String {
+        if data.len() as u32 > LC_MAX {
+            panic!("data to long");
+        }
+
+        let mut apdu = match last_one {
+            true => ApduHeader::new(0x80, ins, 0x80, hash_type, data.len() as u8).to_array(),
+            _ => ApduHeader::new(0x80, ins, 0x00, hash_type, data.len() as u8).to_array(),
+        };
+
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
     }
 }
 

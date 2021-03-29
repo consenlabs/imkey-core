@@ -41,6 +41,10 @@ fn main() {
     // tron
     env::set_var("OUT_DIR", "../wallet/coin-tron/src");
     prost_build::compile_protos(&["src/tron.proto"], &["src/"]).unwrap();
+
+    // tcx-btc-fork
+    env::set_var("OUT_DIR", "../wallet/coin-btc-fork/src");
+    prost_build::compile_protos(&["src/btcfork.proto"], &["src/"]).unwrap();
 }
 
 #[cfg(test)]

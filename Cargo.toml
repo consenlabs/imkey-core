@@ -11,4 +11,7 @@ members = [
     "wallet/coin-cosmos",
     "wallet/coin-substrate",
     "wallet/coin-tron",
+    "wallet/coin-bch",
+    "wallet/coin-filecoin",
+    "wallet/coin-btc-fork",
 ]
