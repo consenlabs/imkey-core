@@ -1,5 +1,6 @@
 use base64::{decode, encode};
 use ring::digest;
+use std::fs;
 use std::fs::{File, OpenOptions};
 use std::io::{ErrorKind, Read, Write};
 use std::path::Path;
@@ -177,6 +178,10 @@ impl KeyManager {
      Store key data
     */
     pub fn save_keys_to_local_file(keys: &String, path: &String, seid: &String) -> Result<()> {
+        if !Path::new(path).exists() {
+            fs::create_dir_all(path)?;
+        }
+
         let mut file = OpenOptions::new()
             .read(true)
             .write(true)

@@ -6,10 +6,11 @@ use common::constants;
 use common::{OPERATING_SYSTEM, XPUB_COMMON_IV, XPUB_COMMON_KEY_128};
 use device::device_manager;
 use device::deviceapi::{
-    AppDeleteReq, AppDownloadReq, AppUpdateReq, AvailableAppBean, BindAcquireReq, BindAcquireRes,
-    BindCheckRes, CheckUpdateRes, CosCheckUpdateRes, DeviceConnectReq, GetBatteryPowerRes,
-    GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes, GetLifeTimeRes, GetRamSizeRes,
-    GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes, SetBleNameReq,
+    AppDeleteReq, AppDownloadReq, AppDownloadRes, AppUpdateReq, AppUpdateRes, AvailableAppBean,
+    BindAcquireReq, BindAcquireRes, BindCheckRes, CheckUpdateRes, CosCheckUpdateRes,
+    DeviceConnectReq, GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes,
+    GetLifeTimeRes, GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes,
+    SetBleNameReq,
 };
 use parking_lot::RwLock;
 use prost::Message;
@@ -39,18 +40,53 @@ pub fn init_imkey_core(data: &[u8]) -> Result<Vec<u8>> {
 
 pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppDownloadReq = AppDownloadReq::decode(data).expect("imkey_illegal_param");
-    device_manager::app_download(request.app_name.as_ref())?;
-    encode_message(CommonResponse {
-        result: "success".to_string(),
-    })
+    let response = device_manager::app_download(request.app_name.as_ref())?;
+
+    let app_download_res = match response._ReturnData.address_register_list.is_some() {
+        true => {
+            let mut app_name_list = vec![];
+            for instance_aid in response._ReturnData.address_register_list.unwrap() {
+                app_name_list.push(
+                    applet::get_appname_by_instid(instance_aid.as_str())
+                        .expect("imKey_app_id_noe_exist")
+                        .to_string(),
+                )
+            }
+            AppDownloadRes {
+                address_register_list: app_name_list,
+            }
+        }
+        _ => AppDownloadRes {
+            address_register_list: vec![],
+        },
+    };
+
+    encode_message(app_download_res)
 }
 
 pub fn app_update(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppUpdateReq = AppUpdateReq::decode(data).expect("imkey_illegal_prarm");
-    device_manager::app_update(request.app_name.as_ref())?;
-    encode_message(CommonResponse {
-        result: "success".to_string(),
-    })
+    let response = device_manager::app_update(request.app_name.as_ref())?;
+    let app_update_res = match response._ReturnData.address_register_list.is_some() {
+        true => {
+            let mut app_name_list = vec![];
+            for instance_aid in response._ReturnData.address_register_list.unwrap() {
+                app_name_list.push(
+                    applet::get_appname_by_instid(instance_aid.as_str())
+                        .expect("imKey_app_id_noe_exist")
+                        .to_string(),
+                );
+            }
+            AppUpdateRes {
+                address_register_list: app_name_list,
+            }
+        }
+        _ => AppUpdateRes {
+            address_register_list: vec![],
+        },
+    };
+
+    encode_message(app_update_res)
 }
 
 pub fn app_delete(data: &[u8]) -> Result<Vec<u8>> {

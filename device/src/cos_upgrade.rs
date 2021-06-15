@@ -25,7 +25,7 @@ pub struct CosUpgradeRequest {
     #[serde(rename = "commandID")]
     pub command_id: String,
     pub card_ret_data_list: Option<Vec<String>>,
-    pub se_bl_versioon: Option<String>,
+    pub se_bl_version: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -88,16 +88,16 @@ impl CosUpgradeRequest {
             status_word: None,
             command_id: String::from(constants::TSM_ACTION_COS_UPGRADE),
             card_ret_data_list: None,
-            se_bl_versioon: se_bl_version,
+            se_bl_version: se_bl_version,
         };
 
         loop {
-            println!("send message：{:#?}", request_data);
+            // println!("send message：{:#?}", request_data);
             let req_data = serde_json::to_vec_pretty(&request_data).unwrap();
             let response_data = https::post(constants::TSM_ACTION_COS_UPGRADE, req_data)?;
             let return_bean: ServiceResponse<CosUpgradeResponse> =
                 serde_json::from_str(response_data.as_str())?;
-            println!("return message：{:#?}", return_bean);
+            // println!("return message：{:#?}", return_bean);
             if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //check if end
                 let next_step_key = return_bean._ReturnData.next_step_key.unwrap();
@@ -122,7 +122,7 @@ impl CosUpgradeRequest {
                                     if "03".eq(next_step_key.as_str()) {
                                         reconnect()?;
                                         se_bl_version = Some(get_bl_version()?);
-                                        request_data.se_bl_versioon = se_bl_version;
+                                        request_data.se_bl_version = se_bl_version;
                                     } else if "05".eq(next_step_key.as_str()) {
                                         reconnect()?;
                                         se_cos_version = get_firmware_version()?;

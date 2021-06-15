@@ -4,7 +4,11 @@ use prost::Message;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
 pub mod api;
+pub mod bch_address;
+pub mod bch_signer;
 pub mod btc_address;
+pub mod btc_fork_address;
+pub mod btc_fork_signer;
 pub mod btc_signer;
 pub mod cosmos_address;
 pub mod cosmos_signer;
@@ -23,6 +27,7 @@ pub mod substrate_address;
 pub mod substrate_signer;
 pub mod tron_address;
 pub mod tron_signer;
+
 use parking_lot::Mutex;
 pub mod tezos_address;
 pub mod tezos_signer;
@@ -132,6 +137,8 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "TRON" => tron_address::get_address(&param),
                 "NERVOS" => nervos_address::get_address(&param),
                 "TEZOS" => tezos_address::get_address(&param),
+                "BITCOINCASH" => bch_address::get_address(&param),
+                "LITECOIN" => btc_fork_address::get_address(&param),
                 _ => Err(format_err!("get_address unsupported_chain")),
             }
         }),
@@ -210,6 +217,12 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                     &param.clone().input.unwrap().value,
                     &param,
                 ),
+                "BITCOINCASH" => {
+                    bch_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
+                }
+                "LITECOIN" => {
+                    btc_fork_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
+                }
                 _ => Err(format_err!("sign_tx unsupported_chain")),
             }
         }),
@@ -295,8 +308,10 @@ mod tests {
     use prost::Message;
 
     use crate::api::CommonResponse;
+    use device::device_binding::DeviceManage;
     use device::deviceapi::{AppDownloadReq, BindAcquireReq};
     use std::fs;
+    use transport::hid_api::hid_connect;
 
     fn _to_c_char(str: &str) -> *const c_char {
         CString::new(str).unwrap().into_raw()
@@ -376,8 +391,14 @@ mod tests {
         // let param_bytes = encode_message(param).unwrap();
         // let param_bytes = hex::decode("0a0c636865636b5f757064617465").unwrap();
         // let param_hex = hex::encode(param_bytes);
+        hid_connect("imKey Pro").is_ok();
+        let check_result =
+            DeviceManage::bind_check(&"../test-data".to_string()).unwrap_or_default();
+        // DeviceManage::bind_acquire(&"".to_string()).unwrap();
+        // device::device_manager::app_delete("BCH");
+        device::device_manager::app_download("BTC");
         let ret_hex = unsafe {
-            _to_str(call_imkey_api(_to_c_char(&"0a077369676e5f747812bb010a10636f6d6d6f6e2e5369676e506172616d12a6010a0554455a4f5312116d2f3434272f31373239272f30272f30271a074d41494e4e455422190a1574657a6f736170692e54657a6f735478496e70757412002a0c302e3939363639332058545a3224747a31527451714165664a37374454547757667237796e52557559586f565958555943343a24747a3155576b4e463965663378633479416931594b5232754668697a526875737a4e6361420c302e3030333330372058545a")))
+            _to_str(call_imkey_api(_to_c_char(&"0a077369676e5f747812e6030a10636f6d6d6f6e2e5369676e506172616d12d1030a0b424954434f494e4341534812116d2f3434272f313435272f30272f302f301a074d41494e4e455422b2020a19627463666f726b6170692e427463466f726b5478496e7075741294020a2a71707a36376763776139616738346c6a6d6d6e33753774636a6d39726b63326a66636a6b32717a66637510a08d061aaa010a4061346439666561373337636236633030326337613833666235383531613366373566306163646437626237663137373232633162323465653765306232336461100018c09a0c222a7171687979616a75323270637967783870683035716a6e787978616c686d65736b796371706d67786e302a323736613931343265343237363563353238333832323063373064646634303461363632316262666265663330623138386163320020c6032801322a7171687979616a75323270637967783870683035716a6e787978616c686d65736b796371706d67786e303a044e4f4e452a09302e30303120424348322a71707a36376763776139616738346c6a6d6d6e33753774636a6d39726b63326a66636a6b32717a6663753a2a7171687979616a75323270637967783870683035716a6e787978616c686d65736b796371706d67786e30420e302e303030303034353420424348")))
         };
         let err = unsafe { _to_str(imkey_get_last_err_message()) };
         if !err.is_empty() {

@@ -83,8 +83,8 @@ impl SubstrateAddress {
     pub fn display_address(path: &str, address_type: &AddressType) -> Result<String> {
         let address = SubstrateAddress::get_address(path, address_type)?;
         let menu_name = match address_type {
-            AddressType::Polkadot => "Polkadot",
-            AddressType::Kusama => "Kusama",
+            AddressType::Polkadot => "POLKADOT",
+            AddressType::Kusama => "KUSAMA",
             _ => panic!("address type not support"),
         };
         let reg_apdu = Ed25519Apdu::register_address(menu_name.as_bytes(), address.as_bytes());

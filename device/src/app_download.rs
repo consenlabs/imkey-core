@@ -25,24 +25,25 @@ pub struct AppDownloadResponse {
     pub instance_aid: Option<String>,
     pub next_step_key: Option<String>,
     pub apdu_list: Option<Vec<String>>,
+    pub address_register_list: Option<Vec<String>>,
 }
 
 impl TsmService for AppDownloadRequest {
-    type ReturnData = ();
+    type ReturnData = ServiceResponse<AppDownloadResponse>;
 
-    fn send_message(&mut self) -> Result<()> {
+    fn send_message(&mut self) -> Result<ServiceResponse<AppDownloadResponse>> {
         loop {
-            println!("send message：{:#?}", self);
+            // println!("send message：{:#?}", self);
             let req_data = serde_json::to_vec_pretty(&self).unwrap();
             let response_data = https::post(constants::TSM_ACTION_APP_DOWNLOAD, req_data)?;
             let return_bean: ServiceResponse<AppDownloadResponse> =
                 serde_json::from_str(response_data.as_str())?;
-            println!("return message：{:#?}", return_bean);
+            // println!("return message：{:#?}", return_bean);
             if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 //check step key is end
-                let next_step_key = return_bean._ReturnData.next_step_key.unwrap();
+                let next_step_key = return_bean.clone()._ReturnData.next_step_key.unwrap();
                 if constants::TSM_END_FLAG.eq(next_step_key.as_str()) {
-                    return Ok(());
+                    return Ok(return_bean);
                 }
 
                 match return_bean._ReturnData.apdu_list {
@@ -94,7 +95,7 @@ mod test {
         assert!(hid_connect("imKey Pro").is_ok());
         let seid = get_se_id().unwrap();
         let device_cert = get_cert().unwrap();
-        let instance_aid = "695F656473725F6B736D".to_string();
+        let instance_aid = "695F657468".to_string();
         let exe_result =
             AppDownloadRequest::build_request_data(seid, instance_aid, device_cert, None)
                 .send_message();

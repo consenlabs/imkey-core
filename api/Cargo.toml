@@ -20,6 +20,9 @@ coin-filecoin = {path = "../wallet/coin-filecoin"}
 coin-substrate = {path = "../wallet/coin-substrate"}
 coin-tron = {path = "../wallet/coin-tron"}
 coin-ckb = {path = "../wallet/coin-ckb"}
+coin-bch = {path = "../wallet/coin-bch"}
+coin-btc-fork = {path = "../wallet/coin-btc-fork"}
+
 common = {path = "../common"}
 coin-tezos = {path = "../wallet/coin-tezos"}
 bitcoin = "0.25.0"

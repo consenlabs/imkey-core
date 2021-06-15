@@ -48,6 +48,9 @@ fn main() {
     // tcx-tezos
     env::set_var("OUT_DIR", "../wallet/coin-tezos/src");
     prost_build::compile_protos(&["src/tezos.proto"], &["src/"]).unwrap();
+    // tcx-btc-fork
+    env::set_var("OUT_DIR", "../wallet/coin-btc-fork/src");
+    prost_build::compile_protos(&["src/btcfork.proto"], &["src/"]).unwrap();
 }
 
 #[cfg(test)]

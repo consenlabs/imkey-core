@@ -13,4 +13,7 @@ members = [
     "wallet/coin-substrate",
     "wallet/coin-tron",
     "wallet/coin-tezos",
+    "wallet/coin-bch",
+    "wallet/coin-filecoin",
+    "wallet/coin-btc-fork",
 ]

@@ -64,4 +64,22 @@ pub enum CoinError {
     InvalidParam,
     #[fail(display = "invalid_format")]
     InvalidFormat,
+    #[fail(display = "bch_convert_to_legacy_address_failed")]
+    ConvertToLegacyAddressFailed,
+    #[fail(display = "bch_convert_to_cash_address_failed")]
+    ConvertToCashAddressFailed,
+    #[fail(display = "construct_bch_address_failed")]
+    ConstructBchAddressFailed,
+    #[fail(display = "the bech32 payload was empty")]
+    EmptyBech32Payload,
+    #[fail(display = "invalid witness script version")]
+    InvalidWitnessVersion,
+    #[fail(display = "the witness program must be between 2 and 40 bytes in length")]
+    InvalidWitnessProgramLength,
+    #[fail(display = "a v0 witness program must be either of length 20 or 32 bytes")]
+    InvalidSegwitV0ProgramLength,
+    #[fail(display = "invalid script version")]
+    InvalidVersion,
+    #[fail(display = "invalid addr length")]
+    InvalidAddrLength,
 }
