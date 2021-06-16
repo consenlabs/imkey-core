@@ -1,6 +1,5 @@
 use bitcoin::blockdata::{opcodes, script::Builder};
 use bitcoin::consensus::serialize;
-use bitcoin::hashes::core::str::FromStr;
 use bitcoin::hashes::hex::FromHex;
 use bitcoin::util::psbt::serialize::Serialize;
 use bitcoin::{Address, Network, OutPoint, Script, SigHashType, Transaction, TxIn, TxOut};
@@ -9,6 +8,7 @@ use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::sha256d::Hash as Hash256;
 use bitcoin_hashes::Hash;
 use secp256k1::Signature;
+use std::str::FromStr;
 
 use common::apdu::{ApduCheck, BtcForkApdu};
 use common::coin_info::CoinInfo;
