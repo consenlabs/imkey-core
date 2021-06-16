@@ -38,6 +38,7 @@ pub fn get_instid_by_appname(appname: &str) -> Option<&str> {
         "Bitcion Cash" => Some("695F626368"),
         "Litecoin" => Some("695F6C7463"),
         "IMK" => Some("695F696D6B"),
+        "Nervos" => Some(NERVOS_AID),
         _ => None,
     }
 }
