@@ -2,7 +2,7 @@ use crate::constants::{
     BCH_AID, BTC_AID, COSMOS_AID, EOS_AID, ETH_AID, FILECOIN_AID, IMK_AID, KUSAMA_AID, LTC_AID,
     NERVOS_AID, POLKADOT_AID, TEZOS_AID, TRON_AID,
 };
-
+// type __appletName = 'IMK' | 'Ethereum' | 'Bitcoin' | 'EOS' | 'Cosmos' | 'Filecoin' | 'Kusama' | 'Tezos' | 'Polkadot' | 'TRON' | 'Bitcion Cash' | 'Litecoin' | 'Nervos'
 pub fn get_appname_by_instid(instid: &str) -> Option<&str> {
     match instid {
         BTC_AID => Some("Bitcoin"),
