@@ -145,3 +145,14 @@ pub struct BtcForkWallet {
     #[prost(string, tag = "4")]
     pub enc_x_pub: std::string::String,
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BtcAddressParam {
+    #[prost(string, tag = "1")]
+    pub chain_type: std::string::String,
+    #[prost(string, tag = "2")]
+    pub path: std::string::String,
+    #[prost(string, tag = "3")]
+    pub network: std::string::String,
+    #[prost(string, tag = "4")]
+    pub seg_wit: std::string::String,
+}
