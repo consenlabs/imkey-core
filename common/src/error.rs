@@ -82,4 +82,7 @@ pub enum CoinError {
     InvalidVersion,
     #[fail(display = "invalid addr length")]
     InvalidAddrLength,
+    #[fail(display = "unsupported script pubkey")]
+    UnsupportedScriptPubkey,
+
 }

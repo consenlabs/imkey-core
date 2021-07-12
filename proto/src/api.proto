@@ -101,3 +101,10 @@ message BtcForkWallet {
     string address = 3;
     string encXPub = 4;
 }
+
+message BtcAddressParam {
+    string chainType = 1;
+    string path = 2;
+    string network = 3;
+    string segWit = 4;
+}

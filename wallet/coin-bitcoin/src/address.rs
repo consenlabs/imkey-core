@@ -111,7 +111,6 @@ impl BtcAddress {
         Ok(Address::p2wpkh(&pub_key_obj, network)?.to_string())
     }
 
-
     /**
     get parent public key path
     */
@@ -234,12 +233,12 @@ mod test {
         bind_test();
 
         let version: Network = Network::Testnet;
-        let path: &str = "m/49'/1'/0'/1/0";
+        let path: &str = "m/49'/1'/0'/0/0";
         let segwit_address_result = BtcAddress::get_native_segwit_address(version, path);
 
         assert!(segwit_address_result.is_ok());
         let segwit_address = segwit_address_result.ok().unwrap();
-        assert_eq!("bc1q2e3euha90kkc4xygwjg9rlaz3qmlr2xak9crvu", segwit_address);
+        assert_eq!("tb1qv48mkzpx0u74p4c44rc6hd2e0xckph2muvy76k", segwit_address);
     }
 
     #[test]
