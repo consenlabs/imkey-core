@@ -7,8 +7,8 @@ use bitcoin::util::bip32::{ChainCode, ChildNumber, ExtendedPubKey};
 use bitcoin::{Address, Network, PublicKey};
 use common::apdu::{ApduCheck, BtcApdu, CoinCommonApdu};
 use common::constants::{
-    BTC_LEGACY_MAINNET_PATH, BTC_LEGACY_TESTNET_PATH, BTC_SEGWIT_MAINNET_PATH,
-    BTC_SEGWIT_TESTNET_PATH,
+    BTC_LEGACY_MAINNET_PATH, BTC_LEGACY_TESTNET_PATH, BTC_NATIVE_SEGWIT_MAINNET_PATH,
+    BTC_NATIVE_SEGWIT_TESTNET_PATH, BTC_SEGWIT_MAINNET_PATH, BTC_SEGWIT_TESTNET_PATH,
 };
 use common::error::CoinError;
 use common::utility::sha256_hash;
@@ -110,9 +110,9 @@ pub fn get_path_and_pubkeys(utxos: &Vec<Utxo>, network: Network) -> Result<Vec<P
             } else if(utxo.script_pubkey.starts_with("0014")) {
                 trans_type_flg = TransTypeFlg::NATIVE;
                 if(network.clone()  == Network::Testnet) {
-                    BTC_SEGWIT_TESTNET_PATH
+                    BTC_NATIVE_SEGWIT_TESTNET_PATH
                 } else {
-                    BTC_SEGWIT_MAINNET_PATH
+                    BTC_NATIVE_SEGWIT_MAINNET_PATH
                 }
 
             } else {

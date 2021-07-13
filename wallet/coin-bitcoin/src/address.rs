@@ -233,12 +233,12 @@ mod test {
         bind_test();
 
         let version: Network = Network::Testnet;
-        let path: &str = "m/49'/1'/0'/0/0";
+        let path: &str = "m/84'/1'/0'/0/0";
         let segwit_address_result = BtcAddress::get_native_segwit_address(version, path);
 
         assert!(segwit_address_result.is_ok());
         let segwit_address = segwit_address_result.ok().unwrap();
-        assert_eq!("tb1qv48mkzpx0u74p4c44rc6hd2e0xckph2muvy76k", segwit_address);
+        assert_eq!("tb1qrfaf3g4elgykshfgahktyaqj2r593qkrae5v95", segwit_address);
     }
 
     #[test]
@@ -290,11 +290,11 @@ mod test {
     fn display_native_segwit_address_test() {
         bind_test();
         let network: Network = Network::Bitcoin;
-        let path: &str = "m/49'/0'/0'/0/22";
+        let path: &str = "m/84'/0'/0'/0/22";
         let result = BtcAddress::display_native_segwit_address(network, path);
 
         assert!(result.is_ok());
         let segwit_address = result.ok().unwrap();
-        assert_eq!("bc1qe74h3vkdcj94uph4wdpk48nlqjdy42y87mdm7q", segwit_address);
+        assert_eq!("bc1qm8ckt80wv0v2mq33tantpvdqjx4tvaqguljfuq", segwit_address);
     }
 }

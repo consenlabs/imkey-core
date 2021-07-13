@@ -38,10 +38,12 @@ pub const FILECOIN_PATH: &str = "m/44'/461'/0/0/0";
 pub const POLKADOT_PATH: &str = "m/44'/354'/0'/0'/0'";
 pub const KUSAMA_PATH: &str = "m/44'/434'/0'/0'/0'";
 pub const TRON_PATH: &str = "m/44'/195'/0'/0/0";
-pub const BTC_LEGACY_MAINNET_PATH : &str = "m/44'/0'/0'";
-pub const BTC_LEGACY_TESTNET_PATH : &str = "m/44'/1'/0'";
-pub const BTC_SEGWIT_MAINNET_PATH : &str = "m/49'/0'/0'";
-pub const BTC_SEGWIT_TESTNET_PATH : &str = "m/49'/1'/0'";
+pub const BTC_LEGACY_MAINNET_PATH: &str = "m/44'/0'/0'";
+pub const BTC_LEGACY_TESTNET_PATH: &str = "m/44'/1'/0'";
+pub const BTC_SEGWIT_MAINNET_PATH: &str = "m/49'/0'/0'";
+pub const BTC_SEGWIT_TESTNET_PATH: &str = "m/49'/1'/0'";
+pub const BTC_NATIVE_SEGWIT_MAINNET_PATH: &str = "m/84'/0'/0'";
+pub const BTC_NATIVE_SEGWIT_TESTNET_PATH: &str = "m/84'/1'/0'";
 
 pub const MAX_UTXO_NUMBER: usize = 252;
 pub const EACH_ROUND_NUMBER: usize = 5;
