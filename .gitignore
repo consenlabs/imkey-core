@@ -161,3 +161,4 @@ tools/ios-internal-release.sh
 tools/android-internal-release.sh
 ios-release/**
 mobile-sdk/imKeyCoreX/Products/
+tools/android-debug.sh
