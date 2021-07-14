@@ -2,7 +2,7 @@ use crate::constants::{
     BCH_AID, BTC_AID, COSMOS_AID, EOS_AID, ETH_AID, FILECOIN_AID, IMK_AID, KUSAMA_AID, LTC_AID,
     NERVOS_AID, POLKADOT_AID, TEZOS_AID, TRON_AID,
 };
-// type __appletName = 'IMK' | 'Ethereum' | 'Bitcoin' | 'EOS' | 'Cosmos' | 'Filecoin' | 'Kusama' | 'Tezos' | 'Polkadot' | 'TRON' | 'Bitcion Cash' | 'Litecoin' | 'Nervos'
+// type __appletName = 'IMK' | 'Ethereum' | 'Bitcoin' | 'EOS' | 'Cosmos' | 'Filecoin' | 'Kusama' | 'Tezos' | 'Polkadot' | 'TRON' | 'Bitcoin Cash' | 'Litecoin' | 'Nervos'
 pub fn get_appname_by_instid(instid: &str) -> Option<&str> {
     match instid {
         BTC_AID => Some("Bitcoin"),
@@ -13,7 +13,7 @@ pub fn get_appname_by_instid(instid: &str) -> Option<&str> {
         KUSAMA_AID => Some("Kusama"),
         POLKADOT_AID => Some("Polkadot"),
         TRON_AID => Some("TRON"),
-        BCH_AID => Some("Bitcion Cash"),
+        BCH_AID => Some("Bitcoin Cash"),
         LTC_AID => Some("Litecoin"),
         IMK_AID => Some("IMK"),
         NERVOS_AID => Some("Nervos"),
@@ -33,7 +33,7 @@ pub fn get_instid_by_appname(appname: &str) -> Option<&str> {
         "Kusama" => Some(KUSAMA_AID),
         "Polkadot" => Some(POLKADOT_AID),
         "TRON" => Some(TRON_AID),
-        "Bitcion Cash" => Some(BCH_AID),
+        "Bitcoin Cash" => Some(BCH_AID),
         "Litecoin" => Some(LTC_AID),
         "IMK" => Some(IMK_AID),
         _ => None,
@@ -70,7 +70,7 @@ mod tests {
             get_instid_by_appname("Filecoin").unwrap(),
             "695F6B315F66696C"
         );
-        assert_eq!(get_instid_by_appname("Bitcion Cash").unwrap(), "695F626368");
+        assert_eq!(get_instid_by_appname("Bitcoin Cash").unwrap(), "695F626368");
         assert_eq!(get_instid_by_appname("Litecoin").unwrap(), "695F6C7463");
         assert!(get_instid_by_appname("APPLET").is_none());
     }
