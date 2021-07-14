@@ -1,6 +1,5 @@
 use crate::api::{
-    AddressParam, AddressResult, BitcoinWallet, BtcAddressParam, ExternalAddress,
-    ExternalAddressParam,
+    AddressParam, AddressResult, BitcoinWallet, ExternalAddress, ExternalAddressParam,
 };
 use crate::error_handling::Result;
 use crate::message_handler::encode_message;
@@ -24,7 +23,7 @@ pub fn get_btc_xpub(data: &[u8]) -> Result<Vec<u8>> {
     encode_message(address_message)
 }
 
-pub fn get_address(param: &BtcAddressParam) -> Result<Vec<u8>> {
+pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
     let network = match param.network.as_ref() {
         "MAINNET" => Network::Bitcoin,
         "TESTNET" => Network::Testnet,
@@ -35,7 +34,7 @@ pub fn get_address(param: &BtcAddressParam) -> Result<Vec<u8>> {
     let main_address: String;
     let receive_address: String;
 
-    match param.seg_wit.to_uppercase() {
+    match param.seg_wit.to_uppercase().as_ref() {
         "NONE" => {
             main_address =
                 BtcAddress::get_address(network, format!("{}/0/0", account_path).as_str())?;
@@ -49,6 +48,16 @@ pub fn get_address(param: &BtcAddressParam) -> Result<Vec<u8>> {
                 BtcAddress::get_segwit_address(network, format!("{}/0/1", account_path).as_str())?;
         }
         "BECH32" => {
+            main_address = BtcAddress::get_native_segwit_address(
+                network,
+                format!("{}/0/0", account_path).as_str(),
+            )?;
+            receive_address = BtcAddress::get_native_segwit_address(
+                network,
+                format!("{}/0/1", account_path).as_str(),
+            )?;
+        }
+        _ => {
             main_address = BtcAddress::get_native_segwit_address(
                 network,
                 format!("{}/0/0", account_path).as_str(),
@@ -89,7 +98,7 @@ pub fn calc_external_address(param: &ExternalAddressParam) -> Result<Vec<u8>> {
     let external_path = format!("{}/0/{}", account_path, param.external_idx);
     let receive_address: String;
 
-    match param.seg_wit.to_uppercase() {
+    match param.seg_wit.to_uppercase().as_ref() {
         "NONE" => {
             receive_address = BtcAddress::get_address(network, external_path.as_str())?;
         }
@@ -97,6 +106,10 @@ pub fn calc_external_address(param: &ExternalAddressParam) -> Result<Vec<u8>> {
             receive_address = BtcAddress::get_segwit_address(network, external_path.as_str())?;
         }
         "BECH32" => {
+            receive_address =
+                BtcAddress::get_native_segwit_address(network, external_path.as_str())?;
+        }
+        _ => {
             receive_address =
                 BtcAddress::get_native_segwit_address(network, external_path.as_str())?;
         }
@@ -121,15 +134,16 @@ pub fn get_enc_xpub(network: Network, path: &str) -> Result<String> {
     Ok(base64::encode(&encrypted))
 }
 
-pub fn register_btc_address(param: &BtcAddressParam) -> Result<Vec<u8>> {
-    match param.seg_wit.to_uppercase() {
+pub fn register_btc_address(param: &AddressParam) -> Result<Vec<u8>> {
+    match param.seg_wit.to_uppercase().as_ref() {
         "NONE" => display_btc_legacy_address(param),
         "P2WPKH" => display_segwit_address(param),
         "BECH32" => display_native_segwit_address(param),
+        _ => display_native_segwit_address(param),
     }
 }
 
-pub fn display_btc_legacy_address(param: &BtcAddressParam) -> Result<Vec<u8>> {
+pub fn display_btc_legacy_address(param: &AddressParam) -> Result<Vec<u8>> {
     let network = match param.network.as_ref() {
         "MAINNET" => Network::Bitcoin,
         "TESTNET" => Network::Testnet,
@@ -147,7 +161,7 @@ pub fn display_btc_legacy_address(param: &BtcAddressParam) -> Result<Vec<u8>> {
     encode_message(address_message)
 }
 
-pub fn display_segwit_address(param: &BtcAddressParam) -> Result<Vec<u8>> {
+pub fn display_segwit_address(param: &AddressParam) -> Result<Vec<u8>> {
     let network = match param.network.as_ref() {
         "MAINNET" => Network::Bitcoin,
         "TESTNET" => Network::Testnet,
@@ -165,7 +179,7 @@ pub fn display_segwit_address(param: &BtcAddressParam) -> Result<Vec<u8>> {
     encode_message(address_message)
 }
 
-pub fn display_native_segwit_address(param: &BtcAddressParam) -> Result<Vec<u8>> {
+pub fn display_native_segwit_address(param: &AddressParam) -> Result<Vec<u8>> {
     let network = match param.network.as_ref() {
         "MAINNET" => Network::Bitcoin,
         "TESTNET" => Network::Testnet,

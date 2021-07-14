@@ -3,11 +3,11 @@ use crate::Result;
 use bitcoin::util::bip32::{ChainCode, ChildNumber, DerivationPath, ExtendedPubKey, Fingerprint};
 use bitcoin::{Address, Network, PublicKey};
 use common::apdu::{ApduCheck, BtcApdu, CoinCommonApdu};
+use common::constants::{UNCOMPRESSED_PUBKEY_STRING_LEN, XPUB_STRING_LEN};
 use common::error::CommonError;
 use common::path::check_path_validity;
 use std::str::FromStr;
 use transport::message::send_apdu;
-
 pub struct BtcAddress();
 
 impl BtcAddress {
@@ -20,15 +20,15 @@ impl BtcAddress {
 
         //get xpub data
         let xpub_data = get_xpub_data(path, true)?;
-        let xpub_data = &xpub_data[..194].to_string();
+        let xpub_data = &xpub_data[..XPUB_STRING_LEN].to_string();
 
         //get public key and chain code
-        let pub_key = &xpub_data[..130];
-        let chain_code = &xpub_data[130..];
+        let pub_key = &xpub_data[..UNCOMPRESSED_PUBKEY_STRING_LEN];
+        let chain_code = &xpub_data[UNCOMPRESSED_PUBKEY_STRING_LEN..];
 
         //build parent public key obj
         let parent_xpub = get_xpub_data(Self::get_parent_path(path)?, true)?;
-        let parent_xpub = &parent_xpub[..130].to_string();
+        let parent_xpub = &parent_xpub[..UNCOMPRESSED_PUBKEY_STRING_LEN].to_string();
         let mut parent_pub_key_obj = PublicKey::from_str(parent_xpub)?;
         parent_pub_key_obj.compressed = true;
 
@@ -72,7 +72,7 @@ impl BtcAddress {
 
         //get xpub
         let xpub_data = get_xpub_data(path, true)?;
-        let pub_key = &xpub_data[..130];
+        let pub_key = &xpub_data[..UNCOMPRESSED_PUBKEY_STRING_LEN];
 
         let mut pub_key_obj = PublicKey::from_str(pub_key)?;
         pub_key_obj.compressed = true;
@@ -89,7 +89,7 @@ impl BtcAddress {
 
         //get xpub
         let xpub_data = get_xpub_data(path, true)?;
-        let pub_key = &xpub_data[..130];
+        let pub_key = &xpub_data[..UNCOMPRESSED_PUBKEY_STRING_LEN];
 
         let mut pub_key_obj = PublicKey::from_str(pub_key)?;
         pub_key_obj.compressed = true;
@@ -103,7 +103,7 @@ impl BtcAddress {
 
         //get xpub
         let xpub_data = get_xpub_data(path, true)?;
-        let pub_key = &xpub_data[..130];
+        let pub_key = &xpub_data[..UNCOMPRESSED_PUBKEY_STRING_LEN];
 
         let mut pub_key_obj = PublicKey::from_str(pub_key)?;
         pub_key_obj.compressed = true;

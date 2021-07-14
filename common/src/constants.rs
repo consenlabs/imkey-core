@@ -114,3 +114,8 @@ pub const DEVICE_MODEL_NAME: &str = "imKey Pro";
 pub const NETWORK_CONN_TIMEOUT: u16 = 30;
 pub const NETWORK_WRITE_TIMEOUT: u16 = 30;
 pub const NETWORK_READ_TIMEOUT: u16 = 30;
+
+// xpub string length
+pub const UNCOMPRESSED_PUBKEY_STRING_LEN: usize = 130;
+pub const CHAIN_CODE_STRING_LEN: usize = 64;
+pub const XPUB_STRING_LEN: usize = UNCOMPRESSED_PUBKEY_STRING_LEN + CHAIN_CODE_STRING_LEN;

@@ -12,12 +12,12 @@ use bitcoin::util::psbt::serialize::Serialize;
 use bitcoin::{Address, Network, OutPoint, Script, SigHashType, Transaction, TxIn, TxOut};
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::hex::ToHex;
-use bitcoin_hashes::sha256d::Hash as Hash256;
 use bitcoin_hashes::Hash;
 use common::apdu::{ApduCheck, BtcApdu};
 use common::constants::{
     BTC_NATIVE_SEGWIT_MAINNET_PATH, BTC_NATIVE_SEGWIT_TESTNET_PATH, EACH_ROUND_NUMBER,
-    MAX_UTXO_NUMBER, MIN_NONDUST_OUTPUT, TIMEOUT_LONG,
+    MAX_UTXO_NUMBER, MIN_NONDUST_OUTPUT, TIMEOUT_LONG, UNCOMPRESSED_PUBKEY_STRING_LEN,
+    XPUB_STRING_LEN,
 };
 use common::error::CoinError;
 use common::path::check_path_validity;
@@ -54,10 +54,10 @@ impl BtcTransaction {
         let xpub_data = get_xpub_data(path_str.as_str(), true)?;
         let xpub_data = &xpub_data[..xpub_data.len() - 4].to_string();
         //get xpub data
-        let sign_source_val = &xpub_data[..194];
-        let sign_result = &xpub_data[194..];
-        let pub_key = &sign_source_val[..130];
-        let chain_code = &sign_source_val[130..];
+        let sign_source_val = &xpub_data[..XPUB_STRING_LEN];
+        let sign_result = &xpub_data[XPUB_STRING_LEN..];
+        let pub_key = &sign_source_val[..UNCOMPRESSED_PUBKEY_STRING_LEN];
+        let chain_code = &sign_source_val[UNCOMPRESSED_PUBKEY_STRING_LEN..];
 
         //use se public key verify sign
         let key_manager_obj = KEY_MANAGER.lock();
@@ -99,7 +99,7 @@ impl BtcTransaction {
         //add omni output
         txouts.push(self.build_omni_output(property_id, self.amount));
 
-        //output data serialize
+        //version, locktime and output data serialize
         let mut tx_to_sign = Transaction {
             version: 1i32,
             lock_time: 0u32,
@@ -235,10 +235,10 @@ impl BtcTransaction {
         let xpub_data = &xpub_data[..xpub_data.len() - 4].to_string();
 
         //get xpub data
-        let sign_source_val = &xpub_data[..194];
-        let sign_result = &xpub_data[194..];
-        let pub_key = &sign_source_val[..130];
-        let chain_code = &sign_source_val[130..];
+        let sign_source_val = &xpub_data[..XPUB_STRING_LEN];
+        let sign_result = &xpub_data[XPUB_STRING_LEN..];
+        let pub_key = &sign_source_val[..UNCOMPRESSED_PUBKEY_STRING_LEN];
+        let chain_code = &sign_source_val[UNCOMPRESSED_PUBKEY_STRING_LEN..];
 
         //use se public key verify sign
         let key_manager_obj = KEY_MANAGER.lock();
@@ -514,10 +514,9 @@ impl BtcTransaction {
         let mut txinputs: Vec<TxIn> = vec![];
         let mut txhash_vout_vec = vec![];
         let mut sequence_vec: Vec<u8> = vec![];
-        let mut sign_apdu_vec: Vec<String> = vec![];
 
         // hash vout data and Sequnce data
-        for (index, unspent) in self.unspents.iter().enumerate() {
+        for unspent in self.unspents.iter() {
             let txin = TxIn {
                 previous_output: OutPoint {
                     txid: bitcoin::hash_types::Txid::from_hex(&unspent.txhash)?,
@@ -559,8 +558,8 @@ impl BtcTransaction {
             let mut data: Vec<u8> = vec![];
 
             // type? legacy
-            if (unspent.script_pubkey.starts_with("76a914")
-                || unspent.script_pubkey.starts_with("76A914"))
+            if unspent.script_pubkey.starts_with("76a914")
+                || unspent.script_pubkey.starts_with("76A914")
             {
                 for (x, temp_utxo) in self.unspents.iter().enumerate() {
                     let mut input_data_vec = vec![];
@@ -573,7 +572,7 @@ impl BtcTransaction {
                         sequence: 0xFFFFFFFF as u32,
                         witness: vec![],
                     };
-                    if (x == index) {
+                    if x == index {
                         temp_serialize_txin.script_sig =
                             Script::from(Vec::from_hex(temp_utxo.script_pubkey.as_str())?);
                     }
@@ -581,7 +580,7 @@ impl BtcTransaction {
 
                     let btc_perpare_apdu = if x == self.unspents.len() - 1 {
                         BtcApdu::btc_legacy_sign(0x00, 0x80, &input_data_vec)
-                    } else if (x == 0) {
+                    } else if x == 0 {
                         BtcApdu::btc_legacy_sign(0x00, 0x40, &input_data_vec)
                     } else {
                         BtcApdu::btc_legacy_sign(0x00, 0x00, &input_data_vec)
@@ -682,14 +681,14 @@ impl BtcTransaction {
             .enumerate()
             .map(|(i, txin)| {
                 let script_pubkey = self.unspents.get(i).unwrap().script_pubkey.clone();
-                if (script_pubkey.starts_with("76a914") || script_pubkey.starts_with("76A914")) {
+                if script_pubkey.starts_with("76a914") || script_pubkey.starts_with("76A914") {
                     Ok(TxIn {
                         script_sig: lock_script_ver.get(i).unwrap().clone(),
                         witness: vec![],
                         ..*txin
                     })
                 // segwit
-                } else if (script_pubkey.starts_with("a914") || script_pubkey.starts_with("A914")) {
+                } else if script_pubkey.starts_with("a914") || script_pubkey.starts_with("A914") {
                     let hash = hash160::Hash::hash(
                         hex_to_bytes(&path_and_pubkeys.get(i).unwrap().pub_key)
                             .unwrap()
@@ -702,7 +701,7 @@ impl BtcTransaction {
                         witness: vec![witnesses[i].0.clone(), witnesses[i].1.clone()],
                         ..*txin
                     })
-                } else if (script_pubkey.starts_with("0014")) {
+                } else if script_pubkey.starts_with("0014") {
                     Ok(TxIn {
                         script_sig: Script::new(),
                         witness: vec![witnesses[i].0.clone(), witnesses[i].1.clone()],
@@ -1277,7 +1276,7 @@ mod tests {
     }
 
     #[test]
-    fn test_sign_mixed_p2shp2wpkh_and_bech32_utxo_haschange() {
+    fn test_sign_mixed_p2sh_p2wpkh_and_bech32_utxo_haschange() {
         //binding device
         bind_test();
 
@@ -1398,7 +1397,7 @@ mod tests {
     }
 
     #[test]
-    fn test_sign_mixed_multi_bech32_utxo_haschange() {
+    fn test_sign_mixed_multi_bech32_utxo_has_change() {
         //binding device
         bind_test();
 
