@@ -159,6 +159,7 @@ libconnector.a
 
 tools/ios-internal-release.sh
 tools/android-internal-release.sh
+tools/android-debug.sh
 ios-release/**
 mobile-sdk/imKeyCoreX/Products/
 tools/android-debug.sh

@@ -16,6 +16,7 @@ use common::constants::{
 };
 use parking_lot::Mutex;
 use rand::rngs::OsRng;
+use rand::thread_rng;
 use regex::Regex;
 use ring::digest;
 use rsa::{BigUint, PaddingScheme, PublicKey as RSAPublic, RSAPublicKey};
@@ -62,7 +63,7 @@ impl DeviceManage {
 
         //If the key file does not exist or is empty then regenerate
         if ciphertext.is_empty() || key_flag {
-            key_manager_obj.gen_local_keys();
+            key_manager_obj.gen_local_keys()?;
             key_flag = true;
         }
 
@@ -196,8 +197,13 @@ fn auth_code_encrypt(auth_code: &String) -> Result<String> {
     let u32_vec_n = BigUint::from_bytes_be(&n.unwrap());
     let u32_vec_e = BigUint::from_bytes_be(&e.unwrap());
     let rsa_pub_key = RSAPublicKey::new(u32_vec_n, u32_vec_e)?;
-    let mut rng = OsRng::new()?;
-    let enc_data = rsa_pub_key.encrypt(&mut rng, PaddingScheme::PKCS1v15, auth_code.as_bytes())?;
+    let mut rng = OsRng;
+    // let mut rng = OsRng;
+    let enc_data = rsa_pub_key.encrypt(
+        &mut rng,
+        PaddingScheme::PKCS1v15Encrypt,
+        auth_code.as_bytes(),
+    )?;
     Ok(hex::encode_upper(enc_data))
 }
 

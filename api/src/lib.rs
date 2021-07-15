@@ -21,12 +21,16 @@ pub mod ethereum_signer;
 pub mod filecoin_address;
 pub mod filecoin_signer;
 pub mod message_handler;
+pub mod nervos_address;
+pub mod nervos_signer;
 pub mod substrate_address;
 pub mod substrate_signer;
 pub mod tron_address;
 pub mod tron_signer;
 
 use parking_lot::Mutex;
+pub mod tezos_address;
+pub mod tezos_signer;
 
 #[macro_use]
 extern crate lazy_static;
@@ -131,6 +135,8 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "POLKADOT" => substrate_address::get_address(&param),
                 "KUSAMA" => substrate_address::get_address(&param),
                 "TRON" => tron_address::get_address(&param),
+                "NERVOS" => nervos_address::get_address(&param),
+                "TEZOS" => tezos_address::get_address(&param),
                 "BITCOINCASH" => bch_address::get_address(&param),
                 "LITECOIN" => btc_fork_address::get_address(&param),
                 _ => Err(format_err!("get_address unsupported_chain")),
@@ -142,6 +148,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 .expect("imkey_illegal_param");
             match param.chain_type.as_str() {
                 "EOS" => eos_pubkey::get_eos_pubkey(&param),
+                "TEZOS" => tezos_address::get_pub_key(&param),
                 _ => Err(format_err!("get_pub_key unsupported_chain")),
             }
         }),
@@ -166,6 +173,8 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "POLKADOT" => substrate_address::display_address(&param),
                 "KUSAMA" => substrate_address::display_address(&param),
                 "TRON" => tron_address::display_address(&param),
+                "NERVOS" => nervos_address::display_address(&param),
+                "TEZOS" => tezos_address::display_tezos_address(&param),
                 _ => Err(format_err!("register_address unsupported_chain")),
             }
         }),
@@ -201,6 +210,13 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "TRON" => {
                     tron_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
                 }
+                "NERVOS" => {
+                    nervos_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
+                }
+                "TEZOS" => tezos_signer::sign_tezos_transaction(
+                    &param.clone().input.unwrap().value,
+                    &param,
+                ),
                 "BITCOINCASH" => {
                     bch_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
                 }
