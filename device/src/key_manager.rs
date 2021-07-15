@@ -16,6 +16,7 @@ use block_modes::block_padding::Pkcs7;
 use block_modes::{BlockMode, Cbc};
 use common::utility::is_valid_hex;
 use hex::FromHex;
+use rand::rngs::OsRng;
 use rand::thread_rng;
 use secp256k1::Secp256k1;
 
@@ -168,11 +169,13 @@ impl KeyManager {
     /**
     gen local key pair
     */
-    pub fn gen_local_keys(&mut self) {
+    pub fn gen_local_keys(&mut self) -> Result<()> {
         let s = Secp256k1::new();
-        let (sk, pk) = s.generate_keypair(&mut thread_rng());
+        let mut rng = secp256k1::rand::rngs::OsRng::new()?;
+        let (sk, pk) = s.generate_keypair(&mut rng);
         self.pri_key = Vec::from_hex(sk.to_string()).unwrap();
         self.pub_key = pk.serialize_uncompressed().to_vec();
+        Ok(())
     }
     /**
      Store key data
