@@ -47,6 +47,9 @@ pub const BTC_SEGWIT_MAINNET_PATH: &str = "m/49'/0'/0'";
 pub const BTC_SEGWIT_TESTNET_PATH: &str = "m/49'/1'/0'";
 pub const BTC_NATIVE_SEGWIT_MAINNET_PATH: &str = "m/84'/0'/0'";
 pub const BTC_NATIVE_SEGWIT_TESTNET_PATH: &str = "m/84'/1'/0'";
+pub const BTC_LEGACY_PATH_PRE: &str = "m/44'";
+pub const BTC_SEGWIT_PATH_PRE: &str = "m/49'";
+pub const BTC_NATIVE_SEGWIT_PATH_PRE: &str = "m/84'";
 
 pub const MAX_UTXO_NUMBER: usize = 252;
 pub const EACH_ROUND_NUMBER: usize = 5;
