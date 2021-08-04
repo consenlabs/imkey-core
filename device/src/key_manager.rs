@@ -171,7 +171,7 @@ impl KeyManager {
     */
     pub fn gen_local_keys(&mut self) -> Result<()> {
         let s = Secp256k1::new();
-        let mut rng = secp256k1::rand::rngs::OsRng::new()?;
+        let mut rng = secp256k1::rand::OsRng::new()?;
         let (sk, pk) = s.generate_keypair(&mut rng);
         self.pri_key = Vec::from_hex(sk.to_string()).unwrap();
         self.pub_key = pk.serialize_uncompressed().to_vec();
