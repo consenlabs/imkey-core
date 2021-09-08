@@ -111,3 +111,7 @@ pub const DEVICE_MODEL_NAME: &str = "imKey Pro";
 pub const NETWORK_CONN_TIMEOUT: u16 = 30;
 pub const NETWORK_WRITE_TIMEOUT: u16 = 30;
 pub const NETWORK_READ_TIMEOUT: u16 = 30;
+
+pub const ETH_TRANSACTION_TYPE_LEGACY: &str = "00";
+pub const ETH_TRANSACTION_TYPE_EIP2718: &str = "01";
+pub const ETH_TRANSACTION_TYPE_EIP1559: &str = "02";

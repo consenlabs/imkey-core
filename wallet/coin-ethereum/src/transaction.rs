@@ -8,7 +8,7 @@ use common::path::check_path_validity;
 use common::utility::{hex_to_bytes, is_valid_hex, secp256k1_sign};
 use common::{constants, utility, SignParam};
 use device::device_binding::KEY_MANAGER;
-use ethereum_types::{H256, U256};
+use ethereum_types::{Address, H256, U256};
 use keccak_hash::keccak;
 use lazy_static::lazy_static;
 use rlp::{self, DecoderError, Encodable, Rlp, RlpStream};
@@ -20,7 +20,7 @@ lazy_static! {
     pub static ref SECP256K1: secp256k1::Secp256k1<secp256k1::All> = secp256k1::Secp256k1::new();
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Eq)]
+#[derive(Default, Debug, Clone, PartialEq)]
 pub struct Transaction {
     pub nonce: U256,
     pub gas_price: U256,
@@ -28,6 +28,24 @@ pub struct Transaction {
     pub to: Action,
     pub value: U256,
     pub data: Vec<u8>,
+    pub tx_type: String,
+    pub max_fee_per_gas: ::std::option::Option<U256>,
+    pub max_prio_fee_per_gas: ::std::option::Option<U256>,
+    pub access_list: ::std::vec::Vec<AccessListItem>,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct AccessListItem {
+    pub address: Address,
+    pub storage_keys: Vec<H256>,
+}
+
+impl Encodable for AccessListItem {
+    fn rlp_append(&self, s: &mut RlpStream) {
+        s.begin_list(2);
+        s.append(&self.address);
+        s.append_list(&self.storage_keys);
+    }
 }
 
 impl Transaction {
@@ -47,8 +65,10 @@ impl Transaction {
 
         //organize data
         let mut data_pack: Vec<u8> = Vec::new();
-        let encode_tx = self.rlp_encode_tx(chain_id);
-
+        let mut encode_tx = self.rlp_encode_tx(chain_id);
+        if &self.tx_type == constants::ETH_TRANSACTION_TYPE_EIP1559 {
+            encode_tx.insert(0, hex::decode(&self.tx_type).unwrap()[0]);
+        }
         //rlp encoded tx in TLV format
         data_pack.extend(
             [
@@ -132,10 +152,11 @@ impl Transaction {
             tx_hash.insert_str(0, "0x");
         }
 
-        let tx_sign_result = EthTxOutput {
-            signature: hex::encode(signed.0),
-            tx_hash,
-        };
+        let mut signature = hex::encode(signed.0);
+        if &self.tx_type == constants::ETH_TRANSACTION_TYPE_EIP1559 {
+            signature.insert_str(0, &self.tx_type);
+        }
+        let tx_sign_result = EthTxOutput { signature, tx_hash };
 
         Ok(tx_sign_result)
     }
@@ -150,22 +171,62 @@ impl Transaction {
     pub fn hash(&self, chain_id: Option<u64>) -> H256 {
         let mut stream = RlpStream::new();
         self.rlp_append_unsigned_transaction(&mut stream, chain_id);
-        keccak(stream.as_raw())
+        let mut encode_tx = stream.as_raw().to_vec();
+        if &self.tx_type == constants::ETH_TRANSACTION_TYPE_EIP1559 {
+            encode_tx.insert(0, hex::decode(&self.tx_type).unwrap()[0]);
+        }
+        keccak(encode_tx)
     }
 
     pub fn rlp_append_unsigned_transaction(&self, s: &mut RlpStream, chain_id: Option<u64>) {
-        s.begin_list(if chain_id.is_none() { 6 } else { 9 });
-        s.append(&self.nonce);
-        s.append(&self.gas_price);
+        s.begin_list(self.rlp_list_size(chain_id));
+
+        if &self.tx_type == constants::ETH_TRANSACTION_TYPE_EIP1559 {
+            s.append(&chain_id.unwrap());
+            s.append(&self.nonce);
+            s.append(&self.max_prio_fee_per_gas.unwrap());
+            s.append(&self.max_fee_per_gas.unwrap());
+        } else {
+            s.append(&self.nonce);
+            s.append(&self.gas_price);
+        }
         s.append(&self.gas_limit);
         s.append(&self.to);
         s.append(&self.value);
         s.append(&self.data);
-        if let Some(n) = chain_id {
-            s.append(&n);
-            s.append(&0u8);
-            s.append(&0u8);
+
+        if &self.tx_type == constants::ETH_TRANSACTION_TYPE_EIP1559 {
+            s.append_list(&self.access_list);
+        } else {
+            if let Some(n) = chain_id {
+                s.append(&n);
+                s.append(&0u8);
+                s.append(&0u8);
+            }
         }
+    }
+
+    pub fn rlp_list_size(&self, chain_id: Option<u64>) -> usize {
+        if &self.tx_type == constants::ETH_TRANSACTION_TYPE_EIP1559 {
+            9
+        } else {
+            if chain_id.is_none() {
+                6
+            } else {
+                9
+            }
+        }
+    }
+
+    pub fn hexstring_to_hex256(hex_string: &str) -> H256 {
+        let mut hex_string = hex_string;
+        if hex_string.starts_with("0x") {
+            hex_string = &hex_string[2..];
+        }
+        let hex_vec = hex::decode(hex_string).unwrap();
+        let mut result = [0u8; 32];
+        result[0..32].copy_from_slice(&hex_vec.as_slice());
+        H256(result)
     }
 
     pub fn with_signature(
@@ -179,16 +240,21 @@ impl Transaction {
             s: sig.s().into(),
             v: self.add_chain_replay_protection(sig.v() as u64, chain_id),
             hash: H256::zero(),
+            chain_id: chain_id,
         };
 
         (unverified.rlp_bytes(), unverified.compute_hash())
     }
 
     pub fn add_chain_replay_protection(&self, v: u64, chain_id: Option<u64>) -> u64 {
-        v + if let Some(n) = chain_id {
-            35 + n * 2
+        if &self.tx_type == constants::ETH_TRANSACTION_TYPE_EIP1559 {
+            v
         } else {
-            27
+            v + if let Some(n) = chain_id {
+                35 + n * 2
+            } else {
+                27
+            }
         }
     }
 
@@ -274,7 +340,7 @@ impl Transaction {
     }
 }
 
-#[derive(Debug, Clone, Eq, PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct UnverifiedTransaction {
     /// Plain Transaction.
     unsigned: Transaction,
@@ -287,6 +353,7 @@ pub struct UnverifiedTransaction {
     s: U256,
     /// Hash of the transaction
     pub hash: H256,
+    pub chain_id: ::std::option::Option<u64>,
 }
 
 impl rlp::Encodable for UnverifiedTransaction {
@@ -298,7 +365,11 @@ impl rlp::Encodable for UnverifiedTransaction {
 impl UnverifiedTransaction {
     /// Used to compute hash of created transactions
     fn compute_hash(mut self) -> UnverifiedTransaction {
-        let hash = keccak(&*self.rlp_bytes());
+        let mut rlp_bytes = self.rlp_bytes().to_vec();
+        if &self.unsigned.tx_type == constants::ETH_TRANSACTION_TYPE_EIP1559 {
+            rlp_bytes.insert(0, hex::decode(&self.unsigned.tx_type).unwrap()[0]);
+        }
+        let hash = keccak(&rlp_bytes);
         self.hash = hash;
         println!("hash:{}", &hex::encode(&hash));
         self
@@ -306,13 +377,25 @@ impl UnverifiedTransaction {
 
     /// Append object with a signature into RLP stream
     fn rlp_append_sealed_transaction(&self, s: &mut RlpStream) {
-        s.begin_list(9);
-        s.append(&self.unsigned.nonce);
-        s.append(&self.unsigned.gas_price);
+        if &self.unsigned.tx_type == constants::ETH_TRANSACTION_TYPE_EIP1559 {
+            s.begin_list(12);
+            s.append(&self.chain_id.unwrap());
+            s.append(&self.unsigned.nonce);
+            s.append(&self.unsigned.max_prio_fee_per_gas.unwrap());
+            s.append(&self.unsigned.max_fee_per_gas.unwrap());
+        } else {
+            s.begin_list(9);
+            s.append(&self.unsigned.nonce);
+            s.append(&self.unsigned.gas_price);
+        }
         s.append(&self.unsigned.gas_limit);
         s.append(&self.unsigned.to);
         s.append(&self.unsigned.value);
         s.append(&self.unsigned.data);
+
+        if &self.unsigned.tx_type == constants::ETH_TRANSACTION_TYPE_EIP1559 {
+            s.append_list(&self.unsigned.access_list);
+        }
         s.append(&self.v);
         s.append(&self.r);
         s.append(&self.s);
@@ -322,6 +405,7 @@ impl UnverifiedTransaction {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::transaction::{AccessListItem, Transaction};
     use common::constants;
     use device::device_binding::bind_test;
     use ethereum_types::{Address, U256};
@@ -341,6 +425,10 @@ mod tests {
             ),
             value: U256::from(512 as usize),
             data: Vec::new(),
+            tx_type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
+            max_fee_per_gas: None,
+            max_prio_fee_per_gas: None,
+            access_list: vec![],
         };
 
         let path = "m/44'/60'/0'/0/0".to_string();
@@ -375,6 +463,10 @@ mod tests {
             ),
             value: U256::from_dec_str("10000000000000000").unwrap(),
             data: Vec::new(),
+            tx_type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
+            max_fee_per_gas: None,
+            max_prio_fee_per_gas: None,
+            access_list: vec![],
         };
         let path = "m/44'/60'/0'/0/0".to_string();
         let payment = "0.01 ETH".to_string();
@@ -413,6 +505,10 @@ mod tests {
             ),
             value: U256::from_dec_str("10000000000000000").unwrap(),
             data: Vec::from(data_vec.as_slice()),
+            tx_type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
+            max_fee_per_gas: None,
+            max_prio_fee_per_gas: None,
+            access_list: vec![],
         };
         let path = "m/44'/60'/0'/0/0".to_string();
         let payment = "0.01 ETH".to_string();
@@ -451,6 +547,10 @@ mod tests {
             ),
             value: U256::from_dec_str("10000000000000000").unwrap(),
             data: Vec::from(data_vec.as_slice()),
+            tx_type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
+            max_fee_per_gas: None,
+            max_prio_fee_per_gas: None,
+            access_list: vec![],
         };
         let path = "m/44'/60'/0'/0/0".to_string();
         let payment = "0.01 ETH".to_string();
@@ -587,6 +687,10 @@ mod tests {
             ),
             value: U256::from_dec_str("10000000000000000").unwrap(),
             data: Vec::new(),
+            tx_type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
+            max_fee_per_gas: None,
+            max_prio_fee_per_gas: None,
+            access_list: vec![],
         };
         let path = "m/44'/60'/0'/0/1".to_string();
         let payment = "0.01 ETH".to_string();
@@ -618,6 +722,323 @@ mod tests {
         assert_eq!(
             format!("{}", output.err().unwrap()),
             "imkey_address_mismatch_with_path"
+        );
+    }
+
+    #[test]
+    fn test_sign_eip1559_trans1() {
+        bind_test();
+
+        let tx = Transaction {
+            nonce: U256::from(549),
+            gas_price: U256::from(0 as usize),
+            gas_limit: U256::from(21000),
+            to: Action::Call(
+                Address::from_str("03e2B0f5369297a2E7A13d6F8e6d4BFbB9cf7dC7").unwrap(),
+            ),
+            value: U256::from(500000000000000 as usize),
+            data: Vec::new(),
+            tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
+            max_fee_per_gas: Some(U256::from(2000000000)),
+            max_prio_fee_per_gas: Some(U256::from(2000000000)),
+            access_list: vec![],
+        };
+
+        let path = "m/44'/60'/0'/0/0".to_string();
+        let payment = "0.01 ETH".to_string();
+        let receiver = "0xE6F4142dfFA574D1d9f18770BF73814df07931F3".to_string();
+        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
+        let fee = "0.0032 ether".to_string();
+
+        let tx_result = tx
+            .sign(Some(42), &path, &payment, &receiver, &sender, &fee)
+            .unwrap();
+        assert_eq!(
+            tx_result.signature,
+            "02f8732a820225847735940084773594008252089403e2b0f5369297a2e7a13d6f8e6d4bfbb9cf7dc78701c6bf5263400080c001a0b6bd8b2f4d94910d72906cb20f83e9ec0808e00e92e8338f68a496ee77c29245a00c77abda1141f4991774b240f0fcd55faa19584e06d2bd43d4d5ceb6d4381207".to_string()
+        );
+        assert_eq!(
+            tx_result.tx_hash,
+            "0x812824e60c60f8d46aa5e211c8e4a50baf92350c98c83e71c379d273ce0a0787".to_string()
+        );
+    }
+
+    #[test]
+    fn test_sign_eip1559_trans2() {
+        bind_test();
+
+        let tx = Transaction {
+            nonce: U256::from(548),
+            gas_price: U256::from(0 as usize),
+            gas_limit: U256::from(220),
+            to: Action::Call(
+                Address::from_str("87e65b8280098da8f9bb3a69643573378da87542").unwrap(),
+            ),
+            value: U256::from(44902 as usize),
+            data: hex::decode("3400711e1d0bfbcf").unwrap(),
+            tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
+            max_fee_per_gas: Some(U256::from(2298206284 as usize)),
+            max_prio_fee_per_gas: Some(U256::from(163)),
+            access_list: vec![],
+        };
+
+        let path = "m/44'/60'/0'/0/0".to_string();
+        let payment = "0.01 ETH".to_string();
+        let receiver = "0xE6F4142dfFA574D1d9f18770BF73814df07931F3".to_string();
+        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
+        let fee = "0.0032 ether".to_string();
+
+        let tx_result = tx
+            .sign(Some(42), &path, &payment, &receiver, &sender, &fee)
+            .unwrap();
+        assert_eq!(
+            tx_result.signature,
+            "02f8722a82022481a38488fbd84c81dc9487e65b8280098da8f9bb3a69643573378da8754282af66883400711e1d0bfbcfc001a03e202f7d17126f8cc3f17a3fb96508d52d7cdd93dc862481ff9b9653c71bb254a04d34bef9821db11b7f5b6d4b303b07793248fc0f34223b5884601f5511da3abc".to_string()
+        );
+        assert_eq!(
+            tx_result.tx_hash,
+            "0x90b1a2325ee4acb953e67a9b05c5b7048dc30ac222f8736b82ea4222b5a5721e".to_string()
+        );
+    }
+
+    #[test]
+    fn test_sign_eip1559_trans3() {
+        bind_test();
+
+        let tx = Transaction {
+            nonce: U256::from(8),
+            gas_price: U256::from(0 as usize),
+            gas_limit: U256::from(14298499),
+            to: Action::Call(
+                Address::from_str("ef970655297d1234174bcfe31ee803aaa97ad0ca").unwrap(),
+            ),
+            value: U256::from(11 as usize),
+            data: hex::decode("ee").unwrap(),
+            tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
+            max_fee_per_gas: Some(U256::from(850895266216 as usize)),
+            max_prio_fee_per_gas: Some(U256::from(69)),
+            access_list: vec![],
+        };
+
+        let path = "m/44'/60'/0'/0/0".to_string();
+        let payment = "0.01 ETH".to_string();
+        let receiver = "0xE6F4142dfFA574D1d9f18770BF73814df07931F3".to_string();
+        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
+        let fee = "0.0032 ether".to_string();
+
+        let tx_result = tx
+            .sign(Some(130), &path, &payment, &receiver, &sender, &fee)
+            .unwrap();
+        assert_eq!(
+            tx_result.signature,
+            "02f86a8182084585c61d4f61a883da2d8394ef970655297d1234174bcfe31ee803aaa97ad0ca0b81eec001a043b16ce6f245f8ec1d145e8b1f36bb9f6e7a7fd9030139a8143c3e0e9ccb6e9ca04020e1ae4920cfbf7c88e7be6a73751bb28d9bc8e6ecf3c5c989310c5871de8a".to_string()
+        );
+        assert_eq!(
+            tx_result.tx_hash,
+            "0xd38f47550c709e39519a3e35024a5ec135a8893890001658f2bd96e60f88fd9a".to_string()
+        );
+    }
+
+    #[test]
+    fn test_sign_eip1559_trans4() {
+        bind_test();
+
+        let tx = Transaction {
+            nonce: U256::from(4),
+            gas_price: U256::from(0 as usize),
+            gas_limit: U256::from(54),
+            to: Action::Call(
+                Address::from_str("d5539a0e4d27ebf74515fc4acb38adcc3c513f25").unwrap(),
+            ),
+            value: U256::from(64 as usize),
+            data: hex::decode("f579eebd8a5295c6f9c86e").unwrap(),
+            tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
+            max_fee_per_gas: Some(U256::from(963240322143 as usize)),
+            max_prio_fee_per_gas: Some(U256::from(28710)),
+            access_list: vec![AccessListItem {
+                address: Address::from_str("70b361fc3a4001e4f8e4e946700272b51fe4f0c4").unwrap(),
+                storage_keys: vec![
+                    Transaction::hexstring_to_hex256(
+                        "8419643489566e30b68ce5bc642e166f86e844454c99a03ed4a3d4a2b9a96f63",
+                    ),
+                    Transaction::hexstring_to_hex256(
+                        "8a2a020581b8f3142a9751344796fb1681a8cde503b6662d43b8333f863fb4d3",
+                    ),
+                    Transaction::hexstring_to_hex256(
+                        "897544db13bf6cd166ce52498d894fe6ce5a8d2096269628e7f971e818bf9ab9",
+                    ),
+                ],
+            }],
+        };
+
+        let path = "m/44'/60'/0'/0/0".to_string();
+        let payment = "0.01 ETH".to_string();
+        let receiver = "0xE6F4142dfFA574D1d9f18770BF73814df07931F3".to_string();
+        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
+        let fee = "0.0032 ether".to_string();
+
+        let tx_result = tx
+            .sign(Some(276), &path, &payment, &receiver, &sender, &fee)
+            .unwrap();
+        assert_eq!(
+            tx_result.signature,
+            "02f8f18201140482702685e04598e45f3694d5539a0e4d27ebf74515fc4acb38adcc3c513f25408bf579eebd8a5295c6f9c86ef87cf87a9470b361fc3a4001e4f8e4e946700272b51fe4f0c4f863a08419643489566e30b68ce5bc642e166f86e844454c99a03ed4a3d4a2b9a96f63a08a2a020581b8f3142a9751344796fb1681a8cde503b6662d43b8333f863fb4d3a0897544db13bf6cd166ce52498d894fe6ce5a8d2096269628e7f971e818bf9ab980a0bacd306ae19a67ffe6a6864b982dda2adc433cea38b13bfc21ca3155f1655bb6a039dad052cbb7c685c4048cafb16df681ce9e554c0cca173620a216935654c00b".to_string()
+        );
+        assert_eq!(
+            tx_result.tx_hash,
+            "0xe66abf92ea7b79ec05519444d1f360a121f224e9d6981a41e2ada82f7f50afe9".to_string()
+        );
+    }
+
+    #[test]
+    fn test_sign_eip1559_trans5() {
+        bind_test();
+
+        let tx = Transaction {
+            nonce: U256::from(6),
+            gas_price: U256::from(0 as usize),
+            gas_limit: U256::from(10884139),
+            to: Action::Call(
+                Address::from_str("d24911709fa01130804188b5c76ed65bfdfd6a05").unwrap(),
+            ),
+            value: U256::from(4990 as usize),
+            data: hex::decode("e9290f2d3d754ba522").unwrap(),
+            tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
+            max_fee_per_gas: Some(U256::from(2984486799 as usize)),
+            max_prio_fee_per_gas: Some(U256::from(183)),
+            access_list: vec![AccessListItem {
+                address: Address::from_str("55a7ce45514b6e71743bbb67e9959bd19eefb8ed").unwrap(),
+                storage_keys: vec![
+                    Transaction::hexstring_to_hex256(
+                        "766d2c1aef5f615a3f935de247800dfbf9a8bb7be5a43795f78f9c83f24f013d",
+                    ),
+                    Transaction::hexstring_to_hex256(
+                        "b34339a846e7a304ad82e20b3cf05260698566efc1c6488bf851689a279d262e",
+                    ),
+                ],
+            }],
+        };
+
+        let path = "m/44'/60'/0'/0/0".to_string();
+        let payment = "0.01 ETH".to_string();
+        let receiver = "0xE6F4142dfFA574D1d9f18770BF73814df07931F3".to_string();
+        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
+        let fee = "0.0032 ether".to_string();
+
+        let tx_result = tx
+            .sign(Some(225), &path, &payment, &receiver, &sender, &fee)
+            .unwrap();
+        assert_eq!(
+            tx_result.signature,
+            "02f8d081e10681b784b1e3a78f83a6142b94d24911709fa01130804188b5c76ed65bfdfd6a0582137e89e9290f2d3d754ba522f85bf8599455a7ce45514b6e71743bbb67e9959bd19eefb8edf842a0766d2c1aef5f615a3f935de247800dfbf9a8bb7be5a43795f78f9c83f24f013da0b34339a846e7a304ad82e20b3cf05260698566efc1c6488bf851689a279d262e80a05c809f542d668d0374e0d8d4f037f41329e223ce3dcd36aace638a5356e530e9a027c52a58a8eccbfea253475f01e5b9008af158a6558c017547cb7e28c8c785ae".to_string()
+        );
+        assert_eq!(
+            tx_result.tx_hash,
+            "0x14f39a9febd6868e2c8caa0ac90ec4f6bdbab64e5b1e54986f9a7e7e61be1b74".to_string()
+        );
+    }
+
+    #[test]
+    fn test_sign_eip1559_trans6() {
+        bind_test();
+
+        let tx = Transaction {
+            nonce: U256::from(3),
+            gas_price: U256::from(0 as usize),
+            gas_limit: U256::from(41708),
+            to: Action::Call(
+                Address::from_str("af9031dff5db0a02d25cd09b3cbb0d3f7f332faf").unwrap(),
+            ),
+            value: U256::from(44939 as usize),
+            data: hex::decode("4f").unwrap(),
+            tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
+            max_fee_per_gas: Some(U256::from(259340687386 as usize)),
+            max_prio_fee_per_gas: Some(U256::from(223)),
+            access_list: vec![AccessListItem {
+                address: Address::from_str("4824aec0a347a627d2bd88ae1f69a41b0665fed0").unwrap(),
+                storage_keys: vec![],
+            }],
+        };
+
+        let path = "m/44'/60'/0'/0/0".to_string();
+        let payment = "0.01 ETH".to_string();
+        let receiver = "0xE6F4142dfFA574D1d9f18770BF73814df07931F3".to_string();
+        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
+        let fee = "0.0032 ether".to_string();
+
+        let tx_result = tx
+            .sign(Some(365), &path, &payment, &receiver, &sender, &fee)
+            .unwrap();
+        assert_eq!(
+            tx_result.signature,
+            "02f88382016d0381df853c61e8d81a82a2ec94af9031dff5db0a02d25cd09b3cbb0d3f7f332faf82af8b4fd7d6944824aec0a347a627d2bd88ae1f69a41b0665fed0c001a051eb287fd9a429613c49a04022607c4a8a948b0d2293bc28dc0cba5ce72c761ea00f73ffb9fdcc229c660410d581ad511a9ccf125a973e2c4c3a115ed3da0fa7b2".to_string()
+        );
+        assert_eq!(
+            tx_result.tx_hash,
+            "0x285e791baec6449df732c39e29d7f73aebf0f20db7783ddf401fc7e451fae0a1".to_string()
+        );
+    }
+
+    #[test]
+    fn test_sign_eip1559_trans7() {
+        bind_test();
+
+        let tx = Transaction {
+            nonce: U256::from(1),
+            gas_price: U256::from(0 as usize),
+            gas_limit: U256::from(4286),
+            to: Action::Call(
+                Address::from_str("6f4ecd70932d65ac08b56db1f4ae2da4391f328e").unwrap(),
+            ),
+            value: U256::from(3490361 as usize),
+            data: hex::decode("200184c0486d5f082a27").unwrap(),
+            tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
+            max_fee_per_gas: Some(U256::from(1076634600920 as usize)),
+            max_prio_fee_per_gas: Some(U256::from(226)),
+            access_list: vec![
+                AccessListItem {
+                    address: Address::from_str("019fda53b3198867b8aae65320c9c55d74de1938").unwrap(),
+                    storage_keys: vec![],
+                },
+                AccessListItem {
+                    address: Address::from_str("1b976cdbc43cfcbeaad2623c95523981ea1e664a").unwrap(),
+                    storage_keys: vec![Transaction::hexstring_to_hex256(
+                        "d259410e74fa5c0227f688cc1f79b4d2bee3e9b7342c4c61342e8906a63406a2",
+                    )],
+                },
+                AccessListItem {
+                    address: Address::from_str("f1946eba70f89687d67493d8106f56c90ecba943").unwrap(),
+                    storage_keys: vec![
+                        Transaction::hexstring_to_hex256(
+                            "b3838dedffc33c62f8abfc590b41717a6dd70c3cab5a6900efae846d9060a2b9",
+                        ),
+                        Transaction::hexstring_to_hex256(
+                            "6a6c4d1ab264204fb2cdd7f55307ca3a0040855aa9c4a749a605a02b43374b82",
+                        ),
+                        Transaction::hexstring_to_hex256(
+                            "0c38e901d0d95fbf8f05157c68a89393a86aa1e821279e4cce78f827dccb2064",
+                        ),
+                    ],
+                },
+            ],
+        };
+
+        let path = "m/44'/60'/0'/0/0".to_string();
+        let payment = "0.01 ETH".to_string();
+        let receiver = "0xE6F4142dfFA574D1d9f18770BF73814df07931F3".to_string();
+        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
+        let fee = "0.0032 ether".to_string();
+
+        let tx_result = tx
+            .sign(Some(63), &path, &payment, &receiver, &sender, &fee)
+            .unwrap();
+        assert_eq!(
+            tx_result.signature,
+            "02f901413f0181e285faac6c45d88210be946f4ecd70932d65ac08b56db1f4ae2da4391f328e833542398a200184c0486d5f082a27f8cbd694019fda53b3198867b8aae65320c9c55d74de1938c0f7941b976cdbc43cfcbeaad2623c95523981ea1e664ae1a0d259410e74fa5c0227f688cc1f79b4d2bee3e9b7342c4c61342e8906a63406a2f87a94f1946eba70f89687d67493d8106f56c90ecba943f863a0b3838dedffc33c62f8abfc590b41717a6dd70c3cab5a6900efae846d9060a2b9a06a6c4d1ab264204fb2cdd7f55307ca3a0040855aa9c4a749a605a02b43374b82a00c38e901d0d95fbf8f05157c68a89393a86aa1e821279e4cce78f827dccb206480a0c5dfcb3a472086ca8c29fa31b9a86c40a6bbaeeb9db938c6729305e5f35aaeb1a04a83adc3c02b706c2c3d67de0274aa771b75c2da04c4c21ed0745637a6f937de".to_string()
+        );
+        assert_eq!(
+            tx_result.tx_hash,
+            "0xabb4c4b2b6f406b3598b5d8c5e0e7780209a50503ca5350c87ddcb82b5f518ff".to_string()
         );
     }
 }
