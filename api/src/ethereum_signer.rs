@@ -23,7 +23,10 @@ pub fn sign_eth_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u
         to = to[2..].to_string();
     }
 
-    let eth_tx = if input.r#type == ETH_TRANSACTION_TYPE_EIP1559 {
+    let eth_tx = if input.r#type.to_lowercase() == "0x02"
+        || input.r#type.to_lowercase() == "0x2"
+        || input.r#type == ETH_TRANSACTION_TYPE_EIP1559
+    {
         Transaction {
             nonce: parse_eth_argument(&input.nonce)?,
             gas_price: U256::from(0),
@@ -31,7 +34,7 @@ pub fn sign_eth_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u
             to: Action::Call(Address::from_str(&to).unwrap()),
             value: parse_eth_argument(&input.value)?,
             data: Vec::from(data_vec.as_slice()),
-            tx_type: input.r#type,
+            tx_type: ETH_TRANSACTION_TYPE_EIP1559.to_string(),
             max_fee_per_gas: Some(parse_eth_argument(&input.max_fee_per_gas)?),
             max_priority_fee_per_gas: Some(parse_eth_argument(&input.max_priority_fee_per_gas)?),
             access_list: {
@@ -271,7 +274,7 @@ mod tests {
             value: "11".to_string(),
             data: "ee".to_string(),
             chain_id: "130".to_string(),
-            r#type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
+            r#type: "0x2".to_string(),
             max_fee_per_gas: "850895266216".to_string(),
             max_priority_fee_per_gas: "69".to_string(),
             access_list: vec![],
@@ -316,7 +319,7 @@ mod tests {
             value: "3490361".to_string(),
             data: "200184c0486d5f082a27".to_string(),
             chain_id: "63".to_string(),
-            r#type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
+            r#type: "0x02".to_string(),
             max_fee_per_gas: "1076634600920".to_string(),
             max_priority_fee_per_gas: "226".to_string(),
             access_list: vec![
