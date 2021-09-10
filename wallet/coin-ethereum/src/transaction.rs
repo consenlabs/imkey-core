@@ -30,7 +30,7 @@ pub struct Transaction {
     pub data: Vec<u8>,
     pub tx_type: String,
     pub max_fee_per_gas: ::std::option::Option<U256>,
-    pub max_prio_fee_per_gas: ::std::option::Option<U256>,
+    pub max_priority_fee_per_gas: ::std::option::Option<U256>,
     pub access_list: ::std::vec::Vec<AccessListItem>,
 }
 
@@ -184,7 +184,7 @@ impl Transaction {
         if &self.tx_type == constants::ETH_TRANSACTION_TYPE_EIP1559 {
             s.append(&chain_id.unwrap());
             s.append(&self.nonce);
-            s.append(&self.max_prio_fee_per_gas.unwrap());
+            s.append(&self.max_priority_fee_per_gas.unwrap());
             s.append(&self.max_fee_per_gas.unwrap());
         } else {
             s.append(&self.nonce);
@@ -381,7 +381,7 @@ impl UnverifiedTransaction {
             s.begin_list(12);
             s.append(&self.chain_id.unwrap());
             s.append(&self.unsigned.nonce);
-            s.append(&self.unsigned.max_prio_fee_per_gas.unwrap());
+            s.append(&self.unsigned.max_priority_fee_per_gas.unwrap());
             s.append(&self.unsigned.max_fee_per_gas.unwrap());
         } else {
             s.begin_list(9);
@@ -427,7 +427,7 @@ mod tests {
             data: Vec::new(),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
             max_fee_per_gas: None,
-            max_prio_fee_per_gas: None,
+            max_priority_fee_per_gas: None,
             access_list: vec![],
         };
 
@@ -465,7 +465,7 @@ mod tests {
             data: Vec::new(),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
             max_fee_per_gas: None,
-            max_prio_fee_per_gas: None,
+            max_priority_fee_per_gas: None,
             access_list: vec![],
         };
         let path = "m/44'/60'/0'/0/0".to_string();
@@ -507,7 +507,7 @@ mod tests {
             data: Vec::from(data_vec.as_slice()),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
             max_fee_per_gas: None,
-            max_prio_fee_per_gas: None,
+            max_priority_fee_per_gas: None,
             access_list: vec![],
         };
         let path = "m/44'/60'/0'/0/0".to_string();
@@ -549,7 +549,7 @@ mod tests {
             data: Vec::from(data_vec.as_slice()),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
             max_fee_per_gas: None,
-            max_prio_fee_per_gas: None,
+            max_priority_fee_per_gas: None,
             access_list: vec![],
         };
         let path = "m/44'/60'/0'/0/0".to_string();
@@ -689,7 +689,7 @@ mod tests {
             data: Vec::new(),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
             max_fee_per_gas: None,
-            max_prio_fee_per_gas: None,
+            max_priority_fee_per_gas: None,
             access_list: vec![],
         };
         let path = "m/44'/60'/0'/0/1".to_string();
@@ -740,7 +740,7 @@ mod tests {
             data: Vec::new(),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
             max_fee_per_gas: Some(U256::from(2000000000)),
-            max_prio_fee_per_gas: Some(U256::from(2000000000)),
+            max_priority_fee_per_gas: Some(U256::from(2000000000)),
             access_list: vec![],
         };
 
@@ -778,7 +778,7 @@ mod tests {
             data: hex::decode("3400711e1d0bfbcf").unwrap(),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
             max_fee_per_gas: Some(U256::from(2298206284 as usize)),
-            max_prio_fee_per_gas: Some(U256::from(163)),
+            max_priority_fee_per_gas: Some(U256::from(163)),
             access_list: vec![],
         };
 
@@ -816,7 +816,7 @@ mod tests {
             data: hex::decode("ee").unwrap(),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
             max_fee_per_gas: Some(U256::from(850895266216 as usize)),
-            max_prio_fee_per_gas: Some(U256::from(69)),
+            max_priority_fee_per_gas: Some(U256::from(69)),
             access_list: vec![],
         };
 
@@ -854,7 +854,7 @@ mod tests {
             data: hex::decode("f579eebd8a5295c6f9c86e").unwrap(),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
             max_fee_per_gas: Some(U256::from(963240322143 as usize)),
-            max_prio_fee_per_gas: Some(U256::from(28710)),
+            max_priority_fee_per_gas: Some(U256::from(28710)),
             access_list: vec![AccessListItem {
                 address: Address::from_str("70b361fc3a4001e4f8e4e946700272b51fe4f0c4").unwrap(),
                 storage_keys: vec![
@@ -905,7 +905,7 @@ mod tests {
             data: hex::decode("e9290f2d3d754ba522").unwrap(),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
             max_fee_per_gas: Some(U256::from(2984486799 as usize)),
-            max_prio_fee_per_gas: Some(U256::from(183)),
+            max_priority_fee_per_gas: Some(U256::from(183)),
             access_list: vec![AccessListItem {
                 address: Address::from_str("55a7ce45514b6e71743bbb67e9959bd19eefb8ed").unwrap(),
                 storage_keys: vec![
@@ -953,7 +953,7 @@ mod tests {
             data: hex::decode("4f").unwrap(),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
             max_fee_per_gas: Some(U256::from(259340687386 as usize)),
-            max_prio_fee_per_gas: Some(U256::from(223)),
+            max_priority_fee_per_gas: Some(U256::from(223)),
             access_list: vec![AccessListItem {
                 address: Address::from_str("4824aec0a347a627d2bd88ae1f69a41b0665fed0").unwrap(),
                 storage_keys: vec![],
@@ -994,7 +994,7 @@ mod tests {
             data: hex::decode("200184c0486d5f082a27").unwrap(),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
             max_fee_per_gas: Some(U256::from(1076634600920 as usize)),
-            max_prio_fee_per_gas: Some(U256::from(226)),
+            max_priority_fee_per_gas: Some(U256::from(226)),
             access_list: vec![
                 AccessListItem {
                     address: Address::from_str("019fda53b3198867b8aae65320c9c55d74de1938").unwrap(),

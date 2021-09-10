@@ -11,7 +11,7 @@ message EthTxInput {
     string chain_id = 7;
     string tx_type = 8;
     string max_fee_per_gas = 9;
-    string max_prio_fee_per_gas = 10;
+    string max_priority_fee_per_gas = 10;
     repeated AccessList access_list = 11;
 }
 

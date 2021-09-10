@@ -33,7 +33,7 @@ pub fn sign_eth_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u
             data: Vec::from(data_vec.as_slice()),
             tx_type: input.tx_type,
             max_fee_per_gas: Some(parse_eth_argument(&input.max_fee_per_gas)?),
-            max_prio_fee_per_gas: Some(parse_eth_argument(&input.max_prio_fee_per_gas)?),
+            max_priority_fee_per_gas: Some(parse_eth_argument(&input.max_priority_fee_per_gas)?),
             access_list: {
                 let mut access_list: Vec<AccessListItem> = Vec::new();
                 for access in input.access_list {
@@ -63,7 +63,7 @@ pub fn sign_eth_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u
             data: Vec::from(data_vec.as_slice()),
             tx_type: input.tx_type,
             max_fee_per_gas: None,
-            max_prio_fee_per_gas: None,
+            max_priority_fee_per_gas: None,
             access_list: vec![],
         }
     };
@@ -223,7 +223,7 @@ mod tests {
             chain_id: "276".to_string(),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
             max_fee_per_gas: "963240322143".to_string(),
-            max_prio_fee_per_gas: "28710".to_string(),
+            max_priority_fee_per_gas: "28710".to_string(),
             access_list: vec![AccessList {
                 address: "70b361fc3a4001e4f8e4e946700272b51fe4f0c4".to_string(),
                 storage_keys: vec![
@@ -274,7 +274,7 @@ mod tests {
             chain_id: "130".to_string(),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
             max_fee_per_gas: "850895266216".to_string(),
-            max_prio_fee_per_gas: "69".to_string(),
+            max_priority_fee_per_gas: "69".to_string(),
             access_list: vec![],
         };
 
@@ -319,7 +319,7 @@ mod tests {
             chain_id: "63".to_string(),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
             max_fee_per_gas: "1076634600920".to_string(),
-            max_prio_fee_per_gas: "226".to_string(),
+            max_priority_fee_per_gas: "226".to_string(),
             access_list: vec![
                 AccessList {
                     address: "019fda53b3198867b8aae65320c9c55d74de1938".to_string(),
@@ -387,7 +387,7 @@ mod tests {
             chain_id: "63".to_string(),
             tx_type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
             max_fee_per_gas: "1076634600920".to_string(),
-            max_prio_fee_per_gas: "226".to_string(),
+            max_priority_fee_per_gas: "226".to_string(),
             access_list: vec![
                 AccessList {
                     address: "0x019fda53b3198867b8aae65320c9c55d74de1938".to_string(),
@@ -438,6 +438,45 @@ mod tests {
         assert_eq!(
             output.tx_hash,
             "0xabb4c4b2b6f406b3598b5d8c5e0e7780209a50503ca5350c87ddcb82b5f518ff".to_string()
+        );
+    }
+
+    #[test]
+    fn test_sign_eth_transaction_legacy() {
+        bind_test();
+
+        /*let tx = EthTxInputLegacy {
+            nonce: "8".to_string(),
+            gas_price: "20000000008".to_string(),
+            gas_limit: "189000".to_string(),
+            to: "3535353535353535353535353535353535353535".to_string(),
+            value: "512".to_string(),
+            data: "".to_string(),
+            chain_id: "28".to_string(),
+        };*/
+
+        let sign_param = SignParam {
+            chain_type: "ETHEREUM".to_string(),
+            path: "m/44'/60'/0'/0/0".to_string(),
+            network: "MAINNET".to_string(),
+            input: None,
+            payment: "0.01 ETH".to_string(),
+            receiver: "0xE6F4142dfFA574D1d9f18770BF73814df07931F3".to_string(),
+            sender: "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string(),
+            fee: "0.0032 ether".to_string(),
+        };
+
+        let data = hex::decode("0a0138120b32303030303030303030381a063138393030302228333533353335333533353335333533353335333533353335333533353335333533353335333533352a033531323a023238").unwrap();
+        let res = sign_eth_transaction(&data.as_ref(), &sign_param);
+        let output: EthTxOutput =
+            EthTxOutput::decode(res.unwrap().as_ref()).expect("imkey_illegal_param");
+        assert_eq!(
+            output.signature,
+            "f867088504a817c8088302e248943535353535353535353535353535353535353535820200805ba03aa62abb45b77418caf139dda0179aea802c99967b3d690b87d586a87bc805afa02b5ce94f40dc865ca63403e0e5e723e1523884f001573677cd8cec11c7ca332f".to_string()
+        );
+        assert_eq!(
+            output.tx_hash,
+            "0x09fa41c4d6b92482506c8c56f65b217cc3398821caec7695683110997426db01".to_string()
         );
     }
 }

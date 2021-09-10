@@ -19,7 +19,7 @@ pub struct EthTxInput {
     #[prost(string, tag = "9")]
     pub max_fee_per_gas: std::string::String,
     #[prost(string, tag = "10")]
-    pub max_prio_fee_per_gas: std::string::String,
+    pub max_priority_fee_per_gas: std::string::String,
     #[prost(message, repeated, tag = "11")]
     pub access_list: ::std::vec::Vec<AccessList>,
 }
