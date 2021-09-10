@@ -4,7 +4,7 @@ use coin_ethereum::ethapi::{EthMessageInput, EthTxInput};
 use coin_ethereum::transaction::Transaction;
 use coin_ethereum::types::Action;
 use common::SignParam;
-use ethereum_types::{Address, U256};
+use ethereum_types::{Address, U256, U64};
 use hex;
 use prost::Message;
 use std::str::FromStr;
@@ -31,7 +31,13 @@ pub fn sign_eth_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u
         data: Vec::from(data_vec.as_slice()),
     };
 
-    let chain_id = input.chain_id.parse::<u64>().unwrap();
+    let chain_id = if input.chain_id.to_lowercase().starts_with("0x") {
+        let without_prefix = &input.chain_id.trim_start_matches("0x");
+        u64::from_str_radix(without_prefix, 16).unwrap()
+    } else {
+        input.chain_id.parse::<u64>().unwrap()
+    };
+
     let tx_out = eth_tx.sign(
         Some(chain_id),
         &sign_param.path,
