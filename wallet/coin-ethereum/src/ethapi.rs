@@ -15,7 +15,7 @@ pub struct EthTxInput {
     #[prost(string, tag = "7")]
     pub chain_id: std::string::String,
     #[prost(string, tag = "8")]
-    pub tx_type: std::string::String,
+    pub r#type: std::string::String,
     #[prost(string, tag = "9")]
     pub max_fee_per_gas: std::string::String,
     #[prost(string, tag = "10")]
