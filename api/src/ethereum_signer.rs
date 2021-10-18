@@ -5,7 +5,7 @@ use coin_ethereum::transaction::{AccessListItem, Transaction};
 use coin_ethereum::types::Action;
 use common::constants::ETH_TRANSACTION_TYPE_EIP1559;
 use common::SignParam;
-use ethereum_types::{Address, U256, U64, H256};
+use ethereum_types::{Address, H256, U256, U64};
 use hex;
 use prost::Message;
 use std::str::FromStr;
@@ -35,8 +35,10 @@ pub fn sign_eth_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u
             value: parse_eth_argument(&input.value)?,
             data: Vec::from(data_vec.as_slice()),
             tx_type: ETH_TRANSACTION_TYPE_EIP1559.to_string(),
-            max_fee_per_gas: Some(parse_eth_argument(&input.max_fee_per_gas)?),
-            max_priority_fee_per_gas: Some(parse_eth_argument(&input.max_priority_fee_per_gas)?),
+            max_fee_per_gas: Some(parse_eth_argument(&input.max_fee_per_gas.unwrap())?),
+            max_priority_fee_per_gas: Some(parse_eth_argument(
+                &input.max_priority_fee_per_gas.unwrap(),
+            )?),
             access_list: {
                 let mut access_list: Vec<AccessListItem> = Vec::new();
                 for access in input.access_list {
@@ -59,7 +61,7 @@ pub fn sign_eth_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u
     } else {
         Transaction {
             nonce: parse_eth_argument(&input.nonce)?,
-            gas_price: parse_eth_argument(&input.gas_price)?,
+            gas_price: parse_eth_argument(&input.gas_price.unwrap())?,
             gas_limit: parse_eth_argument(&input.gas_limit)?,
             to: Action::Call(Address::from_str(&to).unwrap()),
             value: parse_eth_argument(&input.value)?,
@@ -121,11 +123,11 @@ pub fn sign_eth_message(data: &[u8], sign_param: &SignParam) -> Result<Vec<u8>> 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use device::device_binding::{bind_test, DeviceManage};
-    use ethereum_types::{Address, U256};
     use crate::ethereum_signer::sign_eth_transaction;
     use coin_ethereum::ethapi::{AccessList, EthTxInput, EthTxOutput};
     use common::constants;
+    use device::device_binding::{bind_test, DeviceManage};
+    use ethereum_types::{Address, U256};
     use hex;
     use std::str::FromStr;
     use transport::hid_api::hid_connect;
@@ -140,7 +142,20 @@ mod tests {
     fn sign_tx_int_chainid_test() {
         bind_test();
         let path = "m/44'/60'/0'/0/0".to_string();
-        let data = hex::decode("0a0134120a353030303030303030301a0730783430343964222a3078396564306335333530626331376666343535323937323265623037353830666635363463336137382a0c3078653864346135313030303a0131").unwrap();
+        let tx = EthTxInput {
+            nonce: "4".to_string(),
+            gas_price: Some("5000000000".to_string()),
+            gas_limit: "0x4049d".to_string(),
+            to: "0x9ed0c5350bc17ff45529722eb07580ff564c3a78".to_string(),
+            value: "0xe8d4a51000".to_string(),
+            data: "".to_string(),
+            chain_id: "1".to_string(),
+            r#type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
+            max_fee_per_gas: Some("".to_string()),
+            max_priority_fee_per_gas: Some("".to_string()),
+            access_list: vec![],
+        };
+        let data = encode_message(tx).unwrap();
         let sign_param = SignParam {
             chain_type: "ETHEREUM".to_string(),
             path,
@@ -159,7 +174,21 @@ mod tests {
     fn sign_tx_hex_chainid_test() {
         bind_test();
         let path = "m/44'/60'/0'/0/0".to_string();
-        let data = hex::decode("0a0134120a353030303030303030301a0730783430343964222a3078396564306335333530626331376666343535323937323265623037353830666635363463336137382a0c3078653864346135313030303a0430783338").unwrap();
+        let tx = EthTxInput {
+            nonce: "4".to_string(),
+            gas_price: Some("5000000000".to_string()),
+            gas_limit: "0x4049d".to_string(),
+            to: "0x9ed0c5350bc17ff45529722eb07580ff564c3a78".to_string(),
+            value: "0xe8d4a51000".to_string(),
+            data: "".to_string(),
+            chain_id: "0x38".to_string(),
+            r#type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
+            max_fee_per_gas: Some("".to_string()),
+            max_priority_fee_per_gas: Some("".to_string()),
+            access_list: vec![],
+        };
+        let data = encode_message(tx).unwrap();
+        // let data = hex::decode("0a0134120a353030303030303030301a0730783430343964222a3078396564306335333530626331376666343535323937323265623037353830666635363463336137382a0c3078653864346135313030303a0430783338").unwrap();
         let sign_param = SignParam {
             chain_type: "ETHEREUM".to_string(),
             path,
@@ -178,7 +207,21 @@ mod tests {
     fn sign_tx_hex_chainid_test2() {
         bind_test();
         let path = "m/44'/60'/0'/0/0".to_string();
-        let data = hex::decode("0a0134120a353030303030303030301a0730783430343964222a3078396564306335333530626331376666343535323937323265623037353830666635363463336137382a0c3078653864346135313030303a024133").unwrap();
+        let tx = EthTxInput {
+            nonce: "4".to_string(),
+            gas_price: Some("5000000000".to_string()),
+            gas_limit: "0x4049d".to_string(),
+            to: "0x9ed0c5350bc17ff45529722eb07580ff564c3a78".to_string(),
+            value: "0xe8d4a51000".to_string(),
+            data: "".to_string(),
+            chain_id: "A3".to_string(),
+            r#type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
+            max_fee_per_gas: Some("".to_string()),
+            max_priority_fee_per_gas: Some("".to_string()),
+            access_list: vec![],
+        };
+        let data = encode_message(tx).unwrap();
+        // let data = hex::decode("0a0134120a353030303030303030301a0730783430343964222a3078396564306335333530626331376666343535323937323265623037353830666635363463336137382a0c3078653864346135313030303a024133").unwrap();
         let sign_param = SignParam {
             chain_type: "ETHEREUM".to_string(),
             path,
@@ -197,7 +240,21 @@ mod tests {
     fn sign_tx_error_chainid_test() {
         bind_test();
         let path = "m/44'/60'/0'/0/0".to_string();
-        let data = hex::decode("0a0134120a353030303030303030301a0730783430343964222a3078396564306335333530626331376666343535323937323265623037353830666635363463336137382a0c3078653864346135313030303a03787878").unwrap();
+        let tx = EthTxInput {
+            nonce: "4".to_string(),
+            gas_price: Some("5000000000".to_string()),
+            gas_limit: "0x4049d".to_string(),
+            to: "0x9ed0c5350bc17ff45529722eb07580ff564c3a78".to_string(),
+            value: "0xe8d4a51000".to_string(),
+            data: "".to_string(),
+            chain_id: "xxx".to_string(),
+            r#type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
+            max_fee_per_gas: Some("".to_string()),
+            max_priority_fee_per_gas: Some("".to_string()),
+            access_list: vec![],
+        };
+        let data = encode_message(tx).unwrap();
+        let path = "m/44'/60'/0'/0/0".to_string();
         let sign_param = SignParam {
             chain_type: "ETHEREUM".to_string(),
             path,
@@ -218,15 +275,15 @@ mod tests {
 
         let tx = EthTxInput {
             nonce: "4".to_string(),
-            gas_price: "".to_string(),
+            gas_price: Some("".to_string()),
             gas_limit: "54".to_string(),
             to: "d5539a0e4d27ebf74515fc4acb38adcc3c513f25".to_string(),
             value: "64".to_string(),
             data: "f579eebd8a5295c6f9c86e".to_string(),
             chain_id: "276".to_string(),
             r#type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
-            max_fee_per_gas: "963240322143".to_string(),
-            max_priority_fee_per_gas: "28710".to_string(),
+            max_fee_per_gas: Some("963240322143".to_string()),
+            max_priority_fee_per_gas: Some("28710".to_string()),
             access_list: vec![AccessList {
                 address: "70b361fc3a4001e4f8e4e946700272b51fe4f0c4".to_string(),
                 storage_keys: vec![
@@ -268,15 +325,15 @@ mod tests {
 
         let tx = EthTxInput {
             nonce: "8".to_string(),
-            gas_price: "".to_string(),
+            gas_price: Some("".to_string()),
             gas_limit: "14298499".to_string(),
             to: "ef970655297d1234174bcfe31ee803aaa97ad0ca".to_string(),
             value: "11".to_string(),
             data: "ee".to_string(),
             chain_id: "130".to_string(),
             r#type: "0x2".to_string(),
-            max_fee_per_gas: "850895266216".to_string(),
-            max_priority_fee_per_gas: "69".to_string(),
+            max_fee_per_gas: Some("850895266216".to_string()),
+            max_priority_fee_per_gas: Some("69".to_string()),
             access_list: vec![],
         };
 
@@ -313,15 +370,15 @@ mod tests {
 
         let tx = EthTxInput {
             nonce: "1".to_string(),
-            gas_price: "".to_string(),
+            gas_price: Some("".to_string()),
             gas_limit: "4286".to_string(),
             to: "6f4ecd70932d65ac08b56db1f4ae2da4391f328e".to_string(),
             value: "3490361".to_string(),
             data: "200184c0486d5f082a27".to_string(),
             chain_id: "63".to_string(),
             r#type: "0x02".to_string(),
-            max_fee_per_gas: "1076634600920".to_string(),
-            max_priority_fee_per_gas: "226".to_string(),
+            max_fee_per_gas: Some("1076634600920".to_string()),
+            max_priority_fee_per_gas: Some("226".to_string()),
             access_list: vec![
                 AccessList {
                     address: "019fda53b3198867b8aae65320c9c55d74de1938".to_string(),
@@ -381,15 +438,15 @@ mod tests {
 
         let tx = EthTxInput {
             nonce: "1".to_string(),
-            gas_price: "".to_string(),
+            gas_price: Some("".to_string()),
             gas_limit: "4286".to_string(),
             to: "0x6f4ecd70932d65ac08b56db1f4ae2da4391f328e".to_string(),
             value: "3490361".to_string(),
             data: "200184c0486d5f082a27".to_string(),
             chain_id: "63".to_string(),
             r#type: String::from(constants::ETH_TRANSACTION_TYPE_EIP1559),
-            max_fee_per_gas: "1076634600920".to_string(),
-            max_priority_fee_per_gas: "226".to_string(),
+            max_fee_per_gas: Some("1076634600920".to_string()),
+            max_priority_fee_per_gas: Some("226".to_string()),
             access_list: vec![
                 AccessList {
                     address: "0x019fda53b3198867b8aae65320c9c55d74de1938".to_string(),
@@ -468,7 +525,21 @@ mod tests {
             fee: "0.0032 ether".to_string(),
         };
 
-        let data = hex::decode("0a0138120b32303030303030303030381a063138393030302228333533353335333533353335333533353335333533353335333533353335333533353335333533352a033531323a023238").unwrap();
+        let tx = EthTxInput {
+            nonce: "8".to_string(),
+            gas_price: Some("20000000008".to_string()),
+            gas_limit: "189000".to_string(),
+            to: "3535353535353535353535353535353535353535".to_string(),
+            value: "512".to_string(),
+            data: "".to_string(),
+            chain_id: "512".to_string(),
+            r#type: "".to_string(),
+            max_fee_per_gas: Some("".to_string()),
+            max_priority_fee_per_gas: Some("".to_string()),
+            access_list: vec![],
+        };
+        let data = encode_message(tx).unwrap();
+        // let data = hex::decode("0a0138120b32303030303030303030381a063138393030302228333533353335333533353335333533353335333533353335333533353335333533353335333533352a033531323a023238").unwrap();
         let res = sign_eth_transaction(&data.as_ref(), &sign_param);
         let output: EthTxOutput =
             EthTxOutput::decode(res.unwrap().as_ref()).expect("imkey_illegal_param");

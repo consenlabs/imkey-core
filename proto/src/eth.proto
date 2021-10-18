@@ -1,17 +1,18 @@
 syntax = "proto3";
 package ethapi;
+import "google/protobuf/wrappers.proto";
 
 message EthTxInput {
     string nonce = 1;
-    string gas_price = 2;
+    google.protobuf.StringValue gas_price = 2;
     string gas_limit = 3;
     string to = 4;
     string value = 5;
     string data = 6;
     string chain_id = 7;
     string type = 8;
-    string max_fee_per_gas = 9;
-    string max_priority_fee_per_gas = 10;
+    google.protobuf.StringValue max_fee_per_gas = 9;
+    google.protobuf.StringValue max_priority_fee_per_gas = 10;
     repeated AccessList access_list = 11;
 }
 

@@ -2,8 +2,8 @@
 pub struct EthTxInput {
     #[prost(string, tag = "1")]
     pub nonce: std::string::String,
-    #[prost(string, tag = "2")]
-    pub gas_price: std::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub gas_price: ::std::option::Option<::std::string::String>,
     #[prost(string, tag = "3")]
     pub gas_limit: std::string::String,
     #[prost(string, tag = "4")]
@@ -16,10 +16,10 @@ pub struct EthTxInput {
     pub chain_id: std::string::String,
     #[prost(string, tag = "8")]
     pub r#type: std::string::String,
-    #[prost(string, tag = "9")]
-    pub max_fee_per_gas: std::string::String,
-    #[prost(string, tag = "10")]
-    pub max_priority_fee_per_gas: std::string::String,
+    #[prost(message, optional, tag = "9")]
+    pub max_fee_per_gas: ::std::option::Option<::std::string::String>,
+    #[prost(message, optional, tag = "10")]
+    pub max_priority_fee_per_gas: ::std::option::Option<::std::string::String>,
     #[prost(message, repeated, tag = "11")]
     pub access_list: ::std::vec::Vec<AccessList>,
 }
