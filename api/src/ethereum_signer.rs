@@ -5,7 +5,7 @@ use coin_ethereum::transaction::{AccessListItem, Transaction};
 use coin_ethereum::types::Action;
 use common::constants::ETH_TRANSACTION_TYPE_EIP1559;
 use common::SignParam;
-use ethereum_types::{Address, U256, U64, H256};
+use ethereum_types::{Address, H256, U256, U64};
 use hex;
 use prost::Message;
 use std::str::FromStr;
@@ -121,11 +121,11 @@ pub fn sign_eth_message(data: &[u8], sign_param: &SignParam) -> Result<Vec<u8>> 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use device::device_binding::{bind_test, DeviceManage};
-    use ethereum_types::{Address, U256};
     use crate::ethereum_signer::sign_eth_transaction;
     use coin_ethereum::ethapi::{AccessList, EthTxInput, EthTxOutput};
     use common::constants;
+    use device::device_binding::{bind_test, DeviceManage};
+    use ethereum_types::{Address, U256};
     use hex;
     use std::str::FromStr;
     use transport::hid_api::hid_connect;
