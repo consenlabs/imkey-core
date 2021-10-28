@@ -1,4 +1,4 @@
-pub const VERSION: &str = "2.3.2";
+pub const VERSION: &str = "2.9.8";
 pub const URL: &str = "https://imkey.online:1000/imkey";
 // pub const URL: &str = "https://imkeyserver.com:10444/imkey";
 
@@ -125,3 +125,6 @@ pub const NETWORK_READ_TIMEOUT: u16 = 30;
 pub const UNCOMPRESSED_PUBKEY_STRING_LEN: usize = 130;
 pub const CHAIN_CODE_STRING_LEN: usize = 64;
 pub const XPUB_STRING_LEN: usize = UNCOMPRESSED_PUBKEY_STRING_LEN + CHAIN_CODE_STRING_LEN;
+pub const ETH_TRANSACTION_TYPE_LEGACY: &str = "00";
+pub const ETH_TRANSACTION_TYPE_EIP2718: &str = "01";
+pub const ETH_TRANSACTION_TYPE_EIP1559: &str = "02";
