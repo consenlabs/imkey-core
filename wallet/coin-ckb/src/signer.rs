@@ -261,8 +261,9 @@ impl CkbSigner {
 #[cfg(test)]
 mod tests {
     use crate::address::CkbAddress;
+    use crate::nervosapi::{CachedCell, CkbTxInput, CkbTxOutput, OutPoint, Witness};
     use crate::signer::CkbSigner;
-    use crate::transaction::{CachedCell, CellInput, CkbTxInput, OutPoint, Script, Witness};
+    use crate::{CellInput, Script};
     use common::{constants, SignParam};
     use device::device_binding::bind_test;
 
