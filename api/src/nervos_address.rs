@@ -2,7 +2,6 @@ use crate::api::{AddressParam, AddressResult, BtcForkWallet};
 use crate::error_handling::Result;
 use crate::message_handler::encode_message;
 use bitcoin::Network;
-use coin_btc_fork::address::BtcForkAddress;
 use coin_ckb::address::CkbAddress;
 use prost::Message;
 
@@ -15,7 +14,7 @@ pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
 
     let address = CkbAddress::get_address(param.network.as_ref(), param.path.as_ref())?;
     let account_path = common::utility::get_account_path(&param.path)?;
-    let enc_xpub = BtcForkAddress::get_enc_xpub(network, &account_path)?;
+    let enc_xpub = CkbAddress::get_enc_xpub(network, &account_path)?;
 
     let address_message = BtcForkWallet {
         path: param.path.to_owned(),
@@ -41,11 +40,14 @@ pub fn display_address(param: &AddressParam) -> Result<Vec<u8>> {
 mod tests {
     use crate::api::AddressParam;
     use crate::nervos_address::get_address;
+    use common::{XPUB_COMMON_IV, XPUB_COMMON_KEY_128};
     use device::device_binding::bind_test;
 
     #[test]
     fn test_btc_fork_address() {
         bind_test();
+        *XPUB_COMMON_KEY_128.write() = "4A2B655485ABBAB54BD30298BB0A5B55".to_string();
+        *XPUB_COMMON_IV.write() = "73518399CB98DCD114D873E06EBF4BCC".to_string();
 
         let param = AddressParam {
             chain_type: "NERVOS".to_string(),

@@ -572,7 +572,9 @@ dependencies = [
 name = "coin-ckb"
 version = "0.1.0"
 dependencies = [
+ "base64 0.10.1",
  "bech32 0.7.2",
+ "bitcoin",
  "blake2b-rs",
  "byteorder",
  "common",

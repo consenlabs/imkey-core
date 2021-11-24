@@ -1,13 +1,16 @@
 use crate::hash::blake2b_160;
 use crate::Result;
 use bech32::ToBase32;
+use bitcoin::util::bip32::{ChainCode, ChildNumber, DerivationPath, ExtendedPubKey, Fingerprint};
+use bitcoin::{Network, PublicKey};
 use common::apdu::{Apdu, ApduCheck, Secp256k1Apdu};
 use common::constants;
 use common::constants::NERVOS_AID;
-use common::error::CoinError;
+use common::error::{CoinError, CommonError};
 use common::path::check_path_validity;
 use common::utility::{secp256k1_sign, secp256k1_sign_verify, uncompress_pubkey_2_compress};
 use device::device_binding::KEY_MANAGER;
+use std::str::FromStr;
 use transport::message::send_apdu;
 
 pub struct CkbAddress {}
@@ -84,12 +87,108 @@ impl CkbAddress {
         ApduCheck::check_response(&res_reg)?;
         Ok(address)
     }
+
+    pub fn get_enc_xpub(network: Network, path: &str) -> Result<String> {
+        let xpub = Self::get_xpub(network, path)?;
+        let key = common::XPUB_COMMON_KEY_128.read();
+        let iv = common::XPUB_COMMON_IV.read();
+        let key_bytes = hex::decode(&*key)?;
+        let iv_bytes = hex::decode(&*iv)?;
+        let encrypted = common::aes::cbc::encrypt_pkcs7(&xpub.as_bytes(), &key_bytes, &iv_bytes)?;
+        Ok(base64::encode(&encrypted))
+    }
+
+    pub fn get_xpub(network: Network, path: &str) -> Result<String> {
+        //path check
+        check_path_validity(path)?;
+
+        //get xpub data
+        let xpub_data = CkbAddress::get_xpub_data(path)?;
+        let xpub_data = &xpub_data[..194].to_string();
+
+        //get public key and chain code
+        let pub_key = &xpub_data[..130];
+        let chain_code = &xpub_data[130..];
+
+        //build parent public key obj
+        let parent_xpub = CkbAddress::get_xpub_data(Self::get_parent_path(path)?)?;
+        let parent_xpub = &parent_xpub[..130].to_string();
+        let mut parent_pub_key_obj = PublicKey::from_str(parent_xpub)?;
+        parent_pub_key_obj.compressed = true;
+
+        //build child public key obj
+        let mut pub_key_obj = PublicKey::from_str(pub_key)?;
+        pub_key_obj.compressed = true;
+
+        //get parent public key fingerprint
+        let chain_code_obj = ChainCode::from(hex::decode(chain_code).unwrap().as_slice());
+        let parent_ext_pub_key = ExtendedPubKey {
+            network: network,
+            depth: 0 as u8,
+            parent_fingerprint: Fingerprint::default(),
+            child_number: ChildNumber::from_normal_idx(0).unwrap(),
+            public_key: parent_pub_key_obj,
+            chain_code: chain_code_obj,
+        };
+        let fingerprint_obj = parent_ext_pub_key.fingerprint();
+
+        //build extend public key obj
+        let chain_code_obj = ChainCode::from(hex::decode(chain_code).unwrap().as_slice());
+        let chain_number_vec: Vec<ChildNumber> = DerivationPath::from_str(path)?.into();
+        let extend_public_key = ExtendedPubKey {
+            network: network,
+            depth: chain_number_vec.len() as u8,
+            parent_fingerprint: fingerprint_obj,
+            child_number: *chain_number_vec.get(chain_number_vec.len() - 1).unwrap(),
+            public_key: pub_key_obj,
+            chain_code: chain_code_obj,
+        };
+        //get and return xpub
+        Ok(extend_public_key.to_string())
+        // Ok("extend_public_key".to_string())
+    }
+
+    pub fn get_xpub_data(path: &str) -> Result<String> {
+        let select_apdu = Apdu::select_applet(NERVOS_AID);
+        let select_response = send_apdu(select_apdu)?;
+        ApduCheck::check_response(&select_response)?;
+
+        let key_manager_obj = KEY_MANAGER.lock();
+        let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, path.as_bytes())?;
+        let mut apdu_pack: Vec<u8> = vec![];
+        apdu_pack.push(0x00);
+        apdu_pack.push(bind_signature.len() as u8);
+        apdu_pack.extend(bind_signature.as_slice());
+        apdu_pack.push(0x01);
+        apdu_pack.push(path.as_bytes().len() as u8);
+        apdu_pack.extend(path.as_bytes());
+
+        let apdu_xpub = Secp256k1Apdu::get_xpub(&apdu_pack);
+        let xpub_data = send_apdu(apdu_xpub)?;
+        ApduCheck::check_response(&xpub_data)?;
+        Ok(xpub_data)
+    }
+
+    fn get_parent_path(path: &str) -> Result<&str> {
+        if path.is_empty() {
+            return Err(CommonError::ImkeyPathIllegal.into());
+        }
+
+        let mut end_flg = path.rfind("/").unwrap();
+        if path.ends_with("/") {
+            let path = &path[..path.len() - 1];
+            end_flg = path.rfind("/").unwrap();
+        }
+        Ok(&path[..end_flg])
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use crate::address::CkbAddress;
+    use bitcoin::Network;
     use common::constants;
+    use common::{XPUB_COMMON_IV, XPUB_COMMON_KEY_128};
     use device::device_binding::bind_test;
 
     #[test]
@@ -141,5 +240,25 @@ mod tests {
             CkbAddress::display_address(network, constants::NERVOS_PATH).expect("get address fail");
         println!("address:{}", &address);
         assert_eq!(&address, "ckt1qyqtr684u76tu7r8efkd24hw8922xfvhnazskzdzy6");
+    }
+
+    #[test]
+    fn get_xpub_test() {
+        bind_test();
+        *XPUB_COMMON_KEY_128.write() = "4A2B655485ABBAB54BD30298BB0A5B55".to_string();
+        *XPUB_COMMON_IV.write() = "73518399CB98DCD114D873E06EBF4BCC".to_string();
+
+        let version: Network = Network::Bitcoin;
+        let path: &str = "m/44'/309'/0'";
+        let get_xpub_result = CkbAddress::get_xpub(version, path);
+        assert!(get_xpub_result.is_ok());
+        let xpub = get_xpub_result.ok().unwrap();
+        assert_eq!("xpub6CuQc3kkPk2oPKAXnCpEJNkmwzMkXmv1BBG5a2aUbhGBR49zqmSUpJDG3veFgfiMDcjusGVoHP574ecgsyo48Hvmgq33oP8NRoC9kHqZYuN", xpub);
+
+        let version: Network = Network::Bitcoin;
+        let path: &str = "m/44'/309'/0'";
+        let get_enc_xpub_result = CkbAddress::get_enc_xpub(version, path);
+        let enc_xpub = get_enc_xpub_result.ok().unwrap();
+        assert_eq!("iWHbNJrWJIb0Kj8GRWzQX9Z1wUNP4HQecGNaAI+KUqsMFCKaP1rDz0KCwlSVvwcONB3S80hdbZOoW56VGB1hcqPyS45qxPcqi+xTtDNYasP2mmnNd4rO1HEJIQOaejDEdGEg2psFu/dzrRHKoZ6gRQ==", enc_xpub);
     }
 }
