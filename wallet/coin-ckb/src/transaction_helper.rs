@@ -66,7 +66,7 @@ impl Witness {
 
 #[cfg(test)]
 mod tests {
-    use crate::transaction::{Script, Witness};
+    use crate::{Script, Witness};
 
     #[test]
     fn serialize_script() {
