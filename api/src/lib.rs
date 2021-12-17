@@ -142,6 +142,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 .expect("imkey_illegal_param");
             match param.chain_type.as_str() {
                 "EOS" => eos_pubkey::get_eos_pubkey(&param),
+                "COSMOS" => cosmos_address::get_cosmos_pub_key(&param),
                 _ => Err(format_err!("get_pub_key unsupported_chain")),
             }
         }),
