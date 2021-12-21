@@ -31,7 +31,7 @@ pub fn get_cosmos_pub_key(param: &PubKeyParam) -> Result<Vec<u8>> {
         path: param.path.to_owned(),
         chain_type: param.chain_type.to_string(),
         pub_key,
-        derived_mode: "".to_string()
+        derived_mode: "".to_string(),
     };
     encode_message(pub_key_message)
 }

@@ -69,9 +69,7 @@ impl CosmosTransaction {
         signature_obj.normalize_s();
         let signature = signature_obj.serialize_compact().to_hex();
 
-        let pub_key = CosmosAddress::get_pub_key(&self.path)?;
-
-        let output = CosmosTxOutput { signature, pub_key };
+        let output = CosmosTxOutput { signature };
         Ok(output)
     }
 }
@@ -124,10 +122,6 @@ mod tests {
         };
         let cosmos_tx_output = input.sign().unwrap();
         assert_eq!("878fff70e60b4e20d86ddc3ed4d559b9fc29a4801c110d71b1631870275c1adb2ee314a7612b71c898086b9ef8e39b079d78163fce15be743981ea146402b195", cosmos_tx_output.signature);
-        assert_eq!(
-            "0232C1EF21D73C19531B0AA4E863CF397C2B982B2F958F60CDB62969824C096D65",
-            cosmos_tx_output.pub_key
-        )
     }
 
     #[test]
@@ -143,10 +137,6 @@ mod tests {
         };
         let cosmos_tx_output = input.sign().unwrap();
         assert_eq!("878fff70e60b4e20d86ddc3ed4d559b9fc29a4801c110d71b1631870275c1adb2ee314a7612b71c898086b9ef8e39b079d78163fce15be743981ea146402b195", cosmos_tx_output.signature);
-        assert_eq!(
-            "0232C1EF21D73C19531B0AA4E863CF397C2B982B2F958F60CDB62969824C096D65",
-            cosmos_tx_output.pub_key
-        )
     }
 
     #[test]
