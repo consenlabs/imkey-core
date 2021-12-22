@@ -67,11 +67,10 @@ impl CosmosTransaction {
         let sign_compact = hex::decode(&sign_result[2..130]).unwrap();
         let mut signature_obj = SecpSignature::from_compact(sign_compact.as_slice()).unwrap();
         signature_obj.normalize_s();
-        let signature = signature_obj.serialize_compact().to_hex();
+        let normalizes_sig_vec = signature_obj.serialize_compact();
+        let signature = base64::encode(&normalizes_sig_vec.as_ref());
 
-        let pub_key = CosmosAddress::get_pub_key(&self.path)?;
-
-        let output = CosmosTxOutput { signature, pub_key };
+        let output = CosmosTxOutput { signature };
         Ok(output)
     }
 }
@@ -97,7 +96,7 @@ mod tests {
         let prepare_data = secp256k1_sign(&private_key, &sign_pack.as_slice()).unwrap();
         let prepare_data_hex = hex::encode(&prepare_data);
         assert_eq!(prepare_data_hex,
-        "3045022100a773a750391978586598843f89921d33083f670049906dc68ad312867df2826d0220312d22dcc102d8ba2a86972c7c73f082c53b29ef0a04ac630def935ed996d9c2"
+                   "3045022100a773a750391978586598843f89921d33083f670049906dc68ad312867df2826d0220312d22dcc102d8ba2a86972c7c73f082c53b29ef0a04ac630def935ed996d9c2"
         );
     }
 
@@ -107,14 +106,14 @@ mod tests {
         let bytes = hex::decode(&hex).unwrap();
         let base64 = base64::encode(&bytes);
         assert_eq!(base64,
-        "R3E1sN8ImA+SfRVpp4C0xNJNpQO7z5i4f2BsKdRxEPtlSousJyyAhgAY13A5VjZEIJARcX9KaWkfayfETEgALg=="
+                   "R3E1sN8ImA+SfRVpp4C0xNJNpQO7z5i4f2BsKdRxEPtlSousJyyAhgAY13A5VjZEIJARcX9KaWkfayfETEgALg=="
         );
     }
 
     #[test]
     fn test_sign_delegate() {
         bind_test();
-        let sign_data= "7b226163636f756e745f6e756d626572223a2231323334353637383930222c22636861696e5f6964223a2274656e6465726d696e745f74657374222c22666565223a7b22616d6f756e74223a5b7b22616d6f756e74223a2230222c2264656e6f6d223a22227d5d2c22676173223a223231393036227d2c226d656d6f223a22222c226d736773223a5b7b2274797065223a22636f736d6f732d73646b2f4d736744656c6567617465222c2276616c7565223a7b22616d6f756e74223a5b7b22616d6f756e74223a223130222c2264656e6f6d223a2261746f6d227d5d2c2264656c656761746f725f61646472657373223a22636f736d6f73317930613873633561797635326632666d35743768723267383871676c6a7a6b346a637a373866222c2276616c696461746f725f61646472657373223a22636f736d6f7376616c6f706572317a6b757072383368727a6b6e33757035656c6b747a63713374756674386e78736d7764716770227d7d5d2c2273657175656e6365223a2231323334353637383930227d".to_string();
+        let sign_data= "0a91010a8e010a1c2f636f736d6f732e62616e6b2e763162657461312e4d736753656e64126e0a2d636f736d6f733175616d6e346b74706d657332656664663671666837386d356365646b66637467617436657661122d636f736d6f73316a30636c726371727a636135326c6167707a3237687774713734776c327265353438346177681a0e0a057561746f6d1205313030303012680a510a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a210232c1ef21d73c19531b0aa4e863cf397c2b982b2f958f60cdb62969824c096d6512040a02080118930312130a0d0a057561746f6d12043230303410b1f2041a0b636f736d6f736875622d34208cb201".to_string();
         let input = CosmosTransaction {
             sign_data,
             path: constants::COSMOS_PATH.to_string(),
@@ -123,11 +122,7 @@ mod tests {
             fee_dis: "0.00075 atom".to_string(),
         };
         let cosmos_tx_output = input.sign().unwrap();
-        assert_eq!("878fff70e60b4e20d86ddc3ed4d559b9fc29a4801c110d71b1631870275c1adb2ee314a7612b71c898086b9ef8e39b079d78163fce15be743981ea146402b195", cosmos_tx_output.signature);
-        assert_eq!(
-            "0232C1EF21D73C19531B0AA4E863CF397C2B982B2F958F60CDB62969824C096D65",
-            cosmos_tx_output.pub_key
-        )
+        assert_eq!("355fWQ00dYitAZj6+EmnAgYEX1g7QtUrX/kQIqCbv05TCz0dfsWcMgXWVnr1l/I2hrjjQkiLRMoeRrmnqT2CZA==", cosmos_tx_output.signature);
     }
 
     #[test]
@@ -142,11 +137,7 @@ mod tests {
             fee_dis: "0.00075 atom".to_string(),
         };
         let cosmos_tx_output = input.sign().unwrap();
-        assert_eq!("878fff70e60b4e20d86ddc3ed4d559b9fc29a4801c110d71b1631870275c1adb2ee314a7612b71c898086b9ef8e39b079d78163fce15be743981ea146402b195", cosmos_tx_output.signature);
-        assert_eq!(
-            "0232C1EF21D73C19531B0AA4E863CF397C2B982B2F958F60CDB62969824C096D65",
-            cosmos_tx_output.pub_key
-        )
+        assert_eq!("h4//cOYLTiDYbdw+1NVZufwppIAcEQ1xsWMYcCdcGtsu4xSnYStxyJgIa57445sHnXgWP84VvnQ5geoUZAKxlQ==", cosmos_tx_output.signature);
     }
 
     #[test]

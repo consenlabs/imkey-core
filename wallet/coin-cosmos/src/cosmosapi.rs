@@ -7,6 +7,4 @@ pub struct CosmosTxInput {
 pub struct CosmosTxOutput {
     #[prost(string, tag = "1")]
     pub signature: std::string::String,
-    #[prost(string, tag = "2")]
-    pub pub_key: std::string::String,
 }
