@@ -9,7 +9,7 @@ pub fn sign_cosmos_transaction(data: &[u8], sign_param: &SignParam) -> Result<Ve
     let input: CosmosTxInput = CosmosTxInput::decode(data)?;
 
     let cosmos_input = CosmosTransaction {
-        sign_data: input.tx_hash,
+        sign_data: input.data,
         path: sign_param.path.to_string(),
         payment_dis: sign_param.payment.to_string(),
         to_dis: sign_param.receiver.to_string(),
