@@ -2,7 +2,7 @@ syntax = "proto3";
 package cosmosapi;
 
 message CosmosTxInput {
-    string tx_hash = 1;
+    string data = 1;
 }
 
 message CosmosTxOutput {
