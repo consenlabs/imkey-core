@@ -293,7 +293,12 @@ impl BtcTransaction {
         output_serialize_data.extend(SigHashType::All.serialize().iter());
         //set input number
         output_serialize_data.remove(4);
-        output_serialize_data.insert(4, self.unspents.len() as u8);
+        let mut utxo_len = serialize(&VarInt(self.unspents.len() as u64));
+        utxo_len.reverse();
+        for temp_data in utxo_len {
+            output_serialize_data.insert(4, temp_data);
+        }
+
         //add fee amount
         output_serialize_data.extend(bigint_to_byte_vec(self.fee));
         //set address version
