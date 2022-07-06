@@ -69,7 +69,7 @@ impl BtcApdu {
         apdu.to_hex().to_uppercase()
     }
 
-    pub fn btc_sign(index: u8, hash_type: u8, path: &str) -> String {
+    pub fn btc_sign(index: u16, hash_type: u8, path: &str) -> String {
         let path_bytes = path.as_bytes();
         let index = hex::decode(format!("{:04X}", index)).unwrap();
         let mut apdu = ApduHeader::new(

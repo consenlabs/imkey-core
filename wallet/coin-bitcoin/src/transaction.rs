@@ -195,7 +195,7 @@ impl BtcTransaction {
                     break;
                 }
                 let btc_sign_apdu = BtcApdu::btc_sign(
-                    y as u8,
+                    y as u16,
                     SigHashType::All.as_u32() as u8,
                     format!("{}{}", path_str, self.unspents.get(y).unwrap().derive_path).as_str(),
                 );
@@ -900,6 +900,76 @@ mod tests {
         assert_eq!(
             format!("{}", sign_result.err().unwrap()),
             "imkey_address_mismatch_with_path"
+        );
+    }
+
+    #[test]
+    fn test_sign_transaction_new() {
+        //binding device
+        bind_test();
+
+        let utxo = Utxo {
+            txhash: "c2ceb5088cf39b677705526065667a3992c68cc18593a9af12607e057672717f".to_string(),
+            vout: 0,
+            amount: 50000,
+            address: Address::from_str("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB").unwrap(),
+            script_pubkey: "a9142d2b1ef5ee4cf6c3ebc8cf66a602783798f7875987".to_string(),
+            derive_path: "0/0".to_string(),
+            sequence: 0,
+        };
+        let utxo2 = Utxo {
+            txhash: "9ad628d450952a575af59f7d416c9bc337d184024608f1d2e13383c44bd5cd74".to_string(),
+            vout: 0,
+            amount: 50000,
+            address: Address::from_str("2N54wJxopnWTvBfqgAPVWqXVEdaqoH7Suvf").unwrap(),
+            script_pubkey: "a91481af6d803fdc6dca1f3a1d03f5ffe8124cd1b44787".to_string(),
+            derive_path: "0/1".to_string(),
+            sequence: 0,
+        };
+        let mut utxos = Vec::new();
+        utxos.push(utxo);
+        utxos.push(utxo2.clone());
+        for index in (0..251) {
+            utxos.push(utxo2.clone());
+        }
+        let transaction_req_data = BtcTransaction {
+            to: Address::from_str("2N9wBy6f1KTUF5h2UUeqRdKnBT6oSMh4Whp").unwrap(),
+            amount: 88000,
+            unspents: utxos.clone(),
+            fee: 10000,
+        };
+        let sign_result = transaction_req_data.sign_segwit_transaction(
+            Network::Testnet,
+            &"m/49'/1'/0'/".to_string(),
+            0,
+            &vec![],
+        );
+        println!("txhash-->{}", sign_result.as_ref().unwrap().tx_hash);
+        println!("wtxid-->{}", sign_result.as_ref().unwrap().wtx_id);
+        assert_eq!(
+            "aead9d3105dc6b1f1c318afaba7520c03248408233ccbcff374f81c4098eb229",
+            sign_result.as_ref().unwrap().tx_hash
+        );
+        assert_eq!(
+            "8f2c4af33b42029b9c3ff88ef945ba4d830fe20160583efc0e6639e758052c78",
+            sign_result.as_ref().unwrap().wtx_id
+        );
+        let extra_data = Vec::from_hex("1234").unwrap();
+        let sign_result = transaction_req_data.sign_segwit_transaction(
+            Network::Testnet,
+            &"m/49'/1'/0'/".to_string(),
+            0,
+            &extra_data,
+        );
+        println!("txhash-->{}", sign_result.as_ref().unwrap().tx_hash);
+        println!("wtxid-->{}", sign_result.as_ref().unwrap().wtx_id);
+        assert_eq!(
+            "8d8d86f9c0e14649dfbf8a8233b2705ac36f312539965dacc9efb8249ecb2347",
+            sign_result.as_ref().unwrap().tx_hash
+        );
+        assert_eq!(
+            "33cfc489102ca8e636760ab5e78268f78c19f80fe2914cf4b8e79506296d4dab",
+            sign_result.as_ref().unwrap().wtx_id
         );
     }
 }

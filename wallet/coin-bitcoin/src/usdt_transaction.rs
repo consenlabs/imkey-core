@@ -168,7 +168,7 @@ impl BtcTransaction {
                     break;
                 }
                 let btc_sign_apdu = BtcApdu::btc_sign(
-                    y as u8,
+                    y as u16,
                     SigHashType::All.as_u32() as u8,
                     format!("{}{}", path_str, self.unspents.get(y).unwrap().derive_path).as_str(),
                 );
