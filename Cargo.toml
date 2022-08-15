@@ -16,4 +16,5 @@ members = [
     "wallet/coin-bch",
     "wallet/coin-filecoin",
     "wallet/coin-btc-fork",
+    "wallet/coin-ethereum2",
 ]
