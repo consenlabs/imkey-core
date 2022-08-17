@@ -553,6 +553,9 @@ impl BlsApdu {
     pub fn sign(data: &[u8]) -> Vec<String> {
         Apdu::prepare_sign(0x81, data.to_vec())
     }
+    pub fn msg_sign(data: &[u8]) -> Vec<String> {
+        Apdu::prepare_sign(0x55, data.to_vec())
+    }
 
     pub fn get_xpub(data: &[u8]) -> String {
         if data.len() as u32 > LC_MAX {
