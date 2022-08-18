@@ -65,10 +65,10 @@ mod test {
     fn test_get_pub_key() {
         bind_test();
 
-        let uncomprs_pubkey = Eth2Address::get_pub_key("m/0").unwrap();
+        let uncomprs_pubkey = Eth2Address::get_pub_key(constants::ETH2_PATH).unwrap();
         assert_eq!(
             &uncomprs_pubkey,
-            "A60259A2BE4D840D2525F51495C7E66C263A000336D2627CD47015613AD2B5560406AEEF4AF6A66756C918395DA91F3F"
+            "80CCA779CE5C8C183232518B3F7BF9D1A4AB8767589D320FE39A9379A674765A766FFC99FACC7D60F157F7E5F01E9D01"
         );
     }
 }

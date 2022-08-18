@@ -51,6 +51,10 @@ fn main() {
     // tcx-btc-fork
     env::set_var("OUT_DIR", "../wallet/coin-btc-fork/src");
     prost_build::compile_protos(&["src/btcfork.proto"], &["src/"]).unwrap();
+
+    // eth2
+    env::set_var("OUT_DIR", "../wallet/coin-ethereum2/src");
+    prost_build::compile_protos(&["src/eth2.proto"], &["src/"]).unwrap();
 }
 
 #[cfg(test)]

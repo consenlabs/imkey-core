@@ -1,9 +1,10 @@
+use crate::eth2api::{Eth2MsgSignInput, Eth2MsgSignOutput};
 use crate::Result;
 use common::apdu::{Apdu, ApduCheck, BlsApdu};
 use common::error::CoinError;
 use common::path::check_path_validity;
-use common::utility::secp256k1_sign;
-use common::{constants, utility};
+use common::utility::{is_valid_hex, secp256k1_sign};
+use common::{constants, utility, SignParam};
 use device::device_binding::KEY_MANAGER;
 use transport::message::{send_apdu, send_apdu_timeout};
 
@@ -11,23 +12,36 @@ use transport::message::{send_apdu, send_apdu_timeout};
 pub struct Eth2Sign {}
 
 impl Eth2Sign {
-    pub fn msg_sign(data: Vec<u8>, path: &str) -> Result<String> {
-        check_path_validity(path).expect("check path error");
+    pub fn msg_sign(
+        msg_sign_data: Eth2MsgSignInput,
+        sign_param: &SignParam,
+    ) -> Result<Eth2MsgSignOutput> {
+        check_path_validity(sign_param.path.as_str()).expect("check path error");
         let select_apdu = Apdu::select_applet(constants::ETH2_AID);
         let select_result = send_apdu(select_apdu)?;
         ApduCheck::check_response(&select_result)?;
 
-        let hash = data;
+        let message_to_sign;
+        if is_valid_hex(&msg_sign_data.message) {
+            let value = if msg_sign_data.message.to_lowercase().starts_with("0x") {
+                &msg_sign_data.message[2..]
+            } else {
+                &msg_sign_data.message
+            };
+            message_to_sign = hex::decode(value).unwrap();
+        } else {
+            message_to_sign = msg_sign_data.message.into_bytes();
+        }
 
         //organize data
         let mut data_pack: Vec<u8> = Vec::new();
 
-        data_pack.extend([1, hash.len() as u8].iter());
-        data_pack.extend(hash.iter());
+        data_pack.extend([1, message_to_sign.len() as u8].iter());
+        data_pack.extend(message_to_sign.iter());
 
         //path
-        data_pack.extend([2, path.as_bytes().len() as u8].iter());
-        data_pack.extend(path.as_bytes().iter());
+        data_pack.extend([2, sign_param.path.as_bytes().len() as u8].iter());
+        data_pack.extend(sign_param.path.as_bytes().iter());
 
         let key_manager_obj = KEY_MANAGER.lock();
         let bind_signature = secp256k1_sign(&key_manager_obj.pri_key, &data_pack).unwrap();
@@ -62,20 +76,51 @@ impl Eth2Sign {
 
         let sig = hex::decode(&sign_response[2..sign_len])?;
 
-        Ok(hex::encode(sig))
+        Ok(Eth2MsgSignOutput {
+            signature: hex::encode(sig),
+        })
     }
 }
 
 #[cfg(test)]
 mod test {
+    use crate::eth2api::Eth2MsgSignInput;
     use crate::transaction::Eth2Sign;
+    use common::{constants, SignParam};
     use device::device_binding::bind_test;
+
     #[test]
     fn msg_sign_test() {
         bind_test();
-        let hash = hex::decode("64726E3DA8").unwrap();
-        let path = "m/0";
-        let signature = Eth2Sign::msg_sign(hash, path);
-        println!("signature-->{}", signature.unwrap())
+        let sign_param = SignParam {
+            chain_type: "ETHEREUM2".to_string(),
+            path: constants::ETH2_PATH.to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
+            sender: "".to_string(),
+            fee: "".to_string(),
+        };
+        let eth2MsgSignInput = Eth2MsgSignInput {
+            message: "0x64726E3DA8".to_string(),
+        };
+        let signature = Eth2Sign::msg_sign(eth2MsgSignInput, &sign_param);
+        assert_eq!(signature.unwrap().signature, "a1367b7e99d5bf139a9cd6cd857bbf12c379397b1c9347afd794da0459efda3850298c33c9f292e5ebb05143e77afe4d092c51170866cb852abfd9bb7139e6e72e34b44318d6ab30390d48d6095c2df7489877de6091cc68329a0537a8da4bf2");
+        let sign_param = SignParam {
+            chain_type: "ETHEREUM2".to_string(),
+            path: "m/0/0/0/0/0".to_string(),
+            network: "".to_string(),
+            input: None,
+            payment: "".to_string(),
+            receiver: "".to_string(),
+            sender: "".to_string(),
+            fee: "".to_string(),
+        };
+        let eth2MsgSignInput = Eth2MsgSignInput {
+            message: "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000".to_string(),
+        };
+        let signature = Eth2Sign::msg_sign(eth2MsgSignInput, &sign_param);
+        assert_eq!(signature.unwrap().signature, "b4fa55d5fe54825a95502e7174c46f2513ebffe42bbd10eac76f61471e368366ab6152ceec076d1e7cca4b94a2cd0f830ce513669db3cef237b01de3406bb9b4b9abeef468dd1c39aa2757d4fcd25d6b40eebe49d8fc09afd32ec7044c493a55");
     }
 }

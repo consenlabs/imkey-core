@@ -12,3 +12,5 @@ device = {path = "../../device"}
 transport = {path = "../../transport"}
 failure = "0.1.6"
 hex = "0.3.2"
+prost = "0.6.1"
+prost-types = "0.6.1"

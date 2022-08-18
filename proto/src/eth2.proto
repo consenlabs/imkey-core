@@ -1,0 +1,10 @@
+syntax = "proto3";
+package eth2api;
+
+message Eth2MsgSignInput {
+    string message = 1;
+}
+
+message Eth2MsgSignOutput {
+    string signature = 1;
+}

@@ -1,4 +1,5 @@
 pub mod address;
+pub mod eth2api;
 pub mod transaction;
 
 #[macro_use]

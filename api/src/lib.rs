@@ -16,6 +16,8 @@ pub mod device_manager;
 pub mod eos_pubkey;
 pub mod eos_signer;
 pub mod error_handling;
+pub mod ethereum2_address;
+pub mod ethereum2_signer;
 pub mod ethereum_address;
 pub mod ethereum_signer;
 pub mod filecoin_address;
@@ -150,6 +152,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "EOS" => eos_pubkey::get_eos_pubkey(&param),
                 "TEZOS" => tezos_address::get_pub_key(&param),
                 "COSMOS" => cosmos_address::get_cosmos_pub_key(&param),
+                "ETHEREUM2" => ethereum2_address::get_pub_key(&param),
                 _ => Err(format_err!("get_pub_key unsupported_chain")),
             }
         }),
