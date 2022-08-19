@@ -33,6 +33,10 @@ impl Eth2Sign {
             message_to_sign = msg_sign_data.message.into_bytes();
         }
 
+        if message_to_sign.len() > 255 {
+            return Err(CoinError::SignDataTooLong.into());
+        }
+
         //organize data
         let mut data_pack: Vec<u8> = Vec::new();
 
@@ -91,6 +95,7 @@ mod test {
 
     #[test]
     fn msg_sign_test() {
+        //mnemonicx = "gauge hole clog property soccer idea cycle stadium utility slice hold chief"
         bind_test();
         let sign_param = SignParam {
             chain_type: "ETHEREUM2".to_string(),
@@ -109,7 +114,7 @@ mod test {
         assert_eq!(signature.unwrap().signature, "a1367b7e99d5bf139a9cd6cd857bbf12c379397b1c9347afd794da0459efda3850298c33c9f292e5ebb05143e77afe4d092c51170866cb852abfd9bb7139e6e72e34b44318d6ab30390d48d6095c2df7489877de6091cc68329a0537a8da4bf2");
         let sign_param = SignParam {
             chain_type: "ETHEREUM2".to_string(),
-            path: "m/0/0/0/0/0".to_string(),
+            path: constants::ETH2_PATH.to_string(),
             network: "".to_string(),
             input: None,
             payment: "".to_string(),
@@ -118,9 +123,9 @@ mod test {
             fee: "".to_string(),
         };
         let eth2MsgSignInput = Eth2MsgSignInput {
-            message: "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000".to_string(),
+            message: "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111".to_string(),
         };
         let signature = Eth2Sign::msg_sign(eth2MsgSignInput, &sign_param);
-        assert_eq!(signature.unwrap().signature, "b4fa55d5fe54825a95502e7174c46f2513ebffe42bbd10eac76f61471e368366ab6152ceec076d1e7cca4b94a2cd0f830ce513669db3cef237b01de3406bb9b4b9abeef468dd1c39aa2757d4fcd25d6b40eebe49d8fc09afd32ec7044c493a55");
+        assert_eq!(signature.unwrap().signature, "b24f8da68fdfcc492fd57c68e8818513a2613c18f293042af9ac4d9a371f5f33d57848552a07292c313411db1306d1e409eba509a33c3162703b146516ef498d1bf32e6e4157922b345d688b5a75b4aab26d3c0f74e10040e481b9066b40abfc");
     }
 }
