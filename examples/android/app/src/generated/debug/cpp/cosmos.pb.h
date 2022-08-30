@@ -37,219 +37,10 @@ void protobuf_InitDefaults_cosmos_2eproto();
 void protobuf_AssignDesc_cosmos_2eproto();
 void protobuf_ShutdownFile_cosmos_2eproto();
 
-class Coin;
 class CosmosTxInput;
 class CosmosTxOutput;
-class StdFee;
 
 // ===================================================================
-
-class Coin : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:cosmosapi.Coin) */ {
- public:
-  Coin();
-  virtual ~Coin();
-
-  Coin(const Coin& from);
-
-  inline Coin& operator=(const Coin& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const Coin& default_instance();
-
-  static const Coin* internal_default_instance();
-
-  void Swap(Coin* other);
-
-  // implements Message ----------------------------------------------
-
-  inline Coin* New() const { return New(NULL); }
-
-  Coin* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Coin& from);
-  void MergeFrom(const Coin& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  size_t ByteSizeLong() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
-    return InternalSerializeWithCachedSizesToArray(false, output);
-  }
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(Coin* other);
-  void UnsafeMergeFrom(const Coin& from);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional string amount = 1;
-  void clear_amount();
-  static const int kAmountFieldNumber = 1;
-  const ::std::string& amount() const;
-  void set_amount(const ::std::string& value);
-  void set_amount(const char* value);
-  void set_amount(const char* value, size_t size);
-  ::std::string* mutable_amount();
-  ::std::string* release_amount();
-  void set_allocated_amount(::std::string* amount);
-
-  // optional string denom = 2;
-  void clear_denom();
-  static const int kDenomFieldNumber = 2;
-  const ::std::string& denom() const;
-  void set_denom(const ::std::string& value);
-  void set_denom(const char* value);
-  void set_denom(const char* value, size_t size);
-  ::std::string* mutable_denom();
-  ::std::string* release_denom();
-  void set_allocated_denom(::std::string* denom);
-
-  // @@protoc_insertion_point(class_scope:cosmosapi.Coin)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr amount_;
-  ::google::protobuf::internal::ArenaStringPtr denom_;
-  mutable int _cached_size_;
-  friend void  protobuf_InitDefaults_cosmos_2eproto_impl();
-  friend void  protobuf_AddDesc_cosmos_2eproto_impl();
-  friend void protobuf_AssignDesc_cosmos_2eproto();
-  friend void protobuf_ShutdownFile_cosmos_2eproto();
-
-  void InitAsDefaultInstance();
-};
-extern ::google::protobuf::internal::ExplicitlyConstructed<Coin> Coin_default_instance_;
-
-// -------------------------------------------------------------------
-
-class StdFee : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:cosmosapi.StdFee) */ {
- public:
-  StdFee();
-  virtual ~StdFee();
-
-  StdFee(const StdFee& from);
-
-  inline StdFee& operator=(const StdFee& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const StdFee& default_instance();
-
-  static const StdFee* internal_default_instance();
-
-  void Swap(StdFee* other);
-
-  // implements Message ----------------------------------------------
-
-  inline StdFee* New() const { return New(NULL); }
-
-  StdFee* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const StdFee& from);
-  void MergeFrom(const StdFee& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  size_t ByteSizeLong() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
-    return InternalSerializeWithCachedSizesToArray(false, output);
-  }
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(StdFee* other);
-  void UnsafeMergeFrom(const StdFee& from);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // repeated .cosmosapi.Coin amount = 1;
-  int amount_size() const;
-  void clear_amount();
-  static const int kAmountFieldNumber = 1;
-  const ::cosmosapi::Coin& amount(int index) const;
-  ::cosmosapi::Coin* mutable_amount(int index);
-  ::cosmosapi::Coin* add_amount();
-  ::google::protobuf::RepeatedPtrField< ::cosmosapi::Coin >*
-      mutable_amount();
-  const ::google::protobuf::RepeatedPtrField< ::cosmosapi::Coin >&
-      amount() const;
-
-  // optional string gas = 2;
-  void clear_gas();
-  static const int kGasFieldNumber = 2;
-  const ::std::string& gas() const;
-  void set_gas(const ::std::string& value);
-  void set_gas(const char* value);
-  void set_gas(const char* value, size_t size);
-  ::std::string* mutable_gas();
-  ::std::string* release_gas();
-  void set_allocated_gas(::std::string* gas);
-
-  // @@protoc_insertion_point(class_scope:cosmosapi.StdFee)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField< ::cosmosapi::Coin > amount_;
-  ::google::protobuf::internal::ArenaStringPtr gas_;
-  mutable int _cached_size_;
-  friend void  protobuf_InitDefaults_cosmos_2eproto_impl();
-  friend void  protobuf_AddDesc_cosmos_2eproto_impl();
-  friend void protobuf_AssignDesc_cosmos_2eproto();
-  friend void protobuf_ShutdownFile_cosmos_2eproto();
-
-  void InitAsDefaultInstance();
-};
-extern ::google::protobuf::internal::ExplicitlyConstructed<StdFee> StdFee_default_instance_;
-
-// -------------------------------------------------------------------
 
 class CosmosTxInput : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:cosmosapi.CosmosTxInput) */ {
  public:
@@ -314,80 +105,22 @@ class CosmosTxInput : public ::google::protobuf::Message /* @@protoc_insertion_p
 
   // accessors -------------------------------------------------------
 
-  // optional string account_number = 1;
-  void clear_account_number();
-  static const int kAccountNumberFieldNumber = 1;
-  const ::std::string& account_number() const;
-  void set_account_number(const ::std::string& value);
-  void set_account_number(const char* value);
-  void set_account_number(const char* value, size_t size);
-  ::std::string* mutable_account_number();
-  ::std::string* release_account_number();
-  void set_allocated_account_number(::std::string* account_number);
-
-  // optional string chain_id = 2;
-  void clear_chain_id();
-  static const int kChainIdFieldNumber = 2;
-  const ::std::string& chain_id() const;
-  void set_chain_id(const ::std::string& value);
-  void set_chain_id(const char* value);
-  void set_chain_id(const char* value, size_t size);
-  ::std::string* mutable_chain_id();
-  ::std::string* release_chain_id();
-  void set_allocated_chain_id(::std::string* chain_id);
-
-  // optional .cosmosapi.StdFee fee = 3;
-  bool has_fee() const;
-  void clear_fee();
-  static const int kFeeFieldNumber = 3;
-  const ::cosmosapi::StdFee& fee() const;
-  ::cosmosapi::StdFee* mutable_fee();
-  ::cosmosapi::StdFee* release_fee();
-  void set_allocated_fee(::cosmosapi::StdFee* fee);
-
-  // optional string memo = 4;
-  void clear_memo();
-  static const int kMemoFieldNumber = 4;
-  const ::std::string& memo() const;
-  void set_memo(const ::std::string& value);
-  void set_memo(const char* value);
-  void set_memo(const char* value, size_t size);
-  ::std::string* mutable_memo();
-  ::std::string* release_memo();
-  void set_allocated_memo(::std::string* memo);
-
-  // optional string msgs = 5;
-  void clear_msgs();
-  static const int kMsgsFieldNumber = 5;
-  const ::std::string& msgs() const;
-  void set_msgs(const ::std::string& value);
-  void set_msgs(const char* value);
-  void set_msgs(const char* value, size_t size);
-  ::std::string* mutable_msgs();
-  ::std::string* release_msgs();
-  void set_allocated_msgs(::std::string* msgs);
-
-  // optional string sequence = 6;
-  void clear_sequence();
-  static const int kSequenceFieldNumber = 6;
-  const ::std::string& sequence() const;
-  void set_sequence(const ::std::string& value);
-  void set_sequence(const char* value);
-  void set_sequence(const char* value, size_t size);
-  ::std::string* mutable_sequence();
-  ::std::string* release_sequence();
-  void set_allocated_sequence(::std::string* sequence);
+  // optional string data = 1;
+  void clear_data();
+  static const int kDataFieldNumber = 1;
+  const ::std::string& data() const;
+  void set_data(const ::std::string& value);
+  void set_data(const char* value);
+  void set_data(const char* value, size_t size);
+  ::std::string* mutable_data();
+  ::std::string* release_data();
+  void set_allocated_data(::std::string* data);
 
   // @@protoc_insertion_point(class_scope:cosmosapi.CosmosTxInput)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr account_number_;
-  ::google::protobuf::internal::ArenaStringPtr chain_id_;
-  ::google::protobuf::internal::ArenaStringPtr memo_;
-  ::google::protobuf::internal::ArenaStringPtr msgs_;
-  ::google::protobuf::internal::ArenaStringPtr sequence_;
-  ::cosmosapi::StdFee* fee_;
+  ::google::protobuf::internal::ArenaStringPtr data_;
   mutable int _cached_size_;
   friend void  protobuf_InitDefaults_cosmos_2eproto_impl();
   friend void  protobuf_AddDesc_cosmos_2eproto_impl();
@@ -474,23 +207,11 @@ class CosmosTxOutput : public ::google::protobuf::Message /* @@protoc_insertion_
   ::std::string* release_signature();
   void set_allocated_signature(::std::string* signature);
 
-  // optional string txHash = 2;
-  void clear_txhash();
-  static const int kTxHashFieldNumber = 2;
-  const ::std::string& txhash() const;
-  void set_txhash(const ::std::string& value);
-  void set_txhash(const char* value);
-  void set_txhash(const char* value, size_t size);
-  ::std::string* mutable_txhash();
-  ::std::string* release_txhash();
-  void set_allocated_txhash(::std::string* txhash);
-
   // @@protoc_insertion_point(class_scope:cosmosapi.CosmosTxOutput)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr signature_;
-  ::google::protobuf::internal::ArenaStringPtr txhash_;
   mutable int _cached_size_;
   friend void  protobuf_InitDefaults_cosmos_2eproto_impl();
   friend void  protobuf_AddDesc_cosmos_2eproto_impl();
@@ -507,441 +228,50 @@ extern ::google::protobuf::internal::ExplicitlyConstructed<CosmosTxOutput> Cosmo
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
-// Coin
-
-// optional string amount = 1;
-inline void Coin::clear_amount() {
-  amount_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& Coin::amount() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.Coin.amount)
-  return amount_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Coin::set_amount(const ::std::string& value) {
-  
-  amount_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.Coin.amount)
-}
-inline void Coin::set_amount(const char* value) {
-  
-  amount_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.Coin.amount)
-}
-inline void Coin::set_amount(const char* value, size_t size) {
-  
-  amount_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.Coin.amount)
-}
-inline ::std::string* Coin::mutable_amount() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.Coin.amount)
-  return amount_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* Coin::release_amount() {
-  // @@protoc_insertion_point(field_release:cosmosapi.Coin.amount)
-  
-  return amount_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Coin::set_allocated_amount(::std::string* amount) {
-  if (amount != NULL) {
-    
-  } else {
-    
-  }
-  amount_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), amount);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.Coin.amount)
-}
-
-// optional string denom = 2;
-inline void Coin::clear_denom() {
-  denom_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& Coin::denom() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.Coin.denom)
-  return denom_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Coin::set_denom(const ::std::string& value) {
-  
-  denom_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.Coin.denom)
-}
-inline void Coin::set_denom(const char* value) {
-  
-  denom_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.Coin.denom)
-}
-inline void Coin::set_denom(const char* value, size_t size) {
-  
-  denom_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.Coin.denom)
-}
-inline ::std::string* Coin::mutable_denom() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.Coin.denom)
-  return denom_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* Coin::release_denom() {
-  // @@protoc_insertion_point(field_release:cosmosapi.Coin.denom)
-  
-  return denom_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Coin::set_allocated_denom(::std::string* denom) {
-  if (denom != NULL) {
-    
-  } else {
-    
-  }
-  denom_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), denom);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.Coin.denom)
-}
-
-inline const Coin* Coin::internal_default_instance() {
-  return &Coin_default_instance_.get();
-}
-// -------------------------------------------------------------------
-
-// StdFee
-
-// repeated .cosmosapi.Coin amount = 1;
-inline int StdFee::amount_size() const {
-  return amount_.size();
-}
-inline void StdFee::clear_amount() {
-  amount_.Clear();
-}
-inline const ::cosmosapi::Coin& StdFee::amount(int index) const {
-  // @@protoc_insertion_point(field_get:cosmosapi.StdFee.amount)
-  return amount_.Get(index);
-}
-inline ::cosmosapi::Coin* StdFee::mutable_amount(int index) {
-  // @@protoc_insertion_point(field_mutable:cosmosapi.StdFee.amount)
-  return amount_.Mutable(index);
-}
-inline ::cosmosapi::Coin* StdFee::add_amount() {
-  // @@protoc_insertion_point(field_add:cosmosapi.StdFee.amount)
-  return amount_.Add();
-}
-inline ::google::protobuf::RepeatedPtrField< ::cosmosapi::Coin >*
-StdFee::mutable_amount() {
-  // @@protoc_insertion_point(field_mutable_list:cosmosapi.StdFee.amount)
-  return &amount_;
-}
-inline const ::google::protobuf::RepeatedPtrField< ::cosmosapi::Coin >&
-StdFee::amount() const {
-  // @@protoc_insertion_point(field_list:cosmosapi.StdFee.amount)
-  return amount_;
-}
-
-// optional string gas = 2;
-inline void StdFee::clear_gas() {
-  gas_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& StdFee::gas() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.StdFee.gas)
-  return gas_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void StdFee::set_gas(const ::std::string& value) {
-  
-  gas_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.StdFee.gas)
-}
-inline void StdFee::set_gas(const char* value) {
-  
-  gas_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.StdFee.gas)
-}
-inline void StdFee::set_gas(const char* value, size_t size) {
-  
-  gas_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.StdFee.gas)
-}
-inline ::std::string* StdFee::mutable_gas() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.StdFee.gas)
-  return gas_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* StdFee::release_gas() {
-  // @@protoc_insertion_point(field_release:cosmosapi.StdFee.gas)
-  
-  return gas_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void StdFee::set_allocated_gas(::std::string* gas) {
-  if (gas != NULL) {
-    
-  } else {
-    
-  }
-  gas_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), gas);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.StdFee.gas)
-}
-
-inline const StdFee* StdFee::internal_default_instance() {
-  return &StdFee_default_instance_.get();
-}
-// -------------------------------------------------------------------
-
 // CosmosTxInput
 
-// optional string account_number = 1;
-inline void CosmosTxInput::clear_account_number() {
-  account_number_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string data = 1;
+inline void CosmosTxInput::clear_data() {
+  data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& CosmosTxInput::account_number() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxInput.account_number)
-  return account_number_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string& CosmosTxInput::data() const {
+  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxInput.data)
+  return data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void CosmosTxInput::set_account_number(const ::std::string& value) {
+inline void CosmosTxInput::set_data(const ::std::string& value) {
   
-  account_number_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxInput.account_number)
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxInput.data)
 }
-inline void CosmosTxInput::set_account_number(const char* value) {
+inline void CosmosTxInput::set_data(const char* value) {
   
-  account_number_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxInput.account_number)
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxInput.data)
 }
-inline void CosmosTxInput::set_account_number(const char* value, size_t size) {
+inline void CosmosTxInput::set_data(const char* value, size_t size) {
   
-  account_number_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxInput.account_number)
+  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxInput.data)
 }
-inline ::std::string* CosmosTxInput::mutable_account_number() {
+inline ::std::string* CosmosTxInput::mutable_data() {
   
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxInput.account_number)
-  return account_number_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxInput.data)
+  return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* CosmosTxInput::release_account_number() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxInput.account_number)
+inline ::std::string* CosmosTxInput::release_data() {
+  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxInput.data)
   
-  return account_number_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void CosmosTxInput::set_allocated_account_number(::std::string* account_number) {
-  if (account_number != NULL) {
+inline void CosmosTxInput::set_allocated_data(::std::string* data) {
+  if (data != NULL) {
     
   } else {
     
   }
-  account_number_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), account_number);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxInput.account_number)
-}
-
-// optional string chain_id = 2;
-inline void CosmosTxInput::clear_chain_id() {
-  chain_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& CosmosTxInput::chain_id() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxInput.chain_id)
-  return chain_id_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void CosmosTxInput::set_chain_id(const ::std::string& value) {
-  
-  chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxInput.chain_id)
-}
-inline void CosmosTxInput::set_chain_id(const char* value) {
-  
-  chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxInput.chain_id)
-}
-inline void CosmosTxInput::set_chain_id(const char* value, size_t size) {
-  
-  chain_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxInput.chain_id)
-}
-inline ::std::string* CosmosTxInput::mutable_chain_id() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxInput.chain_id)
-  return chain_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* CosmosTxInput::release_chain_id() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxInput.chain_id)
-  
-  return chain_id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void CosmosTxInput::set_allocated_chain_id(::std::string* chain_id) {
-  if (chain_id != NULL) {
-    
-  } else {
-    
-  }
-  chain_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chain_id);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxInput.chain_id)
-}
-
-// optional .cosmosapi.StdFee fee = 3;
-inline bool CosmosTxInput::has_fee() const {
-  return this != internal_default_instance() && fee_ != NULL;
-}
-inline void CosmosTxInput::clear_fee() {
-  if (GetArenaNoVirtual() == NULL && fee_ != NULL) delete fee_;
-  fee_ = NULL;
-}
-inline const ::cosmosapi::StdFee& CosmosTxInput::fee() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxInput.fee)
-  return fee_ != NULL ? *fee_
-                         : *::cosmosapi::StdFee::internal_default_instance();
-}
-inline ::cosmosapi::StdFee* CosmosTxInput::mutable_fee() {
-  
-  if (fee_ == NULL) {
-    fee_ = new ::cosmosapi::StdFee;
-  }
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxInput.fee)
-  return fee_;
-}
-inline ::cosmosapi::StdFee* CosmosTxInput::release_fee() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxInput.fee)
-  
-  ::cosmosapi::StdFee* temp = fee_;
-  fee_ = NULL;
-  return temp;
-}
-inline void CosmosTxInput::set_allocated_fee(::cosmosapi::StdFee* fee) {
-  delete fee_;
-  fee_ = fee;
-  if (fee) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxInput.fee)
-}
-
-// optional string memo = 4;
-inline void CosmosTxInput::clear_memo() {
-  memo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& CosmosTxInput::memo() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxInput.memo)
-  return memo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void CosmosTxInput::set_memo(const ::std::string& value) {
-  
-  memo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxInput.memo)
-}
-inline void CosmosTxInput::set_memo(const char* value) {
-  
-  memo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxInput.memo)
-}
-inline void CosmosTxInput::set_memo(const char* value, size_t size) {
-  
-  memo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxInput.memo)
-}
-inline ::std::string* CosmosTxInput::mutable_memo() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxInput.memo)
-  return memo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* CosmosTxInput::release_memo() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxInput.memo)
-  
-  return memo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void CosmosTxInput::set_allocated_memo(::std::string* memo) {
-  if (memo != NULL) {
-    
-  } else {
-    
-  }
-  memo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), memo);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxInput.memo)
-}
-
-// optional string msgs = 5;
-inline void CosmosTxInput::clear_msgs() {
-  msgs_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& CosmosTxInput::msgs() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxInput.msgs)
-  return msgs_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void CosmosTxInput::set_msgs(const ::std::string& value) {
-  
-  msgs_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxInput.msgs)
-}
-inline void CosmosTxInput::set_msgs(const char* value) {
-  
-  msgs_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxInput.msgs)
-}
-inline void CosmosTxInput::set_msgs(const char* value, size_t size) {
-  
-  msgs_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxInput.msgs)
-}
-inline ::std::string* CosmosTxInput::mutable_msgs() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxInput.msgs)
-  return msgs_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* CosmosTxInput::release_msgs() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxInput.msgs)
-  
-  return msgs_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void CosmosTxInput::set_allocated_msgs(::std::string* msgs) {
-  if (msgs != NULL) {
-    
-  } else {
-    
-  }
-  msgs_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), msgs);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxInput.msgs)
-}
-
-// optional string sequence = 6;
-inline void CosmosTxInput::clear_sequence() {
-  sequence_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& CosmosTxInput::sequence() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxInput.sequence)
-  return sequence_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void CosmosTxInput::set_sequence(const ::std::string& value) {
-  
-  sequence_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxInput.sequence)
-}
-inline void CosmosTxInput::set_sequence(const char* value) {
-  
-  sequence_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxInput.sequence)
-}
-inline void CosmosTxInput::set_sequence(const char* value, size_t size) {
-  
-  sequence_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxInput.sequence)
-}
-inline ::std::string* CosmosTxInput::mutable_sequence() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxInput.sequence)
-  return sequence_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* CosmosTxInput::release_sequence() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxInput.sequence)
-  
-  return sequence_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void CosmosTxInput::set_allocated_sequence(::std::string* sequence) {
-  if (sequence != NULL) {
-    
-  } else {
-    
-  }
-  sequence_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sequence);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxInput.sequence)
+  data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), data);
+  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxInput.data)
 }
 
 inline const CosmosTxInput* CosmosTxInput::internal_default_instance() {
@@ -995,58 +325,10 @@ inline void CosmosTxOutput::set_allocated_signature(::std::string* signature) {
   // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxOutput.signature)
 }
 
-// optional string txHash = 2;
-inline void CosmosTxOutput::clear_txhash() {
-  txhash_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& CosmosTxOutput::txhash() const {
-  // @@protoc_insertion_point(field_get:cosmosapi.CosmosTxOutput.txHash)
-  return txhash_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void CosmosTxOutput::set_txhash(const ::std::string& value) {
-  
-  txhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:cosmosapi.CosmosTxOutput.txHash)
-}
-inline void CosmosTxOutput::set_txhash(const char* value) {
-  
-  txhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:cosmosapi.CosmosTxOutput.txHash)
-}
-inline void CosmosTxOutput::set_txhash(const char* value, size_t size) {
-  
-  txhash_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:cosmosapi.CosmosTxOutput.txHash)
-}
-inline ::std::string* CosmosTxOutput::mutable_txhash() {
-  
-  // @@protoc_insertion_point(field_mutable:cosmosapi.CosmosTxOutput.txHash)
-  return txhash_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* CosmosTxOutput::release_txhash() {
-  // @@protoc_insertion_point(field_release:cosmosapi.CosmosTxOutput.txHash)
-  
-  return txhash_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void CosmosTxOutput::set_allocated_txhash(::std::string* txhash) {
-  if (txhash != NULL) {
-    
-  } else {
-    
-  }
-  txhash_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), txhash);
-  // @@protoc_insertion_point(field_set_allocated:cosmosapi.CosmosTxOutput.txHash)
-}
-
 inline const CosmosTxOutput* CosmosTxOutput::internal_default_instance() {
   return &CosmosTxOutput_default_instance_.get();
 }
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 

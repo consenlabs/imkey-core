@@ -24,7 +24,7 @@ pub fn hid_send(apdu: &String, timeout: i32) -> Result<String> {
         drop(hid_device_obj);
         return Err(HidError::DeviceConnectInterfaceNotCalled.into());
     }
-    // println!("-->{}", apdu);
+    println!("-->{}", apdu);
     send_device_message(
         &hid_device_obj.get(0).unwrap(),
         Vec::from_hex(apdu.as_str()).unwrap().as_slice(),
@@ -32,7 +32,7 @@ pub fn hid_send(apdu: &String, timeout: i32) -> Result<String> {
     let return_data = read_device_response(&hid_device_obj.get(0).unwrap(), timeout)?;
     //    drop(hid_device_obj);
     let apdu_response = hex::encode_upper(return_data);
-    // println!("<--{}", apdu_response.clone());
+    println!("<--{}", apdu_response.clone());
     Ok(apdu_response)
 }
 
@@ -165,7 +165,7 @@ mod test {
         match connect_result {
             Ok(()) => {
                 assert!(send_apdu("00A4040000".to_string()).is_ok());
-                assert!(send_apdu("00A404007500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100".to_string()).is_ok())
+                assert!(send_apdu("FFDCFEED00".to_string()).is_ok())
             }
             Err(err) => println!("{}", err),
         }

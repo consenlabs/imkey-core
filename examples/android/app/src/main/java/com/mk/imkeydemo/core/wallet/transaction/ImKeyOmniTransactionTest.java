@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import api.Api;
+import btcapi.Btc;
 import im.imkey.imkeylibrary.common.Messages;
 import im.imkey.imkeylibrary.exception.ImkeyException;
 import im.imkey.imkeylibrary.utils.ByteUtil;
@@ -39,7 +41,7 @@ public class ImKeyOmniTransactionTest {
         try {
             while (keys.hasNext()) {
 
-                btcapi.Btc.BtcTxReq.Builder builder = btcapi.Btc.BtcTxReq.newBuilder();
+                Btc.BtcTxInput.Builder builder = Btc.BtcTxInput.newBuilder();
 
                 String key = keys.next();
                 JSONObject testcase = testcases.getJSONObject(key);
@@ -65,9 +67,6 @@ public class ImKeyOmniTransactionTest {
                         .setTo(testcase.getString("to"))
                         .setAmount(testcase.getLong("amount"))
                         .setFee(testcase.getLong("fee"))
-                        .setNetwork(Constants.MAINNET)
-                        .setPathPrefix(Path.BTC_PATH_PREFIX)
-                        .setPropertyId(testcase.getInt("propertyId"))
                         .build();
 
 
@@ -88,16 +87,16 @@ public class ImKeyOmniTransactionTest {
 
                         LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                         // clear_err
-                        RustApi.INSTANCE.clear_err();
+                        RustApi.INSTANCE.imkey_clear_err();
 
                         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
                         String result = RustApi.INSTANCE.call_imkey_api(hex);
 
                         //
-                        String error = RustApi.INSTANCE.get_last_err_message();
+                        String error = RustApi.INSTANCE.imkey_get_last_err_message();
                         if(!"".equals(error) && null != error) {
-                            api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                            Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                             Boolean isSuccess = errorResponse.getIsSuccess();
                             if(!isSuccess) {
                                 LogUtil.d("异常： " + errorResponse.getError());
@@ -108,8 +107,8 @@ public class ImKeyOmniTransactionTest {
                             }
                         }
 
-                        btcapi.Btc.BtcTxRes response = btcapi.Btc.BtcTxRes.parseFrom(ByteUtil.hexStringToByteArray(result));
-                        String signature = response.getTxData();
+                        Btc.BtcTxOutput response = Btc.BtcTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
+                        String signature = response.getSignature();
                         String tx_hash = response.getTxHash();
 
                         LogUtil.d("signature：" + signature);
@@ -233,7 +232,7 @@ public class ImKeyOmniTransactionTest {
         try {
             while (keys.hasNext()) {
 
-                btcapi.Btc.BtcTxReq.Builder builder = btcapi.Btc.BtcTxReq.newBuilder();
+                Btc.BtcTxInput.Builder builder = Btc.BtcTxInput.newBuilder();
 
                 String key = keys.next();
                 JSONObject testcase = testcases.getJSONObject(key);
@@ -261,9 +260,9 @@ public class ImKeyOmniTransactionTest {
                         .setAmount(testcase.getLong("amount"))
                         .setFee(testcase.getLong("fee"))
                         //.setExtraData(extraData)
-                        .setNetwork(Constants.MAINNET)
-                        .setPathPrefix(Path.BTC_SEGWIT_PATH_PREFIX)
-                        .setPropertyId(testcase.getInt("propertyId"))
+//                        .setNetwork(Constants.MAINNET)
+//                        .setPathPrefix(Path.BTC_SEGWIT_PATH_PREFIX)
+//                        .setPropertyId(testcase.getInt("propertyId"))
                         .build();
 
 
@@ -284,16 +283,16 @@ public class ImKeyOmniTransactionTest {
 
                         LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                         // clear_err
-                        RustApi.INSTANCE.clear_err();
+                        RustApi.INSTANCE.imkey_clear_err();
 
                         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
                         String result = RustApi.INSTANCE.call_imkey_api(hex);
 
                         //
-                        String error = RustApi.INSTANCE.get_last_err_message();
+                        String error = RustApi.INSTANCE.imkey_get_last_err_message();
                         if(!"".equals(error) && null != error) {
-                            api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                            Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                             Boolean isSuccess = errorResponse.getIsSuccess();
                             if(!isSuccess) {
                                 LogUtil.d("异常： " + errorResponse.getError());
@@ -304,8 +303,8 @@ public class ImKeyOmniTransactionTest {
                             }
                         }
 
-                        btcapi.Btc.BtcSegwitTxRes response = btcapi.Btc.BtcSegwitTxRes.parseFrom(ByteUtil.hexStringToByteArray(result));
-                        String signature = response.getWitnessTxData();
+                        Btc.BtcTxOutput response = Btc.BtcTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
+                        String signature = response.getSignature();
                         String tx_hash = response.getTxHash();
                         String wtx_id = response.getWtxHash();
                         LogUtil.d("signature：" + signature);
@@ -437,14 +436,14 @@ public class ImKeyOmniTransactionTest {
                     .build();
 
 
-            btcapi.Btc.BtcTxReq btcTxReq = btcapi.Btc.BtcTxReq.newBuilder()
+            Btc.BtcTxInput btcTxReq = Btc.BtcTxInput.newBuilder()
                     .setTo("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3")
                     .setAmount(10050000000L)
                     .setFee(4000)
                     .addUnspents(utxo0)
-                    .setNetwork("TESTNET")
-                    .setPathPrefix(Path.BITCOIN_TESTNET_PATH)
-                    .setPropertyId(31)
+//                    .setNetwork("TESTNET")
+//                    .setPathPrefix(Path.BITCOIN_TESTNET_PATH)
+//                    .setPropertyId(31)
                     .build();
 
             Any any = Any.newBuilder()
@@ -459,21 +458,21 @@ public class ImKeyOmniTransactionTest {
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
 
                 }
             } else {
-                btcapi.Btc.BtcTxRes response = btcapi.Btc.BtcTxRes.parseFrom(ByteUtil.hexStringToByteArray(result));
-                String signature = response.getTxData();
+                Btc.BtcTxOutput response = Btc.BtcTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
+                String signature = response.getSignature();
                 String tx_hash = response.getTxHash();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("signature：" + signature);
@@ -541,15 +540,15 @@ public class ImKeyOmniTransactionTest {
                     .setSequence(4294967295l)
                     .build();
 
-            btcapi.Btc.BtcTxReq btcTxReq = btcapi.Btc.BtcTxReq.newBuilder()
+            Btc.BtcTxInput btcTxReq = Btc.BtcTxInput.newBuilder()
                     .setTo("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3")
                     .setChangeAddressIndex(0)
                     .setAmount(10000000000L)
                     .setFee(4000)
                     .addUnspents(utxo0)
-                    .setNetwork("TESTNET")
-                    .setPathPrefix(Path.BITCOIN_SEGWIT_TESTNET_PATH)
-                    .setPropertyId(31)
+//                    .setNetwork("TESTNET")
+//                    .setPathPrefix(Path.BITCOIN_SEGWIT_TESTNET_PATH)
+//                    .setPropertyId(31)
                     .build();
 
             Any any = Any.newBuilder()
@@ -563,21 +562,21 @@ public class ImKeyOmniTransactionTest {
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
 
                 }
             } else {
-                btcapi.Btc.BtcSegwitTxRes response = btcapi.Btc.BtcSegwitTxRes.parseFrom(ByteUtil.hexStringToByteArray(result));
-                String signature = response.getWitnessTxData();
+                Btc.BtcTxOutput response = Btc.BtcTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
+                String signature = response.getSignature();
                 String tx_hash = response.getTxHash();
                 String wtx_id = response.getWtxHash();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");

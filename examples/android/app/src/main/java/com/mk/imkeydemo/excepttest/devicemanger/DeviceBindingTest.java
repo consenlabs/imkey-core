@@ -4,6 +4,7 @@ import com.google.protobuf.Any;
 import com.mk.imkeydemo.keycore.RustApi;
 import com.mk.imkeydemo.utils.NumericUtil;
 
+import api.Api;
 import im.imkey.imkeylibrary.utils.ByteUtil;
 import im.imkey.imkeylibrary.utils.LogUtil;
 
@@ -30,8 +31,8 @@ public class DeviceBindingTest {
         String hex = NumericUtil.bytesToHex(action.toByteArray());
         try {
             String result = RustApi.INSTANCE.call_imkey_api(hex);
-            error = RustApi.INSTANCE.get_last_err_message();
-            api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+            error = RustApi.INSTANCE.imkey_get_last_err_message();
+            Api.ErrorResponse response = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
             response.getIsSuccess();
             error = response.getError();
 
@@ -63,8 +64,8 @@ public class DeviceBindingTest {
         String hex = NumericUtil.bytesToHex(action.toByteArray());
         try {
             String result = RustApi.INSTANCE.call_imkey_api(hex);
-            error = RustApi.INSTANCE.get_last_err_message();
-            api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+            error = RustApi.INSTANCE.imkey_get_last_err_message();
+            Api.ErrorResponse response = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
             response.getIsSuccess();
             error = response.getError();
 

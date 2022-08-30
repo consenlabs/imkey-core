@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import api.Api;
+import ethapi.Eth;
 import im.imkey.imkeylibrary.common.Messages;
 import im.imkey.imkeylibrary.exception.ImkeyException;
 import im.imkey.imkeylibrary.utils.ByteUtil;
@@ -52,8 +54,8 @@ public class ImKeyETHTransactionTest {
 
                 JSONObject pre = testcase.getJSONObject("preview");
 
-                ethapi.Eth.EthTxReq ethTxReq = ethapi.Eth.EthTxReq.newBuilder()
-                        .setPath(Path.ETH_LEDGER)
+                Eth.EthTxInput ethTxReq = ethapi.Eth.EthTxInput.newBuilder()
+//                        .setPath(Path.ETH_LEDGER)
                         .setChainId(v)
                         .setNonce(nonce.toString())
                         .setGasPrice(gasPrice.toString())
@@ -61,10 +63,10 @@ public class ImKeyETHTransactionTest {
                         .setTo(to)
                         .setValue(value.toString())
                         .setData(data)
-                        .setPayment(pre.getString("payment"))
-                        .setReceiver(pre.getString("receiver"))
-                        .setSender(pre.getString("sender"))
-                        .setFee(pre.getString("fee"))
+//                        .setPayment(pre.getString("payment"))
+//                        .setReceiver(pre.getString("receiver"))
+//                        .setSender(pre.getString("sender"))
+//                        .setFee(pre.getString("fee"))
                         .build();
 
                 Any any = Any.newBuilder()
@@ -84,16 +86,16 @@ public class ImKeyETHTransactionTest {
 
                         LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                         // clear_err
-                        RustApi.INSTANCE.clear_err();
+                        RustApi.INSTANCE.imkey_clear_err();
 
                         String hex = NumericUtil.bytesToHex(action.toByteArray());
 
                         String result = RustApi.INSTANCE.call_imkey_api(hex);
 
                         //
-                        String error = RustApi.INSTANCE.get_last_err_message();
+                        String error = RustApi.INSTANCE.imkey_get_last_err_message();
                         if(!"".equals(error) && null != error) {
-                            api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                            Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                             Boolean isSuccess = errorResponse.getIsSuccess();
                             if(!isSuccess) {
                                 LogUtil.d("异常： " + errorResponse.getError());
@@ -104,9 +106,9 @@ public class ImKeyETHTransactionTest {
                             }
                         }
 
-                        ethapi.Eth.EthTxRes response = ethapi.Eth.EthTxRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                        Eth.EthTxOutput response = Eth.EthTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
                         String txHash = response.getTxHash();
-                        String signature = response.getTxData();
+                        String signature = response.getSignature();
                         LogUtil.d("signature：" + signature);
                         LogUtil.d("txHash：" + txHash);
                         LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
@@ -216,8 +218,8 @@ public class ImKeyETHTransactionTest {
 
         try {
 
-            ethapi.Eth.EthTxReq ethTxReq = ethapi.Eth.EthTxReq.newBuilder()
-                    .setPath(Path.ETH_LEDGER)
+            Eth.EthTxInput ethTxReq = ethapi.Eth.EthTxInput.newBuilder()
+//                    .setPath(Path.ETH_LEDGER)
                     .setChainId("28")
                     .setNonce("8")
                     .setGasPrice("20000000008")
@@ -225,10 +227,10 @@ public class ImKeyETHTransactionTest {
                     .setTo("0x3535353535353535353535353535353535353535")
                     .setValue("512")
                     .setData("")
-                    .setPayment("0.01 ETH")
-                    .setReceiver("0xE6F4142dfFA574D1d9f18770BF73814df07931F3")
-                    .setSender("0x6031564e7b2F5cc33737807b2E58DaFF870B590b")
-                    .setFee("0.0032 ether")
+//                    .setPayment("0.01 ETH")
+//                    .setReceiver("0xE6F4142dfFA574D1d9f18770BF73814df07931F3")
+//                    .setSender("0x6031564e7b2F5cc33737807b2E58DaFF870B590b")
+//                    .setFee("0.0032 ether")
                     .build();
 
             Any any = Any.newBuilder()
@@ -242,22 +244,22 @@ public class ImKeyETHTransactionTest {
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
 
                 }
             } else {
-                ethapi.Eth.EthTxRes response = ethapi.Eth.EthTxRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                Eth.EthTxOutput response = ethapi.Eth.EthTxOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
                 String txHash = response.getTxHash();
-                String signature = response.getTxData();
+                String signature = response.getSignature();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("signature：" + signature);
                 LogUtil.d("txHash：" + txHash);
@@ -298,10 +300,10 @@ public class ImKeyETHTransactionTest {
             String data = "Hello imKey";
             String sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b";
 
-            ethapi.Eth.EthMessageSignReq ethMessageSignReq = ethapi.Eth.EthMessageSignReq.newBuilder()
-                    .setPath(Path.ETH_LEDGER)
+            Eth.EthMessageInput ethMessageSignReq = Eth.EthMessageInput.newBuilder()
+//                    .setPath(Path.ETH_LEDGER)
                     .setMessage(data)
-                    .setSender(sender)
+//                    .setSender(sender)
                     .build();
 
             Any any = Any.newBuilder()
@@ -315,19 +317,19 @@ public class ImKeyETHTransactionTest {
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
                 }
             } else {
-                ethapi.Eth.EthMessageSignRes response = ethapi.Eth.EthMessageSignRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                Eth.EthMessageOutput response = Eth.EthMessageOutput.parseFrom(ByteUtil.hexStringToByteArray(result));
                 signature = response.getSignature();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("signature：" + signature);

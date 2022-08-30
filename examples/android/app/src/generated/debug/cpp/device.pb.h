@@ -39,7 +39,9 @@ void protobuf_ShutdownFile_device_2eproto();
 
 class AppDeleteReq;
 class AppDownloadReq;
+class AppDownloadRes;
 class AppUpdateReq;
+class AppUpdateRes;
 class AvailableAppBean;
 class BindAcquireReq;
 class BindAcquireRes;
@@ -124,22 +126,22 @@ class AppDownloadReq : public ::google::protobuf::Message /* @@protoc_insertion_
 
   // accessors -------------------------------------------------------
 
-  // optional string appName = 1;
-  void clear_appname();
+  // optional string app_name = 1;
+  void clear_app_name();
   static const int kAppNameFieldNumber = 1;
-  const ::std::string& appname() const;
-  void set_appname(const ::std::string& value);
-  void set_appname(const char* value);
-  void set_appname(const char* value, size_t size);
-  ::std::string* mutable_appname();
-  ::std::string* release_appname();
-  void set_allocated_appname(::std::string* appname);
+  const ::std::string& app_name() const;
+  void set_app_name(const ::std::string& value);
+  void set_app_name(const char* value);
+  void set_app_name(const char* value, size_t size);
+  ::std::string* mutable_app_name();
+  ::std::string* release_app_name();
+  void set_allocated_app_name(::std::string* app_name);
 
   // @@protoc_insertion_point(class_scope:deviceapi.AppDownloadReq)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr appname_;
+  ::google::protobuf::internal::ArenaStringPtr app_name_;
   mutable int _cached_size_;
   friend void  protobuf_InitDefaults_device_2eproto_impl();
   friend void  protobuf_AddDesc_device_2eproto_impl();
@@ -149,6 +151,102 @@ class AppDownloadReq : public ::google::protobuf::Message /* @@protoc_insertion_
   void InitAsDefaultInstance();
 };
 extern ::google::protobuf::internal::ExplicitlyConstructed<AppDownloadReq> AppDownloadReq_default_instance_;
+
+// -------------------------------------------------------------------
+
+class AppDownloadRes : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:deviceapi.AppDownloadRes) */ {
+ public:
+  AppDownloadRes();
+  virtual ~AppDownloadRes();
+
+  AppDownloadRes(const AppDownloadRes& from);
+
+  inline AppDownloadRes& operator=(const AppDownloadRes& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const AppDownloadRes& default_instance();
+
+  static const AppDownloadRes* internal_default_instance();
+
+  void Swap(AppDownloadRes* other);
+
+  // implements Message ----------------------------------------------
+
+  inline AppDownloadRes* New() const { return New(NULL); }
+
+  AppDownloadRes* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const AppDownloadRes& from);
+  void MergeFrom(const AppDownloadRes& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AppDownloadRes* other);
+  void UnsafeMergeFrom(const AppDownloadRes& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated string address_register_list = 1;
+  int address_register_list_size() const;
+  void clear_address_register_list();
+  static const int kAddressRegisterListFieldNumber = 1;
+  const ::std::string& address_register_list(int index) const;
+  ::std::string* mutable_address_register_list(int index);
+  void set_address_register_list(int index, const ::std::string& value);
+  void set_address_register_list(int index, const char* value);
+  void set_address_register_list(int index, const char* value, size_t size);
+  ::std::string* add_address_register_list();
+  void add_address_register_list(const ::std::string& value);
+  void add_address_register_list(const char* value);
+  void add_address_register_list(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& address_register_list() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_address_register_list();
+
+  // @@protoc_insertion_point(class_scope:deviceapi.AppDownloadRes)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> address_register_list_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_device_2eproto_impl();
+  friend void  protobuf_AddDesc_device_2eproto_impl();
+  friend void protobuf_AssignDesc_device_2eproto();
+  friend void protobuf_ShutdownFile_device_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<AppDownloadRes> AppDownloadRes_default_instance_;
 
 // -------------------------------------------------------------------
 
@@ -240,6 +338,102 @@ class AppUpdateReq : public ::google::protobuf::Message /* @@protoc_insertion_po
   void InitAsDefaultInstance();
 };
 extern ::google::protobuf::internal::ExplicitlyConstructed<AppUpdateReq> AppUpdateReq_default_instance_;
+
+// -------------------------------------------------------------------
+
+class AppUpdateRes : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:deviceapi.AppUpdateRes) */ {
+ public:
+  AppUpdateRes();
+  virtual ~AppUpdateRes();
+
+  AppUpdateRes(const AppUpdateRes& from);
+
+  inline AppUpdateRes& operator=(const AppUpdateRes& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const AppUpdateRes& default_instance();
+
+  static const AppUpdateRes* internal_default_instance();
+
+  void Swap(AppUpdateRes* other);
+
+  // implements Message ----------------------------------------------
+
+  inline AppUpdateRes* New() const { return New(NULL); }
+
+  AppUpdateRes* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const AppUpdateRes& from);
+  void MergeFrom(const AppUpdateRes& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AppUpdateRes* other);
+  void UnsafeMergeFrom(const AppUpdateRes& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated string address_register_list = 1;
+  int address_register_list_size() const;
+  void clear_address_register_list();
+  static const int kAddressRegisterListFieldNumber = 1;
+  const ::std::string& address_register_list(int index) const;
+  ::std::string* mutable_address_register_list(int index);
+  void set_address_register_list(int index, const ::std::string& value);
+  void set_address_register_list(int index, const char* value);
+  void set_address_register_list(int index, const char* value, size_t size);
+  ::std::string* add_address_register_list();
+  void add_address_register_list(const ::std::string& value);
+  void add_address_register_list(const char* value);
+  void add_address_register_list(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& address_register_list() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_address_register_list();
+
+  // @@protoc_insertion_point(class_scope:deviceapi.AppUpdateRes)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> address_register_list_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_device_2eproto_impl();
+  friend void  protobuf_AddDesc_device_2eproto_impl();
+  friend void protobuf_AssignDesc_device_2eproto();
+  friend void protobuf_ShutdownFile_device_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<AppUpdateRes> AppUpdateRes_default_instance_;
 
 // -------------------------------------------------------------------
 
@@ -2132,52 +2326,114 @@ extern ::google::protobuf::internal::ExplicitlyConstructed<IsBlStatusRes> IsBlSt
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // AppDownloadReq
 
-// optional string appName = 1;
-inline void AppDownloadReq::clear_appname() {
-  appname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string app_name = 1;
+inline void AppDownloadReq::clear_app_name() {
+  app_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& AppDownloadReq::appname() const {
-  // @@protoc_insertion_point(field_get:deviceapi.AppDownloadReq.appName)
-  return appname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string& AppDownloadReq::app_name() const {
+  // @@protoc_insertion_point(field_get:deviceapi.AppDownloadReq.app_name)
+  return app_name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void AppDownloadReq::set_appname(const ::std::string& value) {
+inline void AppDownloadReq::set_app_name(const ::std::string& value) {
   
-  appname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:deviceapi.AppDownloadReq.appName)
+  app_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:deviceapi.AppDownloadReq.app_name)
 }
-inline void AppDownloadReq::set_appname(const char* value) {
+inline void AppDownloadReq::set_app_name(const char* value) {
   
-  appname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:deviceapi.AppDownloadReq.appName)
+  app_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:deviceapi.AppDownloadReq.app_name)
 }
-inline void AppDownloadReq::set_appname(const char* value, size_t size) {
+inline void AppDownloadReq::set_app_name(const char* value, size_t size) {
   
-  appname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  app_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:deviceapi.AppDownloadReq.appName)
+  // @@protoc_insertion_point(field_set_pointer:deviceapi.AppDownloadReq.app_name)
 }
-inline ::std::string* AppDownloadReq::mutable_appname() {
+inline ::std::string* AppDownloadReq::mutable_app_name() {
   
-  // @@protoc_insertion_point(field_mutable:deviceapi.AppDownloadReq.appName)
-  return appname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:deviceapi.AppDownloadReq.app_name)
+  return app_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* AppDownloadReq::release_appname() {
-  // @@protoc_insertion_point(field_release:deviceapi.AppDownloadReq.appName)
+inline ::std::string* AppDownloadReq::release_app_name() {
+  // @@protoc_insertion_point(field_release:deviceapi.AppDownloadReq.app_name)
   
-  return appname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return app_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void AppDownloadReq::set_allocated_appname(::std::string* appname) {
-  if (appname != NULL) {
+inline void AppDownloadReq::set_allocated_app_name(::std::string* app_name) {
+  if (app_name != NULL) {
     
   } else {
     
   }
-  appname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), appname);
-  // @@protoc_insertion_point(field_set_allocated:deviceapi.AppDownloadReq.appName)
+  app_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), app_name);
+  // @@protoc_insertion_point(field_set_allocated:deviceapi.AppDownloadReq.app_name)
 }
 
 inline const AppDownloadReq* AppDownloadReq::internal_default_instance() {
   return &AppDownloadReq_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// AppDownloadRes
+
+// repeated string address_register_list = 1;
+inline int AppDownloadRes::address_register_list_size() const {
+  return address_register_list_.size();
+}
+inline void AppDownloadRes::clear_address_register_list() {
+  address_register_list_.Clear();
+}
+inline const ::std::string& AppDownloadRes::address_register_list(int index) const {
+  // @@protoc_insertion_point(field_get:deviceapi.AppDownloadRes.address_register_list)
+  return address_register_list_.Get(index);
+}
+inline ::std::string* AppDownloadRes::mutable_address_register_list(int index) {
+  // @@protoc_insertion_point(field_mutable:deviceapi.AppDownloadRes.address_register_list)
+  return address_register_list_.Mutable(index);
+}
+inline void AppDownloadRes::set_address_register_list(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:deviceapi.AppDownloadRes.address_register_list)
+  address_register_list_.Mutable(index)->assign(value);
+}
+inline void AppDownloadRes::set_address_register_list(int index, const char* value) {
+  address_register_list_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:deviceapi.AppDownloadRes.address_register_list)
+}
+inline void AppDownloadRes::set_address_register_list(int index, const char* value, size_t size) {
+  address_register_list_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:deviceapi.AppDownloadRes.address_register_list)
+}
+inline ::std::string* AppDownloadRes::add_address_register_list() {
+  // @@protoc_insertion_point(field_add_mutable:deviceapi.AppDownloadRes.address_register_list)
+  return address_register_list_.Add();
+}
+inline void AppDownloadRes::add_address_register_list(const ::std::string& value) {
+  address_register_list_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:deviceapi.AppDownloadRes.address_register_list)
+}
+inline void AppDownloadRes::add_address_register_list(const char* value) {
+  address_register_list_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:deviceapi.AppDownloadRes.address_register_list)
+}
+inline void AppDownloadRes::add_address_register_list(const char* value, size_t size) {
+  address_register_list_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:deviceapi.AppDownloadRes.address_register_list)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+AppDownloadRes::address_register_list() const {
+  // @@protoc_insertion_point(field_list:deviceapi.AppDownloadRes.address_register_list)
+  return address_register_list_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+AppDownloadRes::mutable_address_register_list() {
+  // @@protoc_insertion_point(field_mutable_list:deviceapi.AppDownloadRes.address_register_list)
+  return &address_register_list_;
+}
+
+inline const AppDownloadRes* AppDownloadRes::internal_default_instance() {
+  return &AppDownloadRes_default_instance_.get();
 }
 // -------------------------------------------------------------------
 
@@ -2229,6 +2485,68 @@ inline void AppUpdateReq::set_allocated_app_name(::std::string* app_name) {
 
 inline const AppUpdateReq* AppUpdateReq::internal_default_instance() {
   return &AppUpdateReq_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// AppUpdateRes
+
+// repeated string address_register_list = 1;
+inline int AppUpdateRes::address_register_list_size() const {
+  return address_register_list_.size();
+}
+inline void AppUpdateRes::clear_address_register_list() {
+  address_register_list_.Clear();
+}
+inline const ::std::string& AppUpdateRes::address_register_list(int index) const {
+  // @@protoc_insertion_point(field_get:deviceapi.AppUpdateRes.address_register_list)
+  return address_register_list_.Get(index);
+}
+inline ::std::string* AppUpdateRes::mutable_address_register_list(int index) {
+  // @@protoc_insertion_point(field_mutable:deviceapi.AppUpdateRes.address_register_list)
+  return address_register_list_.Mutable(index);
+}
+inline void AppUpdateRes::set_address_register_list(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:deviceapi.AppUpdateRes.address_register_list)
+  address_register_list_.Mutable(index)->assign(value);
+}
+inline void AppUpdateRes::set_address_register_list(int index, const char* value) {
+  address_register_list_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:deviceapi.AppUpdateRes.address_register_list)
+}
+inline void AppUpdateRes::set_address_register_list(int index, const char* value, size_t size) {
+  address_register_list_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:deviceapi.AppUpdateRes.address_register_list)
+}
+inline ::std::string* AppUpdateRes::add_address_register_list() {
+  // @@protoc_insertion_point(field_add_mutable:deviceapi.AppUpdateRes.address_register_list)
+  return address_register_list_.Add();
+}
+inline void AppUpdateRes::add_address_register_list(const ::std::string& value) {
+  address_register_list_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:deviceapi.AppUpdateRes.address_register_list)
+}
+inline void AppUpdateRes::add_address_register_list(const char* value) {
+  address_register_list_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:deviceapi.AppUpdateRes.address_register_list)
+}
+inline void AppUpdateRes::add_address_register_list(const char* value, size_t size) {
+  address_register_list_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:deviceapi.AppUpdateRes.address_register_list)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+AppUpdateRes::address_register_list() const {
+  // @@protoc_insertion_point(field_list:deviceapi.AppUpdateRes.address_register_list)
+  return address_register_list_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+AppUpdateRes::mutable_address_register_list() {
+  // @@protoc_insertion_point(field_mutable_list:deviceapi.AppUpdateRes.address_register_list)
+  return &address_register_list_;
+}
+
+inline const AppUpdateRes* AppUpdateRes::internal_default_instance() {
+  return &AppUpdateRes_default_instance_.get();
 }
 // -------------------------------------------------------------------
 
@@ -3712,6 +4030,10 @@ inline const IsBlStatusRes* IsBlStatusRes::internal_default_instance() {
   return &IsBlStatusRes_default_instance_.get();
 }
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

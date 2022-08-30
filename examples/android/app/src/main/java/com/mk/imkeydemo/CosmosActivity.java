@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
-import com.mk.imkeydemo.core.wallet.transaction.ImKeyCosmosTransactionTest;
+//import com.mk.imkeydemo.core.wallet.transaction.ImKeyCosmosTransactionTest;
 import com.mk.imkeydemo.keycore.Cosmos;
 import com.mk.imkeydemo.keycore.Path;
 import com.mk.imkeydemo.keycore.TransactionSignedResult;
@@ -56,19 +56,19 @@ public class CosmosActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Map<String, Object> resultMap = ImKeyCosmosTransactionTest.testCosmosTxSign(mContext);
-
-                    int successCount = (int)resultMap.get("successCount");
-                    String result = "Number of successes: " + successCount + "\n";
-                    int failCount = (int)resultMap.get("failCount");
-                    result = result + "Number of failures: " + failCount + "\n";
-                    result = result + "Failed test case name:\n";
-
-                    ArrayList<String> failedCaseName = (ArrayList)resultMap.get("failedCaseName");
-                    for(int i=0; i<failedCaseName.size(); i++) {
-                        result = result + failedCaseName.get(i) + "\n";
-                    }
-                    showResult(result);
+//                    Map<String, Object> resultMap = ImKeyCosmosTransactionTest.testCosmosTxSign(mContext);
+//
+//                    int successCount = (int)resultMap.get("successCount");
+//                    String result = "Number of successes: " + successCount + "\n";
+//                    int failCount = (int)resultMap.get("failCount");
+//                    result = result + "Number of failures: " + failCount + "\n";
+//                    result = result + "Failed test case name:\n";
+//
+//                    ArrayList<String> failedCaseName = (ArrayList)resultMap.get("failedCaseName");
+//                    for(int i=0; i<failedCaseName.size(); i++) {
+//                        result = result + failedCaseName.get(i) + "\n";
+//                    }
+//                    showResult(result);
                 } catch (Exception e) {
                     showResult(e.getMessage());
                 }
@@ -81,9 +81,9 @@ public class CosmosActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    TransactionSignedResult result = ImKeyCosmosTransactionTest.testCosmosTxSign();
-                    LogUtil.d(result.toString());
-                    showResult(result.toString());
+//                    TransactionSignedResult result = ImKeyCosmosTransactionTest.testCosmosTxSign();
+//                    LogUtil.d(result.toString());
+//                    showResult(result.toString());
                 } catch (Exception e) {
                     showResult(e.getMessage());
                 }

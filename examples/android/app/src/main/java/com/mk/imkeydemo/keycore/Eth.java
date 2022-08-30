@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import api.Api;
 import im.imkey.imkeylibrary.utils.ByteUtil;
 import im.imkey.imkeylibrary.utils.LogUtil;
 
@@ -24,8 +25,9 @@ public class Eth extends Wallet {
 
         try {
 
-            ethapi.Eth.EthAddressReq req = ethapi.Eth.EthAddressReq.newBuilder()
+            Api.AddressParam req = Api.AddressParam.newBuilder()
                     .setPath(path)
+                    .setChainType("ETHEREUM")
                     .build();
 
             Any any = Any.newBuilder()
@@ -33,27 +35,27 @@ public class Eth extends Wallet {
                     .build();
 
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("eth_get_address")
+                    .setMethod("get_address")
                     .setParam(any)
                     .build();
 
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
 
                 }
             } else {
-                ethapi.Eth.EthAddressRes response = ethapi.Eth.EthAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                Api.AddressResult response = Api.AddressResult.parseFrom(ByteUtil.hexStringToByteArray(result));
                 address = response.getAddress();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("address：" + address);
@@ -82,8 +84,9 @@ public class Eth extends Wallet {
 
         try {
 
-            ethapi.Eth.EthAddressReq req = ethapi.Eth.EthAddressReq.newBuilder()
+            Api.AddressParam req = Api.AddressParam.newBuilder()
                     .setPath(path)
+                    .setChainType("ETHEREUM")
                     .build();
 
             Any any = Any.newBuilder()
@@ -97,20 +100,20 @@ public class Eth extends Wallet {
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
 
                 }
             } else {
-                ethapi.Eth.EthAddressRes response = ethapi.Eth.EthAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                Api.AddressResult response = Api.AddressResult.parseFrom(ByteUtil.hexStringToByteArray(result));
                 address = response.getAddress();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("address：" + address);

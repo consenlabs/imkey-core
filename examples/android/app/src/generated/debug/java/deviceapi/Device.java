@@ -19,11 +19,11 @@ public final class Device {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string appName = 1;</code>
+     * <code>optional string app_name = 1;</code>
      */
     java.lang.String getAppName();
     /**
-     * <code>optional string appName = 1;</code>
+     * <code>optional string app_name = 1;</code>
      */
     com.google.protobuf.ByteString
         getAppNameBytes();
@@ -97,10 +97,10 @@ public final class Device {
               deviceapi.Device.AppDownloadReq.class, deviceapi.Device.AppDownloadReq.Builder.class);
     }
 
-    public static final int APPNAME_FIELD_NUMBER = 1;
+    public static final int APP_NAME_FIELD_NUMBER = 1;
     private volatile java.lang.Object appName_;
     /**
-     * <code>optional string appName = 1;</code>
+     * <code>optional string app_name = 1;</code>
      */
     public java.lang.String getAppName() {
       java.lang.Object ref = appName_;
@@ -115,7 +115,7 @@ public final class Device {
       }
     }
     /**
-     * <code>optional string appName = 1;</code>
+     * <code>optional string app_name = 1;</code>
      */
     public com.google.protobuf.ByteString
         getAppNameBytes() {
@@ -184,7 +184,7 @@ public final class Device {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + APPNAME_FIELD_NUMBER;
+      hash = (37 * hash) + APP_NAME_FIELD_NUMBER;
       hash = (53 * hash) + getAppName().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -402,7 +402,7 @@ public final class Device {
 
       private java.lang.Object appName_ = "";
       /**
-       * <code>optional string appName = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
       public java.lang.String getAppName() {
         java.lang.Object ref = appName_;
@@ -417,7 +417,7 @@ public final class Device {
         }
       }
       /**
-       * <code>optional string appName = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
       public com.google.protobuf.ByteString
           getAppNameBytes() {
@@ -433,7 +433,7 @@ public final class Device {
         }
       }
       /**
-       * <code>optional string appName = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
       public Builder setAppName(
           java.lang.String value) {
@@ -446,7 +446,7 @@ public final class Device {
         return this;
       }
       /**
-       * <code>optional string appName = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
       public Builder clearAppName() {
         
@@ -455,7 +455,7 @@ public final class Device {
         return this;
       }
       /**
-       * <code>optional string appName = 1;</code>
+       * <code>optional string app_name = 1;</code>
        */
       public Builder setAppNameBytes(
           com.google.protobuf.ByteString value) {
@@ -512,6 +512,563 @@ public final class Device {
     }
 
     public deviceapi.Device.AppDownloadReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface AppDownloadResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.AppDownloadRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    java.util.List<java.lang.String>
+        getAddressRegisterListList();
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    int getAddressRegisterListCount();
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    java.lang.String getAddressRegisterList(int index);
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getAddressRegisterListBytes(int index);
+  }
+  /**
+   * Protobuf type {@code deviceapi.AppDownloadRes}
+   */
+  public  static final class AppDownloadRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.AppDownloadRes)
+      AppDownloadResOrBuilder {
+    // Use AppDownloadRes.newBuilder() to construct.
+    private AppDownloadRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AppDownloadRes() {
+      addressRegisterList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private AppDownloadRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                addressRegisterList_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              addressRegisterList_.add(s);
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          addressRegisterList_ = addressRegisterList_.getUnmodifiableView();
+        }
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_AppDownloadRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_AppDownloadRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.AppDownloadRes.class, deviceapi.Device.AppDownloadRes.Builder.class);
+    }
+
+    public static final int ADDRESS_REGISTER_LIST_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList addressRegisterList_;
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    public com.google.protobuf.ProtocolStringList
+        getAddressRegisterListList() {
+      return addressRegisterList_;
+    }
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    public int getAddressRegisterListCount() {
+      return addressRegisterList_.size();
+    }
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    public java.lang.String getAddressRegisterList(int index) {
+      return addressRegisterList_.get(index);
+    }
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getAddressRegisterListBytes(int index) {
+      return addressRegisterList_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < addressRegisterList_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, addressRegisterList_.getRaw(i));
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < addressRegisterList_.size(); i++) {
+          dataSize += computeStringSizeNoTag(addressRegisterList_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getAddressRegisterListList().size();
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.AppDownloadRes)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.AppDownloadRes other = (deviceapi.Device.AppDownloadRes) obj;
+
+      boolean result = true;
+      result = result && getAddressRegisterListList()
+          .equals(other.getAddressRegisterListList());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (getAddressRegisterListCount() > 0) {
+        hash = (37 * hash) + ADDRESS_REGISTER_LIST_FIELD_NUMBER;
+        hash = (53 * hash) + getAddressRegisterListList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.AppDownloadRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.AppDownloadRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.AppDownloadRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.AppDownloadRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.AppDownloadRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.AppDownloadRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.AppDownloadRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.AppDownloadRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.AppDownloadRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.AppDownloadRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.AppDownloadRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code deviceapi.AppDownloadRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.AppDownloadRes)
+        deviceapi.Device.AppDownloadResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_AppDownloadRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_AppDownloadRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.AppDownloadRes.class, deviceapi.Device.AppDownloadRes.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.AppDownloadRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        addressRegisterList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_AppDownloadRes_descriptor;
+      }
+
+      public deviceapi.Device.AppDownloadRes getDefaultInstanceForType() {
+        return deviceapi.Device.AppDownloadRes.getDefaultInstance();
+      }
+
+      public deviceapi.Device.AppDownloadRes build() {
+        deviceapi.Device.AppDownloadRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.AppDownloadRes buildPartial() {
+        deviceapi.Device.AppDownloadRes result = new deviceapi.Device.AppDownloadRes(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          addressRegisterList_ = addressRegisterList_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.addressRegisterList_ = addressRegisterList_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.AppDownloadRes) {
+          return mergeFrom((deviceapi.Device.AppDownloadRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.AppDownloadRes other) {
+        if (other == deviceapi.Device.AppDownloadRes.getDefaultInstance()) return this;
+        if (!other.addressRegisterList_.isEmpty()) {
+          if (addressRegisterList_.isEmpty()) {
+            addressRegisterList_ = other.addressRegisterList_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureAddressRegisterListIsMutable();
+            addressRegisterList_.addAll(other.addressRegisterList_);
+          }
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.AppDownloadRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.AppDownloadRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList addressRegisterList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureAddressRegisterListIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          addressRegisterList_ = new com.google.protobuf.LazyStringArrayList(addressRegisterList_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public com.google.protobuf.ProtocolStringList
+          getAddressRegisterListList() {
+        return addressRegisterList_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public int getAddressRegisterListCount() {
+        return addressRegisterList_.size();
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public java.lang.String getAddressRegisterList(int index) {
+        return addressRegisterList_.get(index);
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getAddressRegisterListBytes(int index) {
+        return addressRegisterList_.getByteString(index);
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public Builder setAddressRegisterList(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureAddressRegisterListIsMutable();
+        addressRegisterList_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public Builder addAddressRegisterList(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureAddressRegisterListIsMutable();
+        addressRegisterList_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public Builder addAllAddressRegisterList(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureAddressRegisterListIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, addressRegisterList_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public Builder clearAddressRegisterList() {
+        addressRegisterList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public Builder addAddressRegisterListBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureAddressRegisterListIsMutable();
+        addressRegisterList_.add(value);
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.AppDownloadRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.AppDownloadRes)
+    private static final deviceapi.Device.AppDownloadRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.AppDownloadRes();
+    }
+
+    public static deviceapi.Device.AppDownloadRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AppDownloadRes>
+        PARSER = new com.google.protobuf.AbstractParser<AppDownloadRes>() {
+      public AppDownloadRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new AppDownloadRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AppDownloadRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AppDownloadRes> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.AppDownloadRes getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1015,6 +1572,563 @@ public final class Device {
     }
 
     public deviceapi.Device.AppUpdateReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface AppUpdateResOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:deviceapi.AppUpdateRes)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    java.util.List<java.lang.String>
+        getAddressRegisterListList();
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    int getAddressRegisterListCount();
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    java.lang.String getAddressRegisterList(int index);
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getAddressRegisterListBytes(int index);
+  }
+  /**
+   * Protobuf type {@code deviceapi.AppUpdateRes}
+   */
+  public  static final class AppUpdateRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:deviceapi.AppUpdateRes)
+      AppUpdateResOrBuilder {
+    // Use AppUpdateRes.newBuilder() to construct.
+    private AppUpdateRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AppUpdateRes() {
+      addressRegisterList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private AppUpdateRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                addressRegisterList_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              addressRegisterList_.add(s);
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          addressRegisterList_ = addressRegisterList_.getUnmodifiableView();
+        }
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return deviceapi.Device.internal_static_deviceapi_AppUpdateRes_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return deviceapi.Device.internal_static_deviceapi_AppUpdateRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              deviceapi.Device.AppUpdateRes.class, deviceapi.Device.AppUpdateRes.Builder.class);
+    }
+
+    public static final int ADDRESS_REGISTER_LIST_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList addressRegisterList_;
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    public com.google.protobuf.ProtocolStringList
+        getAddressRegisterListList() {
+      return addressRegisterList_;
+    }
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    public int getAddressRegisterListCount() {
+      return addressRegisterList_.size();
+    }
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    public java.lang.String getAddressRegisterList(int index) {
+      return addressRegisterList_.get(index);
+    }
+    /**
+     * <code>repeated string address_register_list = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getAddressRegisterListBytes(int index) {
+      return addressRegisterList_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < addressRegisterList_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, addressRegisterList_.getRaw(i));
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < addressRegisterList_.size(); i++) {
+          dataSize += computeStringSizeNoTag(addressRegisterList_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getAddressRegisterListList().size();
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof deviceapi.Device.AppUpdateRes)) {
+        return super.equals(obj);
+      }
+      deviceapi.Device.AppUpdateRes other = (deviceapi.Device.AppUpdateRes) obj;
+
+      boolean result = true;
+      result = result && getAddressRegisterListList()
+          .equals(other.getAddressRegisterListList());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (getAddressRegisterListCount() > 0) {
+        hash = (37 * hash) + ADDRESS_REGISTER_LIST_FIELD_NUMBER;
+        hash = (53 * hash) + getAddressRegisterListList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static deviceapi.Device.AppUpdateRes parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.AppUpdateRes parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.AppUpdateRes parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static deviceapi.Device.AppUpdateRes parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static deviceapi.Device.AppUpdateRes parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.AppUpdateRes parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.AppUpdateRes parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.AppUpdateRes parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static deviceapi.Device.AppUpdateRes parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static deviceapi.Device.AppUpdateRes parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(deviceapi.Device.AppUpdateRes prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code deviceapi.AppUpdateRes}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:deviceapi.AppUpdateRes)
+        deviceapi.Device.AppUpdateResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return deviceapi.Device.internal_static_deviceapi_AppUpdateRes_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return deviceapi.Device.internal_static_deviceapi_AppUpdateRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                deviceapi.Device.AppUpdateRes.class, deviceapi.Device.AppUpdateRes.Builder.class);
+      }
+
+      // Construct using deviceapi.Device.AppUpdateRes.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        addressRegisterList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return deviceapi.Device.internal_static_deviceapi_AppUpdateRes_descriptor;
+      }
+
+      public deviceapi.Device.AppUpdateRes getDefaultInstanceForType() {
+        return deviceapi.Device.AppUpdateRes.getDefaultInstance();
+      }
+
+      public deviceapi.Device.AppUpdateRes build() {
+        deviceapi.Device.AppUpdateRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public deviceapi.Device.AppUpdateRes buildPartial() {
+        deviceapi.Device.AppUpdateRes result = new deviceapi.Device.AppUpdateRes(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          addressRegisterList_ = addressRegisterList_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.addressRegisterList_ = addressRegisterList_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof deviceapi.Device.AppUpdateRes) {
+          return mergeFrom((deviceapi.Device.AppUpdateRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(deviceapi.Device.AppUpdateRes other) {
+        if (other == deviceapi.Device.AppUpdateRes.getDefaultInstance()) return this;
+        if (!other.addressRegisterList_.isEmpty()) {
+          if (addressRegisterList_.isEmpty()) {
+            addressRegisterList_ = other.addressRegisterList_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureAddressRegisterListIsMutable();
+            addressRegisterList_.addAll(other.addressRegisterList_);
+          }
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        deviceapi.Device.AppUpdateRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (deviceapi.Device.AppUpdateRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList addressRegisterList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureAddressRegisterListIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          addressRegisterList_ = new com.google.protobuf.LazyStringArrayList(addressRegisterList_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public com.google.protobuf.ProtocolStringList
+          getAddressRegisterListList() {
+        return addressRegisterList_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public int getAddressRegisterListCount() {
+        return addressRegisterList_.size();
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public java.lang.String getAddressRegisterList(int index) {
+        return addressRegisterList_.get(index);
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getAddressRegisterListBytes(int index) {
+        return addressRegisterList_.getByteString(index);
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public Builder setAddressRegisterList(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureAddressRegisterListIsMutable();
+        addressRegisterList_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public Builder addAddressRegisterList(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureAddressRegisterListIsMutable();
+        addressRegisterList_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public Builder addAllAddressRegisterList(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureAddressRegisterListIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, addressRegisterList_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public Builder clearAddressRegisterList() {
+        addressRegisterList_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string address_register_list = 1;</code>
+       */
+      public Builder addAddressRegisterListBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureAddressRegisterListIsMutable();
+        addressRegisterList_.add(value);
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:deviceapi.AppUpdateRes)
+    }
+
+    // @@protoc_insertion_point(class_scope:deviceapi.AppUpdateRes)
+    private static final deviceapi.Device.AppUpdateRes DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new deviceapi.Device.AppUpdateRes();
+    }
+
+    public static deviceapi.Device.AppUpdateRes getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AppUpdateRes>
+        PARSER = new com.google.protobuf.AbstractParser<AppUpdateRes>() {
+      public AppUpdateRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new AppUpdateRes(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<AppUpdateRes> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AppUpdateRes> getParserForType() {
+      return PARSER;
+    }
+
+    public deviceapi.Device.AppUpdateRes getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -12525,10 +13639,20 @@ public final class Device {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_deviceapi_AppDownloadReq_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_AppDownloadRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_AppDownloadRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_deviceapi_AppUpdateReq_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_deviceapi_AppUpdateReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_deviceapi_AppUpdateRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_deviceapi_AppUpdateRes_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_deviceapi_AppDeleteReq_descriptor;
   private static final 
@@ -12633,35 +13757,38 @@ public final class Device {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014device.proto\022\tdeviceapi\"!\n\016AppDownload" +
-      "Req\022\017\n\007appName\030\001 \001(\t\" \n\014AppUpdateReq\022\020\n\010" +
-      "app_name\030\001 \001(\t\" \n\014AppDeleteReq\022\020\n\010app_na" +
-      "me\030\001 \001(\t\"\206\001\n\016CheckUpdateRes\022\r\n\005se_id\030\001 \001" +
-      "(\t\022\n\n\002sn\030\002 \001(\t\022\016\n\006status\030\003 \001(\t\022\020\n\010sdk_mo" +
-      "de\030\004 \001(\t\0227\n\022available_app_list\030\005 \003(\0132\033.d" +
-      "eviceapi.AvailableAppBean\"\225\001\n\020AvailableA" +
-      "ppBean\022\020\n\010app_name\030\001 \001(\t\022\020\n\010app_logo\030\002 \001" +
-      "(\t\022\031\n\021installed_version\030\003 \001(\t\022\024\n\014last_up" +
-      "dated\030\004 \001(\t\022\026\n\016latest_version\030\005 \001(\t\022\024\n\014i",
-      "nstall_mode\030\006 \001(\t\"#\n\014BindCheckRes\022\023\n\013bin" +
-      "d_status\030\001 \001(\t\"#\n\016BindAcquireReq\022\021\n\tbind" +
-      "_code\030\001 \001(\t\"%\n\016BindAcquireRes\022\023\n\013bind_re" +
-      "sult\030\001 \001(\t\"\032\n\nGetSeidRes\022\014\n\004seid\030\001 \001(\t\"\026" +
-      "\n\010GetSnRes\022\n\n\002sn\030\001 \001(\t\"!\n\rGetRamSizeRes\022" +
-      "\020\n\010ram_size\030\001 \001(\t\"1\n\025GetFirmwareVersionR" +
-      "es\022\030\n\020firmware_version\030\001 \001(\t\"+\n\022GetBatte" +
-      "ryPowerRes\022\025\n\rbattery_power\030\001 \001(\t\"#\n\016Get" +
-      "LifeTimeRes\022\021\n\tlife_time\030\001 \001(\t\"!\n\rGetBle" +
-      "NameRes\022\020\n\010ble_name\030\001 \001(\t\"!\n\rSetBleNameR",
-      "eq\022\020\n\010ble_name\030\001 \001(\t\"\'\n\020GetBleVersionRes" +
-      "\022\023\n\013ble_version\030\001 \001(\t\"$\n\rGetSdkInfoRes\022\023" +
-      "\n\013sdk_version\030\001 \001(\t\"-\n\020DeviceConnectReq\022" +
-      "\031\n\021device_model_name\030\001 \001(\t\"\225\001\n\021CosCheckU" +
-      "pdateRes\022\014\n\004seid\030\001 \001(\t\022\021\n\tis_latest\030\002 \001(" +
-      "\010\022\032\n\022latest_cos_version\030\003 \001(\t\022\023\n\013update_" +
-      "type\030\004 \001(\t\022\023\n\013description\030\005 \001(\t\022\031\n\021is_up" +
-      "date_success\030\006 \001(\010\"%\n\rIsBlStatusRes\022\024\n\014c" +
-      "heck_result\030\001 \001(\010b\006proto3"
+      "\n\014device.proto\022\tdeviceapi\"\"\n\016AppDownload" +
+      "Req\022\020\n\010app_name\030\001 \001(\t\"/\n\016AppDownloadRes\022" +
+      "\035\n\025address_register_list\030\001 \003(\t\" \n\014AppUpd" +
+      "ateReq\022\020\n\010app_name\030\001 \001(\t\"-\n\014AppUpdateRes" +
+      "\022\035\n\025address_register_list\030\001 \003(\t\" \n\014AppDe" +
+      "leteReq\022\020\n\010app_name\030\001 \001(\t\"\206\001\n\016CheckUpdat" +
+      "eRes\022\r\n\005se_id\030\001 \001(\t\022\n\n\002sn\030\002 \001(\t\022\016\n\006statu" +
+      "s\030\003 \001(\t\022\020\n\010sdk_mode\030\004 \001(\t\0227\n\022available_a" +
+      "pp_list\030\005 \003(\0132\033.deviceapi.AvailableAppBe" +
+      "an\"\225\001\n\020AvailableAppBean\022\020\n\010app_name\030\001 \001(",
+      "\t\022\020\n\010app_logo\030\002 \001(\t\022\031\n\021installed_version" +
+      "\030\003 \001(\t\022\024\n\014last_updated\030\004 \001(\t\022\026\n\016latest_v" +
+      "ersion\030\005 \001(\t\022\024\n\014install_mode\030\006 \001(\t\"#\n\014Bi" +
+      "ndCheckRes\022\023\n\013bind_status\030\001 \001(\t\"#\n\016BindA" +
+      "cquireReq\022\021\n\tbind_code\030\001 \001(\t\"%\n\016BindAcqu" +
+      "ireRes\022\023\n\013bind_result\030\001 \001(\t\"\032\n\nGetSeidRe" +
+      "s\022\014\n\004seid\030\001 \001(\t\"\026\n\010GetSnRes\022\n\n\002sn\030\001 \001(\t\"" +
+      "!\n\rGetRamSizeRes\022\020\n\010ram_size\030\001 \001(\t\"1\n\025Ge" +
+      "tFirmwareVersionRes\022\030\n\020firmware_version\030" +
+      "\001 \001(\t\"+\n\022GetBatteryPowerRes\022\025\n\rbattery_p",
+      "ower\030\001 \001(\t\"#\n\016GetLifeTimeRes\022\021\n\tlife_tim" +
+      "e\030\001 \001(\t\"!\n\rGetBleNameRes\022\020\n\010ble_name\030\001 \001" +
+      "(\t\"!\n\rSetBleNameReq\022\020\n\010ble_name\030\001 \001(\t\"\'\n" +
+      "\020GetBleVersionRes\022\023\n\013ble_version\030\001 \001(\t\"$" +
+      "\n\rGetSdkInfoRes\022\023\n\013sdk_version\030\001 \001(\t\"-\n\020" +
+      "DeviceConnectReq\022\031\n\021device_model_name\030\001 " +
+      "\001(\t\"\225\001\n\021CosCheckUpdateRes\022\014\n\004seid\030\001 \001(\t\022" +
+      "\021\n\tis_latest\030\002 \001(\010\022\032\n\022latest_cos_version" +
+      "\030\003 \001(\t\022\023\n\013update_type\030\004 \001(\t\022\023\n\013descripti" +
+      "on\030\005 \001(\t\022\031\n\021is_update_success\030\006 \001(\010\"%\n\rI",
+      "sBlStatusRes\022\024\n\014check_result\030\001 \001(\010b\006prot" +
+      "o3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -12681,122 +13808,134 @@ public final class Device {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_AppDownloadReq_descriptor,
         new java.lang.String[] { "AppName", });
-    internal_static_deviceapi_AppUpdateReq_descriptor =
+    internal_static_deviceapi_AppDownloadRes_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_deviceapi_AppDownloadRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_AppDownloadRes_descriptor,
+        new java.lang.String[] { "AddressRegisterList", });
+    internal_static_deviceapi_AppUpdateReq_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_deviceapi_AppUpdateReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_AppUpdateReq_descriptor,
         new java.lang.String[] { "AppName", });
+    internal_static_deviceapi_AppUpdateRes_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_deviceapi_AppUpdateRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_deviceapi_AppUpdateRes_descriptor,
+        new java.lang.String[] { "AddressRegisterList", });
     internal_static_deviceapi_AppDeleteReq_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_deviceapi_AppDeleteReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_AppDeleteReq_descriptor,
         new java.lang.String[] { "AppName", });
     internal_static_deviceapi_CheckUpdateRes_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_deviceapi_CheckUpdateRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_CheckUpdateRes_descriptor,
         new java.lang.String[] { "SeId", "Sn", "Status", "SdkMode", "AvailableAppList", });
     internal_static_deviceapi_AvailableAppBean_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_deviceapi_AvailableAppBean_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_AvailableAppBean_descriptor,
         new java.lang.String[] { "AppName", "AppLogo", "InstalledVersion", "LastUpdated", "LatestVersion", "InstallMode", });
     internal_static_deviceapi_BindCheckRes_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_deviceapi_BindCheckRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_BindCheckRes_descriptor,
         new java.lang.String[] { "BindStatus", });
     internal_static_deviceapi_BindAcquireReq_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_deviceapi_BindAcquireReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_BindAcquireReq_descriptor,
         new java.lang.String[] { "BindCode", });
     internal_static_deviceapi_BindAcquireRes_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_deviceapi_BindAcquireRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_BindAcquireRes_descriptor,
         new java.lang.String[] { "BindResult", });
     internal_static_deviceapi_GetSeidRes_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_deviceapi_GetSeidRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_GetSeidRes_descriptor,
         new java.lang.String[] { "Seid", });
     internal_static_deviceapi_GetSnRes_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_deviceapi_GetSnRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_GetSnRes_descriptor,
         new java.lang.String[] { "Sn", });
     internal_static_deviceapi_GetRamSizeRes_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_deviceapi_GetRamSizeRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_GetRamSizeRes_descriptor,
         new java.lang.String[] { "RamSize", });
     internal_static_deviceapi_GetFirmwareVersionRes_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_deviceapi_GetFirmwareVersionRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_GetFirmwareVersionRes_descriptor,
         new java.lang.String[] { "FirmwareVersion", });
     internal_static_deviceapi_GetBatteryPowerRes_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_deviceapi_GetBatteryPowerRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_GetBatteryPowerRes_descriptor,
         new java.lang.String[] { "BatteryPower", });
     internal_static_deviceapi_GetLifeTimeRes_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_deviceapi_GetLifeTimeRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_GetLifeTimeRes_descriptor,
         new java.lang.String[] { "LifeTime", });
     internal_static_deviceapi_GetBleNameRes_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_deviceapi_GetBleNameRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_GetBleNameRes_descriptor,
         new java.lang.String[] { "BleName", });
     internal_static_deviceapi_SetBleNameReq_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_deviceapi_SetBleNameReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_SetBleNameReq_descriptor,
         new java.lang.String[] { "BleName", });
     internal_static_deviceapi_GetBleVersionRes_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_deviceapi_GetBleVersionRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_GetBleVersionRes_descriptor,
         new java.lang.String[] { "BleVersion", });
     internal_static_deviceapi_GetSdkInfoRes_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_deviceapi_GetSdkInfoRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_GetSdkInfoRes_descriptor,
         new java.lang.String[] { "SdkVersion", });
     internal_static_deviceapi_DeviceConnectReq_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_deviceapi_DeviceConnectReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_DeviceConnectReq_descriptor,
         new java.lang.String[] { "DeviceModelName", });
     internal_static_deviceapi_CosCheckUpdateRes_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_deviceapi_CosCheckUpdateRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_CosCheckUpdateRes_descriptor,
         new java.lang.String[] { "Seid", "IsLatest", "LatestCosVersion", "UpdateType", "Description", "IsUpdateSuccess", });
     internal_static_deviceapi_IsBlStatusRes_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_deviceapi_IsBlStatusRes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_deviceapi_IsBlStatusRes_descriptor,

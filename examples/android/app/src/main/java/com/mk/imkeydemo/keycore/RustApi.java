@@ -12,9 +12,9 @@ public interface RustApi extends Library{
     void set_apdu_return(String apdu_return);
     String get_apdu_return();
     void set_callback(Sender sender);
-    void free_const_string(String str);
+    void imkey_free_const_string(String str);
 
     String call_imkey_api(String value);
-    void clear_err();
-    String get_last_err_message();
+    void imkey_clear_err();
+    String imkey_get_last_err_message();
 }

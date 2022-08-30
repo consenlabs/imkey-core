@@ -41,6 +41,7 @@ void protobuf_ShutdownFile_api_2eproto();
 class AddressParam;
 class AddressResult;
 class BitcoinWallet;
+class BtcForkWallet;
 class CommonResponse;
 class EosWallet;
 class EosWallet_PubKeyInfo;
@@ -1556,6 +1557,17 @@ class InitImKeyCoreXParam : public ::google::protobuf::Message /* @@protoc_inser
   bool isdebug() const;
   void set_isdebug(bool value);
 
+  // optional string system = 5;
+  void clear_system();
+  static const int kSystemFieldNumber = 5;
+  const ::std::string& system() const;
+  void set_system(const ::std::string& value);
+  void set_system(const char* value);
+  void set_system(const char* value, size_t size);
+  ::std::string* mutable_system();
+  ::std::string* release_system();
+  void set_allocated_system(::std::string* system);
+
   // @@protoc_insertion_point(class_scope:api.InitImKeyCoreXParam)
  private:
 
@@ -1563,6 +1575,7 @@ class InitImKeyCoreXParam : public ::google::protobuf::Message /* @@protoc_inser
   ::google::protobuf::internal::ArenaStringPtr filedir_;
   ::google::protobuf::internal::ArenaStringPtr xpubcommonkey_;
   ::google::protobuf::internal::ArenaStringPtr xpubcommoniv_;
+  ::google::protobuf::internal::ArenaStringPtr system_;
   bool isdebug_;
   mutable int _cached_size_;
   friend void  protobuf_InitDefaults_api_2eproto_impl();
@@ -1573,6 +1586,133 @@ class InitImKeyCoreXParam : public ::google::protobuf::Message /* @@protoc_inser
   void InitAsDefaultInstance();
 };
 extern ::google::protobuf::internal::ExplicitlyConstructed<InitImKeyCoreXParam> InitImKeyCoreXParam_default_instance_;
+
+// -------------------------------------------------------------------
+
+class BtcForkWallet : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:api.BtcForkWallet) */ {
+ public:
+  BtcForkWallet();
+  virtual ~BtcForkWallet();
+
+  BtcForkWallet(const BtcForkWallet& from);
+
+  inline BtcForkWallet& operator=(const BtcForkWallet& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const BtcForkWallet& default_instance();
+
+  static const BtcForkWallet* internal_default_instance();
+
+  void Swap(BtcForkWallet* other);
+
+  // implements Message ----------------------------------------------
+
+  inline BtcForkWallet* New() const { return New(NULL); }
+
+  BtcForkWallet* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const BtcForkWallet& from);
+  void MergeFrom(const BtcForkWallet& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(BtcForkWallet* other);
+  void UnsafeMergeFrom(const BtcForkWallet& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string path = 1;
+  void clear_path();
+  static const int kPathFieldNumber = 1;
+  const ::std::string& path() const;
+  void set_path(const ::std::string& value);
+  void set_path(const char* value);
+  void set_path(const char* value, size_t size);
+  ::std::string* mutable_path();
+  ::std::string* release_path();
+  void set_allocated_path(::std::string* path);
+
+  // optional string chainType = 2;
+  void clear_chaintype();
+  static const int kChainTypeFieldNumber = 2;
+  const ::std::string& chaintype() const;
+  void set_chaintype(const ::std::string& value);
+  void set_chaintype(const char* value);
+  void set_chaintype(const char* value, size_t size);
+  ::std::string* mutable_chaintype();
+  ::std::string* release_chaintype();
+  void set_allocated_chaintype(::std::string* chaintype);
+
+  // optional string address = 3;
+  void clear_address();
+  static const int kAddressFieldNumber = 3;
+  const ::std::string& address() const;
+  void set_address(const ::std::string& value);
+  void set_address(const char* value);
+  void set_address(const char* value, size_t size);
+  ::std::string* mutable_address();
+  ::std::string* release_address();
+  void set_allocated_address(::std::string* address);
+
+  // optional string encXPub = 4;
+  void clear_encxpub();
+  static const int kEncXPubFieldNumber = 4;
+  const ::std::string& encxpub() const;
+  void set_encxpub(const ::std::string& value);
+  void set_encxpub(const char* value);
+  void set_encxpub(const char* value, size_t size);
+  ::std::string* mutable_encxpub();
+  ::std::string* release_encxpub();
+  void set_allocated_encxpub(::std::string* encxpub);
+
+  // @@protoc_insertion_point(class_scope:api.BtcForkWallet)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr path_;
+  ::google::protobuf::internal::ArenaStringPtr chaintype_;
+  ::google::protobuf::internal::ArenaStringPtr address_;
+  ::google::protobuf::internal::ArenaStringPtr encxpub_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_api_2eproto_impl();
+  friend void  protobuf_AddDesc_api_2eproto_impl();
+  friend void protobuf_AssignDesc_api_2eproto();
+  friend void protobuf_ShutdownFile_api_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<BtcForkWallet> BtcForkWallet_default_instance_;
 
 // ===================================================================
 
@@ -3414,10 +3554,239 @@ inline void InitImKeyCoreXParam::set_isdebug(bool value) {
   // @@protoc_insertion_point(field_set:api.InitImKeyCoreXParam.isDebug)
 }
 
+// optional string system = 5;
+inline void InitImKeyCoreXParam::clear_system() {
+  system_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& InitImKeyCoreXParam::system() const {
+  // @@protoc_insertion_point(field_get:api.InitImKeyCoreXParam.system)
+  return system_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void InitImKeyCoreXParam::set_system(const ::std::string& value) {
+  
+  system_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.InitImKeyCoreXParam.system)
+}
+inline void InitImKeyCoreXParam::set_system(const char* value) {
+  
+  system_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.InitImKeyCoreXParam.system)
+}
+inline void InitImKeyCoreXParam::set_system(const char* value, size_t size) {
+  
+  system_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.InitImKeyCoreXParam.system)
+}
+inline ::std::string* InitImKeyCoreXParam::mutable_system() {
+  
+  // @@protoc_insertion_point(field_mutable:api.InitImKeyCoreXParam.system)
+  return system_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* InitImKeyCoreXParam::release_system() {
+  // @@protoc_insertion_point(field_release:api.InitImKeyCoreXParam.system)
+  
+  return system_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void InitImKeyCoreXParam::set_allocated_system(::std::string* system) {
+  if (system != NULL) {
+    
+  } else {
+    
+  }
+  system_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), system);
+  // @@protoc_insertion_point(field_set_allocated:api.InitImKeyCoreXParam.system)
+}
+
 inline const InitImKeyCoreXParam* InitImKeyCoreXParam::internal_default_instance() {
   return &InitImKeyCoreXParam_default_instance_.get();
 }
+// -------------------------------------------------------------------
+
+// BtcForkWallet
+
+// optional string path = 1;
+inline void BtcForkWallet::clear_path() {
+  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BtcForkWallet::path() const {
+  // @@protoc_insertion_point(field_get:api.BtcForkWallet.path)
+  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BtcForkWallet::set_path(const ::std::string& value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.BtcForkWallet.path)
+}
+inline void BtcForkWallet::set_path(const char* value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.BtcForkWallet.path)
+}
+inline void BtcForkWallet::set_path(const char* value, size_t size) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.BtcForkWallet.path)
+}
+inline ::std::string* BtcForkWallet::mutable_path() {
+  
+  // @@protoc_insertion_point(field_mutable:api.BtcForkWallet.path)
+  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BtcForkWallet::release_path() {
+  // @@protoc_insertion_point(field_release:api.BtcForkWallet.path)
+  
+  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BtcForkWallet::set_allocated_path(::std::string* path) {
+  if (path != NULL) {
+    
+  } else {
+    
+  }
+  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
+  // @@protoc_insertion_point(field_set_allocated:api.BtcForkWallet.path)
+}
+
+// optional string chainType = 2;
+inline void BtcForkWallet::clear_chaintype() {
+  chaintype_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BtcForkWallet::chaintype() const {
+  // @@protoc_insertion_point(field_get:api.BtcForkWallet.chainType)
+  return chaintype_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BtcForkWallet::set_chaintype(const ::std::string& value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.BtcForkWallet.chainType)
+}
+inline void BtcForkWallet::set_chaintype(const char* value) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.BtcForkWallet.chainType)
+}
+inline void BtcForkWallet::set_chaintype(const char* value, size_t size) {
+  
+  chaintype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.BtcForkWallet.chainType)
+}
+inline ::std::string* BtcForkWallet::mutable_chaintype() {
+  
+  // @@protoc_insertion_point(field_mutable:api.BtcForkWallet.chainType)
+  return chaintype_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BtcForkWallet::release_chaintype() {
+  // @@protoc_insertion_point(field_release:api.BtcForkWallet.chainType)
+  
+  return chaintype_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BtcForkWallet::set_allocated_chaintype(::std::string* chaintype) {
+  if (chaintype != NULL) {
+    
+  } else {
+    
+  }
+  chaintype_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), chaintype);
+  // @@protoc_insertion_point(field_set_allocated:api.BtcForkWallet.chainType)
+}
+
+// optional string address = 3;
+inline void BtcForkWallet::clear_address() {
+  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BtcForkWallet::address() const {
+  // @@protoc_insertion_point(field_get:api.BtcForkWallet.address)
+  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BtcForkWallet::set_address(const ::std::string& value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.BtcForkWallet.address)
+}
+inline void BtcForkWallet::set_address(const char* value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.BtcForkWallet.address)
+}
+inline void BtcForkWallet::set_address(const char* value, size_t size) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.BtcForkWallet.address)
+}
+inline ::std::string* BtcForkWallet::mutable_address() {
+  
+  // @@protoc_insertion_point(field_mutable:api.BtcForkWallet.address)
+  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BtcForkWallet::release_address() {
+  // @@protoc_insertion_point(field_release:api.BtcForkWallet.address)
+  
+  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BtcForkWallet::set_allocated_address(::std::string* address) {
+  if (address != NULL) {
+    
+  } else {
+    
+  }
+  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
+  // @@protoc_insertion_point(field_set_allocated:api.BtcForkWallet.address)
+}
+
+// optional string encXPub = 4;
+inline void BtcForkWallet::clear_encxpub() {
+  encxpub_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BtcForkWallet::encxpub() const {
+  // @@protoc_insertion_point(field_get:api.BtcForkWallet.encXPub)
+  return encxpub_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BtcForkWallet::set_encxpub(const ::std::string& value) {
+  
+  encxpub_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:api.BtcForkWallet.encXPub)
+}
+inline void BtcForkWallet::set_encxpub(const char* value) {
+  
+  encxpub_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:api.BtcForkWallet.encXPub)
+}
+inline void BtcForkWallet::set_encxpub(const char* value, size_t size) {
+  
+  encxpub_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:api.BtcForkWallet.encXPub)
+}
+inline ::std::string* BtcForkWallet::mutable_encxpub() {
+  
+  // @@protoc_insertion_point(field_mutable:api.BtcForkWallet.encXPub)
+  return encxpub_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BtcForkWallet::release_encxpub() {
+  // @@protoc_insertion_point(field_release:api.BtcForkWallet.encXPub)
+  
+  return encxpub_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BtcForkWallet::set_allocated_encxpub(::std::string* encxpub) {
+  if (encxpub != NULL) {
+    
+  } else {
+    
+  }
+  encxpub_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), encxpub);
+  // @@protoc_insertion_point(field_set_allocated:api.BtcForkWallet.encXPub)
+}
+
+inline const BtcForkWallet* BtcForkWallet::internal_default_instance() {
+  return &BtcForkWallet_default_instance_.get();
+}
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

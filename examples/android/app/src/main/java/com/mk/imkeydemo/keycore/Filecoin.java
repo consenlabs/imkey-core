@@ -3,6 +3,7 @@ package com.mk.imkeydemo.keycore;
 import com.google.protobuf.Any;
 import com.mk.imkeydemo.utils.NumericUtil;
 
+import api.Api;
 import im.imkey.imkeylibrary.utils.ByteUtil;
 import im.imkey.imkeylibrary.utils.LogUtil;
 
@@ -12,9 +13,10 @@ public class Filecoin extends Wallet {
         String address = null;
 
         try {
-            filecoinapi.Filecoin.FilecoinAddressReq req = filecoinapi.Filecoin.FilecoinAddressReq.newBuilder()
+            Api.AddressParam req = Api.AddressParam.newBuilder()
                     .setPath(path)
                     .setNetwork("MAINNET")
+                    .setChainType("FILECOIN")
                     .build();
 
             Any any = Any.newBuilder()
@@ -29,20 +31,20 @@ public class Filecoin extends Wallet {
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
 
                 }
             } else {
-                filecoinapi.Filecoin.FilecoinAddressRes response = filecoinapi.Filecoin.FilecoinAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                Api.AddressResult response = Api.AddressResult.parseFrom(ByteUtil.hexStringToByteArray(result));
                 address = response.getAddress();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("address：" + address);
@@ -63,9 +65,10 @@ public class Filecoin extends Wallet {
         String address = null;
 
         try {
-            filecoinapi.Filecoin.FilecoinAddressReq req = filecoinapi.Filecoin.FilecoinAddressReq.newBuilder()
+            Api.AddressParam req = Api.AddressParam.newBuilder()
                     .setPath(path)
                     .setNetwork("MAINNET")
+                    .setChainType("FILECOIN")
                     .build();
 
             Any any = Any.newBuilder()
@@ -80,20 +83,20 @@ public class Filecoin extends Wallet {
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
 
                 }
             } else {
-                filecoinapi.Filecoin.FilecoinAddressRes response = filecoinapi.Filecoin.FilecoinAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                Api.AddressResult response = Api.AddressResult.parseFrom(ByteUtil.hexStringToByteArray(result));
                 address = response.getAddress();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("address：" + address);

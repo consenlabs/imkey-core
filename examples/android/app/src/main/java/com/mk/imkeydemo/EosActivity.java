@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
-import com.mk.imkeydemo.core.wallet.transaction.ImKeyEosTransactionTest;
+//import com.mk.imkeydemo.core.wallet.transaction.ImKeyEosTransactionTest;
 import com.mk.imkeydemo.keycore.Eos;
 import com.mk.imkeydemo.keycore.Path;
 import com.mk.imkeydemo.keycore.TxMultiSignResult;
@@ -59,19 +59,19 @@ public class EosActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Map<String, Object> resultMap = ImKeyEosTransactionTest.testEosTxSign(mContext);
-
-                    int successCount = (int)resultMap.get("successCount");
-                    String result = "Number of successes: " + successCount + "\n";
-                    int failCount = (int)resultMap.get("failCount");
-                    result = result + "Number of failures: " + failCount + "\n";
-                    result = result + "Failed test case name:\n";
-
-                    ArrayList<String> failedCaseName = (ArrayList)resultMap.get("failedCaseName");
-                    for(int i=0; i<failedCaseName.size(); i++) {
-                        result = result + failedCaseName.get(i) + "\n";
-                    }
-                    showResult(result);
+//                    Map<String, Object> resultMap = ImKeyEosTransactionTest.testEosTxSign(mContext);
+//
+//                    int successCount = (int)resultMap.get("successCount");
+//                    String result = "Number of successes: " + successCount + "\n";
+//                    int failCount = (int)resultMap.get("failCount");
+//                    result = result + "Number of failures: " + failCount + "\n";
+//                    result = result + "Failed test case name:\n";
+//
+//                    ArrayList<String> failedCaseName = (ArrayList)resultMap.get("failedCaseName");
+//                    for(int i=0; i<failedCaseName.size(); i++) {
+//                        result = result + failedCaseName.get(i) + "\n";
+//                    }
+//                    showResult(result);
                 } catch (Exception e) {
                     showResult(e.getMessage());
                 }
@@ -84,8 +84,8 @@ public class EosActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    List<TxMultiSignResult> signResults = ImKeyEosTransactionTest.testEosTxSign();
-                    showResult(signResults.toString());
+//                    List<TxMultiSignResult> signResults = ImKeyEosTransactionTest.testEosTxSign();
+//                    showResult(signResults.toString());
                 } catch (Exception e) {
                     showResult(e.getMessage());
                 }
@@ -98,8 +98,8 @@ public class EosActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    String result = ImKeyEosTransactionTest.testEosMsgSign();
-                    showResult(result);
+//                    String result = ImKeyEosTransactionTest.testEosMsgSign();
+//                    showResult(result);
                 } catch (Exception e) {
                     showResult(e.getMessage());
                 }

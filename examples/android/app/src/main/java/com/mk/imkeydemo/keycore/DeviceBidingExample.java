@@ -3,6 +3,7 @@ package com.mk.imkeydemo.keycore;
 import com.google.protobuf.Any;
 import com.mk.imkeydemo.utils.NumericUtil;
 
+import deviceapi.Device;
 import im.imkey.imkeylibrary.utils.ByteUtil;
 import im.imkey.imkeylibrary.utils.LogUtil;
 
@@ -12,25 +13,26 @@ public class DeviceBidingExample {
         String error = null;
         String bindCode = "123456789";
 
-        deviceapi.Device.BindCheckReq req = deviceapi.Device.BindCheckReq.newBuilder()
-                .setFilePath("")
-                .build();
-
-        Any any = Any.newBuilder()
-                .setValue(req.toByteString())
-                .build();
+//        deviceapi.Device. req = deviceapi.Device.BindCheckReq.newBuilder()
+//                .setFilePath("")
+//                .build();
+//
+//        Any any = Any.newBuilder()
+//                .setValue(req.toByteString())
+//                .build();
 
         api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
                 .setMethod("bind_check")
-                .setParam(any)
+//                .setParam(any)
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
         try {
             String result = RustApi.INSTANCE.call_imkey_api(hex);
-            error = RustApi.INSTANCE.get_last_err_message();
-            api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
-            response.getIsSuccess();
-            error = response.getError();
+            error = RustApi.INSTANCE.imkey_get_last_err_message();
+            Device.BindCheckRes response = Device.BindCheckRes.parseFrom(ByteUtil.hexStringToByteArray(error));
+
+//            response.getIsSuccess();
+//            error = response.getError();
 
             LogUtil.e("期望结果：imkey_sdk_illegal_argument" + "，实际结果：" + error);
 
@@ -60,10 +62,10 @@ public class DeviceBidingExample {
         String hex = NumericUtil.bytesToHex(action.toByteArray());
         try {
             String result = RustApi.INSTANCE.call_imkey_api(hex);
-            error = RustApi.INSTANCE.get_last_err_message();
-            api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
-            response.getIsSuccess();
-            error = response.getError();
+            error = RustApi.INSTANCE.imkey_get_last_err_message();
+            Device.BindCheckRes response = Device.BindCheckRes.parseFrom(ByteUtil.hexStringToByteArray(error));
+//            response.getIsSuccess();
+//            error = response.getError();
 
             LogUtil.e("期望结果：imkey_sdk_illegal_argument" + "，实际结果：" + error);
 

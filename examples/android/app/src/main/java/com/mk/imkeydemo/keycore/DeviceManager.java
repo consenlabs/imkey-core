@@ -7,6 +7,7 @@ import com.mk.imkeydemo.utils.NumericUtil;
 
 import java.util.regex.Pattern;
 
+import api.Api;
 import deviceapi.Device;
 import im.imkey.imkeylibrary.utils.ByteUtil;
 import im.imkey.imkeylibrary.utils.LogUtil;
@@ -72,7 +73,7 @@ public class DeviceManager {
             e.printStackTrace();
         }
 
-        String hexSize = res.substring(4,8);
+        String hexSize = res.substring(0,4);//TODO
         return Integer.parseInt(hexSize,16);
     }
 
@@ -622,28 +623,28 @@ public class DeviceManager {
         // file名称与seid关联，支持一个手机，绑定多个设备
         String  filePath = context.getFilesDir().getPath();
 
-        deviceapi.Device.BindCheckReq req = deviceapi.Device.BindCheckReq.newBuilder()
-                .setFilePath(filePath)
-                .build();
+//        deviceapi.Device.BindCheckReq req = deviceapi.Device.BindCheckReq.newBuilder()
+//                .setFilePath(filePath)
+//                .build();
 
-        Any any = Any.newBuilder()
-                .setValue(req.toByteString())
-                .build();
+//        Any any = Any.newBuilder()
+//                .setValue(req.toByteString())
+//                .build();
 
         api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
                 .setMethod("bind_check")
-                .setParam(any)
+//                .setParam(any)
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
         String status = null;
         try {
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
             String result = RustApi.INSTANCE.call_imkey_api(hex);
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
 
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());

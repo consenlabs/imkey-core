@@ -8,6 +8,7 @@ import org.bitcoinj.core.AddressFormatException;
 
 import java.io.ByteArrayOutputStream;
 
+import api.Api;
 import im.imkey.imkeylibrary.utils.ByteUtil;
 import im.imkey.imkeylibrary.utils.LogUtil;
 
@@ -17,8 +18,9 @@ public class Cosmos extends Wallet {
         String address = null;
 
         try {
-            cosmosapi.Cosmos.CosmosAddressReq req = cosmosapi.Cosmos.CosmosAddressReq.newBuilder()
+            api.Api.AddressParam req = Api.AddressParam.newBuilder()
                     .setPath(path)
+                    .setChainType("COSMOS")
                     .build();
 
             Any any = Any.newBuilder()
@@ -26,27 +28,27 @@ public class Cosmos extends Wallet {
                     .build();
 
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("cosmos_get_address")
+                    .setMethod("get_address")
                     .setParam(any)
                     .build();
 
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
 
                 }
             } else {
-                cosmosapi.Cosmos.CosmosAddressRes response = cosmosapi.Cosmos.CosmosAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                Api.AddressResult response = Api.AddressResult.parseFrom(ByteUtil.hexStringToByteArray(result));
                 address = response.getAddress();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("address：" + address);
@@ -79,8 +81,9 @@ public class Cosmos extends Wallet {
 
         try {
 
-            cosmosapi.Cosmos.CosmosAddressReq req = cosmosapi.Cosmos.CosmosAddressReq.newBuilder()
+            Api.AddressParam req = Api.AddressParam.newBuilder()
                     .setPath(path)
+                    .setChainType("COSMOS")
                     .build();
 
             Any any = Any.newBuilder()
@@ -88,27 +91,27 @@ public class Cosmos extends Wallet {
                     .build();
 
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("cosmos_register_address")
+                    .setMethod("register_address")
                     .setParam(any)
                     .build();
 
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                api.Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
 
                 }
             } else {
-                cosmosapi.Cosmos.CosmosAddressRes response = cosmosapi.Cosmos.CosmosAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                Api.AddressResult response = Api.AddressResult.parseFrom(ByteUtil.hexStringToByteArray(result));
                 address = response.getAddress();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("address：" + address);

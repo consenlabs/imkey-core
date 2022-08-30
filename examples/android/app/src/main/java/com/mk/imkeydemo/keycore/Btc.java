@@ -3,6 +3,7 @@ package com.mk.imkeydemo.keycore;
 import com.google.protobuf.Any;
 import com.mk.imkeydemo.utils.NumericUtil;
 
+import api.Api;
 import im.imkey.imkeylibrary.utils.ByteUtil;
 import im.imkey.imkeylibrary.utils.LogUtil;
 
@@ -35,13 +36,13 @@ public class Btc extends Wallet {
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                api.Api.ErrorResponse errorResponse = api.Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
@@ -87,38 +88,38 @@ public class Btc extends Wallet {
         String address = null;
 
         try {
-
-
-            btcapi.Btc.BtcAddressReq req = btcapi.Btc.BtcAddressReq.newBuilder()
+            Api.AddressParam req = Api.AddressParam.newBuilder()
                     .setNetwork("MAINNET")
                     .setPath(path)
-                    .build();
+                    .setChainType("BITCOIN")
+                    .setIsSegWit(false).build();
 
             Any any = Any.newBuilder()
                     .setValue(req.toByteString())
                     .build();
 
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("btc_get_address")
+                    .setMethod("get_address")
                     .setParam(any)
                     .build();
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
 
                 }
             } else {
-                btcapi.Btc.BtcAddressRes response = btcapi.Btc.BtcAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+//                btcapi.Btc.BtcAddressRes response = btcapi.Btc.BtcAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                Api.AddressResult response = Api.AddressResult.parseFrom(ByteUtil.hexStringToByteArray(result));
                 address = response.getAddress();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("address：" + address);
@@ -148,36 +149,35 @@ public class Btc extends Wallet {
 
         try {
 
-            btcapi.Btc.BtcAddressReq req = btcapi.Btc.BtcAddressReq.newBuilder()
+            Api.AddressParam req = Api.AddressParam.newBuilder()
                     .setNetwork("MAINNET")
                     .setPath(path)
-                    .build();
-
+                    .setChainType("BITCOIN")
+                    .setIsSegWit(false).build();
             Any any = Any.newBuilder()
                     .setValue(req.toByteString())
                     .build();
 
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("btc_register_address")
+                    .setMethod("register_address")
                     .setParam(any)
                     .build();
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
-
                 }
             } else {
-                btcapi.Btc.BtcAddressRes response = btcapi.Btc.BtcAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                Api.AddressResult response = Api.AddressResult.parseFrom(ByteUtil.hexStringToByteArray(result));
                 address = response.getAddress();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("address：" + address);
@@ -209,37 +209,38 @@ public class Btc extends Wallet {
 
         try {
 
-            btcapi.Btc.BtcAddressReq req = btcapi.Btc.BtcAddressReq.newBuilder()
+            Api.AddressParam req = Api.AddressParam.newBuilder()
                     .setNetwork("MAINNET")
                     .setPath(path)
-                    .build();
+                    .setChainType("BITCOIN")
+                    .setIsSegWit(true).build();
 
             Any any = Any.newBuilder()
                     .setValue(req.toByteString())
                     .build();
 
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("btc_get_setwit_address")
+                    .setMethod("get_address")
                     .setParam(any)
                     .build();
 
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
 
                 }
             } else {
-                btcapi.Btc.BtcAddressRes response = btcapi.Btc.BtcAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                Api.AddressResult response = Api.AddressResult.parseFrom(ByteUtil.hexStringToByteArray(result));
                 address = response.getAddress();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("address：" + address);
@@ -273,37 +274,38 @@ public class Btc extends Wallet {
 
         try {
 
-            btcapi.Btc.BtcAddressReq req = btcapi.Btc.BtcAddressReq.newBuilder()
+            Api.AddressParam req = Api.AddressParam.newBuilder()
                     .setNetwork("MAINNET")
                     .setPath(path)
-                    .build();
+                    .setChainType("BITCOIN")
+                    .setIsSegWit(true).build();
 
             Any any = Any.newBuilder()
                     .setValue(req.toByteString())
                     .build();
 
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("btc_register_segwit_address")
+                    .setMethod("register_address")
                     .setParam(any)
                     .build();
 
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
 
                 }
             } else {
-                btcapi.Btc.BtcAddressRes response = btcapi.Btc.BtcAddressRes.parseFrom(ByteUtil.hexStringToByteArray(result));
+                Api.AddressResult response = Api.AddressResult.parseFrom(ByteUtil.hexStringToByteArray(result));
                 address = response.getAddress();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("address：" + address);

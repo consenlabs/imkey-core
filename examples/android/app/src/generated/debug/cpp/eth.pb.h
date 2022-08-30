@@ -37,6 +37,7 @@ void protobuf_InitDefaults_eth_2eproto();
 void protobuf_AssignDesc_eth_2eproto();
 void protobuf_ShutdownFile_eth_2eproto();
 
+class AccessList;
 class EthMessageInput;
 class EthMessageOutput;
 class EthTxInput;
@@ -184,10 +185,56 @@ class EthTxInput : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::std::string* release_chain_id();
   void set_allocated_chain_id(::std::string* chain_id);
 
+  // optional string type = 8;
+  void clear_type();
+  static const int kTypeFieldNumber = 8;
+  const ::std::string& type() const;
+  void set_type(const ::std::string& value);
+  void set_type(const char* value);
+  void set_type(const char* value, size_t size);
+  ::std::string* mutable_type();
+  ::std::string* release_type();
+  void set_allocated_type(::std::string* type);
+
+  // optional string max_fee_per_gas = 9;
+  void clear_max_fee_per_gas();
+  static const int kMaxFeePerGasFieldNumber = 9;
+  const ::std::string& max_fee_per_gas() const;
+  void set_max_fee_per_gas(const ::std::string& value);
+  void set_max_fee_per_gas(const char* value);
+  void set_max_fee_per_gas(const char* value, size_t size);
+  ::std::string* mutable_max_fee_per_gas();
+  ::std::string* release_max_fee_per_gas();
+  void set_allocated_max_fee_per_gas(::std::string* max_fee_per_gas);
+
+  // optional string max_priority_fee_per_gas = 10;
+  void clear_max_priority_fee_per_gas();
+  static const int kMaxPriorityFeePerGasFieldNumber = 10;
+  const ::std::string& max_priority_fee_per_gas() const;
+  void set_max_priority_fee_per_gas(const ::std::string& value);
+  void set_max_priority_fee_per_gas(const char* value);
+  void set_max_priority_fee_per_gas(const char* value, size_t size);
+  ::std::string* mutable_max_priority_fee_per_gas();
+  ::std::string* release_max_priority_fee_per_gas();
+  void set_allocated_max_priority_fee_per_gas(::std::string* max_priority_fee_per_gas);
+
+  // repeated .ethapi.AccessList access_list = 11;
+  int access_list_size() const;
+  void clear_access_list();
+  static const int kAccessListFieldNumber = 11;
+  const ::ethapi::AccessList& access_list(int index) const;
+  ::ethapi::AccessList* mutable_access_list(int index);
+  ::ethapi::AccessList* add_access_list();
+  ::google::protobuf::RepeatedPtrField< ::ethapi::AccessList >*
+      mutable_access_list();
+  const ::google::protobuf::RepeatedPtrField< ::ethapi::AccessList >&
+      access_list() const;
+
   // @@protoc_insertion_point(class_scope:ethapi.EthTxInput)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::ethapi::AccessList > access_list_;
   ::google::protobuf::internal::ArenaStringPtr nonce_;
   ::google::protobuf::internal::ArenaStringPtr gas_price_;
   ::google::protobuf::internal::ArenaStringPtr gas_limit_;
@@ -195,6 +242,9 @@ class EthTxInput : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::google::protobuf::internal::ArenaStringPtr value_;
   ::google::protobuf::internal::ArenaStringPtr data_;
   ::google::protobuf::internal::ArenaStringPtr chain_id_;
+  ::google::protobuf::internal::ArenaStringPtr type_;
+  ::google::protobuf::internal::ArenaStringPtr max_fee_per_gas_;
+  ::google::protobuf::internal::ArenaStringPtr max_priority_fee_per_gas_;
   mutable int _cached_size_;
   friend void  protobuf_InitDefaults_eth_2eproto_impl();
   friend void  protobuf_AddDesc_eth_2eproto_impl();
@@ -204,6 +254,114 @@ class EthTxInput : public ::google::protobuf::Message /* @@protoc_insertion_poin
   void InitAsDefaultInstance();
 };
 extern ::google::protobuf::internal::ExplicitlyConstructed<EthTxInput> EthTxInput_default_instance_;
+
+// -------------------------------------------------------------------
+
+class AccessList : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ethapi.AccessList) */ {
+ public:
+  AccessList();
+  virtual ~AccessList();
+
+  AccessList(const AccessList& from);
+
+  inline AccessList& operator=(const AccessList& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const AccessList& default_instance();
+
+  static const AccessList* internal_default_instance();
+
+  void Swap(AccessList* other);
+
+  // implements Message ----------------------------------------------
+
+  inline AccessList* New() const { return New(NULL); }
+
+  AccessList* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const AccessList& from);
+  void MergeFrom(const AccessList& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AccessList* other);
+  void UnsafeMergeFrom(const AccessList& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string address = 1;
+  void clear_address();
+  static const int kAddressFieldNumber = 1;
+  const ::std::string& address() const;
+  void set_address(const ::std::string& value);
+  void set_address(const char* value);
+  void set_address(const char* value, size_t size);
+  ::std::string* mutable_address();
+  ::std::string* release_address();
+  void set_allocated_address(::std::string* address);
+
+  // repeated string storage_keys = 2;
+  int storage_keys_size() const;
+  void clear_storage_keys();
+  static const int kStorageKeysFieldNumber = 2;
+  const ::std::string& storage_keys(int index) const;
+  ::std::string* mutable_storage_keys(int index);
+  void set_storage_keys(int index, const ::std::string& value);
+  void set_storage_keys(int index, const char* value);
+  void set_storage_keys(int index, const char* value, size_t size);
+  ::std::string* add_storage_keys();
+  void add_storage_keys(const ::std::string& value);
+  void add_storage_keys(const char* value);
+  void add_storage_keys(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& storage_keys() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_storage_keys();
+
+  // @@protoc_insertion_point(class_scope:ethapi.AccessList)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> storage_keys_;
+  ::google::protobuf::internal::ArenaStringPtr address_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_eth_2eproto_impl();
+  friend void  protobuf_AddDesc_eth_2eproto_impl();
+  friend void protobuf_AssignDesc_eth_2eproto();
+  friend void protobuf_ShutdownFile_eth_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<AccessList> AccessList_default_instance_;
 
 // -------------------------------------------------------------------
 
@@ -813,8 +971,276 @@ inline void EthTxInput::set_allocated_chain_id(::std::string* chain_id) {
   // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.chain_id)
 }
 
+// optional string type = 8;
+inline void EthTxInput::clear_type() {
+  type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EthTxInput::type() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthTxInput.type)
+  return type_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthTxInput::set_type(const ::std::string& value) {
+  
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ethapi.EthTxInput.type)
+}
+inline void EthTxInput::set_type(const char* value) {
+  
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ethapi.EthTxInput.type)
+}
+inline void EthTxInput::set_type(const char* value, size_t size) {
+  
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxInput.type)
+}
+inline ::std::string* EthTxInput::mutable_type() {
+  
+  // @@protoc_insertion_point(field_mutable:ethapi.EthTxInput.type)
+  return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EthTxInput::release_type() {
+  // @@protoc_insertion_point(field_release:ethapi.EthTxInput.type)
+  
+  return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthTxInput::set_allocated_type(::std::string* type) {
+  if (type != NULL) {
+    
+  } else {
+    
+  }
+  type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.type)
+}
+
+// optional string max_fee_per_gas = 9;
+inline void EthTxInput::clear_max_fee_per_gas() {
+  max_fee_per_gas_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EthTxInput::max_fee_per_gas() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthTxInput.max_fee_per_gas)
+  return max_fee_per_gas_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthTxInput::set_max_fee_per_gas(const ::std::string& value) {
+  
+  max_fee_per_gas_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ethapi.EthTxInput.max_fee_per_gas)
+}
+inline void EthTxInput::set_max_fee_per_gas(const char* value) {
+  
+  max_fee_per_gas_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ethapi.EthTxInput.max_fee_per_gas)
+}
+inline void EthTxInput::set_max_fee_per_gas(const char* value, size_t size) {
+  
+  max_fee_per_gas_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxInput.max_fee_per_gas)
+}
+inline ::std::string* EthTxInput::mutable_max_fee_per_gas() {
+  
+  // @@protoc_insertion_point(field_mutable:ethapi.EthTxInput.max_fee_per_gas)
+  return max_fee_per_gas_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EthTxInput::release_max_fee_per_gas() {
+  // @@protoc_insertion_point(field_release:ethapi.EthTxInput.max_fee_per_gas)
+  
+  return max_fee_per_gas_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthTxInput::set_allocated_max_fee_per_gas(::std::string* max_fee_per_gas) {
+  if (max_fee_per_gas != NULL) {
+    
+  } else {
+    
+  }
+  max_fee_per_gas_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), max_fee_per_gas);
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.max_fee_per_gas)
+}
+
+// optional string max_priority_fee_per_gas = 10;
+inline void EthTxInput::clear_max_priority_fee_per_gas() {
+  max_priority_fee_per_gas_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EthTxInput::max_priority_fee_per_gas() const {
+  // @@protoc_insertion_point(field_get:ethapi.EthTxInput.max_priority_fee_per_gas)
+  return max_priority_fee_per_gas_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthTxInput::set_max_priority_fee_per_gas(const ::std::string& value) {
+  
+  max_priority_fee_per_gas_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ethapi.EthTxInput.max_priority_fee_per_gas)
+}
+inline void EthTxInput::set_max_priority_fee_per_gas(const char* value) {
+  
+  max_priority_fee_per_gas_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ethapi.EthTxInput.max_priority_fee_per_gas)
+}
+inline void EthTxInput::set_max_priority_fee_per_gas(const char* value, size_t size) {
+  
+  max_priority_fee_per_gas_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ethapi.EthTxInput.max_priority_fee_per_gas)
+}
+inline ::std::string* EthTxInput::mutable_max_priority_fee_per_gas() {
+  
+  // @@protoc_insertion_point(field_mutable:ethapi.EthTxInput.max_priority_fee_per_gas)
+  return max_priority_fee_per_gas_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EthTxInput::release_max_priority_fee_per_gas() {
+  // @@protoc_insertion_point(field_release:ethapi.EthTxInput.max_priority_fee_per_gas)
+  
+  return max_priority_fee_per_gas_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EthTxInput::set_allocated_max_priority_fee_per_gas(::std::string* max_priority_fee_per_gas) {
+  if (max_priority_fee_per_gas != NULL) {
+    
+  } else {
+    
+  }
+  max_priority_fee_per_gas_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), max_priority_fee_per_gas);
+  // @@protoc_insertion_point(field_set_allocated:ethapi.EthTxInput.max_priority_fee_per_gas)
+}
+
+// repeated .ethapi.AccessList access_list = 11;
+inline int EthTxInput::access_list_size() const {
+  return access_list_.size();
+}
+inline void EthTxInput::clear_access_list() {
+  access_list_.Clear();
+}
+inline const ::ethapi::AccessList& EthTxInput::access_list(int index) const {
+  // @@protoc_insertion_point(field_get:ethapi.EthTxInput.access_list)
+  return access_list_.Get(index);
+}
+inline ::ethapi::AccessList* EthTxInput::mutable_access_list(int index) {
+  // @@protoc_insertion_point(field_mutable:ethapi.EthTxInput.access_list)
+  return access_list_.Mutable(index);
+}
+inline ::ethapi::AccessList* EthTxInput::add_access_list() {
+  // @@protoc_insertion_point(field_add:ethapi.EthTxInput.access_list)
+  return access_list_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::ethapi::AccessList >*
+EthTxInput::mutable_access_list() {
+  // @@protoc_insertion_point(field_mutable_list:ethapi.EthTxInput.access_list)
+  return &access_list_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::ethapi::AccessList >&
+EthTxInput::access_list() const {
+  // @@protoc_insertion_point(field_list:ethapi.EthTxInput.access_list)
+  return access_list_;
+}
+
 inline const EthTxInput* EthTxInput::internal_default_instance() {
   return &EthTxInput_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// AccessList
+
+// optional string address = 1;
+inline void AccessList::clear_address() {
+  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& AccessList::address() const {
+  // @@protoc_insertion_point(field_get:ethapi.AccessList.address)
+  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AccessList::set_address(const ::std::string& value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:ethapi.AccessList.address)
+}
+inline void AccessList::set_address(const char* value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ethapi.AccessList.address)
+}
+inline void AccessList::set_address(const char* value, size_t size) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ethapi.AccessList.address)
+}
+inline ::std::string* AccessList::mutable_address() {
+  
+  // @@protoc_insertion_point(field_mutable:ethapi.AccessList.address)
+  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* AccessList::release_address() {
+  // @@protoc_insertion_point(field_release:ethapi.AccessList.address)
+  
+  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AccessList::set_allocated_address(::std::string* address) {
+  if (address != NULL) {
+    
+  } else {
+    
+  }
+  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
+  // @@protoc_insertion_point(field_set_allocated:ethapi.AccessList.address)
+}
+
+// repeated string storage_keys = 2;
+inline int AccessList::storage_keys_size() const {
+  return storage_keys_.size();
+}
+inline void AccessList::clear_storage_keys() {
+  storage_keys_.Clear();
+}
+inline const ::std::string& AccessList::storage_keys(int index) const {
+  // @@protoc_insertion_point(field_get:ethapi.AccessList.storage_keys)
+  return storage_keys_.Get(index);
+}
+inline ::std::string* AccessList::mutable_storage_keys(int index) {
+  // @@protoc_insertion_point(field_mutable:ethapi.AccessList.storage_keys)
+  return storage_keys_.Mutable(index);
+}
+inline void AccessList::set_storage_keys(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:ethapi.AccessList.storage_keys)
+  storage_keys_.Mutable(index)->assign(value);
+}
+inline void AccessList::set_storage_keys(int index, const char* value) {
+  storage_keys_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:ethapi.AccessList.storage_keys)
+}
+inline void AccessList::set_storage_keys(int index, const char* value, size_t size) {
+  storage_keys_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:ethapi.AccessList.storage_keys)
+}
+inline ::std::string* AccessList::add_storage_keys() {
+  // @@protoc_insertion_point(field_add_mutable:ethapi.AccessList.storage_keys)
+  return storage_keys_.Add();
+}
+inline void AccessList::add_storage_keys(const ::std::string& value) {
+  storage_keys_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:ethapi.AccessList.storage_keys)
+}
+inline void AccessList::add_storage_keys(const char* value) {
+  storage_keys_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:ethapi.AccessList.storage_keys)
+}
+inline void AccessList::add_storage_keys(const char* value, size_t size) {
+  storage_keys_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:ethapi.AccessList.storage_keys)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+AccessList::storage_keys() const {
+  // @@protoc_insertion_point(field_list:ethapi.AccessList.storage_keys)
+  return storage_keys_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+AccessList::mutable_storage_keys() {
+  // @@protoc_insertion_point(field_mutable_list:ethapi.AccessList.storage_keys)
+  return &storage_keys_;
+}
+
+inline const AccessList* AccessList::internal_default_instance() {
+  return &AccessList_default_instance_.get();
 }
 // -------------------------------------------------------------------
 
@@ -1028,6 +1454,8 @@ inline const EthMessageOutput* EthMessageOutput::internal_default_instance() {
   return &EthMessageOutput_default_instance_.get();
 }
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

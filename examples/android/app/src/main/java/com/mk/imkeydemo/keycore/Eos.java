@@ -5,6 +5,7 @@ import com.mk.imkeydemo.utils.NumericUtil;
 
 import java.nio.charset.Charset;
 
+import api.Api;
 import im.imkey.imkeylibrary.utils.ByteUtil;
 import im.imkey.imkeylibrary.utils.LogUtil;
 
@@ -17,8 +18,9 @@ public class Eos extends Wallet {
 
         try {
 
-            eosapi.Eos.EosPubkeyReq req = eosapi.Eos.EosPubkeyReq.newBuilder()
+            Api.PubKeyParam req = Api.PubKeyParam.newBuilder()
                     .setPath(path)
+                    .setChainType("EOS")
                     .build();
 
             Any any = Any.newBuilder()
@@ -26,27 +28,27 @@ public class Eos extends Wallet {
                     .build();
 
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("eos_get_pubkey")
+                    .setMethod("get_pub_key")
                     .setParam(any)
                     .build();
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
 
                 }
             } else {
-                eosapi.Eos.EosPubkeyRes response = eosapi.Eos.EosPubkeyRes.parseFrom(ByteUtil.hexStringToByteArray(result));
-                eosPK = response.getPubkey();
+                Api.PubKeyResult response = Api.PubKeyResult.parseFrom(ByteUtil.hexStringToByteArray(result));
+                eosPK = response.getPubKey();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("eosPK：" + eosPK);
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
@@ -85,8 +87,9 @@ public class Eos extends Wallet {
 
         try {
 
-            eosapi.Eos.EosPubkeyReq req = eosapi.Eos.EosPubkeyReq.newBuilder()
+            Api.PubKeyParam req = Api.PubKeyParam.newBuilder()
                     .setPath(path)
+                    .setChainType("EOS")
                     .build();
 
             Any any = Any.newBuilder()
@@ -101,21 +104,21 @@ public class Eos extends Wallet {
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
             // clear_err
-            RustApi.INSTANCE.clear_err();
+            RustApi.INSTANCE.imkey_clear_err();
 
             String result = RustApi.INSTANCE.call_imkey_api(hex);
 
-            String error = RustApi.INSTANCE.get_last_err_message();
+            String error = RustApi.INSTANCE.imkey_get_last_err_message();
             if(!"".equals(error) && null != error) {
-                api.Api.Response errorResponse = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+                Api.ErrorResponse errorResponse = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
 
                 }
             } else {
-                eosapi.Eos.EosPubkeyRes response = eosapi.Eos.EosPubkeyRes.parseFrom(ByteUtil.hexStringToByteArray(result));
-                eosPK = response.getPubkey();
+                Api.PubKeyResult response = Api.PubKeyResult.parseFrom(ByteUtil.hexStringToByteArray(result));
+                eosPK = response.getPubKey();
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");
                 LogUtil.d("eosPK：" + eosPK);
                 LogUtil.d("××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××××");

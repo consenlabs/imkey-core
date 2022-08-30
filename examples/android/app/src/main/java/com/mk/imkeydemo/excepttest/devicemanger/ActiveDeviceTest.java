@@ -4,6 +4,7 @@ package com.mk.imkeydemo.excepttest.devicemanger;
 import com.mk.imkeydemo.keycore.RustApi;
 import com.mk.imkeydemo.utils.NumericUtil;
 
+import api.Api;
 import im.imkey.imkeylibrary.utils.ByteUtil;
 import im.imkey.imkeylibrary.utils.LogUtil;
 
@@ -14,7 +15,7 @@ public class ActiveDeviceTest {
         String error = null;
 
         //imkey_tsm_device_stop_using
-        RustApi.INSTANCE.clear_err();
+        RustApi.INSTANCE.imkey_clear_err();
 
         api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
                 .setMethod("device_activate")
@@ -22,8 +23,8 @@ public class ActiveDeviceTest {
         String hex = NumericUtil.bytesToHex(action.toByteArray());
         try {
             String result = RustApi.INSTANCE.call_imkey_api(hex);
-            error = RustApi.INSTANCE.get_last_err_message();
-            api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+            error = RustApi.INSTANCE.imkey_get_last_err_message();
+            Api.ErrorResponse response = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
             response.getIsSuccess();
             error = response.getError();
 

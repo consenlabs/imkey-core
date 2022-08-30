@@ -4,6 +4,7 @@ import com.google.protobuf.Any;
 import com.mk.imkeydemo.keycore.RustApi;
 import com.mk.imkeydemo.utils.NumericUtil;
 
+import api.Api;
 import im.imkey.imkeylibrary.utils.ByteUtil;
 import im.imkey.imkeylibrary.utils.LogUtil;
 
@@ -17,7 +18,7 @@ public class AppDownloadTest {
         String error = null;
 
         //imkey_illegal_prarm
-        RustApi.INSTANCE.clear_err();
+        RustApi.INSTANCE.imkey_clear_err();
 
         deviceapi.Device.AppDownloadReq req = deviceapi.Device.AppDownloadReq.newBuilder()
                 .setAppName(appName)
@@ -35,8 +36,8 @@ public class AppDownloadTest {
         String hex = NumericUtil.bytesToHex(action.toByteArray());
         try {
             String result = RustApi.INSTANCE.call_imkey_api(hex);
-            error = RustApi.INSTANCE.get_last_err_message();
-            api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+            error = RustApi.INSTANCE.imkey_get_last_err_message();
+            Api.ErrorResponse response = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
             response.getIsSuccess();
             error = response.getError();
 
@@ -47,7 +48,7 @@ public class AppDownloadTest {
         }
 
 
-        RustApi.INSTANCE.clear_err();
+        RustApi.INSTANCE.imkey_clear_err();
 
         req = deviceapi.Device.AppDownloadReq.newBuilder()
                 .setAppName(appName2)
@@ -66,8 +67,8 @@ public class AppDownloadTest {
         hex = NumericUtil.bytesToHex(action.toByteArray());
         try {
             RustApi.INSTANCE.call_imkey_api(hex);
-            error = RustApi.INSTANCE.get_last_err_message();
-            api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+            error = RustApi.INSTANCE.imkey_get_last_err_message();
+            Api.ErrorResponse response = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
             response.getIsSuccess();
             error = response.getError();
 
@@ -79,7 +80,7 @@ public class AppDownloadTest {
 
 
         //设备未激活，需要改后台数据测试
-        RustApi.INSTANCE.clear_err();
+        RustApi.INSTANCE.imkey_clear_err();
 
         req = deviceapi.Device.AppDownloadReq.newBuilder()
                 .setAppName(appName)
@@ -97,8 +98,8 @@ public class AppDownloadTest {
         hex = NumericUtil.bytesToHex(action.toByteArray());
         try {
             String result = RustApi.INSTANCE.call_imkey_api(hex);
-            error = RustApi.INSTANCE.get_last_err_message();
-            api.Api.Response response = api.Api.Response.parseFrom(ByteUtil.hexStringToByteArray(error));
+            error = RustApi.INSTANCE.imkey_get_last_err_message();
+            Api.ErrorResponse response = Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
             response.getIsSuccess();
             error = response.getError();
 

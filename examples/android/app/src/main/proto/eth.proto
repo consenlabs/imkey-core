@@ -9,6 +9,15 @@ message EthTxInput {
     string value = 5;
     string data = 6;
     string chain_id = 7;
+    string type = 8;
+    string max_fee_per_gas = 9;
+    string max_priority_fee_per_gas = 10;
+    repeated AccessList access_list = 11;
+}
+
+message AccessList {
+    string address = 1;
+    repeated string storage_keys = 2;
 }
 
 message EthTxOutput {
