@@ -44,7 +44,6 @@ public class Eos extends Wallet {
                 Boolean isSuccess = errorResponse.getIsSuccess();
                 if(!isSuccess) {
                     LogUtil.d("异常： " + errorResponse.getError());
-
                 }
             } else {
                 Api.PubKeyResult response = Api.PubKeyResult.parseFrom(ByteUtil.hexStringToByteArray(result));
@@ -97,7 +96,7 @@ public class Eos extends Wallet {
                     .build();
 
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("eos_register_pubkey")
+                    .setMethod("register_pub_key")
                     .setParam(any)
                     .build();
 

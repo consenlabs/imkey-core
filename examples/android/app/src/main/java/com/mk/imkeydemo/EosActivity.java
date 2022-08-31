@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
-//import com.mk.imkeydemo.core.wallet.transaction.ImKeyEosTransactionTest;
+import com.mk.imkeydemo.core.wallet.transaction.ImKeyEosTransactionTest;
 import com.mk.imkeydemo.keycore.Eos;
 import com.mk.imkeydemo.keycore.Path;
 import com.mk.imkeydemo.keycore.TxMultiSignResult;
@@ -84,8 +84,8 @@ public class EosActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-//                    List<TxMultiSignResult> signResults = ImKeyEosTransactionTest.testEosTxSign();
-//                    showResult(signResults.toString());
+                    List<TxMultiSignResult> signResults = ImKeyEosTransactionTest.testEosTxSign();
+                    showResult(signResults.toString());
                 } catch (Exception e) {
                     showResult(e.getMessage());
                 }
@@ -98,8 +98,8 @@ public class EosActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-//                    String result = ImKeyEosTransactionTest.testEosMsgSign();
-//                    showResult(result);
+                    String result = ImKeyEosTransactionTest.testEosMsgSign();
+                    showResult(result);
                 } catch (Exception e) {
                     showResult(e.getMessage());
                 }
