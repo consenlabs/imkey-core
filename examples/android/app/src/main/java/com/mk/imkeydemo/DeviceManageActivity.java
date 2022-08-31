@@ -128,10 +128,6 @@ public class DeviceManageActivity extends AppCompatActivity {
                 type = TYPE_IMK;
                 switchApplet();
                 break;
-            case R.id.radio_usdt:
-                type = TYPE_USDT;
-                switchApplet();
-                break;
             case R.id.radio_cosmos:
                 type = TYPE_COSMOS;
                 switchApplet();

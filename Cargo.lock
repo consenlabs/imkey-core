@@ -123,6 +123,7 @@ dependencies = [
  "coin-cosmos",
  "coin-eos",
  "coin-ethereum",
+ "coin-ethereum2",
  "coin-filecoin",
  "coin-substrate",
  "coin-tezos",
@@ -696,6 +697,19 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "tiny-keccak 1.5.0",
+ "transport",
+]
+
+[[package]]
+name = "coin-ethereum2"
+version = "0.1.0"
+dependencies = [
+ "common",
+ "device",
+ "failure",
+ "hex 0.3.2",
+ "prost 0.6.1",
+ "prost-types 0.6.1",
  "transport",
 ]
 

@@ -1,12 +1,12 @@
 package com.mk.imkeydemo.keycore;
 
 public class Applet {
-    public static final String BTC_NAME = "BTC";
-    public static final String ETH_NAME = "ETH";
+    public static final String BTC_NAME = "Bitcoin";
+    public static final String ETH_NAME = "Ethereum";
     public static final String EOS_NAME = "EOS";
     public static final String IMK_NAME = "IMK";
-    public static final String COSMOS_NAME = "COSMOS";
-    public static final String FILECOIN_NAME = "FILECOIN";
+    public static final String COSMOS_NAME = "Cosmos";
+    public static final String FILECOIN_NAME = "Filecoin";
 
     public static final String BTC_AID = "695F627463";
     public static final String ETH_AID = "695F657468";

@@ -26,18 +26,23 @@ import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.google.protobuf.Any;
 import com.mk.imkeydemo.excepttest.devicemanger.DeviceBindingTest;
 import com.mk.imkeydemo.keycore.Api;
 import com.mk.imkeydemo.keycore.DeviceBidingExample;
 import com.mk.imkeydemo.keycore.DeviceManager;
+import com.mk.imkeydemo.keycore.RustApi;
 import com.mk.imkeydemo.keycore.SdkInfo;
+import com.mk.imkeydemo.utils.NumericUtil;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 
+import deviceapi.Device;
 import im.imkey.imkeylibrary.bluetooth.Ble;
 import im.imkey.imkeylibrary.bluetooth.BleDevice;
 import im.imkey.imkeylibrary.bluetooth.Callback.ConnectCallback;
 import im.imkey.imkeylibrary.bluetooth.ErrorCode;
+import im.imkey.imkeylibrary.utils.ByteUtil;
 import im.imkey.imkeylibrary.utils.LogUtil;
 
 public class MainActivity extends AppCompatActivity {
@@ -195,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 final String lifeCycle = mManager.getLifeTime();
                 final String sn = mManager.getSn();
                 final String firmwareVersion = mManager.getFirmwareVersion();
-                final String bleName = mManager.getBleName();
+//                final String bleName = mManager.getBleName();
                 final SdkInfo sdkInfo = mManager.getSdkInfo();
 
                 runOnUiThread(new Runnable() {
@@ -207,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                         mTxtState.append("\n剩余电量：" + battery);
                         mTxtState.append("\n生命周期：" + lifeCycle);
                         mTxtState.append("\n固件版本：" + firmwareVersion);
-                        mTxtState.append("\n蓝牙名称：" + bleName);
+//                        mTxtState.append("\n蓝牙名称：" + bleName);
                         mTxtState.append("\nSDK版本：" + sdkInfo.getSdkVersion());
                         mTxtState.append("\nsn：" + sn);
                         pd.cancel();
@@ -289,6 +294,42 @@ public class MainActivity extends AppCompatActivity {
                 BluetoothManager bm = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
                 int status = bm.getConnectionState(bleDevice.getBluetoothDevice(), BluetoothGatt.GATT);
                 LogUtil.d(status + "");
+                //初始化数据
+                String  filePath = mContext.getFilesDir().getPath();
+                api.Api.InitImKeyCoreXParam initImKeyCoreXParam = api.Api.InitImKeyCoreXParam.newBuilder()
+                        .setFileDir(filePath)
+                        .setXpubCommonKey("B888D25EC8C12BD5043777B1AC49F872")
+                        .setXpubCommonIv("9C0C30889CBCC5E01AB5B2BB88715799")
+                        .setIsDebug(false)
+                        .build();
+                Any initImKeyCoreXParamAny = Any.newBuilder()
+                    .setValue(initImKeyCoreXParam.toByteString())
+                    .build();
+                api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
+                        .setMethod("init_imkey_core_x")
+                        .setParam(initImKeyCoreXParamAny)
+                        .build();
+                String initReqHex = NumericUtil.bytesToHex(action.toByteArray());
+                try {
+                    // clear_err
+                    RustApi.INSTANCE.imkey_clear_err();
+                    String result = RustApi.INSTANCE.call_imkey_api(initReqHex);
+                    String error = RustApi.INSTANCE.imkey_get_last_err_message();
+
+                    if(!"".equals(error) && null != error) {
+                        api.Api.ErrorResponse errorResponse = api.Api.ErrorResponse.parseFrom(ByteUtil.hexStringToByteArray(error));
+                        Boolean isSuccess = errorResponse.getIsSuccess();
+                        if(!isSuccess) {
+                            LogUtil.d("异常： " + errorResponse.getError());
+                        }
+                    } else {
+                        LogUtil.d("init success");
+                        Toast.makeText(mContext, "参数初始化成功", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
 

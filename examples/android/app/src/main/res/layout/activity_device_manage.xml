@@ -130,15 +130,6 @@
                     android:onClick="onClick"
                     android:text="IMK" />
 
-                <RadioButton
-                    android:id="@+id/radio_usdt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:gravity="center"
-                    android:onClick="onClick"
-                    android:text="USDT" />
-
 
                 <RadioButton
                     android:id="@+id/radio_cosmos"

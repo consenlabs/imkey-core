@@ -615,25 +615,8 @@ public class DeviceManager {
      */
     public String bindCheck(Context context) {
 
-//        Context context = Ble.getInstance().getContext();
-//        if(null == context) {
-//            throw new ImkeyException(Messages.IMKEY_SDK_BLE_NOT_INITIALIZE);
-//        }
-
-        // file名称与seid关联，支持一个手机，绑定多个设备
-        String  filePath = context.getFilesDir().getPath();
-
-//        deviceapi.Device.BindCheckReq req = deviceapi.Device.BindCheckReq.newBuilder()
-//                .setFilePath(filePath)
-//                .build();
-
-//        Any any = Any.newBuilder()
-//                .setValue(req.toByteString())
-//                .build();
-
         api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
                 .setMethod("bind_check")
-//                .setParam(any)
                 .build();
         String hex = NumericUtil.bytesToHex(action.toByteArray());
         String status = null;
@@ -668,7 +651,7 @@ public class DeviceManager {
      */
     public void displayBindingCode() {
         api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                .setMethod("bind_display")
+                .setMethod("bind_display_code")
                 .build();
 
         String hex = NumericUtil.bytesToHex(action.toByteArray());
