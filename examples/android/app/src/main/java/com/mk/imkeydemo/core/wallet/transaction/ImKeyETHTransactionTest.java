@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import api.Api;
+import common.Common;
 import ethapi.Eth;
 import im.imkey.imkeylibrary.common.Messages;
 import im.imkey.imkeylibrary.exception.ImkeyException;
@@ -219,27 +220,34 @@ public class ImKeyETHTransactionTest {
         try {
 
             Eth.EthTxInput ethTxReq = ethapi.Eth.EthTxInput.newBuilder()
-//                    .setPath(Path.ETH_LEDGER)
-                    .setChainId("28")
                     .setNonce("8")
                     .setGasPrice("20000000008")
                     .setGasLimit("189000")
                     .setTo("0x3535353535353535353535353535353535353535")
                     .setValue("512")
-                    .setData("")
-//                    .setPayment("0.01 ETH")
-//                    .setReceiver("0xE6F4142dfFA574D1d9f18770BF73814df07931F3")
-//                    .setSender("0x6031564e7b2F5cc33737807b2E58DaFF870B590b")
-//                    .setFee("0.0032 ether")
+                    .setChainId("28")
+                    .setType("00")
                     .build();
 
-            Any any = Any.newBuilder()
+            Any inputAny = Any.newBuilder()
                     .setValue(ethTxReq.toByteString())
                     .build();
 
+            Common.SignParam signParamBuild = Common.SignParam.newBuilder()
+                    .setChainType("ETHEREUM")
+                    .setPath("m/44'/60'/0'/0/0")
+                    .setPayment("0.01 ETH")
+                    .setInput(inputAny)
+                    .setReceiver("0xE6F4142dfFA574D1d9f18770BF73814df07931F3")
+                    .setSender("0x6031564e7b2F5cc33737807b2E58DaFF870B590b")
+                    .setFee("0.0032 ether")
+                    .build();
+            Any signParamAny = Any.newBuilder()
+                    .setValue(signParamBuild.toByteString())
+                    .build();
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("eth_tx_sign")
-                    .setParam(any)
+                    .setMethod("sign_tx")
+                    .setParam(signParamAny)
                     .build();
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
@@ -298,21 +306,26 @@ public class ImKeyETHTransactionTest {
         try {
 
             String data = "Hello imKey";
-            String sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b";
-
             Eth.EthMessageInput ethMessageSignReq = Eth.EthMessageInput.newBuilder()
-//                    .setPath(Path.ETH_LEDGER)
+                    .setIsPersonalSign(true)
                     .setMessage(data)
-//                    .setSender(sender)
                     .build();
 
-            Any any = Any.newBuilder()
+            Any inputAny = Any.newBuilder()
                     .setValue(ethMessageSignReq.toByteString())
                     .build();
-
+            Common.SignParam signParamBuild = Common.SignParam.newBuilder()
+                    .setChainType("ETHEREUM")
+                    .setPath("m/44'/60'/0'/0/0")
+                    .setInput(inputAny)
+                    .setSender("0x6031564e7b2F5cc33737807b2E58DaFF870B590b")
+                    .build();
+            Any signParamAny = Any.newBuilder()
+                    .setValue(signParamBuild.toByteString())
+                    .build();
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("eth_message_sign")
-                    .setParam(any)
+                    .setMethod("sign_message")
+                    .setParam(signParamAny)
                     .build();
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 

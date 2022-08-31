@@ -94,7 +94,7 @@ public class Eth extends Wallet {
                     .build();
 
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("eth_register_address")
+                    .setMethod("register_address")
                     .setParam(any)
                     .build();
             String hex = NumericUtil.bytesToHex(action.toByteArray());

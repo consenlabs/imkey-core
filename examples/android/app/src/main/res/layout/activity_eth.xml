@@ -47,13 +47,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btn_address"
                 style="@style/button"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:onClick="onClick"
-                android:text="地址" />
+                android:text="注册地址" />
 
         </LinearLayout>
         <TextView

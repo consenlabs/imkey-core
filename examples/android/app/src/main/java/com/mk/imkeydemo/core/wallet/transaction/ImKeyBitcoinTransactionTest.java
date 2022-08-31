@@ -478,11 +478,10 @@ public class ImKeyBitcoinTransactionTest {
                     .setSequence(4294967295l)
                     .build();
 
-            ByteString extraData = ByteString.copyFrom(ByteUtil.hexStringToByteArray("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385"));
-            Btc.BtcTxExtra.Builder btcTxExtraBuilder = Btc.BtcTxExtra.newBuilder();
-            btcTxExtraBuilder.setOpReturn(extraData.toString());
-            btcTxExtraBuilder.setPropertyId(21);//TODO
-            btcTxExtraBuilder.setFeeMode("");//TODO
+//            ByteString extraData = ByteString.copyFrom(ByteUtil.hexStringToByteArray("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385"));
+            Btc.BtcTxExtra btcTxExtraBuilder = Btc.BtcTxExtra.newBuilder()
+                    .setOpReturn("0200000080a10bc28928f4c17a287318125115c3f098ed20a8237d1e8e4125bc25d1be99752adad0a7b9ceca853768aebb6965eca126a62965f698a0c1bc43d83db632ad7f717276057e6012afa99385")
+                    .build();
 
             Btc.BtcTxInput btcTxReq = btcapi.Btc.BtcTxInput.newBuilder()
                     .setTo("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3")
@@ -493,17 +492,27 @@ public class ImKeyBitcoinTransactionTest {
                     .addUnspents(utxo1)
                     .addUnspents(utxo2)
                     .addUnspents(utxo3)
-                    .setExtra(btcTxExtraBuilder.build())
+                    .setExtra(btcTxExtraBuilder)
                     .build();
 
-
-            Any any = Any.newBuilder()
+            Any inputAny = Any.newBuilder()
                     .setValue(btcTxReq.toByteString())
+                    .build();
+            Common.SignParam signParamBuild = Common.SignParam.newBuilder()
+                    .setChainType("BITCOIN")
+                    .setFee("10000")
+                    .setNetwork("TESTNET")
+                    .setPath("m/44'/1'/0'")
+                    .setPayment("799988000")
+                    .setInput(inputAny)
+                    .build();
+            Any signParamAny = Any.newBuilder()
+                    .setValue(signParamBuild.toByteString())
                     .build();
 
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("btc_tx_sign")
-                    .setParam(any)
+                    .setMethod("sign_tx")
+                    .setParam(signParamAny)
                     .build();
 
             String hex = NumericUtil.bytesToHex(action.toByteArray());
@@ -692,11 +701,9 @@ public class ImKeyBitcoinTransactionTest {
                     .setSequence(4294967295l)
                     .build();
 
-            ByteString extraData = ByteString.copyFrom(ByteUtil.hexStringToByteArray("1234"));
+//            ByteString extraData = ByteString.copyFrom(ByteUtil.hexStringToByteArray("1234"));
             Btc.BtcTxExtra btcTxExtra = Btc.BtcTxExtra.newBuilder()
-                    .setOpReturn(extraData.toString())
-                    .setPropertyId(21)//TODO
-                    .setFeeMode("")//TODO
+                    .setOpReturn("1234")
                     .build();
             Btc.BtcTxInput btcTxReq = Btc.BtcTxInput.newBuilder()
                     .setTo("2N9wBy6f1KTUF5h2UUeqRdKnBT6oSMh4Whp")
@@ -705,17 +712,27 @@ public class ImKeyBitcoinTransactionTest {
                     .setFee(10000)
                     .addUnspents(utxo0)
                     .addUnspents(utxo1)
-                    .setSegWit("true")//TODO
+                    .setSegWit("P2WPKH")
                     .setExtra(btcTxExtra)
                     .build();
 
-            Any any = Any.newBuilder()
+            Any inputAny = Any.newBuilder()
                     .setValue(btcTxReq.toByteString())
                     .build();
-
+            Common.SignParam signParamBuild = Common.SignParam.newBuilder()
+                    .setChainType("BITCOIN")
+                    .setFee("10000")
+                    .setNetwork("TESTNET")
+                    .setPath("m/49'/1'/0'")
+                    .setPayment("88000")
+                    .setInput(inputAny)
+                    .build();
+            Any signParamAny = Any.newBuilder()
+                    .setValue(signParamBuild.toByteString())
+                    .build();
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("btc_segwit_tx_sign")
-                    .setParam(any)
+                    .setMethod("sign_tx")
+                    .setParam(signParamAny)
                     .build();
             String hex = NumericUtil.bytesToHex(action.toByteArray());
 
