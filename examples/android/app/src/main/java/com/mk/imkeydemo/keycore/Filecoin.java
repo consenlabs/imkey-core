@@ -24,7 +24,7 @@ public class Filecoin extends Wallet {
                     .build();
 
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("filecoin_get_address")
+                    .setMethod("get_address")
                     .setParam(any)
                     .build();
 
@@ -76,7 +76,7 @@ public class Filecoin extends Wallet {
                     .build();
 
             api.Api.ImkeyAction action = api.Api.ImkeyAction.newBuilder()
-                    .setMethod("filecoin_register_address")
+                    .setMethod("register_address")
                     .setParam(any)
                     .build();
 

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 //import com.mk.imkeydemo.core.wallet.transaction.ImKeyEosTransactionTest;
-//import com.mk.imkeydemo.core.wallet.transaction.ImKeyFilecoinTransactionTest;
+import com.mk.imkeydemo.core.wallet.transaction.ImKeyFilecoinTransactionTest;
 import com.mk.imkeydemo.keycore.Eos;
 import com.mk.imkeydemo.keycore.Filecoin;
 import com.mk.imkeydemo.keycore.Path;
@@ -59,8 +59,8 @@ public class FilecoinActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-//                    TransactionSignedResult signResult = ImKeyFilecoinTransactionTest.testFilecoinTxSign();
-//                    showResult(signResult.toString());
+                    TransactionSignedResult signResult = ImKeyFilecoinTransactionTest.testFilecoinTxSign();
+                    showResult(signResult.toString());
                 } catch (Exception e) {
                     showResult(e.getMessage());
                 }

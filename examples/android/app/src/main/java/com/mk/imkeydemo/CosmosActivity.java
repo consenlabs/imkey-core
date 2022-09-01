@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
-//import com.mk.imkeydemo.core.wallet.transaction.ImKeyCosmosTransactionTest;
+import com.mk.imkeydemo.core.wallet.transaction.ImKeyCosmosTransactionTest;
 import com.mk.imkeydemo.keycore.Cosmos;
 import com.mk.imkeydemo.keycore.Path;
 import com.mk.imkeydemo.keycore.TransactionSignedResult;
@@ -81,9 +81,9 @@ public class CosmosActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-//                    TransactionSignedResult result = ImKeyCosmosTransactionTest.testCosmosTxSign();
-//                    LogUtil.d(result.toString());
-//                    showResult(result.toString());
+                    TransactionSignedResult result = ImKeyCosmosTransactionTest.testCosmosTxSign();
+                    LogUtil.d(result.toString());
+                    showResult(result.toString());
                 } catch (Exception e) {
                     showResult(e.getMessage());
                 }
