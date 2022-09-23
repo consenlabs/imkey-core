@@ -1,3 +1,5 @@
+set -e
+
 pushd api
 if ! type "cargo-lipo" > /dev/null; then
     cargo install cargo-lipo
