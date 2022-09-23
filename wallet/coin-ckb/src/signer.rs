@@ -136,8 +136,17 @@ impl<'a> CkbTxSigner<'a> {
         data_pack.extend([7, self.sign_param.payment.as_bytes().len() as u8].iter());
         data_pack.extend(self.sign_param.payment.as_bytes().iter());
         //receiver info in TLV format
-        data_pack.extend([8, self.sign_param.receiver.as_bytes().len() as u8].iter());
-        data_pack.extend(self.sign_param.receiver.as_bytes().iter());
+        let mut receiver_address = self.sign_param.receiver.clone();
+        if receiver_address.len() > 100 {
+            receiver_address = format!(
+                "{}{}{}",
+                &receiver_address[..47].to_string(),
+                "***".to_string(),
+                &receiver_address[receiver_address.len() - 50..]
+            );
+        }
+        data_pack.extend([8, receiver_address.as_bytes().len() as u8].iter());
+        data_pack.extend(receiver_address.as_bytes().iter());
         //fee info in TLV format
         data_pack.extend([9, self.sign_param.fee.as_bytes().len() as u8].iter());
         data_pack.extend(self.sign_param.fee.as_bytes().iter());
