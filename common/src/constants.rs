@@ -51,8 +51,8 @@ pub const BTC_LEGACY_PATH_PRE: &str = "m/44'";
 pub const BTC_SEGWIT_PATH_PRE: &str = "m/49'";
 pub const BTC_NATIVE_SEGWIT_PATH_PRE: &str = "m/84'";
 
-pub const MAX_UTXO_NUMBER: usize = 252;
-pub const EACH_ROUND_NUMBER: usize = 5;
+pub const MAX_UTXO_NUMBER: usize = 1000;
+pub const EACH_ROUND_NUMBER: usize = 10;
 pub const DUST_THRESHOLD: i64 = 2730;
 pub const MIN_NONDUST_OUTPUT: i64 = 546;
 // max op return size
