@@ -115,3 +115,5 @@ pub const NETWORK_READ_TIMEOUT: u16 = 30;
 pub const ETH_TRANSACTION_TYPE_LEGACY: &str = "00";
 pub const ETH_TRANSACTION_TYPE_EIP2718: &str = "01";
 pub const ETH_TRANSACTION_TYPE_EIP1559: &str = "02";
+
+pub const ETH_MAX_SUPPORT_PAYMENT_LEN: usize = 255;

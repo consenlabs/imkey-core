@@ -80,8 +80,23 @@ impl Transaction {
         );
         data_pack.extend(encode_tx.iter());
         //payment info in TLV format
-        data_pack.extend([7, payment.as_bytes().len() as u8].iter());
-        data_pack.extend(payment.as_bytes().iter());
+        if payment.len() <= constants::ETH_MAX_SUPPORT_PAYMENT_LEN {
+            data_pack.extend([7, payment.as_bytes().len() as u8].iter());
+            data_pack.extend(payment.as_bytes().iter());
+        } else {
+            data_pack.extend(
+                [
+                    7,
+                    payment[..constants::ETH_MAX_SUPPORT_PAYMENT_LEN].len() as u8,
+                ]
+                .iter(),
+            );
+            data_pack.extend(
+                payment[..constants::ETH_MAX_SUPPORT_PAYMENT_LEN]
+                    .as_bytes()
+                    .iter(),
+            );
+        }
         //receiver info in TLV format
         data_pack.extend([8, receiver.as_bytes().len() as u8].iter());
         data_pack.extend(receiver.as_bytes().iter());
@@ -1215,5 +1230,43 @@ mod tests {
         let tx_result = tx
             .sign(Some(28), &path, &payment, &receiver, &sender, &fee)
             .unwrap();
+    }
+
+    #[test]
+    fn test_longest_payment_info() {
+        bind_test();
+
+        let tx = Transaction {
+            nonce: U256::from(8),
+            gas_price: U256::from(20000000008 as usize),
+            gas_limit: U256::from(189000),
+            to: Action::Call(
+                Address::from_str("3535353535353535353535353535353535353535").unwrap(),
+            ),
+            value: U256::from(512 as usize),
+            data: Vec::new(),
+            tx_type: String::from(constants::ETH_TRANSACTION_TYPE_LEGACY),
+            max_fee_per_gas: None,
+            max_priority_fee_per_gas: None,
+            access_list: vec![],
+        };
+
+        let path = "m/44'/60'/0'/0/0".to_string();
+        let payment = "abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890!@&#&".to_string();
+        let receiver = "0xE6F4142dfFA574D1d9f18770BF73814df07931F3".to_string();
+        let sender = "0x6031564e7b2F5cc33737807b2E58DaFF870B590b".to_string();
+        let fee = "0.0032 ether".to_string();
+
+        let tx_result = tx
+            .sign(Some(28), &path, &payment, &receiver, &sender, &fee)
+            .unwrap();
+        assert_eq!(
+            tx_result.signature,
+            "f867088504a817c8088302e248943535353535353535353535353535353535353535820200805ba03aa62abb45b77418caf139dda0179aea802c99967b3d690b87d586a87bc805afa02b5ce94f40dc865ca63403e0e5e723e1523884f001573677cd8cec11c7ca332f".to_string()
+        );
+        assert_eq!(
+            tx_result.tx_hash,
+            "0x09fa41c4d6b92482506c8c56f65b217cc3398821caec7695683110997426db01".to_string()
+        );
     }
 }
