@@ -566,7 +566,11 @@ impl BtcTransaction {
 
         //set input number
         output_serialize_data.remove(4);
-        output_serialize_data.insert(4, self.unspents.len() as u8);
+        let mut utxo_len = serialize(&VarInt(self.unspents.len() as u64));
+        utxo_len.reverse();
+        for temp_data in utxo_len {
+            output_serialize_data.insert(4, temp_data);
+        }
 
         //add fee amount
         output_serialize_data.extend(bigint_to_byte_vec(self.fee));
@@ -760,7 +764,11 @@ impl BtcTransaction {
 
         //set input number
         output_serialize_data.remove(4);
-        output_serialize_data.insert(4, self.unspents.len() as u8);
+        let mut utxo_len = serialize(&VarInt(self.unspents.len() as u64));
+        utxo_len.reverse();
+        for temp_data in utxo_len {
+            output_serialize_data.insert(4, temp_data);
+        }
 
         //add fee amount
         output_serialize_data.extend(bigint_to_byte_vec(self.fee));
@@ -1154,7 +1162,7 @@ mod tests {
         utxos.push(utxo);
         utxos.push(utxo2);
         let transaction_req_data = BtcTransaction {
-            to: Address::from_str("moLK3tBG86ifpDDTqAQzs4a9cUoNjVLRE3").unwrap(),
+            to: Address::from_str("2N9wBy6f1KTUF5h2UUeqRdKnBT6oSMh4Whp").unwrap(),
             amount: 88000,
             unspents: utxos,
             fee: 10000,
