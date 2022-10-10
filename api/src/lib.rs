@@ -41,6 +41,10 @@ use crate::error_handling::{landingpad, LAST_BACKTRACE, LAST_ERROR};
 use crate::message_handler::encode_message;
 use transport::message;
 
+extern crate android_logger;
+use android_logger::Config;
+use log::{debug, Level};
+
 lazy_static! {
     pub static ref API_LOCK: Mutex<String> = Mutex::new("".to_string());
 }
@@ -83,12 +87,24 @@ pub unsafe extern "C" fn imkey_free_const_string(s: *const c_char) {
 /// dispatch protobuf rpc call
 #[no_mangle]
 pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char {
+    android_logger::init_once(
+        Config::default()
+            .with_min_level(Level::Trace)
+            .with_tag("imkey_crash"),
+    );
+
+    debug!("call imkey api");
     let mut _l = API_LOCK.lock();
     let hex_c_str = CStr::from_ptr(hex_str);
     let hex_str = hex_c_str.to_str().expect("parse_arguments to_str");
 
+    debug!("parse_arguments");
     let data = hex::decode(hex_str).expect("imkey_illegal_prarm");
+    debug!("decode hex");
     let action: ImkeyAction = ImkeyAction::decode(data.as_slice()).expect("decode imkey api");
+    debug!("decode imkey action");
+    debug!("call method {}", &action.method);
+    // debug!("call params {}", hex::encode(&action.param.clone().unwrap().value));
     let reply: Vec<u8> = match action.method.to_lowercase().as_str() {
         "init_imkey_core_x" => {
             landingpad(|| device_manager::init_imkey_core(&action.param.unwrap().value))

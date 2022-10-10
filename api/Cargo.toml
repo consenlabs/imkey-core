@@ -37,6 +37,8 @@ serde_json = { version = "1.0.53", default-features = false, features = ["alloc"
 base64 = "0.10.1"
 parking_lot = "0.10"
 
+android_logger = "0.11.1"
+
 [lib]
 name="connector"
 crate-type=["staticlib","cdylib"]

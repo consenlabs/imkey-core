@@ -12,6 +12,7 @@ use device::deviceapi::{
     GetLifeTimeRes, GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes,
     SetBleNameReq,
 };
+use log::debug;
 use parking_lot::RwLock;
 use prost::Message;
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
@@ -105,19 +106,25 @@ pub fn se_activate() -> Result<Vec<u8>> {
 }
 
 pub fn check_update() -> Result<Vec<u8>> {
+    debug!("check update");
     let response = device_manager::check_update()?;
 
+    debug!("get serialize response success");
     let mut available_bean_list: Vec<AvailableAppBean> = Vec::new();
     for value in response._ReturnData.available_app_bean_list.unwrap() {
         let version = match value.installed_version.as_ref() {
             Some(version) => version,
             None => "none",
         };
+        debug!(
+            "applet::get appname by instid: {}",
+            &value.instance_aid.clone().unwrap()
+        );
         let app_name = applet::get_appname_by_instid(value.instance_aid.as_ref().unwrap());
         if app_name.is_none() {
             continue;
         }
-
+        debug!("available app bean: {:?}", value);
         available_bean_list.push(AvailableAppBean {
             app_name: app_name.unwrap().to_string(),
             app_logo: value.app_logo.as_ref().unwrap().to_string(),
@@ -128,11 +135,13 @@ pub fn check_update() -> Result<Vec<u8>> {
         });
     }
 
-    let return_code = response._ReturnCode;
+    let return_code = response._ReturnCode.clone();
     let mut status = constants::IMKEY_DEV_STATUS_LATEST;
     if return_code == constants::TSM_RETURNCODE_DEV_INACTIVATED.to_string() {
         status = constants::IMKEY_DEV_STATUS_INACTIVATED;
     }
+
+    debug!("serialize CheckUpdateRes");
 
     let response_msg = CheckUpdateRes {
         se_id: response._ReturnData.seid.unwrap(),

@@ -2,6 +2,7 @@ use crate::ServiceResponse;
 use crate::{Result, TsmService};
 use common::constants;
 use common::https;
+use log::debug;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -44,12 +45,15 @@ impl TsmService for SeQueryRequest {
 
     fn send_message(&mut self) -> Result<ServiceResponse<SeQueryResponse>> {
         // println!("send message：{:#?}", self);
+        debug!("send_message");
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
         let response_data = https::post(constants::TSM_ACTION_SE_QUERY, req_data)?;
+        debug!("post success");
+        debug!("response data: {}", response_data.clone());
         let mut return_bean: ServiceResponse<SeQueryResponse> =
             serde_json::from_str(response_data.as_str())?;
         // println!("return message：{:#?}", return_bean);
-
+        debug!("decode json");
         match return_bean.service_res_check() {
             Ok(()) => {
                 return_bean._ReturnData.status =
