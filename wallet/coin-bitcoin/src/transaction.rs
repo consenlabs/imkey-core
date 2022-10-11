@@ -2317,4 +2317,116 @@ mod tests {
             sign_result.as_ref().unwrap().wtx_id
         );
     }
+
+    #[test]
+    fn test_native_segwit_max_utxo() {
+        //binding device
+        bind_test();
+
+        let extra_data = vec![];
+        let utxo = Utxo {
+            txhash: "41eb7058313847d1f1b0cfee964a436d55eab5ca29fdbb42dbb5107a85afdda7".to_string(),
+            vout: 1,
+            amount: 100000,
+            address: Address::from_str("tb1qrfaf3g4elgykshfgahktyaqj2r593qkrae5v95").unwrap(),
+            script_pubkey: "00141a7a98a2b9fa09685d28edecb2741250e85882c3".to_string(),
+            derive_path: "0/0".to_string(),
+            sequence: 0,
+        };
+
+        let mut utxos = Vec::new();
+        utxos.push(utxo.clone());
+        // utxos.push(utxo2.clone());
+        for index in (0..250) {
+            utxos.push(utxo.clone());
+        }
+
+        let transaction_req_data = BtcTransaction {
+            to: Address::from_str("tb1qpma75pm648xmd9tfzah029edarqn4xtndqhp99").unwrap(),
+            amount: 30000,
+            unspents: utxos,
+            fee: 10000,
+        };
+        let sign_result = transaction_req_data.sign_native_segwit_transaction(
+            Network::Testnet,
+            &"m/84'/1'/0'/".to_string(),
+            53,
+            &extra_data,
+        );
+
+        println!("{}", sign_result.as_ref().unwrap().signature);
+        println!("{}", sign_result.as_ref().unwrap().tx_hash);
+        println!("{}", sign_result.as_ref().unwrap().wtx_id);
+        assert_eq!(
+            "dec7cb804eca87af49259b8bddda94867913a8bc7236c6ef363c9370e06e424b",
+            sign_result.as_ref().unwrap().tx_hash
+        );
+        assert_eq!(
+            "333360e695476ec06e40e1824f3c76f54a8e393958edc89d585f9e3f6ac62d9b",
+            sign_result.as_ref().unwrap().wtx_id
+        );
+    }
+
+    #[test]
+    fn test_sign_mixed_max_utxo() {
+        //binding device
+        bind_test();
+
+        let extra_data = vec![];
+        let utxo = Utxo {
+            txhash: "41eb7058313847d1f1b0cfee964a436d55eab5ca29fdbb42dbb5107a85afdda7".to_string(),
+            vout: 1,
+            amount: 100000,
+            address: Address::from_str("tb1qrfaf3g4elgykshfgahktyaqj2r593qkrae5v95").unwrap(),
+            script_pubkey: "00141a7a98a2b9fa09685d28edecb2741250e85882c3".to_string(),
+            derive_path: "0/0".to_string(),
+            sequence: 0,
+        };
+        let utxo2 = Utxo {
+            txhash: "c2ceb5088cf39b677705526065667a3992c68cc18593a9af12607e057672717f".to_string(),
+            vout: 0,
+            amount: 50000,
+            address: Address::from_str("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB").unwrap(),
+            script_pubkey: "a9142d2b1ef5ee4cf6c3ebc8cf66a602783798f7875987".to_string(),
+            derive_path: "0/0".to_string(),
+            sequence: 0,
+        };
+        let utxo3 = Utxo {
+            txhash: "0a7937fe1c6d03fb835aced9f3ca5fd3b2f1c78ed1f5f394ad742a01897157d7".to_string(),
+            vout: 0,
+            amount: 100000,
+            address: Address::from_str("2MwN441dq8qudMvtM5eLVwC3u4zfKuGSQAB").unwrap(),
+            script_pubkey: "a9142d2b1ef5ee4cf6c3ebc8cf66a602783798f7875987".to_string(),
+            derive_path: "0/0".to_string(),
+            sequence: 0,
+        };
+
+        let mut utxos = Vec::new();
+        utxos.push(utxo.clone());
+        utxos.push(utxo2.clone());
+        utxos.push(utxo3.clone());
+        for index in (0..100) {
+            utxos.push(utxo.clone());
+            utxos.push(utxo2.clone());
+            utxos.push(utxo3.clone());
+        }
+
+        let transaction_req_data = BtcTransaction {
+            to: Address::from_str("tb1qpma75pm648xmd9tfzah029edarqn4xtndqhp99").unwrap(),
+            amount: 30000,
+            unspents: utxos,
+            fee: 10000,
+        };
+        let sign_result =
+            transaction_req_data.sign_mixed_transaction(Network::Testnet, 53, &extra_data);
+
+        assert_eq!(
+            "5db9fa2c5e606997ca5005e032f4351034d45df4f032b3d717e520d37d321678",
+            sign_result.as_ref().unwrap().tx_hash
+        );
+        assert_eq!(
+            "6831921a9b602c9cab7e8163c821a4f0b26c94a1a307d6808916a1dde8084977",
+            sign_result.as_ref().unwrap().wtx_id
+        );
+    }
 }
