@@ -84,13 +84,7 @@ impl Transaction {
             data_pack.extend([7, payment.as_bytes().len() as u8].iter());
             data_pack.extend(payment.as_bytes().iter());
         } else {
-            data_pack.extend(
-                [
-                    7,
-                    payment[..constants::ETH_MAX_SUPPORT_PAYMENT_LEN].len() as u8,
-                ]
-                .iter(),
-            );
+            data_pack.extend([7, constants::ETH_MAX_SUPPORT_PAYMENT_LEN as u8].iter());
             data_pack.extend(
                 payment[..constants::ETH_MAX_SUPPORT_PAYMENT_LEN]
                     .as_bytes()
