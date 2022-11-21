@@ -10,7 +10,7 @@ edition = "2018"
 keccak-hash = "0.2.0"
 failure = "0.1.6"
 bitcoin = "0.25.0"
-hex = "0.3"
+hex = "0.4.3"
 common = {path = "../../common"}
 device = {path = "../../device"}
 transport = {path = "../../transport"}

@@ -12,7 +12,7 @@ device = {path = "../../device"}
 transport = {path = "../../transport"}
 sp-core = "2.0.0-rc3"
 failure = "0.1.6"
-hex = "0.3"
+hex = "0.4.3"
 prost = "0.11.2"
 prost-types = "0.11.2"
 
