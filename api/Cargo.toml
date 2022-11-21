@@ -9,7 +9,7 @@ edition = "2018"
 [dependencies]
 lazy_static = "1.4.0"
 
-log = {version = "0.4", features = ["std"]}
+log = {version = "0.4.17", features = ["std"]}
 transport = {path = "../transport"}
 device = {path = "../device"}
 coin-ethereum = {path = "../wallet/coin-ethereum"}
