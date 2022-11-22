@@ -19,7 +19,7 @@ use rand::rngs::OsRng;
 use rand::thread_rng;
 use regex::Regex;
 use ring::digest;
-use rsa::{BigUint, PaddingScheme, PublicKey as RSAPublic, RSAPublicKey};
+use rsa::{BigUint, PaddingScheme, PublicKey as RSAPublic, RsaPublicKey};
 use secp256k1::ecdh::SharedSecret;
 use secp256k1::{PublicKey, SecretKey};
 use sha1::Sha1;
@@ -196,7 +196,7 @@ fn auth_code_encrypt(auth_code: &String) -> Result<String> {
     let e = hex::decode("010001");
     let u32_vec_n = BigUint::from_bytes_be(&n.unwrap());
     let u32_vec_e = BigUint::from_bytes_be(&e.unwrap());
-    let rsa_pub_key = RSAPublicKey::new(u32_vec_n, u32_vec_e)?;
+    let rsa_pub_key = RsaPublicKey::new(u32_vec_n, u32_vec_e)?;
     let mut rng = OsRng;
     // let mut rng = OsRng;
     let enc_data = rsa_pub_key.encrypt(

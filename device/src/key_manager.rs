@@ -7,7 +7,6 @@ use std::path::Path;
 
 extern crate aes_soft as aes;
 extern crate block_modes;
-extern crate hex_literal;
 
 use crate::error::BindError;
 use crate::Result;
