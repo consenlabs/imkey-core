@@ -8,7 +8,7 @@ edition = "2018"
 
 [dependencies]
 keccak-hash = "0.2.0"
-failure = "0.1.6"
+failure = "0.1.8"
 bitcoin = "0.25.0"
 hex = "0.4.3"
 common = {path = "../../common"}
