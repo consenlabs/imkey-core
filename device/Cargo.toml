@@ -11,7 +11,7 @@ common = {path = "../common"}
 transport = {path = "../transport"}
 serde = { version = "1.0.110", features = ["derive"] }
 serde_derive = "1.0.110"
-serde_json = "1.0.88"
+serde_json = "1.0.89"
 ring = "0.16.20"
 base64 = "0.13.1"
 aes-ctr = "0.6.0"

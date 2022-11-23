@@ -18,7 +18,7 @@ ring = "0.16.20"
 bech32 = { git = "https://github.com/sipa/bech32" }
 serde = { version = "1.0.110", features = ["derive"] }
 serde_derive = "1.0.110"
-serde_json = { version = "1.0.88", default-features = false, features = ["alloc"] }
+serde_json = { version = "1.0.89", default-features = false, features = ["alloc"] }
 num-bigint = "0.4.3"
 num-traits = "0.2.11"
 num-integer = "0.1.42"
