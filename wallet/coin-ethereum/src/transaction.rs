@@ -14,6 +14,7 @@ use lazy_static::lazy_static;
 use rlp::{self, DecoderError, Encodable, Rlp, RlpStream};
 use secp256k1::recovery::{RecoverableSignature, RecoveryId};
 use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
+use tiny_keccak::Hasher;
 use transport::message::{send_apdu, send_apdu_timeout};
 
 lazy_static! {
@@ -252,7 +253,7 @@ impl Transaction {
             chain_id: chain_id,
         };
 
-        (unverified.rlp_bytes(), unverified.compute_hash())
+        (unverified.rlp_bytes().to_vec(), unverified.compute_hash())
     }
 
     pub fn add_chain_replay_protection(&self, v: u64, chain_id: Option<u64>) -> u64 {
@@ -337,7 +338,10 @@ impl Transaction {
         signature_obj.normalize_s();
         let normalizes_sig_vec = signature_obj.serialize_compact();
 
-        let data_hash = tiny_keccak::keccak256(&data);
+        let mut keccak256 = tiny_keccak::Keccak::v256();
+        keccak256.update(data.as_slice());
+        let mut data_hash = [0u8; 256 / 8];
+        keccak256.finalize(&mut data_hash);
         let rec_id = utility::retrieve_recid(&data_hash, &normalizes_sig_vec, &pubkey_raw).unwrap();
         let rec_id = rec_id.to_i32();
         let v = rec_id + 27;

@@ -7,6 +7,7 @@ use common::utility::{secp256k1_sign, secp256k1_sign_verify, uncompress_pubkey_2
 use device::device_binding::KEY_MANAGER;
 use sp_core::crypto::{Ss58AddressFormat, Ss58Codec};
 use sp_core::ed25519::Public;
+use sp_core::ByteArray;
 use sp_core::Public as TraitPublic;
 use std::str::FromStr;
 use transport::message::send_apdu;
@@ -14,13 +15,13 @@ use transport::message::send_apdu;
 pub struct SubstrateAddress();
 impl SubstrateAddress {
     pub fn from_public_key(public_key: &[u8], address_type: &AddressType) -> Result<String> {
-        let public_obj = Public::from_slice(public_key);
+        let public_obj = Public::from_slice(public_key).unwrap();
         let address = match address_type {
             AddressType::Polkadot => {
-                public_obj.to_ss58check_with_version(Ss58AddressFormat::PolkadotAccount)
+                public_obj.to_ss58check_with_version(Ss58AddressFormat::custom(0))
             }
             AddressType::Kusama => {
-                public_obj.to_ss58check_with_version(Ss58AddressFormat::KusamaAccount)
+                public_obj.to_ss58check_with_version(Ss58AddressFormat::custom(2))
             }
             _ => panic!("address type not support"),
         };

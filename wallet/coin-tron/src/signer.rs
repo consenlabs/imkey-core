@@ -10,6 +10,7 @@ use common::{constants, utility, SignParam};
 use device::device_binding::KEY_MANAGER;
 use device::key_manager::KeyManager;
 use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
+use tiny_keccak::Hasher;
 use transport::message::{send_apdu, send_apdu_timeout};
 
 #[derive(Debug)]
@@ -42,7 +43,11 @@ impl TronSigner {
 
         let mut data_pack = Vec::new();
 
-        let hash = tiny_keccak::keccak256(&msg_with_header);
+        let mut keccak256 = tiny_keccak::Keccak::v256();
+        keccak256.update(msg_with_header.as_slice());
+        let mut hash = [0u8; 256 / 8];
+        keccak256.finalize(&mut hash);
+
         data_pack.push(0x01);
         data_pack.push(hash.len() as u8);
         data_pack.extend(&hash);
@@ -178,7 +183,6 @@ impl TronSigner {
 mod tests {
     use crate::signer::TronSigner;
     use crate::tronapi::{TronMessageInput, TronTxInput};
-    use bitcoin::util::misc::hex_bytes;
     use common::{constants, SignParam};
     use device::device_binding::bind_test;
 

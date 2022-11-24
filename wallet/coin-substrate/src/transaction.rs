@@ -114,7 +114,8 @@ mod test {
     use common::SignParam;
     use device::device_binding::bind_test;
     use sp_core::crypto::Ss58Codec;
-    use sp_core::Public;
+    use sp_core::ed25519::Pair;
+    use sp_core::{ByteArray, Pair as TraitPair, Public};
     use sp_runtime::traits::Verify;
 
     #[test]
@@ -140,11 +141,13 @@ mod test {
         let public_key = SubstrateAddress::get_public_key(POLKADOT_PATH, &AddressType::Polkadot)
             .expect("get pub key error");
         let msg = hex::decode(input.raw_data).unwrap();
-        let pk = sp_core::ed25519::Public::from_slice(&hex::decode(public_key).unwrap());
+        let pk = sp_core::ed25519::Public::from_slice(&hex::decode(public_key).unwrap()).unwrap();
+
         let sig =
-            sp_core::ed25519::Signature::from_slice(&hex::decode(&ret.signature[4..]).unwrap());
+            sp_core::ed25519::Signature::from_slice(&hex::decode(&ret.signature[4..]).unwrap())
+                .unwrap();
         assert!(
-            sp_core::ed25519::Signature::verify(&sig, msg.as_slice(), &pk),
+            sp_core::ed25519::Pair::verify(&sig, msg.as_slice(), &pk),
             "assert sig"
         );
     }
@@ -172,12 +175,10 @@ mod test {
         let public_key = SubstrateAddress::get_public_key(KUSAMA_PATH, &AddressType::Kusama)
             .expect("get pub key error");
         let msg = hex::decode(input.raw_data).unwrap();
-        let pk = sp_core::ed25519::Public::from_slice(&hex::decode(public_key).unwrap());
+        let pk = sp_core::ed25519::Public::from_slice(&hex::decode(public_key).unwrap()).unwrap();
         let sig =
-            sp_core::ed25519::Signature::from_slice(&hex::decode(&ret.signature[4..]).unwrap());
-        assert!(
-            sp_core::ed25519::Signature::verify(&sig, msg.as_slice(), &pk),
-            "assert sig"
-        );
+            sp_core::ed25519::Signature::from_slice(&hex::decode(&ret.signature[4..]).unwrap())
+                .unwrap();
+        assert!(Pair::verify(&sig, msg.as_slice(), &pk), "assert sig");
     }
 }
