@@ -12,7 +12,7 @@ use ethereum_types::{Address, H256, U256};
 use keccak_hash::keccak;
 use lazy_static::lazy_static;
 use rlp::{self, DecoderError, Encodable, Rlp, RlpStream};
-use secp256k1::recovery::{RecoverableSignature, RecoveryId};
+use secp256k1::ecdsa::{RecoverableSignature, RecoveryId};
 use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
 use tiny_keccak::Hasher;
 use transport::message::{send_apdu, send_apdu_timeout};

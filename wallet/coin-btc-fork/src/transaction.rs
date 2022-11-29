@@ -1,14 +1,18 @@
 use bitcoin::blockdata::{opcodes, script::Builder};
-use bitcoin::consensus::serialize;
+use bitcoin::consensus::{serialize, Encodable};
 use bitcoin::hashes::hex::FromHex;
 use bitcoin::util::psbt::serialize::Serialize;
-use bitcoin::{Address, Network, OutPoint, Script, SigHashType, Transaction, TxIn, TxOut};
+use bitcoin::{
+    Address, EcdsaSighashType, LockTime, Network, OutPoint, PackedLockTime, Script, Sequence,
+    SigHashType, Transaction, TxIn, TxOut, Witness,
+};
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::sha256d::Hash as Hash256;
 use bitcoin_hashes::Hash;
 use secp256k1::Signature;
 use std::str::FromStr;
+// use serde::Serialize;
 
 use common::apdu::{ApduCheck, BtcForkApdu};
 use common::coin_info::CoinInfo;
@@ -120,7 +124,7 @@ impl BtcForkTransaction {
         //output data serialize
         let mut tx_to_sign = Transaction {
             version: 1i32,
-            lock_time: 0u32,
+            lock_time: PackedLockTime::ZERO,
             input: vec![],
             output: txouts,
         };
@@ -129,8 +133,14 @@ impl BtcForkTransaction {
         output_serialize_data.remove(5);
         output_serialize_data.remove(5);
         //add sign type
-        output_serialize_data.extend(SigHashType::All.serialize().iter());
-
+        // output_serialize_data.extend(SigHashType::All.serialize().iter());
+        let mut encoder_hash = Vec::new();
+        let len = EcdsaSighashType::All
+            .to_u32()
+            .consensus_encode(&mut encoder_hash)
+            .unwrap();
+        debug_assert_eq!(len, encoder_hash.len());
+        output_serialize_data.extend(encoder_hash);
         //set input number
         output_serialize_data.remove(4);
         output_serialize_data.insert(4, self.tx_input.unspents.len() as u8);
@@ -171,12 +181,14 @@ impl BtcForkTransaction {
                         vout: temp_utxo.vout as u32,
                     },
                     script_sig: Script::default(),
-                    sequence: 0xFFFFFFFF as u32,
-                    witness: vec![],
+                    sequence: Sequence::MAX,
+                    witness: Witness::default(),
                 };
                 if (x >= i * EACH_ROUND_NUMBER) && (x < (i + 1) * EACH_ROUND_NUMBER) {
+                    // temp_serialize_txin.script_sig =
+                    //     Script::from(Vec::from_hex(temp_utxo.script_pub_key.as_str())?);
                     temp_serialize_txin.script_sig =
-                        Script::from(Vec::from_hex(temp_utxo.script_pub_key.as_str())?);
+                        Script::from_hex(temp_utxo.script_pub_key.as_str())?;
                 }
                 input_data_vec.extend_from_slice(serialize(&temp_serialize_txin).as_slice());
                 let btc_perpare_apdu =
@@ -191,7 +203,7 @@ impl BtcForkTransaction {
                 let btc_sign_apdu = BtcForkApdu::btc_fork_sign(
                     0x4A,
                     y as u8,
-                    SigHashType::All.as_u32() as u8,
+                    EcdsaSighashType::All.to_u32() as u8,
                     format!(
                         "{}{}",
                         path_str,
@@ -221,8 +233,8 @@ impl BtcForkTransaction {
                     vout: unspent.vout as u32,
                 },
                 script_sig: lock_script_ver.get(index).unwrap().clone(),
-                sequence: 0xFFFFFFFF as u32,
-                witness: vec![],
+                sequence: Sequence::MAX,
+                witness: Witness::default(),
             };
             txinputs.push(txin);
         }
@@ -318,7 +330,7 @@ impl BtcForkTransaction {
         //8.output data serialize
         let mut tx_to_sign = Transaction {
             version: 2i32,
-            lock_time: 0u32,
+            lock_time: PackedLockTime::ZERO,
             input: vec![],
             output: txouts,
         };
@@ -328,7 +340,14 @@ impl BtcForkTransaction {
         output_serialize_data.remove(5);
 
         //add sign type
-        output_serialize_data.extend(SigHashType::All.serialize().iter());
+        // output_serialize_data.extend(SigHashType::All.serialize().iter());
+        let mut encoder_hash = Vec::new();
+        let len = EcdsaSighashType::All
+            .to_u32()
+            .consensus_encode(&mut encoder_hash)
+            .unwrap();
+        debug_assert_eq!(len, encoder_hash.len());
+        output_serialize_data.extend(encoder_hash);
 
         //set input number
         output_serialize_data.remove(4);
@@ -369,8 +388,8 @@ impl BtcForkTransaction {
                     vout: unspent.vout as u32,
                 },
                 script_sig: Script::new(),
-                sequence: 0xFFFFFFFF as u32,
-                witness: vec![],
+                sequence: Sequence::MAX,
+                witness: Witness::default(),
             };
 
             txhash_vout_vec.extend(serialize(&txin.previous_output).iter());
@@ -385,7 +404,8 @@ impl BtcForkTransaction {
             let pub_key_bytes = hex::decode(utxo_pub_key_vec.get(index).unwrap())?;
             let pub_key_hash = hash160::Hash::hash(&pub_key_bytes).into_inner();
             let script_hex = format!("76a914{}88ac", hex::encode(pub_key_hash));
-            let script = Script::from(hex::decode(script_hex)?);
+            // let script = Script::from(hex::decode(script_hex)?);
+            let script = Script::from_hex(script_hex.as_str())?;
             let script_data = serialize(&script);
             data.extend(script_data.iter());
 
@@ -440,7 +460,7 @@ impl BtcForkTransaction {
             //generator der sign data
             let mut sign_result_vec = signature_obj.serialize_der().to_vec();
             //add hash type
-            sign_result_vec.push(SigHashType::All.as_u32() as u8);
+            sign_result_vec.push(EcdsaSighashType::All.to_u32() as u8);
             witnesses.push((
                 sign_result_vec,
                 hex::decode(utxo_pub_key_vec.get(index).unwrap())?,
@@ -460,8 +480,11 @@ impl BtcForkTransaction {
                 .into_inner();
                 let hex = format!("160014{}", hex::encode(&hash));
                 Ok(TxIn {
-                    script_sig: Script::from(hex::decode(hex).unwrap()),
-                    witness: vec![witnesses[i].0.clone(), witnesses[i].1.clone()],
+                    script_sig: Script::from_hex(hex.as_str())?,
+                    witness: Witness::from_vec(vec![
+                        witnesses[i].0.clone(),
+                        witnesses[i].1.clone(),
+                    ]),
                     ..*txin
                 })
             })
@@ -517,7 +540,7 @@ impl BtcForkTransaction {
         let mut signed_vec = signature_obj.serialize_der().to_vec();
 
         //add hash type
-        signed_vec.push(SigHashType::All.as_u32() as u8);
+        signed_vec.push(EcdsaSighashType::All.to_u32() as u8);
         Ok(Builder::new()
             .push_slice(&signed_vec)
             .push_slice(Vec::from_hex(utxo_public_key)?.as_slice())

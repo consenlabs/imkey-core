@@ -1,5 +1,6 @@
 use crate::Result;
-use bech32::bech32::Bech32;
+// use bech32::bech32::Bech32;
+use bech32::{encode, ToBase32, Variant};
 use bitcoin::bech32::convert_bits;
 use bitcoin_hashes::hex::{FromHex, ToHex};
 use bitcoin_hashes::{hash160, Hash};
@@ -58,15 +59,17 @@ impl CosmosAddress {
         let hh = Vec::from_hex(&pub_key_hash).unwrap();
 
         //bech32
-        let hash5 = convert_bits(&hh, 8, 5, true);
-        let b32 = Bech32 {
-            hrp: "cosmos".to_string(),
-            data: hash5.unwrap(),
-        }; //todo use bitcoin_hash istead
-        let address = match b32.to_string() {
-            Ok(s) => s,
-            Err(_e) => return Err(format_err!("AddressError")),
-        };
+        let hash5 = convert_bits(&hh, 8, 5, true)?;
+        // let b32 = Bech32 {
+        //     hrp: "cosmos".to_string(),
+        //     data: hash5.unwrap(),
+        // }; //todo use bitcoin_hash istead
+        // let address = match b32.to_string() {
+        //     Ok(s) => s,
+        //     Err(_e) => return Err(format_err!("AddressError")),
+        // };
+        // Ok(address)
+        let address = encode("cosmos", hash5.to_base32(), Variant::Bech32)?;
         Ok(address)
     }
 
@@ -82,7 +85,7 @@ impl CosmosAddress {
 #[cfg(test)]
 mod tests {
     use crate::address::CosmosAddress;
-    use bech32::bech32::Bech32;
+    use bech32::{ToBase32, Variant};
     use common::constants;
     use device::device_binding::bind_test;
 
@@ -114,11 +117,16 @@ mod tests {
 
     #[test]
     fn test_bech32() {
-        let b32 = Bech32 {
-            hrp: "bech32".to_string(),
-            data: vec![0x00, 0x01, 0x02],
-        };
-        let address = match b32.to_string() {
+        let b32 = bech32::encode(
+            "bech32",
+            vec![0x00, 0x01, 0x02].to_base32(),
+            Variant::Bech32,
+        );
+        // let b32 = Bech32 {
+        //     hrp: "bech32".to_string(),
+        //     data: vec![0x00, 0x01, 0x02],
+        // };
+        let address = match b32 {
             Ok(s) => s,
             Err(_e) => return,
         };

@@ -21,7 +21,7 @@ use regex::Regex;
 use ring::digest;
 use rsa::{BigUint, PaddingScheme, PublicKey as RSAPublic, RsaPublicKey};
 use secp256k1::ecdh::SharedSecret;
-use secp256k1::{PublicKey, SecretKey};
+use secp256k1::{ecdh, PublicKey, SecretKey};
 use sha1::Sha1;
 use std::collections::HashMap;
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
@@ -89,15 +89,8 @@ impl DeviceManage {
             //calc the session key
             let pk2 = PublicKey::from_slice(key_manager_obj.se_pub_key.as_slice())?;
             let sk1 = SecretKey::from_slice(key_manager_obj.pri_key.as_slice())?;
-            let expect_result: [u8; 64] = [0; 64];
-            let mut x_out = [0u8; 32];
-            let mut y_out = [0u8; 32];
-            SharedSecret::new_with_hash(&pk2, &sk1, |x, y| {
-                x_out = x;
-                y_out = y;
-                expect_result.into()
-            });
-            let sha1_result = Sha1::from(&x_out[..]).digest().bytes();
+            let sharedSecret = ecdh::shared_secret_point(&pk2, &sk1);
+            let sha1_result = Sha1::from(&sharedSecret[..32]).digest().bytes();
 
             //set the session key
             key_manager_obj.session_key = sha1_result[..16].to_vec();
@@ -260,6 +253,9 @@ mod test {
         auth_code_encrypt, gen_iv, DeviceManage, TEST_BIND_CODE, TEST_KEY_PATH,
     };
     use crate::device_manager::bind_display_code;
+    use std::fs::OpenOptions;
+    use std::io::Read;
+    use std::path::Path;
     use transport::hid_api::hid_connect;
 
     #[test]
@@ -275,7 +271,14 @@ mod test {
             assert!(bind_display_code().is_ok());
             let mut bind_code_temp = String::new();
             println!("please input bind code:");
-            let _bl = std::io::stdin().read_line(&mut bind_code_temp).unwrap();
+            // let _bl = std::io::stdin().read_line(&mut bind_code_temp).unwrap();
+            let mut file = OpenOptions::new()
+                .read(true)
+                .write(true)
+                .create(true)
+                .open(Path::new("bind_code.txt"))
+                .expect("imkey_keyfile_opertion_error");
+            file.read_to_string(&mut bind_code_temp);
             bind_result = DeviceManage::bind_acquire(&bind_code_temp).unwrap();
         } else if check_result.as_str().eq("bound_other") {
             bind_result = DeviceManage::bind_acquire(&bind_code).unwrap();

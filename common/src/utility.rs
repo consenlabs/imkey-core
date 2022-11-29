@@ -4,7 +4,7 @@ use num_integer::Integer;
 use num_traits::{FromPrimitive, Num, Zero};
 use regex::Regex;
 use ring::digest;
-use secp256k1::recovery::{RecoverableSignature, RecoveryId};
+use secp256k1::ecdsa::{RecoverableSignature, RecoveryId};
 use secp256k1::{Message, PublicKey as PublicKey2, Secp256k1, SecretKey, Signature};
 use std::str::FromStr;
 

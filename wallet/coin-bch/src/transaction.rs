@@ -6,7 +6,9 @@ use crate::Result;
 use bitcoin::blockdata::{opcodes, script::Builder};
 use bitcoin::consensus::serialize;
 use bitcoin::hashes::hex::FromHex;
-use bitcoin::{Address, Network, OutPoint, Script, Transaction, TxIn, TxOut};
+use bitcoin::{
+    Address, Network, OutPoint, PackedLockTime, Script, Sequence, Transaction, TxIn, TxOut, Witness,
+};
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::Hash;
@@ -117,7 +119,7 @@ impl BchTransaction {
         //8.output data serialize
         let mut tx_to_sign = Transaction {
             version: 1i32,
-            lock_time: 0u32,
+            lock_time: PackedLockTime::ZERO,
             input: vec![],
             output: txouts.clone(),
         };
@@ -172,8 +174,8 @@ impl BchTransaction {
                     vout: unspent.vout as u32,
                 },
                 script_sig: Script::new(),
-                sequence: 0xFFFFFFFF as u32,
-                witness: vec![],
+                sequence: Sequence::MAX,
+                witness: Witness::default(),
             };
 
             txhash_vout_vec.extend(serialize(&txin.previous_output).iter());
@@ -188,7 +190,8 @@ impl BchTransaction {
             let pub_key_bytes = hex::decode(utxo_pub_key_vec.get(index).unwrap())?;
             let pub_key_hash = hash160::Hash::hash(&pub_key_bytes).into_inner();
             let script_hex = format!("76a914{}88ac", hex::encode(pub_key_hash));
-            let script = Script::from(hex::decode(script_hex)?);
+            // let script = Script::from(hex::decode(script_hex)?);
+            let script = Script::from_hex(script_hex.as_str())?;
             let script_data = serialize(&script);
             data.extend(script_data.iter());
 
@@ -252,13 +255,13 @@ impl BchTransaction {
             .enumerate()
             .map(|(i, txin)| TxIn {
                 script_sig: lock_script_ver.get(i).unwrap().clone(),
-                witness: vec![],
+                witness: Witness::default(),
                 ..*txin
             })
             .collect();
         let signed_tx = Transaction {
             version: 1i32,
-            lock_time: 0u32,
+            lock_time: PackedLockTime::ZERO,
             input: input_with_sigs,
             output: txouts.clone(),
         };

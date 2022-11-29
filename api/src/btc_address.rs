@@ -3,7 +3,7 @@ use crate::api::{
 };
 use crate::error_handling::Result;
 use crate::message_handler::encode_message;
-use bitcoin::Network;
+use bitcoin::network::constants::Network;
 use coin_bitcoin::address::BtcAddress;
 use coin_bitcoin::btcapi::{BtcXpubReq, BtcXpubRes};
 use prost::Message;

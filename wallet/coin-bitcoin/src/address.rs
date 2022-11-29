@@ -1,10 +1,12 @@
 use crate::common::get_xpub_data;
 use crate::Result;
+use bitcoin::network::constants::Network;
 use bitcoin::util::bip32::{ChainCode, ChildNumber, DerivationPath, ExtendedPubKey, Fingerprint};
-use bitcoin::{Address, Network, PublicKey};
+use bitcoin::{Address, PublicKey};
 use common::apdu::{ApduCheck, BtcApdu, CoinCommonApdu};
 use common::error::CommonError;
 use common::path::check_path_validity;
+use secp256k1::PublicKey as Secp256k1PublicKey;
 use std::str::FromStr;
 use transport::message::send_apdu;
 
@@ -29,12 +31,14 @@ impl BtcAddress {
         //build parent public key obj
         let parent_xpub = get_xpub_data(Self::get_parent_path(path)?, true)?;
         let parent_xpub = &parent_xpub[..130].to_string();
-        let mut parent_pub_key_obj = PublicKey::from_str(parent_xpub)?;
-        parent_pub_key_obj.compressed = true;
+        // let mut parent_pub_key_obj = PublicKey::from_str(parent_xpub)?;
+        // parent_pub_key_obj.compressed = true;
+        let parent_pub_key_obj = Secp256k1PublicKey::from_str(parent_xpub)?; //TODO 是否是压缩公钥
 
         //build child public key obj
-        let mut pub_key_obj = PublicKey::from_str(pub_key)?;
-        pub_key_obj.compressed = true;
+        // let mut pub_key_obj = PublicKey::from_str(pub_key)?;
+        // pub_key_obj.compressed = true;
+        let pub_key_obj = Secp256k1PublicKey::from_str(pub_key)?; //TODO 是否是压缩公钥
 
         //get parent public key fingerprint
         let chain_code_obj = ChainCode::from(hex::decode(chain_code).unwrap().as_slice());

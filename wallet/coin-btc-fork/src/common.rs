@@ -12,7 +12,8 @@ use bitcoin_hashes::Hash;
 use common::apdu::{ApduCheck, BtcApdu, CoinCommonApdu};
 use common::error::CoinError;
 use common::utility::sha256_hash;
-use secp256k1::{Message, PublicKey as PublicKey2, Secp256k1, Signature};
+use secp256k1::{Message, PublicKey as Secp256k1PublicKey, Secp256k1, Signature};
+use std::convert::TryFrom;
 use std::str::FromStr;
 use transport::message::send_apdu;
 
@@ -29,10 +30,10 @@ pub fn address_verify(
     let mut utxo_pub_key_vec: Vec<String> = vec![];
     for utxo in utxos {
         //get utxo public key
-        let mut public_key_obj = PublicKey::from_str(public_key)?;
-        public_key_obj.compressed = true;
+        let public_key_obj = Secp256k1PublicKey::from_str(public_key)?;
+
         //gen chain code obj
-        let chain_code_obj = ChainCode::from(chain_code);
+        let chain_code_obj = ChainCode::try_from(chain_code)?;
         //build extended public key
         let mut extend_public_key = ExtendedPubKey {
             network: network,
@@ -101,7 +102,7 @@ sign verify
 pub fn secp256k1_sign_verify(public: &[u8], signed: &[u8], message: &[u8]) -> Result<bool> {
     let secp = Secp256k1::new();
     //build public
-    let public_obj = PublicKey2::from_slice(public)?;
+    let public_obj = Secp256k1PublicKey::from_slice(public)?;
     //build message
     let hash_result = sha256_hash(message);
     let message_obj = Message::from_slice(hash_result.as_ref())?;

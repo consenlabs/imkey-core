@@ -109,7 +109,6 @@ impl FilecoinAddress {
 #[cfg(test)]
 mod test {
     use crate::address::FilecoinAddress;
-    use bech32::bech32::Bech32;
     use common::constants;
     use device::device_binding::bind_test;
 

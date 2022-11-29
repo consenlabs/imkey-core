@@ -5,10 +5,13 @@ use crate::common::{
 use crate::transaction::BtcTransaction;
 use crate::Result;
 use bitcoin::blockdata::{opcodes, script::Builder};
-use bitcoin::consensus::serialize;
+use bitcoin::consensus::{serialize, Encodable};
 use bitcoin::hashes::hex::FromHex;
 use bitcoin::util::psbt::serialize::Serialize;
-use bitcoin::{Network, OutPoint, Script, SigHashType, Transaction, TxIn, TxOut};
+use bitcoin::{
+    EcdsaSighashType, Network, OutPoint, PackedLockTime, Script, Sequence, SigHashType,
+    Transaction, TxIn, TxOut, Witness,
+};
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::sha256d::Hash as Hash256;
@@ -97,7 +100,7 @@ impl BtcTransaction {
         //output data serialize
         let mut tx_to_sign = Transaction {
             version: 1i32,
-            lock_time: 0u32,
+            lock_time: PackedLockTime::ZERO,
             input: vec![],
             output: txouts,
         };
@@ -107,7 +110,13 @@ impl BtcTransaction {
         output_serialize_data.remove(5);
 
         //add sign type
-        output_serialize_data.extend(SigHashType::All.serialize().iter());
+        let mut encoder_hash = Vec::new();
+        let len = EcdsaSighashType::All
+            .to_u32()
+            .consensus_encode(&mut encoder_hash)
+            .unwrap();
+        debug_assert_eq!(len, encoder_hash.len());
+        output_serialize_data.extend(encoder_hash);
 
         //set input number
         output_serialize_data.remove(4);
@@ -147,8 +156,8 @@ impl BtcTransaction {
                         vout: temp_utxo.vout as u32,
                     },
                     script_sig: Script::default(),
-                    sequence: 0xFFFFFFFF as u32,
-                    witness: vec![],
+                    sequence: Sequence::MAX,
+                    witness: Witness::default(),
                 };
                 if (x >= i * EACH_ROUND_NUMBER) && (x < (i + 1) * EACH_ROUND_NUMBER) {
                     temp_serialize_txin.script_sig =
@@ -165,7 +174,7 @@ impl BtcTransaction {
                 }
                 let btc_sign_apdu = BtcApdu::btc_sign(
                     y as u8,
-                    SigHashType::All.as_u32() as u8,
+                    EcdsaSighashType::All.to_u32() as u8,
                     format!("{}{}", path_str, self.unspents.get(y).unwrap().derive_path).as_str(),
                 );
                 //send sign apdu
@@ -188,8 +197,8 @@ impl BtcTransaction {
                     vout: unspent.vout as u32,
                 },
                 script_sig: lock_script_ver.get(index).unwrap().clone(),
-                sequence: 0xFFFFFFFF as u32,
-                witness: vec![],
+                sequence: Sequence::MAX,
+                witness: Witness::default(),
             };
             txinputs.push(txin);
         }
@@ -277,7 +286,7 @@ impl BtcTransaction {
         //8.output data serialize
         let mut tx_to_sign = Transaction {
             version: 2i32,
-            lock_time: 0u32,
+            lock_time: PackedLockTime::ZERO,
             input: vec![],
             output: txouts,
         };
@@ -286,7 +295,13 @@ impl BtcTransaction {
         output_serialize_data.remove(5);
         output_serialize_data.remove(5);
         //add sign type
-        output_serialize_data.extend(SigHashType::All.serialize().iter());
+        let mut encoder_hash = Vec::new();
+        let len = EcdsaSighashType::All
+            .to_u32()
+            .consensus_encode(&mut encoder_hash)
+            .unwrap();
+        debug_assert_eq!(len, encoder_hash.len());
+        output_serialize_data.extend(encoder_hash);
         //set input number
         output_serialize_data.remove(4);
         output_serialize_data.insert(4, self.unspents.len() as u8);
@@ -321,8 +336,8 @@ impl BtcTransaction {
                     vout: unspent.vout as u32,
                 },
                 script_sig: Script::new(),
-                sequence: 0xFFFFFFFF as u32,
-                witness: vec![],
+                sequence: Sequence::MAX,
+                witness: Witness::default(),
             };
 
             txhash_vout_vec.extend(serialize(&txin.previous_output).iter());
@@ -392,7 +407,7 @@ impl BtcTransaction {
             //generator der sign data
             let mut sign_result_vec = temp_signature_obj.serialize_der().to_vec();
             //add hash type
-            sign_result_vec.push(SigHashType::All.as_u32() as u8);
+            sign_result_vec.push(EcdsaSighashType::All.to_u32() as u8);
             witnesses.push((
                 sign_result_vec,
                 hex::decode(utxo_pub_key_vec.get(index).unwrap())?,
@@ -413,7 +428,10 @@ impl BtcTransaction {
                 let hex = format!("160014{}", hex::encode(&hash));
                 Ok(TxIn {
                     script_sig: Script::from(hex::decode(hex).unwrap()),
-                    witness: vec![witnesses[i].0.clone(), witnesses[i].1.clone()],
+                    witness: Witness::from_vec(vec![
+                        witnesses[i].0.clone(),
+                        witnesses[i].1.clone(),
+                    ]),
                     ..*txin
                 })
             })

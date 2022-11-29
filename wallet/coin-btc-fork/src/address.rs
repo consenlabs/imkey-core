@@ -2,19 +2,24 @@ use crate::btc_fork_network::{network_form_hrp, network_from_coin, BtcForkNetwor
 use crate::common::get_xpub_data;
 use crate::Result;
 use bitcoin::hash_types::{PubkeyHash, ScriptHash};
-use bitcoin::util::address::Payload;
+use bitcoin::util::address::{Payload, WitnessVersion};
 use bitcoin::util::base58;
 use bitcoin::util::bip32::{ChainCode, ChildNumber, DerivationPath, ExtendedPubKey, Fingerprint};
 use bitcoin::{Address, Network, PublicKey};
 use bitcoin_hashes::Hash;
+use secp256k1::PublicKey as Secp256k1PublicKey;
+use std::convert::TryFrom;
 
 use common::coin_info::coin_info_from_param;
 use common::coin_info::CoinInfo;
 use common::error::{CoinError, CommonError};
 use common::path::check_path_validity;
 
+use bech32::{u5, ToBase32, Variant};
 use std::fmt::{Display, Formatter};
 use std::str::FromStr;
+// use bitcoin::hashes::Hash;
+use common::utility::hex_to_bytes;
 
 #[derive(Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct BtcForkAddress {
@@ -42,24 +47,23 @@ impl BtcForkAddress {
 
         //get xpub data
         let xpub_data = get_xpub_data(path, true)?;
-        let xpub_data = &xpub_data[..194].to_string();
-
-        //get public key and chain code
+        let xpub_data = &xpub_data[..194];
         let pub_key = &xpub_data[..130];
         let chain_code = &xpub_data[130..];
 
-        //build parent public key obj
+        //build parent xpub data
         let parent_xpub = get_xpub_data(Self::get_parent_path(path)?, true)?;
-        let parent_xpub = &parent_xpub[..130].to_string();
-        let mut parent_pub_key_obj = PublicKey::from_str(parent_xpub)?;
-        parent_pub_key_obj.compressed = true;
+        let parent_xpub = &parent_xpub[..194];
+        let parent_pub_key = &parent_xpub[..130];
+        let parent_chain_code = &parent_xpub[130..];
 
+        //build parent public key obj
+        let parent_pub_key_obj = Secp256k1PublicKey::from_str(parent_pub_key)?;
         //build child public key obj
-        let mut pub_key_obj = PublicKey::from_str(pub_key)?;
-        pub_key_obj.compressed = true;
+        let pub_key_obj = Secp256k1PublicKey::from_str(pub_key)?;
 
         //get parent public key fingerprint
-        let chain_code_obj = ChainCode::from(hex::decode(chain_code).unwrap().as_slice());
+        let chain_code_obj = ChainCode::try_from(hex::decode(parent_chain_code)?.as_slice())?;
         let parent_ext_pub_key = ExtendedPubKey {
             network: network,
             depth: 0 as u8,
@@ -71,7 +75,7 @@ impl BtcForkAddress {
         let fingerprint_obj = parent_ext_pub_key.fingerprint();
 
         //build extend public key obj
-        let chain_code_obj = ChainCode::from(hex::decode(chain_code).unwrap().as_slice());
+        let chain_code_obj = ChainCode::try_from(hex::decode(chain_code)?.as_slice())?;
         let chain_number_vec: Vec<ChildNumber> = DerivationPath::from_str(path)?.into();
         let extend_public_key = ExtendedPubKey {
             network: network,
@@ -179,7 +183,7 @@ impl FromStr for BtcForkAddress {
         let bech32_network = bech32_network(s);
         if let Some(network) = bech32_network {
             // decode as bech32
-            let (_, payload) = bech32::decode(s)?;
+            let (_, payload, _) = bech32::decode(s)?;
             if payload.is_empty() {
                 return Err(CoinError::EmptyBech32Payload.into());
             }
@@ -202,11 +206,11 @@ impl FromStr for BtcForkAddress {
             if version.to_u8() == 0 && (program.len() != 20 && program.len() != 32) {
                 return Err(CoinError::InvalidSegwitV0ProgramLength.into());
             }
-
-            return Ok(BtcForkAddress {
-                payload: Payload::WitnessProgram { version, program },
-                network,
-            });
+            let payload = Payload::WitnessProgram {
+                version: WitnessVersion::try_from(version.to_u8())?,
+                program,
+            };
+            return Ok(BtcForkAddress { payload, network });
         }
 
         let data = decode_base58(s)?;
@@ -225,7 +229,6 @@ impl FromStr for BtcForkAddress {
                 (
                     network_from_coin(&coin_info).expect("btc"),
                     Payload::ScriptHash(ScriptHash::from_slice(&data[1..]).unwrap()),
-                    //Payload::ScriptHash(hash160::Hash::from_slice(&data[1..]).unwrap()),
                 )
             }
             0x30 => {
@@ -234,7 +237,6 @@ impl FromStr for BtcForkAddress {
                 (
                     network_from_coin(&coin_info).expect("ltc-L"),
                     Payload::PubkeyHash(PubkeyHash::from_slice(&data[1..]).unwrap()),
-                    //Payload::PubkeyHash(hash160::Hash::from_slice(&data[1..]).unwrap()),
                 )
             }
             0x32 => {
@@ -243,7 +245,6 @@ impl FromStr for BtcForkAddress {
                 (
                     network_from_coin(&coin_info).expect("ltc"),
                     Payload::ScriptHash(ScriptHash::from_slice(&data[1..]).unwrap()),
-                    //Payload::ScriptHash(hash160::Hash::from_slice(&data[1..]).unwrap()),
                 )
             }
             0x3a => {
@@ -252,7 +253,6 @@ impl FromStr for BtcForkAddress {
                 (
                     network_from_coin(&coin_info).expect("ltc-testnet"),
                     Payload::ScriptHash(ScriptHash::from_slice(&data[1..]).unwrap()),
-                    //Payload::ScriptHash(hash160::Hash::from_slice(&data[1..]).unwrap()),
                 )
             }
             111 => {
@@ -261,7 +261,6 @@ impl FromStr for BtcForkAddress {
                 (
                     network_from_coin(&coin_info).expect("btc-testnet"),
                     Payload::PubkeyHash(PubkeyHash::from_slice(&data[1..]).unwrap()),
-                    //Payload::PubkeyHash(hash160::Hash::from_slice(&data[1..]).unwrap()),
                 )
             }
             196 => {
@@ -270,7 +269,6 @@ impl FromStr for BtcForkAddress {
                 (
                     network_from_coin(&coin_info).expect("btc-testnet"),
                     Payload::ScriptHash(ScriptHash::from_slice(&data[1..]).unwrap()),
-                    //Payload::ScriptHash(hash160::Hash::from_slice(&data[1..]).unwrap()),
                 )
             }
             x => {
@@ -302,8 +300,11 @@ impl Display for BtcForkAddress {
                 program: ref prog,
             } => {
                 let hrp = self.network.hrp;
-                let mut bech32_writer = bech32::Bech32Writer::new(hrp, fmt)?;
-                bech32::WriteBase32::write_u5(&mut bech32_writer, ver)?;
+                let mut bech32_writer = bech32::Bech32Writer::new(hrp, Variant::Bech32, fmt)?;
+                bech32::WriteBase32::write_u5(
+                    &mut bech32_writer,
+                    u5::try_from_u8(ver.to_num()).unwrap(),
+                )?;
                 bech32::ToBase32::write_base32(&prog, &mut bech32_writer)
             }
         }

@@ -9,11 +9,11 @@ edition = "2018"
 [dependencies]
 keccak-hash = "0.10.0"
 failure = "0.1.8"
-bitcoin = "0.25.0"
+bitcoin = "0.29.2"
 hex = "0.4.3"
 common = {path = "../../common"}
 device = {path = "../../device"}
 transport = {path = "../../transport"}
 prost = "0.11.2"
-secp256k1 = {version ="0.19.0", features = ["rand", "recovery"] }
+secp256k1 = {version ="0.24.1", features = ["rand", "recovery"] }
 tiny-keccak = { version = "2.0.2", features = ["keccak"] }

@@ -1,6 +1,6 @@
 use crate::hash::blake2b_160;
 use crate::Result;
-use bech32::ToBase32;
+use bech32::{ToBase32, Variant};
 use bitcoin::util::bip32::{ChainCode, ChildNumber, DerivationPath, ExtendedPubKey, Fingerprint};
 use bitcoin::{Network, PublicKey};
 use common::apdu::{Apdu, ApduCheck, Secp256k1Apdu};
@@ -10,6 +10,8 @@ use common::error::{CoinError, CommonError};
 use common::path::check_path_validity;
 use common::utility::{secp256k1_sign, secp256k1_sign_verify, uncompress_pubkey_2_compress};
 use device::device_binding::KEY_MANAGER;
+use secp256k1::PublicKey as Secp256k1PublicKey;
+use std::convert::TryFrom;
 use std::str::FromStr;
 use transport::message::send_apdu;
 
@@ -28,7 +30,7 @@ impl CkbAddress {
         buf.extend(vec![0x1, 0x00]); // append short version for locks with popular codehash and default code hash index
         buf.extend(pub_key_hash);
 
-        Ok(bech32::encode(prefix, buf.to_base32())?)
+        Ok(bech32::encode(prefix, buf.to_base32(), Variant::Bech32)?)
     }
 
     pub fn get_public_key(path: &str) -> Result<String> {
@@ -104,36 +106,35 @@ impl CkbAddress {
 
         //get xpub data
         let xpub_data = CkbAddress::get_xpub_data(path)?;
-        let xpub_data = &xpub_data[..194].to_string();
+        let xpub_data = &xpub_data[..194];
 
         //get public key and chain code
         let pub_key = &xpub_data[..130];
-        let chain_code = &xpub_data[130..];
+        let sub_chain_code = &xpub_data[130..];
+        let pub_key_obj = Secp256k1PublicKey::from_str(pub_key)?;
 
         //build parent public key obj
-        let parent_xpub = CkbAddress::get_xpub_data(Self::get_parent_path(path)?)?;
-        let parent_xpub = &parent_xpub[..130].to_string();
-        let mut parent_pub_key_obj = PublicKey::from_str(parent_xpub)?;
-        parent_pub_key_obj.compressed = true;
-
-        //build child public key obj
-        let mut pub_key_obj = PublicKey::from_str(pub_key)?;
-        pub_key_obj.compressed = true;
+        let parent_xpub_data = CkbAddress::get_xpub_data(Self::get_parent_path(path)?)?;
+        let parent_xpub_data = &parent_xpub_data[..194];
+        let parent_pub_key = &parent_xpub_data[..130];
+        let parent_chain_code = &parent_xpub_data[130..];
+        let parent_pub_key_obj = Secp256k1PublicKey::from_str(parent_pub_key)?;
 
         //get parent public key fingerprint
-        let chain_code_obj = ChainCode::from(hex::decode(chain_code).unwrap().as_slice());
+        let parent_chain_code = ChainCode::from(hex::decode(parent_chain_code)?.as_slice());
         let parent_ext_pub_key = ExtendedPubKey {
             network: network,
             depth: 0 as u8,
             parent_fingerprint: Fingerprint::default(),
             child_number: ChildNumber::from_normal_idx(0).unwrap(),
             public_key: parent_pub_key_obj,
-            chain_code: chain_code_obj,
+            chain_code: parent_chain_code,
         };
         let fingerprint_obj = parent_ext_pub_key.fingerprint();
 
         //build extend public key obj
-        let chain_code_obj = ChainCode::from(hex::decode(chain_code).unwrap().as_slice());
+        let sub_chain_code_obj = ChainCode::from(hex::decode(sub_chain_code)?.as_slice());
+
         let chain_number_vec: Vec<ChildNumber> = DerivationPath::from_str(path)?.into();
         let extend_public_key = ExtendedPubKey {
             network: network,
@@ -141,11 +142,10 @@ impl CkbAddress {
             parent_fingerprint: fingerprint_obj,
             child_number: *chain_number_vec.get(chain_number_vec.len() - 1).unwrap(),
             public_key: pub_key_obj,
-            chain_code: chain_code_obj,
+            chain_code: sub_chain_code_obj,
         };
         //get and return xpub
         Ok(extend_public_key.to_string())
-        // Ok("extend_public_key".to_string())
     }
 
     pub fn get_xpub_data(path: &str) -> Result<String> {
