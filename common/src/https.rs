@@ -1,7 +1,7 @@
 use crate::constants;
 use crate::Result;
-use hyper::client::Client;
 use hyper::header::HeaderValue;
+use hyper::Client;
 use hyper::{Body, Method, Request};
 use hyper_timeout::TimeoutConnector;
 use hyper_tls::HttpsConnector;
