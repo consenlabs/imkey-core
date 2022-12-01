@@ -57,19 +57,7 @@ impl CosmosAddress {
         let pub_key_bytes = hex::decode(comprs_pubkey).unwrap();
         let pub_key_hash = hash160::Hash::hash(&pub_key_bytes).to_hex();
         let hh = Vec::from_hex(&pub_key_hash).unwrap();
-
-        //bech32
-        let hash5 = convert_bits(&hh, 8, 5, true)?;
-        // let b32 = Bech32 {
-        //     hrp: "cosmos".to_string(),
-        //     data: hash5.unwrap(),
-        // }; //todo use bitcoin_hash istead
-        // let address = match b32.to_string() {
-        //     Ok(s) => s,
-        //     Err(_e) => return Err(format_err!("AddressError")),
-        // };
-        // Ok(address)
-        let address = encode("cosmos", hash5.to_base32(), Variant::Bech32)?;
+        let address = encode("cosmos", hh.to_base32(), Variant::Bech32)?;
         Ok(address)
     }
 
@@ -122,14 +110,10 @@ mod tests {
             vec![0x00, 0x01, 0x02].to_base32(),
             Variant::Bech32,
         );
-        // let b32 = Bech32 {
-        //     hrp: "bech32".to_string(),
-        //     data: vec![0x00, 0x01, 0x02],
-        // };
         let address = match b32 {
             Ok(s) => s,
             Err(_e) => return,
         };
-        assert_eq!(address, "bech321qpz4nc4pe".to_string());
+        assert_eq!(address, "bech321qqqsyrhqy2a".to_string());
     }
 }
