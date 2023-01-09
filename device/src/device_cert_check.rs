@@ -16,6 +16,8 @@ pub struct DeviceCertCheckRequest {
     #[serde(rename = "commandID")]
     pub command_id: String,
     pub card_ret_data_list: Option<Vec<String>>,
+    pub sdk_version: Option<String>,
+    pub terminal_type: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -52,6 +54,8 @@ impl TsmService for DeviceCertCheckRequest {
 
 impl DeviceCertCheckRequest {
     pub fn build_request_data(seid: String, sn: String, device_cert: String) -> Self {
+        let terminal_type = common::TERMINAL_TYPE.read().to_string();
+        let sdk_version = common::SDK_VERSION.read().to_string();
         DeviceCertCheckRequest {
             seid: seid,
             sn: sn,
@@ -60,6 +64,8 @@ impl DeviceCertCheckRequest {
             status_word: None,
             command_id: String::from(constants::TSM_ACTION_DEVICE_CERT_CHECK),
             card_ret_data_list: None,
+            sdk_version: Some(sdk_version),
+            terminal_type: Some(terminal_type),
         }
     }
 }
