@@ -70,10 +70,18 @@ impl BtcApdu {
         apdu.to_hex().to_uppercase()
     }
 
-    pub fn btc_sign(index: u8, hash_type: u8, path: &str) -> String {
+    pub fn btc_sign(index: u16, hash_type: u8, path: &str) -> String {
         let path_bytes = path.as_bytes();
-        let mut apdu =
-            ApduHeader::new(0x80, 0x42, index, hash_type, path_bytes.len() as u8).to_array();
+        let index = hex::decode(format!("{:04X}", index)).unwrap();
+        let mut apdu = ApduHeader::new(
+            0x80,
+            0x42,
+            0x00,
+            hash_type,
+            (path_bytes.len() + index.len()) as u8,
+        )
+        .to_array();
+        apdu.extend(index.iter());
         apdu.extend(path_bytes.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
@@ -89,6 +97,16 @@ impl BtcApdu {
             _ => ApduHeader::new(0x80, 0x32, 0x00, hash_type, data.len() as u8).to_array(),
         };
 
+        apdu.extend(data.iter());
+        apdu.push(0x00);
+        apdu.to_hex().to_uppercase()
+    }
+
+    pub fn btc_legacy_sign(p1: u8, p2: u8, data: &Vec<u8>) -> String {
+        if data.len() as u32 > LC_MAX {
+            panic!("data to long");
+        }
+        let mut apdu = ApduHeader::new(0x80, 0x52, p1, p2, data.len() as u8).to_array();
         apdu.extend(data.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
@@ -365,8 +383,16 @@ impl BtcForkApdu {
 
     pub fn btc_fork_sign(ins: u8, index: u8, hash_type: u8, path: &str) -> String {
         let path_bytes = path.as_bytes();
-        let mut apdu =
-            ApduHeader::new(0x80, ins, index, hash_type, path_bytes.len() as u8).to_array();
+        let index = hex::decode(format!("{:04X}", index)).unwrap();
+        let mut apdu = ApduHeader::new(
+            0x80,
+            0x42,
+            0x00,
+            hash_type,
+            (path_bytes.len() + index.len()) as u8,
+        )
+        .to_array();
+        apdu.extend(index.iter());
         apdu.extend(path_bytes.iter());
         apdu.push(0x00);
         apdu.to_hex().to_uppercase()
