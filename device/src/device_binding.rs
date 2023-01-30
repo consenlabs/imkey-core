@@ -252,7 +252,7 @@ pub fn bind_test() {
 // pub const TEST_KEY_PATH: &str = "/tmp/";
 // pub const TEST_BIND_CODE: &str = "MCYNK5AH";
 pub const TEST_KEY_PATH: &str = "/tmp/";
-pub const TEST_BIND_CODE: &str = "H3422JRY";
+pub const TEST_BIND_CODE: &str = "HJTNCVGJ";
 
 #[cfg(test)]
 mod test {
@@ -260,8 +260,10 @@ mod test {
         auth_code_encrypt, gen_iv, DeviceManage, TEST_BIND_CODE, TEST_KEY_PATH,
     };
     use crate::device_manager::bind_display_code;
+    use std::fs::OpenOptions;
+    use std::io::Read;
+    use std::path::Path;
     use transport::hid_api::hid_connect;
-
     #[test]
     fn device_bind_test() {
         let path = TEST_KEY_PATH.to_string();
@@ -275,7 +277,14 @@ mod test {
             assert!(bind_display_code().is_ok());
             let mut bind_code_temp = String::new();
             println!("please input bind code:");
-            let _bl = std::io::stdin().read_line(&mut bind_code_temp).unwrap();
+            // let _bl = std::io::stdin().read_line(&mut bind_code_temp).unwrap();
+            let mut file = OpenOptions::new()
+                .read(true)
+                .write(true)
+                .create(true)
+                .open(Path::new("bind_code.txt"))
+                .expect("imkey_keyfile_opertion_error");
+            file.read_to_string(&mut bind_code_temp);
             bind_result = DeviceManage::bind_acquire(&bind_code_temp).unwrap();
         } else if check_result.as_str().eq("bound_other") {
             bind_result = DeviceManage::bind_acquire(&bind_code).unwrap();
