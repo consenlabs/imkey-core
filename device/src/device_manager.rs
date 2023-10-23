@@ -207,8 +207,9 @@ pub fn cos_upgrade() -> Result<()> {
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn cos_check_update() -> Result<ServiceResponse<CosCheckUpdateResponse>> {
     let seid = get_se_id()?;
-    let mut cos_version = get_firmware_version()?;
-    CosCheckUpdateRequest::build_request_data(seid, cos_version).send_message()
+    let cos_version = get_firmware_version()?;
+    let ble_version = get_ble_version()?;
+    CosCheckUpdateRequest::build_request_data(seid, cos_version, ble_version).send_message()
 }
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn is_bl_status() -> Result<bool> {

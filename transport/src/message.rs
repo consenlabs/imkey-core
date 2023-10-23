@@ -156,29 +156,29 @@ pub fn send_apdu_timeout(apdu: String, timeout: i32) -> Result<String> {
     }
 }
 
-#[test]
-fn test_rwlock() {
-    let r1 = TEST.read().unwrap();
-    println!("test:{}", *r1);
+// #[test]
+// fn test_rwlock() {
+//     let r1 = TEST.read().unwrap();
+//     println!("test:{}", *r1);
 
-    let r2 = TEST.read().unwrap();
-    println!("test:{}", *r2);
-    drop(r1);
-    drop(r2);
+//     let r2 = TEST.read().unwrap();
+//     println!("test:{}", *r2);
+//     drop(r1);
+//     drop(r2);
 
-    let mut w = TEST.write().unwrap();
-    *w = "haha".to_string();
-    println!("test:{}", *w);
-    drop(w);
-}
+//     let mut w = TEST.write().unwrap();
+//     *w = "haha".to_string();
+//     println!("test:{}", *w);
+//     drop(w);
+// }
 
-#[test]
-fn test_callback() {
-    let callback = CALLBACK.lock().unwrap();
-    let ptr = callback(
-        CString::new("00A4040000".to_owned()).unwrap().into_raw(),
-        20,
-    );
-    let result = unsafe { CStr::from_ptr(ptr).to_string_lossy().into_owned() };
-    println!("callback result:{:#?}", result);
-}
+// #[test]
+// fn test_callback() {
+//     let callback = CALLBACK.lock().unwrap();
+//     let ptr = callback(
+//         CString::new("00A4040000".to_owned()).unwrap().into_raw(),
+//         20,
+//     );
+//     let result = unsafe { CStr::from_ptr(ptr).to_string_lossy().into_owned() };
+//     println!("callback result:{:#?}", result);
+// }

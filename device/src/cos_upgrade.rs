@@ -44,6 +44,8 @@ impl CosUpgradeRequest {
     #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
     pub fn cos_upgrade() -> Result<()> {
         //read se device cert
+
+        use crate::ble_upgrade::BleUpgradeRequest;
         let mut device_cert = get_cert()?;
 
         let mut is_jump = false;
@@ -107,6 +109,7 @@ impl CosUpgradeRequest {
                 //check if end
                 let next_step_key = return_bean._ReturnData.next_step_key.unwrap();
                 if constants::TSM_END_FLAG.eq(next_step_key.as_str()) {
+                    BleUpgradeRequest::ble_upgrade()?;
                     return Ok(());
                 }
 
