@@ -5,7 +5,6 @@ use super::se_secure_check::SeSecureCheckRequest;
 use crate::app_delete::AppDeleteRequest;
 use crate::app_download::{AppDownloadRequest, AppDownloadResponse};
 use crate::app_update::AppUpdateResponse;
-use crate::ble_check_update::{BleCheckUpdateRequest, BleCheckUpdateResponse};
 use crate::ble_upgrade::BleUpgradeRequest;
 use crate::cos_check_update::{CosCheckUpdateRequest, CosCheckUpdateResponse};
 use crate::cos_upgrade::CosUpgradeRequest;
@@ -224,13 +223,6 @@ pub fn is_bl_status() -> Result<bool> {
 #[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
 pub fn ble_upgrade() -> Result<()> {
     BleUpgradeRequest::ble_upgrade()
-}
-
-#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
-pub fn ble_check_update() -> Result<ServiceResponse<BleCheckUpdateResponse>> {
-    let seid = get_se_id()?;
-    let ble_version = get_ble_version()?;
-    BleCheckUpdateRequest::build_request_data(seid, ble_version).send_message()
 }
 
 #[cfg(test)]

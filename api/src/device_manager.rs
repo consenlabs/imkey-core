@@ -308,29 +308,3 @@ pub fn is_bl_status() -> Result<Vec<u8>> {
     let check_result = device_manager::is_bl_status()?;
     encode_message(IsBlStatusRes { check_result })
 }
-
-#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
-pub fn ble_update() -> Result<Vec<u8>> {
-    device_manager::cos_upgrade()?;
-    encode_message(CommonResponse {
-        result: "success".to_string(),
-    })
-}
-
-#[cfg(any(target_os = "macos", target_os = "windows", target_os = "linux"))]
-pub fn ble_check_update() -> Result<Vec<u8>> {
-    let ble_check_update_resp = device_manager::ble_check_update()?;
-
-    encode_message(BleCheckUpdateRes {
-        seid: ble_check_update_resp._ReturnData.seid,
-        is_latest: ble_check_update_resp._ReturnData.is_latest,
-        latest_cos_version: ble_check_update_resp
-            ._ReturnData
-            .latest_ble_version
-            .unwrap_or_default(),
-        description: ble_check_update_resp
-            ._ReturnData
-            .description
-            .unwrap_or_default(),
-    })
-}
