@@ -21,6 +21,7 @@ pub struct CosCheckUpdateResponse {
     pub seid: String,
     pub is_latest: bool,
     pub latest_cos_version: Option<String>,
+    pub latest_ble_version: Option<String>,
     pub update_type: Option<String>,
     pub description: Option<String>,
     pub is_update_success: bool,

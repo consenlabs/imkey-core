@@ -131,10 +131,12 @@ pub struct CosCheckUpdateRes {
     #[prost(string, tag = "3")]
     pub latest_cos_version: std::string::String,
     #[prost(string, tag = "4")]
-    pub update_type: std::string::String,
+    pub latest_ble_version: std::string::String,
     #[prost(string, tag = "5")]
+    pub update_type: std::string::String,
+    #[prost(string, tag = "6")]
     pub description: std::string::String,
-    #[prost(bool, tag = "6")]
+    #[prost(bool, tag = "7")]
     pub is_update_success: bool,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
