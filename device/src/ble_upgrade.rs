@@ -59,12 +59,10 @@ impl BleUpgradeRequest {
         };
         let mut status_word;
         loop {
-            // println!("send message：{:#?}", request_data);
             let req_data = serde_json::to_vec_pretty(&request_data).unwrap();
             let response_data = https::post(constants::TSM_ACTION_BLE_UPDATE, req_data)?;
             let return_bean: ServiceResponse<BleUpgradeResponse> =
                 serde_json::from_str(response_data.as_str())?;
-            // println!("return message：{:#?}", return_bean);
             if return_bean._ReturnCode == constants::TSM_RETURN_CODE_SUCCESS {
                 let next_step_key = return_bean._ReturnData.next_step_key.unwrap();
                 if constants::TSM_END_FLAG.eq(next_step_key.as_str()) {
@@ -89,8 +87,8 @@ impl BleUpgradeRequest {
                             }
 
                             if index_val == apdu_list.len() - 1 {
-                                request_data.status_word = Some(status_word);
-                                if constants::APDU_RSP_SUCCESS.eq(&res[res.len() - 4..]) {
+                                request_data.status_word = Some(status_word.clone());
+                                if constants::APDU_RSP_SUCCESS.eq(&status_word) {
                                     if "03".eq(next_step_key.as_str()) {
                                         reconnect()?;
                                         request_data.ble_version = get_ble_version()?;

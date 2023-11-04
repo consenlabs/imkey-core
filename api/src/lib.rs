@@ -485,4 +485,41 @@ mod tests {
         //     _to_str(call_imkey_api(_to_c_char(action.as_str())))
         // };
     }
+
+    #[test]
+    fn get_ble_version() {
+        hid_connect("imKey Pro").is_ok();
+        let action: ImkeyAction = ImkeyAction {
+            method: "get_ble_version".to_string(),
+            param: Some(::prost_types::Any {
+                type_url: "deviceapi.get_ble_version".to_string(),
+                value: encode_message(vec![]).unwrap(),
+            }),
+        };
+        let action = hex::encode(encode_message(action).unwrap());
+        let ret_hex = unsafe { _to_str(call_imkey_api(_to_c_char(action.as_str()))) };
+    }
+
+    #[test]
+    fn get_register_address() {
+        hid_connect("imKey Pro").is_ok();
+        let param = AddressParam {
+            chain_type: "COSMOS".to_string(),
+            path: "m/44'/118'/0'/0/0".to_string(),
+            network: "MAINNET".to_string(),
+            is_seg_wit: false,
+        };
+        let action: ImkeyAction = ImkeyAction {
+            method: "register_address".to_string(),
+            param: Some(::prost_types::Any {
+                type_url: "deviceapi.register_address".to_string(),
+                value: encode_message(param).unwrap(),
+            }),
+        };
+        let action = hex::encode(encode_message(action).unwrap());
+        let ret_hex = unsafe { _to_str(call_imkey_api(_to_c_char(action.as_str()))) };
+        let ret_bytes = hex::decode(ret_hex).unwrap();
+        let ret_str = String::from_utf8(ret_bytes).unwrap();
+        println!("ret_str:{}", ret_str);
+    }
 }
