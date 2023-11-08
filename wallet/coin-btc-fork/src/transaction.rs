@@ -2,7 +2,7 @@ use bitcoin::blockdata::{opcodes, script::Builder};
 use bitcoin::consensus::serialize;
 use bitcoin::hashes::hex::FromHex;
 use bitcoin::util::psbt::serialize::Serialize;
-use bitcoin::{Address, Network, OutPoint, Script, SigHashType, Transaction, TxIn, TxOut};
+use bitcoin::{Address, Network, OutPoint, Script, SigHashType, Transaction, TxIn, TxOut, VarInt};
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::hex::ToHex;
 use bitcoin_hashes::sha256d::Hash as Hash256;
@@ -133,7 +133,11 @@ impl BtcForkTransaction {
 
         //set input number
         output_serialize_data.remove(4);
-        output_serialize_data.insert(4, self.tx_input.unspents.len() as u8);
+        let mut utxo_len = serialize(&VarInt(self.tx_input.unspents.len() as u64));
+        utxo_len.reverse();
+        for temp_data in utxo_len {
+            output_serialize_data.insert(4, temp_data);
+        }
 
         //add fee amount
         output_serialize_data.extend(bigint_to_byte_vec(self.tx_input.fee));
@@ -163,7 +167,7 @@ impl BtcForkTransaction {
         for i in 0..count {
             for (x, temp_utxo) in self.tx_input.unspents.iter().enumerate() {
                 let mut input_data_vec = vec![];
-                input_data_vec.push(x as u8);
+                input_data_vec.extend(hex::decode(format!("{:04X}", x)).unwrap());
 
                 let mut temp_serialize_txin = TxIn {
                     previous_output: OutPoint {
@@ -332,7 +336,11 @@ impl BtcForkTransaction {
 
         //set input number
         output_serialize_data.remove(4);
-        output_serialize_data.insert(4, self.tx_input.unspents.len() as u8);
+        let mut utxo_len = serialize(&VarInt(self.tx_input.unspents.len() as u64));
+        utxo_len.reverse();
+        for temp_data in utxo_len {
+            output_serialize_data.insert(4, temp_data);
+        }
 
         //add fee amount
         output_serialize_data.extend(bigint_to_byte_vec(self.tx_input.fee));
