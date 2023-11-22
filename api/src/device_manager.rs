@@ -9,10 +9,10 @@ use common::{
 use device::device_manager;
 use device::deviceapi::{
     AppDeleteReq, AppDownloadReq, AppDownloadRes, AppUpdateReq, AppUpdateRes, AvailableAppBean,
-    BindAcquireReq, BindAcquireRes, BindCheckRes, BleCheckUpdateRes, CheckUpdateRes,
-    CosCheckUpdateRes, DeviceConnectReq, GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes,
-    GetFirmwareVersionRes, GetLifeTimeRes, GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes,
-    IsBlStatusRes, SetBleNameReq,
+    BindAcquireReq, BindAcquireRes, BindCheckRes, CheckUpdateRes, CosCheckUpdateRes,
+    DeviceConnectReq, GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes,
+    GetLifeTimeRes, GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes,
+    SetBleNameReq,
 };
 use parking_lot::RwLock;
 use prost::Message;
@@ -50,10 +50,10 @@ pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppDownloadReq = AppDownloadReq::decode(data).expect("imkey_illegal_param");
     let response = device_manager::app_download(request.app_name.as_ref())?;
 
-    let app_download_res = match response._ReturnData.address_register_list.is_some() {
+    let app_download_res = match response.return_data.address_register_list.is_some() {
         true => {
             let mut app_name_list = vec![];
-            for instance_aid in response._ReturnData.address_register_list.unwrap() {
+            for instance_aid in response.return_data.address_register_list.unwrap() {
                 app_name_list.push(
                     applet::get_appname_by_instid(instance_aid.as_str())
                         .expect("imKey_app_id_noe_exist")
@@ -75,10 +75,10 @@ pub fn app_download(data: &[u8]) -> Result<Vec<u8>> {
 pub fn app_update(data: &[u8]) -> Result<Vec<u8>> {
     let request: AppUpdateReq = AppUpdateReq::decode(data).expect("imkey_illegal_prarm");
     let response = device_manager::app_update(request.app_name.as_ref())?;
-    let app_update_res = match response._ReturnData.address_register_list.is_some() {
+    let app_update_res = match response.return_data.address_register_list.is_some() {
         true => {
             let mut app_name_list = vec![];
-            for instance_aid in response._ReturnData.address_register_list.unwrap() {
+            for instance_aid in response.return_data.address_register_list.unwrap() {
                 app_name_list.push(
                     applet::get_appname_by_instid(instance_aid.as_str())
                         .expect("imKey_app_id_noe_exist")
@@ -116,7 +116,11 @@ pub fn check_update() -> Result<Vec<u8>> {
     let response = device_manager::check_update()?;
 
     let mut available_bean_list: Vec<AvailableAppBean> = Vec::new();
-    for value in response._ReturnData.available_app_bean_list.unwrap() {
+    for value in response
+        .return_data
+        .available_app_bean_list
+        .unwrap_or_default()
+    {
         let version = match value.installed_version.as_ref() {
             Some(version) => version,
             None => "none",
@@ -127,26 +131,26 @@ pub fn check_update() -> Result<Vec<u8>> {
         }
 
         available_bean_list.push(AvailableAppBean {
-            app_name: app_name.unwrap().to_string(),
-            app_logo: value.app_logo.as_ref().unwrap().to_string(),
+            app_name: app_name.unwrap_or_default().to_string(),
+            app_logo: value.app_logo.unwrap_or_default().to_string(),
             installed_version: version.to_string(),
-            last_updated: value.last_updated.as_ref().unwrap().to_string(),
-            latest_version: value.latest_version.as_ref().unwrap().to_string(),
-            install_mode: value.install_mode.as_ref().unwrap().to_string(),
+            last_updated: value.last_updated.unwrap_or_default().to_string(),
+            latest_version: value.latest_version.unwrap_or_default().to_string(),
+            install_mode: value.install_mode.unwrap_or_default().to_string(),
         });
     }
 
-    let return_code = response._ReturnCode;
+    let return_code = response.return_code;
     let mut status = constants::IMKEY_DEV_STATUS_LATEST;
     if return_code == constants::TSM_RETURNCODE_DEV_INACTIVATED.to_string() {
         status = constants::IMKEY_DEV_STATUS_INACTIVATED;
     }
 
     let response_msg = CheckUpdateRes {
-        se_id: response._ReturnData.seid.unwrap(),
-        sn: response._ReturnData.sn.unwrap(),
+        se_id: response.return_data.seid.unwrap_or_default(),
+        sn: response.return_data.sn.unwrap_or_default(),
         status: status.to_string(),
-        sdk_mode: response._ReturnData.sdk_mode.unwrap(),
+        sdk_mode: response.return_data.sdk_mode.unwrap_or_default(),
         available_app_list: available_bean_list,
     };
     encode_message(response_msg)
@@ -287,19 +291,19 @@ pub fn cos_check_update() -> Result<Vec<u8>> {
     let cos_check_update = device_manager::cos_check_update()?;
 
     encode_message(CosCheckUpdateRes {
-        seid: cos_check_update._ReturnData.seid,
-        is_latest: cos_check_update._ReturnData.is_latest,
+        seid: cos_check_update.return_data.seid,
+        is_latest: cos_check_update.return_data.is_latest,
         latest_cos_version: cos_check_update
-            ._ReturnData
+            .return_data
             .latest_cos_version
             .unwrap_or_default(),
         latest_ble_version: cos_check_update
-            ._ReturnData
+            .return_data
             .latest_ble_version
             .unwrap_or_default(),
-        update_type: cos_check_update._ReturnData.update_type.unwrap_or_default(),
-        description: cos_check_update._ReturnData.description.unwrap_or_default(),
-        is_update_success: cos_check_update._ReturnData.is_update_success,
+        update_type: cos_check_update.return_data.update_type.unwrap_or_default(),
+        description: cos_check_update.return_data.description.unwrap_or_default(),
+        is_update_success: cos_check_update.return_data.is_update_success,
     })
 }
 

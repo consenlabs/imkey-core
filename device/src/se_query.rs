@@ -44,21 +44,19 @@ impl TsmService for SeQueryRequest {
     type ReturnData = ServiceResponse<SeQueryResponse>;
 
     fn send_message(&mut self) -> Result<ServiceResponse<SeQueryResponse>> {
-        // println!("send message：{:#?}", self);
         let req_data = serde_json::to_vec_pretty(&self).unwrap();
         let response_data = https::post(constants::TSM_ACTION_SE_QUERY, req_data)?;
         let mut return_bean: ServiceResponse<SeQueryResponse> =
             serde_json::from_str(response_data.as_str())?;
-        // println!("return message：{:#?}", return_bean);
 
         match return_bean.service_res_check() {
             Ok(()) => {
-                return_bean._ReturnData.status =
+                return_bean.return_data.status =
                     Some(constants::IMKEY_DEV_STATUS_LATEST.to_string());
                 Ok(return_bean)
             }
             Err(e) => {
-                if constants::TSM_RETURNCODE_DEV_INACTIVATED.eq(return_bean._ReturnCode.as_str()) {
+                if constants::TSM_RETURNCODE_DEV_INACTIVATED.eq(return_bean.return_code.as_str()) {
                     return Ok(return_bean);
                 }
                 Err(e)
