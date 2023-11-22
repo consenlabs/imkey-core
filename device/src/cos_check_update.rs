@@ -10,6 +10,9 @@ pub struct CosCheckUpdateRequest {
     pub cos_version: String,
     #[serde(rename = "commandID")]
     pub command_id: String,
+    pub sdk_version: Option<String>,
+    pub terminal_type: Option<String>,
+    pub ble_version: String,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -18,6 +21,7 @@ pub struct CosCheckUpdateResponse {
     pub seid: String,
     pub is_latest: bool,
     pub latest_cos_version: Option<String>,
+    pub latest_ble_version: Option<String>,
     pub update_type: Option<String>,
     pub description: Option<String>,
     pub is_update_success: bool,
@@ -41,11 +45,16 @@ impl TsmService for CosCheckUpdateRequest {
 }
 
 impl CosCheckUpdateRequest {
-    pub fn build_request_data(seid: String, cos_version: String) -> Self {
+    pub fn build_request_data(seid: String, cos_version: String, ble_version: String) -> Self {
+        let terminal_type = common::TERMINAL_TYPE.read().to_string();
+        let sdk_version = common::SDK_VERSION.read().to_string();
         CosCheckUpdateRequest {
             seid: seid,
             cos_version: cos_version,
             command_id: String::from(constants::TSM_ACTION_COS_CHECK_UPDATE),
+            sdk_version: Some(sdk_version),
+            terminal_type: Some(terminal_type),
+            ble_version,
         }
     }
 }
@@ -65,8 +74,11 @@ mod test {
         let seid = get_se_id().unwrap();
 
         let cos_version: String = "1.0.10".to_string();
-        assert!(CosCheckUpdateRequest::build_request_data(seid, cos_version)
-            .send_message()
-            .is_ok());
+        let ble_version: String = "3.0.03".to_string();
+        assert!(
+            CosCheckUpdateRequest::build_request_data(seid, cos_version, ble_version)
+                .send_message()
+                .is_ok()
+        );
     }
 }

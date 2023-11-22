@@ -1,8 +1,11 @@
 use crate::api::{AddressParam, ErrorResponse, ExternalAddressParam, ImkeyAction, PubKeyParam};
 use common::SignParam;
+use failure::Error;
 use prost::Message;
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
+use std::result;
+
 pub mod api;
 pub mod bch_address;
 pub mod bch_signer;
@@ -21,12 +24,16 @@ pub mod ethereum_signer;
 pub mod filecoin_address;
 pub mod filecoin_signer;
 pub mod message_handler;
+pub mod nervos_address;
+pub mod nervos_signer;
 pub mod substrate_address;
 pub mod substrate_signer;
 pub mod tron_address;
 pub mod tron_signer;
 
 use parking_lot::Mutex;
+pub mod tezos_address;
+pub mod tezos_signer;
 
 #[macro_use]
 extern crate lazy_static;
@@ -40,6 +47,8 @@ use transport::message;
 lazy_static! {
     pub static ref API_LOCK: Mutex<String> = Mutex::new("".to_string());
 }
+
+pub type Result<T> = result::Result<T, Error>;
 
 #[no_mangle]
 pub extern "C" fn get_apdu() -> *const c_char {
@@ -85,7 +94,7 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
 
     let data = hex::decode(hex_str).expect("imkey_illegal_prarm");
     let action: ImkeyAction = ImkeyAction::decode(data.as_slice()).expect("decode imkey api");
-    let reply: Vec<u8> = match action.method.to_lowercase().as_str() {
+    let reply: Result<Vec<u8>> = match action.method.to_lowercase().as_str() {
         "init_imkey_core_x" => {
             landingpad(|| device_manager::init_imkey_core(&action.param.unwrap().value))
         }
@@ -131,6 +140,8 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "POLKADOT" => substrate_address::get_address(&param),
                 "KUSAMA" => substrate_address::get_address(&param),
                 "TRON" => tron_address::get_address(&param),
+                "NERVOS" => nervos_address::get_address(&param),
+                "TEZOS" => tezos_address::get_address(&param),
                 "BITCOINCASH" => bch_address::get_address(&param),
                 "LITECOIN" => btc_fork_address::get_address(&param),
                 _ => Err(format_err!("get_address unsupported_chain")),
@@ -142,6 +153,8 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 .expect("imkey_illegal_param");
             match param.chain_type.as_str() {
                 "EOS" => eos_pubkey::get_eos_pubkey(&param),
+                "TEZOS" => tezos_address::get_pub_key(&param),
+                "COSMOS" => cosmos_address::get_cosmos_pub_key(&param),
                 _ => Err(format_err!("get_pub_key unsupported_chain")),
             }
         }),
@@ -166,6 +179,8 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "POLKADOT" => substrate_address::display_address(&param),
                 "KUSAMA" => substrate_address::display_address(&param),
                 "TRON" => tron_address::display_address(&param),
+                "NERVOS" => nervos_address::display_address(&param),
+                "TEZOS" => tezos_address::display_tezos_address(&param),
                 _ => Err(format_err!("register_address unsupported_chain")),
             }
         }),
@@ -201,6 +216,13 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
                 "TRON" => {
                     tron_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
                 }
+                "NERVOS" => {
+                    nervos_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
+                }
+                "TEZOS" => tezos_signer::sign_tezos_transaction(
+                    &param.clone().input.unwrap().value,
+                    &param,
+                ),
                 "BITCOINCASH" => {
                     bch_signer::sign_transaction(&param.clone().input.unwrap().value, &param)
                 }
@@ -246,9 +268,13 @@ pub unsafe extern "C" fn call_imkey_api(hex_str: *const c_char) -> *const c_char
 
         _ => landingpad(|| Err(format_err!("unsupported_method"))),
     };
-
-    let ret_str = hex::encode(reply);
-    CString::new(ret_str).unwrap().into_raw()
+    match reply {
+        Ok(reply) => {
+            let ret_str = hex::encode(reply);
+            CString::new(ret_str).unwrap().into_raw()
+        }
+        _ => CString::new("").unwrap().into_raw(),
+    }
 }
 
 #[no_mangle]
@@ -265,6 +291,26 @@ pub unsafe extern "C" fn imkey_clear_err() {
 pub unsafe extern "C" fn imkey_get_last_err_message() -> *const c_char {
     LAST_ERROR.with(|e| {
         if let Some(ref err) = *e.borrow() {
+            CString::new(err.to_string()).unwrap().into_raw()
+        } else {
+            CString::new("").unwrap().into_raw()
+        }
+    })
+}
+#[no_mangle]
+pub unsafe extern "C" fn imkey_clear_err_win(s: *const c_char) {
+    LAST_ERROR.with(|e| {
+        *e.borrow_mut() = None;
+    });
+    LAST_BACKTRACE.with(|e| {
+        *e.borrow_mut() = None;
+    });
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn imkey_get_last_err_message_win(s: *const c_char) -> *const c_char {
+    LAST_ERROR.with(|e| {
+        if let Some(ref err) = *e.borrow() {
             let rsp = ErrorResponse {
                 is_success: false,
                 error: err.to_string(),
@@ -278,7 +324,6 @@ pub unsafe extern "C" fn imkey_get_last_err_message() -> *const c_char {
         }
     })
 }
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -291,7 +336,7 @@ mod tests {
 
     use prost::Message;
 
-    use crate::api::CommonResponse;
+    use crate::api::{CommonResponse, InitImKeyCoreXParam};
     use device::device_binding::DeviceManage;
     use device::deviceapi::{AppDownloadReq, BindAcquireReq};
     use std::fs;
@@ -371,29 +416,110 @@ mod tests {
         //     })
         // };
         // assert_eq!("", hex::encode(encode_message(action).unwrap()));
-        let _ = unsafe { imkey_clear_err() };
+        // let _ = unsafe { imkey_clear_err(_to_c_char("")) };
         // let param_bytes = encode_message(param).unwrap();
         // let param_bytes = hex::decode("0a0c636865636b5f757064617465").unwrap();
         // let param_hex = hex::encode(param_bytes);
         hid_connect("imKey Pro").is_ok();
-        let check_result =
-            DeviceManage::bind_check(&"../test-data".to_string()).unwrap_or_default();
+        // let check_result =
+        //     DeviceManage::bind_check(&"../test-data".to_string()).unwrap_or_default();
         // DeviceManage::bind_acquire(&"".to_string()).unwrap();
         // device::device_manager::app_delete("BCH");
-        device::device_manager::app_download("BTC");
-        let ret_hex = unsafe {
-            _to_str(call_imkey_api(_to_c_char(&"0a077369676e5f747812e6030a10636f6d6d6f6e2e5369676e506172616d12d1030a0b424954434f494e4341534812116d2f3434272f313435272f30272f302f301a074d41494e4e455422b2020a19627463666f726b6170692e427463466f726b5478496e7075741294020a2a71707a36376763776139616738346c6a6d6d6e33753774636a6d39726b63326a66636a6b32717a66637510a08d061aaa010a4061346439666561373337636236633030326337613833666235383531613366373566306163646437626237663137373232633162323465653765306232336461100018c09a0c222a7171687979616a75323270637967783870683035716a6e787978616c686d65736b796371706d67786e302a323736613931343265343237363563353238333832323063373064646634303461363632316262666265663330623138386163320020c6032801322a7171687979616a75323270637967783870683035716a6e787978616c686d65736b796371706d67786e303a044e4f4e452a09302e30303120424348322a71707a36376763776139616738346c6a6d6d6e33753774636a6d39726b63326a66636a6b32717a6663753a2a7171687979616a75323270637967783870683035716a6e787978616c686d65736b796371706d67786e30420e302e303030303034353420424348")))
-        };
-        let err = unsafe { _to_str(imkey_get_last_err_message()) };
-        if !err.is_empty() {
-            let err_bytes = hex::decode(err).unwrap();
-            let err_ret: ErrorResponse = ErrorResponse::decode(err_bytes.as_slice()).unwrap();
-            assert_eq!("err", err_ret.error)
-        } else {
-            let ret_bytes = hex::decode(ret_hex).unwrap();
+        // device::device_manager::app_download("BTC");
+        // let ret_hex = unsafe {
+        //     _to_str(call_imkey_api(_to_c_char(&"0a077369676e5f747812e6030a10636f6d6d6f6e2e5369676e506172616d12d1030a0b424954434f494e4341534812116d2f3434272f313435272f30272f302f301a074d41494e4e455422b2020a19627463666f726b6170692e427463466f726b5478496e7075741294020a2a71707a36376763776139616738346c6a6d6d6e33753774636a6d39726b63326a66636a6b32717a66637510a08d061aaa010a4061346439666561373337636236633030326337613833666235383531613366373566306163646437626237663137373232633162323465653765306232336461100018c09a0c222a7171687979616a75323270637967783870683035716a6e787978616c686d65736b796371706d67786e302a323736613931343265343237363563353238333832323063373064646634303461363632316262666265663330623138386163320020c6032801322a7171687979616a75323270637967783870683035716a6e787978616c686d65736b796371706d67786e303a044e4f4e452a09302e30303120424348322a71707a36376763776139616738346c6a6d6d6e33753774636a6d39726b63326a66636a6b32717a6663753a2a7171687979616a75323270637967783870683035716a6e787978616c686d65736b796371706d67786e30420e302e303030303034353420424348")))
+        // };
+        // let err = unsafe { _to_str(imkey_get_last_err_message(_to_c_char(""))) };
+        // if !err.is_empty() {
+        //     let err_bytes = hex::decode(err).unwrap();
+        //     let err_ret: ErrorResponse = ErrorResponse::decode(err_bytes.as_slice()).unwrap();
+        //     assert_eq!("err", err_ret.error)
+        // } else {
+        //     let ret_bytes = hex::decode(ret_hex).unwrap();
 
-            let ret: CommonResponse = CommonResponse::decode(ret_bytes.as_slice()).unwrap();
-            assert_eq!("ret", ret.result)
-        }
+        //     let ret: CommonResponse = CommonResponse::decode(ret_bytes.as_slice()).unwrap();
+        //     assert_eq!("ret", ret.result)
+        // }
+
+        let param = InitImKeyCoreXParam {
+            file_dir: "".to_string(),
+            xpub_common_key: "B888D25EC8C12BD5043777B1AC49F872".to_string(),
+            xpub_common_iv: "9C0C30889CBCC5E01AB5B2BB88715799".to_string(),
+            is_debug: false,
+            system: "".to_string(),
+            terminal_type: "PC".to_string(),
+            sdk_version: "2.10.3".to_string(),
+            server_url: "https://imkeyserver.com:10443/imkey".to_string(),
+        };
+        let action: ImkeyAction = ImkeyAction {
+            method: "init_imkey_core_x".to_string(),
+            param: Some(::prost_types::Any {
+                type_url: "deviceapi.init_imkey_core_x".to_string(),
+                value: encode_message(param).unwrap(),
+            }),
+        };
+        let action = hex::encode(encode_message(action).unwrap());
+        let ret_hex = unsafe { _to_str(call_imkey_api(_to_c_char(action.as_str()))) };
+        let action: ImkeyAction = ImkeyAction {
+            method: "cos_update".to_string(),
+            param: Some(::prost_types::Any {
+                type_url: "deviceapi.cos_update".to_string(),
+                value: encode_message(vec![]).unwrap(),
+            }),
+        };
+        let action = hex::encode(encode_message(action).unwrap());
+        let ret_hex = unsafe { _to_str(call_imkey_api(_to_c_char(action.as_str()))) };
+
+        // let param = AppDownloadReq{
+        //     app_name: "TRON".to_string(),
+        // };
+        // let action: ImkeyAction = ImkeyAction {
+        //     method: "app_download".to_string(),
+        //     param: Some(::prost_types::Any {
+        //         type_url: "deviceapi.app_download".to_string(),
+        //         value: encode_message(param).unwrap(),
+        //     })
+        // };
+        // let action = hex::encode(encode_message(action).unwrap());
+        // let ret_hex = unsafe {
+        //     _to_str(call_imkey_api(_to_c_char(action.as_str())))
+        // };
+    }
+
+    #[test]
+    fn get_ble_version() {
+        hid_connect("imKey Pro").is_ok();
+        let action: ImkeyAction = ImkeyAction {
+            method: "get_ble_version".to_string(),
+            param: Some(::prost_types::Any {
+                type_url: "deviceapi.get_ble_version".to_string(),
+                value: encode_message(vec![]).unwrap(),
+            }),
+        };
+        let action = hex::encode(encode_message(action).unwrap());
+        let ret_hex = unsafe { _to_str(call_imkey_api(_to_c_char(action.as_str()))) };
+    }
+
+    #[test]
+    fn get_register_address() {
+        hid_connect("imKey Pro").is_ok();
+        let param = AddressParam {
+            chain_type: "COSMOS".to_string(),
+            path: "m/44'/118'/0'/0/0".to_string(),
+            network: "MAINNET".to_string(),
+            is_seg_wit: false,
+        };
+        let action: ImkeyAction = ImkeyAction {
+            method: "register_address".to_string(),
+            param: Some(::prost_types::Any {
+                type_url: "deviceapi.register_address".to_string(),
+                value: encode_message(param).unwrap(),
+            }),
+        };
+        let action = hex::encode(encode_message(action).unwrap());
+        let ret_hex = unsafe { _to_str(call_imkey_api(_to_c_char(action.as_str()))) };
+        let ret_bytes = hex::decode(ret_hex).unwrap();
+        let ret_str = String::from_utf8(ret_bytes).unwrap();
+        println!("ret_str:{}", ret_str);
     }
 }

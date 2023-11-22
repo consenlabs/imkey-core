@@ -10,9 +10,13 @@ edition = "2018"
 common = {path = "../../common"}
 device = {path = "../../device"}
 transport = {path = "../../transport"}
-failure = "0.1.6"
 sp-core = "2.0.0-rc3"
-sp-runtime = "2.0.0-rc3"
+failure = "0.1.6"
 hex = "0.3"
 prost = "0.6.1"
 prost-types = "0.6.1"
+
+
+[dev-dependencies]
+sp-runtime = "2.0.0-rc3"
+sp-keyring = "2.0.0-rc3"

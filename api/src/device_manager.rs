@@ -3,14 +3,16 @@ use crate::error_handling::Result;
 use crate::message_handler::encode_message;
 use common::applet;
 use common::constants;
-use common::{OPERATING_SYSTEM, XPUB_COMMON_IV, XPUB_COMMON_KEY_128};
+use common::{
+    OPERATING_SYSTEM, SDK_VERSION, SERVER_URL, TERMINAL_TYPE, XPUB_COMMON_IV, XPUB_COMMON_KEY_128,
+};
 use device::device_manager;
 use device::deviceapi::{
     AppDeleteReq, AppDownloadReq, AppDownloadRes, AppUpdateReq, AppUpdateRes, AvailableAppBean,
-    BindAcquireReq, BindAcquireRes, BindCheckRes, CheckUpdateRes, CosCheckUpdateRes,
-    DeviceConnectReq, GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes,
-    GetLifeTimeRes, GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes,
-    SetBleNameReq,
+    BindAcquireReq, BindAcquireRes, BindCheckRes, BleCheckUpdateRes, CheckUpdateRes,
+    CosCheckUpdateRes, DeviceConnectReq, GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes,
+    GetFirmwareVersionRes, GetLifeTimeRes, GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes,
+    IsBlStatusRes, SetBleNameReq,
 };
 use parking_lot::RwLock;
 use prost::Message;
@@ -29,12 +31,18 @@ pub fn init_imkey_core(data: &[u8]) -> Result<Vec<u8>> {
         xpub_common_iv,
         is_debug,
         system,
+        terminal_type,
+        sdk_version,
+        server_url,
     } = InitImKeyCoreXParam::decode(data).unwrap();
     *WALLET_FILE_DIR.write() = file_dir.to_string();
     *XPUB_COMMON_KEY_128.write() = xpub_common_key.to_string();
     *XPUB_COMMON_IV.write() = xpub_common_iv.to_string();
     *IS_DEBUG.write() = is_debug;
     *OPERATING_SYSTEM.write() = system;
+    *TERMINAL_TYPE.write() = terminal_type.to_uppercase();
+    *SDK_VERSION.write() = sdk_version;
+    *SERVER_URL.write() = server_url;
     Ok(vec![])
 }
 
@@ -284,6 +292,10 @@ pub fn cos_check_update() -> Result<Vec<u8>> {
         latest_cos_version: cos_check_update
             ._ReturnData
             .latest_cos_version
+            .unwrap_or_default(),
+        latest_ble_version: cos_check_update
+            ._ReturnData
+            .latest_ble_version
             .unwrap_or_default(),
         update_type: cos_check_update._ReturnData.update_type.unwrap_or_default(),
         description: cos_check_update._ReturnData.description.unwrap_or_default(),

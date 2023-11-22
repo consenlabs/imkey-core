@@ -42,6 +42,7 @@ Mobile-SDK is built to provide an easy interface to the native imkey-core librar
 ## Read More
 * [How to build project](docs/BUILD.zh.md)
 * [Architecture design](docs/TECH.zh.md)
+* [flow chart](docs/flowchart/)
 
 ## License
 Apache Licence v2.0

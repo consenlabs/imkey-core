@@ -15,6 +15,8 @@ pub struct AppDeleteRequest {
     #[serde(rename = "commandID")]
     pub command_id: String,
     pub card_ret_data_list: Option<Vec<String>>,
+    pub sdk_version: Option<String>,
+    pub terminal_type: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -63,6 +65,8 @@ impl TsmService for AppDeleteRequest {
 
 impl AppDeleteRequest {
     pub fn build_request_data(seid: String, instance_aid: String, device_cert: String) -> Self {
+        let terminal_type = common::TERMINAL_TYPE.read().to_string();
+        let sdk_version = common::SDK_VERSION.read().to_string();
         AppDeleteRequest {
             seid: seid,
             instance_aid: instance_aid,
@@ -71,6 +75,8 @@ impl AppDeleteRequest {
             status_word: None,
             command_id: String::from(constants::TSM_ACTION_APP_DELETE),
             card_ret_data_list: None,
+            sdk_version: Some(sdk_version),
+            terminal_type: Some(terminal_type),
         }
     }
 }

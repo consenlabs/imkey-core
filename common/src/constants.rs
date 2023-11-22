@@ -1,4 +1,4 @@
-pub const VERSION: &str = "2.3.0";
+pub const VERSION: &str = "2.10.3";
 pub const URL: &str = "https://imkey.online:1000/imkey";
 // pub const URL: &str = "https://imkeyserver.com:10444/imkey";
 
@@ -12,6 +12,8 @@ pub const TSM_ACTION_AUTHCODE_STORAGE: &str = "/authCodeStorage";
 pub const TSM_ACTION_DEVICE_CERT_CHECK: &str = "/deviceCertCheck";
 pub const TSM_ACTION_COS_UPGRADE: &str = "/seCosUpdate";
 pub const TSM_ACTION_COS_CHECK_UPDATE: &str = "/cosCheckUpdate";
+pub const TSM_ACTION_BLE_UPDATE: &str = "/bleUpdate";
+pub const TSM_ACTION_BLE_CHECK_UPDATE: &str = "/bleCheckUpdate";
 
 //apud related constant
 pub const LC_MAX: u32 = 245;
@@ -25,6 +27,8 @@ pub const IMK_AID: &str = "695F696D6B";
 pub const POLKADOT_AID: &str = "695F65645F646F74";
 pub const KUSAMA_AID: &str = "695F65645F6B736D";
 pub const TRON_AID: &str = "695F6B315F747278";
+pub const NERVOS_AID: &str = "695F6B315F636B62";
+pub const TEZOS_AID: &str = "695F65645F78747A";
 pub const BCH_AID: &str = "695F626368";
 pub const LTC_AID: &str = "695F6C7463";
 
@@ -35,6 +39,7 @@ pub const COSMOS_PATH: &str = "m/44'/118'/0'/0/0";
 pub const EOS_PATH: &str = "m/44'/194'/0'/0/0";
 pub const ETH_PATH: &str = "m/44'/60'/0'/0/0";
 pub const FILECOIN_PATH: &str = "m/44'/461'/0/0/0";
+pub const NERVOS_PATH: &str = "m/44'/309'/0'/0/0";
 pub const POLKADOT_PATH: &str = "m/44'/354'/0'/0'/0'";
 pub const KUSAMA_PATH: &str = "m/44'/434'/0'/0'/0'";
 pub const TRON_PATH: &str = "m/44'/195'/0'/0/0";
@@ -108,3 +113,13 @@ pub const DEVICE_MODEL_NAME: &str = "imKey Pro";
 pub const NETWORK_CONN_TIMEOUT: u16 = 30;
 pub const NETWORK_WRITE_TIMEOUT: u16 = 30;
 pub const NETWORK_READ_TIMEOUT: u16 = 30;
+
+pub const ETH_TRANSACTION_TYPE_LEGACY: &str = "00";
+pub const ETH_TRANSACTION_TYPE_EIP2718: &str = "01";
+pub const ETH_TRANSACTION_TYPE_EIP1559: &str = "02";
+
+pub const ETH_MAX_SUPPORT_PAYMENT_LEN: usize = 255;
+
+//terminal type
+pub const TERMINAL_TYPE_APP: &str = "APP";
+pub const TERMINAL_TYPE_PC: &str = "PC";

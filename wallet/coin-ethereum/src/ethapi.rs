@@ -14,6 +14,21 @@ pub struct EthTxInput {
     pub data: std::string::String,
     #[prost(string, tag = "7")]
     pub chain_id: std::string::String,
+    #[prost(string, tag = "8")]
+    pub r#type: std::string::String,
+    #[prost(string, tag = "9")]
+    pub max_fee_per_gas: std::string::String,
+    #[prost(string, tag = "10")]
+    pub max_priority_fee_per_gas: std::string::String,
+    #[prost(message, repeated, tag = "11")]
+    pub access_list: ::std::vec::Vec<AccessList>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AccessList {
+    #[prost(string, tag = "1")]
+    pub address: std::string::String,
+    #[prost(string, repeated, tag = "2")]
+    pub storage_keys: ::std::vec::Vec<std::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EthTxOutput {

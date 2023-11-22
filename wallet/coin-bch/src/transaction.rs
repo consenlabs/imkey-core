@@ -5,7 +5,6 @@ use crate::common::{
 use crate::Result;
 use bitcoin::blockdata::{opcodes, script::Builder};
 use bitcoin::consensus::serialize;
-use bitcoin::hashes::core::str::FromStr;
 use bitcoin::hashes::hex::FromHex;
 use bitcoin::{Address, Network, OutPoint, Script, Transaction, TxIn, TxOut};
 use bitcoin_hashes::hash160;
@@ -18,6 +17,7 @@ use common::path::check_path_validity;
 use common::utility::{bigint_to_byte_vec, secp256k1_sign};
 use device::device_binding::KEY_MANAGER;
 use secp256k1::Signature;
+use std::str::FromStr;
 use transport::message::{send_apdu, send_apdu_timeout};
 
 #[derive(Clone)]

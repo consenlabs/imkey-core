@@ -1,33 +1,41 @@
+use crate::constants::{
+    BCH_AID, BTC_AID, COSMOS_AID, EOS_AID, ETH_AID, FILECOIN_AID, IMK_AID, KUSAMA_AID, LTC_AID,
+    NERVOS_AID, POLKADOT_AID, TEZOS_AID, TRON_AID,
+};
+// type __appletName = 'IMK' | 'Ethereum' | 'Bitcoin' | 'EOS' | 'Cosmos' | 'Filecoin' | 'Kusama' | 'Tezos' | 'Polkadot' | 'TRON' | 'Bitcoin Cash' | 'Litecoin' | 'Nervos'
 pub fn get_appname_by_instid(instid: &str) -> Option<&str> {
     match instid {
-        "695F627463" => Some("Bitcoin"),
-        "695F657468" => Some("Ethereum"),
-        "695F656F73" => Some("EOS"),
-        "695F636F736D6F73" => Some("Cosmos"),
-        "695F6B315F66696C" => Some("Filecoin"),
-        "695F65645F6B736D" => Some("Kusama"),
-        "695F65645F646F74" => Some("Polkadot"),
-        "695F6B315F747278" => Some("TRON"),
-        "695F626368" => Some("Bitcion Cash"),
-        "695F6C7463" => Some("Litecoin"),
-        "695F696D6B" => Some("IMK"),
+        BTC_AID => Some("Bitcoin"),
+        ETH_AID => Some("Ethereum"),
+        EOS_AID => Some("EOS"),
+        COSMOS_AID => Some("Cosmos"),
+        FILECOIN_AID => Some("Filecoin"),
+        KUSAMA_AID => Some("Kusama"),
+        POLKADOT_AID => Some("Polkadot"),
+        TRON_AID => Some("TRON"),
+        BCH_AID => Some("Bitcoin Cash"),
+        LTC_AID => Some("Litecoin"),
+        IMK_AID => Some("IMK"),
+        NERVOS_AID => Some("Nervos"),
+        TEZOS_AID => Some("Tezos"),
         _ => None,
     }
 }
 pub fn get_instid_by_appname(appname: &str) -> Option<&str> {
     match appname {
-        "Bitcoin" => Some("695F627463"),
-        "Ethereum" => Some("695F657468"),
-        "EOS" => Some("695F656F73"),
-        "Cosmos" => Some("695F636F736D6F73"),
-        "Filecoin" => Some("695F6B315F66696C"),
-        "Kusama" => Some("695F65645F6B736D"),
-        "Polkadot" => Some("695F65645F646F74"),
-        "TRON" => Some("695F6B315F747278"),
-        "Filecoin" => Some("4695F6B315F66696C"),
-        "Bitcion Cash" => Some("695F626368"),
-        "Litecoin" => Some("695F6C7463"),
-        "IMK" => Some("695F696D6B"),
+        "Nervos" => Some(NERVOS_AID),
+        "Tezos" => Some(TEZOS_AID),
+        "Bitcoin" => Some(BTC_AID),
+        "Ethereum" => Some(ETH_AID),
+        "EOS" => Some(EOS_AID),
+        "Cosmos" => Some(COSMOS_AID),
+        "Filecoin" => Some(FILECOIN_AID),
+        "Kusama" => Some(KUSAMA_AID),
+        "Polkadot" => Some(POLKADOT_AID),
+        "TRON" => Some(TRON_AID),
+        "Bitcoin Cash" => Some(BCH_AID),
+        "Litecoin" => Some(LTC_AID),
+        "IMK" => Some(IMK_AID),
         _ => None,
     }
 }
@@ -62,7 +70,7 @@ mod tests {
             get_instid_by_appname("Filecoin").unwrap(),
             "695F6B315F66696C"
         );
-        assert_eq!(get_instid_by_appname("Bitcion Cash").unwrap(), "695F626368");
+        assert_eq!(get_instid_by_appname("Bitcoin Cash").unwrap(), "695F626368");
         assert_eq!(get_instid_by_appname("Litecoin").unwrap(), "695F6C7463");
         assert!(get_instid_by_appname("APPLET").is_none());
     }
