@@ -99,11 +99,19 @@ message CosCheckUpdateRes {
     string seid = 1;
     bool is_latest = 2;
     string latest_cos_version = 3;
-    string update_type = 4;
-    string description = 5;
-    bool is_update_success = 6;
+    string latest_ble_version = 4;
+    string update_type = 5;
+    string description = 6;
+    bool is_update_success = 7;
 }
 
 message IsBlStatusRes {
     bool check_result = 1;
+}
+
+message BleCheckUpdateRes {
+    string seid = 1;
+    bool is_latest = 2;
+    string latest_cos_version = 3;
+    string description = 5;
 }

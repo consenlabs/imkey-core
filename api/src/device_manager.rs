@@ -9,10 +9,10 @@ use common::{
 use device::device_manager;
 use device::deviceapi::{
     AppDeleteReq, AppDownloadReq, AppDownloadRes, AppUpdateReq, AppUpdateRes, AvailableAppBean,
-    BindAcquireReq, BindAcquireRes, BindCheckRes, CheckUpdateRes, CosCheckUpdateRes,
-    DeviceConnectReq, GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes, GetFirmwareVersionRes,
-    GetLifeTimeRes, GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes, IsBlStatusRes,
-    SetBleNameReq,
+    BindAcquireReq, BindAcquireRes, BindCheckRes, BleCheckUpdateRes, CheckUpdateRes,
+    CosCheckUpdateRes, DeviceConnectReq, GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes,
+    GetFirmwareVersionRes, GetLifeTimeRes, GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes,
+    IsBlStatusRes, SetBleNameReq,
 };
 use parking_lot::RwLock;
 use prost::Message;
@@ -292,6 +292,10 @@ pub fn cos_check_update() -> Result<Vec<u8>> {
         latest_cos_version: cos_check_update
             ._ReturnData
             .latest_cos_version
+            .unwrap_or_default(),
+        latest_ble_version: cos_check_update
+            ._ReturnData
+            .latest_ble_version
             .unwrap_or_default(),
         update_type: cos_check_update._ReturnData.update_type.unwrap_or_default(),
         description: cos_check_update._ReturnData.description.unwrap_or_default(),

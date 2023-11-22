@@ -24,7 +24,7 @@ use crate::error::ImkeyError;
 use common::constants;
 use serde::{Deserialize, Serialize};
 use transport::message;
-
+pub mod ble_upgrade;
 pub mod cos_check_update;
 
 #[allow(non_snake_case)]
