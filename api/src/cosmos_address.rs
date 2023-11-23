@@ -3,8 +3,6 @@ use crate::message_handler::encode_message;
 use coin_cosmos::address::CosmosAddress;
 
 use crate::api::{AddressParam, AddressResult, PubKeyParam, PubKeyResult};
-use prost::Message;
-
 pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
     let address = CosmosAddress::get_address(&param.path)?;
     let address_message = AddressResult {

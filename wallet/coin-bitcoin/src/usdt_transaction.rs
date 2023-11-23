@@ -11,7 +11,6 @@ use bitcoin::util::psbt::serialize::Serialize;
 use bitcoin::{Network, OutPoint, Script, SigHashType, Transaction, TxIn, TxOut};
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::hex::ToHex;
-use bitcoin_hashes::sha256d::Hash as Hash256;
 use bitcoin_hashes::Hash;
 use common::apdu::{ApduCheck, BtcApdu};
 use common::constants::{EACH_ROUND_NUMBER, MAX_UTXO_NUMBER, MIN_NONDUST_OUTPUT, TIMEOUT_LONG};
@@ -457,11 +456,8 @@ impl BtcTransaction {
 mod tests {
     use crate::transaction::{BtcTransaction, Utxo};
     use bitcoin::{Address, Network};
-    use std::str::FromStr;
-
     use device::device_binding::bind_test;
-    use device::device_binding::DeviceManage;
-    use transport::hid_api::hid_connect;
+    use std::str::FromStr;
 
     #[test]
     fn test_sign_transaction() {

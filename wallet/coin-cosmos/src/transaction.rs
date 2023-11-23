@@ -1,4 +1,3 @@
-use crate::address::CosmosAddress;
 use crate::cosmosapi::CosmosTxOutput;
 use crate::Result;
 use bitcoin_hashes::hex::ToHex;
@@ -7,8 +6,6 @@ use common::constants;
 use common::utility::{hex_to_bytes, secp256k1_sign, sha256_hash};
 use device::device_binding::KEY_MANAGER;
 use secp256k1::{self, Signature as SecpSignature};
-use serde::{Deserialize, Serialize};
-use serde_json::{Map, Value};
 use transport::message::{send_apdu, send_apdu_timeout};
 
 #[derive(Debug)]
@@ -77,13 +74,10 @@ impl CosmosTransaction {
 
 #[cfg(test)]
 mod tests {
-    // use crate::transaction::{Coin, CosmosTransaction, SignData, StdFee};
     use crate::transaction::CosmosTransaction;
     use common::constants;
     use common::utility::{hex_to_bytes, secp256k1_sign};
     use device::device_binding::bind_test;
-    use serde_json::json;
-
     #[test]
     fn test_ecsign() {
         let sign_pack = hex_to_bytes(

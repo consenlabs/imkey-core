@@ -2,10 +2,9 @@ use bitcoin::blockdata::{opcodes, script::Builder};
 use bitcoin::consensus::serialize;
 use bitcoin::hashes::hex::FromHex;
 use bitcoin::util::psbt::serialize::Serialize;
-use bitcoin::{Address, Network, OutPoint, Script, SigHashType, Transaction, TxIn, TxOut};
+use bitcoin::{Network, OutPoint, Script, SigHashType, Transaction, TxIn, TxOut};
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::hex::ToHex;
-use bitcoin_hashes::sha256d::Hash as Hash256;
 use bitcoin_hashes::Hash;
 use secp256k1::Signature;
 use std::str::FromStr;
@@ -44,7 +43,6 @@ impl BtcForkTransaction {
     ) -> Result<TxSignResult> {
         //path check
         check_path_validity(path)?;
-        let mut path_str = path.to_string();
         let bip44_segments: Vec<&str> = path.split("/").collect();
         let is_full_path = bip44_segments.len() == 6;
         let mut path_str: String = path.to_string();
@@ -243,7 +241,6 @@ impl BtcForkTransaction {
     ) -> Result<TxSignResult> {
         //path check
         check_path_validity(path)?;
-        let mut path_str = path.to_string();
         let bip44_segments: Vec<&str> = path.split("/").collect();
         let is_full_path = bip44_segments.len() == 6;
         let mut path_str: String = path.to_string();
@@ -559,19 +556,12 @@ impl BtcForkTransaction {
 
 #[cfg(test)]
 mod tests {
-    use bitcoin::{Address, Network};
-    use hex::FromHex;
-
-    use common::coin_info::coin_info_from_param;
-    use common::error::CoinError;
-    use device::device_binding::bind_test;
-    use device::device_binding::DeviceManage;
-    use std::str::FromStr;
-    use transport::hid_api::hid_connect;
-
     use crate::btcforkapi::BtcForkTxInput;
     use crate::btcforkapi::Utxo;
     use crate::transaction::BtcForkTransaction;
+    use bitcoin::Network;
+    use common::coin_info::coin_info_from_param;
+    use device::device_binding::bind_test;
 
     #[test]
     fn test_sign_simple_ltc() {

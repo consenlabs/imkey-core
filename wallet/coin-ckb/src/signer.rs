@@ -70,7 +70,7 @@ impl<'a> CkbTxSigner<'a> {
         &mut self,
         tx_hash: &[u8],
         witness_group: &[&Witness],
-        path: &str,
+        _path: &str,
     ) -> Result<Witness> {
         if witness_group.len() == 0 {
             return Err(Error::WitnessGroupEmpty.into());
@@ -269,8 +269,7 @@ impl CkbSigner {
 
 #[cfg(test)]
 mod tests {
-    use crate::address::CkbAddress;
-    use crate::nervosapi::{CachedCell, CkbTxInput, CkbTxOutput, OutPoint, Witness};
+    use crate::nervosapi::{CachedCell, CkbTxInput, OutPoint, Witness};
     use crate::signer::CkbSigner;
     use crate::{CellInput, Script};
     use common::{constants, SignParam};

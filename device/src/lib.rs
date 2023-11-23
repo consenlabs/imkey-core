@@ -100,10 +100,10 @@ impl<T> ServiceResponse<T> {
                 Err(ImkeyError::ImkeyTsmDeviceUpdateCheckFail.into())
             }
             constants::TSM_RETURNCODE_COS_VERSION_UNSUPPORT_APPLET => {
-                Err(ImkeyError::ImkeyTsmCosVersionUnsupport_applet.into())
+                Err(ImkeyError::ImkeyTsmCosVersionUnsupportApplet.into())
             }
             constants::TSM_RETURNCODE_DEVICE_UNSUPPORT_APPLET => {
-                Err(ImkeyError::ImkeyTsmDeviceUnsupport_applet.into())
+                Err(ImkeyError::ImkeyTsmDeviceUnsupportApplet.into())
             }
             _ => Err(ImkeyError::ImkeyTsmServerError.into()),
         }

@@ -3,8 +3,6 @@ use crate::message_handler::encode_message;
 use coin_ethereum::address::EthAddress;
 
 use crate::api::{AddressParam, AddressResult};
-use prost::Message;
-
 pub fn get_address(param: &AddressParam) -> Result<Vec<u8>> {
     let address = EthAddress::get_address(&param.path)?;
     let address_message = AddressResult {

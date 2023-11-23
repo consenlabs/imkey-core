@@ -273,7 +273,7 @@ impl FromStr for BtcForkAddress {
                     //Payload::ScriptHash(hash160::Hash::from_slice(&data[1..]).unwrap()),
                 )
             }
-            x => {
+            _ => {
                 return Err(CoinError::InvalidVersion.into());
             }
         };

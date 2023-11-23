@@ -11,7 +11,6 @@ use bitcoin::util::psbt::serialize::Serialize;
 use bitcoin::{Address, Network, OutPoint, Script, SigHashType, Transaction, TxIn, TxOut};
 use bitcoin_hashes::hash160;
 use bitcoin_hashes::hex::ToHex;
-use bitcoin_hashes::sha256d::Hash as Hash256;
 use bitcoin_hashes::Hash;
 use common::apdu::{ApduCheck, BtcApdu};
 use common::constants::{
@@ -516,13 +515,9 @@ impl BtcTransaction {
 mod tests {
     use crate::transaction::{BtcTransaction, Utxo};
     use bitcoin::{Address, Network};
+    use device::device_binding::bind_test;
     use hex::FromHex;
     use std::str::FromStr;
-
-    use common::error::CoinError;
-    use device::device_binding::bind_test;
-    use device::device_binding::DeviceManage;
-    use transport::hid_api::hid_connect;
 
     #[test]
     fn test_sign_transaction() {

@@ -1,14 +1,13 @@
 use crate::Result;
-use common::apdu::{Apdu, ApduCheck, BtcApdu, CoinCommonApdu, Ed25519Apdu};
+use common::apdu::{Apdu, ApduCheck, Ed25519Apdu};
 use common::constants::{KUSAMA_AID, POLKADOT_AID};
 use common::error::CoinError;
 use common::path::check_path_validity;
-use common::utility::{secp256k1_sign, secp256k1_sign_verify, uncompress_pubkey_2_compress};
+use common::utility::{secp256k1_sign, secp256k1_sign_verify};
 use device::device_binding::KEY_MANAGER;
 use sp_core::crypto::{Ss58AddressFormat, Ss58Codec};
 use sp_core::ed25519::Public;
 use sp_core::Public as TraitPublic;
-use std::str::FromStr;
 use transport::message::send_apdu;
 
 pub struct SubstrateAddress();
@@ -22,7 +21,6 @@ impl SubstrateAddress {
             AddressType::Kusama => {
                 public_obj.to_ss58check_with_version(Ss58AddressFormat::KusamaAccount)
             }
-            _ => panic!("address type not support"),
         };
 
         Ok(address)
@@ -34,7 +32,6 @@ impl SubstrateAddress {
         let aid = match address_type {
             AddressType::Polkadot => POLKADOT_AID,
             AddressType::Kusama => KUSAMA_AID,
-            _ => panic!("address type not support"),
         };
         let select_apdu = Apdu::select_applet(aid);
         let select_response = send_apdu(select_apdu)?;
@@ -85,7 +82,6 @@ impl SubstrateAddress {
         let menu_name = match address_type {
             AddressType::Polkadot => "DOT",
             AddressType::Kusama => "KSM",
-            _ => panic!("address type not support"),
         };
         let reg_apdu = Ed25519Apdu::register_address(menu_name.as_bytes(), address.as_bytes());
         let res_reg = send_apdu(reg_apdu)?;
@@ -105,10 +101,6 @@ mod test {
     use crate::address::{AddressType, SubstrateAddress};
     use common::constants::{KUSAMA_PATH, POLKADOT_PATH};
     use device::device_binding::bind_test;
-    use sp_core::crypto::Ss58AddressFormat;
-    use sp_core::crypto::Ss58Codec;
-    use sp_core::sr25519::{Pair, Public};
-    use sp_core::Pair as TraitPair;
 
     #[test]
     fn test_address_from_public() {

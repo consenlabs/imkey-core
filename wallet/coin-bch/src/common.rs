@@ -78,10 +78,10 @@ pub fn address_verify(
 /**
 Transaction type identification
 */
-pub enum TransTypeFlg {
-    BTC,
-    SEGWIT,
-}
+// pub enum TransTypeFlg {
+//     BTC,
+//     SEGWIT,
+// }
 
 /**
 get xpub

@@ -16,7 +16,6 @@ use common::constants::{
 };
 use parking_lot::Mutex;
 use rand::rngs::OsRng;
-use rand::thread_rng;
 use regex::Regex;
 use ring::digest;
 use rsa::{BigUint, PaddingScheme, PublicKey as RSAPublic, RSAPublicKey};
@@ -252,7 +251,7 @@ pub fn bind_test() {
 // pub const TEST_KEY_PATH: &str = "/tmp/";
 // pub const TEST_BIND_CODE: &str = "MCYNK5AH";
 pub const TEST_KEY_PATH: &str = "/tmp/";
-pub const TEST_BIND_CODE: &str = "H3422JRY";
+pub const TEST_BIND_CODE: &str = "4UKDUDQG";
 
 #[cfg(test)]
 mod test {

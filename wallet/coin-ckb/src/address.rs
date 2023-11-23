@@ -4,7 +4,6 @@ use bech32::ToBase32;
 use bitcoin::util::bip32::{ChainCode, ChildNumber, DerivationPath, ExtendedPubKey, Fingerprint};
 use bitcoin::{Network, PublicKey};
 use common::apdu::{Apdu, ApduCheck, Secp256k1Apdu};
-use common::constants;
 use common::constants::NERVOS_AID;
 use common::error::{CoinError, CommonError};
 use common::path::check_path_validity;
@@ -188,7 +187,7 @@ mod tests {
     use crate::address::CkbAddress;
     use bitcoin::Network;
     use common::constants;
-    use common::{XPUB_COMMON_IV, XPUB_COMMON_KEY_128};
+    // use common::{XPUB_COMMON_IV, XPUB_COMMON_KEY_128};
     use device::device_binding::bind_test;
 
     #[test]
@@ -245,20 +244,20 @@ mod tests {
     #[test]
     fn get_xpub_test() {
         bind_test();
-        *XPUB_COMMON_KEY_128.write() = "4A2B655485ABBAB54BD30298BB0A5B55".to_string();
-        *XPUB_COMMON_IV.write() = "73518399CB98DCD114D873E06EBF4BCC".to_string();
+        // *XPUB_COMMON_KEY_128.write() = "4A2B655485ABBAB54BD30298BB0A5B55".to_string();
+        // *XPUB_COMMON_IV.write() = "73518399CB98DCD114D873E06EBF4BCC".to_string();
 
         let version: Network = Network::Bitcoin;
         let path: &str = "m/44'/309'/0'";
         let get_xpub_result = CkbAddress::get_xpub(version, path);
         assert!(get_xpub_result.is_ok());
         let xpub = get_xpub_result.ok().unwrap();
-        assert_eq!("xpub6CuQc3kkPk2oPKAXnCpEJNkmwzMkXmv1BBG5a2aUbhGBR49zqmSUpJDG3veFgfiMDcjusGVoHP574ecgsyo48Hvmgq33oP8NRoC9kHqZYuN", xpub);
+        assert_eq!("xpub6CyvXfYwHJjJ9syYjG7qZMva1yMx93SUmqUcKHvoReUadCzqJA8mMXrrXQjRvzveuahgdQmCsdsuiCkMRsLec63DW83Wwu5UqKJQmsonKpo", xpub);
 
         let version: Network = Network::Bitcoin;
         let path: &str = "m/44'/309'/0'";
         let get_enc_xpub_result = CkbAddress::get_enc_xpub(version, path);
         let enc_xpub = get_enc_xpub_result.ok().unwrap();
-        assert_eq!("iWHbNJrWJIb0Kj8GRWzQX9Z1wUNP4HQecGNaAI+KUqsMFCKaP1rDz0KCwlSVvwcONB3S80hdbZOoW56VGB1hcqPyS45qxPcqi+xTtDNYasP2mmnNd4rO1HEJIQOaejDEdGEg2psFu/dzrRHKoZ6gRQ==", enc_xpub);
+        assert_eq!("51mAHL9xbvjj1yDQ+MyohjLrWVTT2dkWegGfzoDN09qJ2mvCABLYgzyRTEwfTL7Eygd+KH3DyGp6DwhoVOgj02ISYLmsFysI3sqdEWd+7IId0m9xgym75Gl2nKeoH+WVPKOsPLf+w+cbyXRsnA6/3w==", enc_xpub);
     }
 }

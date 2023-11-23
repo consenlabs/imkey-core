@@ -5,7 +5,7 @@ use coin_ethereum::transaction::{AccessListItem, Transaction};
 use coin_ethereum::types::Action;
 use common::constants::ETH_TRANSACTION_TYPE_EIP1559;
 use common::SignParam;
-use ethereum_types::{Address, H256, U256, U64};
+use ethereum_types::{Address, H256, U256};
 use hex;
 use prost::Message;
 use std::str::FromStr;
@@ -40,7 +40,7 @@ pub fn sign_eth_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u
             access_list: {
                 let mut access_list: Vec<AccessListItem> = Vec::new();
                 for access in input.access_list {
-                    let mut item = AccessListItem {
+                    let item = AccessListItem {
                         address: Address::from_str(remove_0x(&access.address)).unwrap(),
                         storage_keys: {
                             let mut storage_keys: Vec<H256> = Vec::new();
@@ -74,7 +74,7 @@ pub fn sign_eth_transaction(data: &[u8], sign_param: &SignParam) -> Result<Vec<u
     let chain_id_parsed = input.chain_id.parse::<u64>();
     let chain_id = match chain_id_parsed {
         Ok(id) => id,
-        Err(error) => {
+        Err(_error) => {
             if input.chain_id.to_lowercase().starts_with("0x") {
                 let without_prefix = &input.chain_id.trim_start_matches("0x");
                 u64::from_str_radix(without_prefix, 16).unwrap()
@@ -124,11 +124,10 @@ mod tests {
     use crate::ethereum_signer::sign_eth_transaction;
     use coin_ethereum::ethapi::{AccessList, EthTxInput, EthTxOutput};
     use common::constants;
-    use device::device_binding::{bind_test, DeviceManage};
-    use ethereum_types::{Address, U256};
+    use device::device_binding::bind_test;
+    use ethereum_types::U256;
     use hex;
     use std::str::FromStr;
-    use transport::hid_api::hid_connect;
 
     #[test]
     fn u256_from_str() {

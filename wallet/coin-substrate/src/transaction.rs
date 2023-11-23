@@ -1,4 +1,3 @@
-use crate::address::AddressType;
 use crate::substrateapi::{SubstrateRawTxIn, SubstrateTxOut};
 use crate::{Result, PAYLOAD_HASH_THRESHOLD, SIGNATURE_TYPE_ED25519};
 use common::apdu::{Apdu, ApduCheck, Ed25519Apdu};
@@ -113,7 +112,6 @@ mod test {
     use common::constants::{KUSAMA_PATH, POLKADOT_PATH};
     use common::SignParam;
     use device::device_binding::bind_test;
-    use sp_core::crypto::Ss58Codec;
     use sp_core::Public;
     use sp_runtime::traits::Verify;
 

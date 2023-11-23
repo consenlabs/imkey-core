@@ -1,15 +1,14 @@
 use crate::address::TronAddress;
 use crate::tronapi::{TronMessageInput, TronMessageOutput, TronTxInput, TronTxOutput};
 use crate::Result;
-use common::apdu::{Apdu, ApduCheck, CoinCommonApdu, Secp256k1Apdu};
+use common::apdu::{Apdu, ApduCheck, Secp256k1Apdu};
 use common::constants::TRON_AID;
 use common::error::CoinError;
 use common::path::check_path_validity;
-use common::utility::{is_valid_hex, secp256k1_sign, sha256_hash};
+use common::utility::{secp256k1_sign, sha256_hash};
 use common::{constants, utility, SignParam};
 use device::device_binding::KEY_MANAGER;
-use device::key_manager::KeyManager;
-use secp256k1::{self, Message as SecpMessage, Signature as SecpSignature};
+use secp256k1::{self, Signature as SecpSignature};
 use transport::message::{send_apdu, send_apdu_timeout};
 
 #[derive(Debug)]
@@ -178,7 +177,6 @@ impl TronSigner {
 mod tests {
     use crate::signer::TronSigner;
     use crate::tronapi::{TronMessageInput, TronTxInput};
-    use bitcoin::util::misc::hex_bytes;
     use common::{constants, SignParam};
     use device::device_binding::bind_test;
 
