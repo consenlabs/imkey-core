@@ -4,7 +4,6 @@ use bitcoin::Network;
 
 use coin_bch::transaction::{BchTransaction, Utxo};
 use coin_btc_fork::btcforkapi::{BtcForkTxInput, BtcForkTxOutput};
-use common::utility::hex_to_bytes;
 use common::SignParam;
 use prost::Message;
 

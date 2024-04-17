@@ -3,11 +3,11 @@ use crate::Result;
 use bitcoin::util::bip32::{ChainCode, ChildNumber, DerivationPath, ExtendedPubKey, Fingerprint};
 use bitcoin::{Address, Network, PublicKey};
 use common::apdu::{ApduCheck, BtcApdu, CoinCommonApdu};
+use common::constants::{UNCOMPRESSED_PUBKEY_STRING_LEN, XPUB_STRING_LEN};
 use common::error::CommonError;
 use common::path::check_path_validity;
 use std::str::FromStr;
 use transport::message::send_apdu;
-
 pub struct BtcAddress();
 
 impl BtcAddress {
@@ -20,15 +20,15 @@ impl BtcAddress {
 
         //get xpub data
         let xpub_data = get_xpub_data(path, true)?;
-        let xpub_data = &xpub_data[..194].to_string();
+        let xpub_data = &xpub_data[..XPUB_STRING_LEN].to_string();
 
         //get public key and chain code
-        let pub_key = &xpub_data[..130];
-        let chain_code = &xpub_data[130..];
+        let pub_key = &xpub_data[..UNCOMPRESSED_PUBKEY_STRING_LEN];
+        let chain_code = &xpub_data[UNCOMPRESSED_PUBKEY_STRING_LEN..];
 
         //build parent public key obj
         let parent_xpub = get_xpub_data(Self::get_parent_path(path)?, true)?;
-        let parent_xpub = &parent_xpub[..130].to_string();
+        let parent_xpub = &parent_xpub[..UNCOMPRESSED_PUBKEY_STRING_LEN].to_string();
         let mut parent_pub_key_obj = PublicKey::from_str(parent_xpub)?;
         parent_pub_key_obj.compressed = true;
 
@@ -72,7 +72,7 @@ impl BtcAddress {
 
         //get xpub
         let xpub_data = get_xpub_data(path, true)?;
-        let pub_key = &xpub_data[..130];
+        let pub_key = &xpub_data[..UNCOMPRESSED_PUBKEY_STRING_LEN];
 
         let mut pub_key_obj = PublicKey::from_str(pub_key)?;
         pub_key_obj.compressed = true;
@@ -89,12 +89,26 @@ impl BtcAddress {
 
         //get xpub
         let xpub_data = get_xpub_data(path, true)?;
-        let pub_key = &xpub_data[..130];
+        let pub_key = &xpub_data[..UNCOMPRESSED_PUBKEY_STRING_LEN];
 
         let mut pub_key_obj = PublicKey::from_str(pub_key)?;
         pub_key_obj.compressed = true;
 
         Ok(Address::p2shwpkh(&pub_key_obj, network)?.to_string())
+    }
+
+    pub fn get_native_segwit_address(network: Network, path: &str) -> Result<String> {
+        //path check
+        check_path_validity(path)?;
+
+        //get xpub
+        let xpub_data = get_xpub_data(path, true)?;
+        let pub_key = &xpub_data[..UNCOMPRESSED_PUBKEY_STRING_LEN];
+
+        let mut pub_key_obj = PublicKey::from_str(pub_key)?;
+        pub_key_obj.compressed = true;
+
+        Ok(Address::p2wpkh(&pub_key_obj, network)?.to_string())
     }
 
     /**
@@ -129,6 +143,18 @@ impl BtcAddress {
         //path check
         check_path_validity(path)?;
         let address_str = Self::get_segwit_address(network, path)?;
+        //        let apdu_res = send_apdu(BtcApdu::btc_coin_reg(address_str.clone().into_bytes()))?;
+        let apdu_res = send_apdu(BtcApdu::register_address(
+            &address_str.clone().into_bytes().to_vec(),
+        ))?;
+        ApduCheck::check_response(apdu_res.as_str())?;
+        Ok(address_str)
+    }
+
+    pub fn display_native_segwit_address(network: Network, path: &str) -> Result<String> {
+        //path check
+        check_path_validity(path)?;
+        let address_str = Self::get_native_segwit_address(network, path)?;
         //        let apdu_res = send_apdu(BtcApdu::btc_coin_reg(address_str.clone().into_bytes()))?;
         let apdu_res = send_apdu(BtcApdu::register_address(
             &address_str.clone().into_bytes().to_vec(),
@@ -203,6 +229,19 @@ mod test {
     }
 
     #[test]
+    fn get_native_segwit_address_test() {
+        bind_test();
+
+        let version: Network = Network::Testnet;
+        let path: &str = "m/84'/1'/0'/0/0";
+        let segwit_address_result = BtcAddress::get_native_segwit_address(version, path);
+
+        assert!(segwit_address_result.is_ok());
+        let segwit_address = segwit_address_result.ok().unwrap();
+        assert_eq!("tb1qrfaf3g4elgykshfgahktyaqj2r593qkrae5v95", segwit_address);
+    }
+
+    #[test]
     fn get_parent_path_test() {
         let path = "m/44'/0'/0'/0/0";
         assert_eq!(
@@ -245,5 +284,17 @@ mod test {
         assert!(result.is_ok());
         let segwit_address = result.ok().unwrap();
         assert_eq!("37E2J9ViM4QFiewo7aw5L3drF2QKB99F9e", segwit_address);
+    }
+
+    #[test]
+    fn display_native_segwit_address_test() {
+        bind_test();
+        let network: Network = Network::Bitcoin;
+        let path: &str = "m/84'/0'/0'/0/22";
+        let result = BtcAddress::display_native_segwit_address(network, path);
+
+        assert!(result.is_ok());
+        let segwit_address = result.ok().unwrap();
+        assert_eq!("bc1qm8ckt80wv0v2mq33tantpvdqjx4tvaqguljfuq", segwit_address);
     }
 }
