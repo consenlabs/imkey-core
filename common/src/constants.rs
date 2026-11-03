@@ -9,6 +9,7 @@ pub const TSM_ACTION_APP_DELETE: &str = "/appDelete";
 pub const TSM_ACTION_SE_ACTIVATE: &str = "/seActivate";
 pub const TSM_ACTION_SE_QUERY: &str = "/seInfoQuery";
 pub const TSM_ACTION_AUTHCODE_STORAGE: &str = "/authCodeStorage";
+pub const TSM_ACTION_DEVICE_SN_CHECK: &str = "/deviceSnCheck";
 pub const TSM_ACTION_DEVICE_CERT_CHECK: &str = "/deviceCertCheck";
 pub const TSM_ACTION_COS_UPGRADE: &str = "/seCosUpdate";
 pub const TSM_ACTION_COS_CHECK_UPDATE: &str = "/cosCheckUpdate";

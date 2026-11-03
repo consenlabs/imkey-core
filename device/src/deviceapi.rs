@@ -155,3 +155,13 @@ pub struct BleCheckUpdateRes {
     #[prost(string, tag = "5")]
     pub description: std::string::String,
 }
+/// SN registration metadata; authenticity is checked by device_secure_check.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeviceSnCheckRes {
+    #[prost(bool, tag = "1")]
+    pub sn_check_result: bool,
+    #[prost(bool, tag = "2")]
+    pub is_activate: bool,
+    #[prost(string, tag = "3")]
+    pub activate_time: std::string::String,
+}

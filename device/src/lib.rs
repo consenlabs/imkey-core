@@ -4,6 +4,7 @@ pub mod app_update;
 pub mod auth_code_storage;
 pub mod device_binding;
 pub mod device_cert_check;
+pub mod device_sn_check;
 pub mod se_activate;
 pub mod se_query;
 pub mod se_secure_check;

@@ -115,3 +115,10 @@ message BleCheckUpdateRes {
     string latest_cos_version = 3;
     string description = 5;
 }
+
+// SN registration metadata; authenticity is checked by device_secure_check.
+message DeviceSnCheckRes {
+    bool sn_check_result = 1;
+    bool is_activate = 2;
+    string activate_time = 3;
+}

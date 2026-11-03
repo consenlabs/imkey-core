@@ -10,9 +10,9 @@ use device::device_manager;
 use device::deviceapi::{
     AppDeleteReq, AppDownloadReq, AppDownloadRes, AppUpdateReq, AppUpdateRes, AvailableAppBean,
     BindAcquireReq, BindAcquireRes, BindCheckRes, BleCheckUpdateRes, CheckUpdateRes,
-    CosCheckUpdateRes, DeviceConnectReq, GetBatteryPowerRes, GetBleNameRes, GetBleVersionRes,
-    GetFirmwareVersionRes, GetLifeTimeRes, GetRamSizeRes, GetSdkInfoRes, GetSeidRes, GetSnRes,
-    IsBlStatusRes, SetBleNameReq,
+    CosCheckUpdateRes, DeviceConnectReq, DeviceSnCheckRes, GetBatteryPowerRes, GetBleNameRes,
+    GetBleVersionRes, GetFirmwareVersionRes, GetLifeTimeRes, GetRamSizeRes, GetSdkInfoRes,
+    GetSeidRes, GetSnRes, IsBlStatusRes, SetBleNameReq,
 };
 use parking_lot::RwLock;
 use prost::Message;
@@ -150,6 +150,22 @@ pub fn check_update() -> Result<Vec<u8>> {
         available_app_list: available_bean_list,
     };
     encode_message(response_msg)
+}
+
+// Read the connected device identity here; the caller cannot query an arbitrary SN.
+pub fn device_sn_check() -> Result<Vec<u8>> {
+    use device::TsmService;
+    let sn = device_manager::get_sn()?;
+    if sn.trim().is_empty() {
+        return Err(format_err!("imkey_tsm_device_sn_check_invalid_response"));
+    }
+    let result =
+        device::device_sn_check::DeviceSnCheckRequest::build_request_data(sn).send_message()?;
+    encode_message(DeviceSnCheckRes {
+        sn_check_result: result.sn_check_result,
+        is_activate: result.is_activate,
+        activate_time: result.activate_time,
+    })
 }
 
 pub fn se_secure_check() -> Result<Vec<u8>> {
